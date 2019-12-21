@@ -51,8 +51,8 @@ function PreachingPage() {
           <Container>
             <h2 className="title">我們的成員</h2>
             <div className="team">
-              <Row>
-                <Col md="4">
+              <Row className="mb-3">
+                <Col md="12">
                   <div className="team-player">
                     <img
                       alt="..."
@@ -90,6 +90,8 @@ function PreachingPage() {
                     </Button>
                   </div>
                 </Col>
+              </Row>
+              <Row>
                 <Col md="4">
                   <div className="team-player">
                     <img
@@ -158,6 +160,36 @@ function PreachingPage() {
                     </Button>
                   </div>
                 </Col>
+                <Col md="4">
+                  <div className="team-player">
+                    <img
+                      alt="..."
+                      className="rounded-circle img-fluid img-raised"
+                      src={require("assets/img/ryan.jpg")}
+                    ></img>
+                    <h4 className="title">陳先生</h4>
+                    <p className="category text-info">副部長</p>
+                    <p className="description">
+                      負責輔助部門工作，輔助部長部牧。
+                    </p>
+                    <Button
+                      className="btn-icon btn-round"
+                      color="info"
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <i className="fab fa-twitter"></i>
+                    </Button>
+                    <Button
+                      className="btn-icon btn-round"
+                      color="info"
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <i className="fab fa-linkedin"></i>
+                    </Button>
+                  </div>
+                </Col>
               </Row>
             </div>
           </Container>
@@ -169,10 +201,10 @@ function PreachingPage() {
                 <h3>
                   傳道部月刊
                   </h3>
-                  <p>
-                  <a href={require("assets/pdf/journal7.pdf")} 
-                  target="_blank">
-                  2019{" - "}12{" : "}<label style={{color: "red", fontSize: 18, fontWeight: "bold"}} >聖誕特別刊</label>
+                <p>
+                  <a href={require("assets/pdf/journal7.pdf")}
+                    target="_blank">
+                    2019{" - "}12{" : "}<label style={{ color: "red", fontSize: 18, fontWeight: "bold" }} >聖誕特別刊</label>
                   </a>
                 </p>
                 <p>

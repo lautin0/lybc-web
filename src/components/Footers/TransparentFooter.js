@@ -8,7 +8,7 @@ function TransparentFooter() {
   return (
     <footer className="footer">
       <Container>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <a
@@ -52,7 +52,7 @@ function TransparentFooter() {
             Creative Tim
           </a>
           .
-        </div>
+        </div> */}
       </Container>
     </footer>
   );
