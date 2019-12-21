@@ -130,7 +130,6 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://twitter.com/CreativeTim?ref=creativetim"
                   target="_blank"
                   id="twitter-tooltip"
                 >
@@ -143,9 +142,9 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.facebook.com/CreativeTim?ref=creativetim"
                   target="_blank"
                   id="facebook-tooltip"
+                  href="https://www.facebook.com/lukYeungBaptistChurch"
                 >
                   <i className="fab fa-facebook-square"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
@@ -156,7 +155,6 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
                   target="_blank"
                   id="instagram-tooltip"
                 >
