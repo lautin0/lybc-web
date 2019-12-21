@@ -23,11 +23,11 @@ function Examples() {
               <Button
                 className="btn-round"
                 color="default"
-                to="/landing-page"
+                to="/preaching-page"
                 outline
                 tag={Link}
               >
-                View Landing Page
+                View Preaching Page
               </Button>
             </div>
             <div className="col">

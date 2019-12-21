@@ -93,8 +93,8 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
-                  <p>Download</p>
+                  <i className="now-ui-icons travel_info"></i>
+                  <p>關於我們</p>
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav>
@@ -105,20 +105,20 @@ function IndexNavbar() {
                   nav
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="now-ui-icons design_app mr-1"></i>
-                  <p>Components</p>
+                  <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
+                  <p>目錄</p>
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem to="/index" tag={Link}>
-                    <i className="now-ui-icons business_chart-pie-36 mr-1"></i>
-                    All components
+                    <i className="now-ui-icons ui-2_time-alarm mr-1"></i>
+                    崇拜時間
                   </DropdownItem>
                   <DropdownItem
                     href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
                     target="_blank"
                   >
-                    <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
-                    Documentation
+                    <i className="now-ui-icons location_map-big mr-1"></i>
+                    小組資料
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -130,8 +130,8 @@ function IndexNavbar() {
                   id="upgrade-to-pro"
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="now-ui-icons arrows-1_share-66 mr-1"></i>
-                  <p>Upgrade to PRO</p>
+                  <i className="now-ui-icons shopping_credit-card mr-1"></i>
+                  <p>奉獻支持</p>
                 </Button>
                 <UncontrolledTooltip target="#upgrade-to-pro">
                   Cooming soon!
@@ -139,7 +139,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://twitter.com/CreativeTim?ref=creativetim"
+                  href="#"
                   target="_blank"
                   id="twitter-tooltip"
                 >
@@ -152,7 +152,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.facebook.com/CreativeTim?ref=creativetim"
+                  href="https://www.facebook.com/lukYeungBaptistChurch"
                   target="_blank"
                   id="facebook-tooltip"
                 >
@@ -165,7 +165,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
+                  href="#"
                   target="_blank"
                   id="instagram-tooltip"
                 >

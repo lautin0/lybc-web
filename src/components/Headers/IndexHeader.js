@@ -28,7 +28,7 @@ function IndexHeader() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/header.jpg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg11.jpg") + ")"
           }}
           ref={pageHeader}
         ></div>
@@ -37,20 +37,21 @@ function IndexHeader() {
             <img
               alt="..."
               className="n-logo"
-              src={require("assets/img/now-logo.png")}
+              src={require("assets/img/lybc_logo.png")}
             ></img>
-            <h1 className="h1-seo">Now UI Kit.</h1>
-            <h3>A beautiful Bootstrap 4 UI kit. Yours free.</h3>
+            <h1 className="h1-seo">綠楊浸信會</h1>
+            <h3>Luk Yeung Baptist Church</h3>
           </div>
           <h6 className="category category-absolute">
-            Designed by{" "}
-            <a href="http://invisionapp.com/?ref=creativetim" target="_blank">
+            {/* Last updated on 2019 Dec */}
+            {/* {" "} */}
+            {/* <a href="http://invisionapp.com/?ref=creativetim" target="_blank">
               <img
                 alt="..."
                 className="invision-logo"
                 src={require("assets/img/invision-white-slim.png")}
               ></img>
-            </a>
+            </a> 
             . Coded by{" "}
             <a
               href="https://www.creative-tim.com?ref=nukr-index-header"
@@ -61,7 +62,7 @@ function IndexHeader() {
                 className="creative-tim-logo"
                 src={require("assets/img/creative-tim-white-slim2.png")}
               ></img>
-            </a>
+            </a>*/}
             .
           </h6>
         </Container>
