@@ -89,6 +89,20 @@ function IndexNavbar() {
                   onClick={e => {
                     e.preventDefault();
                     document
+                      .getElementById("contact-us-section")
+                      .scrollIntoView();
+                  }}
+                >
+                  <i className="now-ui-icons objects_globe"></i>
+                  <p>聯絡我們</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    document
                       .getElementById("download-section")
                       .scrollIntoView();
                   }}

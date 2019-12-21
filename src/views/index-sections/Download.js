@@ -30,33 +30,38 @@ function Download() {
               <h5>(二) 聯會現有的堂會與宗旨</h5>
               <h5 className="description">
               聯會在開始時由宣道浸信會、學基浸信會、和樂浸信會及葵興浸信會（現稱荃灣眾安浸信會）四所教會組成。時至今日，聯會的會員堂會/機構共有二十八間，姊妹堂會八間。聯會的宗旨有下列四點：
-
-              為本聯會會員提供彼此交通、代禱、勉勵及互助的機會。
-              協助維護浸信會一貫之特徵，在真道上同歸於一，務使教會信仰保持純正。
-              協助各會員合力籌辦本地較大型的福音事工。
-              聯會除要求會員接納聯會的會章及信條外，不干涉會員教會的內政事務，除該會員教會主動求助則屬例外。
+              <ol>
+                <li>為本聯會會員提供彼此交通、代禱、勉勵及互助的機會。</li>
+                <li>協助維護浸信會一貫之特徵，在真道上同歸於一，務使教會信仰保持純正。</li>
+                <li>協助各會員合力籌辦本地較大型的福音事工。</li>
+                <li>聯會除要求會員接納聯會的會章及信條外，不干涉會員教會的內政事務，除該會員教會主動求助則屬例外。</li>
+              </ol>
               </h5>
               <h5>(三）聯會四大異象</h5>
               <h5 className="description">
-              本地福音同興旺
-              聯會致力協助各教會植堂或擴堂事工，並推動聯合佈道、傳揚福音。
-              信仰本色顯主恩
-              按浸信會的主要治會立場為各堂會高度自主獨立。然而大家既同出一源，理應探討本源之信仰立場及信念，是否在現今年代有保留及修改的必要，同時可確立本宗派的立場。
-              同工靈命互支持
-              鑑於聯會各堂會多為中小型教會，教牧同工人手不足，同工也多感孤單，故聯會建立同工支持系統，以學術、禱告的支持，使同工得到更新與成長。
-              家族資源齊共享
-              聯會推動各堂彼此共享資源，有特別聚會互通消息，彼此祝福。
+              <ol>
+                <li>本地福音同興旺<br/>
+                聯會致力協助各教會植堂或擴堂事工，並推動聯合佈道、傳揚福音。</li>
+                <li>信仰本色顯主恩<br/>
+                按浸信會的主要治會立場為各堂會高度自主獨立。然而大家既同出一源，理應探討本源之信仰立場及信念，是否在現今年代有保留及修改的必要，同時可確立本宗派的立場。</li>
+                <li>同工靈命互支持<br/>
+                鑑於聯會各堂會多為中小型教會，教牧同工人手不足，同工也多感孤單，故聯會建立同工支持系統，以學術、禱告的支持，使同工得到更新與成長。</li>
+                <li>家族資源齊共享<br/>
+                聯會推動各堂彼此共享資源，有特別聚會互通消息，彼此祝福。</li>
+              </ol>
               </h5>
               <h5>(四) 四大事工方向</h5>
               <h5 className="description">
-              聖樂詠團事工
-              於1992年成立『萬國宣道詠團』，定期舉辦聖樂培靈會、詩班研討會、聖樂佈道會及短宣體驗等，在本地、國內及海外服侍教會並宣揚福音。
-              本地福音事工
-              主要籌辦聯合佈道聚會、籃球福音盃等。
-              聯誼訓練事工
-              定期舉辦分享祈禱會、研討會及各類型訓練和聯誼活動，以增進堂會同工、執事、肢體間的交誼與成長。
-              文字事工
-              聯會定期出版通訊錄及《聯會之聲》等，促進眾教會肢體彼此聯絡、交流經驗、分享事奉心得和感恩代禱事項。
+              <ol>
+                <li>聖樂詠團事工<br/>
+                於1992年成立『萬國宣道詠團』，定期舉辦聖樂培靈會、詩班研討會、聖樂佈道會及短宣體驗等，在本地、國內及海外服侍教會並宣揚福音。</li>
+                <li>本地福音事工<br/>
+                主要籌辦聯合佈道聚會、籃球福音盃等。</li>
+                <li>聯誼訓練事工<br/>
+                定期舉辦分享祈禱會、研討會及各類型訓練和聯誼活動，以增進堂會同工、執事、肢體間的交誼與成長。</li>
+                <li>文字事工<br/>
+                聯會定期出版通訊錄及《聯會之聲》等，促進眾教會肢體彼此聯絡、交流經驗、分享事奉心得和感恩代禱事項。</li>
+              </ol>
               </h5>
             </Col>
             {/* <Col className="text-center" lg="8" md="12">
@@ -110,52 +115,6 @@ function Download() {
                 Upgrade to PRO
               </Button>
             </Col> */}
-          </Row>
-          <Row className="justify-content-md-center sharing-area text-center">
-            <Col className="text-center" lg="8" md="12">
-              <h3>立即加入我們!</h3>
-            </Col>
-            <Col className="text-center" lg="8" md="12">
-              <Button
-                className="btn-neutral btn-icon btn-round"
-                color="twitter"
-                href="https://www.twitter.com"
-                id="tooltip86114138"
-                size="lg"
-                target="_blank"
-              >
-                <i className="fab fa-twitter"></i>
-              </Button>
-              <UncontrolledTooltip delay={0} target="tooltip86114138">
-                Follow us
-              </UncontrolledTooltip>
-              <Button
-                className="btn-neutral btn-icon btn-round"
-                color="facebook"
-                href="https://www.facebook.com/lukYeungBaptistChurch"
-                id="tooltip735272548"
-                size="lg"
-                target="_blank"
-              >
-                <i className="fab fa-facebook-square"></i>
-              </Button>
-              <UncontrolledTooltip delay={0} target="tooltip735272548">
-                Like us
-              </UncontrolledTooltip>
-              <Button
-                className="btn-neutral btn-icon btn-round"
-                color="linkedin"
-                href="https://www.linkedin.com/"
-                id="tooltip647117716"
-                size="lg"
-                target="_blank"
-              >
-                <i className="fab fa-linkedin"></i>
-              </Button>
-              <UncontrolledTooltip delay={0} target="tooltip647117716">
-                Follow us
-              </UncontrolledTooltip>
-            </Col>
           </Row>
         </Container>
       </div>
