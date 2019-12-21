@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e3d92a90df4243a94606f09215c82808",
+    "revision": "6eb8cbd6cf67f10ee26fe2a7c44d6740",
     "url": "/lybc-web/index.html"
   },
   {
-    "revision": "f21654e8c8eb73c41943",
+    "revision": "6d88bcd495dc9000f72c",
     "url": "/lybc-web/static/css/main.f4430fae.chunk.css"
   },
   {
-    "revision": "2b702974fda7d4d64df5",
-    "url": "/lybc-web/static/js/2.b69d5b15.chunk.js"
+    "revision": "4291c86199105e211ee6",
+    "url": "/lybc-web/static/js/2.3c59767d.chunk.js"
   },
   {
-    "revision": "f21654e8c8eb73c41943",
-    "url": "/lybc-web/static/js/main.690d4d53.chunk.js"
+    "revision": "6d88bcd495dc9000f72c",
+    "url": "/lybc-web/static/js/main.3f912ee8.chunk.js"
   },
   {
     "revision": "0d9a7f0b8cc1884cc14f",
@@ -96,8 +96,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/lybc-web/static/media/journal6.2d940a16.pdf"
   },
   {
-    "revision": "6bc6223c7c38a8b27d4c0d01d5c16ca4",
-    "url": "/lybc-web/static/media/journal7.6bc6223c.pdf"
+    "revision": "b641714176ef1ed8e94aba36efb9b135",
+    "url": "/lybc-web/static/media/journal7.b6417141.pdf"
   },
   {
     "revision": "138381e51c42397348a82b448b5fb61b",
