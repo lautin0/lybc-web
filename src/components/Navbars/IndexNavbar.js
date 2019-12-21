@@ -89,12 +89,12 @@ function IndexNavbar() {
                   onClick={e => {
                     e.preventDefault();
                     document
-                      .getElementById("contact-us-section")
+                      .getElementById("download-section")
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons objects_globe"></i>
-                  <p>聯絡我們</p>
+                  <i className="now-ui-icons travel_info"></i>
+                  <p>關於我們</p>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -103,12 +103,26 @@ function IndexNavbar() {
                   onClick={e => {
                     e.preventDefault();
                     document
-                      .getElementById("download-section")
+                      .getElementById("sunday-service-info-section")
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons travel_info"></i>
-                  <p>關於我們</p>
+                  <i className="now-ui-icons ui-2_time-alarm"></i>
+                  <p>聚會資料</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    document
+                      .getElementById("contact-us-section")
+                      .scrollIntoView();
+                  }}
+                >
+                  <i className="now-ui-icons objects_globe"></i>
+                  <p>聯絡我們</p>
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav>

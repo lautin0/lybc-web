@@ -25,6 +25,7 @@ import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 import ContactUs from "./index-sections/ContactUs.js";
+import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 
 function Index() {
   React.useEffect(() => {
@@ -58,6 +59,7 @@ function Index() {
           <SignUp />*/}
           {/* <Examples />  */}
           <Download />
+          <SundayServiceInfo />
           <ContactUs />
         </div>
         <DarkFooter />
