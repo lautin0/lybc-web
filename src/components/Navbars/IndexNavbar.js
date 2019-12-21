@@ -106,19 +106,32 @@ function IndexNavbar() {
                   onClick={e => e.preventDefault()}
                 >
                   <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
-                  <p>目錄</p>
+                  <p>教會部門</p>
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem to="/index" tag={Link}>
-                    <i className="now-ui-icons ui-2_time-alarm mr-1"></i>
-                    崇拜時間
+                  <DropdownItem to="/preaching-page" tag={Link}>
+                    <i className="now-ui-icons location_map-big mr-1"></i>
+                    傳道部
                   </DropdownItem>
                   <DropdownItem
-                    href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
                     target="_blank"
                   >
                     <i className="now-ui-icons location_map-big mr-1"></i>
-                    小組資料
+                    崇拜部
+                  </DropdownItem>
+                  <DropdownItem
+                    // href=""
+                    target="_blank"
+                  >
+                    <i className="now-ui-icons location_map-big mr-1"></i>
+                    團契部
+                  </DropdownItem>
+                  <DropdownItem
+                    // href=""
+                    target="_blank"
+                  >
+                    <i className="now-ui-icons location_map-big mr-1"></i>
+                    培訓部
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

@@ -119,7 +119,7 @@ function Download() {
               <Button
                 className="btn-neutral btn-icon btn-round"
                 color="twitter"
-                href="https://www.twitter.com/creativetim?ref=creativetim"
+                href="https://www.twitter.com"
                 id="tooltip86114138"
                 size="lg"
                 target="_blank"
@@ -132,7 +132,7 @@ function Download() {
               <Button
                 className="btn-neutral btn-icon btn-round"
                 color="facebook"
-                href="https://www.facebook.com/creativetim?ref=creativetim"
+                href="https://www.facebook.com/lukYeungBaptistChurch"
                 id="tooltip735272548"
                 size="lg"
                 target="_blank"
@@ -145,7 +145,7 @@ function Download() {
               <Button
                 className="btn-neutral btn-icon btn-round"
                 color="linkedin"
-                href="https://www.linkedin.com/company-beta/9430489/?ref=creativetim"
+                href="https://www.linkedin.com/"
                 id="tooltip647117716"
                 size="lg"
                 target="_blank"
