@@ -125,7 +125,7 @@ function IndexNavbar() {
                   <p>聯絡我們</p>
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav>
+              {/* <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
                   color="default"
@@ -162,7 +162,7 @@ function IndexNavbar() {
                     培訓部
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
               <NavItem>
                 <Button
                   className="nav-link btn-neutral"

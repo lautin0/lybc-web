@@ -14,19 +14,24 @@ import {
 
 const items = [
   {
-    src: require("assets/img/bg1.jpg"),
-    altText: "Nature, United States",
-    caption: "Nature, United States"
+    src: require("assets/img/photo1.jpg"),
+    altText: "策劃會",
+    caption: "策劃會"
   },
   {
-    src: require("assets/img/bg3.jpg"),
-    altText: "Somewhere Beyond, United States",
-    caption: "Somewhere Beyond, United States"
+    src: require("assets/img/photo2.jpg"),
+    altText: "仁濟醫院 午間閒情",
+    caption: "仁濟醫院 午間閒情"
   },
   {
-    src: require("assets/img/bg4.jpg"),
-    altText: "Yellowstone National Park, United States",
-    caption: "Yellowstone National Park, United States"
+    src: require("assets/img/photo3.jpg"),
+    altText: "浸禮",
+    caption: "浸禮"
+  },
+  {
+    src: require("assets/img/photo4.jpg"),
+    altText: "聖誕街頭佈道",
+    caption: "聖誕街頭佈道"
   }
 ];
 

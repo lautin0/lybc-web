@@ -26,6 +26,7 @@ import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 import ContactUs from "./index-sections/ContactUs.js";
 import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
+import Journal from "./index-sections/Journal.js";
 
 function Index() {
   React.useEffect(() => {
@@ -46,14 +47,15 @@ function Index() {
         <IndexHeader />
         <div className="main">
           {/* <Images /> */}
-          {/* <BasicElements />
-          <Navbars />
-          <Tabs />
-          <Pagination />
-          <Notifications />
-          <Typography />
-          <Javascript /> */}
+          {/* <BasicElements /> */}
+          {/* <Navbars /> */}
+          {/* <Tabs /> */}
+          {/* <Pagination /> */}
+          {/* <Notifications /> */}
+          {/* <Typography /> */}
+          {/* <Javascript /> */}
           <Carousel />
+          <Journal />
           {/* <NucleoIcons />
           <CompleteExamples />
           <SignUp />*/}

@@ -15,13 +15,13 @@ function Images() {
               <div className="hero-images-container">
                 <img
                   alt="..."
-                  src={require("assets/img/hero-image-1.png")}
+                  src={require("assets/img/lybc_logo.png")}
                 ></img>
               </div>
               <div className="hero-images-container-1">
                 <img
                   alt="..."
-                  src={require("assets/img/hero-image-2.png")}
+                  src={require("assets/img/abwe_logo.jpeg")}
                 ></img>
               </div>
               <div className="hero-images-container-2">
