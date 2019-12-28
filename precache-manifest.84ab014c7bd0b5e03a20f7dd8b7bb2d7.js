@@ -1,23 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "83d4709fd7b07f67ebceae78b122a79d",
+    "revision": "79570adfdb1d4e6459bb3c7d523691f0",
     "url": "/lybc-web/index.html"
   },
   {
-    "revision": "46bae40711034b304dd7",
+    "revision": "8861f28c2370d3fd001d",
     "url": "/lybc-web/static/css/main.f4430fae.chunk.css"
   },
   {
-    "revision": "64062e8b6c5813ebdd17",
-    "url": "/lybc-web/static/js/2.3a8213ed.chunk.js"
+    "revision": "fe65cd040c4b8d726ba9",
+    "url": "/lybc-web/static/js/2.413a848a.chunk.js"
   },
   {
-    "revision": "46bae40711034b304dd7",
-    "url": "/lybc-web/static/js/main.120ab542.chunk.js"
+    "revision": "8861f28c2370d3fd001d",
+    "url": "/lybc-web/static/js/main.919cb989.chunk.js"
   },
   {
     "revision": "0d9a7f0b8cc1884cc14f",
     "url": "/lybc-web/static/js/runtime~main.82044cef.js"
+  },
+  {
+    "revision": "398396ee901ee09ea815582050b7f77b",
+    "url": "/lybc-web/static/media/abwe_logo.398396ee.jpeg"
   },
   {
     "revision": "7257a1a94be550133f3233fd792ee724",
@@ -34,10 +38,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f807b37b1736e7709918ea35ef80ca7d",
     "url": "/lybc-web/static/media/bg3.f807b37b.jpg"
-  },
-  {
-    "revision": "4bff5d45104e2e6c59b1825b54864d58",
-    "url": "/lybc-web/static/media/bg4.4bff5d45.jpg"
   },
   {
     "revision": "056eb0586182a8d28273ad11c028e912",
@@ -58,14 +58,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "089c4f4e55f158a69d0364c6b6339f37",
     "url": "/lybc-web/static/media/eva.089c4f4e.jpg"
-  },
-  {
-    "revision": "a76c7b4ce725bb07b1572699a5a78c62",
-    "url": "/lybc-web/static/media/hero-image-1.a76c7b4c.png"
-  },
-  {
-    "revision": "9616730d099782a3ea6c12c70aa181af",
-    "url": "/lybc-web/static/media/hero-image-2.9616730d.png"
   },
   {
     "revision": "02cd0e2d2b27926d1ed5c31a00dd26fa",
@@ -130,6 +122,22 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "8ebec31f5ce59f908db84d86aed5947f",
     "url": "/lybc-web/static/media/nucleo-outline.8ebec31f.woff2"
+  },
+  {
+    "revision": "cd869e3ea76c6dcb6274ee7afff7953b",
+    "url": "/lybc-web/static/media/photo1.cd869e3e.jpg"
+  },
+  {
+    "revision": "c3a970b763b6b86d26765b39bb3085b8",
+    "url": "/lybc-web/static/media/photo2.c3a970b7.jpg"
+  },
+  {
+    "revision": "71090cd4b7cb081caf0ed52024b25d01",
+    "url": "/lybc-web/static/media/photo3.71090cd4.jpg"
+  },
+  {
+    "revision": "9a380ca420d33b6d1d4771b8a4436437",
+    "url": "/lybc-web/static/media/photo4.9a380ca4.jpg"
   },
   {
     "revision": "225653f9f4dacef3e81bcc52f5ef547d",
