@@ -38,36 +38,53 @@ const items = [
 function Journal() {
   return (
     <>
-      <div className="section" id="journal">
+      <div
+        id="journal"
+        className="navigation-example"
+        style={{
+          backgroundImage: "url(" + require("assets/img/bg7.jpg") + ")"
+        }}
+      >
         <Container>
           <Row>
             <Col md="6">
-              <h4>
-                教會月刊
-              </h4>
+              <h3 className="title">教會月刊</h3>
               <p>
                 <a href={require("assets/pdf/journal7.pdf")}
                   target="_blank">
-                  2019{" - "}12{" : "}<label style={{ color: "red", fontSize: 18, fontWeight: "bold" }} >聖誕特別刊</label>
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}12{" : "}</span>
+                  <span style={{ color: "red", fontSize: 18, fontWeight: "bold" }} >聖誕特別刊</span>
                 </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal6.pdf")} target="_blank">2019{" - "}11{" : "}第六期</a>
+                <a href={require("assets/pdf/journal6.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}11{" : "}第六期</span>
+                </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal5.pdf")} target="_blank">2019{" - "}10{" : "}第五期</a>
+                <a href={require("assets/pdf/journal5.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}10{" : "}第五期</span>
+                </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal4.pdf")} target="_blank">2019{" - "}9{" : "}第四期</a>
+                <a href={require("assets/pdf/journal4.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}9{" : "}第四期</span>
+                </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal3.pdf")} target="_blank">2019{" - "}8{" : "}第三期</a>
+                <a href={require("assets/pdf/journal3.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}8{" : "}第三期</span>
+                </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal2.pdf")} target="_blank">2019{" - "}7{" : "}第二期</a>
+                <a href={require("assets/pdf/journal2.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}7{" : "}第二期</span>
+                </a>
               </p>
               <p>
-                <a href={require("assets/pdf/journal1.pdf")} target="_blank">2019{" - "}6{" : "}第一期</a>
+                <a href={require("assets/pdf/journal1.pdf")} target="_blank">
+                  <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}6{" : "}第一期</span>
+                </a>
               </p>
 
             </Col>

@@ -63,7 +63,7 @@ function CarouselSection() {
       <div className="section" id="carousel">
         <Container>
           <div className="title">
-            <h4>時刻</h4>
+            <h3 className="title">時刻</h3>
           </div>
           <Row className="justify-content-center">
             <Col lg="8" md="12">
