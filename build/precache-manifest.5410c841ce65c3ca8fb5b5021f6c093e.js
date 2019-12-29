@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "117309d87d2593d6d5ed6cb72f6e674f",
+    "revision": "ab520856c6d2eae3a53f3c3fc9325ce2",
     "url": "/lybc-web/index.html"
   },
   {
-    "revision": "10c74f3215f42f643fc9",
-    "url": "/lybc-web/static/css/main.f4430fae.chunk.css"
+    "revision": "aec9be57954d15dd09de",
+    "url": "/lybc-web/static/css/main.6c9df6d2.chunk.css"
   },
   {
-    "revision": "0b5c136d1da01b371000",
-    "url": "/lybc-web/static/js/2.474f5b5c.chunk.js"
+    "revision": "69408496ab180129b201",
+    "url": "/lybc-web/static/js/2.91dd116b.chunk.js"
   },
   {
-    "revision": "10c74f3215f42f643fc9",
-    "url": "/lybc-web/static/js/main.8277e142.chunk.js"
+    "revision": "aec9be57954d15dd09de",
+    "url": "/lybc-web/static/js/main.27a7fdb4.chunk.js"
   },
   {
     "revision": "0d9a7f0b8cc1884cc14f",
