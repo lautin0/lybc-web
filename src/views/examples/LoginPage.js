@@ -53,7 +53,7 @@ function LoginPage() {
                     <div className="logo-container">
                       <img
                         alt="..."
-                        src={require("assets/img/now-logo.png")}
+                        src={require("assets/img/lybc_logo.png")}
                       ></img>
                     </div>
                   </CardHeader>
@@ -70,7 +70,7 @@ function LoginPage() {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="First Name..."
+                        placeholder="用戶名稱"
                         type="text"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
@@ -88,7 +88,7 @@ function LoginPage() {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Last Name..."
+                        placeholder="密碼"
                         type="text"
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
@@ -104,9 +104,9 @@ function LoginPage() {
                       onClick={e => e.preventDefault()}
                       size="lg"
                     >
-                      Get Started
+                      登入
                     </Button>
-                    <div className="pull-left">
+                    {/* <div className="pull-left">
                       <h6>
                         <a
                           className="link"
@@ -116,7 +116,7 @@ function LoginPage() {
                           Create Account
                         </a>
                       </h6>
-                    </div>
+                    </div> */}
                     <div className="pull-right">
                       <h6>
                         <a
@@ -124,7 +124,7 @@ function LoginPage() {
                           href="#pablo"
                           onClick={e => e.preventDefault()}
                         >
-                          Need Help?
+                          需要幫助?
                         </a>
                       </h6>
                     </div>

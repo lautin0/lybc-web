@@ -168,14 +168,15 @@ function IndexNavbar() {
                   className="nav-link btn-neutral"
                   color="info"
                   href="#pablo"
-                  id="upgrade-to-pro"
-                  onClick={e => e.preventDefault()}
+                  id="login"
+                  to="/login-page"
+                  tag={Link}
                 >
-                  <i className="now-ui-icons shopping_credit-card mr-1"></i>
-                  <p>奉獻支持</p>
+                  <i className="now-ui-icons users_circle-08 mr-1"></i>
+                  <p>會友登入</p>
                 </Button>
-                <UncontrolledTooltip target="#upgrade-to-pro">
-                  Cooming soon!
+                <UncontrolledTooltip target="#login">
+                  立刻登入!
                 </UncontrolledTooltip>
               </NavItem>
               <NavItem>

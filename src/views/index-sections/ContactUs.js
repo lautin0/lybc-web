@@ -9,7 +9,7 @@ function ContactUs() {
   return (
     <>
       <div
-        className="section section-download"
+        className="section"
         id="contact-us-section"
       >
         <Container>
@@ -32,6 +32,11 @@ function ContactUs() {
               <p>教會電話：2493 8994</p>
 
               <p>教會電郵：lukyeungchurch@gmail.com</p>
+            </Col>
+          </Row>
+          <Row className="justify-content-center" style={{marginTop: 30}}>
+            <Col className="d-none d-sm-block" lg="8" md="12">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1986.463662122686!2d114.11918983575359!3d22.373117473260436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x46c212d153af24cd!2z57ag5qWK5rW45L-h5pyD!5e0!3m2!1szh-TW!2shk!4v1577628204298!5m2!1szh-TW!2shk" width="700" height="450" frameborder="0" style={{border:0}} allowfullscreen=""></iframe>
             </Col>
           </Row>
           <Row className="justify-content-md-center sharing-area text-center">
