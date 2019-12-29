@@ -124,7 +124,7 @@ function ExamplesNavbar() {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/creativetimofficial/now-ui-kit-react/issues?ref=creativetim">
+                <NavLink href="#pablo">
                   技術支援
                 </NavLink>
               </NavItem>
