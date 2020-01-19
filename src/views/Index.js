@@ -27,6 +27,7 @@ import Download from "./index-sections/Download.js";
 import ContactUs from "./index-sections/ContactUs.js";
 import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 import Journal from "./index-sections/Journal.js";
+import ChurchResources from "./index-sections/ChurchResources.js";
 
 function Index() {
   React.useEffect(() => {
@@ -54,6 +55,7 @@ function Index() {
           {/* <Notifications /> */}
           {/* <Typography /> */}
           {/* <Javascript /> */}
+          <ChurchResources />
           <Carousel />
           <Journal />
           {/* <NucleoIcons />

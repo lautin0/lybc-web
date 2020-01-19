@@ -54,14 +54,13 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
-              href="https://www.facebook.com/lukYeungBaptistChurch"
-              target="_blank"
+              href="#index"
               id="navbar-brand"
             >
               綠楊浸信會
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
-              查看更多
+              回頂頁
             </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
@@ -93,7 +92,7 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons travel_info"></i>
+                  <i className="fas fa-info-circle"></i>
                   <p>關於我們</p>
                 </NavLink>
               </NavItem>
@@ -107,7 +106,7 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons ui-2_time-alarm"></i>
+                  <i className="far fa-calendar-alt"></i>
                   <p>聚會資料</p>
                 </NavLink>
               </NavItem>
@@ -121,7 +120,7 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons objects_globe"></i>
+                  <i className="fas fa-phone"></i>
                   <p>聯絡我們</p>
                 </NavLink>
               </NavItem>
@@ -172,7 +171,7 @@ function IndexNavbar() {
                   to="/login-page"
                   tag={Link}
                 >
-                  <i className="now-ui-icons users_circle-08 mr-1"></i>
+                  <i className="fas fa-user" style={{fontSize: 14}}></i>
                   <p>會友登入</p>
                 </Button>
                 <UncontrolledTooltip target="#login">
