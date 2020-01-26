@@ -2,7 +2,7 @@
   "name": "lybc-web",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://lautin0.github.io/lybc-web/",
+  "homepage": "https://www.hklybc.org/",
   "dependencies": {
     "moment": "2.24.0",
     "node-sass": "4.12.0",
