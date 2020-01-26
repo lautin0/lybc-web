@@ -30,7 +30,8 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-import PreachingPage from 'views/examples/PreachingPage'
+import PreachingPage from 'views/examples/PreachingPage.js'
+import MainPage from 'views/main/MainPage.js'
 
 ReactDOM.render(
   <HashRouter>
@@ -52,6 +53,10 @@ ReactDOM.render(
         <Route
           path="/profile-page"
           render={props => <ProfilePage {...props} />}
+        />
+        <Route
+          path="/main"
+          render={props => <MainPage {...props} />}
         />
         <Route path="/login-page" render={props => <LoginPage {...props} />} />
         <Redirect to="/index" />

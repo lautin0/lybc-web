@@ -28,6 +28,7 @@ import ContactUs from "./index-sections/ContactUs.js";
 import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 import Journal from "./index-sections/Journal.js";
 import ChurchResources from "./index-sections/ChurchResources.js";
+import MainSection from "./common/MainSection.js";
 
 function Index() {
   React.useEffect(() => {
@@ -55,6 +56,7 @@ function Index() {
           {/* <Notifications /> */}
           {/* <Typography /> */}
           {/* <Javascript /> */}
+          {/* <MainSection /> */}
           <ChurchResources />
           <Carousel />
           <Journal />
