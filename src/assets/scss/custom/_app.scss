@@ -15,7 +15,7 @@
 }
 
 .clear-filter[filter-color="green"] {
-    @include linear-gradient(rgba($black-color,.20), #b6cdb2);
+    @include linear-gradient(rgba($black-color,.20), #7eb162);
 }
 
 .page-header{
@@ -30,17 +30,20 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: 55px;
     right: 0;
     height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: #008CBA;
+    width: calc(80% - 23px);
   }
   
 .img-button-container .overlay {
-    opacity: 0.5;
+    background-color: rgba(0, 140, 186, 0.3);
+}
+
+.img-button-container .overlay:hover {
+    background-color: rgba(165, 62, 62, 0.9);
+    transition: .5s ease;
+    cursor: pointer;
 }
   
 .img-overlay-text {
@@ -53,4 +56,5 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+    opacity: 1 !important;
 }

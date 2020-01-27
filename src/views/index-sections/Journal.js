@@ -40,9 +40,9 @@ function Journal() {
     <>
       <div
         id="journal"
-        className="navigation-example"
+        className="section navigation-example"        
         style={{
-          backgroundImage: "url(" + require("assets/img/bg7.jpg") + ")"
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(" + require("assets/img/bg1.jpg") + ")"
         }}
       >
         <Container>
