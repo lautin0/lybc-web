@@ -206,7 +206,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="#"
+                  href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >

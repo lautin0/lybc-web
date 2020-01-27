@@ -70,13 +70,13 @@ function ContactUs() {
               </UncontrolledTooltip>
               <Button
                 className="btn-neutral btn-icon btn-round"
-                color="linkedin"
-                href="https://www.linkedin.com/"
+                color="instgram"
+                href="https://www.instagram.com/lybc1997"
                 id="tooltip647117716"
                 size="lg"
                 target="_blank"
               >
-                <i className="fab fa-linkedin"></i>
+                <i className="fab fa-instagram"></i>
               </Button>
               <UncontrolledTooltip delay={0} target="tooltip647117716">
                 Follow us

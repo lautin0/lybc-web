@@ -60,7 +60,7 @@ function CarouselSection() {
   };
   return (
     <>
-      <div className="section" id="carousel">
+      <div className="section" id="carousel" style={{marginBottom: 100}}>
         <Container>
           <div className="title">
             <h3 className="title">時刻</h3>
