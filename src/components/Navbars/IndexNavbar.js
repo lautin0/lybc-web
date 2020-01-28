@@ -54,8 +54,12 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
-              href="#index"
+              href="#pablo"
               id="navbar-brand"
+              onClick={e => {
+                e.preventDefault();
+                window.scrollTo(0, 0);
+              }}
             >
               綠楊浸信會
             </NavbarBrand>
