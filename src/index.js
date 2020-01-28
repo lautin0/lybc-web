@@ -37,30 +37,30 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Switch>
-        <Route path="/index" render={props => <Index {...props} />} />
+        <Route path={process.env.PUBLIC_URL + '/index'} render={props => <Index {...props} />} />
         <Route
-          path="/nucleo-icons"
+          path={process.env.PUBLIC_URL + '/nucleo-icons'}
           render={props => <NucleoIcons {...props} />}
         />
         <Route
-          path="/landing-page"
+          path={process.env.PUBLIC_URL + '/landing-page'}
           render={props => <LandingPage {...props} />}
         />
         <Route
-          path="/preaching-page"
+          path={process.env.PUBLIC_URL + '/preaching-page'}
           render={props => <PreachingPage {...props} />}
         />
         <Route
-          path="/profile-page"
+          path={process.env.PUBLIC_URL + '/profile-page'}
           render={props => <ProfilePage {...props} />}
         />
         <Route
-          path="/main"
+          path={process.env.PUBLIC_URL + '/main'}
           render={props => <MainPage {...props} />}
         />
-        <Route path="/login-page" render={props => <LoginPage {...props} />} />
-        <Redirect to="/index" />
-        <Redirect from="/" to="/index" />
+        <Route path={process.env.PUBLIC_URL + '/login-page'} render={props => <LoginPage {...props} />} />
+        <Redirect to={process.env.PUBLIC_URL + '/index'} />
+        <Redirect from={process.env.PUBLIC_URL + '/'} to={process.env.PUBLIC_URL + '/index'} />
       </Switch>
     </Switch>
   </BrowserRouter>,
