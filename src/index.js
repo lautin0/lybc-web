@@ -18,6 +18,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import createHistory from 'history/createBrowserHistory'
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -33,8 +34,10 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import PreachingPage from 'views/examples/PreachingPage.js'
 import MainPage from 'views/main/MainPage.js'
 
+const history = createHistory({basename: process.env.PUBLIC_URL});
+
 ReactDOM.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter history={history}>
     <Switch>
       <Switch>
         <Route path="/index" render={props => <Index {...props} />} />
