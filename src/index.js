@@ -34,33 +34,33 @@ import PreachingPage from 'views/examples/PreachingPage.js'
 import MainPage from 'views/main/MainPage.js'
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       <Switch>
-        <Route path={process.env.PUBLIC_URL + '/index'} render={props => <Index {...props} />} />
+        <Route path="/index" render={props => <Index {...props} />} />
         <Route
-          path={process.env.PUBLIC_URL + '/nucleo-icons'}
+          path="/nucleo-icons"
           render={props => <NucleoIcons {...props} />}
         />
         <Route
-          path={process.env.PUBLIC_URL + '/landing-page'}
+          path="/landing-page"
           render={props => <LandingPage {...props} />}
         />
         <Route
-          path={process.env.PUBLIC_URL + '/preaching-page'}
+          path="/preaching-page"
           render={props => <PreachingPage {...props} />}
         />
         <Route
-          path={process.env.PUBLIC_URL + '/profile-page'}
+          path="/profile-page"
           render={props => <ProfilePage {...props} />}
         />
         <Route
-          path={process.env.PUBLIC_URL + '/main'}
+          path="/main"
           render={props => <MainPage {...props} />}
         />
-        <Route path={process.env.PUBLIC_URL + '/login-page'} render={props => <LoginPage {...props} />} />
-        <Redirect to={process.env.PUBLIC_URL + '/index'} />
-        <Redirect from={process.env.PUBLIC_URL + '/'} to={process.env.PUBLIC_URL + '/index'} />
+        <Route path="/login-page" render={props => <LoginPage {...props} />} />
+        <Redirect to="/index" />
+        <Redirect from="/" to="/index" />
       </Switch>
     </Switch>
   </BrowserRouter>,
