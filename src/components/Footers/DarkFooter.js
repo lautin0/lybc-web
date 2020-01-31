@@ -83,12 +83,28 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  document
+                    .getElementById("sunday-service-info-section")
+                    .scrollIntoView();
+                }}
+              >
                 聚會時間
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  document
+                    .getElementById("contact-us-section")
+                    .scrollIntoView();
+                }}
+              >
                 聯絡我們
               </Link>
             </li>
