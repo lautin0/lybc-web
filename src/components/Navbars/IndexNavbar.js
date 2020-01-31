@@ -144,7 +144,7 @@ function IndexNavbar() {
                   nav
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="fas fa-info mr-1"></i>
+                  <i className="fas fa-info mr-2"></i>
                   <p>認識綠楊</p>
                 </DropdownToggle>
                 <DropdownMenu>
@@ -178,11 +178,12 @@ function IndexNavbar() {
               <NavItem>
                 <Button
                   className="nav-link btn-neutral"
-                  color="success"
+                  // color="success"
                   href="#pablo"
                   id="login"
                   to="/login-page"
                   tag={Link}
+                  style={{color: 'rgb(69, 147, 76)'}}
                 >
                   <i className="fas fa-user" style={{fontSize: 14}}></i>
                   <p>會友登入</p>

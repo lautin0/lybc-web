@@ -65,3 +65,21 @@
         cursor: pointer;
     }
 }
+
+ul.sitemap{
+    margin-top: 6vh;
+    
+    li{
+        display: block;
+        margin-bottom: 10px
+    }
+}
+
+@media screen and (max-width: 991px){
+  .sidebar-collapse .navbar-collapse:before {
+    background: #45934c;
+    background: linear-gradient(#45934c,#000000 80%);
+  }
+}
+  
+

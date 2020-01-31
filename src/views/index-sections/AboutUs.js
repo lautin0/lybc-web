@@ -15,15 +15,15 @@ function AboutUs() {
       <div
         //className="section section-download"
         className="section"
-        data-background-color="black"
+        // data-background-color="black"
         id="about-us-section"
       >
         <Container>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12">
               {/* <h3 className="title">『香港萬國宣道浸信聯會』簡介</h3> */}
-              <h5>(一) 聯會成立的歷史</h5>
-              <h5 className="description">
+              <h3 style={{fontWeight: 'bold'}}>(一) 聯會成立的歷史</h3>
+              <h5 className="">
               『萬國宣道浸信會香港工場議會』於一九五一年開始在本港宣教並建立教會，而各教會在神的帶領下亦紛紛自立及聘用本地的教牧同工。
               在一九八二年，一班姊妹教會的牧者看到各教會既出於同一差會，建基於同一信仰，彼此應有更密切的交通、禱告及支持。
               故產生成立聯會的意念，透過聯繫推展那需要集體力量的事工，達致造就信徒及拓展天國的目的。
@@ -32,8 +32,8 @@ function AboutUs() {
               隨著ABWE家族的發展，為了讓教會及機構能建立更緊密的合作關係，同心事奉；並藉以保持ABWE宗派的特色/信仰，集合力量，發展聖工。
               故於二零零九年四月十六日正式更改名稱為『香港萬國宣道浸信聯會』。
               </h5>
-              <h5>(二) 聯會現有的堂會與宗旨</h5>
-              <h5 className="description">
+              <h3 style={{marginTop: 70, fontWeight: 'bold'}}>(二) 聯會現有的堂會與宗旨</h3>
+              <h5 className="">
               聯會在開始時由宣道浸信會、學基浸信會、和樂浸信會及葵興浸信會（現稱荃灣眾安浸信會）四所教會組成。時至今日，聯會的會員堂會/機構共有二十八間，姊妹堂會八間。聯會的宗旨有下列四點：
               <ol>
                 <li>為本聯會會員提供彼此交通、代禱、勉勵及互助的機會。</li>
@@ -42,8 +42,8 @@ function AboutUs() {
                 <li>聯會除要求會員接納聯會的會章及信條外，不干涉會員教會的內政事務，除該會員教會主動求助則屬例外。</li>
               </ol>
               </h5>
-              <h5>(三）聯會四大異象</h5>
-              <h5 className="description">
+              <h3 style={{marginTop: 70, fontWeight: 'bold'}}>(三）聯會四大異象</h3>
+              <h5 className="">
               <ol>
                 <li>本地福音同興旺<br/>
                 聯會致力協助各教會植堂或擴堂事工，並推動聯合佈道、傳揚福音。</li>
@@ -55,8 +55,8 @@ function AboutUs() {
                 聯會推動各堂彼此共享資源，有特別聚會互通消息，彼此祝福。</li>
               </ol>
               </h5>
-              <h5>(四) 四大事工方向</h5>
-              <h5 className="description">
+              <h3 style={{marginTop: 70, fontWeight: 'bold'}}>(四) 四大事工方向</h3>
+              <h5 className="">
               <ol>
                 <li>聖樂詠團事工<br/>
                 於1992年成立『萬國宣道詠團』，定期舉辦聖樂培靈會、詩班研討會、聖樂佈道會及短宣體驗等，在本地、國內及海外服侍教會並宣揚福音。</li>
@@ -94,8 +94,8 @@ function AboutUs() {
           </Row>
           <Row className="text-center mt-5">
             <Col className="ml-auto mr-auto" md="8">
-              <h4>我們同有一個心志，站立得穩，為所信的福音齊心努力。(腓1：27下)</h4>
-              {/* <h5 className="description">
+              <h4 style={{fontSize: 24, fontWeight: 'bold'}}>我們同有一個心志，站立得穩，為所信的福音齊心努力。(腓1：27下)</h4>
+              {/* <h5 className="">
                 We're going to launch{" "}
                 <a
                   href="http://demos.creative-tim.com/now-ui-kit-pro-react/#/presentation?ref=nukr-index-page"

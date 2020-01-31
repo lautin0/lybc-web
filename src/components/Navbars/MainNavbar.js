@@ -52,7 +52,7 @@ function MainNavbar(props) {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top flex-wrap" expand="lg" style={{height: '20vh', background: '#45934c'}}>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{paddingTop: 20, height: '20vh', background: '#45934c'}}>
         <Container style={{height: '100%', display: 'block'}}>
           <div className="navbar-translate">
             <NavbarBrand
@@ -86,7 +86,7 @@ function MainNavbar(props) {
             className="justify-content-end"
             isOpen={collapseOpen}
             navbar
-            style={{marginTop: -40}}
+            style={{marginTop: -42}}
           >
             <Nav navbar>
               <NavItem>
@@ -147,7 +147,7 @@ function MainNavbar(props) {
                   nav
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="fas fa-info mr-1"></i>
+                  <i className="fas fa-info mr-2"></i>
                   <p>認識綠楊</p>
                 </DropdownToggle>
                 <DropdownMenu>
@@ -181,11 +181,12 @@ function MainNavbar(props) {
               <NavItem>
                 <Button
                   className="nav-link btn-neutral"
-                  color="success"
+                  // color="success"
                   href="#pablo"
                   id="login"
                   to="/login-page"
                   tag={Link}
+                  style={{color: 'rgb(69, 147, 76)'}}
                 >
                   <i className="fas fa-user" style={{fontSize: 14}}></i>
                   <p>會友登入</p>
@@ -236,7 +237,8 @@ function MainNavbar(props) {
             </Nav>
           </Collapse>
           <div>
-            <h3 style={{color: 'white'}} className="title text-left">{TITLE_MAP[props.page]}</h3>
+            <h3 style={{color: 'white'}} className="title text-left d-none d-sm-block">{TITLE_MAP[props.page]}</h3>
+            <h4 style={{color: 'white'}} className="title text-left d-sm-none">{TITLE_MAP[props.page]}</h4>
           </div>
         </Container>
       </Navbar>
