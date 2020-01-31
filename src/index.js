@@ -17,8 +17,8 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import createHistory from 'history/createBrowserHistory'
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { createBrowserHistory as createHistory } from 'history'
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -31,13 +31,13 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-import PreachingPage from 'views/examples/PreachingPage.js'
+import DownloadPage from 'views/download/Download.js'
 import MainPage from 'views/main/MainPage.js'
 
 const history = createHistory({basename: process.env.PUBLIC_URL});
 
 ReactDOM.render(
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <Switch>
       <Switch>
         <Route path="/index" render={props => <Index {...props} />} />
@@ -50,22 +50,22 @@ ReactDOM.render(
           render={props => <LandingPage {...props} />}
         />
         <Route
-          path="/preaching-page"
-          render={props => <PreachingPage {...props} />}
+          path="/download"
+          render={props => <MainPage {...props} page="download" />}
         />
         <Route
           path="/profile-page"
           render={props => <ProfilePage {...props} />}
         />
         <Route
-          path="/main"
-          render={props => <MainPage {...props} />}
+          path="/about-us"
+          render={props => <MainPage {...props} page="about-us" />}
         />
         <Route path="/login-page" render={props => <LoginPage {...props} />} />
         <Redirect to="/index" />
         <Redirect from="/" to="/index" />
       </Switch>
     </Switch>
-  </BrowserRouter>,
+  </Router>,
   document.getElementById("root")
 );

@@ -44,7 +44,7 @@ function IndexHeader() {
           </div>
           <h6 className="category category-absolute">
             {/* Last updated on 2019 Dec */}
-            {/* {" "} */}
+            {" "}
             {/* <a href="http://invisionapp.com/?ref=creativetim" target="_blank">
               <img
                 alt="..."
@@ -62,8 +62,8 @@ function IndexHeader() {
                 className="creative-tim-logo"
                 src={require("assets/img/creative-tim-white-slim2.png")}
               ></img>
-            </a>*/}
-            .
+            </a> */}
+            <i style={{ color: 'white', fontSize: 30 }} className="fas fa-chevron-down"></i>
           </h6>
         </Container>
       </div>

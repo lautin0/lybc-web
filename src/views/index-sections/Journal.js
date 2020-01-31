@@ -5,35 +5,7 @@ import {
   Container,
   Row,
   Col,
-  Carousel,
-  CarouselItem,
-  CarouselIndicators
 } from "reactstrap";
-
-// core components
-
-const items = [
-  {
-    src: require("assets/img/photo1.jpg"),
-    altText: "策劃會",
-    caption: "策劃會"
-  },
-  {
-    src: require("assets/img/photo2.jpg"),
-    altText: "仁濟醫院 午間閒情",
-    caption: "仁濟醫院 午間閒情"
-  },
-  {
-    src: require("assets/img/photo3.jpg"),
-    altText: "浸禮",
-    caption: "浸禮"
-  },
-  {
-    src: require("assets/img/photo4.jpg"),
-    altText: "聖誕街頭佈道",
-    caption: "聖誕街頭佈道"
-  }
-];
 
 function Journal() {
   return (
@@ -53,7 +25,7 @@ function Journal() {
                 <a href={require("assets/pdf/journal7.pdf")}
                   target="_blank">
                   <span style={{ color: "brown", fontWeight: "bold" }} >2019{" - "}12{" : "}</span>
-                  <span style={{ color: "red", fontSize: 18, fontWeight: "bold" }} >聖誕特別刊</span>
+                  <span style={{ color: "red", fontSize: 18, fontWeight: "bold", background: 'yellow' }} >聖誕特別刊</span>
                 </a>
               </p>
               <p>

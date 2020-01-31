@@ -50,7 +50,7 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
+      <Navbar className={"fixed-top " + navbarColor} expand="lg" style={{background: '#45934c'}}>
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
@@ -91,13 +91,13 @@ function IndexNavbar() {
                   href="#pablo"
                   onClick={e => {
                     e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
+                    // document
+                    //   .getElementById("download-section")
+                    //   .scrollIntoView();
                   }}
                 >
-                  <i className="fas fa-info-circle"></i>
-                  <p>關於我們</p>
+                  <i className="fas fa-map-signs"></i>
+                  <p>教會活動</p>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -105,30 +105,16 @@ function IndexNavbar() {
                   href="#pablo"
                   onClick={e => {
                     e.preventDefault();
-                    document
-                      .getElementById("sunday-service-info-section")
-                      .scrollIntoView();
+                    // document
+                    //   .getElementById("sunday-service-info-section")
+                    //   .scrollIntoView();
                   }}
                 >
-                  <i className="far fa-calendar-alt"></i>
-                  <p>聚會資料</p>
+                  <i className="fas fa-hammer"></i>
+                  <p>事工介紹</p>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#pablo"
-                  onClick={e => {
-                    e.preventDefault();
-                    document
-                      .getElementById("contact-us-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  <i className="fas fa-phone"></i>
-                  <p>聯絡我們</p>
-                </NavLink>
-              </NavItem>
-              {/* <UncontrolledDropdown nav>
+              <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
                   color="default"
@@ -136,40 +122,63 @@ function IndexNavbar() {
                   nav
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
-                  <p>教會部門</p>
+                  <i className="fas fa-book mr-1"></i>
+                  <p>教會刊物</p>
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem to="/preaching-page" tag={Link}>
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    傳道部
+                  <DropdownItem to="/download" tag={Link}>
+                    教會月刊
                   </DropdownItem>
                   <DropdownItem
                     target="_blank"
                   >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    崇拜部
-                  </DropdownItem>
-                  <DropdownItem
-                    // href=""
-                    target="_blank"
-                  >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    團契部
-                  </DropdownItem>
-                  <DropdownItem
-                    // href=""
-                    target="_blank"
-                  >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    培訓部
+                    見證欄
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown> */}
+              </UncontrolledDropdown>
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
+                  href="#pablo"
+                  nav
+                  onClick={e => e.preventDefault()}
+                >
+                  <i className="fas fa-info mr-1"></i>
+                  <p>認識綠楊</p>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem to="/about-us" tag={Link}>
+                    關於我們
+                  </DropdownItem>
+                  <DropdownItem
+                    target="_blank"
+                    onClick={e => {
+                      e.preventDefault();
+                      document
+                        .getElementById("sunday-service-info-section")
+                        .scrollIntoView();
+                    }}
+                  >
+                    聚會資料
+                  </DropdownItem>
+                  <DropdownItem
+                    target="_blank"
+                    onClick={e => {
+                      e.preventDefault();
+                      document
+                        .getElementById("contact-us-section")
+                        .scrollIntoView();
+                    }}
+                  >
+                    聯絡我們
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
               <NavItem>
                 <Button
                   className="nav-link btn-neutral"
-                  color="info"
+                  color="success"
                   href="#pablo"
                   id="login"
                   to="/login-page"
@@ -178,11 +187,11 @@ function IndexNavbar() {
                   <i className="fas fa-user" style={{fontSize: 14}}></i>
                   <p>會友登入</p>
                 </Button>
-                <UncontrolledTooltip target="#login">
+                {/* <UncontrolledTooltip target="#login">
                   立刻登入!
-                </UncontrolledTooltip>
+                </UncontrolledTooltip> */}
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink
                   href="#"
                   target="_blank"
@@ -194,7 +203,7 @@ function IndexNavbar() {
                 <UncontrolledTooltip target="#twitter-tooltip">
                   Follow us on Twitter
                 </UncontrolledTooltip>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
                 <NavLink
                   href="https://www.facebook.com/lukYeungBaptistChurch"

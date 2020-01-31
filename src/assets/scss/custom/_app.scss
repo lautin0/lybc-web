@@ -58,3 +58,10 @@
     text-align: center;
     opacity: 1 !important;
 }
+
+.table-striped.clickable tbody{
+    tr:hover{        
+        background: rgba(165, 62, 62, 0.9);
+        cursor: pointer;
+    }
+}

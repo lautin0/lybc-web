@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
+  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
@@ -15,8 +17,9 @@ import {
   Container,
   UncontrolledTooltip
 } from "reactstrap";
+import TITLE_MAP from "Universals";
 
-function MainNavbar() {
+function MainNavbar(props) {
   // const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   // React.useEffect(() => {
@@ -49,55 +52,22 @@ function MainNavbar() {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top main-nav" color="info" expand="lg">
-        <Container>
-          <UncontrolledDropdown className="button-dropdown">
-            <DropdownToggle
-              caret
-              data-toggle="dropdown"
-              href="#pablo"
-              id="navbarDropdown"
-              tag="a"
-              onClick={e => e.preventDefault()}
-            >
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-            </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbarDropdown">
-              <DropdownItem header tag="a">
-                Dropdown header
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Another action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Something else here
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Separated link
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                One more separated link
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{height: '20vh', background: '#45934c'}}>
+        <Container style={{height: '100%', display: 'block'}}>
           <div className="navbar-translate">
             <NavbarBrand
-              href=""
-              target="_blank"
+              href="/index"
               id="navbar-brand"
+              onClick={e => {
+                // e.preventDefault();
+                // window.scrollTo(0, 0);
+              }}
             >
-              {/* Now Ui Kit */}
+              綠楊浸信會
             </NavbarBrand>
-            {/* <UncontrolledTooltip target="#navbar-brand">
-              Designed by Invision. Coded by Creative Tim
-            </UncontrolledTooltip> */}
+            <UncontrolledTooltip target="#navbar-brand">
+              回頂頁
+            </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -116,20 +86,117 @@ function MainNavbar() {
             className="justify-content-end"
             isOpen={collapseOpen}
             navbar
+            style={{marginTop: -40}}
           >
             <Nav navbar>
               <NavItem>
-                <NavLink to="/index" tag={Link}>
-                  回主頁
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#pablo">
-                  技術支援
+                <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    // document
+                    //   .getElementById("download-section")
+                    //   .scrollIntoView();
+                  }}
+                >
+                  <i className="fas fa-map-signs"></i>
+                  <p>教會活動</p>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    // document
+                    //   .getElementById("sunday-service-info-section")
+                    //   .scrollIntoView();
+                  }}
+                >
+                  <i className="fas fa-hammer"></i>
+                  <p>事工介紹</p>
+                </NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
+                  href="#pablo"
+                  nav
+                  onClick={e => e.preventDefault()}
+                >
+                  <i className="fas fa-book mr-1"></i>
+                  <p>教會刊物</p>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem to="/download" tag={Link}>
+                    教會月刊
+                  </DropdownItem>
+                  <DropdownItem
+                    target="_blank"
+                  >
+                    見證欄
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
+                  href="#pablo"
+                  nav
+                  onClick={e => e.preventDefault()}
+                >
+                  <i className="fas fa-info mr-1"></i>
+                  <p>認識綠楊</p>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem to="/about-us" tag={Link}>
+                    關於我們
+                  </DropdownItem>
+                  <DropdownItem
+                    target="_blank"
+                    onClick={e => {
+                      e.preventDefault();
+                      // document
+                      //   .getElementById("sunday-service-info-section")
+                      //   .scrollIntoView();
+                    }}
+                  >
+                    聚會資料
+                  </DropdownItem>
+                  <DropdownItem
+                    target="_blank"
+                    onClick={e => {
+                      e.preventDefault();
+                      // document
+                      //   .getElementById("contact-us-section")
+                      //   .scrollIntoView();
+                    }}
+                  >
+                    聯絡我們
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <NavItem>
+                <Button
+                  className="nav-link btn-neutral"
+                  color="success"
+                  href="#pablo"
+                  id="login"
+                  to="/login-page"
+                  tag={Link}
+                >
+                  <i className="fas fa-user" style={{fontSize: 14}}></i>
+                  <p>會友登入</p>
+                </Button>
+                {/* <UncontrolledTooltip target="#login">
+                  立刻登入!
+                </UncontrolledTooltip> */}
+              </NavItem>
+              {/* <NavItem>
+                <NavLink
+                  href="#"
                   target="_blank"
                   id="twitter-tooltip"
                 >
@@ -139,12 +206,12 @@ function MainNavbar() {
                 <UncontrolledTooltip target="#twitter-tooltip">
                   Follow us on Twitter
                 </UncontrolledTooltip>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
                 <NavLink
+                  href="https://www.facebook.com/lukYeungBaptistChurch"
                   target="_blank"
                   id="facebook-tooltip"
-                  href="https://www.facebook.com/lukYeungBaptistChurch"
                 >
                   <i className="fab fa-facebook-square"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
@@ -155,6 +222,7 @@ function MainNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
+                  href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >
@@ -167,10 +235,17 @@ function MainNavbar() {
               </NavItem>
             </Nav>
           </Collapse>
+          <div>
+            <h3 style={{color: 'white'}} className="title text-left">{TITLE_MAP[props.page]}</h3>
+          </div>
         </Container>
       </Navbar>
     </>
   );
 }
+
+MainNavbar.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 export default MainNavbar;

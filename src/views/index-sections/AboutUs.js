@@ -5,18 +5,23 @@ import { Button, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
 
 // core components
 
-function Download() {
+function AboutUs() {
+
+  //Default scroll to top
+  window.scrollTo(0,0)
+
   return (
     <>
       <div
-        className="section section-download"
+        //className="section section-download"
+        className="section"
         data-background-color="black"
-        id="download-section"
+        id="about-us-section"
       >
         <Container>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12">
-              <h3 className="title">『香港萬國宣道浸信聯會』簡介</h3>
+              {/* <h3 className="title">『香港萬國宣道浸信聯會』簡介</h3> */}
               <h5>(一) 聯會成立的歷史</h5>
               <h5 className="description">
               『萬國宣道浸信會香港工場議會』於一九五一年開始在本港宣教並建立教會，而各教會在神的帶領下亦紛紛自立及聘用本地的教牧同工。
@@ -122,4 +127,4 @@ function Download() {
   );
 }
 
-export default Download;
+export default AboutUs;

@@ -81,6 +81,7 @@ function SundayServiceInfo() {
           </Row>
         </Container>
       </div>
+      <hr style={{width: '80%'}} />
     </>
   );
 }

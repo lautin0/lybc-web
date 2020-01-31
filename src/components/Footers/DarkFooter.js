@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React from "react";
+import { Link } from 'react-router-dom'
 
 // reactstrap components
 import { Container } from "reactstrap";
@@ -12,15 +13,18 @@ function DarkFooter() {
           <ul>
             <li>
               <a
+                target="_blank"
+                href="http://www.hkabwe.org/"
               >
                 ABWE
-              </a>
+                </a>
             </li>
             <li>
-              <a
+              <Link
+                to="/about-us"
               >
                 About Us
-              </a>
+                </Link>
             </li>
             <li>
               <a
@@ -31,9 +35,7 @@ function DarkFooter() {
           </ul>
         </nav>
         <div className="copyright" id="copyright">
-          . Modified by{" "}
-            Tinyu
-          .
+          . 版權所有{" "}©2020{" "}綠楊浸信會 .
         </div>
       </Container>
     </footer>

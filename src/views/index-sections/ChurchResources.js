@@ -18,20 +18,20 @@ function ChurchResources() {
           <Row className="justify-content-center" style={{marginTop: 100, marginBottom: 100}}>
             <Col md="12" lg="3">
               <div className="text-center">
-                <a href="#index"><span><i class="fas title-fa fa-scroll"></i></span></a>
+                <a href="#index"><span><i className="fas title-fa fa-scroll"></i></span></a>
                 <h4 className="title">週刊</h4>
               </div>
             </Col>
             <Col md="12" lg="3">
               <div className="text-center">
-              <a href="#index"><span><i class="fas title-fa fa-headphones-alt" style={{color: 'rgb(35, 134, 35)'}}></i></span></a>
+              <a href="#index"><span><i className="fas title-fa fa-headphones-alt" style={{color: 'rgb(35, 134, 35)'}}></i></span></a>
                 <h4 className="title">講道錄音</h4>
               </div>
             </Col>
             <Col md="12" lg="3">
               <div className="text-center">
-              <a href="#index"><span><i class="fas title-fa fa-music" style={{color: '#000000'}}></i></span></a>
-                <h4 className="title">詩歌庫</h4>
+              <a href="#index"><span><i className="fas title-fa fa-music" style={{color: '#000000'}}></i></span></a>
+                <h4 className="title">className</h4>
               </div>
             </Col>
           </Row>

@@ -23,7 +23,7 @@ import NucleoIcons from "./index-sections/NucleoIcons.js";
 import CompleteExamples from "./index-sections/CompleteExamples.js";
 import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
-import Download from "./index-sections/Download.js";
+import AboutUs from "./index-sections/AboutUs.js";
 import ContactUs from "./index-sections/ContactUs.js";
 import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 import Journal from "./index-sections/Journal.js";
@@ -58,14 +58,14 @@ function Index() {
           {/* <Typography /> */}
           {/* <Javascript /> */}
           <IndexBanner />
-          <MainSection />
           <Carousel />
-          <Journal />
+          <MainSection />
+          {/* <Journal /> */}
           {/* <NucleoIcons />
           <CompleteExamples />
           <SignUp />*/}
           {/* <Examples />  */}
-          <Download />
+          {/* <Download /> */}
           <SundayServiceInfo />
           <ContactUs />
         </div>

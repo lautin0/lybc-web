@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React from "react";
+import { Link } from 'react-router-dom'
 
 // reactstrap components
 import { Container } from "reactstrap";
@@ -9,23 +10,24 @@ import { Container } from "reactstrap";
 function DefaultFooter() {
   return (
     <>
-      <footer className="footer footer-default">
+      <footer className="footer footer-default" style={{marginTop: '20vh'}}>
         <Container>
           <nav>
             <ul>
               <li>
                 <a
                   target="_blank"
+                  href="http://www.hkabwe.org/"
                 >
                   ABWE
                 </a>
               </li>
               <li>
-                <a
-                  target="_blank"
+                <Link
+                  to="/about-us"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -37,8 +39,7 @@ function DefaultFooter() {
             </ul>
           </nav>
           <div className="copyright" id="copyright">
-            . Modified by{" "}Tinyu
-            .
+            . 版權所有{" "}©2020{" "}綠楊浸信會 .
           </div>
         </Container>
       </footer>

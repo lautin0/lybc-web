@@ -23,11 +23,11 @@ const items = [
     altText: "仁濟醫院 午間閒情",
     caption: "仁濟醫院 午間閒情"
   },
-  {
-    src: require("assets/img/photo3.jpg"),
-    altText: "浸禮",
-    caption: "浸禮"
-  },
+  // {
+  //   src: require("assets/img/photo3.jpg"),
+  //   altText: "浸禮",
+  //   caption: "浸禮"
+  // },
   {
     src: require("assets/img/photo4.jpg"),
     altText: "聖誕街頭佈道",
@@ -63,7 +63,7 @@ function CarouselSection() {
       <div className="section" id="carousel" style={{marginBottom: 100}}>
         <Container>
           <div className="title">
-            <h3 className="title">時刻</h3>
+            <h3 className="title">最新消息</h3>
           </div>
           <Row className="justify-content-center">
             <Col lg="8" md="12">
@@ -120,6 +120,7 @@ function CarouselSection() {
           </Row>
         </Container>
       </div>
+      <hr style={{width: '80%'}} />
     </>
   );
 }
