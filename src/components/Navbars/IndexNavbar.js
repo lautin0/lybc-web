@@ -160,7 +160,7 @@ function IndexNavbar() {
                         .scrollIntoView();
                     }}
                   >
-                    聚會資料
+                    聚會時間
                   </DropdownItem>
                   <DropdownItem
                     target="_blank"
