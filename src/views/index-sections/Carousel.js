@@ -65,7 +65,7 @@ function CarouselSection() {
           <Container>
             <h3 className="title">最新消息</h3>
           </Container>
-          <Row className="justify-content-center">
+          <Row className="justify-content-center" style={{marginRight : 0, marginLeft: 0}}>
             <Col lg="8" md="12">
               <Carousel
                 activeIndex={activeIndex}
