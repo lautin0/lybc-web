@@ -117,7 +117,7 @@ function DefaultFooter() {
             </li>
           </ul>
         </nav>
-        <div className="copyright" id="copyright">
+        <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
           版權所有{" "}©2020{" "}綠楊浸信會
         </div>
       </Container>

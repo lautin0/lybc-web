@@ -17,7 +17,7 @@ import {
   Container,
   UncontrolledTooltip
 } from "reactstrap";
-import TITLE_MAP from "Universals";
+import UNIVERSALS from "Universals";
 
 function MainNavbar(props) {
   // const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -237,8 +237,8 @@ function MainNavbar(props) {
             </Nav>
           </Collapse>
           <div>
-            <h3 style={{color: 'white'}} className="title text-left d-none d-sm-block">{TITLE_MAP[props.page]}</h3>
-            <h4 style={{color: 'white'}} className="title text-left d-sm-none">{TITLE_MAP[props.page]}</h4>
+            <h3 style={{color: 'white'}} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
+            <h4 style={{color: 'white'}} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
           </div>
         </Container>
       </Navbar>

@@ -61,10 +61,10 @@ function CarouselSection() {
   return (
     <>
       <div className="section" id="carousel" style={{marginBottom: 100}}>
-        <Container>
-          <div className="title">
+        <div>
+          <Container>
             <h3 className="title">最新消息</h3>
-          </div>
+          </Container>
           <Row className="justify-content-center">
             <Col lg="8" md="12">
               <Carousel
@@ -101,7 +101,7 @@ function CarouselSection() {
                   }}
                   role="button"
                 >
-                  <i className="now-ui-icons arrows-1_minimal-left"></i>
+                  <i className="fas fa-chevron-left"></i>
                 </a>
                 <a
                   className="carousel-control-next"
@@ -113,12 +113,12 @@ function CarouselSection() {
                   }}
                   role="button"
                 >
-                  <i className="now-ui-icons arrows-1_minimal-right"></i>
+                  <i className="fas fa-chevron-right"></i>
                 </a>
               </Carousel>
             </Col>
           </Row>
-        </Container>
+        </div>
       </div>
       <hr style={{width: '80%'}} />
     </>
