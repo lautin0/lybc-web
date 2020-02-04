@@ -11,8 +11,8 @@ function SundayServiceInfo() {
   window.scrollTo(0,0)
   
   return (
-    <>
-      <Container className="section">
+    <div className="section">
+      <Container>
         <Row className="justify-content-md-center">
           <Col className="text-left" lg="8" md="12">
             <Table striped>
@@ -79,7 +79,7 @@ function SundayServiceInfo() {
         </Row>
       </Container>
       <hr style={{ width: '80%' }} />
-    </>
+    </div>
   );
 }
 

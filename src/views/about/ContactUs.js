@@ -11,8 +11,8 @@ function ContactUs() {
   window.scrollTo(0,0)
 
   return (
-    <>
-      <Container className="section">
+    <div className="section">
+      <Container>
         <Row className="justify-content-md-center">
           <Col className="text-left" lg="8" md="12">
             <p>堂主任：黃雪梅姑娘</p>
@@ -82,7 +82,7 @@ function ContactUs() {
           </Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 
