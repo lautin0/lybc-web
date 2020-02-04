@@ -62,7 +62,6 @@ function Index() {
           {/* <Carousel /> */}
           {/* <MainSection /> */}
           <Theme />
-          <NewComerForm />
           {/* <Journal /> */}
           {/* <NucleoIcons /> */}
           {/* <CompleteExamples /> */}
@@ -71,6 +70,7 @@ function Index() {
           {/* <Download /> */}
           <SundayServiceInfo />
           <ContactUs />
+          <NewComerForm />
         </div>
         <DarkFooter />
       </div>

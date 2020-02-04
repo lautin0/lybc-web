@@ -25,18 +25,23 @@ function NewComerForm() {
   const [lastFocus, setLastFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
   return (
-    <div className="d-flex flex-wrap" data-background-color="black" style={{ paddingTop: 80, paddingBottom: 80 }}>
+    <div 
+      className="d-flex flex-wrap"
+      // data-background-color="black" 
+      // style={{ paddingTop: 80, paddingBottom: 80 }}
+      style={{ backgroundColor: 'lightgray' }}
+    >
       <div className="flex-fill my-auto text-center">
         <h2 className="pt-5">讓綠楊家認識您</h2>
       </div>
       <div className="flex-fill mt-5 mb-5">
         <Container>
           <Row>
-            <Col className="justify-content-center" sm="12" md="10">
+            <Card className="col-sm-12 col-md-10 p-3 m-2" style={{borderRadius: '0.7rem'}}>
               <Form action="" className="form" method="">
                 <CardHeader className="text-left">
                   <h3 className="title-up description">
-                    留下資料，以便我們聯絡您。
+                    留下資料，以便我們聯絡您
                   </h3>
                 </CardHeader>
                 <CardBody>
@@ -106,17 +111,17 @@ function NewComerForm() {
                 </CardBody>
                 <CardFooter className="text-center">
                   <Button
-                    className="btn-neutral btn-round"
-                    color="info"
+                    className="btn-info btn-round"
+                    // style={{backgroundColor: 'lightgray', color: 'white'}}
                     href="#pablo"
                     onClick={e => e.preventDefault()}
                     size="lg"
                   >
                     提交
-              </Button>
+                  </Button>
                 </CardFooter>
               </Form>
-            </Col>
+            </Card>
           </Row>
         </Container>
       </div>

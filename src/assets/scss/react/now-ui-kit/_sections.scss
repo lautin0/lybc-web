@@ -4,6 +4,11 @@
 [data-background-color="blue"]{
     background-color: $info-color;
 }
+
+[data-background-color="violet"]{
+  background-color: rgba(111, 60, 107, 1);
+}
+
 .section-nucleo-icons .icons-container i:nth-child(6) {
   color: $info-color;
 }

@@ -32,7 +32,6 @@ function IndexBanner() {
           </div>
         </Container>
       </div>
-      <hr style={{width: '80%'}} />
     </>
   );
 }

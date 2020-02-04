@@ -8,7 +8,7 @@ import { Container, Row, Col } from "reactstrap";
 function Theme() {
   return (
     <>
-      <div className="section" style={{paddingBottom: 100}}>
+      <div className="section" data-background-color="violet" style={{paddingBottom: 100}}>
         <Container>
           <Row>
             <Col className="justify-content-center text-center" md="6">
