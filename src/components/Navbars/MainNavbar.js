@@ -52,8 +52,8 @@ function MainNavbar(props) {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top flex-wrap" expand="lg" style={{paddingTop: 20, height: '20vh', background: '#45934c'}}>
-        <Container style={{height: '100%', display: 'block'}}>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '20vh', background: '#45934c' }}>
+        <Container style={{ height: '100%', display: 'block' }}>
           <div className="navbar-translate">
             <NavbarBrand
               href="/index"
@@ -86,23 +86,35 @@ function MainNavbar(props) {
             className="justify-content-end"
             isOpen={collapseOpen}
             navbar
-            style={{marginTop: -42}}
+            style={{ marginTop: -42 }}
           >
             <Nav navbar>
-              <NavItem>
-                <NavLink
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
                   href="#pablo"
-                  onClick={e => {
-                    e.preventDefault();
-                    // document
-                    //   .getElementById("download-section")
-                    //   .scrollIntoView();
-                  }}
+                  nav
+                  onClick={e => e.preventDefault()}
                 >
-                  <i className="fas fa-map-signs"></i>
+                  <i className="fas fa-map-signs mr-1"></i>
                   <p>教會活動</p>
-                </NavLink>
-              </NavItem>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    最新活動
+                  </DropdownItem>
+                  <DropdownItem to="/apply-activity" tag={Link}>
+                    活動報名
+                  </DropdownItem>
+                  <DropdownItem>
+                    團契
+                  </DropdownItem>
+                  <DropdownItem>
+                    點滴回顧
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
               <NavItem>
                 <NavLink
                   href="#pablo"
@@ -154,26 +166,10 @@ function MainNavbar(props) {
                   <DropdownItem to="/about-us" tag={Link}>
                     關於我們
                   </DropdownItem>
-                  <DropdownItem
-                    target="_blank"
-                    onClick={e => {
-                      e.preventDefault();
-                      // document
-                      //   .getElementById("sunday-service-info-section")
-                      //   .scrollIntoView();
-                    }}
-                  >
+                  <DropdownItem to="/sunday-service-info" tag={Link}>
                     聚會時間
                   </DropdownItem>
-                  <DropdownItem
-                    target="_blank"
-                    onClick={e => {
-                      e.preventDefault();
-                      // document
-                      //   .getElementById("contact-us-section")
-                      //   .scrollIntoView();
-                    }}
-                  >
+                  <DropdownItem to="/contact-us" tag={Link}>
                     聯絡我們
                   </DropdownItem>
                 </DropdownMenu>
@@ -186,9 +182,9 @@ function MainNavbar(props) {
                   id="login"
                   to="/login-page"
                   tag={Link}
-                  style={{color: 'rgb(69, 147, 76)'}}
+                  style={{ color: 'rgb(69, 147, 76)' }}
                 >
-                  <i className="fas fa-user" style={{fontSize: 14}}></i>
+                  <i className="fas fa-user" style={{ fontSize: 14 }}></i>
                   <p>會友登入</p>
                 </Button>
                 {/* <UncontrolledTooltip target="#login">
@@ -237,8 +233,8 @@ function MainNavbar(props) {
             </Nav>
           </Collapse>
           <div>
-            <h3 style={{color: 'white'}} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
-            <h4 style={{color: 'white'}} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
+            <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
+            <h4 style={{ color: 'white' }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
           </div>
         </Container>
       </Navbar>

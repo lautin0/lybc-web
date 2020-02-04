@@ -1,0 +1,31 @@
+import React from "react";
+
+// reactstrap components
+import { Container, Row, Col } from "reactstrap";
+
+// core components
+
+function Theme() {
+  return (
+    <>
+      <div className="section" style={{paddingBottom: 100}}>
+        <Container>
+          <Row>
+            <Col className="justify-content-center text-center" md="6">
+              <h2>以聖言為中心的信仰</h2>
+              <img src={require("assets/img/photo5_sq.jpg")} alt="bible image" />
+            </Col>
+            <Col className="justify-content-center text-center my-auto" md="6">
+              <h3 className="mt-5">我們重視什麽？</h3>
+              <p style={{fontSize: 20}} className="description">
+              教會注重信徒的生命，真理的教導和福音的確據。我們鼓勵信徒互作見證，以致互相在真理中扎根，在主裡共成長。
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
+  );
+}
+
+export default Theme;

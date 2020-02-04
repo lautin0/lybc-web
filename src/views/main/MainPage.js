@@ -5,14 +5,16 @@ import PropTypes from 'prop-types';
 import MainNavbar from "components/Navbars/MainNavbar.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
 import Download from "views/download/Download";
-import AboutUs from "views/index-sections/AboutUs";
+import AboutUs from "views/about/AboutUs";
+import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { getMenuHierarchy } from "Universals";
+import ContactUs from "views/about/ContactUs";
+import SundayServiceInfo from "views/about/SundayServiceInfo";
 
 function MainPage(props) {
 
   let menus = getMenuHierarchy(props.page, null, null);
-  console.log(menus)
 
   React.useEffect(() => {
     document.body.classList.add("sidebar-collapse");
@@ -38,6 +40,9 @@ function MainPage(props) {
           </div>   
           {props.page == 'about-us' && <AboutUs />}
           {props.page == 'download' && <Download />}
+          {props.page == 'apply-activity' && <Apply />}
+          {props.page == 'contact-us' && <ContactUs />}
+          {props.page == 'sunday-service-info' && <SundayServiceInfo />}
         </div>
         <DefaultFooter />
       </div>

@@ -15,17 +15,9 @@ import {
 
 import * as moment from 'moment'
 
-const data = [
-  { uri: require('assets/pdf/journal7.pdf'), date: moment('01/12/2019', 'dd/MM/YYYY'), title: '聖誕特別刊 - 耶穌是我的牧羊人' },
-  { uri: require('assets/pdf/journal6.pdf'), date: moment('01/11/2019', 'dd/MM/YYYY'), title: '盼望' },
-  { uri: require('assets/pdf/journal5.pdf'), date: moment('01/10/2019', 'dd/MM/YYYY'), title: '世代的禱告' },
-  { uri: require('assets/pdf/journal4.pdf'), date: moment('01/09/2019', 'dd/MM/YYYY'), title: '和平之子' },
-  { uri: require('assets/pdf/journal3.pdf'), date: moment('01/08/2019', 'dd/MM/YYYY'), title: '行公義好憐憫' },
-  { uri: require('assets/pdf/journal2.pdf'), date: moment('01/07/2019', 'dd/MM/YYYY'), title: '主的屬性 - 愛' },
-  { uri: require('assets/pdf/journal1.pdf'), date: moment('01/06/2019', 'dd/MM/YYYY'), title: '主的見證人' }
-]
+const data = []
 
-function Download() {
+function Apply() {
 
   //Default scroll to top
   window.scrollTo(0, 0)
@@ -46,9 +38,9 @@ function Download() {
             <Table striped className={data && data.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
-                  <th>刊登日期</th>
-                  <th style={{ width: '60%' }}>標題</th>
-                  <th style={{ width: '20%' }}>下載</th>
+                  <th>截止日期</th>
+                  <th style={{ width: '60%' }}>活動名稱</th>
+                  <th style={{ width: '20%' }}>連結</th>
                 </tr>
               </thead>
               <tbody>
@@ -113,4 +105,4 @@ function Download() {
   );
 }
 
-export default Download;
+export default Apply;

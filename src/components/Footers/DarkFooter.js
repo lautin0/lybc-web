@@ -18,13 +18,18 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/apply-activity">
+                活動報名
+              </Link>
+            </li>
+            <li>
               <Link to="/">
                 團契
               </Link>
             </li>
             <li>
               <Link to="/">
-                相冊
+              點滴回顧
               </Link>
             </li>
           </ul>

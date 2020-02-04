@@ -14,6 +14,11 @@ import {
 
 const items = [
   {
+    src: require("assets/img/photo5.jpg"),
+    altText: "",
+    caption: ""
+  },
+  {
     src: require("assets/img/photo1.jpg"),
     altText: "策劃會",
     caption: "策劃會"

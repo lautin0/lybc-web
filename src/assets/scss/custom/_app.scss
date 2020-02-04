@@ -61,7 +61,7 @@
 
 .table-striped.clickable tbody{
     tr:hover{        
-        background: rgba(165, 62, 62, 0.9);
+        background: rgba(138, 191, 218, 0.9);
         cursor: pointer;
     }
 }
@@ -82,4 +82,8 @@ ul.sitemap{
   }
 }
   
-
+@media screen and (max-width: 576px){
+    .page-header .container h6.category-absolute {
+        width: 95%;
+    }
+}

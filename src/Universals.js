@@ -1,19 +1,39 @@
 const UNIVERSALS = {
     TITLE_MAP: {
         'about-us': '『香港萬國宣道浸信聯會』簡介',
-        'download': '下載區'
+        'download': '下載區',
+        'apply-activity': '活動報名',
+        'contact-us': '聯絡我們',
+        'sunday-service-info': '聚會時間'
     },
     MENU_HIERARCHY: {
         index: {
             title: '主頁',
             link: '/',
             child: {
+                'activity': {
+                    title: '教會活動',
+                    child: {
+                        'apply-activity': {
+                            title: '活動報名',
+                            link: '/apply-activity',
+                        }
+                    }
+                },
                 'about-church': {
                     title: '認識綠楊',
                     child: {
                         'about-us': {
                             title: '關於我們',
                             link: '/about-us',
+                        },
+                        'contact-us': {
+                            title: '聯絡我們',
+                            link: '/contact-us',
+                        },
+                        'sunday-service-info': {
+                            title: '聚會時間',
+                            link: '/sunday-service-info',
                         }
                     }
                 },
@@ -54,7 +74,7 @@ export function getMenuHierarchy(id, obj, array, foundObj) {
             }
         }  
     }); 
-    if(foundObj.isFound && !isCurrent && currId != null){
+    if(foundObj.isFound && !isCurrent){
         array.unshift({title: obj[currId].title, link: obj[currId].link })
     }
     return array

@@ -86,20 +86,32 @@ function IndexNavbar() {
             navbar
           >
             <Nav navbar>
-              <NavItem>
-                <NavLink
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
                   href="#pablo"
-                  onClick={e => {
-                    e.preventDefault();
-                    // document
-                    //   .getElementById("download-section")
-                    //   .scrollIntoView();
-                  }}
+                  nav
+                  onClick={e => e.preventDefault()}
                 >
-                  <i className="fas fa-map-signs"></i>
+                  <i className="fas fa-map-signs mr-1"></i>
                   <p>教會活動</p>
-                </NavLink>
-              </NavItem>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    最新活動
+                  </DropdownItem>
+                  <DropdownItem to="/apply-activity" tag={Link}>
+                    活動報名
+                  </DropdownItem>
+                  <DropdownItem>
+                    團契
+                  </DropdownItem>
+                  <DropdownItem>
+                    點滴回顧
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
               <NavItem>
                 <NavLink
                   href="#pablo"

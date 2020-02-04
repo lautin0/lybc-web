@@ -23,13 +23,14 @@ import NucleoIcons from "./index-sections/NucleoIcons.js";
 import CompleteExamples from "./index-sections/CompleteExamples.js";
 import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
-import AboutUs from "./index-sections/AboutUs.js";
 import ContactUs from "./index-sections/ContactUs.js";
 import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 import Journal from "./index-sections/Journal.js";
 import ChurchResources from "./index-sections/ChurchResources.js";
 import MainSection from "./common/MainSection.js";
 import IndexBanner from "./index-sections/IndexBanner.js";
+import Theme from "./index-sections/Theme.js";
+import NewComerForm from "./index-sections/NewComerForm.js";
 
 function Index() {
   React.useEffect(() => {
@@ -58,12 +59,14 @@ function Index() {
           {/* <Typography /> */}
           {/* <Javascript /> */}
           <IndexBanner />
-          <Carousel />
-          <MainSection />
+          {/* <Carousel /> */}
+          {/* <MainSection /> */}
+          <Theme />
+          <NewComerForm />
           {/* <Journal /> */}
-          {/* <NucleoIcons />
-          <CompleteExamples />
-          <SignUp />*/}
+          {/* <NucleoIcons /> */}
+          {/* <CompleteExamples /> */}
+          {/* <SignUp /> */}
           {/* <Examples />  */}
           {/* <Download /> */}
           <SundayServiceInfo />

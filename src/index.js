@@ -31,10 +31,9 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-import DownloadPage from 'views/download/Download.js'
 import MainPage from 'views/main/MainPage.js'
 
-const history = createHistory({basename: process.env.PUBLIC_URL});
+const history = createHistory({ basename: process.env.PUBLIC_URL });
 
 ReactDOM.render(
   <Router history={history}>
@@ -58,8 +57,20 @@ ReactDOM.render(
           render={props => <ProfilePage {...props} />}
         />
         <Route
+          path="/apply-activity"
+          render={props => <MainPage {...props} page="apply-activity" />}
+        />
+        <Route
           path="/about-us"
           render={props => <MainPage {...props} page="about-us" />}
+        />
+        <Route
+          path="/contact-us"
+          render={props => <MainPage {...props} page="contact-us" />}
+        />
+        <Route
+          path="/sunday-service-info"
+          render={props => <MainPage {...props} page="sunday-service-info" />}
         />
         <Route path="/login-page" render={props => <LoginPage {...props} />} />
         <Redirect to="/index" />

@@ -20,13 +20,18 @@ function DefaultFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/apply-activity">
+                活動報名
+              </Link>
+            </li>
+            <li>
               <Link to="/">
                 團契
               </Link>
             </li>
             <li>
               <Link to="/">
-                相冊
+                點滴回顧
               </Link>
             </li>
           </ul>
@@ -85,12 +90,12 @@ function DefaultFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/sunday-service-info">
                 聚會時間
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/contact-us">
                 聯絡我們
               </Link>
             </li>
