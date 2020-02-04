@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 
 function DefaultFooter() {
   return (
-    <footer className="footer footer-default" style={{ marginTop: '20vh' }}>
+    <footer className="footer footer-default" style={{ marginTop: '143px' }}>
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>
           <h4>教會活動</h4>

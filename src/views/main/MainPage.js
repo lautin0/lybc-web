@@ -27,7 +27,7 @@ function MainPage(props) {
     <>
       <MainNavbar page={props.page}/>
       <div className="wrapper">
-        <div className="main" style={{top: '20vh'}}>     
+        <div className="main" style={{top: 143}}>     
           <div>
             <Breadcrumb tag="nav">
               {menus && menus.map((value, index) => {
