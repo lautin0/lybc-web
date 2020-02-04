@@ -7,7 +7,7 @@ import DefaultFooter from "components/Footers/DefaultFooter.js";
 import Download from "views/download/Download";
 import AboutUs from "views/about/AboutUs";
 import Apply from 'views/activity/Apply'
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { getMenuHierarchy } from "Universals";
 import ContactUs from "views/about/ContactUs";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
@@ -29,7 +29,7 @@ function MainPage(props) {
       <div className="wrapper">
         <div className="main" style={{top: '20vh'}}>     
           <div>
-            <Breadcrumb tag="nav" listTag="div">
+            <Breadcrumb tag="nav">
               {menus && menus.map((value, index) => {
                 if(value.link != null)
                   return <BreadcrumbItem key={index} tag="a" href={value.link}>{value.title}</BreadcrumbItem>

@@ -1,17 +1,13 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
-  Button,
   Container,
   Row,
-  Col,
-  UncontrolledTooltip,
   Table,
   Pagination,
-  PaginationItem,
-  PaginationLink
-} from "reactstrap";
+  PageItem
+} from "react-bootstrap";
 
 import * as moment from 'moment'
 
@@ -57,46 +53,26 @@ function Apply() {
                 }
               </tbody>
             </Table>
-            <Pagination 
-              className="w-100"
-              listClassName="pagination-primary justify-content-center"
+            <Pagination size="lg"
+              className="w-100 pagination-primary justify-content-center"
             >
-              <PaginationItem>
-                <PaginationLink
-                  aria-label="Previous"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span aria-hidden={true}>
-                    <i
-                      aria-hidden={true}
-                      className="fa fa-angle-double-left"
-                    ></i>
-                  </span>
-                </PaginationLink>
-              </PaginationItem>              
-              <PaginationItem className="active disabled">
-                <PaginationLink
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
+              <Pagination.First />
+              <Pagination.Prev />
+              <PageItem active disabled>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  aria-label="Next"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span aria-hidden={true}>
-                    <i
-                      aria-hidden={true}
-                      className="fa fa-angle-double-right"
-                    ></i>
-                  </span>
-                </PaginationLink>
-              </PaginationItem>
+              </PageItem>
+              <Pagination.Next />
+              <Pagination.Last />
+              {/* <Pagination.Last
+                onClick={e => e.preventDefault()}
+              >
+                <span aria-hidden={true}>
+                  <i
+                    aria-hidden={true}
+                    className="fa fa-angle-double-right"
+                  ></i>
+                </span>
+              </Pagination.Last> */}
             </Pagination>
           </Row>
         </Container>

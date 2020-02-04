@@ -1,7 +1,7 @@
 import React from "react";
 
-// reactstrap components
-import { Table, Button, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
+// react-bootstrap components
+import { Table, Container, Row, Col } from "react-bootstrap";
 
 // core components
 

@@ -1,15 +1,11 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
-  Button,
-  TabContent,
-  TabPane,
   Container,
   Row,
   Col,
-  UncontrolledTooltip
-} from "reactstrap";
+} from "react-bootstrap";
 
 function MainSection() {
   return (

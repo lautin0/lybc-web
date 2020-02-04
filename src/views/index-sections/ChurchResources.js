@@ -1,11 +1,11 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Container,
   Row,
   Col
-} from "reactstrap";
+} from "react-bootstrap";
 
 function ChurchResources() {
   return (

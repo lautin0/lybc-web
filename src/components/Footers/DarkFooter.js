@@ -2,8 +2,8 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 
-// reactstrap components
-import { Container } from "reactstrap";
+// react-bootstrap components
+import { Container } from "react-bootstrap";
 
 function DarkFooter() {
   return (

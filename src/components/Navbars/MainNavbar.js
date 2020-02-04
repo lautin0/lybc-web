@@ -1,46 +1,19 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-// reactstrap components
+// react-bootstrap components
 import {
   Button,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
+  NavDropdown,
   Navbar,
-  NavItem,
-  NavLink,
   Nav,
   Container,
-  UncontrolledTooltip
-} from "reactstrap";
+  Tooltip
+} from "react-bootstrap";
 import UNIVERSALS from "Universals";
 
 function MainNavbar(props) {
-  // const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  // React.useEffect(() => {
-  //   const updateNavbarColor = () => {
-  //     if (
-  //       document.documentElement.scrollTop > 399 ||
-  //       document.body.scrollTop > 399
-  //     ) {
-  //       setNavbarColor("");
-  //     } else if (
-  //       document.documentElement.scrollTop < 400 ||
-  //       document.body.scrollTop < 400
-  //     ) {
-  //       setNavbarColor("navbar-transparent");
-  //     }
-  //   };
-  //   window.addEventListener("scroll", updateNavbarColor);
-  //   return function cleanup() {
-  //     window.removeEventListener("scroll", updateNavbarColor);
-  //   };
-  // });
   return (
     <>
       {collapseOpen ? (
@@ -55,19 +28,22 @@ function MainNavbar(props) {
       <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '20vh', background: '#45934c' }}>
         <Container style={{ height: '100%', display: 'block' }}>
           <div className="navbar-translate">
-            <NavbarBrand
-              href="/index"
-              id="navbar-brand"
+            <Navbar.Brand
+              as={Link}
+              to="/index"
+              id="main-navbar-brand"
               onClick={e => {
                 // e.preventDefault();
                 // window.scrollTo(0, 0);
               }}
             >
-              綠楊浸信會
-            </NavbarBrand>
-            <UncontrolledTooltip target="#navbar-brand">
-              回頂頁
-            </UncontrolledTooltip>
+              <img
+                style={{maxHeight:30, maxWidth: 30, marginRight: 5}}
+                alt="logo"
+                src={require("assets/img/lybc_logo.png")}
+              ></img>
+              {" "}綠楊浸信會
+            </Navbar.Brand>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -82,156 +58,104 @@ function MainNavbar(props) {
               <span className="navbar-toggler-bar bottom-bar"></span>
             </button>
           </div>
-          <Collapse
+          <Navbar.Collapse
             className="justify-content-end"
-            isOpen={collapseOpen}
-            navbar
+            appear={collapseOpen}
             style={{ marginTop: -42 }}
           >
-            <Nav navbar>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  href="#pablo"
-                  nav
-                  onClick={e => e.preventDefault()}
-                >
-                  <i className="fas fa-map-signs mr-1"></i>
-                  <p>教會活動</p>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>
-                    最新活動
-                  </DropdownItem>
-                  <DropdownItem to="/apply-activity" tag={Link}>
-                    活動報名
-                  </DropdownItem>
-                  <DropdownItem>
-                    團契
-                  </DropdownItem>
-                  <DropdownItem>
-                    點滴回顧
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
-                <NavLink
+            <Nav>
+              <NavDropdown title={<><i className="fas fa-map-signs mr-1"></i>教會活動</>}>
+                <NavDropdown.Item>
+                  最新活動
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/apply-activity">
+                  活動報名
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  團契
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  點滴回顧
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
+                <Nav.Link
                   href="#pablo"
                   onClick={e => {
                     e.preventDefault();
-                    // document
-                    //   .getElementById("sunday-service-info-section")
-                    //   .scrollIntoView();
                   }}
                 >
                   <i className="fas fa-hammer"></i>
                   <p>事工介紹</p>
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  href="#pablo"
-                  nav
-                  onClick={e => e.preventDefault()}
+                </Nav.Link>
+              </Nav.Item>
+              <NavDropdown title={<><i className="fas fa-book mr-1"></i>教會刊物</>}>
+                <NavDropdown.Item as={Link} to="/download">
+                  教會月刊
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
                 >
-                  <i className="fas fa-book mr-1"></i>
-                  <p>教會刊物</p>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem to="/download" tag={Link}>
-                    教會月刊
-                  </DropdownItem>
-                  <DropdownItem
-                    target="_blank"
-                  >
-                    見證欄
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  href="#pablo"
-                  nav
-                  onClick={e => e.preventDefault()}
+                  見證欄
+                  </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
+                <NavDropdown.Item as={Link} to="/about-us">
+                  關於我們
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link} to="sunday-service-info"
                 >
-                  <i className="fas fa-info mr-2"></i>
-                  <p>認識綠楊</p>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem to="/about-us" tag={Link}>
-                    關於我們
-                  </DropdownItem>
-                  <DropdownItem to="/sunday-service-info" tag={Link}>
-                    聚會時間
-                  </DropdownItem>
-                  <DropdownItem to="/contact-us" tag={Link}>
-                    聯絡我們
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
+                  聚會時間
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link} to="/contact-us"
+                >
+                  聯絡我們
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
                   // color="success"
                   href="#pablo"
                   id="login"
+                  as={Link}
                   to="/login-page"
-                  tag={Link}
                   style={{ color: 'rgb(69, 147, 76)' }}
                 >
                   <i className="fas fa-user" style={{ fontSize: 14 }}></i>
                   <p>會友登入</p>
                 </Button>
-                {/* <UncontrolledTooltip target="#login">
-                  立刻登入!
-                </UncontrolledTooltip> */}
-              </NavItem>
-              {/* <NavItem>
-                <NavLink
-                  href="#"
-                  target="_blank"
-                  id="twitter-tooltip"
-                >
-                  <i className="fab fa-twitter"></i>
-                  <p className="d-lg-none d-xl-none">Twitter</p>
-                </NavLink>
-                <UncontrolledTooltip target="#twitter-tooltip">
-                  Follow us on Twitter
-                </UncontrolledTooltip>
-              </NavItem> */}
-              <NavItem>
-                <NavLink
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
                   href="https://www.facebook.com/lukYeungBaptistChurch"
                   target="_blank"
                   id="facebook-tooltip"
                 >
                   <i className="fab fa-facebook-square"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
-                </NavLink>
-                <UncontrolledTooltip target="#facebook-tooltip">
+                </Nav.Link>
+                <Tooltip target="#facebook-tooltip">
                   Like us on Facebook
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                </Tooltip>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
                   href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >
                   <i className="fab fa-instagram"></i>
                   <p className="d-lg-none d-xl-none">Instagram</p>
-                </NavLink>
-                <UncontrolledTooltip target="#instagram-tooltip">
+                </Nav.Link>
+                <Tooltip target="#instagram-tooltip">
                   Follow us on Instagram
-                </UncontrolledTooltip>
-              </NavItem>
+                </Tooltip>
+              </Nav.Item>
             </Nav>
-          </Collapse>
+          </Navbar.Collapse>
           <div>
             <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
             <h4 style={{ color: 'white' }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>

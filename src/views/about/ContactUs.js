@@ -1,7 +1,7 @@
 import React from "react";
 
-// reactstrap components
-import { Button, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
+// react-bootstrap components
+import { Button, Container, Row, Col, Tooltip } from "react-bootstrap";
 
 // core components
 
@@ -40,22 +40,8 @@ function ContactUs() {
             <h3>立即加入我們!</h3>
           </Col>
           <Col className="text-center" lg="8" md="12">
-            {/* <Button
-                className="btn-neutral btn-icon btn-round"
-                color="twitter"
-                href="https://www.twitter.com"
-                id="tooltip86114138"
-                size="lg"
-                target="_blank"
-              >
-                <i className="fab fa-twitter"></i>
-              </Button>
-              <UncontrolledTooltip delay={0} target="tooltip86114138">
-                Follow us
-              </UncontrolledTooltip> */}
             <Button
-              className="btn-neutral btn-icon btn-round"
-              color="facebook"
+              className="btn-neutral btn-facebook btn-icon btn-round"
               href="https://www.facebook.com/lukYeungBaptistChurch"
               id="tooltip735272548"
               size="lg"
@@ -63,12 +49,11 @@ function ContactUs() {
             >
               <i className="fab fa-facebook-square"></i>
             </Button>
-            <UncontrolledTooltip delay={0} target="tooltip735272548">
+            <Tooltip delay={0} target="tooltip735272548">
               Like us
-              </UncontrolledTooltip>
+              </Tooltip>
             <Button
-              className="btn-neutral btn-icon btn-round"
-              color="instgram"
+              className="btn-neutral btn-instagram btn-icon btn-round"
               href="https://www.instagram.com/lybc1997"
               id="tooltip647117716"
               size="lg"
@@ -76,9 +61,9 @@ function ContactUs() {
             >
               <i className="fab fa-instagram"></i>
             </Button>
-            <UncontrolledTooltip delay={0} target="tooltip647117716">
+            <Tooltip delay={0} target="tooltip647117716">
               Follow us
-              </UncontrolledTooltip>
+            </Tooltip>
           </Col>
         </Row>
       </Container>

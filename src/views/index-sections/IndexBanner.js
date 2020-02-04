@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Container,
   Row,
   Col,  
   Button
-} from "reactstrap";
+} from "react-bootstrap";
 
 function IndexBanner() {
   return (
@@ -28,7 +28,7 @@ function IndexBanner() {
             </Col>
           </Row>
           <div className="text-center" style={{ marginBottom: 100, fontSize: 24 }}>
-            <Button color="info" size="lg" tag={Link} to="/about-us">探索更多</Button>
+            <Button className="btn-info" size="lg" as={Link} to="/about-us">探索更多</Button>
           </div>
         </Container>
       </div>

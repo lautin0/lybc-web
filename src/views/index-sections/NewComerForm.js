@@ -1,22 +1,16 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Button,
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
+  FormControl,
   InputGroup,
   Container,
   Col,
   Row
-} from "reactstrap";
+} from "react-bootstrap";
 
 // core components
 
@@ -39,12 +33,12 @@ function NewComerForm() {
           <Row>
             <Card className="col-sm-12 col-md-10 p-3 m-2" style={{borderRadius: '0.7rem'}}>
               <Form action="" className="form" method="">
-                <CardHeader className="text-left">
+                <Card.Header className="text-left">
                   <h3 className="title-up description">
                     留下資料，以便我們聯絡您
                   </h3>
-                </CardHeader>
-                <CardBody>
+                </Card.Header>
+                <Card.Body>
                   <InputGroup
                     className={
                       "no-border" + (firstFocus ? " input-group-focus" : "")
@@ -53,18 +47,18 @@ function NewComerForm() {
                     <label className="col-sm-4 col-md-2 col-form-label p-2">
                       名字
                     </label>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
                         <i className="now-ui-icons users_circle-08"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
                       style={{ maxWidth: 300 }}
                       placeholder="輸入名字"
                       type="text"
                       onFocus={() => setFirstFocus(true)}
                       onBlur={() => setFirstFocus(false)}
-                    ></Input>
+                    ></FormControl>
                   </InputGroup>
                   <InputGroup
                     className={
@@ -74,18 +68,18 @@ function NewComerForm() {
                     <label className="col-sm-4 col-md-2 col-form-label p-2">
                       聯絡電話
                     </label>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
                         <i className="now-ui-icons tech_mobile"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
                       style={{ maxWidth: 300 }}
                       placeholder="輸入聯絡電話"
                       type="text"
                       onFocus={() => setLastFocus(true)}
                       onBlur={() => setLastFocus(false)}
-                    ></Input>
+                    ></FormControl>
                   </InputGroup>
                   <InputGroup
                     className={
@@ -95,21 +89,21 @@ function NewComerForm() {
                     <label className="col-sm-4 col-md-2 col-form-label p-2">
                       電子郵件
                     </label>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
                         <i className="now-ui-icons ui-1_email-85"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
                       style={{ maxWidth: 400 }}
                       placeholder="輸入電子郵件"
                       type="text"
                       onFocus={() => setEmailFocus(true)}
                       onBlur={() => setEmailFocus(false)}
-                    ></Input>
+                    ></FormControl>
                   </InputGroup>
-                </CardBody>
-                <CardFooter className="text-center">
+                </Card.Body>
+                <Card.Footer className="text-center">
                   <Button
                     className="btn-info btn-round"
                     // style={{backgroundColor: 'lightgray', color: 'white'}}
@@ -119,7 +113,7 @@ function NewComerForm() {
                   >
                     提交
                   </Button>
-                </CardFooter>
+                </Card.Footer>
               </Form>
             </Card>
           </Row>

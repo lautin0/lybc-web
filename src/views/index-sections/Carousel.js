@@ -1,6 +1,6 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Container,
   Row,
@@ -8,7 +8,7 @@ import {
   Carousel,
   CarouselItem,
   CarouselIndicators
-} from "reactstrap";
+} from "react-bootstrap";
 
 // core components
 
