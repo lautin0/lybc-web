@@ -11,6 +11,7 @@ import SundayServiceInfo from "./index-sections/SundayServiceInfo.js";
 import IndexBanner from "./index-sections/IndexBanner.js";
 import Theme from "./index-sections/Theme.js";
 import NewComerForm from "./index-sections/NewComerForm.js";
+import ChurchResources from "./index-sections/ChurchResources.js";
 
 function Index() {
   React.useEffect(() => {
@@ -32,8 +33,9 @@ function Index() {
         <div className="main">
           <IndexBanner />
           <Theme />
-          <SundayServiceInfo />
-          <ContactUs />
+          <ChurchResources />
+          {/* <SundayServiceInfo />
+          <ContactUs /> */}
           <NewComerForm />
         </div>
         <DarkFooter />

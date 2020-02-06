@@ -89,26 +89,26 @@ function DarkFooter() {
             </li>
             <li>
               <Link
-                to="#"
-                onClick={e => {
-                  e.preventDefault();
-                  document
-                    .getElementById("sunday-service-info-section")
-                    .scrollIntoView();
-                }}
+                to="/sunday-service-info"
+                // onClick={e => {
+                //   e.preventDefault();
+                //   document
+                //     .getElementById("sunday-service-info-section")
+                //     .scrollIntoView();
+                // }}
               >
                 聚會時間
               </Link>
             </li>
             <li>
               <Link
-                to="#"
-                onClick={e => {
-                  e.preventDefault();
-                  document
-                    .getElementById("contact-us-section")
-                    .scrollIntoView();
-                }}
+                to="/contact-us"
+                // onClick={e => {
+                //   e.preventDefault();
+                //   document
+                //     .getElementById("contact-us-section")
+                //     .scrollIntoView();
+                // }}
               >
                 聯絡我們
               </Link>
