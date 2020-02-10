@@ -1,5 +1,9 @@
 import React from "react";
 
+import { useDispatch, useSelector } from 'react-redux'
+
+import { saveNewComer } from '../../actions'
+
 // react-bootstrap components
 import {
   Button,
@@ -14,10 +18,15 @@ import {
 
 // core components
 
-function NewComerForm() {
+export default function NewComerForm() {
+  const dispatch = useDispatch();
+
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
   return (
     <div 
       className="d-flex flex-wrap"
@@ -57,7 +66,7 @@ function NewComerForm() {
                       placeholder="輸入名字"
                       type="text"
                       onFocus={() => setFirstFocus(true)}
-                      onBlur={() => setFirstFocus(false)}
+                      onBlur={(evt) => {setFirstFocus(false);setName(evt.target.value);}}
                     ></FormControl>
                   </InputGroup>
                   <InputGroup
@@ -78,7 +87,7 @@ function NewComerForm() {
                       placeholder="輸入聯絡電話"
                       type="text"
                       onFocus={() => setLastFocus(true)}
-                      onBlur={() => setLastFocus(false)}
+                      onBlur={(evt) => {setLastFocus(false);setPhone(evt.target.value);}}
                     ></FormControl>
                   </InputGroup>
                   <InputGroup
@@ -99,16 +108,15 @@ function NewComerForm() {
                       placeholder="輸入電子郵件"
                       type="text"
                       onFocus={() => setEmailFocus(true)}
-                      onBlur={() => setEmailFocus(false)}
+                      onBlur={(evt) => {setEmailFocus(false);setEmail(evt.target.value);}}
                     ></FormControl>
                   </InputGroup>
                 </Card.Body>
                 <Card.Footer className="text-center">
                   <Button
                     className="btn-info btn-round"
-                    // style={{backgroundColor: 'lightgray', color: 'white'}}
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
+                    // href="#pablo"
+                    onClick={() => dispatch(saveNewComer({name: name, email: email, phone: phone}))}
                     size="lg"
                   >
                     提交
@@ -122,5 +130,3 @@ function NewComerForm() {
     </div>
   );
 }
-
-export default NewComerForm;

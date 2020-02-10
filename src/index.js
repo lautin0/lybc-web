@@ -19,6 +19,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { createBrowserHistory as createHistory } from 'history'
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from './reducers'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './sagas'
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -32,36 +37,47 @@ import MainPage from 'views/main/MainPage.js'
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(
-  <Router history={history}>
-    <Switch>
+  <Provider store={store}>
+    <Router history={history}>
       <Switch>
-        <Route path="/index" render={props => <Index {...props} />} />
-        <Route
-          path="/download"
-          render={props => <MainPage {...props} page="download" />}
-        />
-        <Route
-          path="/apply-activity"
-          render={props => <MainPage {...props} page="apply-activity" />}
-        />
-        <Route
-          path="/about-us"
-          render={props => <MainPage {...props} page="about-us" />}
-        />
-        <Route
-          path="/contact-us"
-          render={props => <MainPage {...props} page="contact-us" />}
-        />
-        <Route
-          path="/sunday-service-info"
-          render={props => <MainPage {...props} page="sunday-service-info" />}
-        />
-        <Route path="/login-page" render={props => <LoginPage {...props} />} />
-        <Redirect to="/index" />
-        <Redirect from="/" to="/index" />
+        <Switch>
+          <Route path="/index" render={props => <Index {...props} />} />
+          <Route
+            path="/download"
+            render={props => <MainPage {...props} page="download" />}
+          />
+          <Route
+            path="/apply-activity"
+            render={props => <MainPage {...props} page="apply-activity" />}
+          />
+          <Route
+            path="/about-us"
+            render={props => <MainPage {...props} page="about-us" />}
+          />
+          <Route
+            path="/contact-us"
+            render={props => <MainPage {...props} page="contact-us" />}
+          />
+          <Route
+            path="/sunday-service-info"
+            render={props => <MainPage {...props} page="sunday-service-info" />}
+          />
+          <Route path="/login-page" render={props => <LoginPage {...props} />} />
+          <Redirect to="/index" />
+          <Redirect from="/" to="/index" />
+        </Switch>
       </Switch>
-    </Switch>
-  </Router>,
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
