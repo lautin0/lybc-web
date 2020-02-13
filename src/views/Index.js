@@ -21,8 +21,8 @@ import CommonModal from '../components/Modals/CommonModal'
 
 function Index() {
 
-  const newComerErrSelector = state => state && state.newComer.error
-  const cartErrSelector = state => state && state.cart.checkoutStatus.error
+  const newComerErrSelector = state => state.newComer.error
+  const cartErrSelector = state => state.cart.checkoutStatus.error
 
   const errSelector = createSelector(
     newComerErrSelector,
@@ -37,11 +37,28 @@ function Index() {
 
   const errorDef = useSelector(errSelector);
 
+  const newComerMsgSelector = state => state.newComer.message
+  const cartMsgSelector = state => state.cart.message
+
+  const messageSelector = createSelector(
+    newComerMsgSelector,
+    cartMsgSelector,
+    (res1, res2) => {
+      let resArray = [];
+      resArray.push(res1)
+      resArray.push(res2)
+      return resArray.filter(x => x != null).pop();
+    }
+  )
+
+  const messageDef = useSelector(messageSelector);
+
   const isPending = useSelector(state => (
     state.newComer.isPending
   ))
 
   const [ error, setError ] = React.useState(null);
+  const [ message, setMessage ] = React.useState(null);
 
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -67,6 +84,18 @@ function Index() {
     prevError.current = error
   }, [error, errorDef]) 
 
+  const prevMessage = useRef(message)
+  React.useEffect(() => {
+    if (!_.isEqual(message, prevMessage.current)) {
+      //INPUT HAS CHANGED
+      setMessage(message)
+    } else if (!_.isEqual(message, messageDef)) {
+      //REDUX STATE HAS CHANGED
+      setMessage(messageDef)
+    }
+    prevMessage.current = message
+  }, [message, messageDef]) 
+
   return (
     <>
       <div className="text-center loading-overlay" style={{ display: isPending > 0 ? 'block' : 'none' }}>
@@ -76,8 +105,9 @@ function Index() {
       </div>
       <CommonModal
         error={error}
-        show={error != null}
-        onHide={() => {setError(null);}}
+        message={message}
+        show={error != null || message != null}
+        onHide={() => {setError(null);setMessage(null)}}
       />
       <IndexNavbar />
       <div className="wrapper">

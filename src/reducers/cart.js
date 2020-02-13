@@ -6,6 +6,7 @@ const initialState = {
     checkoutPending: false,
     error: null,
   },
+  message: null,
   quantityById: {},
 }
 

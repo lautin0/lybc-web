@@ -4,10 +4,12 @@ import { Button, Modal } from 'react-bootstrap';
 function CommonModal(props) {
 
   const [ error, setError ] = React.useState(null);
+  const [ message, setMessage ] = React.useState(null);
 
   React.useEffect(() => {
     setError(props.error);
-  })
+    setMessage(props.message);
+  },[props.error, props.message])
 
   return (
     <Modal
@@ -16,15 +18,17 @@ function CommonModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton data-background-color="error">
+      <Modal.Header closeButton data-background-color={error && 'error'}>
         <Modal.Title id="contained-modal-title-vcenter">
-          系統錯誤
+          {error && `系統錯誤`}
+          {message && `系統提示`}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* <h4>系統錯誤</h4> */}
         <h4>
           {error && error.toString()}
+          {message && message.toString()}
         </h4>
       </Modal.Body>
       <Modal.Footer>
