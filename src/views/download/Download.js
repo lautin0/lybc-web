@@ -51,7 +51,6 @@ function Download() {
                 {(data == null || data.length == 0) && <tr><th className="text-center" colSpan="3">沒有記錄</th></tr>}
                 {
                   (data && data.length > 0) && data.map((value, index) => {
-                    console.log(value.uri)
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM')}</th>
                       <td onClick={() => onCellClicked(value.uri)}>{value.title}</td>

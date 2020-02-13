@@ -20,10 +20,10 @@ export function* checkout() {
 
 export function* saveNewComer(person) {
     try {
-      yield call(() => {}, {})
+      yield call(api.saveNewComer, person)
       yield put(actions.saveNewComerSuccess(person))
     } catch (error) {
-      yield put(actions.saveNewComerFailure(error))
+      yield put(actions.saveNewComerFailure(person, error))
     }
   }
 

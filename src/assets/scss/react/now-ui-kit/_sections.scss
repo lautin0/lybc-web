@@ -9,6 +9,14 @@
   background-color: rgba(111, 60, 107, 1);
 }
 
+[data-background-color="error"]{
+  background-color: #e03737;
+}
+
+.modal .modal-header .close {
+  color: #FFF;
+}
+
 .section-nucleo-icons .icons-container i:nth-child(6) {
   color: $info-color;
 }

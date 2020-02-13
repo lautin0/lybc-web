@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux'
 import { default as cart, getQuantity, getAddedIds } from './cart'
 import { default as products, getProduct } from './products'
+import { default as newComer } from './newComer'
 
 export function getCart(state) {
   return state.cart
@@ -28,13 +29,17 @@ export function getCartProducts(state) {
   }))
 }
 
+export function getLoading(){
+  
+}
+
 const shoppingCart = combineReducers({
   cart,
-  products
+  products,
+  newComer,
 })
 
 export default function root(state, action) {
   //if (action.type === ADD_TO_CART && state.products.byId[action.productId].inventory <= 0) return state
-  console.log('root reducer')
   return shoppingCart(state, action)
 }

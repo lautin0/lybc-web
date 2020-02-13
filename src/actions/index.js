@@ -70,13 +70,14 @@ export function saveNewComer(person) {
 export function saveNewComerSuccess(person) {
     return {
         type: SAVE_NEWCOMER_SUCCESS,
-        person,
+        person
     }
 }
 
-export function saveNewComerFailure(error) {
+export function saveNewComerFailure(person, error) {
     return {
         type: SAVE_NEWCOMER_FAILURE,
-        error,
+        person,
+        error
     }
 }

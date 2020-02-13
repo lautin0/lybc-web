@@ -1,7 +1,6 @@
-import React from "react";
-
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-
+import _ from 'lodash'
 import { saveNewComer } from '../../actions'
 
 // react-bootstrap components
@@ -19,14 +18,31 @@ import {
 // core components
 
 export default function NewComerForm() {
+  const personDef = useSelector(state => state.newComer.person)
   const dispatch = useDispatch();
 
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [ person, setPerson ] = React.useState(personDef);
+
+  const handleInputChange = (e) => setPerson({
+    ...person,
+    [e.currentTarget.name]: e.currentTarget.value
+  })
+
+  const prevPerson = useRef(person)
+  React.useEffect(() => {
+    if (!_.isEqual(person, prevPerson.current)) {
+      //INPUT HAS CHANGED
+      setPerson(person)
+    } else if (!_.isEqual(person, personDef)) {
+      //REDUX STATE HAS CHANGED
+      setPerson(personDef)
+    }
+    prevPerson.current = person
+  }, [person, personDef]) 
+
   return (
     <div 
       className="d-flex flex-wrap"
@@ -65,8 +81,11 @@ export default function NewComerForm() {
                       style={{ maxWidth: 300 }}
                       placeholder="輸入名字"
                       type="text"
+                      name="name"
+                      value={person.name}
                       onFocus={() => setFirstFocus(true)}
-                      onBlur={(evt) => {setFirstFocus(false);setName(evt.target.value);}}
+                      onBlur={() => {setFirstFocus(false);}}
+                      onChange={handleInputChange}
                     ></FormControl>
                   </InputGroup>
                   <InputGroup
@@ -86,8 +105,11 @@ export default function NewComerForm() {
                       style={{ maxWidth: 300 }}
                       placeholder="輸入聯絡電話"
                       type="text"
+                      value={person.phone}
                       onFocus={() => setLastFocus(true)}
-                      onBlur={(evt) => {setLastFocus(false);setPhone(evt.target.value);}}
+                      onBlur={() => {setLastFocus(false);}}
+                      name="phone"
+                      onChange={handleInputChange}
                     ></FormControl>
                   </InputGroup>
                   <InputGroup
@@ -107,8 +129,11 @@ export default function NewComerForm() {
                       style={{ maxWidth: 400 }}
                       placeholder="輸入電子郵件"
                       type="text"
+                      name="email"
+                      value={person.email}
                       onFocus={() => setEmailFocus(true)}
-                      onBlur={(evt) => {setEmailFocus(false);setEmail(evt.target.value);}}
+                      onBlur={() => {setEmailFocus(false);}}
+                      onChange={handleInputChange}
                     ></FormControl>
                   </InputGroup>
                 </Card.Body>
@@ -116,7 +141,7 @@ export default function NewComerForm() {
                   <Button
                     className="btn-info btn-round"
                     // href="#pablo"
-                    onClick={() => dispatch(saveNewComer({name: name, email: email, phone: phone}))}
+                    onClick={() => dispatch(saveNewComer(person))}
                     size="lg"
                   >
                     提交
