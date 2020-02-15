@@ -1,8 +1,5 @@
-import React, { useRef } from "react";
-import { useSelector } from 'react-redux'
-import { createSelector } from 'reselect'
-
-import _ from 'lodash'
+import React from "react";
+import { useSelector, useDispatch } from 'react-redux'
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
@@ -19,46 +16,16 @@ import ChurchResources from "./index-sections/ChurchResources.js";
 
 import CommonModal from '../components/Modals/CommonModal'
 
+import { resetSysError, resetSysMessage } from '../actions'
+
 function Index() {
-
-  const newComerErrSelector = state => state.newComer.error
-  const cartErrSelector = state => state.cart.checkoutStatus.error
-
-  const errSelector = createSelector(
-    newComerErrSelector,
-    cartErrSelector,
-    (res1, res2) => {
-      let resArray = [];
-      resArray.push(res1)
-      resArray.push(res2)
-      return resArray.filter(x => x != null).pop();
-    }
-  )
-
-  const errorDef = useSelector(errSelector);
-
-  const newComerMsgSelector = state => state.newComer.message
-  const cartMsgSelector = state => state.cart.message
-
-  const messageSelector = createSelector(
-    newComerMsgSelector,
-    cartMsgSelector,
-    (res1, res2) => {
-      let resArray = [];
-      resArray.push(res1)
-      resArray.push(res2)
-      return resArray.filter(x => x != null).pop();
-    }
-  )
-
-  const messageDef = useSelector(messageSelector);
+  const message = useSelector(state => state.system.message);
+  const error = useSelector(state => state.system.error);
+  const dispatch = useDispatch();
 
   const isPending = useSelector(state => (
     state.newComer.isPending
   ))
-
-  const [ error, setError ] = React.useState(null);
-  const [ message, setMessage ] = React.useState(null);
 
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -72,30 +39,6 @@ function Index() {
     };
   });
 
-  const prevError = useRef(error)
-  React.useEffect(() => {
-    if (!_.isEqual(error, prevError.current)) {
-      //INPUT HAS CHANGED
-      setError(error)
-    } else if (!_.isEqual(error, errorDef)) {
-      //REDUX STATE HAS CHANGED
-      setError(errorDef)
-    }
-    prevError.current = error
-  }, [error, errorDef]) 
-
-  const prevMessage = useRef(message)
-  React.useEffect(() => {
-    if (!_.isEqual(message, prevMessage.current)) {
-      //INPUT HAS CHANGED
-      setMessage(message)
-    } else if (!_.isEqual(message, messageDef)) {
-      //REDUX STATE HAS CHANGED
-      setMessage(messageDef)
-    }
-    prevMessage.current = message
-  }, [message, messageDef]) 
-
   return (
     <>
       <div className="text-center loading-overlay" style={{ display: isPending > 0 ? 'block' : 'none' }}>
@@ -107,7 +50,10 @@ function Index() {
         error={error}
         message={message}
         show={error != null || message != null}
-        onHide={() => {setError(null);setMessage(null)}}
+        onHide={() => {
+          error && dispatch(resetSysError());
+          message && dispatch(resetSysMessage());
+        }}
       />
       <IndexNavbar />
       <div className="wrapper">

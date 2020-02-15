@@ -18,12 +18,16 @@ function CommonModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton data-background-color={error && 'error'}>
+      {error && <Modal.Header closeButton data-background-color="error">
         <Modal.Title id="contained-modal-title-vcenter">
-          {error && `系統錯誤`}
-          {message && `系統提示`}
+          系統錯誤
         </Modal.Title>
-      </Modal.Header>
+      </Modal.Header>}
+      {message &&  <Modal.Header closeButton className="black-close">
+        <Modal.Title id="contained-modal-title-vcenter">
+          系統提示
+        </Modal.Title>
+      </Modal.Header>}
       <Modal.Body>
         {/* <h4>系統錯誤</h4> */}
         <h4>

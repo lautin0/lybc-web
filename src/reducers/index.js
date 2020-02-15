@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import { default as cart, getQuantity, getAddedIds } from './cart'
 import { default as products, getProduct } from './products'
 import { default as newComer } from './newComer'
+import { default as system } from './system'
 
 export function getCart(state) {
   return state.cart
@@ -37,6 +38,7 @@ const shoppingCart = combineReducers({
   cart,
   products,
   newComer,
+  system
 })
 
 export default function root(state, action) {

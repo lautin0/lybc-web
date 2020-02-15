@@ -3,6 +3,9 @@ import * as actions from '../actions'
 import { getCart } from '../reducers'
 import { api } from '../services'
 
+export const MSG_SAVE_SUCCESS = '操作成功'
+export const MSG_UPDATE_SUCCESS = '更新成功'
+
 export function* getAllProducts() {
   const products = yield call(api.getProducts)
   yield put(actions.receiveProducts(products))
@@ -21,7 +24,7 @@ export function* checkout() {
 export function* saveNewComer(person) {
     try {
       yield call(api.saveNewComer, person)
-      yield put(actions.saveNewComerSuccess(person))
+      yield put(actions.saveNewComerSuccess(MSG_SAVE_SUCCESS))
     } catch (error) {
       yield put(actions.saveNewComerFailure(person, error))
     }
