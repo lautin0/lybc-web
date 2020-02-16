@@ -12,6 +12,10 @@ export const SAVE_NEWCOMER_REQUEST = 'SAVE_NEWCOMER_REQUEST'
 export const SAVE_NEWCOMER_SUCCESS = 'SAVE_NEWCOMER_SUCCESS'
 export const SAVE_NEWCOMER_FAILURE = 'SAVE_NEWCOMER_FAILURE'
 
+export const FETCH_NEWCOMER_REQUEST = 'FETCH_NEWCOMER_REQUEST'
+export const FETCH_NEWCOMER_SUCCESS = 'FETCH_NEWCOMER_SUCCESS'
+export const FETCH_NEWCOMER_FAILURE = 'FETCH_NEWCOMER_FAILURE'
+
 export const RESET_SYSTEM_ERROR = 'RESET_SYSTEM_ERROR'
 export const RESET_SYS_MESSAGE = 'RESET_SYS_MESSAGE'
 
@@ -62,8 +66,29 @@ export function checkoutFailure(error) {
     }
 }
 
+export function fetchNewComers(pageSize, page) {
+    return {
+        type: FETCH_NEWCOMER_REQUEST,
+        pageSize,
+        page
+    }
+}
+
+export function fetchNewComersSuccess(newComers) {
+    return {
+        type: FETCH_NEWCOMER_SUCCESS,
+        newComers
+    }
+}
+
+export function fetchNewComersFailure(error) {
+    return {
+        type: FETCH_NEWCOMER_FAILURE,
+        error
+    }
+}
+
 export function saveNewComer(person) {
-    // console.log(Object.keys(person))
     return {
         type: SAVE_NEWCOMER_REQUEST,
         person

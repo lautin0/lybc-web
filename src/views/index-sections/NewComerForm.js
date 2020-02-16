@@ -18,7 +18,7 @@ import {
 // core components
 
 export default function NewComerForm() {
-  const personDef = useSelector(state => state.newComer.person)
+  const personDef = useSelector(state => state.newComer.saveStatus.person)
   const dispatch = useDispatch();
 
   const [firstFocus, setFirstFocus] = React.useState(false);

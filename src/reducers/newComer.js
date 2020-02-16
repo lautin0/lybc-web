@@ -1,11 +1,21 @@
-import { SAVE_NEWCOMER_REQUEST, SAVE_NEWCOMER_SUCCESS, SAVE_NEWCOMER_FAILURE } from '../actions'
+import { combineReducers } from 'redux'
+import {
+  SAVE_NEWCOMER_REQUEST, SAVE_NEWCOMER_SUCCESS, SAVE_NEWCOMER_FAILURE,
+  FETCH_NEWCOMER_REQUEST, FETCH_NEWCOMER_SUCCESS, FETCH_NEWCOMER_FAILURE
+} from '../actions'
 
 const initialState = {
-  isPending: 0,
-  person: { name: '', phone: '', email: ''},
+  saveState: {
+    isPending: 0,
+    person: { name: '', phone: '', email: '' },
+  },
+  fetchState: {
+    newComers: [],
+    isFetching: false,
+  }
 }
 
-export default function saveNewComerStatus(state = initialState, action) {
+function saveStatus(state = initialState.saveState, action) {
   switch (action.type) {
     case SAVE_NEWCOMER_REQUEST:
       return {
@@ -26,3 +36,31 @@ export default function saveNewComerStatus(state = initialState, action) {
       return state
   }
 }
+
+function fetchStatus(state = initialState.fetchState, action) {
+  switch (action.type) {
+    case FETCH_NEWCOMER_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case FETCH_NEWCOMER_SUCCESS:
+      return {
+        ...state,
+        newComers: [...state.newComers, ...action.newComers],
+        isFetching: false
+      }
+    case FETCH_NEWCOMER_FAILURE:
+      return {
+        ...state,
+        isFetching: false
+      }
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  fetchStatus,
+  saveStatus
+});

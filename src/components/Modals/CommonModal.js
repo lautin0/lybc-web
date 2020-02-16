@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal } from 'react-bootstrap';
+import { resetSysError, resetSysMessage } from '../../actions'
 
 function CommonModal(props) {
+  const message = useSelector(state => state.system.message);
+  const error = useSelector(state => state.system.error);
+  const dispatch = useDispatch();
 
-  const [ error, setError ] = React.useState(null);
-  const [ message, setMessage ] = React.useState(null);
+  const onHide = () => {
+    error && dispatch(resetSysError());
+    message && dispatch(resetSysMessage());
+  }
 
-  React.useEffect(() => {
-    setError(props.error);
-    setMessage(props.message);
-  },[props.error, props.message])
+  useEffect(() => {
+    let thisRef = React.createRef();
+    ReactDOM.createPortal(thisRef, document.body)
+  })
 
   return (
     <Modal
       {...props}
+      show={error != null || message != null}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -36,7 +46,7 @@ function CommonModal(props) {
         </h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>確定</Button>
+        <Button onClick={onHide}>確定</Button>
       </Modal.Footer>
     </Modal>
   );

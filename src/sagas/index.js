@@ -21,6 +21,15 @@ export function* checkout() {
   }
 }
 
+export function* fetchNewComers(pageSize, page) {
+  try {
+    const results = yield call(api.fetchNewComers, pageSize, page)
+    yield put(actions.fetchNewComersSuccess(results.data))
+  } catch (error) {
+    yield put(actions.fetchNewComersFailure(error))
+  }
+}
+
 export function* saveNewComer(person) {
     try {
       yield call(api.saveNewComer, person)
@@ -59,11 +68,19 @@ export function* watchSaveNewComer() {
   }
 }
 
+export function* watchfetchNewComer() {
+  while(true){
+    let payload = yield take(actions.FETCH_NEWCOMER_REQUEST)
+    yield call(fetchNewComers, payload.pageSize, payload.page)
+  }
+}
+
 export default function* root() {
   yield all([
       fork(getAllProducts), 
       fork(watchGetProducts), 
       fork(watchCheckout),
-      fork(watchSaveNewComer)
+      fork(watchSaveNewComer),
+      fork(watchfetchNewComer)
     ])
 }

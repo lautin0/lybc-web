@@ -11,6 +11,7 @@ import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { getMenuHierarchy } from "Universals";
 import ContactUs from "views/about/ContactUs";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
+import InfiniteScroll from 'views/common/InfiniteScroll'
 
 function MainPage(props) {
 
@@ -43,6 +44,7 @@ function MainPage(props) {
           {props.page == 'apply-activity' && <Apply />}
           {props.page == 'contact-us' && <ContactUs />}
           {props.page == 'sunday-service-info' && <SundayServiceInfo />}
+          {props.page == 'test' && <InfiniteScroll />}
         </div>
         <DefaultFooter />
       </div>
