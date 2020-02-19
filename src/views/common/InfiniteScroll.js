@@ -45,19 +45,19 @@ function InfiniteScroll() {
 
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll);
-    };   
-  })
+    };
+  }, [])
 
   return (
     <>
       <Container className="row justify-content-start mx-auto new-comer">
         {data && data.map(data => (
           <Col key={data.id} md="6" lg="4">
-            <Card className="text-center">
+            <Card>
               <Card.Body>
-                <Card.Title>{data.name}</Card.Title>
-                <Card.Text>{data.phone}</Card.Text>
-                <Card.Text>{data.email}</Card.Text>
+                <Card.Title><h4>{data.name}</h4></Card.Title>
+                <Card.Text className="h4"><b>Phone: </b>{data.phone}</Card.Text>
+                <Card.Text className="h4"><b>Email: </b>{data.email}</Card.Text>
               </Card.Body>
             </Card>
           </Col>
