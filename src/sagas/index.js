@@ -1,4 +1,4 @@
-import { take, put, call, fork, select, takeEvery, all } from 'redux-saga/effects'
+import { take, put, call, fork, select, takeEvery, takeLeading, all } from 'redux-saga/effects'
 import * as actions from '../actions'
 import { getCart } from '../reducers'
 import { api } from '../services'
@@ -21,7 +21,8 @@ export function* checkout() {
   }
 }
 
-export function* fetchNewComers(pageSize, page) {
+export function* fetchNewComers(action) {
+  const { pageSize, page } = action;
   try {
     const results = yield call(api.fetchNewComers, pageSize, page)
     yield put(actions.fetchNewComersSuccess(results.data))
@@ -69,10 +70,7 @@ export function* watchSaveNewComer() {
 }
 
 export function* watchfetchNewComer() {
-  while(true){
-    let payload = yield take(actions.FETCH_NEWCOMER_REQUEST)
-    yield call(fetchNewComers, payload.pageSize, payload.page)
-  }
+  yield takeLeading(actions.FETCH_NEWCOMER_REQUEST, fetchNewComers)  
 }
 
 export default function* root() {

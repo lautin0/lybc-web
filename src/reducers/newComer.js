@@ -24,7 +24,7 @@ function saveStatus(state = initialState.saveState, action) {
       }
     case SAVE_NEWCOMER_SUCCESS:
       return {
-        ...initialState,
+        ...initialState.saveState,
         isPending: state.isPending - 1,
       }
     case SAVE_NEWCOMER_FAILURE:
