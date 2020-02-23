@@ -13,6 +13,8 @@ import ContactUs from "views/about/ContactUs";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
 import InfiniteScroll from 'views/common/InfiniteScroll'
 import SearchBooks from "views/books/SearchBooks";
+import Worship from "views/worship/Worship";
+import WorshipList from "views/worship/WorshipList";
 
 function MainPage(props) {
 
@@ -47,6 +49,8 @@ function MainPage(props) {
           {props.page == 'sunday-service-info' && <SundayServiceInfo />}
           {props.page == 'test' && <InfiniteScroll />}
           {props.page == 'search' && <SearchBooks />}
+          {props.page == 'worship' && <Worship />}
+          {props.page == 'worship-list' && <WorshipList />}
         </div>
         <DefaultFooter />
       </div>

@@ -4,7 +4,9 @@ const UNIVERSALS = {
         'download': '下載區',
         'apply-activity': '活動報名',
         'contact-us': '聯絡我們',
-        'sunday-service-info': '聚會時間'
+        'sunday-service-info': '聚會時間',
+        'worship': '網上崇拜',
+        'worship-list': '網上崇拜'
     },
     MENU_HIERARCHY: {
         index: {
@@ -43,6 +45,15 @@ const UNIVERSALS = {
                         'download': {
                             title: '教會月刊',
                             link: '/download',
+                        }
+                    }
+                },
+                'worship-list': {
+                    title: '瀏覽網上崇拜',
+                    link: '/worship-list',
+                    child: {
+                        'worship': {
+                            title: '網上崇拜',
                         }
                     }
                 },
