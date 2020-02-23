@@ -1,20 +1,15 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Button,
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
   InputGroup,
   Container,
-  Col
-} from "reactstrap";
+  Col,
+  FormControl
+} from "react-bootstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
@@ -49,32 +44,32 @@ function LoginPage() {
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
                 <Form action="" className="form" method="">
-                  <CardHeader className="text-center">
+                  <Card.Header className="text-center">
                     <div className="logo-container">
                       <img
                         alt="..."
                         src={require("assets/img/lybc_logo.png")}
                       ></img>
                     </div>
-                  </CardHeader>
-                  <CardBody>
+                  </Card.Header>
+                  <Card.Body>
                     <InputGroup
                       className={
                         "no-border input-lg" +
                         (firstFocus ? " input-group-focus" : "")
                       }
                     >
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>
                           <i className="now-ui-icons users_circle-08"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
                         placeholder="用戶名稱"
                         type="text"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
-                      ></Input>
+                      ></FormControl>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -82,24 +77,23 @@ function LoginPage() {
                         (lastFocus ? " input-group-focus" : "")
                       }
                     >
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>
                           <i className="now-ui-icons text_caps-small"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
                         placeholder="密碼"
                         type="text"
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
-                      ></Input>
+                      ></FormControl>
                     </InputGroup>
-                  </CardBody>
-                  <CardFooter className="text-center">
+                  </Card.Body>
+                  <Card.Footer className="text-center">
                     <Button
                       block
-                      className="btn-round"
-                      color="info"
+                      className="btn-round btn-info"
                       href="#pablo"
                       onClick={e => e.preventDefault()}
                       size="lg"
@@ -128,7 +122,7 @@ function LoginPage() {
                         </a>
                       </h6>
                     </div>
-                  </CardFooter>
+                  </Card.Footer>
                 </Form>
               </Card>
             </Col>

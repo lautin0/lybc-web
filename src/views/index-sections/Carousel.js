@@ -1,6 +1,6 @@
 import React from "react";
 
-// reactstrap components
+// react-bootstrap components
 import {
   Container,
   Row,
@@ -8,11 +8,16 @@ import {
   Carousel,
   CarouselItem,
   CarouselIndicators
-} from "reactstrap";
+} from "react-bootstrap";
 
 // core components
 
 const items = [
+  {
+    src: require("assets/img/photo5.jpg"),
+    altText: "",
+    caption: ""
+  },
   {
     src: require("assets/img/photo1.jpg"),
     altText: "策劃會",
@@ -23,11 +28,11 @@ const items = [
     altText: "仁濟醫院 午間閒情",
     caption: "仁濟醫院 午間閒情"
   },
-  {
-    src: require("assets/img/photo3.jpg"),
-    altText: "浸禮",
-    caption: "浸禮"
-  },
+  // {
+  //   src: require("assets/img/photo3.jpg"),
+  //   altText: "浸禮",
+  //   caption: "浸禮"
+  // },
   {
     src: require("assets/img/photo4.jpg"),
     altText: "聖誕街頭佈道",
@@ -61,11 +66,11 @@ function CarouselSection() {
   return (
     <>
       <div className="section" id="carousel" style={{marginBottom: 100}}>
-        <Container>
-          <div className="title">
-            <h3 className="title">時刻</h3>
-          </div>
-          <Row className="justify-content-center">
+        <div>
+          <Container>
+            <h3 className="title">最新消息</h3>
+          </Container>
+          <Row className="justify-content-center" style={{marginRight : 0, marginLeft: 0}}>
             <Col lg="8" md="12">
               <Carousel
                 activeIndex={activeIndex}
@@ -101,7 +106,7 @@ function CarouselSection() {
                   }}
                   role="button"
                 >
-                  <i className="now-ui-icons arrows-1_minimal-left"></i>
+                  <i className="fas fa-chevron-left"></i>
                 </a>
                 <a
                   className="carousel-control-next"
@@ -113,13 +118,14 @@ function CarouselSection() {
                   }}
                   role="button"
                 >
-                  <i className="now-ui-icons arrows-1_minimal-right"></i>
+                  <i className="fas fa-chevron-right"></i>
                 </a>
               </Carousel>
             </Col>
           </Row>
-        </Container>
+        </div>
       </div>
+      <hr style={{width: '80%'}} />
     </>
   );
 }

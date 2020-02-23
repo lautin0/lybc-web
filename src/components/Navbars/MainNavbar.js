@@ -1,43 +1,19 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-// reactstrap components
+// react-bootstrap components
 import {
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
+  Button,
+  NavDropdown,
   Navbar,
-  NavItem,
-  NavLink,
   Nav,
   Container,
-  UncontrolledTooltip
-} from "reactstrap";
+  Tooltip
+} from "react-bootstrap";
+import UNIVERSALS from "Universals";
 
-function MainNavbar() {
-  // const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+function MainNavbar(props) {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  // React.useEffect(() => {
-  //   const updateNavbarColor = () => {
-  //     if (
-  //       document.documentElement.scrollTop > 399 ||
-  //       document.body.scrollTop > 399
-  //     ) {
-  //       setNavbarColor("");
-  //     } else if (
-  //       document.documentElement.scrollTop < 400 ||
-  //       document.body.scrollTop < 400
-  //     ) {
-  //       setNavbarColor("navbar-transparent");
-  //     }
-  //   };
-  //   window.addEventListener("scroll", updateNavbarColor);
-  //   return function cleanup() {
-  //     window.removeEventListener("scroll", updateNavbarColor);
-  //   };
-  // });
   return (
     <>
       {collapseOpen ? (
@@ -49,55 +25,25 @@ function MainNavbar() {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top main-nav" color="info" expand="lg">
-        <Container>
-          <UncontrolledDropdown className="button-dropdown">
-            <DropdownToggle
-              caret
-              data-toggle="dropdown"
-              href="#pablo"
-              id="navbarDropdown"
-              tag="a"
-              onClick={e => e.preventDefault()}
-            >
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-            </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbarDropdown">
-              <DropdownItem header tag="a">
-                Dropdown header
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Another action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Something else here
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Separated link
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                One more separated link
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '143px', background: '#45934c' }}>
+        <Container style={{ height: '100%', display: 'block' }}>
           <div className="navbar-translate">
-            <NavbarBrand
-              href=""
-              target="_blank"
-              id="navbar-brand"
+            <Navbar.Brand
+              as={Link}
+              to="/index"
+              id="main-navbar-brand"
+              onClick={e => {
+                // e.preventDefault();
+                // window.scrollTo(0, 0);
+              }}
             >
-              {/* Now Ui Kit */}
-            </NavbarBrand>
-            {/* <UncontrolledTooltip target="#navbar-brand">
-              Designed by Invision. Coded by Creative Tim
-            </UncontrolledTooltip> */}
+              <img
+                style={{maxHeight:30, maxWidth: 30, marginRight: 5}}
+                alt="logo"
+                src={require("assets/img/lybc_logo.png")}
+              ></img>
+              {" "}綠楊浸信會
+            </Navbar.Brand>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -112,65 +58,116 @@ function MainNavbar() {
               <span className="navbar-toggler-bar bottom-bar"></span>
             </button>
           </div>
-          <Collapse
+          <Navbar.Collapse
             className="justify-content-end"
-            isOpen={collapseOpen}
-            navbar
+            appear={collapseOpen}
+            style={{ marginTop: -42 }}
           >
-            <Nav navbar>
-              <NavItem>
-                <NavLink to="/index" tag={Link}>
-                  回主頁
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#pablo">
-                  技術支援
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  target="_blank"
-                  id="twitter-tooltip"
+            <Nav>
+              <NavDropdown title={<><i className="fas fa-map-signs mr-1"></i>教會活動</>}>
+                <NavDropdown.Item>
+                  最新活動
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/apply-activity">
+                  活動報名
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  團契
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  點滴回顧
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
+                <Nav.Link
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
                 >
-                  <i className="fab fa-twitter"></i>
-                  <p className="d-lg-none d-xl-none">Twitter</p>
-                </NavLink>
-                <UncontrolledTooltip target="#twitter-tooltip">
-                  Follow us on Twitter
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  <i className="fas fa-hammer"></i>
+                  <p>事工介紹</p>
+                </Nav.Link>
+              </Nav.Item>
+              <NavDropdown title={<><i className="fas fa-book mr-1"></i>教會刊物</>}>
+                <NavDropdown.Item as={Link} to="/download">
+                  教會月刊
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                >
+                  見證欄
+                  </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
+                <NavDropdown.Item as={Link} to="/about-us">
+                  關於我們
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link} to="sunday-service-info"
+                >
+                  聚會時間
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link} to="/contact-us"
+                >
+                  聯絡我們
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
+                <Button
+                  className="nav-link btn-neutral"
+                  // color="success"
+                  href="#pablo"
+                  id="login"
+                  as={Link}
+                  to="/login-page"
+                  style={{ color: 'rgb(69, 147, 76)' }}
+                >
+                  <i className="fas fa-user" style={{ fontSize: 14 }}></i>
+                  <p>會友登入</p>
+                </Button>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  href="https://www.facebook.com/lukYeungBaptistChurch"
                   target="_blank"
                   id="facebook-tooltip"
-                  href="https://www.facebook.com/lukYeungBaptistChurch"
                 >
                   <i className="fab fa-facebook-square"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
-                </NavLink>
-                <UncontrolledTooltip target="#facebook-tooltip">
+                </Nav.Link>
+                <Tooltip target="#facebook-tooltip">
                   Like us on Facebook
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                </Tooltip>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >
                   <i className="fab fa-instagram"></i>
                   <p className="d-lg-none d-xl-none">Instagram</p>
-                </NavLink>
-                <UncontrolledTooltip target="#instagram-tooltip">
+                </Nav.Link>
+                <Tooltip target="#instagram-tooltip">
                   Follow us on Instagram
-                </UncontrolledTooltip>
-              </NavItem>
+                </Tooltip>
+              </Nav.Item>
             </Nav>
-          </Collapse>
+          </Navbar.Collapse>
+          <div>
+            <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
+            <h4 style={{ color: 'white', marginTop: 10 }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
+          </div>
         </Container>
       </Navbar>
     </>
   );
 }
+
+MainNavbar.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 export default MainNavbar;

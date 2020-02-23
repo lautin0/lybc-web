@@ -1,11 +1,11 @@
 import React from "react";
 
-// reactstrap components
-import { Container } from "reactstrap";
+// react-bootstrap components
+import { Container } from "react-bootstrap";
 
 // core components
 
-function ProfilePageHeader() {
+function MainPageHeader() {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -25,7 +25,7 @@ function ProfilePageHeader() {
     <>
       <div
         className="page-header clear-filter page-header-tiny"
-        filter-color="green"
+        filter-color="blue"
       >
         <div
           className="page-header-image"
@@ -36,7 +36,7 @@ function ProfilePageHeader() {
         ></div>
         <Container>
           <div>
-            <h2 className="title text-left">教會資源</h2>
+            <h2 style={{color: 'indigo'}} className="title text-left">香港萬國宣道浸信聯會』簡介</h2>
           </div>
         </Container>
       </div>
@@ -44,4 +44,4 @@ function ProfilePageHeader() {
   );
 }
 
-export default ProfilePageHeader;
+export default MainPageHeader;

@@ -1,91 +1,61 @@
 import React from "react";
-
-// reactstrap components
-import {
-  Button,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
-  Container,
-  Row,
-  Col,
-  UncontrolledTooltip
-} from "reactstrap";
+import PropTypes from 'prop-types';
 
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.js";
-import MainPageHeader from "components/Headers/MainPageHeader.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
+import Download from "views/download/Download";
+import AboutUs from "views/about/AboutUs";
+import Apply from 'views/activity/Apply'
+import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
+import { getMenuHierarchy } from "Universals";
+import ContactUs from "views/about/ContactUs";
+import SundayServiceInfo from "views/about/SundayServiceInfo";
+import InfiniteScroll from 'views/common/InfiniteScroll'
+import SearchBooks from "views/books/SearchBooks";
 
-function MainPage() {
+function MainPage(props) {
+
+  let menus = getMenuHierarchy(props.page, null, null);
+
   React.useEffect(() => {
-    document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
     return function cleanup() {
-      document.body.classList.remove("profile-page");
       document.body.classList.remove("sidebar-collapse");
     };
   });
   return (
     <>
-      <MainNavbar />
+      <MainNavbar page={props.page}/>
       <div className="wrapper">
-        <MainPageHeader />
-        <div className="section">
-          <Container>
-            <Row>
-              <Col className="img-button-container mb-3" md="6">
-                <img
-                  alt="..."
-                  className="img-raised"
-                  src={require("assets/img/bg1.jpg")}
-                ></img>
-                <div class="overlay">
-                  <div class="img-overlay-text">見證</div>
-                </div>
-              </Col>
-              <Col className="img-button-container mb-3" md="6">
-                <img
-                  alt="..."
-                  className="img-raised"
-                  src={require("assets/img/bg3.jpg")}
-                ></img>
-                <div class="overlay">
-                  <div class="img-overlay-text">講道錄音</div>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col className="img-button-container mb-3" md="6">
-                <img
-                  alt="..."
-                  className="img-raised"
-                  src={require("assets/img/bg8.jpg")}
-                ></img>
-                <div class="overlay">
-                  <div class="img-overlay-text">詩歌庫</div>
-                </div>
-              </Col>
-              <Col className="img-button-container mb-3" md="6">
-                <img
-                  alt="..."
-                  className="img-raised"
-                  src={require("assets/img/bg7.jpg")}
-                ></img>
-                <div class="overlay">
-                  <div class="img-overlay-text">相冊</div>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+        <div className="main" style={{top: 143}}>     
+          <div>
+            <Breadcrumb tag="nav">
+              {menus && menus.map((value, index) => {
+                if(value.link != null)
+                  return <BreadcrumbItem key={index} tag="a" href={value.link}>{value.title}</BreadcrumbItem>
+                else
+                  return <BreadcrumbItem key={index} active tag="span">{value.title}</BreadcrumbItem>
+              })}
+            </Breadcrumb>
+          </div>   
+          {props.page == 'about-us' && <AboutUs />}
+          {props.page == 'download' && <Download />}
+          {props.page == 'apply-activity' && <Apply />}
+          {props.page == 'contact-us' && <ContactUs />}
+          {props.page == 'sunday-service-info' && <SundayServiceInfo />}
+          {props.page == 'test' && <InfiniteScroll />}
+          {props.page == 'search' && <SearchBooks />}
         </div>
         <DefaultFooter />
       </div>
     </>
   );
 }
+
+MainPage.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 export default MainPage;

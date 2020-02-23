@@ -58,3 +58,46 @@
     text-align: center;
     opacity: 1 !important;
 }
+
+.table-striped.clickable tbody{
+    tr:hover{        
+        background: rgba(138, 191, 218, 0.9);
+        cursor: pointer;
+    }
+}
+
+ul.sitemap{
+    margin-top: 6vh;
+    
+    li{
+        display: block;
+        margin-bottom: 10px
+    }
+}
+
+@media screen and (max-width: 991px){
+  .sidebar-collapse .navbar-collapse:before {
+    background: #45934c;
+    background: linear-gradient(#45934c,#000000 80%);
+  }
+}
+
+.navbar-toggler{
+    border: none
+}
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
+    color: #FFFFFF
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+    color: #FFFFFF
+}
+
+.loading-overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.7);
+    z-index: 2000;
+}

@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import {
   Collapse,
   DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   UncontrolledDropdown,
   NavbarBrand,
   Navbar,
@@ -51,9 +49,10 @@ function ExamplesNavbar() {
       ) : null}
       <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
         <Container>
-          <UncontrolledDropdown className="button-dropdown">
+          {/* <UncontrolledDropdown className="button-dropdown"> */}
+          <UncontrolledDropdown>
             <DropdownToggle
-              caret
+              // caret
               data-toggle="dropdown"
               href="#pablo"
               id="navbarDropdown"
@@ -64,7 +63,7 @@ function ExamplesNavbar() {
               <span className="button-bar"></span>
               <span className="button-bar"></span>
             </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbarDropdown">
+            {/* <DropdownMenu aria-labelledby="navbarDropdown">
               <DropdownItem header tag="a">
                 Dropdown header
               </DropdownItem>
@@ -85,19 +84,19 @@ function ExamplesNavbar() {
               <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
                 One more separated link
               </DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </UncontrolledDropdown>
           <div className="navbar-translate">
             <NavbarBrand
-              href="https://demos.creative-tim.com/now-ui-kit-react/index?ref=nukr-examples-navbar"
+              href="#"
               target="_blank"
               id="navbar-brand"
             >
               {/* Now Ui Kit */}
             </NavbarBrand>
-            <UncontrolledTooltip target="#navbar-brand">
+            {/* <UncontrolledTooltip target="#navbar-brand">
               Designed by Invision. Coded by Creative Tim
-            </UncontrolledTooltip>
+            </UncontrolledTooltip> */}
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -128,7 +127,7 @@ function ExamplesNavbar() {
                   技術支援
                 </NavLink>
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink
                   target="_blank"
                   id="twitter-tooltip"
@@ -139,7 +138,7 @@ function ExamplesNavbar() {
                 <UncontrolledTooltip target="#twitter-tooltip">
                   Follow us on Twitter
                 </UncontrolledTooltip>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
                 <NavLink
                   target="_blank"
@@ -155,6 +154,7 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
+                  href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >

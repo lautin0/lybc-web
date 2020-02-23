@@ -1,7 +1,7 @@
 import React from "react";
 
-// reactstrap components
-import { Table, Button, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
+// react-bootstrap components
+import { Table, Container, Row, Col } from "react-bootstrap";
 
 // core components
 
@@ -15,7 +15,7 @@ function SundayServiceInfo() {
         <Container>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12">
-              <h3 className="title">聚會資料</h3>
+              <h3 className="title">聚會時間</h3>
 
               <Table striped>        
                 <thead className="text-center">
@@ -81,6 +81,7 @@ function SundayServiceInfo() {
           </Row>
         </Container>
       </div>
+      <hr style={{width: '80%'}} />
     </>
   );
 }

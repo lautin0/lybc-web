@@ -1,24 +1,13 @@
-/*
 
-=========================================================
-* Now UI Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-kit-react
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/now-ui-kit-react/blob/master/LICENSE.md)
-
-* Designed by www.invisionapp.com Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import createHistory from 'history/createBrowserHistory'
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { createBrowserHistory as createHistory } from 'history'
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from './reducers'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './sagas'
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -27,45 +16,43 @@ import "assets/demo/demo.css";
 import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index.js";
-import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
-import LandingPage from "views/examples/LandingPage.js";
-import ProfilePage from "views/examples/ProfilePage.js";
-import PreachingPage from 'views/examples/PreachingPage.js'
 import MainPage from 'views/main/MainPage.js'
+import CommonModal from "components/Modals/CommonModal";
+import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
 
-const history = createHistory({basename: process.env.PUBLIC_URL});
+const history = createHistory({ basename: process.env.PUBLIC_URL });
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <BrowserRouter history={history}>
-    <Switch>
+  <Provider store={store}>
+    <CommonModal />
+    <LoadingOverlay />
+    <Router history={history}>
       <Switch>
-        <Route path="/index" render={props => <Index {...props} />} />
-        <Route
-          path="/nucleo-icons"
-          render={props => <NucleoIcons {...props} />}
-        />
-        <Route
-          path="/landing-page"
-          render={props => <LandingPage {...props} />}
-        />
-        <Route
-          path="/preaching-page"
-          render={props => <PreachingPage {...props} />}
-        />
-        <Route
-          path="/profile-page"
-          render={props => <ProfilePage {...props} />}
-        />
-        <Route
-          path="/main"
-          render={props => <MainPage {...props} />}
-        />
-        <Route path="/login-page" render={props => <LoginPage {...props} />} />
-        <Redirect to="/index" />
-        <Redirect from="/" to="/index" />
+        <Switch>
+          <Route path="/index" render={props => <Index {...props} />} />
+          <Route path="/download" render={props => <MainPage {...props} page="download" />} />
+          <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
+          <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} />
+          <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} />
+          <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
+          <Route path="/test" render={props => <MainPage {...props} page="test" />} />
+          <Route path="/login-page" render={props => <LoginPage {...props} />} />
+          <Route path="/search" render={props => <MainPage {...props} page="search"/>} />
+          <Redirect to="/index" />
+          <Redirect from="/" to="/index" />
+        </Switch>
       </Switch>
-    </Switch>
-  </BrowserRouter>,
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );

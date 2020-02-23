@@ -1,21 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// reactstrap components
+// react-bootstrap components
 import {
   Button,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
+  NavDropdown,
   Navbar,
-  NavItem,
-  NavLink,
   Nav,
   Container,
-  UncontrolledTooltip
-} from "reactstrap";
+  Tooltip
+} from "react-bootstrap";
 
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -50,22 +43,28 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
+      <Navbar className={"fixed-top " + navbarColor} expand="lg" style={{ background: '#45934c' }}>
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand
+            <Navbar.Brand
+              style={{zIndex: 9999}}
               href="#pablo"
-              id="navbar-brand"
+              id="index-navbar-brand"
               onClick={e => {
                 e.preventDefault();
                 window.scrollTo(0, 0);
               }}
             >
-              綠楊浸信會
-            </NavbarBrand>
-            <UncontrolledTooltip target="#navbar-brand">
+              <img
+                style={{maxHeight:30, maxWidth: 30, marginRight: 5}}
+                alt="logo"
+                src={require("assets/img/lybc_logo.png")}
+              ></img>
+              {" "}綠楊浸信會
+            </Navbar.Brand>
+            <Tooltip target="#navbar-brand">
               回頂頁
-            </UncontrolledTooltip>
+            </Tooltip>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -80,29 +79,52 @@ function IndexNavbar() {
               <span className="navbar-toggler-bar bottom-bar"></span>
             </button>
           </div>
-          <Collapse
+          <Navbar.Collapse
             className="justify-content-end"
-            isOpen={collapseOpen}
-            navbar
+            appear={collapseOpen}
           >
-            <Nav navbar>
-              <NavItem>
-                <NavLink
+            <Nav>
+              <NavDropdown title={<><i className="fas fa-map-signs mr-1"></i>教會活動</>}>
+                <NavDropdown.Item>
+                  最新活動
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/apply-activity">
+                  活動報名
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  團契
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  點滴回顧
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
+                <Nav.Link
                   href="#pablo"
                   onClick={e => {
                     e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
                   }}
                 >
-                  <i className="fas fa-info-circle"></i>
-                  <p>關於我們</p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#pablo"
+                  <i className="fas fa-hammer"></i>
+                  <p>事工介紹</p>
+                </Nav.Link>
+              </Nav.Item>
+              <NavDropdown title={<><i className="fas fa-book mr-1"></i>教會刊物</>}>
+                <NavDropdown.Item as={Link} to="/download">
+                  教會月刊
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                >
+                  見證欄
+                  </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
+                <NavDropdown.Item as={Link} to="/about-us">
+                  關於我們
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
                   onClick={e => {
                     e.preventDefault();
                     document
@@ -110,13 +132,10 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="far fa-calendar-alt"></i>
-                  <p>聚會資料</p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#pablo"
+                  聚會時間
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
                   onClick={e => {
                     e.preventDefault();
                     document
@@ -124,105 +143,51 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="fas fa-phone"></i>
-                  <p>聯絡我們</p>
-                </NavLink>
-              </NavItem>
-              {/* <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  href="#pablo"
-                  nav
-                  onClick={e => e.preventDefault()}
-                >
-                  <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
-                  <p>教會部門</p>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem to="/preaching-page" tag={Link}>
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    傳道部
-                  </DropdownItem>
-                  <DropdownItem
-                    target="_blank"
-                  >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    崇拜部
-                  </DropdownItem>
-                  <DropdownItem
-                    // href=""
-                    target="_blank"
-                  >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    團契部
-                  </DropdownItem>
-                  <DropdownItem
-                    // href=""
-                    target="_blank"
-                  >
-                    <i className="now-ui-icons location_map-big mr-1"></i>
-                    培訓部
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
-              <NavItem>
+                  聯絡我們
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
-                  color="info"
+                  // color="success"
                   href="#pablo"
                   id="login"
+                  as={Link}
                   to="/login-page"
-                  tag={Link}
+                  style={{ color: 'rgb(69, 147, 76)' }}
                 >
-                  <i className="fas fa-user" style={{fontSize: 14}}></i>
+                  <i className="fas fa-user" style={{ fontSize: 14 }}></i>
                   <p>會友登入</p>
                 </Button>
-                <UncontrolledTooltip target="#login">
-                  立刻登入!
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#"
-                  target="_blank"
-                  id="twitter-tooltip"
-                >
-                  <i className="fab fa-twitter"></i>
-                  <p className="d-lg-none d-xl-none">Twitter</p>
-                </NavLink>
-                <UncontrolledTooltip target="#twitter-tooltip">
-                  Follow us on Twitter
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
                   href="https://www.facebook.com/lukYeungBaptistChurch"
                   target="_blank"
                   id="facebook-tooltip"
                 >
                   <i className="fab fa-facebook-square"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
-                </NavLink>
-                <UncontrolledTooltip target="#facebook-tooltip">
+                </Nav.Link>
+                <Tooltip target="#facebook-tooltip">
                   Like us on Facebook
-                </UncontrolledTooltip>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                </Tooltip>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
                   href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"
                 >
                   <i className="fab fa-instagram"></i>
                   <p className="d-lg-none d-xl-none">Instagram</p>
-                </NavLink>
-                <UncontrolledTooltip target="#instagram-tooltip">
+                </Nav.Link>
+                <Tooltip target="#instagram-tooltip">
                   Follow us on Instagram
-                </UncontrolledTooltip>
-              </NavItem>
+                </Tooltip>
+              </Nav.Item>
             </Nav>
-          </Collapse>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
