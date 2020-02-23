@@ -47,7 +47,7 @@ ReactDOM.render(
           <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
           <Route path="/test" render={props => <MainPage {...props} page="test" />} />
           <Route path="/login-page" render={props => <LoginPage {...props} />} />
-          <Route path="/search" render={props => <MainPage {...props} page="search"/>} />
+          {/* <Route path="/search" render={props => <MainPage {...props} page="search"/>} /> */}
           <Route path="/worship/:id?" render={props => <MainPage {...props} page="worship"/>} />
           <Route path="/worship-list" render={props => <MainPage {...props} page="worship-list"/>} />
           <Redirect to="/index" />
