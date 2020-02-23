@@ -12,7 +12,6 @@ import { getMenuHierarchy } from "Universals";
 import ContactUs from "views/about/ContactUs";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
 import InfiniteScroll from 'views/common/InfiniteScroll'
-import SearchBooks from "views/books/SearchBooks";
 
 function MainPage(props) {
 
@@ -46,7 +45,6 @@ function MainPage(props) {
           {props.page == 'contact-us' && <ContactUs />}
           {props.page == 'sunday-service-info' && <SundayServiceInfo />}
           {props.page == 'test' && <InfiniteScroll />}
-          {props.page == 'search' && <SearchBooks />}
         </div>
         <DefaultFooter />
       </div>
