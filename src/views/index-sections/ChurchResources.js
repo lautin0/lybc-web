@@ -36,11 +36,8 @@ function ChurchResources() {
       </div> */}
       <div className="section clear-filter">
         <Row className="justify-content-center mx-auto" style={{ marginTop: 100, marginBottom: 100 }}>
-          <Col md="6" lg="3">
-            <Card className="text-center" 
-            onClick={() => { window.open(require("assets/pdf/20200209rundown.pdf"), '_blank', null, null)}}
-            style={{cursor: 'pointer'}}
-            >
+          <Col md="12" lg="3">
+            <Card className="text-center">
               <Card.Img src={require("assets/img/bg7.jpg")} />
               <Card.ImgOverlay>
                 {/* <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i> */}
@@ -50,7 +47,7 @@ function ChurchResources() {
               </Card.Body>
             </Card>
           </Col>
-          <Col md="6" lg="3">
+          <Col md="12" lg="3">
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg1.jpg")} />
               <Card.ImgOverlay>
@@ -62,7 +59,7 @@ function ChurchResources() {
               </Card.Body>
             </Card>
           </Col>
-          <Col md="6" lg="3">
+          <Col md="12" lg="3">
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg3.jpg")} />
               <Card.ImgOverlay>
