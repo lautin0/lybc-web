@@ -54,7 +54,7 @@ function ChurchResources() {
               </Card.Body>
             </Card>
           </Col>
-          <Col md="12" lg="3">
+          <Col md="6" lg="3">
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg1.jpg")} />
               <Card.ImgOverlay>
@@ -66,7 +66,7 @@ function ChurchResources() {
               </Card.Body>
             </Card>
           </Col>
-          <Col md="12" lg="3">
+          <Col md="6" lg="3">
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg3.jpg")} />
               <Card.ImgOverlay>

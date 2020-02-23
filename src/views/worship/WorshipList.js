@@ -34,7 +34,17 @@ function WorshipList() {
         className="section"
         id="download-section"
       >
-        <Container>
+        <Container style={{marginTop: -50}}>
+          <Row className="text-center">
+            <p className="w-100">
+              我要聽　神—耶和華所說的話，<br />
+              因為他必應許賜平安給他的百姓，就是他的聖民；<br />
+              他們卻不可再轉向愚昧。<br />
+              他的救恩誠然與敬畏他的人相近，<br />
+              使榮耀住在我們的地上。<br />
+              (詩篇 85:8-9 和合本2010)<br /><br /><br />
+            </p>
+          </Row>
           <Row>
             <Table striped className={data && data.length > 0 ? 'clickable' : ''}>
               <thead>
@@ -59,13 +69,13 @@ function WorshipList() {
                 }
               </tbody>
             </Table>
-            <Pagination 
+            <Pagination
               className="w-100 pagination-primary justify-content-center"
             >
               <Pagination.First />
               <Pagination.Prev />
               <PageItem active disabled>
-                  1
+                1
               </PageItem>
               <Pagination.Next />
               <Pagination.Last />

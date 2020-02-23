@@ -1,55 +1,115 @@
-import React, { useState } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 // react-bootstrap components
-import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
-
+import { Container, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import { useParams } from "react-router";
+import ReactToPrint from "react-to-print";
 
 function Worship() {
-
   let { id } = useParams();
-
   const [key, setKey] = useState('home')
+  const [data, setData] = useState(`<br /><h3>
+  <b>
+    講道筆記
+  </b>
+</h3><br/>
+<h3>(馬太五:3-16)</h3>`)
+  const componentRef = useRef();
+
+  const editorModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      // [{ 'size': ['small', 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6] }],
+      [{ 'font': [] }],
+      // ['blockquote', 'code-block'],
+      // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+      // [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+      // [{ 'direction': 'rtl' }],                         // text direction
+      [{ 'align': [] }],
+      ['clean']                                         // remove formatting button
+    ]
+  };
+
+  const handleChange = (content) => {
+    setData(content);
+  }
+
+  useEffect(()=>{
+    if(id === '20200223'){
+      setData(`<br /><h3>
+      <b>
+        講道筆記
+      </b>
+    </h3><br/>
+    <h3>(馬太五:3-16)</h3>`)
+    }else if(id === '20200216'){
+      setData(`<br /><h3>
+      <b>
+        講道筆記
+      </b>
+    </h3><br/>
+    <h3>(歌羅西書3:12-17)</h3>`)
+    }
+  }, [id])
+
+  const ComponentToPrint = React.forwardRef((props, ref) => {
+    return (
+      <div className="m-5" ref={ref} dangerouslySetInnerHTML={{ __html: props.content }}>
+      </div>
+    )
+  })
 
   return (
     <div className="section">
       {id === '20200223' && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
-            <h1>2020年2月23日 主日崇拜</h1>
+            <h2>2020年2月23日 主日崇拜</h2>
           </Col>
         </Row>
         <Row className="justify-content-center mt-3">
           <iframe src="https://drive.google.com/file/d/1WMqJjnvRAOGcqGEV_vIFjFkJ8QDgNFVW/preview" width="660" height="371"></iframe>
         </Row>
-        <Row className="mt-5 mb-5 text-center">
+        <Row className="mt-5 mb-5 text-center justify-content-center">
           <Tabs
             activeKey={key}
             onSelect={k => setKey(k)}
             className="nav-justified w-100 mb-5"
             style={{ fontSize: 20 }}
           >
-            <Tab eventKey="home" title="宣召">
-              <h3 className="w-100">
-                主啊，諸神之中沒有可比你的；<br />
-                你的作為也無可比。<br />
-                主啊，你所造的萬民都要來敬拜你；<br />
-                他們也要榮耀你的名。<br />
-                因你為大，且行奇妙的事；<br />
-                惟獨你是神。<br />
-                (詩篇 86:8-10 和合本)<br />
-                ❤❤❤<br /><br />
-              </h3>
-              <h3 className="mt-5 mb-5">
-                各位綠楊家的弟兄姊妹，<br />
-
-                讓我們在這不能有實體崇拜的日子，在你所選定的地方，同心向我們這位坐在寶座上的羔羊下拜，獻上我們最真誠的敬拜，願一切榮耀頌讚都歸給愛我們的主耶穌。
-                📪📪
-              </h3>
+            <Tab eventKey="home" title="講章">
+              <Row className="mb-3">
+                <ReactQuill
+                  className="mb-3"
+                  value={data}
+                  onChange={handleChange}
+                  modules={editorModules}
+                  style={{ height: 500 }}
+                />
+              </Row>
+              <Row className="mt-5 justify-content-end">
+                <ReactToPrint
+                  trigger={() =>
+                    <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                    </Button>}
+                  content={() => componentRef.current}
+                />
+                <div className="d-none">
+                  <ComponentToPrint
+                    ref={el => (componentRef.current = el)}
+                    content={data}
+                  />
+                </div>
+              </Row>
             </Tab>
             <Tab eventKey="script" title="經文">
               <div className="text-left mb-5">
-                <p style={{fontSize: 24}}><b><i>馬太福音5:3-16</i></b></p>
+                <p style={{ fontSize: 24 }}><b><i>馬太福音5:3-16</i></b></p>
                 <h4><b className="mr-3">5 : 3</b> 「心靈貧窮的人有福了！ 因為天國是他們的。</h4>
                 <h4><b className="mr-3">5 : 4</b> 哀慟的人有福了！ 因為他們必得安慰。</h4>
                 <h4><b className="mr-3">5 : 5</b> 謙和的人有福了！ 因為他們必承受土地。</h4>
@@ -74,7 +134,7 @@ function Worship() {
       {id === '20200216' && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
-            <h1>2020年2月16日 主日崇拜</h1>
+            <h2>2020年2月16日 主日崇拜</h2>
           </Col>
         </Row>
         {/* <Row className="justify-content-center mt-3">
@@ -87,26 +147,34 @@ function Worship() {
             className="nav-justified w-100 mb-5"
             style={{ fontSize: 20 }}
           >
-            <Tab eventKey="home" title="宣召">
-              <h3 className="w-100">
-              我要聽　神—耶和華所說的話，<br/>
-              因為他必應許賜平安給他的百姓，就是他的聖民；<br/>
-              他們卻不可再轉向愚昧。<br/>
-              他的救恩誠然與敬畏他的人相近，<br/>
-              使榮耀住在我們的地上。<br/>
-              (詩篇 85:8-9 和合本2010)<br/>
-              ❤❤❤<br/><br/>
-              </h3>
-              <h3 className="mt-5 mb-5">
-                綠楊家各位弟兄姊妹，<br />
-
-                讓我們在這不能有實體崇拜的日子，在你所選定的地方，同心向我們這位坐在寶座上的羔羊下拜，獻上我們最真誠的敬拜，願一切榮耀頌讚都歸給愛我們的主耶穌。
-                📪📪
-              </h3>
+            <Tab eventKey="home" title="講章">
+              <Row>
+                <ReactQuill
+                  className="mb-3"
+                  value={data}
+                  onChange={handleChange}
+                  modules={editorModules}
+                  style={{ height: 500 }}
+                />
+              </Row>
+              <Row className="mt-5 justify-content-end">
+                <ReactToPrint
+                  trigger={() =>
+                    <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                    </Button>}
+                  content={() => componentRef.current}
+                />
+                <div className="d-none">
+                  <ComponentToPrint
+                    ref={el => (componentRef.current = el)}
+                    content={data}
+                  />
+                </div>
+              </Row>
             </Tab>
             <Tab eventKey="script" title="經文">
               <div className="text-left mb-5">
-                <p style={{fontSize: 24}}><b><i>歌羅西書3:12-17</i></b></p>
+                <p style={{ fontSize: 24 }}><b><i>歌羅西書3:12-17</i></b></p>
                 <h4><b className="mr-3">3:12</b> 所 以 你 們 既 是 　 神 的 選 民 、 聖 潔 蒙 愛 的 人 、 就 要 存 〔 原 文 作 穿 下 同 〕 憐 憫 、 恩 慈 、 謙 虛 、 溫 柔 、 忍 耐 的 心 。</h4>
                 <h4><b className="mr-3">3:13</b> 倘 若 這 人 與 那 人 有 嫌 隙 、 總 要 彼 此 包 容 、 彼 此 饒 恕 ． 主 怎 樣 饒 恕 了 你 們 、 你 們 也 要 怎 樣 饒 恕 人 。</h4>
                 <h4><b className="mr-3">3:14</b> 在 這 一 切 之 外 、 要 存 著 愛 心 ． 愛 心 就 是 聯 絡 全 德 的 。</h4>
