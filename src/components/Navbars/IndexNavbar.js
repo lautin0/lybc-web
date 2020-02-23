@@ -47,7 +47,7 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <Navbar.Brand
-              style={{zIndex: 9999}}
+              style={{ zIndex: 9999 }}
               href="#pablo"
               id="index-navbar-brand"
               onClick={e => {
@@ -56,7 +56,7 @@ function IndexNavbar() {
               }}
             >
               <img
-                style={{maxHeight:30, maxWidth: 30, marginRight: 5}}
+                style={{ maxHeight: 30, maxWidth: 30, marginRight: 5 }}
                 alt="logo"
                 src={require("assets/img/lybc_logo.png")}
               ></img>
@@ -85,6 +85,9 @@ function IndexNavbar() {
           >
             <Nav>
               <NavDropdown title={<><i className="fas fa-map-signs mr-1"></i>教會活動</>}>
+                <NavDropdown.Item as={Link} to="/worship-list">
+                  網上崇拜
+                </NavDropdown.Item>
                 <NavDropdown.Item>
                   最新活動
                 </NavDropdown.Item>

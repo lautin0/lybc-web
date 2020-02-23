@@ -65,6 +65,9 @@ function MainNavbar(props) {
           >
             <Nav>
               <NavDropdown title={<><i className="fas fa-map-signs mr-1"></i>教會活動</>}>
+                <NavDropdown.Item as={Link} to="/worship-list">
+                  網上崇拜
+                </NavDropdown.Item>
                 <NavDropdown.Item>
                   最新活動
                 </NavDropdown.Item>

@@ -15,6 +15,11 @@ function DefaultFooter() {
           <h4>教會活動</h4>
           <ul className="sitemap">
             <li>
+              <Link to="/worship-list">
+                網上崇拜
+              </Link>
+            </li>
+            <li>
               <Link to="/">
                 最新活動
               </Link>

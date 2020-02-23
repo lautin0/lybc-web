@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 
 import * as moment from 'moment'
+import { useHistory } from "react-router";
 
 const data = [
   { id: '20200223', date: moment('23/02/2020', 'DD/MM/YYYY'), title: '成為別人的祝福', messanger: '潘仕楷老師' },
@@ -17,12 +18,13 @@ const data = [
 ]
 
 function WorshipList() {
+  const history = useHistory();
 
   //Default scroll to top
   window.scrollTo(0, 0)
 
   function onCellClicked(id) {
-    window.location.href = '/worship/' + id
+    history.push('/worship/' + id)
   };
 
   return (

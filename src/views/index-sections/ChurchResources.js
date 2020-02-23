@@ -7,7 +7,11 @@ import {
   Card
 } from "react-bootstrap";
 
+import { useHistory } from "react-router";
+
 function ChurchResources() {
+  const history = useHistory();
+
   return (
     <>
       {/* <div className="section clear-filter">
@@ -38,7 +42,7 @@ function ChurchResources() {
         <Row className="justify-content-center mx-auto" style={{ marginTop: 100, marginBottom: 100 }}>
           <Col md="6" lg="3">
             <Card className="text-center" 
-            onClick={() => { window.open(require("assets/pdf/20200209rundown.pdf"), '_blank', null, null)}}
+            onClick={() => { history.push('/worship-list') }}
             style={{cursor: 'pointer'}}
             >
               <Card.Img src={require("assets/img/bg7.jpg")} />
@@ -46,7 +50,7 @@ function ChurchResources() {
                 {/* <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i> */}
               </Card.ImgOverlay>
               <Card.Body>
-                <Card.Title>程序表</Card.Title>
+                <Card.Title>網上崇拜</Card.Title>
               </Card.Body>
             </Card>
           </Col>
