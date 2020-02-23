@@ -47,7 +47,6 @@ ReactDOM.render(
           <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
           <Route path="/test" render={props => <MainPage {...props} page="test" />} />
           <Route path="/login-page" render={props => <LoginPage {...props} />} />
-          <Route path="/search" render={props => <MainPage {...props} page="search"/>} />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
         </Switch>
