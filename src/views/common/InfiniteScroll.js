@@ -63,12 +63,13 @@ function InfiniteScroll() {
           </Col>
         ))}
       </Container>
-
-      <Container className="text-center" style={{height: 50}}>
-        {isFetching && <label>
-          <Spinner animation="grow" />
-        </label>}
-      </Container>
+      {isFetching &&
+        <Container className="text-center">
+          <label>
+            <Spinner animation="grow" />
+          </label>
+        </Container>
+      }
     </>
   );
 
