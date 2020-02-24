@@ -10,6 +10,7 @@ import IndexBanner from "./index-sections/IndexBanner.js";
 import Theme from "./index-sections/Theme.js";
 import NewComerForm from "./index-sections/NewComerForm.js";
 import ChurchResources from "./index-sections/ChurchResources.js";
+import InfoModal from "components/Modals/InfoModal.js";
 
 function Index() {
 
@@ -27,6 +28,7 @@ function Index() {
 
   return (
     <>
+      <InfoModal />
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />

@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useParams } from "react-router";
 import ReactToPrint from "react-to-print";
+import DOMPurify from 'dompurify'
 
 function Worship() {
   let { id } = useParams();
@@ -39,15 +40,15 @@ function Worship() {
     setData(content);
   }
 
-  useEffect(()=>{
-    if(id === '20200223'){
+  useEffect(() => {
+    if (id === '20200223') {
       setData(`<br /><h3>
       <b>
         講道筆記
       </b>
     </h3><br/>
     <h3>(馬太五:3-16)</h3>`)
-    }else if(id === '20200216'){
+    } else if (id === '20200216') {
       setData(`<br /><h3>
       <b>
         講道筆記
@@ -59,7 +60,7 @@ function Worship() {
 
   const ComponentToPrint = React.forwardRef((props, ref) => {
     return (
-      <div className="m-5" ref={ref} dangerouslySetInnerHTML={{ __html: props.content }}>
+      <div className="m-5" ref={ref} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.content) }}>
       </div>
     )
   })
@@ -75,7 +76,7 @@ function Worship() {
         <Row className="justify-content-center mt-3">
           <iframe src="https://drive.google.com/file/d/1WMqJjnvRAOGcqGEV_vIFjFkJ8QDgNFVW/preview" width="660" height="371"></iframe>
         </Row>
-        <Row className="mt-5 mb-5 text-center justify-content-center">
+        <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
             activeKey={key}
             onSelect={k => setKey(k)}
@@ -89,21 +90,23 @@ function Worship() {
                   value={data}
                   onChange={handleChange}
                   modules={editorModules}
-                  style={{ height: 500 }}
+                  style={{ height: 500, maxWidth: '98vw' }}
                 />
               </Row>
               <Row className="mt-5 justify-content-end">
-                <ReactToPrint
-                  trigger={() =>
-                    <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
-                    </Button>}
-                  content={() => componentRef.current}
-                />
-                <div className="d-none">
-                  <ComponentToPrint
-                    ref={el => (componentRef.current = el)}
-                    content={data}
+                <div className="d-none d-lg-block">
+                  <ReactToPrint
+                    trigger={() =>
+                      <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                      </Button>}
+                    content={() => componentRef.current}
                   />
+                  <div className="d-none">
+                    <ComponentToPrint
+                      ref={el => (componentRef.current = el)}
+                      content={data}
+                    />
+                  </div>
                 </div>
               </Row>
             </Tab>
@@ -138,9 +141,9 @@ function Worship() {
           </Col>
         </Row>
         {/* <Row className="justify-content-center mt-3">
-          <iframe src="https://drive.google.com/file/d/1WMqJjnvRAOGcqGEV_vIFjFkJ8QDgNFVW/preview" width="660" height="371"></iframe>
+          <iframe width="660" height="371" src="https://www.youtube-nocookie.com/embed/videoseries?list=PL9ftxiJGUaQC6s19rwlXkTZnYLeo1ZhqW" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </Row> */}
-        <Row className="mt-5 mb-5 text-center">
+        <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
             activeKey={key}
             onSelect={k => setKey(k)}
@@ -154,21 +157,23 @@ function Worship() {
                   value={data}
                   onChange={handleChange}
                   modules={editorModules}
-                  style={{ height: 500 }}
+                  style={{ height: 500, maxWidth: '98vw' }}
                 />
               </Row>
               <Row className="mt-5 justify-content-end">
-                <ReactToPrint
-                  trigger={() =>
-                    <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
-                    </Button>}
-                  content={() => componentRef.current}
-                />
-                <div className="d-none">
-                  <ComponentToPrint
-                    ref={el => (componentRef.current = el)}
-                    content={data}
+                <div className="d-none d-lg-block">
+                  <ReactToPrint
+                    trigger={() =>
+                      <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                      </Button>}
+                    content={() => componentRef.current}
                   />
+                  <div className="d-none">
+                    <ComponentToPrint
+                      ref={el => (componentRef.current = el)}
+                      content={data}
+                    />
+                  </div>
                 </div>
               </Row>
             </Tab>
