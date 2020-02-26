@@ -9,7 +9,7 @@ import DOMPurify from 'dompurify'
 import domtoimage from 'dom-to-image'
 import ImageModal from "components/Modals/ImageModal";
 import { useDispatch } from "react-redux";
-import { setImage } from "actions";
+import { setImage, setLoading } from "actions";
 
 function Worship() {
   const dispatch = useDispatch();
@@ -45,33 +45,12 @@ function Worship() {
     setData(content);
   }
 
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   const handleDownloadNote = () => {
+    dispatch(setLoading(true))
     domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: 0.95 })
       .then(async function (data) {
-        // var link = document.createElement('a');
-        // link.download = 'sunday-notes20200223.jpeg';
-        // link.href = dataUrl;
-        // link.click();
-        // var image = new Image();
-        // image.src = dataUrl;
-
-        // var w = window.open('');
-        // var retryCnt = 0;
-        // while (retryCnt < 10) {
-        //   if (w != null) {
-        //     w.document.write(image.outerHTML);
-        //     break;
-        //   } else {
-        //     retryCnt++
-        //     await sleep(5000);
-        //     w = window.open('');
-        //   }
-        // }
         dispatch(setImage(data))
+        dispatch(setLoading(false))
       });
   }
 

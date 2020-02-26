@@ -1,8 +1,9 @@
-import { RESET_SYSTEM_ERROR, RESET_SYS_MESSAGE } from '../actions'
+import { RESET_SYSTEM_ERROR, RESET_SYS_MESSAGE, SET_LOADING } from '../actions'
 
 const initialState = {
   error: null,
-  message: null
+  message: null,
+  loading: 0
 }
 
 export default function system(state = initialState, action) {
@@ -25,6 +26,11 @@ export default function system(state = initialState, action) {
     return {
       ...state,
       message: null
+    }
+  } else if (action.type === SET_LOADING) {
+    return {
+      ...state,
+      loading: state.loading + (action.isLoading ? 1 : -1)
     }
   } else {
     return state

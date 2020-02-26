@@ -1,5 +1,6 @@
 export const RESET_SYSTEM_ERROR = 'RESET_SYSTEM_ERROR'
 export const RESET_SYS_MESSAGE = 'RESET_SYS_MESSAGE'
+export const SET_LOADING = 'SET_LOADING'
 
 
 export function resetSysError(){
@@ -11,6 +12,13 @@ export function resetSysError(){
 export function resetSysMessage(){
     return {
         type: RESET_SYS_MESSAGE,
+    }
+}
+
+export function setLoading(isLoading){
+    return {
+        type: SET_LOADING,
+        isLoading
     }
 }
 

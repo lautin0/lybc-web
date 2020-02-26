@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux'
 function LoadingOverlay() {
 
   const isPending = useSelector(state => (
-    state.newComer.saveStatus.isPending
+    state.newComer.saveStatus.isPending + 
+    state.system.loading    
   ))
 
   useEffect(() => {
