@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "dom-to-image": "^2.6.0",
     "dompurify": "^2.0.8",
     "lodash": "^4.17.15",
     "moment": "2.24.0",

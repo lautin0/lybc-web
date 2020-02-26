@@ -4,6 +4,7 @@ import { default as cart, getQuantity, getAddedIds } from './cart'
 import { default as products, getProduct } from './products'
 import { default as newComer } from './newComer'
 import { default as system } from './system'
+import { default as worship } from './worship'
 
 export function getCart(state) {
   return state.cart
@@ -30,18 +31,15 @@ export function getCartProducts(state) {
   }))
 }
 
-export function getLoading(){
-  
-}
-
-const shoppingCart = combineReducers({
+const rootReducer = combineReducers({
   cart,
   products,
   newComer,
+  worship,
   system
 })
 
 export default function root(state, action) {
   //if (action.type === ADD_TO_CART && state.products.byId[action.productId].inventory <= 0) return state
-  return shoppingCart(state, action)
+  return rootReducer(state, action)
 }

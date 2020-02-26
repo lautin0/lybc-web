@@ -16,3 +16,4 @@ export function resetSysMessage(){
 
 export * from './newComer'
 export * from './shop'
+export * from './worship'

@@ -33,7 +33,7 @@ function InfoModal(props) {
       </Modal.Header>
       <Modal.Body>
         <div 
-          style={{maxHeight: '65vh', overflowY: 'scroll'}}
+          style={{maxHeight: '55vh', overflowY: 'scroll'}}
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(message) }}
         ></div>
       </Modal.Body>

@@ -6,8 +6,13 @@ import 'react-quill/dist/quill.snow.css'
 import { useParams } from "react-router";
 import ReactToPrint from "react-to-print";
 import DOMPurify from 'dompurify'
+import domtoimage from 'dom-to-image'
+import ImageModal from "components/Modals/ImageModal";
+import { useDispatch } from "react-redux";
+import { setImage } from "actions";
 
 function Worship() {
+  const dispatch = useDispatch();
   let { id } = useParams();
   const [key, setKey] = useState('home')
   const [data, setData] = useState(`<br /><h3>
@@ -40,6 +45,37 @@ function Worship() {
     setData(content);
   }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const handleDownloadNote = () => {
+    domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: 0.95 })
+      .then(async function (data) {
+        // var link = document.createElement('a');
+        // link.download = 'sunday-notes20200223.jpeg';
+        // link.href = dataUrl;
+        // link.click();
+        // var image = new Image();
+        // image.src = dataUrl;
+
+        // var w = window.open('');
+        // var retryCnt = 0;
+        // while (retryCnt < 10) {
+        //   if (w != null) {
+        //     w.document.write(image.outerHTML);
+        //     break;
+        //   } else {
+        //     retryCnt++
+        //     await sleep(5000);
+        //     w = window.open('');
+        //   }
+        // }
+        dispatch(setImage(data))
+      });
+  }
+
+
   useEffect(() => {
     if (id === '20200223') {
       setData(`<br /><h3>
@@ -67,6 +103,7 @@ function Worship() {
 
   return (
     <div className="section">
+      <ImageModal />
       {id === '20200223' && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
@@ -94,19 +131,24 @@ function Worship() {
                 />
               </Row>
               <Row className="mt-5 justify-content-end">
+                <div className="d-block d-lg-none">
+                  <Button variant="primary" onClick={handleDownloadNote}>
+                    文字轉圖<i className="ml-1 fas fa-exchange-alt"></i>
+                  </Button>
+                </div>
                 <div className="d-none d-lg-block">
                   <ReactToPrint
                     trigger={() =>
-                      <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                      <Button variant="primary">另存PDF<i className="fa fa-print ml-1" aria-hidden="true"></i>
                       </Button>}
                     content={() => componentRef.current}
                   />
-                  <div className="d-none">
-                    <ComponentToPrint
-                      ref={el => (componentRef.current = el)}
-                      content={data}
-                    />
-                  </div>
+                </div>
+                <div className="d-none">
+                  <ComponentToPrint
+                    ref={el => (componentRef.current = el)}
+                    content={data}
+                  />
                 </div>
               </Row>
             </Tab>
@@ -161,10 +203,15 @@ function Worship() {
                 />
               </Row>
               <Row className="mt-5 justify-content-end">
+                <div className="d-block d-lg-none">
+                  <Button variant="primary" onClick={handleDownloadNote}>
+                    文字轉圖<i className="ml-1 fas fa-exchange-alt"></i>
+                  </Button>
+                </div>
                 <div className="d-none d-lg-block">
                   <ReactToPrint
                     trigger={() =>
-                      <Button variant="primary">另存PDF<i className="fa fa-print ml-3" aria-hidden="true"></i>
+                      <Button variant="primary">另存PDF<i className="fa fa-print ml-1" aria-hidden="true"></i>
                       </Button>}
                     content={() => componentRef.current}
                   />
