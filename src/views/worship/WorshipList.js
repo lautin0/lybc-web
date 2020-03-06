@@ -13,6 +13,7 @@ import * as moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200308', date: moment('08/03/2020', 'DD/MM/YYYY'), title: '作耶穌的見證人', messanger: '繆振聲傳道' },
   { id: '20200223', date: moment('23/02/2020', 'DD/MM/YYYY'), title: '成為別人的祝福', messanger: '潘仕楷傳道' },
   { id: '20200216', date: moment('16/02/2020', 'DD/MM/YYYY'), title: '穿上新人', messanger: '繆振聲傳道' },
 ]
@@ -61,7 +62,7 @@ function WorshipList() {
                   (data && data.length > 0) && data.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.id)}>{value.title}</td>
+                      <td onClick={() => onCellClicked(value.id)}>{value.title}{index == 0 && <b className="ml-3" style={{color: 'red'}}><i>新</i></b>}</td>
                       <td onClick={() => onCellClicked(value.id)}>{value.messanger}</td>
                       <td onClick={() => onCellClicked(value.id)}><a href="#">前往</a></td>
                     </tr>

@@ -127,6 +127,16 @@ function IndexNavbar() {
                   關於我們
                 </NavDropdown.Item>
                 <NavDropdown.Item
+                  as={Link} to="sunday-service-info"
+                >
+                  聚會時間
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link} to="/contact-us"
+                >
+                  聯絡我們
+                </NavDropdown.Item>
+                {/* <NavDropdown.Item
                   target="_blank"
                   onClick={e => {
                     e.preventDefault();
@@ -147,7 +157,7 @@ function IndexNavbar() {
                   }}
                 >
                   聯絡我們
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
               </NavDropdown>
               <Nav.Item>
                 <Button
