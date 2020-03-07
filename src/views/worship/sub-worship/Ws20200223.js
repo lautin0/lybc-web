@@ -52,7 +52,10 @@ function Ws20200223(props) {
                 value={data}
                 onChange={handleChange}
                 modules={props.editorModules}
-                style={{ height: 500, maxWidth: '98vw' }}
+                style={{ 
+                  minHeight: 500, 
+                  maxWidth: '98vw' 
+                }}              
               />
             </Row>
             <Row className="mt-5 justify-content-end">

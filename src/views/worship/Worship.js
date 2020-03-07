@@ -33,7 +33,7 @@ function Worship() {
 
   const handleDownloadNote = () => {
     dispatch(setLoading(true))
-    domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: 0.95 })
+    domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: .15 })
       .then(async function (data) {
         dispatch(setImage(data))
         dispatch(setLoading(false))
