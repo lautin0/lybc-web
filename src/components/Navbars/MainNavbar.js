@@ -100,7 +100,12 @@ function MainNavbar(props) {
                   target="_blank"
                 >
                   見證欄
-                  </NavDropdown.Item>
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                >
+                  牧者的話
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
                 <NavDropdown.Item as={Link} to="/about-us">

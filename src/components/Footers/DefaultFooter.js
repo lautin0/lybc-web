@@ -65,11 +65,6 @@ function DefaultFooter() {
           <h4>教會刊物</h4>
           <ul className="sitemap">
             <li>
-              <Link to="/">
-                程序表
-              </Link>
-            </li>
-            <li>
               <Link to="/download">
                 教會月刊
               </Link>
