@@ -52,8 +52,8 @@ function InfiniteScroll() {
   return (
     <>
       <Container className="row justify-content-start mx-auto new-comer">
-        {data && data.map(data => (
-          <Col key={data.id} md="6" lg="4">
+        {data && data.map((data, index) => (
+          <Col key={index} md="6" lg="4">
             <Card>
               <Card.Body>
                 <Card.Title><h4>{data.name}</h4></Card.Title>

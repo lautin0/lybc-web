@@ -1,14 +1,11 @@
-export interface SaveState {
+import { Person } from "actions/new-comer/types";
+
+export interface NewComerSaveState {
     isPending: number,
-    person: any
+    person: Person
 }
 
-export interface FetchState {
-    newComers: Array<any>,
+export interface NewComerFetchState {
+    newComers: Array<Person>,
     isFetching: boolean,
-}
-
-export interface NewComerState {
-    saveState: SaveState
-    fetchState: FetchState
 }

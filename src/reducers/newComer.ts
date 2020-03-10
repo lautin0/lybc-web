@@ -1,22 +1,25 @@
 import { combineReducers } from 'redux'
-import {
-  SAVE_NEWCOMER_REQUEST, SAVE_NEWCOMER_SUCCESS, SAVE_NEWCOMER_FAILURE,
-  FETCH_NEWCOMER_REQUEST, FETCH_NEWCOMER_SUCCESS, FETCH_NEWCOMER_FAILURE
-} from '../actions'
-import { NewComerState } from '../store/new-comer/types'
+import { NewComerSaveState, NewComerFetchState } from '../store/new-comer/types'
+import { 
+  NewComerActionTypes, 
+  SAVE_NEWCOMER_REQUEST, SAVE_NEWCOMER_SUCCESS, SAVE_NEWCOMER_FAILURE, 
+  FETCH_NEWCOMER_REQUEST, FETCH_NEWCOMER_SUCCESS, FETCH_NEWCOMER_FAILURE 
+} from 'actions/new-comer/types'
 
-const initialState: NewComerState = {
-  saveState: {
-    isPending: 0,
-    person: { name: '', phone: '', email: '' },
-  },
-  fetchState: {
-    newComers: [],
-    isFetching: false,
-  }
+const initialSaveState: NewComerSaveState = {
+  isPending: 0,
+  person: { name: '', phone: '', email: '' },
 }
 
-function saveStatus(state = initialState.saveState, action: any) {
+const initialFetchState: NewComerFetchState = {
+  newComers: [],
+  isFetching: false,
+}
+
+function saveStatus(
+    state = initialSaveState, 
+    action: NewComerActionTypes
+  ): NewComerSaveState {
   switch (action.type) {
     case SAVE_NEWCOMER_REQUEST:
       return {
@@ -25,7 +28,7 @@ function saveStatus(state = initialState.saveState, action: any) {
       }
     case SAVE_NEWCOMER_SUCCESS:
       return {
-        ...initialState.saveState,
+        ...initialSaveState,
         isPending: state.isPending - 1,
       }
     case SAVE_NEWCOMER_FAILURE:
@@ -38,7 +41,10 @@ function saveStatus(state = initialState.saveState, action: any) {
   }
 }
 
-function fetchStatus(state = initialState.fetchState, action: any) {
+function fetchStatus(
+    state = initialFetchState, 
+    action: NewComerActionTypes
+  ): NewComerFetchState {
   switch (action.type) {
     case FETCH_NEWCOMER_REQUEST:
       return {

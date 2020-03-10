@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal } from 'react-bootstrap';
-import { resetSysError, resetSysMessage } from '../../actions'
 import { RootState } from '../../reducers';
+import { resetSysError, resetSysMessage } from 'actions';
 
 function CommonModal(props: any) {
   const message = useSelector((state: RootState) => state.system.message);
