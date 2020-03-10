@@ -2,12 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
-  NavDropdown,
   Navbar,
   Nav,
   Container,
-  Tooltip
 } from "react-bootstrap";
 
 function ExamplesNavbar() {
@@ -45,54 +42,55 @@ function ExamplesNavbar() {
       ) : null}
       <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
         <Container>
-          {/* <UncontrolledDropdown className="button-dropdown"> */}
-          <NavDropdown id="" title="">
-            <button
-              // caret
-              className="navbar-toggler navbar-toggler"
-              data-toggle="dropdown"
-              id="navbarDropdown"
-              type="button"
-              onClick={(e: any) => e.preventDefault()}
-            >
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-            </button>
-            {/* <DropdownMenu aria-labelledby="navbarDropdown">
-              <DropdownItem header tag="a">
+          {/* <Dropdown
+            id=""
+            title=""
+            aria-labelledby="navbarDropdown"
+          >
+            <Dropdown.Toggle id="">
+              <button
+                className="navbar-toggler navbar-toggler"
+                data-toggle="dropdown"
+                id="navbarDropdown"
+                type="button"
+                onClick={(e: any) => e.preventDefault()}
+              >
+                <span className="button-bar"></span>
+                <span className="button-bar"></span>
+                <span className="button-bar"></span>
+              </button>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Header as="a">
                 Dropdown header
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+              </Dropdown.Header>
+              <Dropdown.Item href="#pablo" onClick={(e: any) => e.preventDefault()}>
                 Action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+              </Dropdown.Item>
+              <Dropdown.Item href="#pablo" onClick={(e: any) => e.preventDefault()}>
                 Another action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+              </Dropdown.Item>
+              <Dropdown.Item href="#pablo" onClick={(e: any) => e.preventDefault()}>
                 Something else here
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+              </Dropdown.Item>
+              <Dropdown.Divider></Dropdown.Divider>
+              <Dropdown.Item href="#pablo" onClick={(e: any) => e.preventDefault()}>
                 Separated link
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+              </Dropdown.Item>
+              <Dropdown.Divider></Dropdown.Divider>
+              <Dropdown.Item href="#pablo" onClick={(e: any) => e.preventDefault()}>
                 One more separated link
-              </DropdownItem>
-            </DropdownMenu> */}
-          </NavDropdown>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown> */}
           <div className="navbar-translate">
             <Navbar.Brand
               href="#"
               target="_blank"
               id="navbar-brand"
+              as="a"
             >
-              {/* Now Ui Kit */}
             </Navbar.Brand>
-            {/* <UncontrolledTooltip target="#navbar-brand">
-              Designed by Invision. Coded by Creative Tim
-            </UncontrolledTooltip> */}
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
@@ -122,18 +120,6 @@ function ExamplesNavbar() {
                   技術支援
                 </Nav.Link>
               </Nav.Item>
-              {/* <NavItem>
-                <NavLink
-                  target="_blank"
-                  id="twitter-tooltip"
-                >
-                  <i className="fab fa-twitter"></i>
-                  <p className="d-lg-none d-xl-none">Twitter</p>
-                </NavLink>
-                <UncontrolledTooltip target="#twitter-tooltip">
-                  Follow us on Twitter
-                </UncontrolledTooltip>
-              </NavItem> */}
               <Nav.Item>
                 <Nav.Link
                   target="_blank"
