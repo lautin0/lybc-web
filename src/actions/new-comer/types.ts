@@ -12,7 +12,7 @@ export type Person = {
     email: string
 }
 
-export interface FetchNewComersAction {
+export interface FetchNewComersRequestAction {
     type: typeof FETCH_NEWCOMER_REQUEST,
     pageSize: number,
     page: number
@@ -28,7 +28,7 @@ export interface FetchNewComersFailureAction {
     error: any
 }
 
-export interface SaveNewComerAction {
+export interface SaveNewComerRequestAction {
     type: typeof SAVE_NEWCOMER_REQUEST,
     person: Person
 }
@@ -44,5 +44,5 @@ export interface SaveNewComerFailureAction {
     error: any
 }
 
-export type NewComerActionTypes = FetchNewComersAction | FetchNewComersSuccessAction | FetchNewComersFailureAction | 
-                                SaveNewComerAction | SaveNewComerSuccessAction | SaveNewComerFailureAction
+export type NewComerActionTypes = FetchNewComersRequestAction | FetchNewComersSuccessAction | FetchNewComersFailureAction | 
+                                SaveNewComerRequestAction | SaveNewComerSuccessAction | SaveNewComerFailureAction

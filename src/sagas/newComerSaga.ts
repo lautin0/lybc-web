@@ -4,7 +4,7 @@ import * as actions from '../actions'
 import { api } from '../services'
 import { MSG_SAVE_SUCCESS, MSG_UPDATE_SUCCESS } from './index'
 
-export function* fetchNewComers(action) {
+export function* fetchNewComers(action: any) {
     const { pageSize, page } = action;
     try {
         const results = yield call(api.fetchNewComers, pageSize, page)
@@ -14,7 +14,7 @@ export function* fetchNewComers(action) {
     }
 }
 
-export function* saveNewComer(person) {
+export function* saveNewComer(person: any) {
     try {
         yield call(api.saveNewComer, person)
         yield put(actions.saveNewComerSuccess(MSG_SAVE_SUCCESS))
@@ -36,7 +36,7 @@ export function* watchfetchNewComer() {
 
 export default function* newComerSaga() {
     yield all([
-      fork(watchSaveNewComer),
-      fork(watchfetchNewComer)
+        fork(watchSaveNewComer),
+        fork(watchfetchNewComer)
     ])
-  }
+}
