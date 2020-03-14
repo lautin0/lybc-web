@@ -32,7 +32,7 @@ function Ws20200308(props: any) {
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
-        <iframe width="660" height="371" src="https://www.youtube-nocookie.com/embed/videoseries?list=PLUxHXOrQ-4zyARcoUkqwMisx9SajPfZ3e" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>        
+        <iframe width="660" height="371" src="https://www.youtube-nocookie.com/embed/videoseries?playsinline=1&list=PLUxHXOrQ-4zyARcoUkqwMisx9SajPfZ3e" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>        
       </Row>
       <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
         <Tabs
