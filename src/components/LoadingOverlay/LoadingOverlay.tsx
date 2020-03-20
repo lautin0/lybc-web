@@ -8,6 +8,7 @@ function LoadingOverlay() {
 
   const isPending = useSelector((state: RootState) => (
     state.newComer.saveStatus.isPending + 
+    state.auth.isPending + 
     state.system.loading    
   ))
 

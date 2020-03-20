@@ -27,7 +27,7 @@ function Download() {
   window.scrollTo(0, 0)
 
   function onCellClicked(uri: string) {
-    window.open(uri, '_blank');
+    window.open(uri, '_blank', 'noopener');
   };
 
   return (

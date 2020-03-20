@@ -9,7 +9,7 @@ import {
   PageItem
 } from "react-bootstrap";
 
-import moment from 'moment'
+// import moment from 'moment'
 
 const data: Array<any> = []
 

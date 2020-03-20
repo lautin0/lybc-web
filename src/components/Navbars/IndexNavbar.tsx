@@ -6,8 +6,7 @@ import {
   NavDropdown,
   Navbar,
   Nav,
-  Container,
-  Tooltip
+  Container
 } from "react-bootstrap";
 
 function IndexNavbar() {

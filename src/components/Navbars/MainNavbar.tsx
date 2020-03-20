@@ -7,8 +7,7 @@ import {
   NavDropdown,
   Navbar,
   Nav,
-  Container,
-  Tooltip
+  Container  
 } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 

@@ -11,7 +11,6 @@ import {
   FormControl,
   InputGroup,
   Container,
-  Col,
   Row
 } from "react-bootstrap";
 import { RootState } from "reducers";

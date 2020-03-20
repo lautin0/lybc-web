@@ -1,8 +1,7 @@
 import React from "react";
 
 // react-bootstrap components
-import { Button, Container, Row, Col, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 // core components
 

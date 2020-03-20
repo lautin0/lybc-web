@@ -16,7 +16,7 @@ import "assets/demo/demo.css";
 import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index";
-import LoginPage from "views/examples/LoginPage";
+import LoginPage from "views/sign-in/LoginPage";
 import MainPage from 'views/main/MainPage'
 import CommonModal from "components/Modals/CommonModal";
 import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";

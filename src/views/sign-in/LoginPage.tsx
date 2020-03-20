@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState, useRef } from "react";
+import _ from 'lodash'
 // react-bootstrap components
 import {
   Button,
@@ -14,10 +14,18 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar";
 import TransparentFooter from "components/Footers/TransparentFooter";
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "actions";
+import { RootState } from "reducers";
 
 function LoginPage() {
-  const [firstFocus, setFirstFocus] = React.useState(false);
-  const [lastFocus, setLastFocus] = React.useState(false);
+  const userDef = useSelector((state: RootState) => state.auth.user)
+
+  const [firstFocus, setFirstFocus] = useState(false);
+  const [lastFocus, setLastFocus] = useState(false);
+  const [ user, setUser ] = useState(userDef);
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     document.body.classList.add("login-page");
     document.body.classList.add("sidebar-collapse");
@@ -29,6 +37,24 @@ function LoginPage() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
+  const handleInputChange = (e: any) => setUser({
+    ...user,
+    [e.currentTarget.name]: e.currentTarget.value
+  })
+  
+  const prevUser = useRef(user)
+  React.useEffect(() => {
+    if (!_.isEqual(user, prevUser.current)) {
+      //INPUT HAS CHANGED
+      setUser(user)
+    } else if (!_.isEqual(user, userDef)) {
+      //REDUX STATE HAS CHANGED
+      setUser(userDef)
+    }
+    prevUser.current = user
+  }, [user, userDef]) 
+
   return (
     <>
       <ExamplesNavbar />
@@ -67,8 +93,11 @@ function LoginPage() {
                       <FormControl
                         placeholder="用戶名稱"
                         type="text"
+                        name="username"
+                        value={user.username}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
+                        onChange={handleInputChange}
                       ></FormControl>
                     </InputGroup>
                     <InputGroup
@@ -84,9 +113,12 @@ function LoginPage() {
                       </InputGroup.Prepend>
                       <FormControl
                         placeholder="密碼"
-                        type="text"
+                        type="password"
+                        name="password"
+                        value={user.password}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
+                        onChange={handleInputChange}
                       ></FormControl>
                     </InputGroup>
                   </Card.Body>
@@ -95,22 +127,11 @@ function LoginPage() {
                       block
                       className="btn-round btn-info"
                       href="#pablo"
-                      onClick={(e: any) => e.preventDefault()}
+                      onClick={(e: any) => dispatch(signIn(user))}
                       size="lg"
                     >
                       登入
                     </Button>
-                    {/* <div className="pull-left">
-                      <h6>
-                        <a
-                          className="link"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          Create Account
-                        </a>
-                      </h6>
-                    </div> */}
                     <div className="pull-right">
                       <h6>
                         <a

@@ -13,7 +13,7 @@ function Theme() {
           <Row>
             <Col className="justify-content-center text-center" md="6">
               <h2>以聖言為中心的信仰</h2>
-              <img style={{maxHeight: 400}} src={require("assets/img/photo5_sq.jpg")} alt="bible image" />
+              <img style={{maxHeight: 400}} src={require("assets/img/photo5_sq.jpg")} alt="bible" />
             </Col>
             <Col className="justify-content-center text-center my-auto" md="6">
               <h3 className="mt-5">我們重視什麽？</h3>
