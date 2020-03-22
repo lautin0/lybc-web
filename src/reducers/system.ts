@@ -12,9 +12,14 @@ export default function system(
     action: any
   ): SystemState {
   if (action.type.includes('FAILURE')) {
+    let error;
+    if (action.error.response == null || action.error.response.data == null || action.error.response.data == "")
+        error = action.error
+    else
+        error = action.error.response.data
     return {
       ...state,
-      error: action.error
+      error: error
     }
   } else if (action.type.includes('SUCCESS')) {
     return {

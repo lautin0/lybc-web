@@ -19,6 +19,7 @@ export default function authStatus(
         isPending: state.isPending + 1
       }
     case SIGN_IN_SUCCESS:
+      sessionStorage.setItem("jwt", action.jwt)
       return {
         ...state,
         jwt: action.jwt,

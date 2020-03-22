@@ -31,7 +31,7 @@ function CommonModal(props: any) {
     >
       {error && <Modal.Header closeButton data-background-color="error">
         <Modal.Title id="contained-modal-title-vcenter">
-          系統錯誤
+          錯誤
         </Modal.Title>
       </Modal.Header>}
       {message &&  <Modal.Header closeButton className="black-close">
