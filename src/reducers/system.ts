@@ -7,19 +7,39 @@ const initialState: SystemState = {
   loading: 0
 }
 
+const extractError = (e: any) => {
+  if (e.response != null) {
+    switch (e.response.status) {
+
+      case 404:
+      case 405:
+      case 403:
+        return "網絡錯誤"
+
+      case 401:
+        if (e.response.data != "")
+          return e.response.data;
+        else
+          return "沒有權限";
+
+      default:
+        return e;
+
+    }
+
+  } else {
+    return e;
+  }
+}
+
 export default function system(
-    state = initialState, 
-    action: any
-  ): SystemState {
+  state = initialState,
+  action: any
+): SystemState {
   if (action.type.includes('FAILURE')) {
-    let error;
-    if (action.error.response == null || action.error.response.data == null || action.error.response.data == "")
-        error = action.error
-    else
-        error = action.error.response.data
     return {
       ...state,
-      error: error
+      error: extractError(action.error)
     }
   } else if (action.type.includes('SUCCESS')) {
     return {
