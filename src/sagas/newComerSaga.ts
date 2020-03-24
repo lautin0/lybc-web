@@ -17,7 +17,7 @@ export function* fetchNewComers(action: any) {
 export function* saveNewComer(person: any) {
     try {
         yield call(api.saveNewComer, person)
-        yield put(actions.saveNewComerSuccess(MSG_SAVE_SUCCESS))
+        yield put(actions.saveNewComerSuccess({ message: MSG_SAVE_SUCCESS }))
     } catch (error) {
         yield put(actions.saveNewComerFailure(person, error))
     }

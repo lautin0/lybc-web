@@ -3,6 +3,7 @@ import {
     FETCH_NEWCOMER_SUCCESS, FETCH_NEWCOMER_FAILURE, FETCH_NEWCOMER_REQUEST,
     SAVE_NEWCOMER_REQUEST, SAVE_NEWCOMER_SUCCESS, SAVE_NEWCOMER_FAILURE 
 } from "./types"
+import { SagaResult } from "store/system/types"
 
 
 export function fetchNewComers(pageSize: number, page: number): NewComerActionTypes {
@@ -34,10 +35,10 @@ export function saveNewComer(person: Person): NewComerActionTypes {
     }
 }
 
-export function saveNewComerSuccess(message: string): NewComerActionTypes {
+export function saveNewComerSuccess(result: SagaResult): NewComerActionTypes {
     return {
         type: SAVE_NEWCOMER_SUCCESS,
-        message
+        result
     }
 }
 

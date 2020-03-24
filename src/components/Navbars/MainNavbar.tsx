@@ -7,15 +7,18 @@ import {
   NavDropdown,
   Navbar,
   Nav,
-  Container  
+  Container
 } from "react-bootstrap";
-import UNIVERSALS from "Universals";
+import UNIVERSALS, { getTokenValue } from "Universals";
+import { useSelector } from "react-redux";
+import { RootState } from "reducers";
 
 type MainNavbarProps = {
   page: string
 }
 
 function MainNavbar(props: MainNavbarProps) {
+  const token = useSelector((state: RootState) => state.auth.jwt);
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   return (
     <>
@@ -41,7 +44,7 @@ function MainNavbar(props: MainNavbarProps) {
               }}
             >
               <img
-                style={{maxHeight:30, maxWidth: 30, marginRight: 5}}
+                style={{ maxHeight: 30, maxWidth: 30, marginRight: 5 }}
                 alt="logo"
                 src={require("assets/img/lybc_logo.png")}
               ></img>
@@ -125,7 +128,7 @@ function MainNavbar(props: MainNavbarProps) {
                   聯絡我們
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Item>
+              {!token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
                   // color="success"
@@ -138,7 +141,21 @@ function MainNavbar(props: MainNavbarProps) {
                   <i className="fas fa-user" style={{ fontSize: 14 }}></i>
                   <p>會友登入</p>
                 </Button>
-              </Nav.Item>
+              </Nav.Item>}
+              {token &&
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.unique_name}</p></>}>
+                  <NavDropdown.Item
+                    as="a"
+                    href="javascript:void(0)"
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      sessionStorage.clear();
+                      window.location.href = './'
+                    }}
+                  >
+                    登出
+                  </NavDropdown.Item>
+                </NavDropdown>}
               <Nav.Item>
                 <Nav.Link
                   href="https://www.facebook.com/lukYeungBaptistChurch"

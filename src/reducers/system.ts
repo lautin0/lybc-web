@@ -1,9 +1,9 @@
 import { SystemState } from '../store/system/types'
-import { RESET_SYSTEM_ERROR, RESET_SYS_MESSAGE, SET_LOADING } from 'actions/system/types'
+import { RESET_SYSTEM_ERROR, RESET_SAGA_RESULT, SET_LOADING } from 'actions/system/types'
 
 const initialState: SystemState = {
   error: null,
-  message: null,
+  result: null,
   loading: 0
 }
 
@@ -44,17 +44,17 @@ export default function system(
   } else if (action.type.includes('SUCCESS')) {
     return {
       ...state,
-      message: action.message
+      result: action.result
     }
   } else if (action.type === RESET_SYSTEM_ERROR) {
     return {
       ...state,
       error: action.error
     }
-  } else if (action.type === RESET_SYS_MESSAGE) {
+  } else if (action.type === RESET_SAGA_RESULT) {
     return {
       ...state,
-      message: action.message
+      result: action.result
     }
   } else if (action.type === SET_LOADING) {
     return {

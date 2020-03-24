@@ -1,5 +1,5 @@
 export const RESET_SYSTEM_ERROR = 'RESET_SYSTEM_ERROR'
-export const RESET_SYS_MESSAGE = 'RESET_SYS_MESSAGE'
+export const RESET_SAGA_RESULT = 'RESET_SAGA_RESULT'
 export const SET_LOADING = 'SET_LOADING'
 
 export interface ResetSystemErrorAction {
@@ -7,9 +7,9 @@ export interface ResetSystemErrorAction {
     error: string | null
 }
 
-export interface ResetSystemMessageAction {
-    type: typeof RESET_SYS_MESSAGE,
-    message: string | null
+export interface ResetSagaResultAction {
+    type: typeof RESET_SAGA_RESULT,
+    result: any
 }
 
 export interface SetLoadingAction {
@@ -17,4 +17,4 @@ export interface SetLoadingAction {
     isLoading: boolean
 }
 
-export type SystemActionTypes = ResetSystemErrorAction | ResetSystemMessageAction | SetLoadingAction
+export type SystemActionTypes = ResetSystemErrorAction | ResetSagaResultAction | SetLoadingAction

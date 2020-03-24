@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 type UniversalsInfo = {
     TITLE_MAP: any,
     MENU_HIERARCHY: any,
@@ -93,29 +95,37 @@ const UNIVERSALS: UniversalsInfo = {
 export default UNIVERSALS;
 
 export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
-    if(foundObj == null)
-        foundObj = {isFound: false}
+    if (foundObj == null)
+        foundObj = { isFound: false }
     let isCurrent = false;
     let currId: any;
-    if(array == null)
+    if (array == null)
         array = []
-    if(obj == null)
+    if (obj == null)
         obj = UNIVERSALS.MENU_HIERARCHY
-    if(Object.keys(obj).includes(id)){
-        array.unshift({title: obj[id].title, link: null })
+    if (Object.keys(obj).includes(id)) {
+        array.unshift({ title: obj[id].title, link: null })
         isCurrent = true;
         foundObj.isFound = true;
-    }    
+    }
     Object.keys(obj).forEach(e => {
-        if(obj[e] != null && obj[e].child != null){
-            if(!foundObj.isFound){
+        if (obj[e] != null && obj[e].child != null) {
+            if (!foundObj.isFound) {
                 currId = e
                 return getMenuHierarchy(id, obj[e].child, array, foundObj)
             }
-        }  
-    }); 
-    if(foundObj.isFound && !isCurrent){
-        array.unshift({title: obj[currId].title, link: obj[currId].link })
+        }
+    });
+    if (foundObj.isFound && !isCurrent) {
+        array.unshift({ title: obj[currId].title, link: obj[currId].link })
     }
     return array
+}
+
+export function getTokenValue(jwt: any) {
+    let authObject: any
+    if (jwt) {
+        authObject = jwt_decode(jwt);
+    }
+    return authObject
 }

@@ -8,8 +8,12 @@ import {
   Nav,
   Container
 } from "react-bootstrap";
+import { RootState } from "reducers";
+import { useSelector } from "react-redux";
+import { getTokenValue } from "Universals";
 
 function IndexNavbar() {
+  const token = useSelector((state: RootState) => state.auth.jwt);
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {
@@ -31,6 +35,7 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
   return (
     <>
       {collapseOpen ? (
@@ -160,7 +165,7 @@ function IndexNavbar() {
                   聯絡我們
                 </NavDropdown.Item> */}
               </NavDropdown>
-              <Nav.Item>
+              {!token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
                   // color="success"
@@ -173,7 +178,21 @@ function IndexNavbar() {
                   <i className="fas fa-user" style={{ fontSize: 14 }}></i>
                   <p>會友登入</p>
                 </Button>
-              </Nav.Item>
+              </Nav.Item>}
+              {token &&
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.unique_name}</p></>}>
+                  <NavDropdown.Item
+                    as="a"
+                    href="javascript:void(0)"
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      sessionStorage.clear();
+                      window.location.href = './'
+                    }}
+                  >
+                    登出
+                  </NavDropdown.Item>
+                </NavDropdown>}
               <Nav.Item>
                 <Nav.Link
                   href="https://www.facebook.com/lukYeungBaptistChurch"

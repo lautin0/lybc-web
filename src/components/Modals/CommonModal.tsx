@@ -6,13 +6,16 @@ import { RootState } from '../../reducers';
 import { resetSysError, resetSysMessage } from 'actions';
 
 function CommonModal(props: any) {
-  const message = useSelector((state: RootState) => state.system.message);
+  const result = useSelector((state: RootState) => state.system.result);
   const error = useSelector((state: RootState) => state.system.error);
   const dispatch = useDispatch();
 
   const onHide = () => {
+    let func
+    func = result?.callback
     error && dispatch(resetSysError());
-    message && dispatch(resetSysMessage());
+    result && dispatch(resetSysMessage());
+    func && func.call(null);
   }
 
   useEffect(() => {
@@ -23,7 +26,7 @@ function CommonModal(props: any) {
   return (
     <Modal
       {...props}
-      show={error != null || message != null}
+      show={error != null || result != null}
       onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -34,7 +37,7 @@ function CommonModal(props: any) {
           錯誤
         </Modal.Title>
       </Modal.Header>}
-      {message &&  <Modal.Header closeButton className="black-close">
+      {result &&  <Modal.Header closeButton className="black-close">
         <Modal.Title id="contained-modal-title-vcenter">
           系統提示
         </Modal.Title>
@@ -43,7 +46,7 @@ function CommonModal(props: any) {
         {/* <h4>系統錯誤</h4> */}
         <h4>
           {error && error.toString()}
-          {message && message.toString()}
+          {result && result.message}
         </h4>
       </Modal.Body>
       <Modal.Footer>

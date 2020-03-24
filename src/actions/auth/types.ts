@@ -1,3 +1,5 @@
+import { SagaResult } from "store/system/types"
+
 export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST'
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS'
 export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE'
@@ -15,7 +17,7 @@ export interface SignInRequestAction {
 export interface SignInSuccessAction {
     type: typeof SIGN_IN_SUCCESS,
     jwt: string,
-    message: string
+    result: SagaResult
 }
 
 export interface SignInFailureAction {

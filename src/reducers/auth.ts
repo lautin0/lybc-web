@@ -31,6 +31,9 @@ export default function authStatus(
         isPending: state.isPending - 1
       }
     default:
-      return state
+      return { 
+        ...state,
+        jwt: sessionStorage.getItem("jwt")
+      }
   }
 }

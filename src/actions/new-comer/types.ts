@@ -1,3 +1,5 @@
+import { SagaResult } from "store/system/types"
+
 export const SAVE_NEWCOMER_REQUEST = 'SAVE_NEWCOMER_REQUEST'
 export const SAVE_NEWCOMER_SUCCESS = 'SAVE_NEWCOMER_SUCCESS'
 export const SAVE_NEWCOMER_FAILURE = 'SAVE_NEWCOMER_FAILURE'
@@ -35,7 +37,7 @@ export interface SaveNewComerRequestAction {
 
 export interface SaveNewComerSuccessAction {
     type: typeof SAVE_NEWCOMER_SUCCESS,
-    message: any
+    result: SagaResult
 }
 
 export interface SaveNewComerFailureAction {

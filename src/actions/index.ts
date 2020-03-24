@@ -1,4 +1,4 @@
-import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SYS_MESSAGE } from './system/types'
+import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT } from './system/types'
 
 export function resetSysError(): SystemActionTypes{
     return {
@@ -9,8 +9,8 @@ export function resetSysError(): SystemActionTypes{
 
 export function resetSysMessage(): SystemActionTypes{
     return {
-        type: RESET_SYS_MESSAGE,
-        message: null
+        type: RESET_SAGA_RESULT,
+        result: null
     }
 }
 
