@@ -90,6 +90,11 @@ function DefaultFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/doctrine">
+                教會信條
+              </Link>
+            </li>
+            <li>
               <Link to="/sunday-service-info">
                 聚會時間
               </Link>

@@ -115,6 +115,9 @@ function MainNavbar(props: MainNavbarProps) {
                 <NavDropdown.Item as={Link} to="/about-us">
                   關於我們
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/doctrine">
+                  教會信條
+                </NavDropdown.Item>
                 <NavDropdown.Item
                   as={Link} to="sunday-service-info"
                 >

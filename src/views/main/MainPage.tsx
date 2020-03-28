@@ -15,6 +15,7 @@ import InfiniteScroll from 'views/common/InfiniteScroll'
 // import SearchBooks from "views/books/SearchBooks";
 import Worship from "views/worship/Worship";
 import WorshipList from "views/worship/WorshipList";
+import Doctrine from "views/about/Doctrine";
 
 type MainPageProps = {
   page: string,
@@ -50,6 +51,7 @@ function MainPage(props: MainPageProps) {
           {props.page == 'download' && <Download />}
           {props.page == 'apply-activity' && <Apply />}
           {props.page == 'contact-us' && <ContactUs />}
+          {props.page == 'doctrine' && <Doctrine />}
           {props.page == 'sunday-service-info' && <SundayServiceInfo />}
           {props.page == 'test' && <InfiniteScroll />}
           {/* {props.page == 'search' && <SearchBooks />} */}
