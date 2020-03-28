@@ -88,6 +88,11 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/doctrine">
+                教會信條
+              </Link>
+            </li>
+            <li>
               <Link
                 to="/sunday-service-info"
                 // onClick={e => {

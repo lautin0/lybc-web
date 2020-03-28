@@ -132,8 +132,11 @@ function IndexNavbar() {
                 <NavDropdown.Item as={Link} to="/about-us">
                   關於我們
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/doctrine">
+                  教會信條
+                </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link} to="sunday-service-info"
+                  as={Link} to="/sunday-service-info"
                 >
                   聚會時間
                 </NavDropdown.Item>

@@ -44,6 +44,7 @@ ReactDOM.render(
           <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
           <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} />
           <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} />
+          <Route path="/doctrine" render={props => <MainPage {...props} page="doctrine" />} />
           <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
           <Route path="/test" render={props => <MainPage {...props} page="test" />} />
           <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
