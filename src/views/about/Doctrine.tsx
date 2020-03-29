@@ -36,7 +36,12 @@ function Doctrine() {
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12">
-              <h2 style={{ fontWeight: 'bold' }} id="chapter2" className="anchor">第二章 基本信條 </h2>
+              <h2 style={{ fontWeight: 'bold' }} id="chapter2" className="anchor">
+                <div className="d-flex justify-content-between">
+                  <div>第二章 基本信條</div>
+                  <div onClick={() => { window.scrollTo(0,0) }} style={{cursor: 'pointer'}}><i className="fas fa-chevron-up"></i></div>
+                </div>
+              </h2>
               <p><b>第一條 : 聖經 </b></p>
               <p><b>我們相信新舊約聖經的原版經文每字每句絕對是神的默示，經聖靈管理的人寫成，因此完全準確無誤。我們相信聖經是神向人類顯明祂旨意的最高啟示。也是我們生活行事的一準則。( 提後3:16，彼後1:19-21 ) </b></p>
               <p><b>第二條 : 真神 </b></p>
@@ -61,7 +66,12 @@ function Doctrine() {
               <p><b>我們相信聖經的教導，每一個信主的人都要靠著聖靈的幫助，活出基督徒的愛和聖潔，彰顯誠實、正直、寬恕、愛、和各種屬靈的美德。我們也相信這一切美德會幫助人更加謙卑，更熱心事奉主，叫主的名更多被人尊崇。( 林後7:1，帖前4:7，腓4:8，弗4:32，弗5:1-2，弗5:7-10,15-20，彼前5:5-6，箴15:33，加5:22-25 ) </b></p>
               <p><b>第十二條 : 聖經中分別的原則</b></p>
               <p><b>我們接受聖經的教導，信主的人該從世界和背道者之中分別出來，任何與本會信仰相違之基督教組織，我們絕不參加，這是基於神永恒的原則，要把真理和虛謊分別，神也特別吩咐信的人要離開不信的人和背道的弟兄。實行這真理的人必須存敬虔、謙卑、憐憫的態度，但也必須有堅定的信心，免得影響福音工作，使失喪的人缺乏合宜的帶領和引導。二十世紀的教會正推行合一運動，主張福音派和不信派的教會聯合起來推廣福音工作。這種違反聖經原則和教導的行動，我們絕對不會同意。( 太18:15,加1:8-9,太10:34-39,林後6:14,林後11:4,提前6:3-6，提後2:16-18，多3:10，羅16:17，林前5:7-13 ) </b></p>
-              <h2 style={{ fontWeight: 'bold', marginTop: 70 }} id="chapter3" className="anchor">第三章 聖禮 </h2>
+              <h2 style={{ fontWeight: 'bold', marginTop: 70 }} id="chapter3" className="anchor">
+                <div className="d-flex justify-content-between">
+                  <div>第三章 聖禮</div>
+                  <div onClick={() => { window.scrollTo(0,0) }} style={{cursor: 'pointer'}}><i className="fas fa-chevron-up"></i></div>
+                </div>
+              </h2>
               <p><b>第一條 : 浸禮 </b></p>
               <p><b>凡已相信耶穌基督，並加入本會者，必須接受浸禮，藉此表明已經重生得救，脫離罪的權勢，被主買贖，歸入主的名下，與主同死同活，願意一生一世遵行主的教訓，為主而活。</b></p>
               <p><b>第二條 : 聖餐 </b></p>
