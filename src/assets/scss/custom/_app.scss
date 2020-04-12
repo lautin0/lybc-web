@@ -110,3 +110,13 @@ h2.anchor::before {
     visibility: hidden; 
     pointer-events: none;
 }
+
+.float-above {
+    position: fixed;
+    top: 198px;
+    left: 50px;
+    width: 200px;
+    z-index: 1002;
+    height: 70vh;
+    overflow-y: scroll;
+}
