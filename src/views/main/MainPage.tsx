@@ -36,7 +36,7 @@ function MainPage(props: MainPageProps) {
     <>
       <MainNavbar page={props.page}/>
       <div className="wrapper">
-        <div className="main" style={{top: 143}}>     
+        <div className="main" style={{top: 114}}>     
           <div>
             <Breadcrumb as="nav">
               {menus && menus.map((value: any, index: number) => {
