@@ -76,10 +76,10 @@ const UNIVERSALS: UniversalsInfo = {
     NOTIFICATION: {
         MESSAGE: `
         <div class="mb-5 text-center w-100">
-            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200329">前往網上崇拜錄播</a>
+            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200412">前往網上崇拜錄播</a>
         </div>
-        <p><b>綠楊浸信會應對武漢肺炎疫症措施通告(2020 年 3 月 29 日更新)</b></p>
-        <p><b>有鑑武漢肺炎疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
+        <p><b>綠楊浸信會應對新型冠狀病毒病疫症措施通告(2020 年 4 月 12 日更新)</b></p>
+        <p><b>有鑑新型冠狀病毒病疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
         <p><b>1. 本周所有聚會及主日崇拜，以及主日各聚會取消。建議信徒留在家中參與網上崇拜😇。</b></p>
         <p><b>2. 在此期間，南豐辦公室及綠楊教會並不向外開放。🚪</b></p>
         <p><b>3. 縱然教會肢體未能聚會見面，我們可透過電子媒介/平台，或直接電話問候，彼此代禱，保持緊密聯繫，彰顯主愛。💖 🙏🏻</b></p>

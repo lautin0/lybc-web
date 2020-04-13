@@ -13,6 +13,8 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200412', date: moment('12/04/2020', 'DD/MM/YYYY'), title: '復活的大能', messanger: '謝健雄牧師' },
+  { id: '20200405', date: moment('05/04/2020', 'DD/MM/YYYY'), title: '主需要用你', messanger: '繆振聲傳道' },
   { id: '20200329', date: moment('29/03/2020', 'DD/MM/YYYY'), title: '分享主日', messanger: '---' },
   { id: '20200322', date: moment('22/03/2020', 'DD/MM/YYYY'), title: '與神摔跤的人', messanger: '黃雪梅傳道' },
   { id: '20200315', date: moment('15/03/2020', 'DD/MM/YYYY'), title: '主恩奇妙，因病得福', messanger: '林瑞興牧師' },

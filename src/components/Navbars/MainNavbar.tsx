@@ -31,7 +31,7 @@ function MainNavbar(props: MainNavbarProps) {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '143px', background: '#45934c' }}>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '114px', background: '#45934c' }}>
         <Container style={{ height: '100%', display: 'block' }}>
           <div className="navbar-translate">
             <Navbar.Brand
@@ -181,7 +181,7 @@ function MainNavbar(props: MainNavbarProps) {
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
-          <div>
+          <div style={{ marginTop: -26 }}>
             <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
             <h4 style={{ color: 'white', marginTop: 10 }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
           </div>
