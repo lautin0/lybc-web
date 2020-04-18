@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 
 function DefaultFooter() {
   return (
-    <footer className="footer footer-default" style={{ marginTop: '143px' }}>
+    <footer className="footer footer-default" style={{ marginTop: '114px' }}>
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>
           <h4>教會活動</h4>
@@ -65,7 +65,7 @@ function DefaultFooter() {
           <h4>教會刊物</h4>
           <ul className="sitemap">
             <li>
-              <Link to="/download">
+              <Link to="/journal">
                 教會月刊
               </Link>
             </li>
@@ -75,7 +75,7 @@ function DefaultFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/preacher-message">
                 牧者的話
               </Link>
             </li>

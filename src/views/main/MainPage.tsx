@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // core components
 import MainNavbar from "components/Navbars/MainNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
-import Download from "views/download/Download";
+import Journal from "views/articles/Journal";
 import AboutUs from "views/about/AboutUs";
 import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
@@ -16,6 +16,7 @@ import InfiniteScroll from 'views/common/InfiniteScroll'
 import Worship from "views/worship/Worship";
 import WorshipList from "views/worship/WorshipList";
 import Doctrine from "views/about/Doctrine";
+import PreacherMessage from "views/articles/PreacherMessage";
 
 type MainPageProps = {
   page: string,
@@ -36,7 +37,7 @@ function MainPage(props: MainPageProps) {
     <>
       <MainNavbar page={props.page}/>
       <div className="wrapper">
-        <div className="main" style={{top: 114}}>     
+        <div className="main" style={props.page == 'preacher-message' ? {top: 114, background: 'lightyellow'} : {top: 114}}>     
           <div>
             <Breadcrumb as="nav">
               {menus && menus.map((value: any, index: number) => {
@@ -48,7 +49,7 @@ function MainPage(props: MainPageProps) {
             </Breadcrumb>
           </div>   
           {props.page == 'about-us' && <AboutUs />}
-          {props.page == 'download' && <Download />}
+          {props.page == 'journal' && <Journal />}
           {props.page == 'apply-activity' && <Apply />}
           {props.page == 'contact-us' && <ContactUs />}
           {props.page == 'doctrine' && <Doctrine />}
@@ -57,6 +58,7 @@ function MainPage(props: MainPageProps) {
           {/* {props.page == 'search' && <SearchBooks />} */}
           {props.page == 'worship' && <Worship />}
           {props.page == 'worship-list' && <WorshipList />}
+          {props.page == 'preacher-message' && <PreacherMessage />}
         </div>
         <DefaultFooter />
       </div>

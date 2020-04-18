@@ -110,7 +110,7 @@ function IndexNavbar() {
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown id="" title={<><i className="fas fa-book mr-1"></i>教會刊物</>}>
-                <NavDropdown.Item as={Link} to="/download">
+                <NavDropdown.Item as={Link} to="/journal">
                   教會月刊
                 </NavDropdown.Item>
                 <NavDropdown.Item
@@ -118,9 +118,7 @@ function IndexNavbar() {
                 >
                   見證欄
                 </NavDropdown.Item>
-                <NavDropdown.Item
-                  target="_blank"
-                >
+                <NavDropdown.Item as={Link} to="/preacher-message">
                   牧者的話
                 </NavDropdown.Item>
               </NavDropdown>

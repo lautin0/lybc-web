@@ -7,13 +7,14 @@ type UniversalsInfo = {
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
         'about-us': '『香港萬國宣道浸信聯會』簡介',
-        'download': '下載區',
+        'journal': '教會月刊',
         'apply-activity': '活動報名',
         'contact-us': '聯絡我們',
         'sunday-service-info': '聚會時間',
         'worship': '網上崇拜',
         'worship-list': '網上崇拜',
-        'doctrine':'綠楊浸信會會章之基本信條及聖禮'
+        'doctrine':'綠楊浸信會會章之基本信條及聖禮',
+        'preacher-message': '牧者的話'
     },
     MENU_HIERARCHY: {
         index: {
@@ -50,12 +51,16 @@ const UNIVERSALS: UniversalsInfo = {
                         }
                     }
                 },
-                'church-download': {
+                'articles': {
                     title: '教會刊物',
                     child: {
-                        'download': {
+                        'journal': {
                             title: '教會月刊',
-                            link: '/download',
+                            link: '/journal',
+                        },
+                        'preacher-message': {
+                            title: '牧者的話',
+                            link: '/preacher-message',
                         }
                     }
                 },

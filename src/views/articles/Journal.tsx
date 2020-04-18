@@ -21,7 +21,7 @@ const data = [
   { uri: require('assets/pdf/journal1.pdf'), date: moment('01/06/2019', 'DD/MM/YYYY'), title: '主的見證人' }
 ]
 
-function Download() {
+function Journal() {
 
   //Default scroll to top
   window.scrollTo(0, 0)
@@ -78,4 +78,4 @@ function Download() {
   );
 }
 
-export default Download;
+export default Journal;
