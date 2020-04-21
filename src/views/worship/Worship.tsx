@@ -13,6 +13,7 @@ import Ws20200322 from "./sub-worship/Ws20200322";
 import Ws20200329 from "./sub-worship/Ws20200329";
 import Ws20200405 from "./sub-worship/Ws20200405";
 import Ws20200412 from "./sub-worship/Ws20200412";
+import Ws20200419 from "./sub-worship/Ws20200419";
 
 function Worship() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function Worship() {
   return (
     <div className="section">
       <ImageModal />
+      {id === '20200419' && <Ws20200419 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
       {id === '20200412' && <Ws20200412 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
       {id === '20200405' && <Ws20200405 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
       {id === '20200329' && <Ws20200329 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
