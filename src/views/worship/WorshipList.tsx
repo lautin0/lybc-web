@@ -13,6 +13,7 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200503', date: moment('03/05/2020', 'DD/MM/YYYY'), title: '不要憂慮', messanger: '霍志鵬先生 (同心圓敬拜福音平台總幹事)' },
   { id: '20200426', date: moment('26/04/2020', 'DD/MM/YYYY'), title: '你是安全的', messanger: '鄧心寧傳道' },
   { id: '20200419', date: moment('19/04/2020', 'DD/MM/YYYY'), title: '搜尋智慧 Search for Wisdom', messanger: '黃雪梅傳道' },
   { id: '20200412', date: moment('12/04/2020', 'DD/MM/YYYY'), title: '復活的大能', messanger: '謝健雄牧師' },
@@ -57,9 +58,9 @@ function WorshipList() {
             <Table striped className={data && data.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
-                  <th>日期</th>
-                  <th style={{ width: '50%' }}>標題</th>
-                  <th style={{ width: '20%' }}>講員</th>
+                  <th style={{ width: '15%' }}>日期</th>
+                  <th style={{ width: '45%' }}>標題</th>
+                  <th style={{ width: '30%' }}>講員</th>
                   <th style={{ width: '10%' }}></th>
                 </tr>
               </thead>
