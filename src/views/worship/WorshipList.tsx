@@ -13,6 +13,7 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200517', date: moment('17/05/2020', 'DD/MM/YYYY'), title: '與神同工的領袖', messanger: '繆振聲傳道' },
   { id: '20200503', date: moment('03/05/2020', 'DD/MM/YYYY'), title: '不要憂慮', messanger: '霍志鵬先生 (同心圓敬拜福音平台總幹事)' },
   { id: '20200426', date: moment('26/04/2020', 'DD/MM/YYYY'), title: '你是安全的', messanger: '鄧心寧傳道' },
   { id: '20200419', date: moment('19/04/2020', 'DD/MM/YYYY'), title: '搜尋智慧 Search for Wisdom', messanger: '黃雪梅傳道' },
@@ -21,8 +22,8 @@ const data = [
   { id: '20200329', date: moment('29/03/2020', 'DD/MM/YYYY'), title: '分享主日', messanger: '---' },
   { id: '20200322', date: moment('22/03/2020', 'DD/MM/YYYY'), title: '與神摔跤的人', messanger: '黃雪梅傳道' },
   { id: '20200315', date: moment('15/03/2020', 'DD/MM/YYYY'), title: '主恩奇妙，因病得福', messanger: '林瑞興牧師' },
-  { id: '20200308', date: moment('08/03/2020', 'DD/MM/YYYY'), title: '作耶穌的見證人', messanger: '繆振聲傳道' },
-  { id: '20200223', date: moment('23/02/2020', 'DD/MM/YYYY'), title: '成為別人的祝福', messanger: '潘仕楷傳道' },
+  // { id: '20200308', date: moment('08/03/2020', 'DD/MM/YYYY'), title: '作耶穌的見證人', messanger: '繆振聲傳道' },
+  // { id: '20200223', date: moment('23/02/2020', 'DD/MM/YYYY'), title: '成為別人的祝福', messanger: '潘仕楷傳道' },
   // { id: '20200216', date: moment('16/02/2020', 'DD/MM/YYYY'), title: '穿上新人', messanger: '繆振聲傳道' },
 ]
 
