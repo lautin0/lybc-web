@@ -79,15 +79,12 @@ const UNIVERSALS: UniversalsInfo = {
     NOTIFICATION: {
         MESSAGE: `
         <div class="mb-5 text-center w-100">
-            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200531">本週分享主日</a>
+            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200614">按此進入網上崇拜</a>
         </div>
-        <p><h3>教會回覆實體主日崇拜(6月7日開始) </h3></p>
-        <p><b>崇拜地點：荃灣悅來酒店3樓水晶廳 (暫定六月份內四次主日)</b></p>
-        <p><b>崇拜時間：上午11:30 - 下午1:00</b></p>
-        <p><b>人數上限：50人 (按政府指引，場地可容人數的一半)</b></p>
-        <p><b>報名：請出席7/6主日崇拜的肢體，預先向各主日學組長報名，或以Whatapps向教會報名。以便統計出席人數。</b></p>
-        <br>
-        <p><b>其他消息，請參閱教會程序表。</b></p>
+        <h2 class="text-center w-100"><strong>特別消息</strong></h2>
+        <p>因風暴關係，14/6主日崇拜改為網上舉行。</p>
+        <p>請留意，下主日至七月初，崇拜繼續於荃灣悅來酒店舉行。</p>
+        <p>誠然，我們有共信之道，能向主忠誠，參與崇拜，聽道而行道，在基督身體裡面合而為一。願主得榮耀！</p>
         `,
 
         TITLE: '教會通告'
