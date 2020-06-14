@@ -7,10 +7,10 @@ import ReactToPrint from "react-to-print";
 import DOMPurify from 'dompurify'
 import { ComponentToPrintProps } from "./types/types";
 
-function Ws20200412(props: any) {
+function Ws20200419(props: any) {
 
   const [key, setKey] = useState('home')
-  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：復活的大能(弗1:15-23)</strong></h2><p><br></p><p><br></p><h3><strong>(一)無能的世界 林前15:55-56</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>(二)復活的大能 弗1:19,20; 羅1:4</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>(三)真知道祂 弗1:17-19</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><br><br>')
+  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：搜尋智慧 Search for Wisdom (箴言2:1-12)</strong></h2><p><br></p><h3><strong>引言：神給祂兒女的忠告</strong></h3><p><br></p><h3><strong>一、尋得智慧的四對要點 v.1-5</strong></h3><h3 class="ql-indent-1">領受 (take to heart) 		⇒	存記 (storing up)</h3><h3 class="ql-indent-1">側耳 (tune your ears) 		⇒	專心 (set your heart)</h3><h3 class="ql-indent-1">呼求 (crying out) 				⇒	揚聲 (lift up voice)</h3><h3 class="ql-indent-1">尋找 (seek)  ⇒ 搜求 (searching)</h3><h3><br></h3><h3 class="ql-indent-1">小結：誰會這樣搜尋智慧？</h3><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>二、 智慧必定是從神而來的 v.6-12</strong></h3><h3 class="ql-indent-1">-「可傳達的(communicable)」的屬性</h3><h3 class="ql-indent-1">- 智慧在人生中的效用</h3><p><br></p><h3 class="ql-indent-1">小結：誰會得真智慧？如何檢測心靈的智慧？</h3><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>實踐：</strong></h3><h3>1. 藉著今天經文的提醒，好好設定你「靈修讀經增智慧」的計劃。</h3><h3>2. 留意生活那些令你不安的事情，嘗試找出當中可學習的智慧(從神的眼光看事情)<strong>。</strong></h3>')
   const componentRef: any = useRef();
 
   const handleChange = (content: any) => {
@@ -28,11 +28,11 @@ function Ws20200412(props: any) {
     <Container style={{ marginTop: -20 }}>
       <Row className="justify-content-md-center">
         <Col className="text-center" lg="8" md="12">
-          <h2>2020年4月12日 主日崇拜</h2>
+          <h2>2020年4月19日 主日崇拜</h2>
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
-        <iframe width="660" height="371" src="https://www.youtube.com/embed/videoseries?list=PLUxHXOrQ-4zzDkH1q2SZz17HX6yHOOGla&playsinline=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe width="660" height="371" src="https://www.youtube.com/embed/videoseries?list=PLUxHXOrQ-4zz121_bzxbuy9RiDuA_-lCC&playsinline=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </Row>
       <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
         <Tabs
@@ -45,7 +45,7 @@ function Ws20200412(props: any) {
           <Tab eventKey="home" title="講章">
             <div className="mb-2">
               <div style={{ width: 'fit-content' }}>
-                <a href={require('assets/pdf/20200412rundown.pdf')} target="_blank">
+                <a href={require('assets/pdf/20200419rundown.pdf')} target="_blank">
                   <div>
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
@@ -91,16 +91,19 @@ function Ws20200412(props: any) {
           </Tab>
           <Tab eventKey="script" title="經文">
             <div className="text-left mb-5">
-              <p style={{ fontSize: 24 }}><b><i>以弗所書1:15-23</i></b></p>
-              <h4><b className="mr-3">1 : 15</b> 因此，我既聽見你們信從主耶穌，親愛眾聖徒，</h4>
-              <h4><b className="mr-3">1 : 16</b> 就為你們不住的感謝神。禱告的時候，常提到你們，</h4>
-              <h4><b className="mr-3">1 : 17</b> 求我們主耶穌基督的神，榮耀的父，將那賜人智慧和啟示的靈賞給你們，使你們真知道他，</h4>
-              <h4><b className="mr-3">1 : 18</b> 並且照明你們心中的眼睛，使你們知道他的恩召有何等指望，他在聖徒中得的基業有何等豐盛的榮耀；</h4>
-              <h4><b className="mr-3">1 : 19</b> 並知道他向我們這信的人所顯的能力是何等浩大，</h4>
-              <h4><b className="mr-3">1 : 20</b> 就是照他在基督身上所運行的大能大力，使他從死裡復活，叫他在天上坐在自己的右邊，</h4>
-              <h4><b className="mr-3">1 : 21</b> 遠超過一切執政的、掌權的、有能的、主治的，和一切有名的；不但是今世的，連來世的也都超過了。</h4>
-              <h4><b className="mr-3">1 : 22</b> 又將萬有服在他的腳下，使他為教會作萬有之首。</h4>
-              <h4><b className="mr-3">1 : 23</b> 教會是他的身體，是那充滿萬有者所充滿的。</h4>
+              <p style={{ fontSize: 24 }}><b><i>箴言2:1-12</i></b></p>
+              <h4><b className="mr-3">2:1</b> 我兒，你若領受我的言語，存記我的命令，</h4>
+              <h4><b className="mr-3">2:2</b> 側耳聽智慧，專心求聰明，</h4>
+              <h4><b className="mr-3">2:3</b> 呼求明哲，揚聲求聰明，</h4>
+              <h4><b className="mr-3">2:4</b> 尋找他，如尋找銀子，搜求他，如搜求隱藏的珍寶，</h4>
+              <h4><b className="mr-3">2:5</b> 你就明白敬畏耶和華，得以認識神。</h4>
+              <h4><b className="mr-3">2:6</b> 因為，耶和華賜人智慧；知識和聰明都由他口而出。</h4>
+              <h4><b className="mr-3">2:7</b> 他給正直人存留真智慧，給行為純正的人作盾牌，</h4>
+              <h4><b className="mr-3">2:8</b> 為要保守公平人的路，護庇虔敬人的道。</h4>
+              <h4><b className="mr-3">2:9</b> 你也必明白仁義、公平、正直、一切的善道。</h4>
+              <h4><b className="mr-3">2:10</b> 智慧必入你心；你的靈要以知識為美。</h4>
+              <h4><b className="mr-3">2:11</b> 謀略必護衛你；聰明必保守你，</h4>
+              <h4><b className="mr-3">2:12</b> 要救你脫離惡道（或譯：惡人的道），脫離說乖謬話的人。</h4>
             </div>
           </Tab>
         </Tabs>
@@ -109,4 +112,4 @@ function Ws20200412(props: any) {
   )
 }
 
-export default Ws20200412;
+export default Ws20200419;

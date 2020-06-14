@@ -16,7 +16,7 @@ import "assets/demo/demo.css";
 import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index";
-import LoginPage from "views/sign-in/LoginPage";
+import LoginPage from "views/login/LoginPage";
 import MainPage from 'views/main/MainPage'
 import CommonModal from "components/Modals/CommonModal";
 import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
@@ -40,7 +40,7 @@ ReactDOM.render(
       <Switch>
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
-          <Route path="/download" render={props => <MainPage {...props} page="download" />} />
+          <Route path="/journal" render={props => <MainPage {...props} page="journal" />} />
           <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
           <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} />
           <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} />
@@ -51,6 +51,7 @@ ReactDOM.render(
           {/* <Route path="/search" render={props => <MainPage {...props} page="search"/>} /> */}
           <Route path="/worship/:id?" render={props => <MainPage {...props} page="worship"/>} />
           <Route path="/worship-list" render={props => <MainPage {...props} page="worship-list"/>} />
+          <Route path="/preacher-message" render={props => <MainPage {...props} page="preacher-message"/>} />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
         </Switch>

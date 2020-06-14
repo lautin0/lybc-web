@@ -63,7 +63,7 @@ function DarkFooter() {
           <h4>教會刊物</h4>
           <ul className="sitemap">
             <li>
-              <Link to="/download">
+              <Link to="/journal">
                 教會月刊
               </Link>
             </li>
@@ -73,7 +73,7 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/preacher-message">
                 牧者的話
               </Link>
             </li>

@@ -7,10 +7,10 @@ import ReactToPrint from "react-to-print";
 import DOMPurify from 'dompurify'
 import { ComponentToPrintProps } from "./types/types";
 
-function Ws20200412(props: any) {
+function Ws20200607(props: any) {
 
   const [key, setKey] = useState('home')
-  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：復活的大能(弗1:15-23)</strong></h2><p><br></p><p><br></p><h3><strong>(一)無能的世界 林前15:55-56</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>(二)復活的大能 弗1:19,20; 羅1:4</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h3><strong>(三)真知道祂 弗1:17-19</strong></h3><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><br><br>')
+  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：基督徒的普世視野</strong></h2><p><br></p><h3><strong>經文：腓立比書1:9-11</strong></h3>')
   const componentRef: any = useRef();
 
   const handleChange = (content: any) => {
@@ -28,12 +28,12 @@ function Ws20200412(props: any) {
     <Container style={{ marginTop: -20 }}>
       <Row className="justify-content-md-center">
         <Col className="text-center" lg="8" md="12">
-          <h2>2020年4月12日 主日崇拜</h2>
+          <h2>2020年6月7日 主日崇拜</h2>
         </Col>
       </Row>
-      <Row className="justify-content-center mt-3">
-        <iframe width="660" height="371" src="https://www.youtube.com/embed/videoseries?list=PLUxHXOrQ-4zzDkH1q2SZz17HX6yHOOGla&playsinline=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      </Row>
+      {/* <Row className="justify-content-center mt-3">
+        <iframe width="660" height="371" src="https://www.youtube.com/embed/videoseries?list=PLUxHXOrQ-4zxaMMuf0dNNJcDhbfvRXYVa&playsinline=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </Row> */}
       <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
         <Tabs
           id=""
@@ -42,10 +42,10 @@ function Ws20200412(props: any) {
           className="nav-justified w-100 mb-5"
           style={{ fontSize: 20 }}
         >
-          <Tab eventKey="home" title="講章">
+          <Tab eventKey="home" title="筆記">
             <div className="mb-2">
               <div style={{ width: 'fit-content' }}>
-                <a href={require('assets/pdf/20200412rundown.pdf')} target="_blank">
+                <a href={require('assets/pdf/20200607rundown.pdf')} target="_blank">
                   <div>
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
@@ -91,16 +91,10 @@ function Ws20200412(props: any) {
           </Tab>
           <Tab eventKey="script" title="經文">
             <div className="text-left mb-5">
-              <p style={{ fontSize: 24 }}><b><i>以弗所書1:15-23</i></b></p>
-              <h4><b className="mr-3">1 : 15</b> 因此，我既聽見你們信從主耶穌，親愛眾聖徒，</h4>
-              <h4><b className="mr-3">1 : 16</b> 就為你們不住的感謝神。禱告的時候，常提到你們，</h4>
-              <h4><b className="mr-3">1 : 17</b> 求我們主耶穌基督的神，榮耀的父，將那賜人智慧和啟示的靈賞給你們，使你們真知道他，</h4>
-              <h4><b className="mr-3">1 : 18</b> 並且照明你們心中的眼睛，使你們知道他的恩召有何等指望，他在聖徒中得的基業有何等豐盛的榮耀；</h4>
-              <h4><b className="mr-3">1 : 19</b> 並知道他向我們這信的人所顯的能力是何等浩大，</h4>
-              <h4><b className="mr-3">1 : 20</b> 就是照他在基督身上所運行的大能大力，使他從死裡復活，叫他在天上坐在自己的右邊，</h4>
-              <h4><b className="mr-3">1 : 21</b> 遠超過一切執政的、掌權的、有能的、主治的，和一切有名的；不但是今世的，連來世的也都超過了。</h4>
-              <h4><b className="mr-3">1 : 22</b> 又將萬有服在他的腳下，使他為教會作萬有之首。</h4>
-              <h4><b className="mr-3">1 : 23</b> 教會是他的身體，是那充滿萬有者所充滿的。</h4>
+              <p style={{ fontSize: 24 }}><b><i>腓立比書1:9-11</i></b></p>
+              <h4><b className="mr-3">1 : 9</b> 我所禱告的，就是要你們的愛心在知識和各樣見識上多而又多，</h4>
+              <h4><b className="mr-3">1 : 10</b> 使你們能分別是非（或作：喜愛那美好的事），作誠實無過的人，直到基督的日子；</h4>
+              <h4><b className="mr-3">1 : 11</b> 並靠著耶穌基督結滿了仁義的果子，叫榮耀稱讚歸與神。</h4>
             </div>
           </Tab>
         </Tabs>
@@ -109,4 +103,4 @@ function Ws20200412(props: any) {
   )
 }
 
-export default Ws20200412;
+export default Ws20200607;
