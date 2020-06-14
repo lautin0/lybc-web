@@ -13,12 +13,12 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
-  { id: '20200614', date: moment('14/06/2024', 'DD/MM/YYYY'), title: '保持5G連線度困境', messanger: '杜雪珍牧師' },
-  { id: '20200607', date: moment('07/06/2024', 'DD/MM/YYYY'), title: '基督徒的普世視野', messanger: '蔡康怡牧師' },
-  { id: '20200531', date: moment('31/05/2024', 'DD/MM/YYYY'), title: '分享主日', messanger: '---' },
-  { id: '20200524', date: moment('24/05/2024', 'DD/MM/YYYY'), title: '要到幾時呢？！', messanger: '林瑞興牧師' },
+  { id: '20200614', date: moment('14/06/2020', 'DD/MM/YYYY'), title: '保持5G連線度困境', messanger: '杜雪珍牧師' },
+  { id: '20200607', date: moment('07/06/2020', 'DD/MM/YYYY'), title: '基督徒的普世視野', messanger: '蔡康怡牧師' },
+  { id: '20200531', date: moment('31/05/2020', 'DD/MM/YYYY'), title: '分享主日', messanger: '---' },
+  { id: '20200524', date: moment('24/05/2020', 'DD/MM/YYYY'), title: '要到幾時呢？！', messanger: '林瑞興牧師' },
   { id: '20200517', date: moment('17/05/2020', 'DD/MM/YYYY'), title: '與神同工的領袖', messanger: '繆振聲傳道' },
-  { id: '20200510', date: moment('10/05/2024', 'DD/MM/YYYY'), title: '你的信心真大', messanger: '黃雪梅傳道' },
+  { id: '20200510', date: moment('10/05/2020', 'DD/MM/YYYY'), title: '你的信心真大', messanger: '黃雪梅傳道' },
   { id: '20200503', date: moment('03/05/2020', 'DD/MM/YYYY'), title: '不要憂慮', messanger: '霍志鵬先生 (同心圓敬拜福音平台總幹事)' },
   { id: '20200426', date: moment('26/04/2020', 'DD/MM/YYYY'), title: '你是安全的', messanger: '鄧心寧傳道' },
   { id: '20200419', date: moment('19/04/2020', 'DD/MM/YYYY'), title: '搜尋智慧 Search for Wisdom', messanger: '黃雪梅傳道' },
@@ -47,17 +47,17 @@ function WorshipList() {
   };
 
   let items = [];
-  if(pageItems == null || pageItems.length == 0){
-    items.push(<Pagination.First key={1} />, <Pagination.Prev key={2}/>)
+  if (pageItems == null || pageItems.length == 0) {
+    items.push(<Pagination.First key={1} />, <Pagination.Prev key={2} />)
     items.push(
       <Pagination.Item key={3} active disabled>
         1
       </Pagination.Item>
     );
-    items.push(<Pagination.Next key={4}/>, <Pagination.Last key={5}/>)
+    items.push(<Pagination.Next key={4} />, <Pagination.Last key={5} />)
   } else {
-    items.push(<Pagination.First key={1} onClick={() => onPageChanged(1)}/>, 
-      <Pagination.Prev key={2} onClick={() => onPageChanged(pageNumber - 1)}/>)
+    items.push(<Pagination.First key={1} onClick={() => onPageChanged(1)} />,
+      <Pagination.Prev key={2} onClick={() => onPageChanged(pageNumber - 1)} />)
     for (let number = 1; number <= Math.ceil(data.length / pageSize); number++) {
       items.push(
         <Pagination.Item key={number + 2} active={number === pageNumber} onClick={() => onPageChanged(number)}>
@@ -65,12 +65,12 @@ function WorshipList() {
         </Pagination.Item>,
       );
     }
-    items.push(<Pagination.Next key={Math.ceil(data.length / pageSize) + 3} onClick={() => onPageChanged(pageNumber + 1)}/>, 
-      <Pagination.Last key={Math.ceil(data.length / pageSize) + 4} onClick={() => onPageChanged(Math.ceil(data.length / pageSize))}/>)
-  }  
+    items.push(<Pagination.Next key={Math.ceil(data.length / pageSize) + 3} onClick={() => onPageChanged(pageNumber + 1)} />,
+      <Pagination.Last key={Math.ceil(data.length / pageSize) + 4} onClick={() => onPageChanged(Math.ceil(data.length / pageSize))} />)
+  }
 
   const onPageChanged = (page: number) => {
-    if(page > Math.ceil(data.length / pageSize) || page == 0 )
+    if (page > Math.ceil(data.length / pageSize) || page == 0)
       return
     let array: Array<{ id: string, date: moment.Moment, title: string, messanger: string }> = [];
     for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
@@ -101,6 +101,11 @@ function WorshipList() {
             </p>
           </Row>
           <Row>
+            <Pagination
+              className="w-100 pagination-primary justify-content-center"
+            >
+              {items}
+            </Pagination>
             <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
@@ -116,7 +121,7 @@ function WorshipList() {
                   (pageItems && pageItems.length > 0) && pageItems.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.id)}>{value.title}{index == 0 && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                      <td onClick={() => onCellClicked(value.id)}>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
                       <td onClick={() => onCellClicked(value.id)}>{value.messanger}</td>
                       <td onClick={() => onCellClicked(value.id)}><a href="#">前往</a></td>
                     </tr>
@@ -124,11 +129,6 @@ function WorshipList() {
                 }
               </tbody>
             </Table>
-            <Pagination
-              className="w-100 pagination-primary justify-content-center"
-            >
-              {items}
-            </Pagination>
           </Row>
         </Container>
       </div>
