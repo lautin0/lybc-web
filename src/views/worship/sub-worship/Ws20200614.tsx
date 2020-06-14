@@ -10,7 +10,7 @@ import { ComponentToPrintProps } from "./types/types";
 function Ws20200614(props: any) {
 
   const [key, setKey] = useState('home')
-  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：保持5G連線度困境</strong></h2><p><br></p><h3><strong>經文：以賽亞書55:6-11，詩篇34:12-14，提摩太後書1:6-7</strong></h3>')
+  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：保持5G連線度困境</strong></h2><p><br></p><p><strong>經文：以賽亞書55:6-11，詩篇34:12-14，提摩太後書1:6-7</strong></p>')
   const componentRef: any = useRef();
 
   const handleChange = (content: any) => {
