@@ -12,13 +12,13 @@ import {
 import moment from 'moment';
 
 const data = [
-  { uri: require('assets/pdf/journal7.pdf'), date: moment('01/12/2019', 'DD/MM/YYYY'), title: '聖誕特別刊 - 耶穌是我的牧羊人' },
-  { uri: require('assets/pdf/journal6.pdf'), date: moment('01/11/2019', 'DD/MM/YYYY'), title: '盼望' },
-  { uri: require('assets/pdf/journal5.pdf'), date: moment('01/10/2019', 'DD/MM/YYYY'), title: '世代的禱告' },
-  { uri: require('assets/pdf/journal4.pdf'), date: moment('01/09/2019', 'DD/MM/YYYY'), title: '和平之子' },
-  { uri: require('assets/pdf/journal3.pdf'), date: moment('01/08/2019', 'DD/MM/YYYY'), title: '行公義好憐憫' },
-  { uri: require('assets/pdf/journal2.pdf'), date: moment('01/07/2019', 'DD/MM/YYYY'), title: '主的屬性 - 愛' },
-  { uri: require('assets/pdf/journal1.pdf'), date: moment('01/06/2019', 'DD/MM/YYYY'), title: '主的見證人' }
+  { uri: 'https://drive.google.com/file/d/1MOytmDNIO_vAcp5N-wISOPJWCIpUoVm_/view?usp=sharing', date: moment('01/12/2019', 'DD/MM/YYYY'), title: '聖誕特別刊 - 耶穌是我的牧羊人' },
+  { uri: 'https://drive.google.com/file/d/1wHbkcDRfIH6kbuleT9Wj9qEgS-2mD_O6/view?usp=sharing', date: moment('01/11/2019', 'DD/MM/YYYY'), title: '盼望' },
+  { uri: 'https://drive.google.com/file/d/1lginTPl2mLvqQtqbRCHclBlUj2UjajHI/view?usp=sharing', date: moment('01/10/2019', 'DD/MM/YYYY'), title: '世代的禱告' },
+  { uri: 'https://drive.google.com/file/d/1YWqPos_3fOPks2kzY2TvGE8E6pi95Le1/view?usp=sharing', date: moment('01/09/2019', 'DD/MM/YYYY'), title: '和平之子' },
+  { uri: 'https://drive.google.com/file/d/1d9pFYF6kaVdiJPo8cGwVJsYsPIZC8-SZ/view?usp=sharing', date: moment('01/08/2019', 'DD/MM/YYYY'), title: '行公義好憐憫' },
+  { uri: 'https://drive.google.com/file/d/1IU1luMHQpTC24iFyAFG7xmuNg0hj7hMC/view?usp=sharing', date: moment('01/07/2019', 'DD/MM/YYYY'), title: '主的屬性 - 愛' },
+  { uri: 'https://drive.google.com/file/d/1IU1luMHQpTC24iFyAFG7xmuNg0hj7hMC/view?usp=sharing', date: moment('01/06/2019', 'DD/MM/YYYY'), title: '主的見證人' }
 ]
 
 function Journal() {

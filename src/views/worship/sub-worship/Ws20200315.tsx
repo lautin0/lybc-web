@@ -45,7 +45,7 @@ function Ws20200315(props: any) {
           <Tab eventKey="home" title="講章">
             <div className="mb-2">
               <div style={{ width: 'fit-content' }}>
-                <a href={require('assets/pdf/20200315rundown.pdf')} target="_blank" rel="noopener noreferrer">
+                <a href="https://drive.google.com/file/d/13XRBak2302qOSXJNfkQvYnae-W-gflzH/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                   <div>
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
