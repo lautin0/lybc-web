@@ -48,7 +48,7 @@ function MainSection() {
                 style={{ marginLeft: 40, maxWidth: '80%' }}
               ></img>
               <div className="overlay">
-                <div className="img-overlay-text">見證欄</div>
+                <div className="img-overlay-text">分享欄</div>
               </div>
             </Col>
             <Col className="img-button-container" style={{ marginBottom: 100 }} md="6">

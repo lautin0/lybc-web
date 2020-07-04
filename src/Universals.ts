@@ -16,7 +16,9 @@ const UNIVERSALS: UniversalsInfo = {
         'worship': '網上崇拜',
         'worship-list': '網上崇拜',
         'doctrine':'綠楊浸信會會章之基本信條及聖禮',
-        'preacher-message': '牧者的話'
+        'preacher-message': '牧者的話',
+        'sharing-list': '分享欄',
+        'sharing': '分享欄'
     },
     MENU_HIERARCHY: {
         index: {
@@ -63,6 +65,15 @@ const UNIVERSALS: UniversalsInfo = {
                         'preacher-message': {
                             title: '牧者的話',
                             link: '/preacher-message',
+                        },
+                        'sharing-list': {
+                            title: '分享欄',
+                            link: '/sharing-list',
+                            child: {
+                                'sharing': {
+                                    title: '文章',
+                                }
+                            }
                         }
                     }
                 },
@@ -78,19 +89,20 @@ const UNIVERSALS: UniversalsInfo = {
             }
         },
     },
-    NOTIFICATION: {
-        MESSAGE: `
-        <div class="mb-5 text-center w-100">
-            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200614">按此進入網上崇拜</a>
-        </div>
-        <h2 class="text-center w-100"><strong>特別消息</strong></h2>
-        <p>因風暴關係，14/6主日崇拜改為網上舉行。</p>
-        <p>請留意，下主日至七月初，崇拜繼續於荃灣悅來酒店舉行。</p>
-        <p>誠然，我們有共信之道，能向主忠誠，參與崇拜，聽道而行道，在基督身體裡面合而為一。願主得榮耀！</p>
-        `,
+    NOTIFICATION: { MESSAGE: null }
+    // NOTIFICATION: {
+    //     MESSAGE: `
+    //     <div class="mb-5 text-center w-100">
+    //         <a class="btn btn-warning" style="font-size: 24px;" href="/worship/20200614">按此進入網上崇拜</a>
+    //     </div>
+    //     <h2 class="text-center w-100"><strong>特別消息</strong></h2>
+    //     <p>因風暴關係，14/6主日崇拜改為網上舉行。</p>
+    //     <p>請留意，下主日至七月初，崇拜繼續於荃灣悅來酒店舉行。</p>
+    //     <p>誠然，我們有共信之道，能向主忠誠，參與崇拜，聽道而行道，在基督身體裡面合而為一。願主得榮耀！</p>
+    //     `,
 
-        TITLE: '教會通告'
-    }
+    //     TITLE: '教會通告'
+    // }
 }
 export default UNIVERSALS;
 

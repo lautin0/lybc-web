@@ -20,6 +20,7 @@ import LoginPage from "views/login/LoginPage";
 import MainPage from 'views/main/MainPage'
 import CommonModal from "components/Modals/CommonModal";
 import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
+import ErrorPage from "views/error/Error";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -38,23 +39,27 @@ ReactDOM.render(
     <LoadingOverlay />
     <Router history={history}>
       <Switch>
-        <Switch>
-          <Route path="/index" render={(props: any) => <Index {...props} />} />
-          <Route path="/journal" render={props => <MainPage {...props} page="journal" />} />
-          <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
-          <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} />
-          <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} />
-          <Route path="/doctrine" render={props => <MainPage {...props} page="doctrine" />} />
-          <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
-          <Route path="/test" render={props => <MainPage {...props} page="test" />} />
-          <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
-          {/* <Route path="/search" render={props => <MainPage {...props} page="search"/>} /> */}
-          <Route path="/worship/:id?" render={props => <MainPage {...props} page="worship"/>} />
-          <Route path="/worship-list" render={props => <MainPage {...props} page="worship-list"/>} />
-          <Route path="/preacher-message" render={props => <MainPage {...props} page="preacher-message"/>} />
-          <Redirect to="/index" />
-          <Redirect from="/" to="/index" />
-        </Switch>
+        <Route path="/index" render={(props: any) => <Index {...props} />} />
+        <Route path="/journal" render={props => <MainPage {...props} page="journal" />} />
+        <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
+        <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} />
+        <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} />
+        <Route path="/doctrine" render={props => <MainPage {...props} page="doctrine" />} />
+        <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} />
+        <Route path="/test" render={props => <MainPage {...props} page="test" />} />
+        <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
+        {/* <Route path="/search" render={props => <MainPage {...props} page="search"/>} /> */}
+        <Route path="/worship/:id?" render={props => <MainPage {...props} page="worship" />} />
+        <Route path="/worship-list" render={props => <MainPage {...props} page="worship-list" />} />
+        <Route path="/preacher-message" render={props => <MainPage {...props} page="preacher-message" />} />
+        <Route path="/sharing-list" render={props => <MainPage {...props} page="sharing-list" />} />
+        <Route path="/sharing/:id" render={props => <MainPage {...props} page="sharing" />} />
+        <Route exact path="/"><Index /></Route>
+        <Route path="*">
+          <ErrorPage error="404" />
+        </Route>
+        {/* <Redirect to="/index" />
+        <Redirect from="/" to="/index" /> */}
       </Switch>
     </Router>
   </Provider>,

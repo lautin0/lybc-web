@@ -68,8 +68,8 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
-                見證欄
+              <Link to="/sharing-list">
+                分享欄
               </Link>
             </li>
             <li>

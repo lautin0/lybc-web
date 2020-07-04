@@ -117,10 +117,8 @@ function IndexNavbar() {
                 <NavDropdown.Item as={Link} to="/journal">
                   教會月刊
                 </NavDropdown.Item>
-                <NavDropdown.Item
-                  target="_blank"
-                >
-                  見證欄
+                <NavDropdown.Item as={Link} to="/sharing-list">
+                  分享欄
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/preacher-message">
                   牧者的話

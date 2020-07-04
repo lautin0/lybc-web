@@ -1,4 +1,4 @@
-import React, { Props } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 
 // core components
@@ -17,6 +17,8 @@ import Worship from "views/worship/Worship";
 import WorshipList from "views/worship/WorshipList";
 import Doctrine from "views/about/Doctrine";
 import PreacherMessage from "views/articles/PreacherMessage";
+import SharingList from "views/articles/SharingList";
+import Sharing from "views/articles/Sharing";
 
 type MainPageProps = {
   page: string,
@@ -35,19 +37,19 @@ function MainPage(props: MainPageProps) {
   });
   return (
     <>
-      <MainNavbar page={props.page}/>
+      <MainNavbar page={props.page} />
       <div className="wrapper">
-        <div className="main" style={props.page == 'preacher-message' ? {top: 114, background: 'lightyellow'} : {top: 114}}>     
+        <div className="main" style={props.page == 'preacher-message' ? { top: 114, background: 'lightyellow' } : { top: 114 }}>
           <div>
             <Breadcrumb as="nav">
               {menus && menus.map((value: any, index: number) => {
-                if(value.link != null)
+                if (value.link != null)
                   return <BreadcrumbItem key={index} href={value.link}>{value.title}</BreadcrumbItem>
                 else
                   return <BreadcrumbItem key={index} active as="span">{value.title}</BreadcrumbItem>
               })}
             </Breadcrumb>
-          </div>   
+          </div>
           {props.page == 'about-us' && <AboutUs />}
           {props.page == 'journal' && <Journal />}
           {props.page == 'apply-activity' && <Apply />}
@@ -59,6 +61,8 @@ function MainPage(props: MainPageProps) {
           {props.page == 'worship' && <Worship />}
           {props.page == 'worship-list' && <WorshipList />}
           {props.page == 'preacher-message' && <PreacherMessage />}
+          {props.page == 'sharing-list' && <SharingList />}
+          {props.page == 'sharing' && <Sharing />}
         </div>
         <DefaultFooter />
       </div>

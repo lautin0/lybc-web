@@ -14,7 +14,7 @@ import Ws20200329 from "./sub-worship/Ws20200329";
 import Ws20200405 from "./sub-worship/Ws20200405";
 import Ws20200412 from "./sub-worship/Ws20200412";
 import Ws20200419 from "./sub-worship/Ws20200419";
-import Ws20200426 from "./sub-worship/Ws20200426.";
+import Ws20200426 from "./sub-worship/Ws20200426";
 import Ws20200503 from "./sub-worship/Ws20200503";
 import Ws20200510 from "./sub-worship/Ws20200510";
 import Ws20200517 from "./sub-worship/Ws20200517";

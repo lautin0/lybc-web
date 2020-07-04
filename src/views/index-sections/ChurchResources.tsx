@@ -41,9 +41,10 @@ function ChurchResources() {
       <div className="section clear-filter">
         <Row className="justify-content-center mx-auto" style={{ marginTop: 100, marginBottom: 100 }}>
           <Col md="6" lg="3">
-            <Card className="text-center" 
-            onClick={() => { history.push('/worship-list') }}
-            style={{cursor: 'pointer'}}
+            <Card 
+              className="text-center" 
+              onClick={() => { history.push('/worship-list') }}
+              style={{cursor: 'pointer'}}
             >
               <Card.Img src={require("assets/img/bg7.jpg")} />
               <Card.ImgOverlay>
@@ -67,14 +68,18 @@ function ChurchResources() {
             </Card>
           </Col>
           <Col md="6" lg="3">
-            <Card className="text-center">
+            <Card 
+              className="text-center" 
+              onClick={() => { history.push('/sharing-list') }} 
+              style={{cursor: 'pointer'}}
+            >
               <Card.Img src={require("assets/img/bg3.jpg")} />
               <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>
               </Card.ImgOverlay>
               <Card.Body>
-                <Card.Title>見證欄</Card.Title>
+                <Card.Title>分享欄</Card.Title>
                 <Card.Text></Card.Text>
               </Card.Body>
             </Card>

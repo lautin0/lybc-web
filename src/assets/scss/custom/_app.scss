@@ -120,3 +120,12 @@ h2.anchor::before {
     height: 70vh;
     overflow-y: scroll;
 }
+
+.sharing {
+    line-height: 1.61em;
+    font-weight: 300;
+    font-size: 1.1em;
+    p{
+        font-weight: bolder;
+    }
+}
