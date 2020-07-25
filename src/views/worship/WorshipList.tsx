@@ -13,6 +13,9 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200726', date: moment('26/07/2020', 'DD/MM/YYYY'), title: '流淚撒種者的歡呼', messanger: '蔣文忠傳道' },
+  { id: '20200719', date: moment('19/07/2020', 'DD/MM/YYYY'), title: '耶和華是醫治你的', messanger: '黃德光傳道' },
+  { id: '20200712', date: moment('12/07/2020', 'DD/MM/YYYY'), title: '變苦為甘', messanger: '謝健雄牧師' },
   { id: '20200614', date: moment('14/06/2020', 'DD/MM/YYYY'), title: '保持5G連線度困境', messanger: '杜雪珍牧師' },
   { id: '20200607', date: moment('07/06/2020', 'DD/MM/YYYY'), title: '基督徒的普世視野', messanger: '蔡康怡牧師' },
   { id: '20200531', date: moment('31/05/2020', 'DD/MM/YYYY'), title: '分享主日', messanger: '---' },
