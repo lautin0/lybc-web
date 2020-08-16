@@ -50,7 +50,9 @@ function WorshipListEnhance() {
   const pageSize = 5;
 
   //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
@@ -104,11 +106,6 @@ function WorshipListEnhance() {
             <div className="button-container">
             </div>
             <Row>
-              <Pagination
-                className="w-100 pagination-primary justify-content-center"
-              >
-                {items}
-              </Pagination>
               <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
                 <thead>
                   <tr>
@@ -132,6 +129,11 @@ function WorshipListEnhance() {
                   }
                 </tbody>
               </Table>
+              <Pagination
+                className="w-100 pagination-primary justify-content-center"
+              >
+                {items}
+              </Pagination>
             </Row>
           </Container>
         </div>
