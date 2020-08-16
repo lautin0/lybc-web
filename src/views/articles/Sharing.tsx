@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { useParams } from "react-router";
@@ -8,8 +8,11 @@ import Sharing1 from "./sub-sharing/Sharing1";
 
 function Sharing() {
   let { id } = useParams();
-  //Default scroll to top
-  window.scrollTo(0, 0)
+
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
   return (
     <>

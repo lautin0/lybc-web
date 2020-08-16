@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Table, Container, Row, Col } from "react-bootstrap";
@@ -10,10 +10,12 @@ import DefaultFooter from "components/Footers/DefaultFooter";
 
 function SundayServiceInfoEnhance() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");

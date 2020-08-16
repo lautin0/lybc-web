@@ -10,10 +10,12 @@ import DefaultFooter from "components/Footers/DefaultFooter";
 
 function DoctrineEnhance() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");

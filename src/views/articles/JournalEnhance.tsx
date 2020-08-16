@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // reactstrap components
 import {
@@ -36,8 +36,11 @@ const data = [
 
 function JournalEnhance() {
 
-  window.scrollTo(0, 0)
-
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
+  
   function onCellClicked(uri: string) {
     window.open(uri, '_blank', 'noopener');
   };

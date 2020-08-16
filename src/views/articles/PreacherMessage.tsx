@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col } from "react-bootstrap";
@@ -10,8 +10,10 @@ import PreacherMessageHeader from "components/Headers/PreacherMessageHeader";
 
 function PreacherMessage() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
   return (
     <>

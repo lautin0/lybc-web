@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // reactstrap components
 import {
@@ -27,7 +27,12 @@ function SharingListEnhance() {
     history.push(`/sharing/${id}`)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
+
+  useEffect(() => {
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");

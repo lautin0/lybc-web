@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Button, Container, Row, Col } from "react-bootstrap";
@@ -10,8 +10,10 @@ import DefaultFooter from "components/Footers/DefaultFooter";
 
 function ContactUsEnhance() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
   React.useEffect(() => {
     document.body.classList.add("profile-page");
