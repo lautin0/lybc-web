@@ -86,7 +86,7 @@ function DefaultFooter() {
           <ul className="sitemap">
             <li>
               <Link to="/about-us">
-                關於我們
+                關於聯會
               </Link>
             </li>
             <li>

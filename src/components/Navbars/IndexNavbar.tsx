@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
   Button,
@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { getTokenValue } from "Universals";
 
 function IndexNavbar() {
+  const history = useHistory();
+
   const token = useSelector((state: RootState) => state.auth.jwt);
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -57,6 +59,7 @@ function IndexNavbar() {
               onClick={(e: any) => {
                 e.preventDefault();
                 window.scrollTo(0, 0);
+                history.push('/')
               }}
             >
               <img
@@ -126,7 +129,7 @@ function IndexNavbar() {
               </NavDropdown>
               <NavDropdown id="" title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
                 <NavDropdown.Item as={Link} to="/about-us">
-                  關於我們
+                  關於聯會
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/doctrine">
                   教會信條

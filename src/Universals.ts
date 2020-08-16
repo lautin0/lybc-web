@@ -38,7 +38,7 @@ const UNIVERSALS: UniversalsInfo = {
                     title: '認識綠楊',
                     child: {
                         'about-us': {
-                            title: '關於我們',
+                            title: '關於聯會',
                             link: '/about-us',
                         },
                         'contact-us': {

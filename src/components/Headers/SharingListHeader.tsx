@@ -1,18 +1,11 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 // reactstrap components
 import { Button, Container } from "react-bootstrap";
 
 // core components
 
-type MainPageHeaderType = {
-  page: string,
-  subtitle: string,
-  bg: number
-}
-
-function MainPageHeader(props: MainPageHeaderType) {
+function SharingListHeader() {
   let pageHeader: any = React.createRef();
 
   React.useEffect(() => {
@@ -34,15 +27,14 @@ function MainPageHeader(props: MainPageHeaderType) {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg" + props.bg + ".jpg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg1.jpg") + ")"
           }}
           ref={pageHeader}
         ></div>
         <div className="content-center">
           <Container>
-            <h1 className="title">{props.page}</h1>
-            {props.subtitle && <div className="text-center">
-              {props.subtitle}
+            <h1 className="title">分享欄</h1>
+            <div className="text-center">
               {/* <Button
                 className="btn-icon btn-round"
                 color="info"
@@ -67,7 +59,7 @@ function MainPageHeader(props: MainPageHeaderType) {
               >
                 <i className="fab fa-google-plus"></i>
               </Button> */}
-            </div>}
+            </div>
           </Container>
         </div>
       </div>
@@ -75,10 +67,4 @@ function MainPageHeader(props: MainPageHeaderType) {
   );
 }
 
-MainPageHeader.propTypes = {
-  page: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  bg: PropTypes.number
-};
-
-export default MainPageHeader;
+export default SharingListHeader;

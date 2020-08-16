@@ -5,7 +5,7 @@ import { Table, Container, Row, Col } from "react-bootstrap";
 
 // core components
 
-function SundayServiceInfo() {
+function SundayServiceInfoIdxSec() {
   return (
     <>
       <div
@@ -86,4 +86,4 @@ function SundayServiceInfo() {
   );
 }
 
-export default SundayServiceInfo;
+export default SundayServiceInfoIdxSec;

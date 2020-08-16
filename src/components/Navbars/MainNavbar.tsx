@@ -111,7 +111,7 @@ function MainNavbar(props: MainNavbarProps) {
               </NavDropdown>
               <NavDropdown id="" title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
                 <NavDropdown.Item as={Link} to="/about-us">
-                  關於我們
+                  關於聯會
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/doctrine">
                   教會信條
