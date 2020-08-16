@@ -9,7 +9,7 @@ function DoctrinePageHeader() {
   let pageHeader: any = React.createRef();
 
   React.useEffect(() => {
-    if (window.innerWidth > 991) {
+    // if (window.innerWidth > 991) {
       const updateScroll = () => {
         let windowScrollTop = window.pageYOffset / 3;
         pageHeader.current && (pageHeader.current.style.transform =
@@ -19,7 +19,7 @@ function DoctrinePageHeader() {
       return function cleanup() {
         window.removeEventListener("scroll", updateScroll);
       };
-    }
+    // }
   });
   return (
     <>

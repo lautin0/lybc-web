@@ -49,11 +49,6 @@ function WorshipListEnhance() {
   const [pageNumber, setPageNumber] = React.useState(1);
   const pageSize = 5;
 
-  //Default scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
   };
@@ -93,8 +88,17 @@ function WorshipListEnhance() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     onPageChanged(1)
   }, [])
+
+  useEffect(() => {
+    document.body.classList.add("sidebar-collapse");
+    document.documentElement.classList.remove("nav-open");
+    return function cleanup() {
+      document.body.classList.remove("sidebar-collapse");
+    };
+  });
 
   return (
     <>
