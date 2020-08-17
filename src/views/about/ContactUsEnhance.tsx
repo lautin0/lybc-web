@@ -46,10 +46,13 @@ function ContactUsEnhance() {
               <Button
                 className="btn-round btn-icon"
                 color="default"
+                href="https://www.facebook.com/lukYeungBaptistChurch"
                 id="tooltip515203352"
                 size="lg"
+                target="_blank"
+                as="a"
               >
-                <i className="fab fa-twitter"></i>
+                <i className="fab fa-facebook"></i>
               </Button>
               {/* <Tooltip delay={0} target="tooltip515203352">
                 Follow me on Twitter
@@ -69,7 +72,7 @@ function ContactUsEnhance() {
                 Follow me on Instagram
               </Tooltip> */}
             </div>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center mt-5">
               <Col className="text-left" lg="8" md="12">
                 <p>堂主任：黃雪梅姑娘</p>
 

@@ -17,7 +17,9 @@
 .clear-filter[filter-color="green"] {
     @include linear-gradient(rgba($black-color,.20), #7eb162);
 }
-
+.clear-filter[filter-color="gray"] {
+    background-color: rgba($black-color,.25);
+}
 .page-header{
     &.page-header-tiny{
       min-height: 20vh;

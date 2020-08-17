@@ -27,7 +27,7 @@ function ContactUsPageHeader() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg6.jpg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg13.jpg") + ")"
           }}
           ref={pageHeader}
         ></div>
