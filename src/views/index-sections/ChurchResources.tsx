@@ -4,7 +4,8 @@ import React from "react";
 import {
   Row,
   Col,
-  Card
+  Card,
+  Button
 } from "react-bootstrap";
 
 import { useHistory } from "react-router";
@@ -38,26 +39,40 @@ function ChurchResources() {
           </Row>
         </Container>
       </div> */}
-      <div className="section clear-filter">
+      <div
+        className="section clear-filter"
+        data-background-color="black"
+      >
         <Row className="justify-content-center mx-auto" style={{ marginTop: 100, marginBottom: 100 }}>
           <Col md="6" lg="3">
-            <Card 
-              className="text-center" 
+            {/* <Card
+              className="text-center"
               onClick={() => { history.push('/worship-list') }}
-              style={{cursor: 'pointer'}}
+              style={{ cursor: 'pointer' }}
             >
-              <Card.Img src={require("assets/img/bg7.jpg")} />
-              <Card.ImgOverlay>
-                {/* <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i> */}
-              </Card.ImgOverlay>
+              <Card.Img src={require("assets/img/bg11.jpg")} />
+              <Card.ImgOverlay> */}
+            {/* <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i> */}
+            {/* </Card.ImgOverlay>
               <Card.Body>
                 <Card.Title>網上崇拜</Card.Title>
               </Card.Body>
-            </Card>
+            </Card> */}
+            <div className="my-3" onClick={() => { history.push('/worship-list') }}>
+              <img src={require("assets/img/bg7.jpg")}></img>
+            </div>
+            <div className="text-center">
+              <Button
+                onClick={() => { history.push('/worship-list') }}
+                style={{ minWidth: 150, fontSize: 24 }} variant="outline-danger"
+              >
+                網上崇拜
+              </Button>
+            </div>
           </Col>
           <Col md="6" lg="3">
-            <Card className="text-center">
-              <Card.Img src={require("assets/img/bg1.jpg")} />
+            {/* <Card className="text-center">
+              <Card.Img src={require("assets/img/bg5.jpg")} />
               <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>
@@ -65,10 +80,20 @@ function ChurchResources() {
               <Card.Body>
                 <Card.Title>最新消息</Card.Title>
               </Card.Body>
-            </Card>
+            </Card> */}
+            <div className="my-3">
+              <img src={require("assets/img/bg5.jpg")}></img>
+            </div>
+            <div className="text-center">
+              <Button
+                style={{ minWidth: 150, fontSize: 24 }} variant="outline-primary"
+              >
+                最新消息
+              </Button>
+            </div>
           </Col>
           <Col md="6" lg="3">
-            <Card 
+            {/* <Card 
               className="text-center" 
               onClick={() => { history.push('/sharing-list') }} 
               style={{cursor: 'pointer'}}
@@ -82,7 +107,18 @@ function ChurchResources() {
                 <Card.Title>分享欄</Card.Title>
                 <Card.Text></Card.Text>
               </Card.Body>
-            </Card>
+            </Card> */}
+            <div className="my-3" onClick={() => { history.push('/sharing-list') }}>
+              <img src={require("assets/img/bg1.jpg")}></img>
+            </div>
+            <div className="text-center">
+              <Button
+                onClick={() => { history.push('/sharing-list') }}
+                style={{ minWidth: 150, fontSize: 24 }} variant="outline-info"
+              >
+                分享欄
+                </Button>
+            </div>
           </Col>
         </Row>
       </div>

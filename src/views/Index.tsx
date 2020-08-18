@@ -11,6 +11,7 @@ import Theme from "./index-sections/Theme";
 import NewComerForm from "./index-sections/NewComerForm";
 import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
+import Images from "./index-sections/Images";
 
 function Index() {
 
@@ -33,6 +34,7 @@ function Index() {
       <div className="wrapper">
         <IndexHeader />
         <div className="main">
+          {/* <Images /> */}
           <IndexBanner />
           <Theme />
           <ChurchResources />

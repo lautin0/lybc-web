@@ -30,7 +30,7 @@ function SharingListEnhance() {
   useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
-  },[])
+  }, [])
 
   useEffect(() => {
     document.body.classList.add("profile-page");
@@ -139,8 +139,15 @@ function SharingListEnhance() {
                 <Tab eventKey="1" title={null}>
                   <Col className="ml-auto mr-auto" md="10">
                     <Col className="text-left" style={{ borderRadius: '.5rem' }} onClick={() => { navigate(1) }}>
-                      <Card.Header></Card.Header>
-                      <Card.Body>
+                      <Card.Header 
+                        style={{
+                          borderBottom: 0,
+                          borderLeft: '1px solid rgba(0,0,0,.125)',
+                          borderRight: '1px solid rgba(0,0,0,.125)',
+                          borderTop: '1px solid rgba(0,0,0,.125)'
+                        }}
+                      ></Card.Header>
+                      <Card.Body style={{ border: '1px solid rgba(0,0,0,.125)', borderRadius: '0px 0px .2rem .2rem' }}>
                         <blockquote className="blockquote" style={{ border: 0 }}>
                           <a href="javascript:void(0)">
                             <p>

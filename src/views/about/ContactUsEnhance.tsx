@@ -95,9 +95,9 @@ function ContactUsEnhance() {
               </Col>
             </Row>
             <Row className="justify-content-md-center sharing-area text-center">
-              <Col className="text-center" lg="8" md="12">
+              {/* <Col className="text-center" lg="8" md="12">
                 <h3>立即加入我們!</h3>
-              </Col>
+              </Col> */}
               {/* <Col className="text-center" lg="8" md="12">
                 <Button
                   className="btn-neutral btn-facebook btn-icon btn-round"
