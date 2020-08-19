@@ -45,9 +45,6 @@ function WorshipList() {
   const [pageNumber, setPageNumber] = React.useState(1);
   const pageSize = 5;
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
-
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
   };
@@ -87,7 +84,12 @@ function WorshipList() {
   }
 
   useEffect(() => {
+
+    //Default scroll to top
+    window.scrollTo(0, 0)
+
     onPageChanged(1)
+    
   }, [])
 
   return (
@@ -99,12 +101,12 @@ function WorshipList() {
       >
         <Container style={{ marginTop: -50 }}>
           <Row className="text-center mb-3 mx-3">
-            <p className="w-100">
+            {/* <p className="w-100">
               我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；<br />
               他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，<br />
               使榮耀住在我們的地上。<br />
               (詩篇 85:8-9 和合本2010)<br />
-            </p>
+            </p> */}
           </Row>
           <Row>
             <Pagination

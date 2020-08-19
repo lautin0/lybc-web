@@ -3,30 +3,29 @@ import PropTypes from 'prop-types';
 
 // reactstrap components
 import { Button, Container } from "react-bootstrap";
+import UNIVERSALS from "Universals";
 
 // core components
 
 type MainPageHeaderType = {
   page: string,
-  subtitle: string,
-  bg: number
 }
 
 function MainPageHeader(props: MainPageHeaderType) {
   let pageHeader: any = React.createRef();
 
   React.useEffect(() => {
-    if (window.innerWidth > 991) {
+    // if (window.innerWidth > 991) {
       const updateScroll = () => {
         let windowScrollTop = window.pageYOffset / 3;
-        pageHeader.current.style.transform =
-          "translate3d(0," + windowScrollTop + "px,0)";
+        pageHeader.current && (pageHeader.current.style.transform =
+          "translate3d(0," + windowScrollTop + "px,0)");
       };
       window.addEventListener("scroll", updateScroll);
       return function cleanup() {
         window.removeEventListener("scroll", updateScroll);
       };
-    }
+    // }
   });
   return (
     <>
@@ -34,15 +33,15 @@ function MainPageHeader(props: MainPageHeaderType) {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg" + props.bg + ".jpg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg" + UNIVERSALS.TITLE_MAP[props.page].bg + ".jpg") + ")"
           }}
           ref={pageHeader}
         ></div>
         <div className="content-center">
           <Container>
-            <h1 className="title">{props.page}</h1>
-            {props.subtitle && <div className="text-center">
-              {props.subtitle}
+            <h1 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h1>
+            {UNIVERSALS.TITLE_MAP[props.page].subtitle && <div className="text-center">
+              <p className="category">{UNIVERSALS.TITLE_MAP[props.page].subtitle}</p>
               {/* <Button
                 className="btn-icon btn-round"
                 color="info"
@@ -76,9 +75,7 @@ function MainPageHeader(props: MainPageHeaderType) {
 }
 
 MainPageHeader.propTypes = {
-  page: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  bg: PropTypes.number
+  page: PropTypes.string.isRequired
 };
 
 export default MainPageHeader;

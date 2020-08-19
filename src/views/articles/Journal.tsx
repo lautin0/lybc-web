@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -23,12 +23,14 @@ const data = [
 
 function Journal() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
-
   function onCellClicked(uri: string) {
     window.open(uri, '_blank', 'noopener');
   };
+
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Button, Container, Row, Col } from "react-bootstrap";
@@ -7,13 +7,55 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 
 function ContactUs() {
 
-  //Default scroll to top
-  window.scrollTo(0,0)
-
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
+  
   return (
     <div className="section">
       <Container>
-        <Row className="justify-content-md-center">
+        <div className="button-container">
+          <Button
+            className="btn-round"
+            color="info"
+            size="lg"
+            href="https://www.facebook.com/lukYeungBaptistChurch"
+            as="a"
+            target="_blank"
+          >
+            Follow
+              </Button>
+          <Button
+            className="btn-round btn-icon"
+            color="default"
+            href="https://www.facebook.com/lukYeungBaptistChurch"
+            id="tooltip515203352"
+            size="lg"
+            target="_blank"
+            as="a"
+          >
+            <i className="fab fa-facebook"></i>
+          </Button>
+          {/* <Tooltip delay={0} target="tooltip515203352">
+                Follow me on Twitter
+              </Tooltip> */}
+          <Button
+            className="btn-round btn-icon"
+            color="default"
+            id="tooltip340339231"
+            size="lg"
+            href="https://www.instagram.com/lybc1997"
+            as="a"
+            target="_blank"
+          >
+            <i className="fab fa-instagram"></i>
+          </Button>
+          {/* <Tooltip delay={0} target="tooltip340339231">
+                Follow me on Instagram
+              </Tooltip> */}
+        </div>
+        <Row className="justify-content-md-center mt-5">
           <Col className="text-left" lg="8" md="12">
             <p>堂主任：黃雪梅姑娘</p>
 
@@ -25,7 +67,7 @@ function ContactUs() {
 
             <p>通訊地址：荃灣青山公路264-298號南豐中心20/F 02D室</p>
 
-            <p>教會電話：<i className="fas fa-phone"></i>2493 8994 | <i className="fab fa-whatsapp" style={{fontSize: 18}}></i> 9433 1359</p>            
+            <p>教會電話：<i className="fas fa-phone"></i>2493 8994 | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> 9433 1359</p>
 
             <p>教會電郵：lukyeungchurch@gmail.com</p>
           </Col>
@@ -36,7 +78,7 @@ function ContactUs() {
           </Col>
         </Row>
         <Row className="justify-content-md-center sharing-area text-center">
-          <Col className="text-center" lg="8" md="12">
+          {/* <Col className="text-center" lg="8" md="12">
             <h3>立即加入我們!</h3>
           </Col>
           <Col className="text-center" lg="8" md="12">
@@ -60,7 +102,7 @@ function ContactUs() {
             >
               <i className="fab fa-instagram"></i>
             </Button>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

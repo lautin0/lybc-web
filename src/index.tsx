@@ -17,20 +17,11 @@ import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index";
 import LoginPage from "views/login/LoginPage";
-import MainPage from 'views/main/MainPage'
+import MainPageLegacy from 'views/main/MainPageLegacy'
 import CommonModal from "components/Modals/CommonModal";
 import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
 import ErrorPage from "views/error/Error";
-import ProfilePage from "views/examples/ProfilePage";
-import LandingPage from "views/examples/LandingPage";
-import WorshipListEnhance from "views/worship/WorshipListEnhance";
-import PreacherMessage from "views/articles/PreacherMessage";
-import SharingListEnhance from "views/articles/SharingListEnhance";
-import JournalEnhance from "views/articles/JournalEnhance";
-import AboutUsEnhance from "views/about/AboutUsEnhance";
-import DoctrineEnhance from "views/about/DoctrineEnhance";
-import ContactUsEnhance from "views/about/ContactUsEnhance";
-import SundayServiceInfoEnhance from "views/about/SundayServiceInfoEnhance";
+import MainPage from "views/main/MainPage";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -50,30 +41,19 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/index" render={(props: any) => <Index {...props} />} />
-        {/* <Route path="/profile" render={(props: any) => <ProfilePage {...props} />} />
-        <Route path="/landing" render={(props: any) => <LandingPage {...props} />} /> */}
-        {/* <Route path="/journal" render={props => <MainPage {...props} page="journal" />} /> */}
-        <Route path="/journal" render={(props: any) => <JournalEnhance {...props} />} />
-        <Route path="/apply-activity" render={props => <MainPage {...props} page="apply-activity" />} />
-        {/* <Route path="/about-us" render={props => <MainPage {...props} page="about-us" />} /> */}
-        <Route path="/about-us" render={(props: any) => <AboutUsEnhance {...props} />} />
-        {/* <Route path="/contact-us" render={props => <MainPage {...props} page="contact-us" />} /> */}
-        <Route path="/contact-us" render={(props: any) => <ContactUsEnhance {...props} />} /> 
-        {/* <Route path="/doctrine" render={props => <MainPage {...props} page="doctrine" />} /> */}
-        <Route path="/doctrine" render={(props: any) => <DoctrineEnhance {...props} />} />
-        {/* <Route path="/sunday-service-info" render={props => <MainPage {...props} page="sunday-service-info" />} /> */}
-        <Route path="/sunday-service-info" render={(props: any) => <SundayServiceInfoEnhance {...props} />} />
-        <Route path="/test" render={props => <MainPage {...props} page="test" />} />
+        <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
+        <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
+        <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
+        <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} /> 
+        <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" deemed />} />
+        <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" deemed/>} />
+        <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
         <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
-        {/* <Route path="/search" render={props => <MainPage {...props} page="search"/>} /> */}
-        <Route path="/worship/:id?" render={props => <MainPage {...props} page="worship" />} />
-        {/* <Route path="/worship-list" render={props => <MainPage {...props} page="worship-list" />} /> */}
-        <Route path="/worship-list" render={(props: any) => <WorshipListEnhance {...props}/>} />
-        {/* <Route path="/preacher-message" render={props => <MainPage {...props} page="preacher-message" />} /> */}
-        <Route path="/preacher-message" render={(props: any) => <PreacherMessage {...props} />} />
-        {/* <Route path="/sharing-list" render={props => <MainPage {...props} page="sharing-list" />} /> */}
-        <Route path="/sharing-list" render={(props: any) => <SharingListEnhance {...props} />} />
-        <Route path="/sharing/:id" render={props => <MainPage {...props} page="sharing" />} />
+        <Route path="/worship/:id?" render={props => <MainPageLegacy {...props} page="worship" />} />
+        <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list"/>} />
+        <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
+        <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed/>} />
+        <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
         <Route exact path="/"><Index /></Route>
         <Route path="*">
           <ErrorPage error="404" />

@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 // core components
 
 function AboutUs() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
       <div
         //className="section section-download"
         className="section"
-        // data-background-color="black"
-        id="about-us-section"
+      // data-background-color="black"
+      // id="about-us-section"
       >
         <Container>
+          <div className="button-container">
+            <Button
+              className="btn-round"
+              color="info"
+              size="lg"
+              href="http://www.hkabwe.org/"
+              as="a"
+              target="_blank"
+            >
+              前往聯會網頁 <i className="fas fa-globe"></i>
+            </Button>
+          </div>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12">
               {/* <h3 className="title">『香港萬國宣道浸信聯會』簡介</h3> */}

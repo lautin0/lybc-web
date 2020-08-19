@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Table, Container, Row, Col } from "react-bootstrap";
@@ -7,8 +7,10 @@ import { Table, Container, Row, Col } from "react-bootstrap";
 
 function SundayServiceInfo() {
 
-  //Default scroll to top
-  window.scrollTo(0,0)
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  },[])
   
   return (
     <div className="section">

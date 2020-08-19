@@ -178,8 +178,8 @@ function MainNavbar(props: MainNavbarProps) {
             </Nav>
           </Navbar.Collapse>
           <div style={{ marginTop: -26 }}>
-            <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page]}</h3>
-            <h4 style={{ color: 'white', marginTop: 10 }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page]}</h4>
+            <h3 style={{ color: 'white' }} className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page].title}</h3>
+            <h4 style={{ color: 'white', marginTop: 10 }} className="title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page].title}</h4>
           </div>
         </Container>
       </Navbar>

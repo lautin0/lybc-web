@@ -1,69 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
-// core components
-import MainNavbar from "components/Navbars/MainNavbar";
+// react-bootstrap components
+import IndexNavbar from "components/Navbars/IndexNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
-import Journal from "views/articles/Journal";
-import AboutUs from "views/about/AboutUs";
-import Apply from 'views/activity/Apply'
-import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
-import { getMenuHierarchy } from "Universals";
-import ContactUs from "views/about/ContactUs";
-import SundayServiceInfo from "views/about/SundayServiceInfo";
-import InfiniteScroll from 'views/common/InfiniteScroll'
-// import SearchBooks from "views/books/SearchBooks";
-import Worship from "views/worship/Worship";
-import WorshipList from "views/worship/WorshipList";
-import Doctrine from "views/about/Doctrine";
+import MainPageHeader from "components/Headers/MainPageHeader";
 import PreacherMessage from "views/articles/PreacherMessage";
+import AboutUs from "views/about/AboutUs";
+import Journal from "views/articles/Journal";
+import ContactUs from "views/about/ContactUs";
+import Doctrine from "views/about/Doctrine";
+import SundayServiceInfo from "views/about/SundayServiceInfo";
+import WorshipList from "views/worship/WorshipList";
 import SharingList from "views/articles/SharingList";
-import Sharing from "views/articles/Sharing";
 
 type MainPageProps = {
+
+  // page id
   page: string,
+
+  // demmed theme
+  deemed: boolean
+
 }
 
 function MainPage(props: MainPageProps) {
 
-  let menus = getMenuHierarchy(props.page, null, null, null);
-
   React.useEffect(() => {
+    props.deemed && document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
     return function cleanup() {
+      props.deemed && document.body.classList.remove("profile-page");
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
   return (
     <>
-      <MainNavbar page={props.page} />
+      <IndexNavbar />
       <div className="wrapper">
-        <div className="main" style={props.page == 'preacher-message' ? { top: 114, background: 'lightyellow' } : { top: 114 }}>
-          <div>
-            <Breadcrumb as="nav">
-              {menus && menus.map((value: any, index: number) => {
-                if (value.link != null)
-                  return <BreadcrumbItem key={index} href={value.link}>{value.title}</BreadcrumbItem>
-                else
-                  return <BreadcrumbItem key={index} active as="span">{value.title}</BreadcrumbItem>
-              })}
-            </Breadcrumb>
-          </div>
+        <MainPageHeader page={props.page}/>
           {props.page == 'about-us' && <AboutUs />}
           {props.page == 'journal' && <Journal />}
-          {props.page == 'apply-activity' && <Apply />}
           {props.page == 'contact-us' && <ContactUs />}
           {props.page == 'doctrine' && <Doctrine />}
           {props.page == 'sunday-service-info' && <SundayServiceInfo />}
-          {props.page == 'test' && <InfiniteScroll />}
-          {/* {props.page == 'search' && <SearchBooks />} */}
-          {props.page == 'worship' && <Worship />}
           {props.page == 'worship-list' && <WorshipList />}
           {props.page == 'preacher-message' && <PreacherMessage />}
           {props.page == 'sharing-list' && <SharingList />}
-          {props.page == 'sharing' && <Sharing />}
-        </div>
         <DefaultFooter />
       </div>
     </>
@@ -72,6 +57,7 @@ function MainPage(props: MainPageProps) {
 
 MainPage.propTypes = {
   page: PropTypes.string.isRequired,
+  deemed: PropTypes.bool
 };
 
 export default MainPage;
