@@ -4,20 +4,12 @@ import PropTypes from 'prop-types';
 // core components
 import MainNavbar from "components/Navbars/MainNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
-import Journal from "views/articles/Journal";
-import AboutUs from "views/about/AboutUs";
 import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { getMenuHierarchy } from "Universals";
-import ContactUs from "views/about/ContactUs";
-import SundayServiceInfo from "views/about/SundayServiceInfo";
 import InfiniteScroll from 'views/common/InfiniteScroll'
 // import SearchBooks from "views/books/SearchBooks";
 import Worship from "views/worship/Worship";
-import WorshipList from "views/worship/WorshipList";
-import Doctrine from "views/about/Doctrine";
-import PreacherMessage from "views/articles/PreacherMessage";
-import SharingList from "views/articles/SharingList";
 import Sharing from "views/articles/Sharing";
 
 type MainPageProps = {
@@ -50,18 +42,10 @@ function MainPageLegacy(props: MainPageProps) {
               })}
             </Breadcrumb>
           </div>
-          {props.page == 'about-us' && <AboutUs />}
-          {props.page == 'journal' && <Journal />}
           {props.page == 'apply-activity' && <Apply />}
-          {props.page == 'contact-us' && <ContactUs />}
-          {props.page == 'doctrine' && <Doctrine />}
-          {props.page == 'sunday-service-info' && <SundayServiceInfo />}
           {props.page == 'test' && <InfiniteScroll />}
           {/* {props.page == 'search' && <SearchBooks />} */}
           {props.page == 'worship' && <Worship />}
-          {props.page == 'worship-list' && <WorshipList />}
-          {props.page == 'preacher-message' && <PreacherMessage />}
-          {props.page == 'sharing-list' && <SharingList />}
           {props.page == 'sharing' && <Sharing />}
         </div>
         <DefaultFooter />

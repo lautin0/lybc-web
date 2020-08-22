@@ -13,6 +13,7 @@ import moment from 'moment'
 import { useHistory } from "react-router";
 
 const data = [
+  { id: '20200823', date: moment('23/08/2020', 'DD/MM/YYYY'), title: '禱告應有的法則', messanger: '李錦彬牧師' },
   { id: '20200816', date: moment('16/08/2020', 'DD/MM/YYYY'), title: '好等我們去支取', messanger: '黃雪梅傳道' },
   { id: '20200809', date: moment('09/08/2020', 'DD/MM/YYYY'), title: '逆風中的踏浪者', messanger: '黃凱旋導師' },
   { id: '20200802', date: moment('02/08/2020', 'DD/MM/YYYY'), title: '黑夜的歌唱', messanger: '謝健雄牧師' },
@@ -108,12 +109,7 @@ function WorshipList() {
               (詩篇 85:8-9 和合本2010)<br />
             </p> */}
           </Row>
-          <Row>
-            <Pagination
-              className="w-100 pagination-primary justify-content-center"
-            >
-              {items}
-            </Pagination>
+          <Row className="mt-5">
             <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
@@ -137,6 +133,11 @@ function WorshipList() {
                 }
               </tbody>
             </Table>
+            <Pagination
+              className="w-100 pagination-primary justify-content-center"
+            >
+              {items}
+            </Pagination>
           </Row>
         </Container>
       </div>
