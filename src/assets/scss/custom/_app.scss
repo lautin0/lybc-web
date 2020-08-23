@@ -131,3 +131,12 @@ h2.anchor::before {
         font-weight: bolder;
     }
 }
+
+a {
+    &.dl-link {
+        color: gray;
+    }
+    &.dl-link:hover {
+        color: lightslategrey;
+    }
+}

@@ -45,7 +45,7 @@ function Ws20200823(props: any) {
           <Tab eventKey="home" title="筆記">
             <div className="mb-2 form-inline">
               <div style={{ width: 'fit-content' }} className="mr-3">
-                <a href="https://drive.google.com/file/d/1AYAovLIygCMpMBobnkpr6ytDvXL1aST1/view?usp=sharing" target="_blank">
+                <a href="https://drive.google.com/file/d/1AYAovLIygCMpMBobnkpr6ytDvXL1aST1/view?usp=sharing" target="_blank" className="dl-link">
                   <div>
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
@@ -55,9 +55,9 @@ function Ws20200823(props: any) {
                 </a>
               </div>
               <div style={{ width: 'fit-content' }}>
-                <a href="https://drive.google.com/file/d/1Dwf3Jchhe3g5hZHDaeo0O-gk54PcchBO/view?usp=sharing" target="_blank">
+                <a href="https://drive.google.com/file/d/1Dwf3Jchhe3g5hZHDaeo0O-gk54PcchBO/view?usp=sharing" target="_blank" className="dl-link">
                   <div>
-                    <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-word"></i>
+                    <i style={{ fontSize: 48, color: '#285595' }} className="far fa-file-word"></i>
                   </div>
                   <div>
                     <label>附件一、禱告的法則.docx</label>
@@ -102,16 +102,16 @@ function Ws20200823(props: any) {
           <Tab eventKey="script" title="經文">
             <div className="text-left mb-5">
               <p className="my-3" style={{ fontSize: 24 }}><b><i>路加福音 11:1-10</i></b></p>
-              <h4><b className="mr-3">11 : 1</b>耶穌在一個地方禱告。禱告完了，有個門徒對他說：「主啊，求你教導我們禱告，像約翰教導他的門徒一樣。」 </h4>
-              <h4><b className="mr-3">11 : 2</b>耶穌對他們說：「你們禱告的時候，要說：『父啊，願人都尊你的名為聖；願你的國降臨；</h4>
+              <h4><b className="mr-3">11 : 1</b>耶穌在一個地方禱告；禱告完了，有個門徒對他說：「求主教導我們禱告，像約翰教導他的門徒。」 </h4>
+              <h4><b className="mr-3">11 : 2</b>耶穌說：「你們禱告的時候，要說：我們在天上的父：願人都尊你的名為聖。願你的國降臨；願你的旨意行在地上，如同行在天上。</h4>
               <h4><b className="mr-3">11 : 3</b>我們日用的飲食，天天賜給我們。</h4>
-              <h4><b className="mr-3">11 : 4</b>赦免我們的罪，因為我們也赦免凡虧欠我們的人。不叫我們陷入試探。』」</h4>
-              <h4><b className="mr-3">11 : 5</b>耶穌又對他們說：「你們中間誰有一個朋友半夜到他那裏去，對他說：『朋友！請借給我三個餅； </h4>
-              <h4><b className="mr-3">11 : 6</b>因為我有一個朋友旅途中來到我這裏，我沒有東西招待他。』 </h4>
-              <h4><b className="mr-3">11 : 7</b>那人在裏面回答：『不要打擾我，門已經關了，孩子們也同我在床上了，我不能起來給你。』 </h4>
-              <h4><b className="mr-3">11 : 8</b>我告訴你們，雖不因他是朋友起來給他，也會因他不顧面子地直求，起來照他所需要的給他。 </h4>
-              <h4><b className="mr-3">11 : 9</b>我又告訴你們，祈求，就給你們；尋找，就找到；叩門，就給你們開門。 </h4>
-              <h4><b className="mr-3">11 : 10</b>因為凡祈求的，就得着；尋找的，就找到；叩門的，就給他開門。</h4>
+              <h4><b className="mr-3">11 : 4</b>赦免我們的罪，因為我們也赦免凡虧欠我們的人。不叫我們遇見試探；救我們脫離凶惡。」</h4>
+              <h4><b className="mr-3">11 : 5</b>耶穌又說：「你們中間誰有一個朋友半夜到他那裏去，說：『朋友！請借給我三個餅； </h4>
+              <h4><b className="mr-3">11 : 6</b>因為我有一個朋友行路，來到我這裏，我沒有甚麼給他擺上。』 </h4>
+              <h4><b className="mr-3">11 : 7</b>那人在裏面回答說：『不要攪擾我，門已經關閉，孩子們也同我在牀上了，我不能起來給你。』 </h4>
+              <h4><b className="mr-3">11 : 8</b>我告訴你們，雖不因他是朋友起來給他，但因他情詞迫切地直求，就必起來照他所需用的給他。 </h4>
+              <h4><b className="mr-3">11 : 9</b>我又告訴你們，你們祈求，就給你們；尋找，就尋見；叩門，就給你們開門。 </h4>
+              <h4><b className="mr-3">11 : 10</b>因為，凡祈求的，就得着；尋找的，就尋見；叩門的，就給他開門。</h4>
             </div>
           </Tab>
         </Tabs>
