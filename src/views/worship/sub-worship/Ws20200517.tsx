@@ -50,7 +50,7 @@ function Ws20200517(props: any) {
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
                   <div>
-                    <label>程序表</label>
+                    <label>程序表.pdf</label>
                   </div>
                 </a>
               </div>

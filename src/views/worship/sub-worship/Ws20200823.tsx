@@ -10,7 +10,7 @@ import { ComponentToPrintProps } from "./types/types";
 function Ws20200823(props: any) {
 
   const [key, setKey] = useState('home')
-  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：禱告應有的法則</strong></h2><p><br></p><p><strong>經文：路加福音 11:1-10</strong></p>')
+  const [data, setData] = useState('<h2><br></h2><h2><strong>講題：禱告應有的法則</strong></h2><p><br></p><p><strong>經文：路加福音 11:1-10</strong></p><p><br></p><p><strong>比對上行上文下理要點</strong></p><p><strong>耶穌教導主禱文的原因</strong></p><p><strong>有關日用的飲食</strong></p><p><strong>跟進饒恕的意思</strong></p><p><br></p><p><strong>1 耶穌在一個地方禱告</strong></p><p><br></p><p><strong>A 耶穌自己也有禱告的需要</strong></p><p><br></p><p><strong>B 耶穌有一個分別出來的禱告地方</strong></p><p><br></p><p><strong>C 有一個禱告的習慣</strong></p><p><br></p><p><br></p><p><strong>2 門徒怎樣看到禱告</strong></p><p><br></p><p><strong>A 著重</strong></p><p><br></p><p><strong>B 學習</strong></p><p><br></p><p><strong>C 進深</strong></p><p><br></p><p><br></p><p><strong>3 禱告的範例</strong></p><p><br></p><p><strong>A 對象：我們在天上的父</strong></p><p><br></p><p><strong>B  內容：三願</strong></p><p><br></p><p><strong>	願人都尊你的名為聖</strong></p><p><br></p><p><strong>	願你的國降臨</strong></p><p><br></p><p><strong>	願你的旨意行在地上如同行在天上</strong></p><p><br></p><p><strong>C 需要</strong></p><p><br></p><p><strong>D 法則：是雙向的</strong></p><p><br></p><p><br></p><h3><strong>總結：祈禱不在乎得與失，乃是在乎和神建立關係和認識神的屬性。</strong></h3>')
   const componentRef: any = useRef();
 
   const handleChange = (content: any) => {
@@ -43,14 +43,24 @@ function Ws20200823(props: any) {
           style={{ fontSize: 20 }}
         >
           <Tab eventKey="home" title="筆記">
-            <div className="mb-2">
-              <div style={{ width: 'fit-content' }}>
+            <div className="mb-2 form-inline">
+              <div style={{ width: 'fit-content' }} className="mr-3">
                 <a href="https://drive.google.com/file/d/1AYAovLIygCMpMBobnkpr6ytDvXL1aST1/view?usp=sharing" target="_blank">
                   <div>
                     <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>
                   </div>
                   <div>
-                    <label>程序表</label>
+                    <label>程序表.pdf</label>
+                  </div>
+                </a>
+              </div>
+              <div style={{ width: 'fit-content' }}>
+                <a href="https://drive.google.com/file/d/1Dwf3Jchhe3g5hZHDaeo0O-gk54PcchBO/view?usp=sharing" target="_blank">
+                  <div>
+                    <i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-word"></i>
+                  </div>
+                  <div>
+                    <label>附件一、禱告的法則.docx</label>
                   </div>
                 </a>
               </div>
