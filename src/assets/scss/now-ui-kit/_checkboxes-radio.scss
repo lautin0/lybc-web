@@ -40,7 +40,9 @@
   transition: opacity 0.3s linear;
 }
 
- .form-check .form-check-sign::after{
+// Modified for react-bootstrap
+// For reactstrap, Use: .form-check .form-check-sign::after{
+ .form-check:not(.form-check-radio) .form-check-label>.form-check-sign::after{
   font-family: 'Nucleo Outline';
   content: "\ea22";
   top: 0px;
@@ -65,7 +67,10 @@
   position: absolute;
   visibility: hidden;
 }
-.form-check input[type="checkbox"]:checked + .form-check-sign::after{
+
+// Modified for react-bootstrap
+// For reactstrap, Use: .form-check input[type="checkbox"]:checked + .form-check-sign::after{
+.form-check input[type="checkbox"]:checked + .form-check-label>.form-check-sign::after{
   opacity: 1;
 }
 
@@ -98,11 +103,18 @@
   transition: opacity 0.3s linear;
 }
 
-.form-check-radio input[type="radio"] + .form-check-sign:after,
+// Modified for react-bootstrap
+// For reactstrap, Use: 
+// .form-check-radio input[type="radio"] + .form-check-sign:after,
+// .form-check-radio input[type="radio"] {
+.form-check-radio input[type="radio"] + .form-check-label>.form-check-sign:after,
 .form-check-radio input[type="radio"] {
     opacity: 0;
 }
-.form-check-radio input[type="radio"]:checked + .form-check-sign::after {
+// Modified for react-bootstrap
+// For reactstrap, Use: 
+// .form-check-radio input[type="radio"]:checked + .form-check-sign::after {
+.form-check-radio input[type="radio"]:checked + .form-check-label>.form-check-sign::after {
     width: 4px;
     height: 4px;
     background-color: $dark-background;
@@ -112,9 +124,9 @@
     opacity: 1;
 }
 
-.form-check-radio input[type="radio"]:checked + .form-check-sign::after{
-    opacity: 1;
-}
+// .form-check-radio input[type="radio"]:checked + .form-check-sign::after{
+//     opacity: 1;
+// }
 
 .form-check-radio input[type="radio"]:disabled + .form-check-sign {
   color: $dark-gray;
