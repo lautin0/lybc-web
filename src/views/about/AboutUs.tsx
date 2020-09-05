@@ -33,7 +33,7 @@ function AboutUs() {
               前往聯會網頁 <i className="fas fa-globe"></i>
             </Button>
           </div>
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-md-center mt-5">
             <Col className="text-left" lg="8" md="12">
               {/* <h3 className="title">『香港萬國宣道浸信聯會』簡介</h3> */}
               <h3 style={{ fontWeight: 'bold' }}>(一) 聯會成立的歷史</h3>
