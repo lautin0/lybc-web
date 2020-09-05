@@ -71,7 +71,7 @@ function Worship() {
       <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
-            <h2>{`${moment(wData.id, 'YYYYMMDD').format('LL')} ${wData.title}`}</h2>
+            <h2>{`${moment(wData.id, 'YYYYMMDD').format('LL')} ${wData.type}`}</h2>
           </Col>
         </Row>
         <Row className="justify-content-center mt-3">

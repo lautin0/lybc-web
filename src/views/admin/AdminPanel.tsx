@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Col } from 'react-bootstrap';
+import { Form, Col, Button } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
+import DynamicFormRowType from './types/DynamicFormRowType';
+import { RootState } from 'reducers';
+import { useSelector } from 'react-redux';
 
 function AdminPanel() {
 
+  const formDef = useSelector((state: RootState) => state.admin.form)
+  const formDocDef = useSelector((state: RootState) => state.admin.form.formInstance?.docs)
+
   const [form, setForm] = useState<any>();
+  const [formRow, setFormRow] = useState<DynamicFormRowType[]>([]);
   const [data, setData] = useState('');
   const [jsonData, setJsonData] = useState('');
 
@@ -38,6 +45,73 @@ function AdminPanel() {
   useEffect(() => {
     setJsonData(JSON.stringify(form))
   }, [form])
+
+  useEffect(() => {
+    setFormRow([
+      {
+        list: [{
+          id: '',
+          name: '',
+          label: '',
+          value: 'link',
+          // placeholder: ''
+
+          md: 6
+        }],
+        controls: <Button onClick={addRow}></Button>,
+        selector: formDocDef
+      }
+    ])
+  }, [])
+
+  const addRow = () => {
+
+  }
+
+  // const formRowGenerator = () => {
+  //   return <>
+  //     {formRow.map((rowItem, index) => {
+  //       <Form.Row key={index}>
+  //         {/* <FormGroupFragment form={form} list={rowItem.list} controls={rowItem.controls}></FormGroupFragment> */}
+  //       </Form.Row>
+  //     })}
+  //   </>
+  // }
+
+  const formGroupInputTextGenerator = (name: string, label: string, placeholder?: string, md?: number, selector?: any) => {
+    return <>
+      <Form.Group as={Col} md={md}>
+        <Form.Label>{label}</Form.Label>
+        <Form.Control
+          className="form-control admin"
+          placeholder={placeholder}
+          onChange={handleInputChange}
+          value={form?.[name]}
+          name={name}
+        ></Form.Control>
+      </Form.Group>
+    </>
+  }
+
+  const formGroupDropdownGenerator = (name: string, label: string, placeholder?: string, md?: number, selector?: any) => {
+    return <>
+      <Form.Group as={Col} md={md}>
+        <Form.Label>{label}</Form.Label>
+        <Form.Control
+          as="select"
+          className="form-control admin"
+          defaultValue=""
+          onChange={handleInputChange}
+          value={form?.[name]}
+          name={name}
+        >
+          <option disabled value="">請選擇</option>
+          <option value="主日崇拜">主日崇拜</option>
+          <option value="分享主日">分享主日</option>
+        </Form.Control>
+      </Form.Group>
+    </>
+  }
 
   return (
     <>
@@ -87,20 +161,8 @@ function AdminPanel() {
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group as={Col}>
-                    <Form.Label>標題</Form.Label>
-                    <Form.Control className="form-control admin" placeholder="請輸入標題"></Form.Control>
-                  </Form.Group>
-                  <Form.Group as={Col}>
-                    <Form.Label>日期</Form.Label>
-                    <Form.Control
-                      className="form-control admin"
-                      placeholder="YYYYMMDD"
-                      onChange={handleInputChange}
-                      value={form?.id}
-                      name="id"
-                    ></Form.Control>
-                  </Form.Group>
+                  {formGroupInputTextGenerator('title', '講題', '請輸入講題')}
+                  {formGroupInputTextGenerator('id', '日期', 'YYYYMMDD')}
                 </Form.Row>
                 <Form.Row>
                   <Form.Group as={Col} md={6}>
