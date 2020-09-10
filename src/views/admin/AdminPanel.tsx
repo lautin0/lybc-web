@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
-import DynamicFormRowType from './types/DynamicFormRowType';
 import { RootState } from 'reducers';
 import { useSelector } from 'react-redux';
 
@@ -10,9 +9,17 @@ function AdminPanel() {
   const formDef = useSelector((state: RootState) => state.admin.form)
   const formDocDef = useSelector((state: RootState) => state.admin.form.formInstance?.docs)
 
-  const [form, setForm] = useState<any>();
-  const [formRow, setFormRow] = useState<DynamicFormRowType[]>([]);
-  const [data, setData] = useState('');
+  const [form, setForm] = useState<any>({
+    id: '',
+    type: '',
+    title: '',
+    note: '',
+    verse: '',
+    link: '',
+    messenger: '',
+    docs: [{ title: '', link: '', type: '' }]
+  });
+  const [docs, setDocs] = useState<any[]>([{ title: '', link: '', type: '' }]);
   const [jsonData, setJsonData] = useState('');
 
   const editorModules = {
@@ -33,84 +40,119 @@ function AdminPanel() {
     ]
   };
 
-  const handleChange = (content: any) => {
-    setData(content);
-  }
+  const dropdownData = [
+    { value: '', display: '請選擇', disabled: true },
+    { value: '主日崇拜', display: '主日崇拜' },
+    { value: '分享主日', display: '分享主日' },
+  ]
+
+  const docTypes = [
+    { value: '', display: '請選擇', disabled: true },
+    { value: 'docx', display: 'docx' },
+    { value: 'pdf', display: 'pdf' },
+  ]
 
   const handleInputChange = (e: any) => setForm({
     ...form,
     [e.currentTarget.name]: e.currentTarget.value
   })
 
+  const handleDocsInputChange = (e: any, idx: any) => {
+    let decloy = docs
+    let doc = decloy[idx]
+    doc = { ...doc, [e.currentTarget.name]: e.currentTarget.value }
+    decloy[idx] = doc;
+    setDocs([ ...decloy ])
+  }
+
   useEffect(() => {
     setJsonData(JSON.stringify(form))
   }, [form])
 
   useEffect(() => {
-    setFormRow([
-      {
-        list: [{
-          id: '',
-          name: '',
-          label: '',
-          value: 'link',
-          // placeholder: ''
-
-          md: 6
-        }],
-        controls: <Button onClick={addRow}></Button>,
-        selector: formDocDef
-      }
-    ])
-  }, [])
+    setForm({
+      ...form,
+      docs: docs
+    })
+  }, [docs])
 
   const addRow = () => {
-
+    setDocs([
+      ...docs,
+      { title: '', link: '', type: '' }
+    ])
   }
 
-  // const formRowGenerator = () => {
-  //   return <>
-  //     {formRow.map((rowItem, index) => {
-  //       <Form.Row key={index}>
-  //         {/* <FormGroupFragment form={form} list={rowItem.list} controls={rowItem.controls}></FormGroupFragment> */}
-  //       </Form.Row>
-  //     })}
-  //   </>
-  // }
-
-  const formGroupInputTextGenerator = (name: string, label: string, placeholder?: string, md?: number, selector?: any) => {
+  const formGroupInputTextGenerator = (name: string, label: string, targetState: any, updateFn: Function, fnParam: any, placeholder?: string, md?: number, sm?: number) => {
     return <>
-      <Form.Group as={Col} md={md}>
+      <Form.Group as={Col} md={md} sm={sm}>
         <Form.Label>{label}</Form.Label>
         <Form.Control
           className="form-control admin"
           placeholder={placeholder}
-          onChange={handleInputChange}
-          value={form?.[name]}
+          onChange={(e: any) => updateFn(e, fnParam !== undefined ? fnParam : targetState)}
+          value={targetState?.[name]}
           name={name}
         ></Form.Control>
       </Form.Group>
     </>
   }
 
-  const formGroupDropdownGenerator = (name: string, label: string, placeholder?: string, md?: number, selector?: any) => {
+  const formGroupDropdownGenerator = (name: string, label: string, ds: any[], targetState: any, updateFn: Function, fnParam: any, md?: number, sm?: number) => {
     return <>
-      <Form.Group as={Col} md={md}>
+      <Form.Group as={Col} md={md} sm={sm}>
         <Form.Label>{label}</Form.Label>
         <Form.Control
           as="select"
           className="form-control admin"
-          defaultValue=""
-          onChange={handleInputChange}
-          value={form?.[name]}
+          onChange={(e: any) => updateFn(e, fnParam !== undefined ? fnParam : targetState)}
+          value={targetState?.[name]}
           name={name}
         >
-          <option disabled value="">請選擇</option>
-          <option value="主日崇拜">主日崇拜</option>
-          <option value="分享主日">分享主日</option>
+          {ds.map((item, idx) => {
+            return <option key={idx} disabled={item.disabled} value={item.value}>{item.display}</option>
+          })}
         </Form.Control>
       </Form.Group>
     </>
+  }
+
+  const formGroupQuillGenerator = (name: string, label: string) => {
+
+    const handleChange = (content: any) => {
+      setForm({
+        ...form,
+        [name]: content
+      })
+    }
+
+    return <>
+      <Form.Label>{label}</Form.Label>
+      <ReactQuill
+        className="mb-3"
+        value={form?.[name] || ''}
+        onChange={handleChange}
+        modules={editorModules}
+        style={{
+          width: '100%',
+          minHeight: 400,
+          // maxWidth: '98vw'
+        }}
+      />
+    </>
+  }
+
+  const formRowGenerator = () => {
+    return docs.map((item: any, idx: number) => {
+      return <Form.Row key={idx}>
+        {formGroupInputTextGenerator('link', `檔案${idx + 1}連結`, item, handleDocsInputChange, idx, 'e.g. https://www.abc.com/', 6, 12)}
+        {formGroupInputTextGenerator('title', '名稱', item, handleDocsInputChange, idx, undefined, 3, 12)}
+        {formGroupDropdownGenerator('type', '檔案類型', docTypes, item, handleDocsInputChange, idx, 3, 12)}
+        <Form.Group as={Col} className="text-right" md={12}>
+          <Button onClick={() => addRow()} variant="primary">+</Button>
+        </Form.Group>
+      </Form.Row>
+    })
   }
 
   return (
@@ -161,86 +203,22 @@ function AdminPanel() {
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  {formGroupInputTextGenerator('title', '講題', '請輸入講題')}
-                  {formGroupInputTextGenerator('id', '日期', 'YYYYMMDD')}
+                  {formGroupInputTextGenerator('title', '講題', form, handleInputChange, undefined, '請輸入講題')}
+                  {formGroupInputTextGenerator('id', '日期', form, handleInputChange, undefined, 'YYYYMMDD')}
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Label>分類</Form.Label>
-                    <Form.Control
-                      as="select"
-                      className="form-control admin"
-                      placeholder="Please select"
-                      defaultValue=""
-                      onChange={handleInputChange}
-                      value={form?.type}
-                      name="type"
-                    >
-                      <option disabled value="">請選擇</option>
-                      <option value="主日崇拜">主日崇拜</option>
-                      <option value="分享主日">分享主日</option>
-                    </Form.Control>
-                  </Form.Group>
+                  {formGroupDropdownGenerator('type', '分類', dropdownData, form, handleInputChange, undefined)}
+                  {formGroupInputTextGenerator('messenger', '講員', form, handleInputChange, undefined, '請輸入講員姓名')}
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group as={Col}>
-                    <Form.Label>影片連結</Form.Label>
-                    <Form.Control
-                      className="form-control admin"
-                      placeholder="e.g. https://www.abc.com/"
-                      onChange={handleInputChange}
-                      value={form?.link}
-                      name="link"
-                    ></Form.Control>
-                  </Form.Group>
+                  {formGroupInputTextGenerator('link', '影片連結', form, handleInputChange, undefined, 'e.g. https://www.abc.com/')}
                 </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Label>檔案1連結</Form.Label>
-                    <Form.Control
-                      className="form-control admin"
-                      placeholder="e.g. https://www.abc.com/"
-                      onChange={handleInputChange}
-                      value={form?.docs?.[0]?.link}
-                      name="docs[0].link"
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group as={Col} md={3}>
-                    <Form.Label>名稱</Form.Label>
-                    <Form.Control className="form-control admin"></Form.Control>
-                  </Form.Group>
-                  <Form.Group as={Col} md={3}>
-                    <Form.Label>符號</Form.Label>
-                    <Form.Control className="form-control admin" placeholder="e.g.: fa fa-user"></Form.Control>
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Label>檔案2連結</Form.Label>
-                    <Form.Control className="form-control admin" placeholder="e.g. https://www.abc.com/"></Form.Control>
-                  </Form.Group>
-                  <Form.Group as={Col} md={3}>
-                    <Form.Label>名稱</Form.Label>
-                    <Form.Control className="form-control admin"></Form.Control>
-                  </Form.Group>
-                  <Form.Group as={Col} md={3}>
-                    <Form.Label>符號</Form.Label>
-                    <Form.Control className="form-control admin" placeholder="e.g.: fa fa-user"></Form.Control>
-                  </Form.Group>
+                {formRowGenerator()}
+                <Form.Row className="mb-5">
+                  {formGroupQuillGenerator('note', '講道筆記')}
                 </Form.Row>
                 <Form.Row className="mb-5">
-                  <Form.Label>筆記內容</Form.Label>
-                  <ReactQuill
-                    className="mb-3"
-                    value={data}
-                    onChange={handleChange}
-                    modules={editorModules}
-                    style={{
-                      width: '100%',
-                      minHeight: 500,
-                      // maxWidth: '98vw'
-                    }}
-                  />
+                  {formGroupQuillGenerator('verse', '經文')}
                 </Form.Row>
                 <Form.Row>
                   <Form.Group as={Col}>

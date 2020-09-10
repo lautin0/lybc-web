@@ -43,7 +43,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/index" render={(props: any) => <Index {...props} />} />
-        <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} />
+        {/* <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} /> */}
         <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
         <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
         <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />

@@ -2,6 +2,7 @@ export const SET_FORM = 'SET_FORM'
 
 export type AdminWorshipForm = {
     id: string,
+    type: string,
     title: string,
     note: string,
     verse: string,

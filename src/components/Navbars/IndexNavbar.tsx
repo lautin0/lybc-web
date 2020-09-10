@@ -21,13 +21,13 @@ function IndexNavbar() {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 399 ||
-        document.body.scrollTop > 399
+        document.documentElement.scrollTop > 249 ||
+        document.body.scrollTop > 249
       ) {
         setNavbarColor("");
       } else if (
-        document.documentElement.scrollTop < 400 ||
-        document.body.scrollTop < 400
+        document.documentElement.scrollTop < 350 ||
+        document.body.scrollTop < 350
       ) {
         setNavbarColor("navbar-transparent");
       }
@@ -117,30 +117,32 @@ function IndexNavbar() {
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown id="" title={<><i className="fas fa-book mr-1"></i>教會刊物</>}>
-                <NavDropdown.Item as={Link} to="/journal">
+                <NavDropdown.Item as={Link} to="/journal" onClick={() => setCollapseOpen(!collapseOpen)}>
                   教會月刊
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/sharing-list">
+                <NavDropdown.Item as={Link} to="/sharing-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   分享欄
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/preacher-message">
+                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)}>
                   牧者的話
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown id="" title={<><i className="fas fa-info-circle mr-1"></i>認識綠楊</>}>
-                <NavDropdown.Item as={Link} to="/about-us">
+                <NavDropdown.Item as={Link} to="/about-us" onClick={() => setCollapseOpen(!collapseOpen)}>
                   關於聯會
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/doctrine">
+                <NavDropdown.Item as={Link} to="/doctrine" onClick={() => setCollapseOpen(!collapseOpen)}>
                   教會信條
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={Link} to="/sunday-service-info"
+                  onClick={() => setCollapseOpen(!collapseOpen)}
                 >
                   聚會時間
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={Link} to="/contact-us"
+                  onClick={() => setCollapseOpen(!collapseOpen)}
                 >
                   聯絡我們
                 </NavDropdown.Item>
@@ -175,6 +177,7 @@ function IndexNavbar() {
                   id="login"
                   as={Link}
                   to="/login-page"
+                  onClick={() => setCollapseOpen(!collapseOpen)}
                   style={{ color: 'rgb(69, 147, 76)' }}
                 >
                   <i className="fas fa-user" style={{ fontSize: 14 }}></i>

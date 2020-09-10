@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import 'react-quill/dist/quill.snow.css'
 import { useParams } from "react-router";
-import domtoimage from 'dom-to-image'
+// import domtoimage from 'dom-to-image'
 import ImageModal from "components/Modals/ImageModal";
 import { useDispatch } from "react-redux";
 import { setImage, setLoading } from "actions";
 import { Container, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
 import ReactQuill from "react-quill";
 import ReactToPrint from "react-to-print";
-import { ComponentToPrintProps } from "./sub-worship/types/types";
+import { ComponentToPrintProps } from "./types/types";
 import DOMPurify from "dompurify";
 import worshipData from "../../assets/data/data.json"
 import moment from "moment";
+import html2canvas from 'html2canvas'
 
 function Worship() {
   const dispatch = useDispatch();
@@ -52,9 +53,23 @@ function Worship() {
 
   const handleDownloadNote = () => {
     dispatch(setLoading(true))
-    domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: .15 })
-      .then(async function (data: any) {
-        dispatch(setImage(data))
+    // domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: .15 })
+    //   .then(async function (data: any) {
+    //     dispatch(setImage(data))
+    //     dispatch(setLoading(false))
+    //   });    
+    // let offsetY = 0
+    // if (window.innerWidth < 577)
+    //   offsetY = 1100
+    // else if (window.innerWidth < 769)
+    //   offsetY = 1050
+    // else
+    //   offsetY = 1000
+    let el = document.getElementsByClassName('ql-editor')[0] as HTMLElement
+    let offsetY = window.pageYOffset + el.getBoundingClientRect().top
+    html2canvas(el, { scale: 1, useCORS: true, backgroundColor: '#ffffe6', height: el.clientHeight, y: offsetY })
+      .then(function (canvas: HTMLCanvasElement) {
+        dispatch(setImage(canvas.toDataURL()))
         dispatch(setLoading(false))
       });
   }
@@ -74,9 +89,9 @@ function Worship() {
             <h2>{`${moment(wData.id, 'YYYYMMDD').format('LL')} ${wData.type}`}</h2>
           </Col>
         </Row>
-        <Row className="justify-content-center mt-3">
+        {wData.link != '' && <Row className="justify-content-center mt-3">
           <iframe width="660" height="371" src={wData.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-        </Row>
+        </Row>}
         <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
             id=""
