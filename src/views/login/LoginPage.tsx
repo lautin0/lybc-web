@@ -23,7 +23,7 @@ function LoginPage() {
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
-  const [ user, setUser ] = useState(userDef);
+  const [user, setUser] = useState(userDef);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -42,7 +42,7 @@ function LoginPage() {
     ...user,
     [e.currentTarget.name]: e.currentTarget.value
   })
-  
+
   const prevUser = useRef(user)
   React.useEffect(() => {
     if (!_.isEqual(user, prevUser.current)) {
@@ -53,7 +53,7 @@ function LoginPage() {
       setUser(userDef)
     }
     prevUser.current = user
-  }, [user, userDef]) 
+  }, [user, userDef])
 
   return (
     <>

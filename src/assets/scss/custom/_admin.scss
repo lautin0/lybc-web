@@ -1,0 +1,87 @@
+.left-panel {
+  left: 0px;
+  top: 54px;
+  width: 260px;
+  height: calc(100% - 54px);
+  box-shadow: 0px 0px;
+  background: white;
+
+  li {
+    margin: 2px 0 2px 0;
+  }
+
+  li > a {
+    text-transform: none !important;
+    color: rgb(70, 70, 70) !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    width: 200px;
+  }
+
+  li:hover {
+    border-radius: 5px;
+    background: rgb(235, 235, 235);
+  }
+
+  li > a:focus {
+    border-radius: 5px;
+    background: lightgray !important;
+  }
+}
+
+.right-panel {
+  padding-left: 260px;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  transform: translateZ(0px);
+  overflow: scroll;
+  flex: 1 0 auto;
+}
+
+.banner {
+  display: block;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  background-color: rgb(30, 85, 235);
+  background-image: url(https://assets.prezicdn.net/frontend-packages/dashboard/backgrounds/create-section-blue-bg.svg);
+  padding: 24px 40px 12px;
+  margin: 12px 0px;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  transition: background-image 0.2s ease 0s, background-color 0.2s ease 0s, height 0.2s ease 0s;
+}
+
+.top-bar {
+  border-bottom: 0.01rem lightgray solid;
+  box-shadow: 0px 0px;
+}
+
+i.fa {
+  opacity: 1 !important;
+}
+
+main {
+  top: 63px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+input.admin, select.admin {
+  min-height: 40px;
+  border: 1px solid #a9a9a9;
+  font-size: 1rem;
+}
+
+textarea.admin{
+  border: 1px solid #a9a9a9 !important;
+}
+
+.content-panel{
+  .form-row{
+    min-height: 15vh;
+  }
+}

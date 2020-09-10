@@ -22,6 +22,8 @@ import CommonModal from "components/Modals/CommonModal";
 import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
 import ErrorPage from "views/error/Error";
 import MainPage from "views/main/MainPage";
+import 'moment/locale/zh-hk';
+import AdminPanel from "views/admin/AdminPanel";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -41,6 +43,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/index" render={(props: any) => <Index {...props} />} />
+        {/* <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} /> */}
         <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
         <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
         <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />

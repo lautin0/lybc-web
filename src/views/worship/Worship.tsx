@@ -1,40 +1,37 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import 'react-quill/dist/quill.snow.css'
 import { useParams } from "react-router";
-import domtoimage from 'dom-to-image'
+// import domtoimage from 'dom-to-image'
 import ImageModal from "components/Modals/ImageModal";
 import { useDispatch } from "react-redux";
 import { setImage, setLoading } from "actions";
-import Ws20200223 from "./sub-worship/Ws20200223";
-import Ws20200216 from "./sub-worship/Ws20200216";
-import Ws20200308 from "./sub-worship/Ws20200308";
-import Ws20200315 from "./sub-worship/Ws20200315";
-import Ws20200322 from "./sub-worship/Ws20200322";
-import Ws20200329 from "./sub-worship/Ws20200329";
-import Ws20200405 from "./sub-worship/Ws20200405";
-import Ws20200412 from "./sub-worship/Ws20200412";
-import Ws20200419 from "./sub-worship/Ws20200419";
-import Ws20200426 from "./sub-worship/Ws20200426";
-import Ws20200503 from "./sub-worship/Ws20200503";
-import Ws20200510 from "./sub-worship/Ws20200510";
-import Ws20200517 from "./sub-worship/Ws20200517";
-import Ws20200524 from "./sub-worship/Ws20200524";
-import Ws20200531 from "./sub-worship/Ws20200531";
-import Ws20200607 from "./sub-worship/Ws20200607";
-import Ws20200614 from "./sub-worship/Ws20200614";
-import Ws20200712 from "./sub-worship/Ws20200712";
-import Ws20200719 from "./sub-worship/Ws20200719";
-import Ws20200726 from "./sub-worship/Ws20200726";
-import Ws20200802 from "./sub-worship/Ws20200802";
-import Ws20200809 from "./sub-worship/Ws20200809";
-import Ws20200816 from "./sub-worship/Ws20200816";
-import Ws20200823 from "./sub-worship/Ws20200823";
-import Ws20200830 from "./sub-worship/Ws20200830";
-import Ws20200906 from "./sub-worship/Ws20200906";
+import { Container, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
+import ReactQuill from "react-quill";
+import ReactToPrint from "react-to-print";
+import { ComponentToPrintProps } from "./types/types";
+import DOMPurify from "dompurify";
+import worshipData from "../../assets/data/data.json"
+import moment from "moment";
+import html2canvas from 'html2canvas'
 
 function Worship() {
   const dispatch = useDispatch();
   let { id } = useParams();
+
+  const [key, setKey] = useState('home')
+  const [data, setData] = useState('')
+  const componentRef: any = useRef();
+
+  const handleChange = (content: any) => {
+    setData(content);
+  }
+
+  const ComponentToPrint = React.forwardRef((props: ComponentToPrintProps, ref: any) => {
+    return (
+      <div className="m-5" ref={ref} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.content) }}>
+      </div>
+    )
+  })
 
   const editorModules = {
     toolbar: [
@@ -56,42 +53,110 @@ function Worship() {
 
   const handleDownloadNote = () => {
     dispatch(setLoading(true))
-    domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: .15 })
-      .then(async function (data: any) {
-        dispatch(setImage(data))
+    // domtoimage.toPng(document.getElementsByClassName('ql-editor')[0], { bgcolor: '#ffffe6', quality: .15 })
+    //   .then(async function (data: any) {
+    //     dispatch(setImage(data))
+    //     dispatch(setLoading(false))
+    //   });    
+    // let offsetY = 0
+    // if (window.innerWidth < 577)
+    //   offsetY = 1100
+    // else if (window.innerWidth < 769)
+    //   offsetY = 1050
+    // else
+    //   offsetY = 1000
+    let el = document.getElementsByClassName('ql-editor')[0] as HTMLElement
+    let offsetY = window.pageYOffset + el.getBoundingClientRect().top
+    html2canvas(el, { scale: 1, useCORS: true, backgroundColor: '#ffffe6', height: el.clientHeight, y: offsetY })
+      .then(function (canvas: HTMLCanvasElement) {
+        dispatch(setImage(canvas.toDataURL()))
         dispatch(setLoading(false))
       });
   }
 
+  const wData = worshipData.filter(x => x.id == id)[0]
+
+  useEffect(() => {
+    setData(wData.note);
+  }, [wData])
+
   return (
     <div className="section">
       <ImageModal />
-      {id === '20200906' && <Ws20200906 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200830' && <Ws20200830 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200823' && <Ws20200823 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200816' && <Ws20200816 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200809' && <Ws20200809 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200802' && <Ws20200802 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200726' && <Ws20200726 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200719' && <Ws20200719 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200712' && <Ws20200712 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200614' && <Ws20200614 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200607' && <Ws20200607 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200531' && <Ws20200531 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200524' && <Ws20200524 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200517' && <Ws20200517 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200510' && <Ws20200510 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200503' && <Ws20200503 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200426' && <Ws20200426 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200419' && <Ws20200419 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200412' && <Ws20200412 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200405' && <Ws20200405 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200329' && <Ws20200329 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200322' && <Ws20200322 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200315' && <Ws20200315 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200308' && <Ws20200308 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200223' && <Ws20200223 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
-      {id === '20200216' && <Ws20200216 handleDownloadNote={handleDownloadNote} editorModules={editorModules}/>}
+      <Container style={{ marginTop: -20 }}>
+        <Row className="justify-content-md-center">
+          <Col className="text-center" lg="8" md="12">
+            <h2>{`${moment(wData.id, 'YYYYMMDD').format('LL')} ${wData.type}`}</h2>
+          </Col>
+        </Row>
+        {wData.link != '' && <Row className="justify-content-center mt-3">
+          <iframe width="660" height="371" src={wData.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        </Row>}
+        <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
+          <Tabs
+            id=""
+            activeKey={key}
+            onSelect={(k: any) => setKey(k)}
+            className="nav-justified w-100 mb-5"
+            style={{ fontSize: 20 }}
+          >
+            <Tab eventKey="home" title="筆記">
+              <div className="mb-2 form-inline">
+                {wData.docs.map((value, index) => {
+                  return <div style={{ width: 'fit-content' }} className="mr-3" key={index}>
+                    <a href={value.link} target="_blank" className="dl-link">
+                      <div>
+                        {value.type === 'pdf' && (<i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>)}
+                        {value.type === 'docx' && (<i style={{ fontSize: 48, color: '#285595' }} className="far fa-file-word"></i>)}
+                      </div>
+                      <div>
+                        <label>{value.title + '.' + value.type}</label>
+                      </div>
+                    </a>
+                  </div>
+                })}
+              </div>
+              <Row>
+                <ReactQuill
+                  className="mb-3"
+                  value={data}
+                  onChange={handleChange}
+                  modules={editorModules}
+                  style={{
+                    minHeight: 500,
+                    maxWidth: '98vw'
+                  }}
+                />
+              </Row>
+              <Row className="mt-5 justify-content-end">
+                <div className="d-block d-lg-none">
+                  <Button style={{ transform: 'translate(0px, 25px)' }} variant="primary" onClick={handleDownloadNote}>
+                    文字轉圖<i className="ml-1 fas fa-exchange-alt"></i>
+                  </Button>
+                </div>
+                <div className="d-none d-lg-block">
+                  <ReactToPrint
+                    trigger={() =>
+                      <Button variant="primary">另存PDF<i className="fa fa-print ml-1" aria-hidden="true"></i>
+                      </Button>}
+                    content={() => componentRef.current}
+                  />
+                  <div className="d-none">
+                    <ComponentToPrint
+                      ref={el => (componentRef.current = el)}
+                      content={data}
+                    />
+                  </div>
+                </div>
+              </Row>
+            </Tab>
+            <Tab eventKey="scripture" title="經文">
+              <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.verse) }}>
+              </div>
+            </Tab>
+          </Tabs>
+        </Row>
+      </Container>
     </div>
   )
 }
