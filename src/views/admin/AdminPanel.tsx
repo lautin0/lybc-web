@@ -169,13 +169,13 @@ function AdminPanel() {
           <nav className="navbar fixed-top navbar-light d-flex flex-column left-panel">
             <ul className="navbar-nav mt-3">
               <li className="nav-item">
-                <a className="nav-link active" href="#"><i className="fa fa-home mr-2"></i>Home</a>
+                <a className="nav-link active" href="#"><i className="fa fa-plus mr-2"></i>新增崇拜</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fa fa-book mr-2"></i>Tutorials</a>
+                <a className="nav-link" href="#"><i className="fa fa-user mr-2"></i>會員管理</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fa fa-user mr-2"></i>Articles</a>
+                <a className="nav-link" href="#"><i className="fa fa-cog mr-2"></i>其他功能</a>
               </li>
             </ul>
           </nav>
@@ -189,7 +189,7 @@ function AdminPanel() {
                 </div>
               </header>
               <div className="content-panel">
-                <p className="category" style={{ color: 'black' }}>崇拜管理</p>
+                <p className="category" style={{ color: 'black' }}>崇拜資料</p>
                 <Form.Row>
                   <Form.Group as={Col}>
                     <Form.Label>元數據</Form.Label>

@@ -21,7 +21,16 @@ function WorshipList() {
   const [pageNumber, setPageNumber] = React.useState(1);
   const pageSize = 5;
 
-  const data = worshipData.map(x => { return {
+  const data = worshipData.sort((a, b) => {
+    if(a.id > b.id){
+      return -1
+    } else if(a.id < b.id){
+      return 1
+    } else {
+      return 0
+    }
+  })
+  .map(x => { return {
     id: x.id, 
     date: moment(x.id, 'YYYYMMDD'), 
     title: x.type == '分享主日' ? '分享主日' : x.title, 
@@ -83,14 +92,6 @@ function WorshipList() {
         id="download-section"
       >
         <Container style={{ marginTop: -50 }}>
-          <Row className="text-center mb-3 mx-3">
-            {/* <p className="w-100">
-              我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；<br />
-              他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，<br />
-              使榮耀住在我們的地上。<br />
-              (詩篇 85:8-9 和合本2010)<br />
-            </p> */}
-          </Row>
           <Row className="mt-5">
             <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
               <thead>
