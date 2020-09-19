@@ -24,6 +24,8 @@ import ErrorPage from "views/error/Error";
 import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import AdminPanel from "views/admin/AdminPanel";
+import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -34,37 +36,45 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 
+const client = new ApolloClient({
+  uri: 'https://tinyuku-go.herokuapp.com/query',
+  // uri: 'http://localhost:8080/query',
+  cache: new InMemoryCache()
+});
+
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <CommonModal />
-    <LoadingOverlay />
-    <Router history={history}>
-      <Switch>
-        <Route path="/index" render={(props: any) => <Index {...props} />} />
-        {/* <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} /> */}
-        <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
-        <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
-        <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
-        <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} /> 
-        <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" deemed />} />
-        <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" deemed/>} />
-        <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
-        <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
-        <Route path="/worship/:id?" render={props => <MainPageLegacy {...props} page="worship" />} />
-        <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list"/>} />
-        <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
-        <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed/>} />
-        <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
-        <Route exact path="/"><Index /></Route>
-        <Route path="*">
-          <ErrorPage error="404" />
-        </Route>
-        {/* <Redirect to="/index" />
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <CommonModal />
+      <LoadingOverlay />
+      <Router history={history}>
+        <Switch>
+          <Route path="/index" render={(props: any) => <Index {...props} />} />
+          {/* <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} /> */}
+          <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
+          <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
+          <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
+          <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} />
+          <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" deemed />} />
+          <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" deemed />} />
+          <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
+          <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
+          <Route path="/worship/:id?" render={props => <MainPageLegacy {...props} page="worship" />} />
+          <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
+          <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
+          <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
+          <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
+          <Route exact path="/"><Index /></Route>
+          <Route path="*">
+            <ErrorPage error="404" />
+          </Route>
+          {/* <Redirect to="/index" />
         <Redirect from="/" to="/index" /> */}
-      </Switch>
-    </Router>
-  </Provider>,
+        </Switch>
+      </Router>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root")
 );

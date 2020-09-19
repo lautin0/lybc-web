@@ -10,17 +10,40 @@ import ReactQuill from "react-quill";
 import ReactToPrint from "react-to-print";
 import { ComponentToPrintProps } from "./types/types";
 import DOMPurify from "dompurify";
-import worshipData from "../../assets/data/data.json"
 import moment from "moment";
 import html2canvas from 'html2canvas'
+// import worshipData from "../../assets/data/data.json"
+import { gql, useQuery } from "@apollo/client";
+
+const GET_WORSHIP = gql`
+query GetWorship($worshipId: String!){
+  worship(worshipId: $worshipId){
+    worshipId
+    title
+    type
+    messenger
+    note
+    verse
+    link
+    docs{
+      title
+      link
+      type
+    }
+  }
+}`
 
 function Worship() {
   const dispatch = useDispatch();
-  let { id } = useParams();
+  let { id } = useParams<any>();
 
   const [key, setKey] = useState('home')
   const [data, setData] = useState('')
   const componentRef: any = useRef();
+
+  const { loading, error, data: wData } = useQuery(GET_WORSHIP,
+    { variables: { worshipId: id } }
+  );
 
   const handleChange = (content: any) => {
     setData(content);
@@ -74,23 +97,31 @@ function Worship() {
       });
   }
 
-  const wData = worshipData.filter(x => x.id == id)[0]
+  // const wData = worshipData.filter(x => x.worshipId == id)[0]
 
   useEffect(() => {
-    setData(wData.note);
+    if(wData !== undefined)
+    setData(wData.worship.note);
   }, [wData])
 
   return (
     <div className="section">
       <ImageModal />
-      <Container style={{ marginTop: -20 }}>
+      {loading && <Container style={{ marginTop: -20 }}>
+        <Row className="justify-content-md-center">
+          <div className="spinner-grow text-secondary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </Row>
+      </Container>}
+      {!loading && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
-            <h2>{`${moment(wData.id, 'YYYYMMDD').format('LL')} ${wData.type}`}</h2>
+            <h2>{`${moment(wData.worship.worshipId, 'YYYYMMDD').format('LL')} ${wData.worship.type}`}</h2>
           </Col>
         </Row>
-        {wData.link != '' && <Row className="justify-content-center mt-3">
-          <iframe width="660" height="371" src={wData.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        {wData.worship.link != '' && <Row className="justify-content-center mt-3">
+          <iframe width="660" height="371" src={wData.worship.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Row>}
         <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
@@ -102,7 +133,7 @@ function Worship() {
           >
             <Tab eventKey="home" title="筆記">
               <div className="mb-2 form-inline">
-                {wData.docs.map((value, index) => {
+                {wData.worship.docs.map((value: any, index: number) => {
                   return <div style={{ width: 'fit-content' }} className="mr-3" key={index}>
                     <a href={value.link} target="_blank" className="dl-link">
                       <div>
@@ -151,12 +182,12 @@ function Worship() {
               </Row>
             </Tab>
             <Tab eventKey="scripture" title="經文">
-              <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.verse) }}>
+              <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.worship.verse) }}>
               </div>
             </Tab>
           </Tabs>
         </Row>
-      </Container>
+      </Container>}
     </div>
   )
 }

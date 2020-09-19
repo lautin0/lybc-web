@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://www.hklybc.org/",
   "dependencies": {
+    "@apollo/client": "^3.2.0",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.0",
     "@types/prop-types": "^15.7.3",
@@ -17,6 +18,7 @@
     "dompurify": "^2.0.8",
     "eslint-plugin-flowtype": "^3.13.0",
     "fibers": "^4.0.2",
+    "graphql": "^15.3.0",
     "html2canvas": "^1.0.0-rc.7",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.20",

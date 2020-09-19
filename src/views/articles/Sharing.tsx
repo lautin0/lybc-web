@@ -7,7 +7,7 @@ import Sharing1 from "./sub-sharing/Sharing1";
 // core components
 
 function Sharing() {
-  let { id } = useParams();
+  let { id } = useParams<any>();
 
   useEffect(() => {
     //Default scroll to top

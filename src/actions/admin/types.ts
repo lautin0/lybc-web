@@ -1,12 +1,13 @@
 export const SET_FORM = 'SET_FORM'
 
 export type AdminWorshipForm = {
-    id: string,
+    worshipId: string,
     type: string,
     title: string,
     note: string,
     verse: string,
     link: string,
+    messenger: string,
     docs: any[]
 }
 

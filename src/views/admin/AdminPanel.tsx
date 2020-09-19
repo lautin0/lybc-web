@@ -2,15 +2,40 @@ import React, { useState, useEffect } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import { RootState } from 'reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { gql, useMutation } from '@apollo/client';
+// import worshipData from "../../assets/data/data.json"
+import { setLoading } from 'actions';
+
+const ADD_WORSHIP = gql`
+mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
+  createWorship(input: $input, docs: $docs){
+    id,
+    worshipId,
+    title
+    type,
+    messenger,
+    note,
+    link,
+    verse
+    docs {
+      title
+      type
+      link
+    }
+  }
+}
+`;
 
 function AdminPanel() {
 
   const formDef = useSelector((state: RootState) => state.admin.form)
   const formDocDef = useSelector((state: RootState) => state.admin.form.formInstance?.docs)
 
+  const [addWorship, { data, loading: mutationLoading, error: mutationError },] = useMutation(ADD_WORSHIP);
+
   const [form, setForm] = useState<any>({
-    id: '',
+    worshipId: '',
     type: '',
     title: '',
     note: '',
@@ -21,6 +46,8 @@ function AdminPanel() {
   });
   const [docs, setDocs] = useState<any[]>([{ title: '', link: '', type: '' }]);
   const [jsonData, setJsonData] = useState('');
+
+  const dispatch = useDispatch();
 
   const editorModules = {
     toolbar: [
@@ -62,7 +89,7 @@ function AdminPanel() {
     let doc = decloy[idx]
     doc = { ...doc, [e.currentTarget.name]: e.currentTarget.value }
     decloy[idx] = doc;
-    setDocs([ ...decloy ])
+    setDocs([...decloy])
   }
 
   useEffect(() => {
@@ -76,12 +103,38 @@ function AdminPanel() {
     })
   }, [docs])
 
+  useEffect(() => {
+    mutationError && console.log(mutationError)
+  }, [mutationError])
+
+  useEffect(() => {
+    if(mutationLoading === undefined)
+      return
+    dispatch(setLoading(mutationLoading))
+  },[mutationLoading])
+
   const addRow = () => {
     setDocs([
       ...docs,
       { title: '', link: '', type: '' }
     ])
   }
+
+  // const createWorshipsFromDataJson = () => {
+  //   worshipData.forEach(e => {
+  //     let tmp = e
+  //     let tmpDocs = e.docs
+  //     delete tmp.docs
+  //     addWorship({
+  //       variables: {
+  //         input: {
+  //           ...tmp
+  //         },
+  //         docs: [...tmpDocs]
+  //       }
+  //     })
+  //   })
+  // }
 
   const formGroupInputTextGenerator = (name: string, label: string, targetState: any, updateFn: Function, fnParam: any, placeholder?: string, md?: number, sm?: number) => {
     return <>
@@ -155,6 +208,8 @@ function AdminPanel() {
     })
   }
 
+
+
   return (
     <>
       <div>
@@ -204,7 +259,7 @@ function AdminPanel() {
                 </Form.Row>
                 <Form.Row>
                   {formGroupInputTextGenerator('title', '講題', form, handleInputChange, undefined, '請輸入講題')}
-                  {formGroupInputTextGenerator('id', '日期', form, handleInputChange, undefined, 'YYYYMMDD')}
+                  {formGroupInputTextGenerator('worshipId', '日期', form, handleInputChange, undefined, 'YYYYMMDD')}
                 </Form.Row>
                 <Form.Row>
                   {formGroupDropdownGenerator('type', '分類', dropdownData, form, handleInputChange, undefined)}
@@ -247,6 +302,27 @@ function AdminPanel() {
                         label={<><span className="form-check-sign"></span>Radio Example 2</>}
                       ></Form.Check>
                     </Form.Row>
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        let tmp = form
+                        let tmpDocs = form.docs
+                        delete tmp.docs
+                        addWorship({
+                          variables: {
+                            input: {
+                              ...tmp
+                            },
+                            docs: [...tmpDocs]
+                          }
+                        })
+                      }}
+                      // onClick={() => createWorshipsFromDataJson()}
+                    >Submit</Button>
                   </Form.Group>
                 </Form.Row>
               </div>

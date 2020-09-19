@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
 import {
@@ -10,32 +10,64 @@ import {
 
 import moment from 'moment'
 import { useHistory } from "react-router";
-import worshipData from "../../assets/data/data.json"
+import { gql, useQuery } from "@apollo/client";
+// import worshipData from "../../assets/data/data.json"
 
-
+const GET_WORSHIPS = gql`
+query {
+  worships{
+    worshipId
+    title
+    type
+    messenger
+    note
+    verse
+    link
+    docs{
+      title
+      link
+      type
+    }
+  }
+}`
 
 function WorshipList() {
   const history = useHistory();
 
-  const [pageItems, setPageItems] = React.useState<Array<{ id: string, date: moment.Moment, title: string, messenger: string }> | null>(null);
+  const [pageItems, setPageItems] = React.useState<Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> | null>(null);
   const [pageNumber, setPageNumber] = React.useState(1);
+  const [data, setData] = useState([])
   const pageSize = 5;
 
-  const data = worshipData.sort((a, b) => {
-    if(a.id > b.id){
-      return -1
-    } else if(a.id < b.id){
-      return 1
-    } else {
-      return 0
-    }
-  })
-  .map(x => { return {
-    id: x.id, 
-    date: moment(x.id, 'YYYYMMDD'), 
-    title: x.type == '分享主日' ? '分享主日' : x.title, 
-    messenger: x.messenger == '' ? '---' : x.messenger
-  } })
+  const { loading, error, data: worshipData } = useQuery(GET_WORSHIPS)
+
+  useEffect(() => {
+    if (worshipData === undefined)
+      return
+    let tmp: any = [...worshipData.worships]
+    setData(tmp?.sort((a: any, b: any) => {
+      if (a.worshipId > b.worshipId) {
+        return -1
+      } else if (a.worshipId < b.worshipId) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+      .map((x: any) => {
+        return {
+          worshipId: x.worshipId,
+          date: moment(x.worshipId, 'YYYYMMDD'),
+          title: x.type == '分享主日' ? '分享主日' : x.title,
+          messenger: x.messenger == '' ? '---' : x.messenger
+        }
+      }))
+  }, [worshipData])
+
+  useEffect(() => {
+    if (data !== undefined)
+      onPageChanged(1)
+  }, [data])
 
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
@@ -67,7 +99,7 @@ function WorshipList() {
   const onPageChanged = (page: number) => {
     if (page > Math.ceil(data.length / pageSize) || page == 0)
       return
-    let array: Array<{ id: string, date: moment.Moment, title: string, messenger: string }> = [];
+    let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
     for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
       data[i] && array.push(data[i])
     }
@@ -80,8 +112,6 @@ function WorshipList() {
     //Default scroll to top
     window.scrollTo(0, 0)
 
-    onPageChanged(1)
-    
   }, [])
 
   return (
@@ -103,14 +133,19 @@ function WorshipList() {
                 </tr>
               </thead>
               <tbody>
-                {(pageItems == null || pageItems.length == 0) && <tr><th className="text-center" colSpan={4}>沒有記錄</th></tr>}
+                {loading && <tr><th className="text-center" colSpan={4}>
+                  <div className="spinner-grow text-secondary" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </th></tr>}
+                {((pageItems == null || pageItems.length == 0) && !loading) && <tr><th className="text-center" colSpan={4}>沒有記錄</th></tr>}
                 {
                   (pageItems && pageItems.length > 0) && pageItems.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.id)}>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
-                      <td onClick={() => onCellClicked(value.id)}>{value.messenger}</td>
-                      <td onClick={() => onCellClicked(value.id)}><a href="#">前往</a></td>
+                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                      <td onClick={() => onCellClicked(value.worshipId)}>{value.messenger}</td>
+                      <td onClick={() => onCellClicked(value.worshipId)}><a href="#">前往</a></td>
                     </tr>
                   })
                 }
