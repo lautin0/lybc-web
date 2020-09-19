@@ -10,7 +10,6 @@ import { setLoading } from 'actions';
 const ADD_WORSHIP = gql`
 mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
   createWorship(input: $input, docs: $docs){
-    id,
     worshipId,
     title
     type,
