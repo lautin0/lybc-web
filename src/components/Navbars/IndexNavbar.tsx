@@ -185,7 +185,7 @@ function IndexNavbar() {
                 </Button>
               </Nav.Item>}
               {token &&
-                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.unique_name}</p></>}>
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.username}</p></>}>
                   <NavDropdown.Item
                     as="a"
                     href="javascript:void(0)"

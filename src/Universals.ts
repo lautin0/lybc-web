@@ -151,7 +151,11 @@ export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
 export function getTokenValue(jwt: any) {
     let authObject: any
     if (jwt) {
-        authObject = jwt_decode(jwt);
+        try{
+            authObject = jwt_decode(jwt);
+        } catch {
+            return null
+        }
     }
     return authObject
 }

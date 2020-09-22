@@ -7,11 +7,15 @@ type ErrorPageProps = {
   error: string,
 }
 
-function ErrorPage(props: ErrorPageProps) {
+let ErrMsg: any = {
+  401: 'Unauthorized',
+  404: 'Not Found',
+}
 
+function ErrorPage(props: ErrorPageProps) {
   return (
     <>
-      <h1>Error: {props.error}</h1>
+      <h1>Error: {props.error} {ErrMsg[props.error]}</h1>
     </>
   );
 }

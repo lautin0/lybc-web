@@ -26,6 +26,7 @@ import 'moment/locale/zh-hk';
 import AdminPanel from "views/admin/AdminPanel";
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import PrivateRoute from "components/route/PrivateRoute";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -52,7 +53,7 @@ ReactDOM.render(
       <Router history={history}>
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
-          {/* <Route path="/admin_" render={(props: any) => <AdminPanel {...props} />} /> */}
+          <PrivateRoute path="/admin_" component={AdminPanel} role="ADMIN"/>
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
           <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />

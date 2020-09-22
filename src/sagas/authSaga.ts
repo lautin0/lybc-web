@@ -7,7 +7,7 @@ import { MSG_LOGIN_SUCCESS } from './index'
 export function* signIn(person: any) {
     try {
         const payload = yield call(api.signIn, person)
-        yield put(actions.signInSuccess(payload.data, { message: MSG_LOGIN_SUCCESS, callback: () => { window.location.href = './' } }))
+        yield put(actions.signInSuccess(payload.data.login, { message: MSG_LOGIN_SUCCESS, callback: () => { window.location.href = './' } }))
     } catch (error) {
         yield put(actions.signInFailure(error))
     }
