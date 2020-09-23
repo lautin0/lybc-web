@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -9,15 +9,29 @@ import {
   Container
 } from "react-bootstrap";
 import { RootState } from "reducers";
-import { useSelector } from "react-redux";
-import { getTokenValue } from "Universals";
+import { useDispatch, useSelector } from "react-redux";
+import { getTokenValue, hasRole, isTokenExpired, Role } from "Universals";
+import { gql, useMutation } from "@apollo/client";
+import { signInSuccess } from "actions";
+
+const REFRESH_TOKEN = gql`
+  mutation refresh($input: RefreshTokenInput!){
+    refreshToken(input: $input)
+  }
+`;
 
 function IndexNavbar() {
+
+  const [refreshToken, { data, loading: refreshTokenLoading, error: refreshTokenError }] = useMutation(REFRESH_TOKEN);
+
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const token = useSelector((state: RootState) => state.auth.jwt);
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -37,6 +51,17 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
+  useEffect(() => {
+    if (token && isTokenExpired(token)) {
+      refreshToken({ variables: { input: { token: token } } })
+    }
+  })
+
+  useEffect(() => {
+    if (data !== undefined)
+      dispatch(signInSuccess(data.token))
+  }, [data])
 
   return (
     <>
@@ -186,12 +211,16 @@ function IndexNavbar() {
               </Nav.Item>}
               {token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.username}</p></>}>
+                  {hasRole(token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
+                    管理控制台
+                  </NavDropdown.Item>}
+                  <NavDropdown.Divider />
                   <NavDropdown.Item
                     as="a"
                     href="javascript:void(0)"
                     onClick={(e: any) => {
                       e.preventDefault();
-                      sessionStorage.clear();
+                      localStorage.clear();
                       window.location.href = './'
                     }}
                   >

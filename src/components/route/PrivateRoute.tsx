@@ -1,4 +1,3 @@
-import { toUpper } from 'lodash';
 import React, { Component } from 'react'
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
@@ -17,7 +16,7 @@ function PrivateRoute({ component: Component, path, role }: any) {
   }
 
   const isAuthorized = () => {
-    return role === undefined || toUpper(authObj.role) === toUpper(role)
+    return role === undefined || authObj.role.toUpperCase() === role.toString().toUpperCase()
   }
 
   if (!isAuthenticated()) {

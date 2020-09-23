@@ -3,7 +3,14 @@ import jwt_decode from "jwt-decode";
 type UniversalsInfo = {
     TITLE_MAP: any
     MENU_HIERARCHY: any,
-    NOTIFICATION: any
+    NOTIFICATION: any,
+    GRAPHQL_ENDPOINT: string
+}
+
+export enum Role {
+    ADMIN = "ADMIN",
+    MEMBER = "MEMBER",
+    WORKER = "WORKER"
 }
 
 const UNIVERSALS: UniversalsInfo = {
@@ -116,7 +123,9 @@ const UNIVERSALS: UniversalsInfo = {
         `,
 
         TITLE: '教會通告'
-    }
+    },
+    // GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query"
+    GRAPHQL_ENDPOINT: "http://localhost:8080/query"
 }
 export default UNIVERSALS;
 
@@ -158,4 +167,18 @@ export function getTokenValue(jwt: any) {
         }
     }
     return authObject
+}
+
+export function isTokenExpired(jwt: any){
+    let token = getTokenValue(jwt)
+    if(token == null)
+        return true
+    return Date.now() >= token.exp * 1000        
+}
+
+export function hasRole(jwt: any, role: Role){
+    let token = getTokenValue(jwt)
+    if(token == null)
+        return false
+    return role.toString().toUpperCase() === token.role.toUpperCase()
 }

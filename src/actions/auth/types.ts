@@ -17,7 +17,7 @@ export interface SignInRequestAction {
 export interface SignInSuccessAction {
     type: typeof SIGN_IN_SUCCESS,
     jwt: string,
-    result: SagaResult
+    result?: SagaResult
 }
 
 export interface SignInFailureAction {

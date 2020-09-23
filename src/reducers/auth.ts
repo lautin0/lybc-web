@@ -19,7 +19,7 @@ export default function authStatus(
         isPending: state.isPending + 1
       }
     case SIGN_IN_SUCCESS:
-      sessionStorage.setItem("jwt", action.jwt)
+      localStorage.setItem("jwt", action.jwt)
       return {
         ...state,
         jwt: action.jwt,
@@ -33,7 +33,7 @@ export default function authStatus(
     default:
       return { 
         ...state,
-        jwt: sessionStorage.getItem("jwt")
+        jwt: localStorage.getItem("jwt")
       }
   }
 }

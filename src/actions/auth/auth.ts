@@ -8,7 +8,7 @@ export function signIn(user: User): SignInActionTypes {
   }
 }
 
-export function signInSuccess(jwt: string, result: SagaResult): SignInActionTypes {
+export function signInSuccess(jwt: string, result?: SagaResult): SignInActionTypes {
   return {
       type: SIGN_IN_SUCCESS,      
       jwt,

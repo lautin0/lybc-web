@@ -2,15 +2,15 @@ import axios from "axios";
 import { Person } from "actions";
 import { User } from "actions/auth/types";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
+import UNIVERSALS from "Universals";
 
 const client = new ApolloClient({
-  uri: 'https://tinyuku-go.herokuapp.com/query',
-  // uri: 'http://localhost:8080/query',
+  uri: UNIVERSALS.GRAPHQL_ENDPOINT,
   cache: new InMemoryCache()
 });
 
 const getConfig = () => {
-  let token = sessionStorage.getItem("jwt")
+  let token = localStorage.getItem("jwt")
   return {
     headers: {
       Authorization: token && ('Bearer ' + token)

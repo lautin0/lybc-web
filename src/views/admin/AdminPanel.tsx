@@ -8,22 +8,22 @@ import { gql, useMutation } from '@apollo/client';
 import { setLoading } from 'actions';
 
 const ADD_WORSHIP = gql`
-mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
-  createWorship(input: $input, docs: $docs){
-    worshipId,
-    title
-    type,
-    messenger,
-    note,
-    link,
-    verse
-    docs {
+  mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
+    createWorship(input: $input, docs: $docs){
+      worshipId,
       title
-      type
-      link
+      type,
+      messenger,
+      note,
+      link,
+      verse
+      docs {
+        title
+        type
+        link
+      }
     }
   }
-}
 `;
 
 function AdminPanel() {
@@ -31,7 +31,7 @@ function AdminPanel() {
   const formDef = useSelector((state: RootState) => state.admin.form)
   const formDocDef = useSelector((state: RootState) => state.admin.form.formInstance?.docs)
 
-  const [addWorship, { data, loading: mutationLoading, error: mutationError },] = useMutation(ADD_WORSHIP);
+  const [addWorship, { data, loading: addWorshipLoading, error: addWorshipError },] = useMutation(ADD_WORSHIP);
 
   const [form, setForm] = useState<any>({
     worshipId: '',
@@ -103,14 +103,14 @@ function AdminPanel() {
   }, [docs])
 
   useEffect(() => {
-    mutationError && console.log(mutationError)
-  }, [mutationError])
+    addWorshipError && console.log(addWorshipError)
+  }, [addWorshipError])
 
   useEffect(() => {
-    if(mutationLoading === undefined)
+    if(addWorshipLoading === undefined)
       return
-    dispatch(setLoading(mutationLoading))
-  },[mutationLoading])
+    dispatch(setLoading(addWorshipLoading))
+  },[addWorshipLoading])
 
   const addRow = () => {
     setDocs([
