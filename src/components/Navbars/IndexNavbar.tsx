@@ -10,7 +10,8 @@ import {
 } from "react-bootstrap";
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { getTokenValue, hasRole, isTokenExpired, Role } from "Universals";
+import { Role } from "Universals";
+import { getTokenValue, hasRole, isTokenExpired } from 'utils/utils'
 import { gql, useMutation } from "@apollo/client";
 import { signInSuccess } from "actions";
 

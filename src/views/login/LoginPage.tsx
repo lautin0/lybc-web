@@ -20,6 +20,7 @@ import { RootState } from "reducers";
 import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
+import { nullOrEmpty } from "utils/utils";
 
 const LOGIN = gql`
   mutation login($input: Login!){
@@ -27,18 +28,26 @@ const LOGIN = gql`
   }
 `;
 
+type LoginFormErrors = {
+  username?: any
+  password?: any
+}
+
 function LoginPage() {
 
   const history = useHistory();
 
-  // const userDef = useSelector((state: RootState) => state.auth.user)
+  const userDef = useSelector((state: RootState) => state.auth.user)
 
-  const { register, handleSubmit, errors } = useForm()
+  // const { register, handleSubmit, errors } = useForm()
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
-  // const [user, setUser] = useState(userDef);
-  const [user, setUser] = useState<User>({ username: '', password: ''});
+  const [user, setUser] = useState(userDef);
+  const [errors, setErrors] = useState<LoginFormErrors>({});
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
+  // const [user, setUser] = useState<User>({ username: '', password: ''});
   const dispatch = useDispatch();
 
   const [login, { data, loading: loginLoading, error: loginError }] = useMutation(LOGIN, { errorPolicy: 'all' });
@@ -61,27 +70,56 @@ function LoginPage() {
   })
 
   const onSubmit = () => {
-    login({ variables: { input: { username: user.username, password: user.password } } })
+    setSubmitted(true)
+    validateForm() && login({ variables: { input: { username: user.username, password: user.password } } })
   }
 
-  // const prevUser = useRef(user)
-  // React.useEffect(() => {
-  //   if (!_.isEqual(user, prevUser.current)) {
-  //     //INPUT HAS CHANGED
-  //     setUser(user)
-  //   } else if (!_.isEqual(user, userDef)) {
-  //     //REDUX STATE HAS CHANGED
-  //     setUser(userDef)
-  //   }
-  //   prevUser.current = user
-  // }, [user, userDef])
+  const validateForm = () => {
+    let valid = true
+
+    let tmp = errors
+
+    if (nullOrEmpty(user.username)) {
+      tmp = { ...tmp, username: { required: true } }
+      valid = false;
+    } else {
+      delete tmp.username
+    }
+
+    if (nullOrEmpty(user.password)) {
+      tmp = { ...tmp, password: { required: true } }
+      valid = false;
+    } else {
+      delete tmp.password
+    }
+
+    setErrors(tmp)
+
+    return valid
+  }
+
+  const prevUser = useRef(user)
+  React.useEffect(() => {
+    if (!_.isEqual(user, prevUser.current)) {
+      //INPUT HAS CHANGED
+      setUser(user)
+
+      validateForm()
+    } else if (!_.isEqual(user, userDef)) {
+      //REDUX STATE HAS CHANGED
+      setUser(userDef)
+    }
+    prevUser.current = user
+  }, [user, userDef])
 
   useEffect(() => {
-    if(loginError != null){
+    if (loginError != null) {
       dispatch(signInFailure(loginError))
       return
     }
     if (data !== undefined) {
+      setSubmitted(false)
+
       dispatch(signInSuccess(data.login))
       history.push('/')
     }
@@ -102,9 +140,12 @@ function LoginPage() {
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
                 <Form
-                  onSubmit={handleSubmit(onSubmit)}
+                  onSubmit={(e: any) => {
+                    e.preventDefault()
+                    onSubmit()
+                  }}
                   className="form"
-                  style={errors.username == '' && errors.password == '' ? {} : { color: '#FF3636' }}
+                  style={submitted && !errors.username && !errors.password ? {} : { color: '#FF3636' }}
                 >
                   <Card.Header className="text-center">
                     <div className="logo-container">
@@ -119,7 +160,7 @@ function LoginPage() {
                       className={
                         "no-border input-lg" +
                         (firstFocus ? " input-group-focus" : "") +
-                        (errors.username == '' ? '' : "has-danger")
+                        (submitted && errors.username ? " has-danger" : "")
                       }
                     >
                       <InputGroup.Prepend>
@@ -129,22 +170,22 @@ function LoginPage() {
                       </InputGroup.Prepend>
                       <input
                         placeholder="用戶名稱"
-                        className={errors.username == '' ? "form-control" : "form-control form-control-danger"}
+                        className={submitted && errors.username ? "form-control" : "form-control form-control-danger"}
                         type="text"
                         name="username"
-                        ref={register({ required: true })}
+                        // ref={register({ required: true })}
                         value={user.username}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                         onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.username && <label>必須填寫這欄</label>}
+                    {submitted && errors.username && <label style={{opacity: .6}}>必須填寫這欄</label>}
                     <InputGroup
                       className={
                         "no-border input-lg" +
                         (lastFocus ? " input-group-focus" : "") +
-                        (errors.password == '' ? '' : "has-danger")
+                        (submitted && errors.password ? " has-danger" : "")
                       }
                     >
                       <InputGroup.Prepend>
@@ -153,18 +194,18 @@ function LoginPage() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <input
-                        className={errors.password == '' ? "form-control" : "form-control form-control-danger"}
+                        className={submitted && errors.password ? "form-control" : "form-control form-control-danger"}
                         placeholder="密碼"
                         type="password"
                         name="password"
                         value={user.password}
-                        ref={register({ required: true })}
+                        // ref={register({ required: true })}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
                         onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.password && <label>必須填寫這欄</label>}
+                    {submitted && errors.password && <label style={{opacity: .6}}>必須填寫這欄</label>}
                   </Card.Body>
                   <Card.Footer className="text-center">
                     <Button

@@ -6,11 +6,11 @@ import MainNavbar from "components/Navbars/MainNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
 import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
-import { getMenuHierarchy } from "Universals";
 import InfiniteScroll from 'views/common/InfiniteScroll'
 // import SearchBooks from "views/books/SearchBooks";
 import Worship from "views/worship/Worship";
 import Sharing from "views/articles/Sharing";
+import { getMenuHierarchy } from "utils/utils";
 
 type MainPageProps = {
   page: string,

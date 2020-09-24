@@ -9,7 +9,8 @@ import {
   Nav,
   Container
 } from "react-bootstrap";
-import UNIVERSALS, { getTokenValue, hasRole, isTokenExpired, Role } from "Universals";
+import UNIVERSALS, { Role } from "Universals";
+import { getTokenValue, hasRole, isTokenExpired } from "utils/utils"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { gql, useMutation } from "@apollo/client";

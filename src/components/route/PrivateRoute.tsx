@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 import { RootState } from 'reducers';
-import { getTokenValue } from 'Universals';
+import { getTokenValue } from 'utils/utils';
 import ErrorPage from 'views/error/Error';
 
 function PrivateRoute({ component: Component, path, role }: any) {
