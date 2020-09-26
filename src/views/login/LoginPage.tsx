@@ -28,10 +28,10 @@ const LOGIN = gql`
   }
 `;
 
-type LoginFormErrors = {
-  username?: any
-  password?: any
-}
+// type LoginFormErrors = {
+//   username?: any
+//   password?: any
+// }
 
 function LoginPage() {
 
@@ -39,13 +39,18 @@ function LoginPage() {
 
   const userDef = useSelector((state: RootState) => state.auth.user)
 
-  // const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: {
+      username: null,
+      password: null
+    }
+  })
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
-  const [user, setUser] = useState(userDef);
-  const [errors, setErrors] = useState<LoginFormErrors>({});
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  // const [user, setUser] = useState(userDef);
+  // const [errors, setErrors] = useState<LoginFormErrors>({});
+  // const [submitted, setSubmitted] = useState<boolean>(false);
 
   // const [user, setUser] = useState<User>({ username: '', password: ''});
   const dispatch = useDispatch();
@@ -64,53 +69,61 @@ function LoginPage() {
     };
   });
 
-  const handleInputChange = (e: any) => setUser({
-    ...user,
-    [e.currentTarget.name]: e.currentTarget.value
-  })
+  // const handleInputChange = (e: any) => setUser({
+  //   ...user,
+  //   [e.currentTarget.name]: e.currentTarget.value
+  // })
 
-  const onSubmit = () => {
-    setSubmitted(true)
-    validateForm() && login({ variables: { input: { username: user.username, password: user.password } } })
+  const onSubmit = (data: any, e: any) => {
+    // setSubmitted(true)
+    // validateForm() && login({ variables: { input: { username: user.username, password: user.password } } })
+    login({ variables: { input: { username: data.username, password: data.password } } })
+    .catch(err => 
+      dispatch(signInFailure(err))
+    )
   }
 
-  const validateForm = () => {
-    let valid = true
+  // const onError = (errors: any, e: any) => {
+  //   console.log(errors)
+  // }
 
-    let tmp = errors
+  // const validateForm = () => {
+  //   let valid = true
 
-    if (nullOrEmpty(user.username)) {
-      tmp = { ...tmp, username: { required: true } }
-      valid = false;
-    } else {
-      delete tmp.username
-    }
+  //   let tmp = errors
 
-    if (nullOrEmpty(user.password)) {
-      tmp = { ...tmp, password: { required: true } }
-      valid = false;
-    } else {
-      delete tmp.password
-    }
+  //   if (nullOrEmpty(user.username)) {
+  //     tmp = { ...tmp, username: { required: true } }
+  //     valid = false;
+  //   } else {
+  //     delete tmp.username
+  //   }
 
-    setErrors(tmp)
+  //   if (nullOrEmpty(user.password)) {
+  //     tmp = { ...tmp, password: { required: true } }
+  //     valid = false;
+  //   } else {
+  //     delete tmp.password
+  //   }
 
-    return valid
-  }
+  //   setErrors(tmp)
 
-  const prevUser = useRef(user)
-  React.useEffect(() => {
-    if (!_.isEqual(user, prevUser.current)) {
-      //INPUT HAS CHANGED
-      setUser(user)
+  //   return valid
+  // }
 
-      validateForm()
-    } else if (!_.isEqual(user, userDef)) {
-      //REDUX STATE HAS CHANGED
-      setUser(userDef)
-    }
-    prevUser.current = user
-  }, [user, userDef])
+  // const prevUser = useRef(user)
+  // React.useEffect(() => {
+  //   if (!_.isEqual(user, prevUser.current)) {
+  //     //INPUT HAS CHANGED
+  //     setUser(user)
+
+  //     validateForm()
+  //   } else if (!_.isEqual(user, userDef)) {
+  //     //REDUX STATE HAS CHANGED
+  //     setUser(userDef)
+  //   }
+  //   prevUser.current = user
+  // }, [user, userDef])
 
   useEffect(() => {
     if (loginError != null) {
@@ -118,7 +131,7 @@ function LoginPage() {
       return
     }
     if (data !== undefined) {
-      setSubmitted(false)
+      // setSubmitted(false)
 
       dispatch(signInSuccess(data.login))
       history.push('/')
@@ -140,12 +153,13 @@ function LoginPage() {
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
                 <Form
-                  onSubmit={(e: any) => {
-                    e.preventDefault()
-                    onSubmit()
-                  }}
+                  // onSubmit={(e: any) => {
+                  //   e.preventDefault()
+                  //   onSubmit()
+                  // }}
+                  onSubmit={handleSubmit(onSubmit)}
                   className="form"
-                  style={submitted && !errors.username && !errors.password ? {} : { color: '#FF3636' }}
+                  style={!errors.username && !errors.password ? {} : { color: '#FF3636' }}
                 >
                   <Card.Header className="text-center">
                     <div className="logo-container">
@@ -160,7 +174,7 @@ function LoginPage() {
                       className={
                         "no-border input-lg" +
                         (firstFocus ? " input-group-focus" : "") +
-                        (submitted && errors.username ? " has-danger" : "")
+                        (errors.username ? " has-danger" : "")
                       }
                     >
                       <InputGroup.Prepend>
@@ -170,22 +184,26 @@ function LoginPage() {
                       </InputGroup.Prepend>
                       <input
                         placeholder="用戶名稱"
-                        className={submitted && errors.username ? "form-control" : "form-control form-control-danger"}
+                        className={errors.username ? "form-control" : "form-control form-control-danger"}
                         type="text"
                         name="username"
-                        // ref={register({ required: true })}
-                        value={user.username}
+                        ref={register({
+                          required: true,
+                          // validate: (value) => { return !!value.trim() },
+                          // name: 'username'
+                        })}
+                        // value={user.username}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
-                        onChange={handleInputChange}
+                      // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {submitted && errors.username && <label style={{opacity: .6}}>必須填寫這欄</label>}
+                    {errors.username && <label style={{ opacity: .6 }}>必須填寫這欄</label>}
                     <InputGroup
                       className={
                         "no-border input-lg" +
                         (lastFocus ? " input-group-focus" : "") +
-                        (submitted && errors.password ? " has-danger" : "")
+                        (errors.password ? " has-danger" : "")
                       }
                     >
                       <InputGroup.Prepend>
@@ -194,18 +212,22 @@ function LoginPage() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <input
-                        className={submitted && errors.password ? "form-control" : "form-control form-control-danger"}
+                        className={errors.password ? "form-control" : "form-control form-control-danger"}
                         placeholder="密碼"
                         type="password"
                         name="password"
-                        value={user.password}
-                        // ref={register({ required: true })}
+                        // value={user.password}
+                        ref={register({
+                          required: true,
+                          // validate: (value) => { return !!value.trim() },
+                          // name: 'password'
+                        })}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
-                        onChange={handleInputChange}
+                      // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {submitted && errors.password && <label style={{opacity: .6}}>必須填寫這欄</label>}
+                    {errors.password && <label style={{ opacity: .6 }}>必須填寫這欄</label>}
                   </Card.Body>
                   <Card.Footer className="text-center">
                     <Button

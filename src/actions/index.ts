@@ -1,4 +1,4 @@
-import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT } from './system/types'
+import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT, SET_SYSTEM_FAILURE, SET_SYSTEM_MESSAGE } from './system/types'
 
 export function resetSysError(): SystemActionTypes{
     return {
@@ -18,6 +18,20 @@ export function setLoading(isLoading: boolean): SystemActionTypes{
     return {
         type: SET_LOADING,
         isLoading
+    }
+}
+
+export function setSystemFailure(error: any): SystemActionTypes{
+    return {
+        type: SET_SYSTEM_FAILURE,
+        error
+    }
+}
+
+export function setSysMessage(message: string): SystemActionTypes{
+    return {
+        type: RESET_SAGA_RESULT,
+        result: { message: message }
     }
 }
 

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { gql, useMutation } from "@apollo/client";
 import { signInSuccess } from "actions";
+import { resetClient } from "utils/auth.client";
 
 const REFRESH_TOKEN = gql`
   mutation refresh($input: RefreshTokenInput!){
@@ -178,6 +179,7 @@ function MainNavbar(props: MainNavbarProps) {
                     onClick={(e: any) => {
                       e.preventDefault();
                       localStorage.clear();
+                      resetClient()
                       window.location.href = './'
                     }}
                   >

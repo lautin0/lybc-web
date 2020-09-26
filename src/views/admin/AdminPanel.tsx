@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import { RootState } from 'reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { gql, useMutation } from '@apollo/client';
 // import worshipData from "../../assets/data/data.json"
-import { setLoading } from 'actions';
+import { AdminWorshipForm, setLoading, setSysMessage, setSystemFailure } from 'actions';
+import { Link } from 'react-router-dom';
+import { getTokenValue } from 'utils/utils';
 
 const ADD_WORSHIP = gql`
   mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
@@ -26,29 +28,23 @@ const ADD_WORSHIP = gql`
   }
 `;
 
+// const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
+
 function AdminPanel() {
 
-  const formDef = useSelector((state: RootState) => state.admin.form)
-  const formDocDef = useSelector((state: RootState) => state.admin.form.formInstance?.docs)
+  const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
   const [addWorship, { data, loading: addWorshipLoading, error: addWorshipError },] = useMutation(ADD_WORSHIP);
 
-  const [form, setForm] = useState<any>({
-    worshipId: '',
-    type: '',
-    title: '',
-    note: '',
-    verse: '',
-    link: '',
-    messenger: '',
-    docs: [{ title: '', link: '', type: '' }]
-  });
+  const [form, setForm] = useState<AdminWorshipForm>(formDef);
   const [docs, setDocs] = useState<any[]>([{ title: '', link: '', type: '' }]);
   const [jsonData, setJsonData] = useState('');
 
   const dispatch = useDispatch();
 
-  const editorModules = {
+  const token = useSelector((state: RootState) => state.auth.jwt);
+
+  const editorModules = useMemo(() => ({
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
@@ -64,7 +60,7 @@ function AdminPanel() {
       [{ 'align': [] }],
       ['clean']                                         // remove formatting button
     ]
-  };
+  }),[]);
 
   const dropdownData = [
     { value: '', display: '請選擇', disabled: true },
@@ -103,14 +99,13 @@ function AdminPanel() {
   }, [docs])
 
   useEffect(() => {
-    addWorshipError && console.log(addWorshipError)
-  }, [addWorshipError])
-
-  useEffect(() => {
-    if(addWorshipLoading === undefined)
-      return
-    dispatch(setLoading(addWorshipLoading))
-  },[addWorshipLoading])
+    if (data !== undefined) {
+      dispatch(setSysMessage('儲存成功!'))
+      dispatch(setLoading(false))
+      setForm(formDef)
+      setDocs([{ title: '', link: '', type: '' }])
+    }
+  }, [data])
 
   const addRow = () => {
     setDocs([
@@ -169,11 +164,12 @@ function AdminPanel() {
     </>
   }
 
-  const formGroupQuillGenerator = (name: string, label: string) => {
+  const formGroupQuillGenerator = (name: keyof AdminWorshipForm, label: string) => {
 
     const handleChange = (content: any) => {
       setForm({
         ...form,
+        // [name]: content
         [name]: content
       })
     }
@@ -182,7 +178,7 @@ function AdminPanel() {
       <Form.Label>{label}</Form.Label>
       <ReactQuill
         className="mb-3"
-        value={form?.[name] || ''}
+        value={(form[name] as string)}
         onChange={handleChange}
         modules={editorModules}
         style={{
@@ -215,8 +211,27 @@ function AdminPanel() {
         <nav className="navbar fixed-top navbar-light justify-content-between top-bar" style={{ borderBottom: '.01rem lightgray solid', zIndex: 1040 }}>
           <a className="navbar-brand" style={{ color: 'gray', fontWeight: 'bold', fontSize: 24 }}>管理控制台</a>
           <div className="form-inline">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
+            {/* <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button> */}
+            <Link
+              to="/index"
+              className="mx-3"
+              style={{ color: 'orange' }}
+            >
+              回主頁
+            </Link>
+            <Button
+              className="nav-link"
+              // color="success"
+              href="#pablo"
+              id="profile"
+              as={Link}
+              to="/profile-page"
+            // onClick={() => setCollapseOpen(!collapseOpen)}
+            >
+              <i className="fas fa-user" style={{ fontSize: 14 }}></i>
+              <p>{getTokenValue(token)?.username}</p>
+            </Button>
           </div>
         </nav>
         <main>
@@ -244,7 +259,7 @@ function AdminPanel() {
               </header>
               <div className="content-panel">
                 <p className="category" style={{ color: 'black' }}>崇拜資料</p>
-                <Form.Row>
+                {/* <Form.Row>
                   <Form.Group as={Col}>
                     <Form.Label>元數據</Form.Label>
                     <Form.Control
@@ -255,7 +270,7 @@ function AdminPanel() {
                       readOnly
                     ></Form.Control>
                   </Form.Group>
-                </Form.Row>
+                </Form.Row> */}
                 <Form.Row>
                   {formGroupInputTextGenerator('title', '講題', form, handleInputChange, undefined, '請輸入講題')}
                   {formGroupInputTextGenerator('worshipId', '日期', form, handleInputChange, undefined, 'YYYYMMDD')}
@@ -274,7 +289,7 @@ function AdminPanel() {
                 <Form.Row className="mb-5">
                   {formGroupQuillGenerator('verse', '經文')}
                 </Form.Row>
-                <Form.Row>
+                {/* <Form.Row>
                   <Form.Group as={Col}>
                     <Form.Check
                       id="cb1"
@@ -302,12 +317,13 @@ function AdminPanel() {
                       ></Form.Check>
                     </Form.Row>
                   </Form.Group>
-                </Form.Row>
+                </Form.Row> */}
                 <Form.Row>
                   <Form.Group>
                     <Button
                       variant="primary"
                       onClick={() => {
+                        dispatch(setLoading(true))
                         let tmp = form
                         let tmpDocs = form.docs
                         delete tmp.docs
@@ -318,10 +334,24 @@ function AdminPanel() {
                             },
                             docs: [...tmpDocs]
                           }
+                        }).catch(err => {
+                          console.log(err)
+                          dispatch(setLoading(false))
+                          dispatch(setSystemFailure(err))
+                          setForm(formDef)
                         })
                       }}
-                      // onClick={() => createWorshipsFromDataJson()}
-                    >Submit</Button>
+                    // onClick={() => createWorshipsFromDataJson()}
+                    >儲存</Button>
+                    <Button
+                    className="mx-3"
+                      onClick={() => {
+                        setForm(formDef)
+                        setDocs([{ title: '', link: '', type: '' }])
+                      }}
+                    >
+                      重設
+                    </Button>
                   </Form.Group>
                 </Form.Row>
               </div>

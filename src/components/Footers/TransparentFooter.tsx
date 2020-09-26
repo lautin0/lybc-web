@@ -3,56 +3,34 @@ import React from "react";
 
 // react-bootstrap components
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function TransparentFooter() {
   return (
     <footer className="footer">
       <Container>
-        {/* <nav>
+        <nav>
           <ul>
             <li>
               <a
-                href="https://www.creative-tim.com?ref=nukr-transparent-footer"
                 target="_blank"
+                href="http://www.hkabwe.org/"
               >
-                Creative Tim
-              </a>
+                ABWE
+                </a>
             </li>
             <li>
-              <a
-                href="http://presentation.creative-tim.com?ref=nukr-transparent-footer"
-                target="_blank"
+              <Link
+                to="/about-us"
               >
                 About Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="http://blog.creative-tim.com?ref=nukr-transparent-footer"
-                target="_blank"
-              >
-                Blog
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
-        <div className="copyright" id="copyright">
-          © {new Date().getFullYear()}, Designed by{" "}
-          <a
-            href="https://www.invisionapp.com?ref=nukr-transparent-footer"
-            target="_blank"
-          >
-            Invision
-          </a>
-          . Coded by{" "}
-          <a
-            href="https://www.creative-tim.com?ref=nukr-transparent-footer"
-            target="_blank"
-          >
-            Creative Tim
-          </a>
-          .
-        </div> */}
+        <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
+          版權所有{" "}©2020{" "}綠楊浸信會
+        </div>
       </Container>
     </footer>
   );

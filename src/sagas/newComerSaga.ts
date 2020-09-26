@@ -2,7 +2,7 @@ import { take, put, call, fork, takeLeading, all } from 'redux-saga/effects'
 
 import * as actions from '../actions'
 import { api } from '../services'
-import { MSG_SAVE_SUCCESS, MSG_UPDATE_SUCCESS } from './index'
+import { MSG_OPERATION_SUCCESS, MSG_UPDATE_SUCCESS } from './index'
 
 export function* fetchNewComers(action: any) {
     const { pageSize, page } = action;
@@ -17,7 +17,7 @@ export function* fetchNewComers(action: any) {
 export function* saveNewComer(person: any) {
     try {
         yield call(api.saveNewComer, person)
-        yield put(actions.saveNewComerSuccess({ message: MSG_SAVE_SUCCESS }))
+        yield put(actions.saveNewComerSuccess({ message: MSG_OPERATION_SUCCESS }))
     } catch (error) {
         yield put(actions.saveNewComerFailure(person, error))
     }

@@ -3,7 +3,16 @@ import { AdminState } from 'store/admin/types'
 import { AdminActionTypes, SET_FORM } from 'actions/admin/types'
 
 const initialState: AdminState = {
-  formInstance: null
+  formInstance: {
+    worshipId: '',
+    type: '',
+    title: '',
+    note: '',
+    verse: '',
+    link: '',
+    messenger: '',
+    docs: [{ title: '', link: '', type: '' }]
+  }
 }
 
 function form(

@@ -25,9 +25,9 @@ import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import AdminPanel from "views/admin/AdminPanel";
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import PrivateRoute from "components/route/PrivateRoute";
-import UNIVERSALS, { Role } from "Universals";
+import { Role } from "Universals";
+import { getClient } from "utils/auth.client";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -38,15 +38,10 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 
-const client = new ApolloClient({
-  uri: UNIVERSALS.GRAPHQL_ENDPOINT,
-  cache: new InMemoryCache()
-});
-
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={getClient()}>
     <Provider store={store}>
       <CommonModal />
       <LoadingOverlay />

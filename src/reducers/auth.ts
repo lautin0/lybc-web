@@ -23,12 +23,12 @@ export default function authStatus(
       return {
         ...state,
         jwt: action.jwt,
-        isPending: state.isPending - 1
+        isPending: state.isPending > 0 ? state.isPending - 1 : state.isPending
       }
     case SIGN_IN_FAILURE:
       return {
         ...state,
-        isPending: state.isPending - 1
+        isPending: state.isPending > 0 ? state.isPending - 1 : state.isPending
       }
     default:
       return { 

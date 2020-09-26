@@ -1,5 +1,5 @@
 import { AdminWorshipForm } from "actions";
 
 export interface AdminState {
-    formInstance?: AdminWorshipForm | null
+    formInstance: AdminWorshipForm
 }
