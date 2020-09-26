@@ -108,11 +108,11 @@ function Worship() {
     <div className="section">
       <ImageModal />
       {loading && <Container style={{ marginTop: -20 }}>
-        <Row className="justify-content-md-center">
+        <div className="text-center">
           <div className="spinner-grow text-secondary" role="status">
             <span className="sr-only">Loading...</span>
           </div>
-        </Row>
+        </div>
       </Container>}
       {!loading && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
