@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 import { gql, useQuery } from "@apollo/client";
 // import worshipData from "../../assets/data/data.json"
 
-const GET_WORSHIPS = gql`
+export const GET_WORSHIPS = gql`
 query {
   worships{
     worshipId
@@ -68,6 +68,10 @@ function WorshipList() {
     if (data !== undefined)
       onPageChanged(1)
   }, [data])
+
+  useEffect(() => {
+    document.title = "網上崇拜"
+  },[])
 
   function onCellClicked(id: any) {
     history.push('/worship/' + id)

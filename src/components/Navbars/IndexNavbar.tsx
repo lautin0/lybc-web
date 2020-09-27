@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Role } from "Universals";
 import { getTokenValue, hasRole, isTokenExpired } from 'utils/utils'
 import { gql, useMutation } from "@apollo/client";
-import { signInSuccess } from "actions";
+import { signInFailure, signInSuccess } from "actions";
 import { resetClient } from "utils/auth.client";
 
 const REFRESH_TOKEN = gql`
@@ -57,8 +57,11 @@ function IndexNavbar() {
   useEffect(() => {
     if (token && isTokenExpired(token)) {
       refreshToken({ variables: { input: { token: token } } })
+        .catch(err => {
+          dispatch(signInFailure(err))
+        })
     }
-  })
+  }, [token])
 
   useEffect(() => {
     if (data !== undefined)
