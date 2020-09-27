@@ -4,6 +4,8 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
+  # Declare a dependency on the react-orb
+  react: thefrontside/react@0.2.0
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
@@ -11,3 +13,15 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+  push:
+    jobs:
+      - react/install
+      - react/eslint:
+          requires:
+            - react/install
+      - react/test:
+          requires:
+            - react/install
+      - react/coverage:
+          requires:
+            - react/install
