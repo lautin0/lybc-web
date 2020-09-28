@@ -1,6 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import UNIVERSALS from "Universals";
+import { isTokenExpired } from "./utils";
 
 const httpLink = createHttpLink({
   uri: UNIVERSALS.GRAPHQL_ENDPOINT,
@@ -9,11 +10,23 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("token")
+
+  const refreshToken = localStorage.getItem("refreshToken")
+
   // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `${token}` : "",
+  if (token && !isTokenExpired(token)) {
+    return {
+      headers: {
+        ...headers,
+        Authorization: token ? `${token}` : "",
+      }
+    }
+  } else {
+    return {
+      headers: {
+        ...headers,
+        Authorization: refreshToken ? `${refreshToken}` : "",
+      }
     }
   }
 });
@@ -23,10 +36,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-export function getClient(){
+export function getClient() {
   return client
 }
 
-export function resetClient(){
+export function resetClient() {
   client.clearStore();
 }
