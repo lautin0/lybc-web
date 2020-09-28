@@ -14,21 +14,18 @@ workflows:
     jobs:
       - welcome/run
   push:
+    branches:
+      ignore: 
+        - gh-pages
     jobs:
       - react/install
       - react/eslint:
           requires:
             - react/install
       - react/test:
-          branches:
-            ignore: 
-              - gh-pages
           requires:
             - react/install
       - react/coverage:
-          branches:
-            ignore: 
-              - gh-pages
           requires:
             - react/install
 
