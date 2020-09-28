@@ -27,6 +27,11 @@ function MainPageHeader(props: MainPageHeaderType) {
       };
     // }
   });
+
+  React.useEffect(() => {
+    document.title = UNIVERSALS.TITLE_MAP[props.page].title
+  },[props.page])
+
   return (
     <>
       <div className="page-header page-header-small">

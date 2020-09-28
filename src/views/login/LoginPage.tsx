@@ -24,7 +24,10 @@ import { nullOrEmpty } from "utils/utils";
 
 const LOGIN = gql`
   mutation login($input: Login!){
-    login(input: $input)
+    login(input: $input){
+      token
+      refreshToken
+    }
   }
 `;
 

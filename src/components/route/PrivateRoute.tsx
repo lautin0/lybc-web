@@ -7,9 +7,9 @@ import ErrorPage from 'views/error/Error';
 
 function PrivateRoute({ component: Component, path, role }: any) {
 
-  const token = useSelector((state: RootState) => state.auth.jwt);
+  const token = useSelector((state: RootState) => state.auth.tokenPair);
 
-  let authObj = getTokenValue(token)
+  let authObj = getTokenValue(token?.token)
 
   const isAuthenticated = () => {
     return authObj != null

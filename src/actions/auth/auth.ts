@@ -1,4 +1,4 @@
-import { SignInActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./types"
+import { SignInActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, TokenPair } from "./types"
 import { SagaResult } from "store/system/types"
 
 export function signIn(user: User): SignInActionTypes {
@@ -8,10 +8,10 @@ export function signIn(user: User): SignInActionTypes {
   }
 }
 
-export function signInSuccess(jwt: string, result?: SagaResult): SignInActionTypes {
+export function signInSuccess(tokenPair: TokenPair, result?: SagaResult): SignInActionTypes {
   return {
       type: SIGN_IN_SUCCESS,      
-      jwt,
+      tokenPair,
       result
   }
 }

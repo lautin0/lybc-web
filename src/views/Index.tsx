@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
@@ -26,6 +26,10 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
+  useEffect(() => {
+    document.title = "綠楊浸信會 LYBC"
+  },[])
 
   return (
     <>

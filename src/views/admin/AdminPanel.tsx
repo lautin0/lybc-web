@@ -42,7 +42,7 @@ function AdminPanel() {
 
   const dispatch = useDispatch();
 
-  const token = useSelector((state: RootState) => state.auth.jwt);
+  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   const editorModules = useMemo(() => ({
     toolbar: [
@@ -106,6 +106,10 @@ function AdminPanel() {
       setDocs([{ title: '', link: '', type: '' }])
     }
   }, [data])
+
+  useEffect(() => {
+    document.title = "管理控制台"
+  },[])
 
   const addRow = () => {
     setDocs([
@@ -230,7 +234,7 @@ function AdminPanel() {
             // onClick={() => setCollapseOpen(!collapseOpen)}
             >
               <i className="fas fa-user" style={{ fontSize: 14 }}></i>
-              <p>{getTokenValue(token)?.username}</p>
+              <p>{getTokenValue(tokenPair?.token)?.username}</p>
             </Button>
           </div>
         </nav>

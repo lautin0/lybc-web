@@ -10,7 +10,7 @@ const client = new ApolloClient({
 });
 
 const getConfig = () => {
-  let token = localStorage.getItem("jwt")
+  let token = localStorage.getItem("token")
   return {
     headers: {
       Authorization: token && ('Bearer ' + token)

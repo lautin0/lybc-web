@@ -18,7 +18,10 @@ import { resetClient } from "utils/auth.client";
 
 const REFRESH_TOKEN = gql`
   mutation refresh($input: RefreshTokenInput!){
-    refreshToken(input: $input)
+    refreshToken(input: $input){
+      token
+      refreshToken
+    }
   }
 `;
 
@@ -30,7 +33,7 @@ function IndexNavbar() {
 
   const dispatch = useDispatch();
 
-  const token = useSelector((state: RootState) => state.auth.jwt);
+  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
 
@@ -55,17 +58,20 @@ function IndexNavbar() {
   });
 
   useEffect(() => {
-    if (token && isTokenExpired(token)) {
-      refreshToken({ variables: { input: { token: token } } })
+    if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
+      refreshToken({ variables: { input: { token: tokenPair.refreshToken } } })
         .catch(err => {
-          dispatch(signInFailure(err))
+          // dispatch(signInFailure(err))
+          localStorage.clear();
+          resetClient()
+          history.push('/login-page')
         })
     }
-  }, [token])
+  }, [tokenPair])
 
   useEffect(() => {
     if (data !== undefined)
-      dispatch(signInSuccess(data.token))
+      dispatch(signInSuccess(data.refreshToken))
   }, [data])
 
   return (
@@ -199,7 +205,7 @@ function IndexNavbar() {
                   聯絡我們
                 </NavDropdown.Item> */}
               </NavDropdown>
-              {!token && <Nav.Item>
+              {!tokenPair?.token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
                   // color="success"
@@ -214,9 +220,9 @@ function IndexNavbar() {
                   <p>會友登入</p>
                 </Button>
               </Nav.Item>}
-              {token &&
-                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(token)?.username}</p></>}>
-                  {hasRole(token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
+              {tokenPair?.token &&
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(tokenPair.token)?.username}</p></>}>
+                  {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     管理控制台
                   </NavDropdown.Item>}
                   <NavDropdown.Divider />

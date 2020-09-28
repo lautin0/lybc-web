@@ -45,13 +45,13 @@ it('can render and update a loginPage', () => {
         <WorshipList />
       </Router>
     </MockedProvider>,
-  ).find('.selector').at(1);
+  )
+  // ).find('.selector').at(1);
 
   const button = worshipListPage.querySelector('button');
   const label = worshipListPage.querySelector('p');
   // expect(label.textContent).toBe('You clicked 0 times');
   expect(document.title).toBe('網上崇拜');
-
   // Test second render and componentDidUpdate
   // act(() => {
   //   button.dispatchEvent(new MouseEvent('click', { bubbles: true }));

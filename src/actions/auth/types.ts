@@ -9,6 +9,11 @@ export type User = {
   password: string
 }
 
+export type TokenPair = {
+    token: string | null,
+    refreshToken: string | null
+}
+
 export interface SignInRequestAction {
     type: typeof SIGN_IN_REQUEST,
     user: User
@@ -16,7 +21,7 @@ export interface SignInRequestAction {
 
 export interface SignInSuccessAction {
     type: typeof SIGN_IN_SUCCESS,
-    jwt: string,
+    tokenPair: TokenPair,
     result?: SagaResult
 }
 

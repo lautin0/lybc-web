@@ -11,6 +11,7 @@ import InfiniteScroll from 'views/common/InfiniteScroll'
 import Worship from "views/worship/Worship";
 import Sharing from "views/articles/Sharing";
 import { getMenuHierarchy } from "utils/utils";
+import UNIVERSALS from "Universals";
 
 type MainPageProps = {
   page: string,
@@ -27,6 +28,11 @@ function MainPageLegacy(props: MainPageProps) {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
+  React.useEffect(() => {
+    document.title = UNIVERSALS.TITLE_MAP[props.page].title
+  },[props.page])
+
   return (
     <>
       <MainNavbar page={props.page} />

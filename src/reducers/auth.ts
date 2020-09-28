@@ -2,13 +2,13 @@ import { AuthState } from "store/auth/types"
 import { SignInActionTypes, SIGN_IN_REQUEST, SIGN_IN_FAILURE, SIGN_IN_SUCCESS } from "actions/auth/types"
 
 const initialState: AuthState = {
-  user: { username: '', password: ''},
-  jwt: null,
+  user: { username: '', password: '' },
+  tokenPair: null,
   isPending: 0
 }
 
 export default function authStatus(
-  state = initialState, 
+  state = initialState,
   action: SignInActionTypes
 ): AuthState {
   switch (action.type) {
@@ -19,10 +19,12 @@ export default function authStatus(
         isPending: state.isPending + 1
       }
     case SIGN_IN_SUCCESS:
-      localStorage.setItem("jwt", action.jwt)
+
+      action.tokenPair.token && localStorage.setItem("token", action.tokenPair.token)
+      action.tokenPair.refreshToken && localStorage.setItem("refreshToken", action.tokenPair.refreshToken)
       return {
         ...state,
-        jwt: action.jwt,
+        tokenPair: action.tokenPair,
         isPending: state.isPending > 0 ? state.isPending - 1 : state.isPending
       }
     case SIGN_IN_FAILURE:
@@ -31,9 +33,9 @@ export default function authStatus(
         isPending: state.isPending > 0 ? state.isPending - 1 : state.isPending
       }
     default:
-      return { 
+      return {
         ...state,
-        jwt: localStorage.getItem("jwt")
+        tokenPair: { token: localStorage.getItem("token"), refreshToken: localStorage.getItem("refreshToken") }
       }
   }
 }

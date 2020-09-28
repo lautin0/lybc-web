@@ -1,7 +1,7 @@
-import { User } from "actions/auth/types";
+import { TokenPair, User } from "actions/auth/types";
 
 export interface AuthState {
     user: User,
-    jwt: string | null,
+    tokenPair: TokenPair | null,
     isPending: number
 }
