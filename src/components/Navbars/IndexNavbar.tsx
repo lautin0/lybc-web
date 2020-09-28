@@ -64,7 +64,6 @@ function IndexNavbar() {
           // dispatch(signInFailure(err))
           localStorage.clear();
           resetClient()
-          history.push('/login-page')
         })
     }
   }, [tokenPair])

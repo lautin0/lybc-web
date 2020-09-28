@@ -48,7 +48,6 @@ function MainNavbar(props: MainNavbarProps) {
           // dispatch(signInFailure(err))
           localStorage.clear();
           resetClient()
-          history.push('/login-page')
         })
     }
   })
