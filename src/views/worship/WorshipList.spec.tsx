@@ -1,10 +1,11 @@
 import React from 'react';
 import { configure, mount } from 'enzyme'
 import { act } from 'react-dom/test-utils';
-import WorshipList, { GET_WORSHIPS } from './WorshipList';
+import WorshipList from './WorshipList';
 import Adapter from 'enzyme-adapter-react-16';
 import { Router } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
+import { GET_WORSHIPS } from 'graphqls/graphql';
 
 configure({ adapter: new Adapter() });
 
