@@ -17,7 +17,7 @@ function IndexHeader() {
     window.addEventListener("scroll", updateScroll);
     return function cleanup() {
       window.removeEventListener("scroll", updateScroll);
-    };    
+    };
   });
 
   return (
@@ -31,7 +31,7 @@ function IndexHeader() {
           ref={pageHeader}
         ></div>
         <Container>
-          <div className="content-center brand">
+          <div className="brand animate__animated animate__fadeInUp animate__fast" style={{ marginTop: 100 }}>
             <img
               alt="..."
               className="n-logo"
@@ -41,7 +41,7 @@ function IndexHeader() {
             <h3>Luk Yeung Baptist Church</h3>
           </div>
           <h6 className="category category-absolute">
-            <i style={{ color: 'white', fontSize: 30 }} className="fas fa-chevron-down"></i>
+            <i style={{ color: 'white', fontSize: 30 }} className="fas fa-chevron-down animate__animated animate__bounce animate__infinite animate__slow"></i>
           </h6>
         </Container>
       </div>

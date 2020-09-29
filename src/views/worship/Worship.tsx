@@ -14,24 +14,7 @@ import moment from "moment";
 import html2canvas from 'html2canvas'
 // import worshipData from "../../assets/data/data.json"
 import { gql, useQuery } from "@apollo/client";
-
-const GET_WORSHIP = gql`
-query GetWorship($worshipId: String!){
-  worship(worshipId: $worshipId){
-    worshipId
-    title
-    type
-    messenger
-    note
-    verse
-    link
-    docs{
-      title
-      link
-      type
-    }
-  }
-}`
+import { GET_WORSHIP } from "graphqls/graphql";
 
 function Worship() {
   const dispatch = useDispatch();
@@ -41,8 +24,7 @@ function Worship() {
   const [data, setData] = useState('')
   const componentRef: any = useRef();
 
-  const { loading, error, data: wData } = useQuery(GET_WORSHIP,
-    { variables: { worshipId: id } }
+  const { loading, error, data: wData } = useQuery(GET_WORSHIP, { variables: { worshipId: id } }
   );
 
   const handleChange = (content: any) => {

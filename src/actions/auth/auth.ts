@@ -1,14 +1,14 @@
-import { SignInActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, TokenPair } from "./types"
+import { AuthActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, TokenPair, SignOutAction, SIGN_OUT } from "./types"
 import { SagaResult } from "store/system/types"
 
-export function signIn(user: User): SignInActionTypes {
+export function signIn(user: User): AuthActionTypes {
   return {
       type: SIGN_IN_REQUEST,
       user
   }
 }
 
-export function signInSuccess(tokenPair: TokenPair, result?: SagaResult): SignInActionTypes {
+export function signInSuccess(tokenPair: TokenPair, result?: SagaResult): AuthActionTypes {
   return {
       type: SIGN_IN_SUCCESS,      
       tokenPair,
@@ -16,9 +16,15 @@ export function signInSuccess(tokenPair: TokenPair, result?: SagaResult): SignIn
   }
 }
 
-export function signInFailure(error: any): SignInActionTypes {
+export function signInFailure(error: any): AuthActionTypes {
   return {
       type: SIGN_IN_FAILURE,
       error
+  }
+}
+
+export function signOut(): SignOutAction {
+  return {
+    type: SIGN_OUT
   }
 }

@@ -21,20 +21,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { nullOrEmpty } from "utils/utils";
-
-const LOGIN = gql`
-  mutation login($input: Login!){
-    login(input: $input){
-      token
-      refreshToken
-    }
-  }
-`;
-
-// type LoginFormErrors = {
-//   username?: any
-//   password?: any
-// }
+import { LOGIN, LoginInput } from "graphqls/graphql";
 
 function LoginPage() {
 
@@ -80,7 +67,8 @@ function LoginPage() {
   const onSubmit = (data: any, e: any) => {
     // setSubmitted(true)
     // validateForm() && login({ variables: { input: { username: user.username, password: user.password } } })
-    login({ variables: { input: { username: data.username, password: data.password } } })
+    const payload: LoginInput = { username: data.username, password: data.password }
+    login({ variables: { input: payload }})
     .catch(err => 
       dispatch(signInFailure(err))
     )

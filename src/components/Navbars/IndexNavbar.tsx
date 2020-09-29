@@ -13,17 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Role } from "Universals";
 import { getTokenValue, hasRole, isTokenExpired } from 'utils/utils'
 import { gql, useMutation } from "@apollo/client";
-import { signInFailure, signInSuccess } from "actions";
-import { resetClient } from "utils/auth.client";
-
-const REFRESH_TOKEN = gql`
-  mutation refresh($input: RefreshTokenInput!){
-    refreshToken(input: $input){
-      token
-      refreshToken
-    }
-  }
-`;
+import { signInFailure, signInSuccess, signOut } from "actions";
+import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
 
 function IndexNavbar() {
 
@@ -59,11 +50,11 @@ function IndexNavbar() {
 
   useEffect(() => {
     if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
-      refreshToken({ variables: { input: { token: tokenPair.refreshToken } } })
+      const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
+      refreshToken({ variables: { input: payload } })
         .catch(err => {
           // dispatch(signInFailure(err))
-          localStorage.clear();
-          resetClient()
+          dispatch(signOut())
         })
     }
   }, [tokenPair])
@@ -230,8 +221,7 @@ function IndexNavbar() {
                     href="javascript:void(0)"
                     onClick={(e: any) => {
                       e.preventDefault();
-                      localStorage.clear();
-                      resetClient()
+                      dispatch(signOut())
                       window.location.href = './'
                     }}
                   >

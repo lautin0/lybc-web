@@ -1,13 +1,8 @@
 import axios from "axios";
 import { Person } from "actions";
 import { User } from "actions/auth/types";
-import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
-import UNIVERSALS from "Universals";
-
-const client = new ApolloClient({
-  uri: UNIVERSALS.GRAPHQL_ENDPOINT,
-  cache: new InMemoryCache()
-});
+import { getClient } from "utils/auth.client";
+import { LOGIN, LoginInput, RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
 
 const getConfig = () => {
   let token = localStorage.getItem("token")
@@ -29,13 +24,21 @@ export const api = {
 
   signIn(user: User) {
     // return axios.post('/auth/', user);
-    return client
+    const payload: LoginInput = { username: user.username, password: user.password }
+    return getClient()
       .mutate({
-        mutation: gql`
-          mutation jwt {
-            login(input: {username: "${user.username}", password: "${user.password}"})
-          }
-        `
+        mutation: LOGIN,
+        variables: { input: payload }
+      })
+  },
+
+  refreshToken(token: string) {
+    const payload: RefreshTokenInput = { token: token }
+    return getClient()
+      .mutate({
+        mutation: REFRESH_TOKEN,
+        variables: { input: payload }
       })
   }
+
 }

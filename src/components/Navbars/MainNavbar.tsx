@@ -14,17 +14,8 @@ import { getTokenValue, hasRole, isTokenExpired } from "utils/utils"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { gql, useMutation } from "@apollo/client";
-import { signInFailure, signInSuccess } from "actions";
-import { resetClient } from "utils/auth.client";
-
-const REFRESH_TOKEN = gql`
-  mutation refresh($input: RefreshTokenInput!){
-    refreshToken(input: $input){
-      token
-      refreshToken
-    }
-  }
-`;
+import { signInFailure, signInSuccess, signOut } from "actions";
+import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
 
 type MainNavbarProps = {
   page: string
@@ -43,11 +34,11 @@ function MainNavbar(props: MainNavbarProps) {
 
   useEffect(() => {
     if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
-      refreshToken({ variables: { input: { token: tokenPair.refreshToken } } })
+      const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
+      refreshToken({ variables: { input: payload } })
         .catch(err => {
           // dispatch(signInFailure(err))
-          localStorage.clear();
-          resetClient()
+          dispatch(signOut())
         })
     }
   })
@@ -188,8 +179,7 @@ function MainNavbar(props: MainNavbarProps) {
                     href="javascript:void(0)"
                     onClick={(e: any) => {
                       e.preventDefault();
-                      localStorage.clear();
-                      resetClient()
+                      dispatch(signOut())
                       window.location.href = './'
                     }}
                   >

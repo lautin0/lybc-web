@@ -5,28 +5,10 @@ import { RootState } from 'reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { gql, useMutation } from '@apollo/client';
 // import worshipData from "../../assets/data/data.json"
-import { AdminWorshipForm, setLoading, setSysMessage, setSystemFailure } from 'actions';
+import { AdminWorshipForm, AdminWorshipFormDoc, setLoading, setSysMessage, setSystemFailure } from 'actions';
 import { Link } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
-
-const ADD_WORSHIP = gql`
-  mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
-    createWorship(input: $input, docs: $docs){
-      worshipId,
-      title
-      type,
-      messenger,
-      note,
-      link,
-      verse
-      docs {
-        title
-        type
-        link
-      }
-    }
-  }
-`;
+import { ADD_WORSHIP } from 'graphqls/graphql';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -37,7 +19,7 @@ function AdminPanel() {
   const [addWorship, { data, loading: addWorshipLoading, error: addWorshipError },] = useMutation(ADD_WORSHIP);
 
   const [form, setForm] = useState<AdminWorshipForm>(formDef);
-  const [docs, setDocs] = useState<any[]>([{ title: '', link: '', type: '' }]);
+  const [docs, setDocs] = useState<AdminWorshipFormDoc[]>(formDef.docs);
   const [jsonData, setJsonData] = useState('');
 
   const dispatch = useDispatch();

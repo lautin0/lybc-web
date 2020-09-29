@@ -11,25 +11,8 @@ import {
 import moment from 'moment'
 import { useHistory } from "react-router";
 import { gql, useQuery } from "@apollo/client";
+import { GET_WORSHIPS } from "graphqls/graphql";
 // import worshipData from "../../assets/data/data.json"
-
-export const GET_WORSHIPS = gql`
-query {
-  worships{
-    worshipId
-    title
-    type
-    messenger
-    note
-    verse
-    link
-    docs{
-      title
-      link
-      type
-    }
-  }
-}`
 
 function WorshipList() {
   const history = useHistory();

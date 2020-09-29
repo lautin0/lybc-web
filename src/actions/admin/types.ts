@@ -8,7 +8,13 @@ export type AdminWorshipForm = {
     verse: string,
     link: string,
     messenger: string,
-    docs: any[]
+    docs: AdminWorshipFormDoc[]
+}
+
+export type AdminWorshipFormDoc = {
+    title: string,
+    link: string,
+    type: string
 }
 
 export interface AdminAction {

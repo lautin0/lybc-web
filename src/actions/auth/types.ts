@@ -3,6 +3,7 @@ import { SagaResult } from "store/system/types"
 export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST'
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS'
 export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE'
+export const SIGN_OUT = 'SIGN_OUT'
 
 export type User = {
   username: string,
@@ -30,4 +31,9 @@ export interface SignInFailureAction {
     error: string | null
 }
 
-export type SignInActionTypes = SignInRequestAction | SignInSuccessAction | SignInFailureAction
+export type SignOutAction = {
+    type: typeof SIGN_OUT
+}
+
+export type AuthActionTypes = SignInRequestAction | SignInSuccessAction | SignInFailureAction | SignOutAction
+
