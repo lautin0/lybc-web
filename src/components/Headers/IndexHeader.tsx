@@ -40,7 +40,7 @@ function IndexHeader() {
             <h1 className="h1-seo">綠楊浸信會</h1>
             <h3>Luk Yeung Baptist Church</h3>
           </div>
-          <h6 className="category category-absolute">
+          <h6 className="category category-absolute" style={{ top: '90vh' }}>
             <i style={{ color: 'white', fontSize: 30 }} className="fas fa-chevron-down animate__animated animate__bounce animate__infinite animate__slow"></i>
           </h6>
         </Container>
