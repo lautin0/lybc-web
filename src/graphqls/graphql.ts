@@ -96,3 +96,9 @@ query {
     }
   }
 }`
+
+export const DELETE_WORSHIP = gql`
+  mutation deleteWorship($input: String){
+    deleteWorship(input: $input)  
+}
+`

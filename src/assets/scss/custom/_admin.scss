@@ -39,16 +39,55 @@
   flex: 1 0 auto;
 }
 
-.banner {
+.banner-blue {
   display: block;
   -webkit-box-pack: justify;
   justify-content: space-between;
   background-color: rgb(30, 85, 235);
-  background-image: url(https://assets.prezicdn.net/frontend-packages/dashboard/backgrounds/create-section-blue-bg.svg);
+  background-image: url("../../img/bg-blue.svg");
   padding: 24px 40px 12px;
   margin: 12px 0px;
   border-radius: 6px;
   background-repeat: no-repeat;
+  transition: background-image 0.2s ease 0s, background-color 0.2s ease 0s, height 0.2s ease 0s;
+}
+
+.banner-teal {
+  display: block;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 24px 40px 12px;
+  margin: 12px 0px;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-color: rgb(0, 198, 198);
+  background-image: url("../../img/bg-teal.svg");
+  transition: background-image 0.2s ease 0s, background-color 0.2s ease 0s, height 0.2s ease 0s;
+}
+
+.banner-purple {
+  display: block;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 24px 40px 12px;
+  margin: 12px 0px;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-color: rgb(98, 0, 143);
+  background-image: url("../../img/bg-purple.svg");
+  transition: background-image 0.2s ease 0s, background-color 0.2s ease 0s, height 0.2s ease 0s;
+}
+
+.banner-orange {
+  display: block;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 24px 40px 12px;
+  margin: 12px 0px;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-color: rgb(255, 145, 5);
+  background-image: url("../../img/bg-orange.svg");
   transition: background-image 0.2s ease 0s, background-color 0.2s ease 0s, height 0.2s ease 0s;
 }
 
@@ -70,18 +109,73 @@ main {
   overflow: auto;
 }
 
-input.admin, select.admin {
+input.admin,
+select.admin {
   min-height: 40px;
   border: 1px solid #a9a9a9;
   font-size: 1rem;
 }
 
-textarea.admin{
+textarea.admin {
   border: 1px solid #a9a9a9 !important;
 }
 
-.content-panel{
-  .form-row{
+.content-panel {
+  .form-row {
     min-height: 15vh;
   }
 }
+
+.quick-item {
+  background: white;
+  border-radius: 0.5rem;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.quick-item:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.quick-item-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.quick-item .quick-item-overlay {
+  // background-color: rgba(0, 140, 186, 0.3);
+  background-color: white;
+}
+
+.quick-item .quick-item-overlay:hover {
+  background-color: lightgray;
+  // transition: .5s ease;
+  // cursor: pointer;
+}
+
+.quick-item-overlay-text {
+  color: black;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 1 !important;
+}
+
+// .admin a {
+//   color: #000000;
+// }
+// .admin a:hover,a:focus {
+//   color: #000000;
+// }

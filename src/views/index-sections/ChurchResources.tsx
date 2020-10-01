@@ -85,9 +85,9 @@ function ChurchResources() {
               style={{ cursor: 'pointer' }}
             >
               <Card.Img src={require("assets/img/bg7.jpg")} />
-              <Card.ImgOverlay>
-                {/* <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i> */}
-              </Card.ImgOverlay>
+              {/* <Card.ImgOverlay>
+                <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i>
+              </Card.ImgOverlay> */}
               <Card.Body>
                 <Card.Title>網上崇拜</Card.Title>
               </Card.Body>
@@ -108,8 +108,8 @@ function ChurchResources() {
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg5.jpg")} />
               <Card.ImgOverlay>
-                <Card.Title></Card.Title>
-                <Card.Text></Card.Text>
+                <Card.Title>A</Card.Title>
+                <Card.Text>B</Card.Text>
               </Card.ImgOverlay>
               <Card.Body>
                 <Card.Title>最新消息</Card.Title>

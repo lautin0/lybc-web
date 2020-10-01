@@ -28,6 +28,7 @@ import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import PrivateRoute from "components/route/PrivateRoute";
 import { Role } from "Universals";
 import { getClient } from "utils/auth.client";
+import DecisionModal from "components/Modals/DecisionModal";
 
 const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -44,11 +45,12 @@ ReactDOM.render(
   <ApolloProvider client={getClient()}>
     <Provider store={store}>
       <CommonModal />
+      <DecisionModal />
       <LoadingOverlay />
       <Router history={history}>
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
-          <PrivateRoute path="/admin" component={AdminPanel} role={Role.ADMIN}/>
+          <PrivateRoute path="/admin" role={Role.ADMIN}/>
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
           <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />

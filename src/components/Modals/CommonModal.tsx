@@ -6,8 +6,8 @@ import { RootState } from '../../reducers';
 import { resetSysError, resetSysMessage } from 'actions';
 
 function CommonModal(props: any) {
-  const result = useSelector((state: RootState) => state.system.result);
-  const error = useSelector((state: RootState) => state.system.error);
+  const result = useSelector((state: RootState) => state.system.general.result);
+  const error = useSelector((state: RootState) => state.system.general.error);
   const dispatch = useDispatch();
 
   const onHide = () => {

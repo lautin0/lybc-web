@@ -1,4 +1,4 @@
-import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT, SET_SYSTEM_FAILURE, SET_SYSTEM_MESSAGE } from './system/types'
+import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT, SET_SYSTEM_FAILURE, SET_SYSTEM_MESSAGE, DECISION_REQUEST, DECISION_COMPLETE } from './system/types'
 
 export function resetSysError(): SystemActionTypes{
     return {
@@ -32,6 +32,21 @@ export function setSysMessage(message: string): SystemActionTypes{
     return {
         type: RESET_SAGA_RESULT,
         result: { message: message }
+    }
+}
+
+export function decisionRequest(message: string, positiveAction?: any, negativeAction?: any): SystemActionTypes{
+    return {
+        type: DECISION_REQUEST,
+        message,
+        positiveAction,
+        negativeAction
+    }
+}
+
+export function decisionComplete(): SystemActionTypes{
+    return {
+        type: DECISION_COMPLETE,
     }
 }
 
