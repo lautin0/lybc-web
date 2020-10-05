@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 // react-bootstrap components
 import {
   Button,
@@ -10,12 +10,10 @@ import {
   Container
 } from "react-bootstrap";
 import UNIVERSALS, { Role } from "Universals";
-import { getTokenValue, hasRole, isTokenExpired } from "utils/utils"
+import { getTokenValue, hasRole } from "utils/utils"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
-import { gql, useMutation } from "@apollo/client";
-import { signInFailure, signInSuccess, signOut } from "actions";
-import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
+import { signOut } from "actions";
 
 type MainNavbarProps = {
   page: string
@@ -23,30 +21,10 @@ type MainNavbarProps = {
 
 function MainNavbar(props: MainNavbarProps) {
 
-  const [refreshToken, { data, loading: refreshTokenLoading, error: refreshTokenError }] = useMutation(REFRESH_TOKEN);
-
   const dispatch = useDispatch()
-
-  const history = useHistory()
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-
-  useEffect(() => {
-    if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
-      const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
-      refreshToken({ variables: { input: payload } })
-        .catch(err => {
-          // dispatch(signInFailure(err))
-          dispatch(signOut())
-        })
-    }
-  })
-
-  useEffect(() => {
-    if (data !== undefined)
-      dispatch(signInSuccess(data.refreshToken))
-  }, [data])
 
   return (
     <>
@@ -66,7 +44,7 @@ function MainNavbar(props: MainNavbarProps) {
               as={Link}
               to="/index"
               id="main-navbar-brand"
-              onClick={(e: any) => {
+              onClick={() => {
                 // e.preventDefault();
                 // window.scrollTo(0, 0);
               }}

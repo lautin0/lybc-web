@@ -52,6 +52,25 @@ export const ADD_WORSHIP = gql`
   }
 `
 
+export const UPDATE_WORSHIP = gql`
+  mutation updateWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
+    updateWorship(input: $input, docs: $docs){
+      worshipId,
+      title
+      type,
+      messenger,
+      note,
+      link,
+      verse
+      docs {
+        title
+        type
+        link
+      }
+    }
+  }
+`
+
 export const REFRESH_TOKEN = gql`
 mutation refresh($input: RefreshTokenInput!){
   refreshToken(input: $input){

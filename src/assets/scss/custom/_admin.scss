@@ -122,7 +122,9 @@ textarea.admin {
 
 .content-panel {
   .form-row {
-    min-height: 15vh;
+    // min-height: 15vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -171,6 +173,15 @@ textarea.admin {
   transform: translate(-50%, -50%);
   text-align: center;
   opacity: 1 !important;
+}
+
+.admin.invalid {
+  border-color: #FF3636 !important;
+  color: #FF3636 !important;
+}
+
+.admin.label, .admin.invalid::placeholder {
+  color: #FF3636;
 }
 
 // .admin a {

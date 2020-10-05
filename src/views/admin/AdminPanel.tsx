@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { RootState } from 'reducers';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
 import WorshipCreate from './WorshipCreate';
 import WorshipManage from './WorshipManage';
@@ -11,6 +11,7 @@ import AdminHeader from './AdminHeader'
 import MemberManage from './MemberManage';
 import OtherFunc from './OtherFunc';
 import PageManage from './PageManage';
+import WorshipEdit from './WorshipEdit';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -25,6 +26,8 @@ function AdminPanel(props: AdminPanelProps) {
   const history = useHistory()
 
   const location = useLocation()
+
+  const { id } = useParams<any>()
 
   return (
     <>
@@ -117,6 +120,7 @@ function AdminPanel(props: AdminPanelProps) {
               </div>}
               <div className="content-panel">
                 {props.func === 'new-worship' && <WorshipCreate />}
+                {props.func === 'edit-worship' && <WorshipEdit worshipId={id} />}
                 {props.func === 'worships' && <WorshipManage />}
                 {props.func === 'members' && <MemberManage />}
                 {props.func === 'other' && <OtherFunc />}

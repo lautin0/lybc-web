@@ -13,7 +13,7 @@ import DOMPurify from "dompurify";
 import moment from "moment";
 import html2canvas from 'html2canvas'
 // import worshipData from "../../assets/data/data.json"
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_WORSHIP } from "graphqls/graphql";
 
 function Worship() {
@@ -24,8 +24,7 @@ function Worship() {
   const [data, setData] = useState('')
   const componentRef: any = useRef();
 
-  const { loading, error, data: wData } = useQuery(GET_WORSHIP, { variables: { worshipId: id } }
-  );
+  const { loading, data: wData } = useQuery(GET_WORSHIP, { variables: { worshipId: id } });
 
   const handleChange = (content: any) => {
     setData(content);

@@ -33,7 +33,8 @@ function PrivateRoute({path, role }: any) {
       <Switch>
         <Route path={`${url}/`} render={(props: any) => <AdminPanel {...props} />} exact />
         <Route path={`${url}/worships`} render={(props: any) => <AdminPanel {...props} func="worships" />}  />
-        <Route path={`${url}/new-worship`} render={(props: any) => <AdminPanel {...props} func="new-worship" />}  />
+        <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel {...props} func="new-worship" />}  />
+        <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel {...props} func="edit-worship" />}  />
         <Route path={`${url}/members`} render={(props: any) => <AdminPanel {...props} func="members" />}  />
         <Route path={`${url}/other`} render={(props: any) => <AdminPanel {...props} func="other" />}  />
         <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel {...props} func="page-management" />}  />

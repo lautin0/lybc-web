@@ -49,12 +49,12 @@ function AdminHeader(props: AdminHeaderProps) {
       <p className="category" style={{ color: 'white' }}>Welcome to admin panel!</p>
       <div className="form-inline row mb-3" style={{ marginTop: 40 }}>
       {(props.func == null || props.func === '') && <>
-          {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'new-worship')}
+          {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')}
           {quickItemGenerater('會員管理', 'fa fa-user', 'members')}
         </>}
         {props.func === 'worships' && <>
-          {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'new-worship')}
+          {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {/* {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')} */}
         </>}
         {props.func === 'members' && <>
@@ -72,7 +72,7 @@ function AdminHeader(props: AdminHeaderProps) {
 }
 
 AdminHeader.propTypes = {
-  func: PropTypes.string.isRequired
+  func: PropTypes.string
 }
 
 export default AdminHeader;

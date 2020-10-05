@@ -10,7 +10,7 @@ import {
 
 import moment from 'moment'
 import { useHistory } from "react-router";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_WORSHIPS } from "graphqls/graphql";
 // import worshipData from "../../assets/data/data.json"
 
@@ -22,7 +22,7 @@ function WorshipList() {
   const [data, setData] = useState([])
   const pageSize = 5;
 
-  const { loading, error, data: worshipData } = useQuery(GET_WORSHIPS)
+  const { loading, data: worshipData } = useQuery(GET_WORSHIPS)
 
   useEffect(() => {
     if (worshipData === undefined)

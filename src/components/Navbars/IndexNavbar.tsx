@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -11,14 +11,10 @@ import {
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { Role } from "Universals";
-import { getTokenValue, hasRole, isTokenExpired } from 'utils/utils'
-import { gql, useMutation } from "@apollo/client";
-import { signInFailure, signInSuccess, signOut } from "actions";
-import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
+import { getTokenValue, hasRole } from 'utils/utils'
+import { signOut } from "actions";
 
 function IndexNavbar() {
-
-  const [refreshToken, { data, loading: refreshTokenLoading, error: refreshTokenError }] = useMutation(REFRESH_TOKEN);
 
   const history = useHistory();
 
@@ -47,22 +43,6 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
-
-  useEffect(() => {
-    if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
-      const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
-      refreshToken({ variables: { input: payload } })
-        .catch(err => {
-          // dispatch(signInFailure(err))
-          dispatch(signOut())
-        })
-    }
-  }, [tokenPair])
-
-  useEffect(() => {
-    if (data !== undefined)
-      dispatch(signInSuccess(data.refreshToken))
-  }, [data])
 
   return (
     <>

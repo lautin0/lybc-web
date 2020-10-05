@@ -1,33 +1,49 @@
-import { useMutation } from '@apollo/client';
-import { AdminWorshipForm, AdminWorshipFormDoc, setSysMessage, setLoading, setSystemFailure } from 'actions';
+import { useMutation, useQuery } from '@apollo/client';
+import { setSysMessage, setLoading, setSystemFailure } from 'actions';
 import { RBRef } from 'adapter/types';
-import { ADD_WORSHIP } from 'graphqls/graphql';
+import { ADD_WORSHIP, GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
 import React, { useEffect, useMemo, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import ReactQuill from 'react-quill';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import { RootState } from 'reducers';
+import Validators from 'utils/validator';
 
-function WorshipCreate() {
+type WorshipEditProps = {
+  worshipId: string
+}
+
+function WorshipEdit(props: WorshipEditProps) {
+
+  const [isReadOnly, setIsReadOnly] = useState(true)
 
   const history = useHistory()
 
+  const location = useLocation()
+
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
-  const { register, setValue, getValues, handleSubmit, reset, trigger, control, errors } = useForm({
+  const [updateWorship, { data }] = useMutation(UPDATE_WORSHIP);
+  const { loading, data: wData, refetch } = useQuery(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
+
+  const { register, setValue, getValues, handleSubmit, reset, control, errors, trigger } = useForm({
     defaultValues: {
-      ...formDef
+      ...formDef,
+      docs: []
     }
   })
 
-  const { fields, append, remove, prepend } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "docs"
   });
 
-  const [addWorship, { data, loading: addWorshipLoading, error: addWorshipError }] = useMutation(ADD_WORSHIP);
+  const watchType = useWatch({
+    control,
+    name: 'type',
+  })
 
   const dispatch = useDispatch();
 
@@ -61,28 +77,15 @@ function WorshipCreate() {
     { value: 'pdf', display: 'pdf' },
   ]
 
-  // const handleInputChange = (e: any) => {
-  //   setValue(e.currentTarget.name, e.currentTarget.value)
-  //   trigger()
-  // }
-
-  // const handleDocsInputChange = (e: any, idx: any) => {
-  //   let decloy = getValues("docs")
-  //   let doc = decloy[idx]
-  //   doc = { ...doc, [e.currentTarget.name]: e.currentTarget.value }
-  //   decloy[idx] = doc;
-  //   setValue("docs", [...decloy])
-  // }
-
-  const onSubmit = (data: any, e: any) => {
+  const onSubmit = (data: any) => {
     dispatch(setLoading(true))
     let tmp = data
     let tmpDocs: any[] = []
     data.docs.forEach((e: any) => {
-      tmpDocs.push({...e})
+      tmpDocs.push({ ...e })
     });
     delete tmp.docs
-    addWorship({
+    updateWorship({
       variables: {
         input: {
           ...tmp
@@ -93,7 +96,7 @@ function WorshipCreate() {
       console.log(err)
       dispatch(setLoading(false))
       dispatch(setSystemFailure(err))
-      reset();
+      history.push('/admin/worships')
     })
   }
 
@@ -107,30 +110,64 @@ function WorshipCreate() {
   }, [data])
 
   useEffect(() => {
-    // Object.keys(formDef).forEach(e => {
-    //   if (getRequired().includes(e))
-    //     register({ name: e }, { required: true })
-    //   else
-    //     register(e)
-    // })
     register('note')
     register('verse')
   }, [register])
 
   useEffect(() => {
     document.title = "管理控制台"
+    dispatch(setLoading(true))
   }, [])
 
-  const getRequired = () => {
-    return ['type', 'title', 'worshipId', 'messenger', 'link']
-  }
+  useEffect(() => {
+    if (wData !== undefined) {
+      // Object.keys(wData.worship).forEach(e => {
+      //   if (typeof wData.worship[e] === 'object') {
+      //     setValue('docs', [...wData.worship[e]], { shouldValidate: true, shouldDirty: true })
+      //   } else {
+      //     setValue(e, wData.worship[e])
+      //   }
+      // })
+      setTimeout(() => reset({ ...wData.worship, docs: wData.worship.docs }))
+    }
+  }, [wData])
+
+  useEffect(() => {
+    if (wData != null) {
+      dispatch(setLoading(true))
+      refetch();
+    }
+  }, [location])
+
+  useEffect(() => {
+    if (loading === false) {
+      dispatch(setLoading(false))
+    }
+  }, [loading])
+
+  useEffect(() => {
+    if (fields !== undefined) {
+      fields.forEach((field, idx) => {
+        let decloyField = { ...field }
+        delete decloyField.id
+        if (Object.values(decloyField).map(x => x.length).reduce((prev, curr) => prev + curr) > 0)
+          setValue(`docs[${idx}]`, field)
+      })
+    }
+  }, [fields])
+
+  useEffect(() => {
+    if (watchType !== undefined)
+      trigger()
+  }, [watchType])
 
   const addRow = () => {
     append({ title: '', link: '', type: '' })
   }
 
   const inputTextGenerator = (name: string, label: string,
-    placeholder?: string, md?: number, sm?: number, skipValidate: boolean = false) => {
+    placeholder?: string, md?: number, sm?: number, skipValidate: boolean = false,
+    strongReadOnly: boolean = false, validateFn: any = Validators.Default) => {
     return <>
       <Form.Group as={Col} md={md} sm={sm}>
         <Form.Label className={(!skipValidate && errors[name]) ? "admin invalid" : ""}>{label}</Form.Label>
@@ -139,15 +176,17 @@ function WorshipCreate() {
           placeholder={placeholder}
           // onChange={(e: any) => updateFn(e, fnParam && fnParam)}
           // value={targetState?.[name]}
-          ref={((getRequired().includes(name) ? register({ required: true }) : register()) as RBRef)}
+          ref={register({ validate: validateFn }) as RBRef}
           name={name}
+          readOnly={strongReadOnly || isReadOnly}
         ></Form.Control>
         {(!skipValidate && errors[name]) && <label style={{ opacity: .6, color: '#FF3636' }}>必須輸入這欄</label>}
       </Form.Group>
     </>
   }
 
-  const dropdownGenerator = (name: string, label: string, ds: any[], md?: number, sm?: number, skipValidate: boolean = false) => {
+  const dropdownGenerator = (name: string, label: string, ds: any[], md?: number, sm?: number,
+    skipValidate: boolean = false, strongReadOnly: boolean = false, validateFn: any = Validators.Default) => {
     return <>
       <Form.Group as={Col} md={md} sm={sm}>
         <Form.Label className={(!skipValidate && errors[name]) ? "admin invalid" : ""}>{label}</Form.Label>
@@ -157,8 +196,9 @@ function WorshipCreate() {
           // onChange={(e: any) => updateFn(e, fnParam && fnParam)}
           // value={getValues(name)}
           defaultValue=""
-          ref={((getRequired().includes(name) ? register({ required: true }) : register()) as RBRef)}
+          ref={register({ validate: validateFn }) as RBRef}
           name={name}
+          disabled={isReadOnly}
         >
           {ds.map((item, idx) => {
             return <option key={idx} disabled={item.disabled} value={item.value}>{item.display}</option>
@@ -186,6 +226,7 @@ function WorshipCreate() {
           width: '100%',
           minHeight: 400,
         }}
+        readOnly={isReadOnly}
       />
     </>
   }
@@ -193,57 +234,59 @@ function WorshipCreate() {
   const rowGenerator = () => {
 
     return fields.map((item: any, idx: number) => {
-      return <Form.Row key={idx}>
+      return <Form.Row key={item.id}>
         {inputTextGenerator(`docs[${idx}].link`, `檔案${idx + 1}連結`, 'e.g. https://www.abc.com/', 6, 12, true)}
         {inputTextGenerator(`docs[${idx}].title`, '名稱', undefined, 3, 12, true)}
         {dropdownGenerator(`docs[${idx}].type`, '檔案類型', docTypes, 3, 12, true)}
-        <Form.Group as={Col} className="text-right" md={12}>
+        {!isReadOnly && <Form.Group as={Col} className="text-right" md={12}>
           <Button className="mx-1" onClick={() => addRow()} variant="info"><i className="fa fa-plus"></i></Button>
           <Button onClick={() => remove(idx)} variant="info"><i className="fa fa-trash"></i></Button>
-        </Form.Group>
+        </Form.Group>}
       </Form.Row>
     })
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h2>
-      <Form.Row>
-        {inputTextGenerator('title', '講題', '請輸入講題')}
-        {inputTextGenerator('worshipId', '日期', 'YYYYMMDD')}
-      </Form.Row>
-      <Form.Row>
-        {dropdownGenerator('type', '分類', dropdownData)}
-        {inputTextGenerator('messenger', '講員', '請輸入講員姓名')}
-      </Form.Row>
-      <Form.Row>
-        {inputTextGenerator('link', '影片連結', 'e.g. https://www.abc.com/')}
-      </Form.Row>
-      {rowGenerator()}
-      <Form.Row className="mb-5">
-        {quillGenerator('note', '講道筆記')}
-      </Form.Row>
-      <Form.Row className="mb-5">
-        {quillGenerator('verse', '經文')}
-      </Form.Row>
-      <Form.Row>
-        <Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-          >儲存</Button>
-          <Button
-            className="mx-3"
-            onClick={() => {
-              reset()
-            }}
-          >
-            重設
-          </Button>
-        </Form.Group>
-      </Form.Row>
-    </Form>
+    <>
+      {!loading && <Form onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h2>
+        {isReadOnly && <Button onClick={() => setIsReadOnly(false)} style={{ backgroundColor: '#dc1414' }}>
+          <i className="fas fa-lock" style={{ fontSize: 28 }}></i>
+        </Button>}
+        {!isReadOnly && <Button
+          onClick={() => setIsReadOnly(true)} style={{ backgroundColor: '#23a223' }}
+        >
+          <i className="fas fa-lock-open" style={{ fontSize: 28 }}></i>
+        </Button>}
+        <Form.Row>
+          {inputTextGenerator('title', '講題', '請輸入講題', undefined, undefined, false, false, Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜"))}
+          {inputTextGenerator('worshipId', '日期', 'YYYYMMDD', undefined, undefined, false, true)}
+        </Form.Row>
+        <Form.Row>
+          {dropdownGenerator('type', '分類', dropdownData, undefined, undefined, false, false, Validators.Required)}
+          {inputTextGenerator('messenger', '講員', '請輸入講員姓名', undefined, undefined, false, false, Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜"))}
+        </Form.Row>
+        <Form.Row>
+          {inputTextGenerator('link', '影片連結', 'e.g. https://www.abc.com/')}
+        </Form.Row>
+        {rowGenerator()}
+        <Form.Row className="mb-5">
+          {quillGenerator('note', '講道筆記')}
+        </Form.Row>
+        <Form.Row className="mb-5">
+          {quillGenerator('verse', '經文')}
+        </Form.Row>
+        {!isReadOnly && <Form.Row>
+          <Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+            >儲存</Button>
+          </Form.Group>
+        </Form.Row>}
+      </Form>}
+    </>
   )
 }
 
-export default WorshipCreate;
+export default WorshipEdit;

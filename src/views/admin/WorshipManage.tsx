@@ -5,13 +5,15 @@ import moment from 'moment';
 import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 function WorshipManage() {
 
   const dispatch = useDispatch();
 
   const location = useLocation();
+
+  const history = useHistory();
 
   const [pageItems, setPageItems] = React.useState<Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> | null>(null);
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -65,6 +67,11 @@ function WorshipManage() {
       })
     }))
   };
+
+  function onEditClicked(e: SyntheticEvent, id: any) {
+    e.preventDefault();
+    history.push('/admin/worship/' + id)
+  }
 
   useEffect(() => {
     if (deleteResult != null && deleteResult.deleteWorship > 0) {
@@ -141,8 +148,8 @@ function WorshipManage() {
                     <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
                     <td>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
                     <td>{value.messenger}</td>
-                    <td><a><i className="fa fa-pencil-alt"></i></a></td>
-                    <td onClick={(e: any) => onDeleteClicked(e, value.worshipId)}><a><i className="fa fa-trash"></i></a></td>
+                    <td><a onClick={(e: any) => onEditClicked(e, value.worshipId)}><i className="fa fa-pencil-alt"></i></a></td>
+                    <td><a onClick={(e: any) => onDeleteClicked(e, value.worshipId)}><i className="fa fa-trash"></i></a></td>
                   </tr>
                 })
               }
