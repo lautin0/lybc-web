@@ -198,7 +198,7 @@ function IndexNavbar() {
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     as="a"
-                    href="javascript:void(0)"
+                    href="#"
                     onClick={(e: any) => {
                       e.preventDefault();
                       dispatch(signOut())
