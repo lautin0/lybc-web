@@ -154,7 +154,7 @@ function MainNavbar(props: MainNavbarProps) {
                   </NavDropdown.Item>}
                   <NavDropdown.Item
                     as="a"
-                    href="javascript:void(0)"
+                    href="#"
                     onClick={(e: any) => {
                       e.preventDefault();
                       dispatch(signOut())
