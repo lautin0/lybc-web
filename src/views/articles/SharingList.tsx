@@ -134,8 +134,8 @@ function SharingList() {
                         <a href="javascript:void(0)">
                           <p>
                             {' '}
-                              祈禱會分享 (但以理組)
-                              {' '}
+                            祈禱會分享 (但以理組)
+                            {' '}
                           </p>
                           <p>
                             疫情中的信仰 - 神的應許和人的盼望
