@@ -4,7 +4,7 @@ import { RBRef } from 'adapter/types';
 import { ADD_WORSHIP, GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
 import React, { useEffect, useMemo, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
-import { useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
@@ -128,7 +128,9 @@ function WorshipEdit(props: WorshipEditProps) {
       //     setValue(e, wData.worship[e])
       //   }
       // })
-      setTimeout(() => reset({ ...wData.worship, docs: wData.worship.docs }))
+      setTimeout(() => {
+        reset(wData.worship)
+      })    
     }
   }, [wData])
 
@@ -211,22 +213,28 @@ function WorshipEdit(props: WorshipEditProps) {
 
   const quillGenerator = (name: string, label: string) => {
 
-    const handleChange = (content: any) => {
-      setValue(name, content)
-    }
+//     const handleChange = (content: any) => {
+//       setValue(name, content)
+//     }
 
     return <>
       <Form.Label>{label}</Form.Label>
-      <ReactQuill
-        className="mb-3"
-        value={(getValues(name) as string) || ''}
-        onChange={handleChange}
-        modules={editorModules}
-        style={{
-          width: '100%',
-          minHeight: 400,
-        }}
-        readOnly={isReadOnly}
+      <Controller
+        control={control}
+        name={name}
+        render={({ onChange, onBlur, value }) => 
+          <ReactQuill
+          className="mb-3"
+          value={value || ''}
+          onChange={(content: any) => onChange(content)}
+          modules={editorModules}
+          style={{
+            width: '100%',
+            minHeight: 400,
+          }}
+          readOnly={isReadOnly}
+        />
+        }
       />
     </>
   }
