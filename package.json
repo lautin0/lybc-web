@@ -42,7 +42,7 @@
     "react-select": "^3.1.0",
     "react-test-renderer": "^16.13.1",
     "react-to-print": "^2.5.1",
-    "reactstrap": "8.0.1",
+    "reactstrap": "8.6.0",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
     "sass": "^1.26.2"
