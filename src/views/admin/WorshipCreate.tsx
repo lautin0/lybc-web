@@ -143,6 +143,7 @@ function WorshipCreate() {
             name="worshipId"
             label="日期"
             placeholder="YYYYMMDD"
+            validateFn={Validators.NoWhiteSpace}
           />
         </Form.Row>
         <Form.Row>
