@@ -60,7 +60,7 @@ function IndexBanner() {
         );
       });
     }
-  });
+  },[]);
 
   return (
     <>

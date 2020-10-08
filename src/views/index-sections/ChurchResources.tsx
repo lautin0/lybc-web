@@ -29,6 +29,8 @@ function ChurchResources() {
       // return elemBottom <= docViewBottom && elemTop >= docViewTop;
     }
 
+    const memoHandleScroll = () => handleScroll()
+
     // If element is scrolled into view, fade it in
     const handleScroll = () => {
       document.querySelectorAll(".scroll-animations .animated").forEach(e => {
@@ -38,12 +40,10 @@ function ChurchResources() {
       })
     }
 
-    window.addEventListener("scroll", (e: any) => {
-      handleScroll();
-    })
+    window.addEventListener("scroll", memoHandleScroll)
 
     return function cleanup() {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", memoHandleScroll);
     };
   })
 
