@@ -1,12 +1,18 @@
-.fa, .fas, .far, .fab{
+.fa,
+.fas,
+.far,
+.fab {
     font-size: 16px;
     vertical-align: middle;
     margin-right: 3px;
     margin-top: -2px;
 }
 
-.title-fa{
-    &.fa,&.fas,&.far,&.fab{
+.title-fa {
+    &.fa,
+    &.fas,
+    &.far,
+    &.fab {
         font-size: 72px;
         margin: 10px;
         text-align: center;
@@ -15,18 +21,17 @@
 }
 
 .clear-filter[filter-color="green"] {
-    @include linear-gradient(rgba($black-color,.20), #7eb162);
+    @include linear-gradient(rgba($black-color, 0.2), #7eb162);
 }
 .clear-filter[filter-color="gray"] {
-    background-color: rgba($black-color,.25);
+    background-color: rgba($black-color, 0.25);
 }
-.page-header{
-    &.page-header-tiny{
-      min-height: 20vh;
-      max-height: 200px;
+.page-header {
+    &.page-header-tiny {
+        min-height: 20vh;
+        max-height: 200px;
     }
-  }
-
+}
 
 .overlay {
     position: absolute;
@@ -36,18 +41,18 @@
     right: 0;
     height: 100%;
     width: calc(80% - 23px);
-  }
-  
+}
+
 .img-button-container .overlay {
     background-color: rgba(0, 140, 186, 0.3);
 }
 
 .img-button-container .overlay:hover {
     background-color: rgba(165, 62, 62, 0.9);
-    transition: .5s ease;
+    transition: 0.5s ease;
     cursor: pointer;
 }
-  
+
 .img-overlay-text {
     color: white;
     font-size: 20px;
@@ -61,55 +66,59 @@
     opacity: 1 !important;
 }
 
-.table-striped.clickable tbody{
-    tr:hover{        
+.table-striped.clickable tbody {
+    tr:hover {
         background: rgba(138, 191, 218, 0.9);
         cursor: pointer;
     }
 }
 
-ul.sitemap{
+ul.sitemap {
     margin-top: 6vh;
-    
-    li{
+
+    li {
         display: block;
-        margin-bottom: 10px
+        margin-bottom: 10px;
     }
 }
 
-@media screen and (max-width: 991px){
-  .sidebar-collapse .navbar-collapse:before {
-    background: #45934c;
-    background: linear-gradient(#45934c,#000000 80%);
-  }
+@media screen and (max-width: 991px) {
+    .sidebar-collapse .navbar-collapse:before {
+        background: #45934c;
+        background: linear-gradient(#45934c, #000000 80%);
+    }
 }
 
-.navbar-toggler{
-    border: none
+.navbar-toggler {
+    border: none;
 }
 
-.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
-    color: #FFFFFF
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #ffffff;
 }
 
-.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
-    color: #FFFFFF
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show > .nav-link {
+    color: #ffffff;
 }
 
-.loading-overlay{
+.loading-overlay {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,.7);
+    background: rgba(255, 255, 255, 0.7);
     z-index: 2000;
 }
 
-h2.anchor::before { 
-    display: block; 
-    content: " "; 
-    margin-top: -188px; 
-    height: 188px; 
-    visibility: hidden; 
+h2.anchor::before {
+    display: block;
+    content: " ";
+    margin-top: -188px;
+    height: 188px;
+    visibility: hidden;
     pointer-events: none;
 }
 
@@ -127,7 +136,7 @@ h2.anchor::before {
     line-height: 1.61em;
     font-weight: 300;
     font-size: 1.1em;
-    p{
+    p {
         font-weight: bolder;
     }
 }
@@ -143,13 +152,14 @@ a {
 
 .verse {
     p {
-        margin-top: 1rem!important;
-        margin-bottom: 1rem!important;
-        font-size: 24px
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+        font-size: 24px;
     }
 
-    b, strong {
-        margin-right: 1rem!important;
+    b,
+    strong {
+        margin-right: 1rem !important;
     }
 }
 
@@ -160,4 +170,17 @@ a {
 
 .ql-disabled {
     background: lightgray;
+}
+
+i.reaction {
+    font-size: 24px;
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px black;
+    padding: 0.7em 0.6em;
+
+    &.reacted {
+        color: white;
+        background: black;
+    }
 }
