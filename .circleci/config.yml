@@ -32,9 +32,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: Restoring dependencies
-          command: npm install
-      - run:
           name: Running test
           command: npm test
   publish:
@@ -47,9 +44,6 @@ jobs:
     steps:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Restoring dependencies
-          command: npm install
       - deploy:
           command: |
             git config --global user.name $GH_NAME
