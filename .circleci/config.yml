@@ -7,39 +7,39 @@ orbs:
   # Declare a dependency on the react-orb
   react: thefrontside/react@0.2.0
 # Orchestrate or schedule a set of jobs
-jobs:
-  run_deploy:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:10.16.3
+# jobs:
+#   run_deploy:
+#     docker:
+#       # specify the version you desire here
+#       - image: circleci/node:10.16.3
 
-    working_directory: ~/lybc-web
+#     working_directory: ~/lybc-web
 
-    steps:
-      - checkout
+#     steps:
+#       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+#       # Download and cache dependencies
+#       - restore_cache:
+#           keys:
+#           - v1-dependencies-{{ checksum "package.json" }}
+#           # fallback to using the latest cache if no exact match is found
+#           - v1-dependencies-
 
-      - run: npm install
+#       - run: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+#       - save_cache:
+#           paths:
+#             - node_modules
+#           key: v1-dependencies-{{ checksum "package.json" }}
           
-      - run:
-          command: |
-            CI=false npm run build
+#       - run:
+#           command: |
+#             CI=false npm run build
             
-      - deploy:
-          command: |
-            rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
-            CI=false npm run deploy
+#       - deploy:
+#           command: |
+#             rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
+#             CI=false npm run deploy
 workflows:
   push:
     jobs:
@@ -53,9 +53,9 @@ workflows:
       - react/coverage:
           requires:
             - react/install
-      - run_deploy:
-          requires:
-            - react/coverage
-          filters:
-            branches:
-              only: master
+#       - run_deploy:
+#           requires:
+#             - react/coverage
+#           filters:
+#             branches:
+#               only: master
