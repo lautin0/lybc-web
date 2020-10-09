@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v1-repo-{{ $CIRCLE_SHA1 }}
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/lybc-web
   build:
@@ -30,7 +30,7 @@ jobs:
     working_directory: ~/lybc-web
     steps:
       - restore_cache:
-          key: v1-repo-{{ $CIRCLE_SHA1 }}
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
@@ -48,7 +48,7 @@ jobs:
     working_directory: ~/lybc-web
     steps:
       - restore_cache:
-          key: v1-repo-{{ $CIRCLE_SHA1 }}
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
