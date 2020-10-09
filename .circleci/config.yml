@@ -40,11 +40,6 @@ jobs:
             git config --global user.name $GH_NAME
             npm run deploy
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
-    jobs:
-      - welcome/run
   push:
     jobs:
       - react/install
