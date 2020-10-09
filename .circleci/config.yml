@@ -55,6 +55,9 @@ workflows:
       - react/coverage:
           requires:
             - react/install
-  run_deploy:
+  public:
     jobs:
-      - run_deploy
+      - run_deploy:
+          filters:
+            branches:
+              only: master
