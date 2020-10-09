@@ -34,7 +34,7 @@ jobs:
           
       - deploy:
           command: |
-            git config --global user.name $GH_NAME
+            rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
             CI=false npm run deploy
 workflows:
   push:
