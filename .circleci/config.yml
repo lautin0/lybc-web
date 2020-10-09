@@ -32,6 +32,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
           
+      - run:
+          command: |
+            npm run build
+            
       - deploy:
           command: |
             rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
