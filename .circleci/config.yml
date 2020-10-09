@@ -32,13 +32,11 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: 
-          command: |
-            CI=false npm run build
+      - run: npm run build
       - deploy:
           command: |
             git config --global user.name $GH_NAME
-            npm run deploy
+            CI=false npm run deploy
 workflows:
   push:
     jobs:
