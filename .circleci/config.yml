@@ -25,18 +25,18 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      - run: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn run build
+      - run: npm run build
       - deploy:
           command: |
             git config --global user.name $GH_NAME
-            yarn run deploy
+            npm run deploy
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -55,9 +55,9 @@ workflows:
       - react/coverage:
           requires:
             - react/install
-  public:
-    jobs:
       - run_deploy:
+          requires:
+            - react/coverage
           filters:
             branches:
               only: master
