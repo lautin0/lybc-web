@@ -16,12 +16,12 @@ jobs:
     working_directory: ~/lybc-web
     steps:
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Restoring dependencies
           command: yarn install
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
   test:
@@ -30,7 +30,7 @@ jobs:
     working_directory: ~/lybc-web
     steps:
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Restoring dependencies
           command: yarn install
@@ -46,7 +46,7 @@ jobs:
     working_directory: ~/lybc-web
     steps:
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Restoring dependencies
           command: yarn install
