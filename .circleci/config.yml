@@ -19,7 +19,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Restoring dependencies
-          command: npm install
+          command: yarn install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
@@ -35,10 +35,10 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Restoring dependencies
-          command: npm install
+          command: yarn install
       - run:
           name: Running test
-          command: npm test
+          command: yarn test
   publish:
     environment:
       - IMAGE_NAME: lautin0/lybc-web
@@ -49,22 +49,13 @@ jobs:
     steps:
       - restore_cache:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - run:
-          name: Build Docker image
-          command: |
-            docker build -t $IMAGE_NAME:$IMAGE_TAG-$CIRCLE_BUILD_NUM .
-      - run:
-          name: Publish Docker image to Docker Hub
-          command: |
-            echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
-            docker push $IMAGE_NAME:$IMAGE_TAG-$CIRCLE_BUILD_NUM
       - deploy:
           command: |
             git config --global user.name $GH_NAME
-            npm run deploy
+            yarn run deploy
 workflows:
   version: 2.1
-  test:
+  run_test:
     jobs:
       - checkout_code
       - build:
@@ -73,7 +64,7 @@ workflows:
       - test:
           requires:
             - build
-  publish:
+  run_publish:
     jobs:
       - checkout_code:
           filters:
