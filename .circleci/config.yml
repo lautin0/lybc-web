@@ -49,8 +49,6 @@ jobs:
     steps:
       - restore_cache:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Build Docker image
           command: |
@@ -66,7 +64,7 @@ jobs:
             npm run deploy
 workflows:
   version: 2.1
-  build_test:
+  test:
     jobs:
       - checkout_code
       - build:
@@ -75,7 +73,7 @@ workflows:
       - test:
           requires:
             - build
-  build_publish:
+  publish:
     jobs:
       - checkout_code:
           filters:
