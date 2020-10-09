@@ -29,6 +29,13 @@ jobs:
       - image: circleci/node:10.16.3
     working_directory: ~/lybc-web
     steps:
+      - restore_cache:
+          key: v1-repo-$CIRCLE_SHA1
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Restoring dependencies
+          command: npm install
       - run:
           name: Running test
           command: npm test
@@ -40,6 +47,13 @@ jobs:
       - image: circleci/buildpack-deps:stretch
     working_directory: ~/lybc-web
     steps:
+      - restore_cache:
+          key: v1-repo-$CIRCLE_SHA1
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Restoring dependencies
+          command: npm install
       - deploy:
           command: |
             git config --global user.name $GH_NAME
