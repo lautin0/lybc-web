@@ -121,3 +121,8 @@ export const DELETE_WORSHIP = gql`
     deleteWorship(input: $input)  
 }
 `
+
+export const GET_MAX_WORSHIP_ID = gql`
+query {
+  maxWorshipId
+}`
