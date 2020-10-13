@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.b55ce8c8.chunk.css",
-    "main.js": "/static/js/main.1bfe3b0f.chunk.js",
+    "main.js": "/static/js/main.b2dfe77c.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.e2746277.js",
     "static/css/2.b14bd586.chunk.css": "/static/css/2.b14bd586.chunk.css",
-    "static/js/2.90e60c59.chunk.js": "/static/js/2.90e60c59.chunk.js",
+    "static/js/2.1938cd64.chunk.js": "/static/js/2.1938cd64.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.ba98889ea57c922a5a07833e06fadc5b.js": "/precache-manifest.ba98889ea57c922a5a07833e06fadc5b.js",
+    "precache-manifest.0fbd506d16849e13e6cc06b7826f62d1.js": "/precache-manifest.0fbd506d16849e13e6cc06b7826f62d1.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.90e60c59.chunk.js.LICENSE.txt": "/static/js/2.90e60c59.chunk.js.LICENSE.txt",
+    "static/js/2.1938cd64.chunk.js.LICENSE.txt": "/static/js/2.1938cd64.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.8ebec31f.woff2",
     "static/media/bg1.jpg": "/static/media/bg1.6b1983a2.jpg",
     "static/media/bg11.jpg": "/static/media/bg11.e643a6cf.jpg",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.e2746277.js",
     "static/css/2.b14bd586.chunk.css",
-    "static/js/2.90e60c59.chunk.js",
+    "static/js/2.1938cd64.chunk.js",
     "static/css/main.b55ce8c8.chunk.css",
-    "static/js/main.1bfe3b0f.chunk.js"
+    "static/js/main.b2dfe77c.chunk.js"
   ]
 }
