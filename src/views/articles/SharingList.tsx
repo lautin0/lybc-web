@@ -12,7 +12,7 @@ function SharingList() {
   const [pills, setPills] = React.useState("1");
 
   const navigate = (id: any) => {
-    history.push(`/sharing/${id}`)
+    history.push(`/sharing/5f850a38227dc4647ac6c586`)
   }
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function SharingList() {
         <Container style={{ marginBottom: 200 }}>
           <div className="button-container">
             <Button className="btn-round" color="info" size="lg">
-              一起分享所想
+              分享您的見證
               </Button>
             {/* <Button
                 className="btn-round btn-icon"

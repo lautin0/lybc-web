@@ -126,3 +126,72 @@ export const GET_MAX_WORSHIP_ID = gql`
 query {
   maxWorshipId
 }`
+
+export const GET_POSTS =  gql`
+query {
+  posts{
+    _id
+    title
+    subtitle
+    content
+    creDttm
+    user{
+      username
+      name
+      nameC
+      title
+      titleC
+    }
+    reactions {
+      username
+      type
+    }
+  }
+}`
+
+export const GET_POST =  gql`
+query getPostByOID($oid: String!){
+  post(oid: $oid){
+    _id
+    title
+    subtitle
+    content
+    creDttm
+    user{
+      username
+      gender
+      name
+      nameC
+      title
+      titleC
+    }
+    reactions {
+      username
+      type
+    }
+  }
+}`
+
+export const REACT_TO_POST = gql`
+  mutation react($input: NewReaction!){
+    react(input: $input){
+    _id
+    title
+    subtitle
+    content
+    creDttm
+    user{
+      username
+      gender
+      name
+      nameC
+      title
+      titleC
+    }
+    reactions {
+      username
+      type
+    }
+  }
+}
+`

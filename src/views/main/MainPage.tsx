@@ -41,14 +41,14 @@ function MainPage(props: MainPageProps) {
       <IndexNavbar />
       <div className="wrapper">
         <MainPageHeader page={props.page}/>
-          {props.page == 'about-us' && <AboutUs />}
-          {props.page == 'journal' && <Journal />}
-          {props.page == 'contact-us' && <ContactUs />}
-          {props.page == 'doctrine' && <Doctrine />}
-          {props.page == 'sunday-service-info' && <SundayServiceInfo />}
-          {props.page == 'worship-list' && <WorshipList />}
-          {props.page == 'preacher-message' && <PreacherMessage />}
-          {props.page == 'sharing-list' && <SharingList />}
+        {props.page == 'about-us' && <AboutUs />}
+        {props.page == 'journal' && <Journal />}
+        {props.page == 'contact-us' && <ContactUs />}
+        {props.page == 'doctrine' && <Doctrine />}
+        {props.page == 'sunday-service-info' && <SundayServiceInfo />}
+        {props.page == 'worship-list' && <WorshipList />}
+        {props.page == 'preacher-message' && <PreacherMessage />}
+        {props.page == 'sharing-list' && <SharingList />}
         <DefaultFooter />
       </div>
     </>
