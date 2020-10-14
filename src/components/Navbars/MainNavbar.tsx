@@ -123,7 +123,7 @@ function MainNavbar(props: MainNavbarProps) {
                   教會信條
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link} to="sunday-service-info"
+                  as={Link} to="/sunday-service-info"
                 >
                   聚會時間
                 </NavDropdown.Item>
