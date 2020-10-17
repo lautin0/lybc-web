@@ -184,3 +184,36 @@ i.reaction {
         background: black;
     }
 }
+
+.app-bell-alert>a::after{
+    display: none !important; 
+ }
+
+ .dot{
+    height: 10px;
+    width: 10px;
+    // background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+ }
+
+ .dropdown-item.active, .dropdown-item:active {
+    text-decoration: none;
+    background: unset;
+}
+
+@media screen and (max-width: 991px){
+    div[aria-labelledby="app-bell"]>.dropdown-item:focus, div[aria-labelledby="app-bell"]>.dropdown-item:hover {
+        color: #000 !important;
+        border-radius: 0.1875rem;
+    }
+
+    .app-bell-alert>div.dropdown-menu, div[aria-labelledby="app-bell"]{
+        background-color: white !important;
+        top: 45px !important;
+        margin-left: -182px !important;
+        height: unset !important;
+        max-height: 450px !important;
+        box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.2) !important;
+    }
+}

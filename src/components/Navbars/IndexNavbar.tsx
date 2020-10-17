@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Role } from "Universals";
 import { getTokenValue, hasRole } from 'utils/utils'
 import { signOut } from "actions";
+import NotificationBox from "components/notification/NotificationBox";
 
 function IndexNavbar() {
 
@@ -75,19 +76,23 @@ function IndexNavbar() {
               ></img>
               {" "}綠楊浸信會
             </Navbar.Brand>
-            <button
-              className="navbar-toggler navbar-toggler"
-              onClick={() => {
-                document.documentElement.classList.toggle("nav-open");
-                setCollapseOpen(!collapseOpen);
-              }}
-              aria-expanded={collapseOpen}
-              type="button"
-            >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
-            </button>
+            <div>
+              {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBox className="d-inline d-lg-none" /></div>}
+              <button
+                className="navbar-toggler navbar-toggler"
+                onClick={() => {
+                  document.documentElement.classList.toggle("nav-open");
+                  setCollapseOpen(!collapseOpen);
+                }}
+                style={{ verticalAlign: 'middle' }}
+                aria-expanded={collapseOpen}
+                type="button"
+              >
+                <span className="navbar-toggler-bar top-bar"></span>
+                <span className="navbar-toggler-bar middle-bar"></span>
+                <span className="navbar-toggler-bar bottom-bar"></span>
+              </button>
+            </div>
           </div>
           <Navbar.Collapse
             className="justify-content-end"
@@ -175,6 +180,7 @@ function IndexNavbar() {
                   聯絡我們
                 </NavDropdown.Item> */}
               </NavDropdown>
+              {tokenPair?.token && <NotificationBox className="d-none d-lg-inline"/>}
               {!tokenPair?.token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
