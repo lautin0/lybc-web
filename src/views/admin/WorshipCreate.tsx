@@ -96,7 +96,7 @@ function WorshipCreate() {
   const rowGenerator = () => {
 
     return fields.map((item: any, idx: number) => {
-      return <Form.Row key={idx}>
+      return <Form.Row key={item.id}>
         <InputText
           name={`docs[${idx}].link`}
           label={`檔案${idx + 1}連結`}
