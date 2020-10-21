@@ -185,7 +185,7 @@ function Sharing() {
           </Row>
           <Row className="text-left" style={{ alignItems: 'baseline' }}>
             <Col lg={{ offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
-            <Col className="text-right pr-5" lg={12}><h5 style={{ color: 'gray' }}>{postData.post.user.nameC}{postData.post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+            <Col className="text-right pr-5" lg={12}><h5 style={{ color: 'gray' }}>{post.user.nameC}{post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
