@@ -107,10 +107,10 @@ function ChurchResources() {
           <Col className="animated animate__animated" md="6" lg="3">
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg5.jpg")} />
-              <Card.ImgOverlay>
+              {/* <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>
-              </Card.ImgOverlay>
+              </Card.ImgOverlay> */}
               <Card.Body>
                 <Card.Title>最新消息</Card.Title>
               </Card.Body>
