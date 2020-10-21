@@ -203,7 +203,10 @@ i.reaction {
 }
 
 @media screen and (max-width: 991px){
-    div[aria-labelledby="app-bell"]>.dropdown-item:focus, div[aria-labelledby="app-bell"]>.dropdown-item:hover {
+    div[aria-labelledby="app-bell"]>.dropdown-item:focus, 
+    div[aria-labelledby="app-bell"]>.dropdown-item:hover,
+    div[aria-labelledby="app-bell"]>div>.dropdown-item:focus, 
+    div[aria-labelledby="app-bell"]>div>.dropdown-item:hover {
         color: #000 !important;
         border-radius: 0.1875rem;
     }

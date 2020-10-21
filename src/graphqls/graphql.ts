@@ -146,6 +146,24 @@ query {
       username
       type
     }
+    comments {
+      _id
+      title
+      subtitle
+      content
+      creDttm
+      user{
+        username
+        name
+        nameC
+        title
+        titleC
+      }
+      reactions {
+        username
+        type
+      }
+    }
   }
 }`
 
@@ -159,7 +177,6 @@ query getPostByOID($oid: String!){
     creDttm
     user{
       username
-      gender
       name
       nameC
       title
@@ -168,30 +185,127 @@ query getPostByOID($oid: String!){
     reactions {
       username
       type
+    }
+    comments {
+      _id
+      title
+      subtitle
+      content
+      creDttm
+      username
+      user{
+        username
+        name
+        nameC
+        title
+        titleC
+      }
+      reactions {
+        username
+        type
+      }
     }
   }
 }`
 
+export const ADD_POST = gql`
+  mutation createPost($input: NewPost!){
+    createPost(input: $input){
+      _id
+      title
+      subtitle
+      content
+      creDttm
+      user{
+        username
+        name
+        nameC
+        title
+        titleC
+      }
+      reactions {
+        username
+        type
+      }
+      comments {
+        _id
+        title
+        subtitle
+        content
+        creDttm
+        user{
+          username
+          name
+          nameC
+          title
+          titleC
+        }
+        reactions {
+          username
+          type
+        }
+      }
+    }
+  }
+`
+
 export const REACT_TO_POST = gql`
   mutation react($input: NewReaction!){
     react(input: $input){
-    _id
-    title
-    subtitle
-    content
-    creDttm
-    user{
-      username
-      gender
-      name
-      nameC
+      _id
       title
-      titleC
-    }
-    reactions {
-      username
-      type
+      subtitle
+      content
+      creDttm
+      user{
+        username
+        name
+        nameC
+        title
+        titleC
+      }
+      reactions {
+        username
+        type
+      }
+      comments {
+        _id
+        title
+        subtitle
+        content
+        creDttm
+        user{
+          username
+          name
+          nameC
+          title
+          titleC
+        }
+        reactions {
+          username
+          type
+        }
+      }
     }
   }
-}
+`
+
+export const GET_NOTIFICATIONS = gql`
+  query getNotifications($toUsername: String!) {
+    notifications(toUsername: $toUsername) {
+      _id
+      toUsername
+      fromUsername
+      type
+      param
+      isRead
+    }
+  }
+`
+export const READ_NOTIFICATIONS = gql`
+  mutation readNotification($input: String!){
+    readNotification(input: $input){
+      _id
+    }
+  }
 `

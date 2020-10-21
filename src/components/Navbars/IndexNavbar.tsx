@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Role } from "Universals";
 import { getTokenValue, hasRole } from 'utils/utils'
 import { signOut } from "actions";
-import NotificationBox from "components/notification/NotificationBox";
+import NotificationBell from "components/notification/NotificationBell";
 
 function IndexNavbar() {
 
@@ -77,7 +77,7 @@ function IndexNavbar() {
               {" "}綠楊浸信會
             </Navbar.Brand>
             <div>
-              {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBox className="d-inline d-lg-none" /></div>}
+              {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBell className="d-inline d-lg-none" /></div>}
               <button
                 className="navbar-toggler navbar-toggler"
                 onClick={() => {
@@ -180,7 +180,7 @@ function IndexNavbar() {
                   聯絡我們
                 </NavDropdown.Item> */}
               </NavDropdown>
-              {tokenPair?.token && <NotificationBox className="d-none d-lg-inline"/>}
+              {tokenPair?.token && <NotificationBell className="d-none d-lg-inline"/>}
               {!tokenPair?.token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"

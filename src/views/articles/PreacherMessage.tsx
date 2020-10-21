@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { setSysMessage } from "actions";
+import { setSysMessage, setSystemFailure } from "actions";
+import CommentSection from "components/comments/CommentSection";
 import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -13,7 +14,6 @@ import { getTokenValue } from "utils/utils";
 // core components
 
 function PreacherMessage() {
-
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
@@ -39,6 +39,8 @@ function PreacherMessage() {
           type: reaction.toUpperCase()
         },
       }
+    }).catch(e => {
+      dispatch(setSystemFailure(e))
     })
   }
 
@@ -204,6 +206,7 @@ function PreacherMessage() {
               </OverlayTrigger>
             </Col>
           </Row>
+          <CommentSection id="5f850dc4e52fde7c2930c34b" type="PREACHER"/>
         </Container>}
       </div>
     </>

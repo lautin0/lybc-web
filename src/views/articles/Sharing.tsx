@@ -1,7 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { setSysMessage } from "actions";
+import { setSysMessage, setSystemFailure } from "actions";
+import CommentSection from "components/comments/CommentSection";
 import DOMPurify from "dompurify";
-import { GET_POST, REACT_TO_POST } from "graphqls/graphql";
+import { ADD_POST, GET_POST, REACT_TO_POST } from "graphqls/graphql";
+import usePost from "hooks/usePost";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Tooltip, Container, Row, OverlayTrigger, Col } from "react-bootstrap";
@@ -27,7 +29,8 @@ function Sharing() {
   const [post, setPost] = useState<any>()
 
   const [react, { data: result }] = useMutation(REACT_TO_POST);
-  const { loading, data, refetch } = useQuery(GET_POST, { variables: { oid: id }, notifyOnNetworkStatusChange: true });
+
+  const { loading, postData, refetch } = usePost({ id: id })
 
   const setReaction = (reaction: string) => {
     if (tokenPair?.token == null) {
@@ -38,27 +41,30 @@ function Sharing() {
       variables: {
         input: {
           username: getTokenValue(tokenPair?.token).username,
-          postOID: data.post._id,
-          type: reaction.toUpperCase()
+          postOID: postData.post._id,
+          type: reaction.toUpperCase(),
+          toUsername: postData.post.user.username
         },
       }
+    }).catch(e => {
+      dispatch(setSystemFailure(e))
     })
   }
 
   useEffect(() => {
-    if (data !== undefined) {
-      setPost(data.post)
+    if (postData !== undefined) {
+      setPost(postData.post)
     } else if (result !== undefined) {
       setPost(result)
     }
-  }, [data, result])
+  }, [postData, result])
 
   useEffect(() => {
     document.querySelector('.scroll-animations .animated')?.classList.remove("animate__fadeInLeft");
   }, [])
 
   useEffect(() => {
-    refetch()
+    refetch && refetch()
   }, [location])
 
   useEffect(() => {
@@ -156,7 +162,7 @@ function Sharing() {
             </div>
           </div>
         </Container>}
-        {(!loading && post != null) && <Container style={{ paddingTop: 90, paddingBottom: 90, borderRadius: '.5rem', marginBottom: 100 }}>
+        {(!loading && post != null) && <Container style={{ paddingTop: 90, borderRadius: '.5rem', marginBottom: 100 }}>
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
               <OverlayTrigger placement="auto" overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
@@ -179,7 +185,7 @@ function Sharing() {
           </Row>
           <Row className="text-left" style={{ alignItems: 'baseline' }}>
             <Col lg={{ offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
-            <Col className="text-right pr-5" lg={12}><h5 style={{ color: 'gray' }}>{data.post.user.nameC}{data.post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+            <Col className="text-right pr-5" lg={12}><h5 style={{ color: 'gray' }}>{postData.post.user.nameC}{postData.post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
@@ -205,6 +211,7 @@ function Sharing() {
               </OverlayTrigger>
             </Col>
           </Row>
+          <CommentSection id={id} type="SHARING"/>
         </Container>}
       </div>
     </>

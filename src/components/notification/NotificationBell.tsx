@@ -1,34 +1,52 @@
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react'
 import { NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { RootState } from 'reducers';
+import { getTimePastStr, getTokenValue } from 'utils/utils';
+import * as presets from '../../assets/data/data.json'
 
-function NotificationBox(props: any) {
+const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
+
+function NotificationBell(props: any) {
+
+  const location = useLocation()
 
   const [notifications, setNotifications] = useState<any[]>([])
 
+  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+
+  const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
+  const [readNotification, { data: readItem, loading: readNotificationLoading, error: readNotificationError }] = useMutation(READ_NOTIFICATIONS)
+
   useEffect(() => {
-    setNotifications([
-      // { type: "LIKE", fromUserId: "sysadmin", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "對您的見證表達了心情", creDttm: moment('17/10/2020 02:02:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-      // { type: "COMMENT", fromUserId: "tinyu", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "回應了您的見證", creDttm: moment('17/10/2020 00:15:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-      // { type: "COMMENT", fromUserId: "tinyu", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "回應了您的見證", creDttm: moment('17/10/2020 00:15:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-      // { type: "COMMENT", fromUserId: "tinyu", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "回應了您的見證", creDttm: moment('17/10/2020 00:15:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-      // { type: "LIKE", fromUserId: "sysadmin", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "對您的見證表達了心情", creDttm: moment('17/10/2020 02:02:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-      // { type: "LIKE", fromUserId: "sysadmin", path: "/sharing/", param: "5f850a38227dc4647ac6c586", desc: "對您的見證表達了心情", creDttm: moment('17/10/2020 02:02:00', "DD/MM/YYYY hh:mm:ss"), isRead: false },
-    ])
-  }, [])
+    if (data !== undefined)
+      setNotifications(data.notifications)
+  }, [data])
+
+  useEffect(() => {
+    refetch && setTimeout(() => {
+      refetch()
+    }, 200);
+  }, [location])
 
   const handleClick = (i: number) => {
+    if (notifications[i].isRead)
+      return
     const update = notifications.map((e, idx) => {
       if (idx === i)
         return { ...e, isRead: true }
       return e
     })
+    readNotification({
+      variables: {
+        input: update[i]._id
+      }
+    })
     setNotifications(update)
-  }
-
-  const getTimePastStr = (target: Moment) => {
-    return target.fromNow()
   }
 
   return <NavDropdown
@@ -49,29 +67,31 @@ function NotificationBox(props: any) {
     <NavDropdown.Divider />
     {notifications.length === 0 && <div className="w-100 text-center text-secondary">沒有通知</div>}
     {notifications.length > 0 && notifications.map((e: any, idx: number) => {
-      return <>
+      return <div key={e._id}>
         <NavDropdown.Item
-          key={idx}
           as={Link}
           // to={e.path + e.param}
-          to=""
-          onClick={() => handleClick(idx)}
+          to={`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param}`}
+          onClick={(e) => {
+            // e.preventDefault()
+            handleClick(idx)
+          }}
           style={{ width: 290, whiteSpace: 'pre-wrap', display: 'flex' }}
         >
           <div className="mr-2">
             <i style={{ fontSize: 24 }} className={e.type === 'LIKE' ? "fa fa-thumbs-up" : "fas fa-comment-dots"}></i>
           </div>
           <div>
-            <span>{e.fromUserId + e.desc}</span>
+            <span>{e.fromUsername + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</span>
             <br />
-            <span className="text-secondary">{getTimePastStr(e.creDttm)}</span>
+            <span className="text-secondary">{getTimePastStr(moment(e.creDttm))}</span>
           </div>
           <div className="ml-auto">
             {!e.isRead && <span className="dot bg-info"></span>}
           </div>
         </NavDropdown.Item>
         <NavDropdown.Divider />
-      </>
+      </div>
     })}
     <NavDropdown.Item
       as={Link}
@@ -88,4 +108,4 @@ function NotificationBox(props: any) {
   </NavDropdown>
 }
 
-export default NotificationBox;
+export default NotificationBell;

@@ -108,8 +108,8 @@ function ChurchResources() {
             <Card className="text-center">
               <Card.Img src={require("assets/img/bg5.jpg")} />
               <Card.ImgOverlay>
-                <Card.Title>A</Card.Title>
-                <Card.Text>B</Card.Text>
+                <Card.Title></Card.Title>
+                <Card.Text></Card.Text>
               </Card.ImgOverlay>
               <Card.Body>
                 <Card.Title>最新消息</Card.Title>
