@@ -203,7 +203,7 @@ function IndexNavbar() {
                   {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     管理控制台
                   </NavDropdown.Item>}
-                  <NavDropdown.Divider />
+                  {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Divider />}
                   <NavDropdown.Item
                     as="a"
                     href="#"

@@ -18,14 +18,14 @@ const authLink = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        Authorization: token ? `${token}` : "",
+        Authorization: token ? `Bearer ${token}` : "",
       }
     }
   } else {
     return {
       headers: {
         ...headers,
-        Authorization: refreshToken ? `${refreshToken}` : "",
+        Authorization: refreshToken ? `Bearer ${refreshToken}` : "",
       }
     }
   }
