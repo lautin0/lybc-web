@@ -131,7 +131,7 @@ function SharingList() {
                     ></Card.Header>
                     <Card.Body style={{ border: '1px solid rgba(0,0,0,.125)', borderRadius: '0px 0px .2rem .2rem' }}>
                       <blockquote className="blockquote" style={{ border: 0 }}>
-                        <a href="javascript:void(0)">
+                        <a href="#" onClick={(e) => e.preventDefault()}>
                           <p>
                             {' '}
                             祈禱會分享 (但以理組)

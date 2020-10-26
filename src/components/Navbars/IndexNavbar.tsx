@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
   Button,
@@ -19,13 +19,15 @@ function IndexNavbar() {
 
   const history = useHistory();
 
+  const location = useLocation();
+
   const dispatch = useDispatch();
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [navbarColor, setNavbarColor] = useState("navbar-transparent");
+  const [collapseOpen, setCollapseOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 249 ||
@@ -180,7 +182,7 @@ function IndexNavbar() {
                   聯絡我們
                 </NavDropdown.Item> */}
               </NavDropdown>
-              {tokenPair?.token && <NotificationBell className="d-none d-lg-inline"/>}
+              {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
               {!tokenPair?.token && <Nav.Item>
                 <Button
                   className="nav-link btn-neutral"
@@ -188,7 +190,7 @@ function IndexNavbar() {
                   href="#pablo"
                   id="login"
                   as={Link}
-                  to="/login-page"
+                  to={`/login-page?relayState=${location.pathname}`}
                   onClick={() => setCollapseOpen(!collapseOpen)}
                   style={{ color: 'rgb(69, 147, 76)' }}
                 >
@@ -208,7 +210,7 @@ function IndexNavbar() {
                     onClick={(e: any) => {
                       e.preventDefault();
                       dispatch(signOut())
-                      window.location.href = './'
+                      window.location.href = `.${location.pathname}`
                     }}
                   >
                     登出

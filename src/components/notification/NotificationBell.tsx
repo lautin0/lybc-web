@@ -1,26 +1,27 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { setSystemFailure } from 'actions';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react'
 import { NavDropdown } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
-import { getTimePastStr, getTokenValue } from 'utils/utils';
+import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
 import * as presets from '../../assets/data/data.json'
-
-const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
 function NotificationBell(props: any) {
 
   const location = useLocation()
 
+  const dispatch = useDispatch()
+
   const [notifications, setNotifications] = useState<any[]>([])
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
-  const [readNotification, { data: readItem, loading: readNotificationLoading, error: readNotificationError }] = useMutation(READ_NOTIFICATIONS)
+  const { data, refetch } = useQuery(GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
+  const [readNotification] = useMutation(READ_NOTIFICATIONS)
 
   useEffect(() => {
     if (data !== undefined)
@@ -45,6 +46,8 @@ function NotificationBell(props: any) {
       variables: {
         input: update[i]._id
       }
+    }).catch(e => {
+      dispatch(setSystemFailure(e))
     })
     setNotifications(update)
   }

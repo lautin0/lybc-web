@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import _ from 'lodash'
 // react-bootstrap components
 import {
@@ -7,27 +7,27 @@ import {
   Form,
   InputGroup,
   Container,
-  Col,
-  FormControl
+  Col
 } from "react-bootstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar";
 import TransparentFooter from "components/Footers/TransparentFooter";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn, signInFailure, signInSuccess, User } from "actions";
-import { RootState } from "reducers";
-import { gql, useMutation } from "@apollo/client";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { signInFailure, signInSuccess } from "actions";
+import { useMutation } from "@apollo/client";
+import { useHistory, useLocation } from "react-router";
 import { useForm } from "react-hook-form";
-import { nullOrEmpty } from "utils/utils";
 import { LOGIN, LoginInput } from "graphqls/graphql";
+import { nullOrEmpty } from "utils/utils";
 
 function LoginPage() {
 
+  const location = useLocation()
+
   const history = useHistory();
 
-  const userDef = useSelector((state: RootState) => state.auth.user)
+  //const userDef = useSelector((state: RootState) => state.auth.user)
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -38,11 +38,6 @@ function LoginPage() {
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
-  // const [user, setUser] = useState(userDef);
-  // const [errors, setErrors] = useState<LoginFormErrors>({});
-  // const [submitted, setSubmitted] = useState<boolean>(false);
-
-  // const [user, setUser] = useState<User>({ username: '', password: ''});
   const dispatch = useDispatch();
 
   const [login, { data, loading: loginLoading, error: loginError }] = useMutation(LOGIN, { errorPolicy: 'all' });
@@ -59,62 +54,13 @@ function LoginPage() {
     };
   });
 
-  // const handleInputChange = (e: any) => setUser({
-  //   ...user,
-  //   [e.currentTarget.name]: e.currentTarget.value
-  // })
-
-  const onSubmit = (data: any, e: any) => {
-    // setSubmitted(true)
-    // validateForm() && login({ variables: { input: { username: user.username, password: user.password } } })
+  const onSubmit = (data: any) => {
     const payload: LoginInput = { username: data.username, password: data.password }
-    login({ variables: { input: payload }})
-    .catch(err => 
-      dispatch(signInFailure(err))
-    )
+    login({ variables: { input: payload } })
+      .catch(err =>
+        dispatch(signInFailure(err))
+      )
   }
-
-  // const onError = (errors: any, e: any) => {
-  //   console.log(errors)
-  // }
-
-  // const validateForm = () => {
-  //   let valid = true
-
-  //   let tmp = errors
-
-  //   if (nullOrEmpty(user.username)) {
-  //     tmp = { ...tmp, username: { required: true } }
-  //     valid = false;
-  //   } else {
-  //     delete tmp.username
-  //   }
-
-  //   if (nullOrEmpty(user.password)) {
-  //     tmp = { ...tmp, password: { required: true } }
-  //     valid = false;
-  //   } else {
-  //     delete tmp.password
-  //   }
-
-  //   setErrors(tmp)
-
-  //   return valid
-  // }
-
-  // const prevUser = useRef(user)
-  // React.useEffect(() => {
-  //   if (!_.isEqual(user, prevUser.current)) {
-  //     //INPUT HAS CHANGED
-  //     setUser(user)
-
-  //     validateForm()
-  //   } else if (!_.isEqual(user, userDef)) {
-  //     //REDUX STATE HAS CHANGED
-  //     setUser(userDef)
-  //   }
-  //   prevUser.current = user
-  // }, [user, userDef])
 
   useEffect(() => {
     if (loginError != null) {
@@ -122,10 +68,13 @@ function LoginPage() {
       return
     }
     if (data !== undefined) {
-      // setSubmitted(false)
-
       dispatch(signInSuccess(data.login))
-      history.push('/')
+      const relayState = new URLSearchParams(location.search).get('relayState')
+      if (relayState != null) {
+        history.push(relayState)
+      } else {
+        history.push('/')
+      }
     }
   }, [data])
 

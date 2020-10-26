@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
   Button,
@@ -21,6 +21,8 @@ type MainNavbarProps = {
 }
 
 function MainNavbar(props: MainNavbarProps) {
+
+  const location = useLocation();
 
   const dispatch = useDispatch()
 
@@ -146,7 +148,7 @@ function MainNavbar(props: MainNavbarProps) {
                   href="#pablo"
                   id="login"
                   as={Link}
-                  to="/login-page"
+                  to={`/login-page?relayState=${location.pathname}`}
                   style={{ color: 'rgb(69, 147, 76)' }}
                 >
                   <i className="fas fa-user" style={{ fontSize: 14 }}></i>

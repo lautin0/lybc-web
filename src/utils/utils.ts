@@ -66,3 +66,5 @@ export function nullOrEmpty(checkee: any) {
 export function getTimePastStr(target: Moment) {
     return target.fromNow()
 }
+
+export const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];

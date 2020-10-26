@@ -64,6 +64,7 @@ ReactDOM.render(
           <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
           <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
           <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
+          <Redirect from="/sharing/" to="/sharing-list" />
           <Route exact path="/"><Index /></Route>
           <Route path="*">
             <ErrorPage error="404" />

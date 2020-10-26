@@ -77,7 +77,6 @@ function WorshipEdit(props: WorshipEditProps) {
         docs: [...tmpDocs]
       }
     }).catch((err: any) => {
-      console.log(err)
       dispatch(setLoading(false))
       dispatch(setSystemFailure(err))
       history.push('/admin/worships')

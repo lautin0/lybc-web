@@ -63,7 +63,6 @@ function WorshipCreate() {
         docs: [...tmpDocs]
       }
     }).catch((err: any) => {
-      console.log(err)
       dispatch(setLoading(false))
       dispatch(setSystemFailure(err))
       reset();
