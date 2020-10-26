@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
@@ -19,6 +19,8 @@ function CommentSection(props: any) {
   const dispatch = useDispatch()
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+
+  const location = useLocation();
 
   const { commentPending, postData, addComment, setCommentPending } = usePost({ id: id })
 
@@ -107,7 +109,7 @@ function CommentSection(props: any) {
       </Form>
     </Col>}
     {!tokenPair?.token && <Col style={{ display: 'inline-flex', borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5">
-      <div style={{ fontSize: 18 }}>請先 <Link to="/login-page">登入</Link> 以發表回應</div>
+      <div style={{ fontSize: 18 }}>請先 <Link to={`/login-page?relayState=${location.pathname}`}>登入</Link> 以發表回應</div>
     </Col>}
   </Row>
 }
