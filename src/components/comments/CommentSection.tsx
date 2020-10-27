@@ -4,7 +4,7 @@ import usePost from 'hooks/usePost';
 import moment from 'moment';
 import React from 'react'
 import { useEffect } from 'react';
-import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -60,7 +60,20 @@ function CommentSection(props: any) {
           </div>
         </div>
         <div className="ml-5">
-          <div className="mb-2"><a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 20 }}>{e.username}</a></div>
+          <div className="mb-2">
+            {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{e.user.role === "ADMIN" ? "網站管理人員" : (e.user.role === "WORKER" ? "教會同工" : "")}</Tooltip>}>
+              <a
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
+            </OverlayTrigger>}
+            {e.user.role === "MEMBER" && <a
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
+          </div>
           <p><b>{e.content}</b></p>
           <p className="category">{getTimePastStr(moment(e.creDttm))}</p>
         </div>

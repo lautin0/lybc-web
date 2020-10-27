@@ -123,7 +123,7 @@ function PreacherMessage() {
     else
       sentence = sentence.replace('{1}', '')
 
-    return < Tooltip {...props}> {usernames.length > 0 ? sentence : text}</Tooltip >
+    return <Tooltip {...props}> {usernames.length > 0 ? sentence : text}</Tooltip>
   };
 
   const isReacted = (type: string): boolean => {
@@ -160,7 +160,7 @@ function PreacherMessage() {
         {(!loading && post != null) && <Container>
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
-              <OverlayTrigger placement="auto" overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
                 <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
@@ -168,7 +168,7 @@ function PreacherMessage() {
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
-              <OverlayTrigger placement="auto" overlay={(props: any) => renderTooltip(props, 'pray')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
                 <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
@@ -188,7 +188,7 @@ function PreacherMessage() {
           </Row>
           <Row className="text-left mt-5" id="reaction-bar">
             <Col className="form-inline" lg={{ offset: 2 }}>
-              <OverlayTrigger placement="auto" overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
                 <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
@@ -196,7 +196,7 @@ function PreacherMessage() {
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
-              <OverlayTrigger placement="auto" overlay={(props: any) => renderTooltip(props, 'pray')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
                 <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
