@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.64c556db.chunk.css",
-    "main.js": "/static/js/main.74f1f8f7.chunk.js",
+    "main.css": "/static/css/main.575d8438.chunk.css",
+    "main.js": "/static/js/main.a20f2182.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.e2746277.js",
     "static/css/2.d87155fb.chunk.css": "/static/css/2.d87155fb.chunk.css",
     "static/js/2.fc293751.chunk.js": "/static/js/2.fc293751.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.fdc107a1beb58543b39165f86a7a9849.js": "/precache-manifest.fdc107a1beb58543b39165f86a7a9849.js",
+    "precache-manifest.c927dcc4ae4ea77e41956154cec61b84.js": "/precache-manifest.c927dcc4ae4ea77e41956154cec61b84.js",
     "service-worker.js": "/service-worker.js",
     "static/js/2.fc293751.chunk.js.LICENSE.txt": "/static/js/2.fc293751.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.8ebec31f.woff2",
@@ -28,7 +28,7 @@
     "static/js/runtime-main.e2746277.js",
     "static/css/2.d87155fb.chunk.css",
     "static/js/2.fc293751.chunk.js",
-    "static/css/main.64c556db.chunk.css",
-    "static/js/main.74f1f8f7.chunk.js"
+    "static/css/main.575d8438.chunk.css",
+    "static/js/main.a20f2182.chunk.js"
   ]
 }
