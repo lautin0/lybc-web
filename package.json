@@ -45,7 +45,7 @@
     "reactstrap": "8.6.0",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
-    "sass": "^1.26.2"
+    "sass": "^1.27.1"
   },
   "scripts": {
     "start": "react-scripts start",
