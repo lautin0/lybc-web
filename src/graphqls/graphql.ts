@@ -139,6 +139,7 @@ query {
       username
       name
       nameC
+      role
       gender
       title
       titleC
@@ -157,6 +158,7 @@ query {
         username
         name
         nameC
+        role
         gender
         title
         titleC
@@ -181,6 +183,7 @@ query getPostByOID($oid: String!){
       username
       name
       nameC
+      role
       gender
       title
       titleC
@@ -200,6 +203,7 @@ query getPostByOID($oid: String!){
         username
         name
         nameC
+        role
         gender
         title
         titleC
@@ -224,6 +228,7 @@ export const ADD_POST = gql`
         username
         name
         nameC
+        role
         gender
         title
         titleC
@@ -242,6 +247,7 @@ export const ADD_POST = gql`
           username
           name
           nameC
+          role
           gender
           title
           titleC
@@ -267,6 +273,7 @@ export const REACT_TO_POST = gql`
         username
         name
         nameC
+        role
         gender
         title
         titleC
@@ -285,6 +292,7 @@ export const REACT_TO_POST = gql`
           username
           name
           nameC
+          role
           gender
           title
           titleC
