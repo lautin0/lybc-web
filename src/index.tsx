@@ -59,8 +59,9 @@ ReactDOM.render(
           <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" deemed />} />
           <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
           <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
-          <Route path="/worship/:id?" render={props => <MainPageLegacy {...props} page="worship" />} />
           <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
+          <Route path="/worship/:id" render={props => <MainPageLegacy {...props} page="worship" />} />
+          <Redirect from="/worship/" to="/worship-list" />
           <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
           <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
           <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />

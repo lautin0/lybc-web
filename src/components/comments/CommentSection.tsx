@@ -4,10 +4,10 @@ import usePost from 'hooks/usePost';
 import moment from 'moment';
 import React from 'react'
 import { useEffect } from 'react';
-import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
@@ -19,6 +19,8 @@ function CommentSection(props: any) {
   const dispatch = useDispatch()
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+
+  const location = useLocation();
 
   const { commentPending, postData, addComment, setCommentPending } = usePost({ id: id })
 
@@ -58,7 +60,20 @@ function CommentSection(props: any) {
           </div>
         </div>
         <div className="ml-5">
-          <div className="mb-2"><a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 20 }}>{e.username}</a></div>
+          <div className="mb-2">
+            {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{e.user.role === "ADMIN" ? "網站管理人員" : (e.user.role === "WORKER" ? "教會同工" : "")}</Tooltip>}>
+              <a
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
+            </OverlayTrigger>}
+            {e.user.role === "MEMBER" && <a
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
+          </div>
           <p><b>{e.content}</b></p>
           <p className="category">{getTimePastStr(moment(e.creDttm))}</p>
         </div>
@@ -107,7 +122,7 @@ function CommentSection(props: any) {
       </Form>
     </Col>}
     {!tokenPair?.token && <Col style={{ display: 'inline-flex', borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5">
-      <div style={{ fontSize: 18 }}>請先 <Link to="/login-page">登入</Link> 以發表回應</div>
+      <div style={{ fontSize: 18 }}>請先 <Link to={`/login-page?relayState=${location.pathname}`}>登入</Link> 以發表回應</div>
     </Col>}
   </Row>
 }

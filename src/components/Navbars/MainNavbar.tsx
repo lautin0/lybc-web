@@ -160,13 +160,14 @@ function MainNavbar(props: MainNavbarProps) {
                   {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     管理控制台
                   </NavDropdown.Item>}
+                  {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Divider />}
                   <NavDropdown.Item
                     as="a"
                     href="#"
                     onClick={(e: any) => {
                       e.preventDefault();
                       dispatch(signOut())
-                      window.location.href = './'
+                      window.location.href = "./"
                     }}
                   >
                     登出
