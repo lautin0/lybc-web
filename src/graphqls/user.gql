@@ -1,0 +1,43 @@
+enum Role {
+	ADMIN
+	WORKER
+	MEMBER
+}
+
+type User {
+	username: String!
+	password: String!
+	role: Role!
+	name: String!
+	nameC: String!
+	title: String
+	titleC: String
+	dob: Time!
+	gender: Gender!
+	creBy: String!
+	creDttm: Time!
+	lupdBy: String!
+	lupdDttm: Time!
+}
+
+input NewUser {
+	username: String!
+	password: String!
+	role: Role!
+	name: String!
+	nameC: String!
+	title: String
+	titleC: String
+	dob: String!
+	gender: Gender!
+	creBy: String!	
+}
+
+extend type Query {
+	users: [User!]!
+	user(username: String): User
+}
+
+extend type Mutation {
+	createUser(input: NewUser!): User!
+}

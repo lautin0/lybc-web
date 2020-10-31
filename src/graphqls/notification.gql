@@ -1,0 +1,28 @@
+
+type Notification {
+	_id: ObjectID!
+	type: NotificationType!
+  fromUsername: String
+  toUsername: String
+  targetId: ObjectID
+  param: String
+  isRead: Boolean!
+	creDttm: Time!
+}
+
+enum NotificationType {
+	SYSTEM
+	REACTION
+	COMMENT
+	MENTION
+	NEW_COMER_REQUEST
+	POST_APPROVAL
+}
+
+extend type Query {
+	notifications(toUsername: String!): [Notification]!
+}
+
+extend type Mutation {
+	readNotification(input: String!): Notification!
+}

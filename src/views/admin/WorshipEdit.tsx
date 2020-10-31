@@ -115,7 +115,7 @@ function WorshipEdit(props: WorshipEditProps) {
       dispatch(setLoading(true))
       refetch();
     }
-  }, [location, dispatch, refetch, wData])
+  }, [location, dispatch, refetch])
 
   useEffect(() => {
     if (loading === false) {

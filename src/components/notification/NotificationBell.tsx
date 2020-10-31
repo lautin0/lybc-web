@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
+import { Notification } from 'generated/graphql';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,17 +17,11 @@ function NotificationBell(props: any) {
 
   const dispatch = useDispatch()
 
-  const [notifications, setNotifications] = useState<any[]>([])
-
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { data, refetch } = useQuery(GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
+  const { data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
+    (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
   const [readNotification] = useMutation(READ_NOTIFICATIONS)
-
-  useEffect(() => {
-    if (data !== undefined)
-      setNotifications(data.notifications)
-  }, [data])
 
   useEffect(() => {
     refetch && setTimeout(() => {
@@ -35,32 +30,30 @@ function NotificationBell(props: any) {
   }, [location, refetch])
 
   const handleClick = (i: number) => {
-    if (notifications[i].isRead)
+    if (data?.notifications[i].isRead)
       return
-    const update = notifications.map((e, idx) => {
+    const update = data?.notifications.map((e, idx) => {
       if (idx === i)
         return { ...e, isRead: true }
       return e
     })
     readNotification({
       variables: {
-        input: update[i]._id
+        input: update?.[i]._id
       }
     }).catch(e => {
       dispatch(setSystemFailure(e))
     })
-    setNotifications(update)
   }
 
   return <NavDropdown
     id="app-bell"
-    title={<>
+    title={data ? <>
       <i className="fa fa-bell"
-        style={notifications.filter(x => !x.isRead).length > 0 ? { fontSize: 24, transform: 'translateX(10px)' } : { fontSize: 24 }}>
+        style={data?.notifications?.filter(x => !x.isRead).length > 0 ? { fontSize: 24, transform: 'translateX(10px)' } : { fontSize: 24 }}>
       </i>
-      {notifications.filter(x => !x.isRead).length > 0 && <span style={{ position: 'relative' }} className="badge badge-info">{notifications.filter(x => !x.isRead).length}</span>}
-    </>}
-    // style={{ transform: 'translateX(-181px) !important' }}
+      {data?.notifications?.filter(x => !x.isRead).length > 0 && <span style={{ position: 'relative' }} className="badge badge-info">{data && data.notifications.filter(x => !x.isRead).length}</span>}
+    </> : ""}
     className={`${props.className} app-bell-alert`}>
     <NavDropdown.Item
       style={{ width: 290, whiteSpace: 'pre-wrap' }}
@@ -68,8 +61,8 @@ function NotificationBell(props: any) {
       <p style={{ fontSize: 18 }}><strong>通知</strong></p>
     </NavDropdown.Item>
     <NavDropdown.Divider />
-    {notifications.length === 0 && <div className="w-100 text-center text-secondary">沒有通知</div>}
-    {notifications.length > 0 && notifications.map((e: any, idx: number) => {
+    {data && data.notifications.length === 0 && <div className="w-100 text-center text-secondary">沒有通知</div>}
+    {(data && data.notifications.length > 0) && data.notifications.map((e: any, idx: number) => {
       return <div key={e._id}>
         <NavDropdown.Item
           as={Link}

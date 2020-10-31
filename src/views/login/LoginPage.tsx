@@ -30,12 +30,7 @@ function LoginPage() {
 
   //const userDef = useSelector((state: RootState) => state.auth.user)
 
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: {
-      username: null,
-      password: null
-    }
-  })
+  const { register, handleSubmit, errors } = useForm()
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);

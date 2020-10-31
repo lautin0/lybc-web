@@ -1,0 +1,24 @@
+
+enum ReactionType {
+	HALLELUJAH
+	PRAY
+}
+
+type Reaction {
+	_id: ObjectID!
+  postOID: ObjectID!
+	type: ReactionType!
+	username: String!
+	creDttm: Time!
+}
+
+input NewReaction {
+	username: String!
+	toUsername: String
+	postOID: String!
+	type: ReactionType!
+}
+
+extend type Mutation {
+  react(input: NewReaction!): Post!
+}

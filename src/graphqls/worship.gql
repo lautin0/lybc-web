@@ -1,0 +1,46 @@
+
+
+type Worship {
+	worshipId: String!
+	title: String!
+	type: String!
+	messenger: String!
+	note: String, 
+	verse: String, 
+	link: String, 
+	docs: [WorshipDoc!]!
+}
+
+type WorshipDoc {
+	title: String
+	link: String
+	type: String
+}
+
+input NewWorship {
+	worshipId: String!
+	title: String!
+	type: String!
+	messenger: String!
+	note: String
+	verse: String 
+	link: String 
+}
+
+input NewWorshipDoc {
+	title: String
+	type: String
+	link: String 
+}
+
+extend type Query {
+	worships: [Worship!]!
+	worship(worshipId: String): Worship
+	maxWorshipId: Int!
+}
+
+extend type Mutation {
+	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
+	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
+	deleteWorship(input: String): Int!
+}
