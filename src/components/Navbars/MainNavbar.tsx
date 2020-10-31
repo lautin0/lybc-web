@@ -16,6 +16,8 @@ import { RootState } from "reducers";
 import { signOut } from "actions";
 import NotificationBell from "components/notification/NotificationBell";
 
+import logo from "assets/img/lybc_logo.png";
+
 type MainNavbarProps = {
   page: string
 }
@@ -55,7 +57,7 @@ function MainNavbar(props: MainNavbarProps) {
               <img
                 style={{ maxHeight: 30, maxWidth: 30, marginRight: 5 }}
                 alt="logo"
-                src={require("assets/img/lybc_logo.png")}
+                src={logo}
               ></img>
               {" "}綠楊浸信會
             </Navbar.Brand>

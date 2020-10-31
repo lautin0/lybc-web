@@ -4,11 +4,13 @@ import React, { useEffect } from "react";
 import {
   Row,
   Col,
-  Card,
-  Button
-} from "react-bootstrap";
+  Card} from "react-bootstrap";
 
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+
+import bg7 from "assets/img/bg7.jpg";
+import bg5 from "assets/img/bg5.jpg";
+import bg3 from "assets/img/bg3.jpg";
 
 function ChurchResources() {
   const history = useHistory();
@@ -84,7 +86,7 @@ function ChurchResources() {
               onClick={() => { history.push('/worship-list') }}
               style={{ cursor: 'pointer' }}
             >
-              <Card.Img src={require("assets/img/bg7.jpg")} />
+              <Card.Img src={bg7} />
               {/* <Card.ImgOverlay>
                 <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i>
               </Card.ImgOverlay> */}
@@ -106,7 +108,7 @@ function ChurchResources() {
           </Col>
           <Col className="animated animate__animated" md="6" lg="3">
             <Card className="text-center">
-              <Card.Img src={require("assets/img/bg5.jpg")} />
+              <Card.Img src={bg5} />
               {/* <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>
@@ -132,7 +134,7 @@ function ChurchResources() {
               onClick={() => { history.push('/sharing-list') }}
               style={{ cursor: 'pointer' }}
             >
-              <Card.Img src={require("assets/img/bg3.jpg")} />
+              <Card.Img src={bg3} />
               <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>

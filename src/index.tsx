@@ -1,8 +1,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { createBrowserHistory as createHistory } from 'history'
+import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from './reducers'
@@ -23,14 +22,13 @@ import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
 import ErrorPage from "views/error/Error";
 import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
-import AdminPanel from "views/admin/AdminPanel";
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import PrivateRoute from "components/route/PrivateRoute";
 import { Role } from "Universals";
 import { getClient } from "utils/auth.client";
 import DecisionModal from "components/Modals/DecisionModal";
 
-const history = createHistory({ basename: process.env.PUBLIC_URL });
+// const history = createHistory({ basename: process.env.PUBLIC_URL });
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -44,13 +42,13 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <ApolloProvider client={getClient()}>
     <Provider store={store}>
-      <CommonModal />
-      <DecisionModal />
-      <LoadingOverlay />
-      <Router history={history}>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <CommonModal />
+        <DecisionModal />
+        <LoadingOverlay />
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
-          <PrivateRoute path="/admin" role={Role.ADMIN}/>
+          <PrivateRoute path="/admin" role={Role.ADMIN} />
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
           <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
@@ -73,7 +71,7 @@ ReactDOM.render(
           {/* <Redirect to="/index" />
         <Redirect from="/" to="/index" /> */}
         </Switch>
-      </Router>
+      </BrowserRouter>
     </Provider>
   </ApolloProvider>,
   document.getElementById("root")

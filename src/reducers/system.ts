@@ -18,7 +18,7 @@ const extractError = (e: any) => {
         return "網絡錯誤"
 
       case 401:
-        if (e.response.data != "")
+        if (e.response.data !== "")
           return e.response.data;
         else
           return "沒有權限";

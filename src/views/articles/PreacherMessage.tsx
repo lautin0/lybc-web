@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 // react-bootstrap components
 import { Container, Row, Col, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { RootState } from "reducers";
 import { getTokenValue } from "utils/utils";
 // core components
@@ -59,7 +59,7 @@ function PreacherMessage() {
 
   useEffect(() => {
     refetch()
-  }, [location])
+  }, [location, refetch])
 
   useEffect(() => {
     // Check if element is scrolled into footer
@@ -114,6 +114,7 @@ function PreacherMessage() {
       if (userClause.length > 0)
         userClause += ", "
       userClause += user
+      return user
     })
 
     if (userClause.length > 0)

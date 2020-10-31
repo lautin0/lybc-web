@@ -2,7 +2,7 @@ import { take, put, call, fork, takeLeading, all } from 'redux-saga/effects'
 
 import * as actions from '../actions'
 import { api } from '../services'
-import { MSG_OPERATION_SUCCESS, MSG_UPDATE_SUCCESS } from './index'
+import { MSG_OPERATION_SUCCESS } from './index'
 
 export function* fetchNewComers(action: any) {
     const { pageSize, page } = action;

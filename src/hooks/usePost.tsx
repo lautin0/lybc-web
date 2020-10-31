@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_POST, GET_POST } from "graphqls/graphql";
 import { useEffect, useState } from "react";
 
@@ -14,13 +14,13 @@ function usePost(props: any) {
 
   useEffect(() => {
     !called && loadingPost()
-  }, [])
+  }, [called, loadingPost])
 
   useEffect(() => {
     if (comment !== undefined) {
       refetch && refetch()
     }
-  }, [comment])
+  }, [comment, refetch])
 
   useEffect(() => {
     if (loading !== undefined)

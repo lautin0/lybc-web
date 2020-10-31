@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ function NotificationBell(props: any) {
     refetch && setTimeout(() => {
       refetch()
     }, 200);
-  }, [location])
+  }, [location, refetch])
 
   const handleClick = (i: number) => {
     if (notifications[i].isRead)
@@ -75,7 +75,7 @@ function NotificationBell(props: any) {
           as={Link}
           // to={e.path + e.param}
           to={`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param}`}
-          onClick={(e) => {
+          onClick={() => {
             // e.preventDefault()
             handleClick(idx)
           }}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import _ from 'lodash'
 // react-bootstrap components
 import {
   Button,
@@ -16,10 +15,12 @@ import TransparentFooter from "components/Footers/TransparentFooter";
 import { useDispatch } from "react-redux";
 import { signInFailure, signInSuccess } from "actions";
 import { useMutation } from "@apollo/client";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LOGIN, LoginInput } from "graphqls/graphql";
-import { nullOrEmpty } from "utils/utils";
+
+import logo from "assets/img/lybc_logo.png";
+import loginImg from "assets/img/login.jpg";
 
 function LoginPage() {
 
@@ -76,7 +77,7 @@ function LoginPage() {
         history.push('/')
       }
     }
-  }, [data])
+  }, [data, dispatch, location.search, loginError, history])
 
   return (
     <>
@@ -85,7 +86,7 @@ function LoginPage() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/login.jpg") + ")"
+            backgroundImage: "url(" + loginImg + ")"
           }}
         ></div>
         <div className="content">
@@ -105,7 +106,7 @@ function LoginPage() {
                     <div className="logo-container">
                       <img
                         alt="..."
-                        src={require("assets/img/lybc_logo.png")}
+                        src={logo}
                       ></img>
                     </div>
                   </Card.Header>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 // reactstrap components
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 
 // core components
@@ -38,7 +38,7 @@ function MainPageHeader(props: MainPageHeaderType) {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg" + UNIVERSALS.TITLE_MAP[props.page].bg + ".jpg") + ")"
+            backgroundImage: "url(" + UNIVERSALS.TITLE_MAP[props.page].bg + ")"
           }}
           ref={pageHeader}
         ></div>

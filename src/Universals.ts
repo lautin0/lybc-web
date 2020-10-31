@@ -1,4 +1,7 @@
-import jwt_decode from "jwt-decode";
+import bg1 from "assets/img/bg1.jpg"
+import bg13 from "assets/img/bg13.jpg"
+import bg11 from "assets/img/bg11.jpg"
+import bg8 from "assets/img/bg8.jpg"
 
 type UniversalsInfo = {
     TITLE_MAP: any
@@ -15,19 +18,19 @@ export enum Role {
 
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
-        'about-us': { title: '『香港萬國宣道浸信聯會』簡介', subtitle: null, bg: 13 },
-        'journal': { title: '教會月刊', subtitle: null, bg: 1 },
+        'about-us': { title: '『香港萬國宣道浸信聯會』簡介', subtitle: null, bg: bg13 },
+        'journal': { title: '教會月刊', subtitle: null, bg: bg1 },
         'apply-activity': { title: '活動報名', subtitle: null },
-        'contact-us': { title: '聯絡我們', subtitle: null, bg: 13 },
-        'sunday-service-info': { title: '聚會時間', subtitle: null, bg: 13 },
+        'contact-us': { title: '聯絡我們', subtitle: null, bg: bg13 },
+        'sunday-service-info': { title: '聚會時間', subtitle: null, bg: bg13 },
         'worship': { title: '網上崇拜', subtitle: null },
         'worship-list': { title: '網上崇拜', subtitle: `我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；
         他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，
         使榮耀住在我們的地上。
-        (詩篇 85:8-9 和合本2010)`, bg: 11 },
-        'doctrine':{ title: '綠楊浸信會會章之基本信條及聖禮', subtitle: null, bg: 13 },
-        'preacher-message': { title: '牧者的話', subtitle: '黃雪梅 主任傳道', bg: 8 },
-        'sharing-list': { title: '分享欄', subtitle: null, bg: 1 },
+        (詩篇 85:8-9 和合本2010)`, bg: bg11 },
+        'doctrine':{ title: '綠楊浸信會會章之基本信條及聖禮', subtitle: null, bg: bg13 },
+        'preacher-message': { title: '牧者的話', subtitle: '黃雪梅 主任傳道', bg: bg8 },
+        'sharing-list': { title: '分享欄', subtitle: null, bg: bg1 },
         'sharing': { title: '分享欄', subtitle: null }
     },
     MENU_HIERARCHY: {

@@ -9,9 +9,9 @@ import moment from 'moment';
 
 function InfoModal(props: any) {
   const [message, setMessage] = useState<any>();
-  const [title, setTitle] = useState(UNIVERSALS.NOTIFICATION.TITLE);
+  const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
 
-  const { loading, data } = useQuery(GET_MAX_WORSHIP_ID)
+  const { data } = useQuery(GET_MAX_WORSHIP_ID)
 
   const onHide = () => {
     setMessage('');
@@ -34,7 +34,7 @@ function InfoModal(props: any) {
   return (
     <Modal
       {...props}
-      show={message != null && message != ''}
+      show={message != null && message !== ''}
       onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

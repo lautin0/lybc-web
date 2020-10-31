@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import 'react-quill/dist/quill.snow.css'
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 // import domtoimage from 'dom-to-image'
 import ImageModal from "components/Modals/ImageModal";
 import { useDispatch } from "react-redux";
@@ -101,8 +101,8 @@ function Worship() {
             <h2>{`${moment(wData.worship.worshipId, 'YYYYMMDD').format('LL')} ${wData.worship.type}`}</h2>
           </Col>
         </Row>
-        {wData.worship.link != '' && <Row className="justify-content-center mt-3">
-          <iframe width="660" height="371" src={wData.worship.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        {wData.worship.link !== '' && <Row className="justify-content-center mt-3">
+          <iframe title="sermon-video" width="660" height="371" src={wData.worship.link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Row>}
         <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
@@ -116,7 +116,7 @@ function Worship() {
               <div className="mb-2 form-inline">
                 {wData.worship.docs.map((value: any, index: number) => {
                   return <div style={{ width: 'fit-content' }} className="mr-3" key={index}>
-                    <a href={value.link} target="_blank" className="dl-link">
+                    <a href={value.link} rel="noopener noreferrer" target="_blank" className="dl-link">
                       <div>
                         {value.type === 'pdf' && (<i style={{ fontSize: 48, color: '#f04100' }} className="far fa-file-pdf"></i>)}
                         {value.type === 'docx' && (<i style={{ fontSize: 48, color: '#285595' }} className="far fa-file-word"></i>)}

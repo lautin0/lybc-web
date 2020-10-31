@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // react-bootstrap components
 import {
@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 
 import moment from 'moment'
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_WORSHIPS } from "graphqls/graphql";
 // import worshipData from "../../assets/data/data.json"
@@ -24,44 +24,23 @@ function WorshipList() {
 
   const { loading, data: worshipData } = useQuery(GET_WORSHIPS)
 
-  useEffect(() => {
-    if (worshipData === undefined)
+  const onPageChanged = useCallback((page: number) => {
+    if (page > Math.ceil(data.length / pageSize) || page === 0)
       return
-    let tmp: any = [...worshipData.worships]
-    setData(tmp?.sort((a: any, b: any) => {
-      if (a.worshipId > b.worshipId) {
-        return -1
-      } else if (a.worshipId < b.worshipId) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-      .map((x: any) => {
-        return {
-          worshipId: x.worshipId,
-          date: moment(x.worshipId, 'YYYYMMDD'),
-          title: x.type == '分享主日' ? '分享主日' : x.title,
-          messenger: x.messenger == '' ? '---' : x.messenger
-        }
-      }))
-  }, [worshipData])
-
-  useEffect(() => {
-    if (data !== undefined)
-      onPageChanged(1)
+    let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
+    for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
+      data[i] && array.push(data[i])
+    }
+    setPageItems(array)
+    setPageNumber(page)
   }, [data])
-
-  useEffect(() => {
-    document.title = "網上崇拜"
-  },[])
-
+  
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
   };
 
   let items = [];
-  if (pageItems == null || pageItems.length == 0) {
+  if (pageItems == null || pageItems.length === 0) {
     items.push(<Pagination.First key={1} />, <Pagination.Prev key={2} />)
     items.push(
       <Pagination.Item key={3} active disabled>
@@ -83,22 +62,41 @@ function WorshipList() {
       <Pagination.Last key={Math.ceil(data.length / pageSize) + 4} onClick={() => onPageChanged(Math.ceil(data.length / pageSize))} />)
   }
 
-  const onPageChanged = (page: number) => {
-    if (page > Math.ceil(data.length / pageSize) || page == 0)
+  useEffect(() => {
+    if (worshipData === undefined)
       return
-    let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
-    for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
-      data[i] && array.push(data[i])
-    }
-    setPageItems(array)
-    setPageNumber(page)
-  }
+    let tmp: any = [...worshipData.worships]
+    setData(tmp?.sort((a: any, b: any) => {
+      if (a.worshipId > b.worshipId) {
+        return -1
+      } else if (a.worshipId < b.worshipId) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+      .map((x: any) => {
+        return {
+          worshipId: x.worshipId,
+          date: moment(x.worshipId, 'YYYYMMDD'),
+          title: x.type === '分享主日' ? '分享主日' : x.title,
+          messenger: x.messenger === '' ? '---' : x.messenger
+        }
+      }))
+  }, [worshipData])
 
   useEffect(() => {
+    if (data !== undefined)
+      onPageChanged(1)
+  }, [data, onPageChanged])
 
+  useEffect(() => {
+    document.title = "網上崇拜"
+  },[])
+
+  useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
-
   }, [])
 
   return (
@@ -125,12 +123,12 @@ function WorshipList() {
                     <span className="sr-only">Loading...</span>
                   </div>
                 </th></tr>}
-                {((pageItems == null || pageItems.length == 0) && !loading) && <tr><th className="text-center" colSpan={4}>沒有記錄</th></tr>}
+                {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={4}>沒有記錄</th></tr>}
                 {
                   (pageItems && pageItems.length > 0) && pageItems.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
                       <td onClick={() => onCellClicked(value.worshipId)}>{value.messenger}</td>
                       <td onClick={() => onCellClicked(value.worshipId)}><a href="#">前往</a></td>
                     </tr>

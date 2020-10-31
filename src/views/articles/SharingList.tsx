@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 // core components
 
@@ -75,7 +75,7 @@ function SharingList() {
                 >
                   <Nav.Item>
                     <Nav.Link
-                      className={pills == "1" ? "active" : ""}
+                      className={pills === "1" ? "active" : ""}
                       // href="#pablo"
                       onClick={(e: any) => {
                         e.preventDefault();
@@ -87,7 +87,7 @@ function SharingList() {
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link
-                      className={pills == "2" ? "active" : ""}
+                      className={pills === "2" ? "active" : ""}
                       // href="#pablo"
                       onClick={(e: any) => {
                         e.preventDefault();
@@ -99,7 +99,7 @@ function SharingList() {
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link
-                      className={pills == "3" ? "active" : ""}
+                      className={pills === "3" ? "active" : ""}
                       // href="#pablo"
                       onClick={(e: any) => {
                         e.preventDefault();
@@ -147,92 +147,14 @@ function SharingList() {
                       </blockquote>
                     </Card.Body>
                   </Col>
-                  {/* <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg1.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg3.jpg")}
-                        ></img>
-                      </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                      </Col>
-                    </Row> */}
                 </Col>
               </Tab>
               <Tab eventKey="2" title={null}>
                 <Col className="ml-auto mr-auto" md="10">
-                  {/* <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg6.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg11.jpg")}
-                        ></img>
-                      </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
-                      </Col>
-                    </Row> */}
                 </Col>
               </Tab>
               <Tab eventKey="3" title={null}>
                 <Col className="ml-auto mr-auto" md="10">
-                  {/* <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg3.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
-                      </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg6.jpg")}
-                        ></img>
-                      </Col>
-                    </Row> */}
                 </Col>
               </Tab>
             </Tabs>

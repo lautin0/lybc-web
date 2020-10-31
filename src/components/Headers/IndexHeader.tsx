@@ -5,6 +5,9 @@ import React from "react";
 import { Container } from "react-bootstrap";
 // core components
 
+import logo from "assets/img/lybc_logo.png";
+import bg12 from "assets/img/bg12.jpg";
+
 function IndexHeader() {
   let pageHeader: any = React.createRef();
 
@@ -26,7 +29,7 @@ function IndexHeader() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg12.jpg") + ")"
+            backgroundImage: "url(" + bg12 + ")"
           }}
           ref={pageHeader}
         ></div>
@@ -35,7 +38,7 @@ function IndexHeader() {
             <img
               alt="..."
               className="n-logo"
-              src={require("assets/img/lybc_logo.png")}
+              src={logo}
             ></img>
             <h1 className="h1-seo">綠楊浸信會</h1>
             <h3>Luk Yeung Baptist Church</h3>

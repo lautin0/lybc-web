@@ -11,8 +11,7 @@ import Theme from "./index-sections/Theme";
 import NewComerForm from "./index-sections/NewComerForm";
 import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
-import Images from "./index-sections/Images";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { signInSuccess, signOut } from "actions";
 import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +27,7 @@ function Index() {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const [refreshToken, { data, loading: refreshTokenLoading, error: refreshTokenError }] = useMutation(REFRESH_TOKEN);
+  const [refreshToken, { data }] = useMutation(REFRESH_TOKEN);
 
 
   React.useEffect(() => {
@@ -50,18 +49,18 @@ function Index() {
   useEffect(() => {
     if (data !== undefined)
       dispatch(signInSuccess(data.refreshToken))
-  }, [data])
+  }, [data, dispatch])
 
   useEffect(() => {
     if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
       const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
       refreshToken({ variables: { input: payload } })
-        .catch(err => {
+        .catch(() => {
           // dispatch(signInFailure(err))
           dispatch(signOut())
         })
     }
-  }, [location])
+  }, [location, dispatch, refreshToken, tokenPair])
 
   return (
     <>

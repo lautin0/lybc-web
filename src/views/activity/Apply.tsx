@@ -40,7 +40,7 @@ function Apply() {
                 </tr>
               </thead>
               <tbody>
-                {(data == null || data.length == 0) && <tr><th className="text-center" colSpan={3}>沒有記錄</th></tr>}
+                {(data == null || data.length === 0) && <tr><th className="text-center" colSpan={3}>沒有記錄</th></tr>}
                 {
                   (data && data.length > 0) && data.map((value, index) => {
                     return <tr key={index}>

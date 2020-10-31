@@ -4,8 +4,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 import AdminPanel from 'views/admin/AdminPanel';
-import WorshipCreate from 'views/admin/WorshipCreate';
-import WorshipManage from 'views/admin/WorshipManage';
 import ErrorPage from 'views/error/Error';
 
 function PrivateRoute({path, role }: any) {

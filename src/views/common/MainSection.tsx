@@ -7,6 +7,11 @@ import {
   Col,
 } from "react-bootstrap";
 
+import bg7 from "assets/img/bg7.jpg"
+import bg3 from "assets/img/bg3.jpg"
+import bg8 from "assets/img/bg8.jpg"
+import bg4 from "assets/img/bg4.jpg"
+
 function MainSection() {
   return (
     <>
@@ -20,7 +25,7 @@ function MainSection() {
               <img
                 alt="..."
                 className="img-raised"
-                src={require("assets/img/bg7.jpg")}
+                src={bg7}
                 style={{ marginLeft: 40, maxWidth: '80%' }}
               ></img>
               <div className="overlay">
@@ -31,7 +36,7 @@ function MainSection() {
               <img
                 alt="..."
                 className="img-raised"
-                src={require("assets/img/bg3.jpg")}
+                src={bg3}
                 style={{ marginLeft: 40, maxWidth: '80%' }}
               ></img>
               <div className="overlay">
@@ -44,7 +49,7 @@ function MainSection() {
               <img
                 alt="..."
                 className="img-raised"
-                src={require("assets/img/bg8.jpg")}
+                src={bg8}
                 style={{ marginLeft: 40, maxWidth: '80%' }}
               ></img>
               <div className="overlay">
@@ -55,7 +60,7 @@ function MainSection() {
               <img
                 alt="..."
                 className="img-raised"
-                src={require("assets/img/bg4.jpg")}
+                src={bg4}
                 style={{ marginLeft: 40, maxWidth: '80%' }}
               ></img>
               <div className="overlay">

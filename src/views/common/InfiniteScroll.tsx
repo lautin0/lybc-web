@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNewComers } from 'actions';
 import { Card, Col, Container, Spinner } from 'react-bootstrap';
@@ -13,7 +13,7 @@ function InfiniteScroll() {
   const pageSize = useRef(3);
   const dispatch = useDispatch()
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st <= lastScrollTop.current) {
       lastScrollTop.current = st <= 0 ? 0 : st;
@@ -32,10 +32,10 @@ function InfiniteScroll() {
       dispatch(fetchNewComers(pageSize.current, page.current));
       page.current++
     }
-  }
+  }, [dispatch])
 
   useEffect(() => {
-    if (page.current == 1) {
+    if (page.current === 1) {
       dispatch(fetchNewComers(pageSize.current, page.current));
       page.current++;
     }
@@ -47,7 +47,7 @@ function InfiniteScroll() {
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [])
+  }, [dispatch, handleScroll])
 
   return (
     <>

@@ -1,8 +1,8 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/comments/CommentSection";
 import DOMPurify from "dompurify";
-import { ADD_POST, GET_POST, REACT_TO_POST } from "graphqls/graphql";
+import { REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { Tooltip, Container, Row, OverlayTrigger, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 // react-bootstrap components
-import { useLocation, useParams } from "react-router";
+import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
 import { getTokenValue } from "utils/utils";
 
@@ -65,7 +65,7 @@ function Sharing() {
 
   useEffect(() => {
     refetch && refetch()
-  }, [location])
+  }, [location, refetch])
 
   useEffect(() => {
     // Check if element is scrolled into footer
@@ -91,7 +91,7 @@ function Sharing() {
       }
     }
 
-    window.addEventListener("scroll", (e: any) => {
+    window.addEventListener("scroll", () => {
       handleScroll();
     })
 
@@ -116,10 +116,11 @@ function Sharing() {
 
     let sentence = "{0}{1}表示 " + text
     let userClause = ""
-    usernames.slice(0, 2).map((user: any, i: number) => {
+    usernames.slice(0, 2).map((user: any) => {
       if (userClause.length > 0)
         userClause += ", "
       userClause += user
+      return user
     })
 
     if (userClause.length > 0)

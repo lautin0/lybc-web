@@ -1,4 +1,4 @@
-import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT, SET_SYSTEM_FAILURE, SET_SYSTEM_MESSAGE, DECISION_REQUEST, DECISION_COMPLETE } from './system/types'
+import { SystemActionTypes, RESET_SYSTEM_ERROR, SET_LOADING, RESET_SAGA_RESULT, SET_SYSTEM_FAILURE, DECISION_REQUEST, DECISION_COMPLETE } from './system/types'
 
 export function resetSysError(): SystemActionTypes{
     return {

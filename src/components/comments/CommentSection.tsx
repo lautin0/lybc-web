@@ -12,6 +12,8 @@ import { RootState } from 'reducers';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
+import defaultAvator from "assets/img/default-avatar.png";
+
 function CommentSection(props: any) {
 
   const { id, type } = props
@@ -48,15 +50,15 @@ function CommentSection(props: any) {
   useEffect(() => {
     if (commentPending !== undefined)
       !commentPending && reset()
-  }, [commentPending])
+  }, [commentPending, reset])
 
   return <Row className="justify-content-md-center mt-5">
     <Col md={12} lg={8} className="mb-3"><h4>回應</h4></Col>
     {postData && postData.post.comments.map((e: any) => {
-      return <Col key={e._id} style={{ display: 'inline-flex' }} md={12} lg={8} className="my-2">
+      return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
-            <img alt="..." src={require("assets/img/default-avatar.png")}></img>
+            <img alt="..." src={defaultAvator}></img>
           </div>
         </div>
         <div className="ml-5">
@@ -65,13 +67,13 @@ function CommentSection(props: any) {
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+                className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
               >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
             </OverlayTrigger>}
             {e.user.role === "MEMBER" && <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className={"comment-user-link " + (e.user.role == "ADMIN" ? "admin" : (e.user.role == "WORKER" ? "worker" : ""))}
+                className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
               >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
           </div>
           <p><b>{e.content}</b></p>
@@ -79,13 +81,17 @@ function CommentSection(props: any) {
         </div>
       </Col>
     })}
-    {tokenPair?.token && <Col style={{ display: 'inline-flex', borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5">
+    {tokenPair?.token && <Col 
+      style={{ borderTop: '.5px lightgrey solid' }} 
+      md={12} lg={8} 
+      className="my-2 pt-5 d-md-inline-flex"
+    >
       <div className="profile-page pt-3">
-        <div className="photo-container" style={{ width: 50, height: 50 }}>
-          <img alt="..." src={require("assets/img/default-avatar.png")}></img>
+        <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 50, height: 50 }}>
+          <img alt="..." src={defaultAvator}></img>
         </div>
       </div>
-      <Form className="ml-5 col-10" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="ml-md-5 col-md-10 col-sm-12" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2" style={{ fontSize: 20 }}>您的回應</div>
         <Form.Control
           style={{
@@ -121,7 +127,7 @@ function CommentSection(props: any) {
         </div>
       </Form>
     </Col>}
-    {!tokenPair?.token && <Col style={{ display: 'inline-flex', borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5">
+    {!tokenPair?.token && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
       <div style={{ fontSize: 18 }}>請先 <Link to={`/login-page?relayState=${location.pathname}`}>登入</Link> 以發表回應</div>
     </Col>}
   </Row>

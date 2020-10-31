@@ -116,7 +116,7 @@ function AdminPanel(props: AdminPanelProps) {
                 || props.func === 'page-management')
                 && <AdminHeader func={props.func} />}
               {props.func == null && <div style={{ marginLeft: 25, marginTop: 120 }}>
-                <h2 style={{ color: 'gray' }}><em>選擇想使用的功能 ⚙️</em></h2>
+                <h2 style={{ color: 'gray' }}><em>選擇想使用的功能 <span role="img" aria-label="cog image">⚙️</span></em></h2>
               </div>}
               <div className="content-panel">
                 {props.func === 'new-worship' && <WorshipCreate />}

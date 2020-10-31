@@ -5,6 +5,8 @@ import { Container, Row, Col } from "react-bootstrap";
 
 // core components
 
+import photoSq5 from "assets/img/photo5_sq.jpg";
+
 function Theme() {
   return (
     <>
@@ -13,7 +15,7 @@ function Theme() {
           <Row>
             <Col className="justify-content-center text-center" md="6">
               <h2>以聖言為中心的信仰</h2>
-              <img style={{maxHeight: 400}} src={require("assets/img/photo5_sq.jpg")} alt="bible" />
+              <img style={{maxHeight: 400}} src={photoSq5} alt="bible" />
             </Col>
             <Col className="justify-content-center text-center my-auto" md="6">
               <h3 className="mt-5">我們重視什麽？</h3>

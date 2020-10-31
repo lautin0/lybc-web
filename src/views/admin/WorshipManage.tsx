@@ -2,10 +2,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
 import moment from 'moment';
-import React, { SyntheticEvent, useEffect, useState } from 'react'
+import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function WorshipManage() {
 
@@ -20,41 +20,9 @@ function WorshipManage() {
   const [data, setData] = useState([])
   const pageSize = 5;
 
-  const { loading, error, data: worshipData, refetch } = useQuery(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: worshipData, refetch } = useQuery(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
 
-  const [deleteWorship, { data: deleteResult, loading: deleteWorshipLoading, error: deleteWorshipError }] = useMutation(DELETE_WORSHIP)
-
-  useEffect(() => {
-    if (worshipData === undefined)
-      return
-    let tmp: any = [...worshipData.worships]
-    setData(tmp?.sort((a: any, b: any) => {
-      if (a.worshipId > b.worshipId) {
-        return -1
-      } else if (a.worshipId < b.worshipId) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-      .map((x: any) => {
-        return {
-          worshipId: x.worshipId,
-          date: moment(x.worshipId, 'YYYYMMDD'),
-          title: x.type == '分享主日' ? '分享主日' : x.title,
-          messenger: x.messenger == '' ? '---' : x.messenger
-        }
-      }))
-  }, [worshipData])
-
-  useEffect(() => {
-    if (data !== undefined)
-      onPageChanged(1)
-  }, [data])
-
-  useEffect(() => {
-    document.title = "網上崇拜"
-  }, [])
+  const [deleteWorship, { data: deleteResult }] = useMutation(DELETE_WORSHIP)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()
@@ -73,19 +41,8 @@ function WorshipManage() {
     history.push('/admin/worship/' + id)
   }
 
-  useEffect(() => {
-    if (deleteResult != null && deleteResult.deleteWorship > 0) {
-      dispatch(setLoading(false))
-      refetch()
-    }
-  }, [deleteResult])
-
-  useEffect(() => {
-    worshipData && refetch();
-  }, [location])
-
   let items = [];
-  if (pageItems == null || pageItems.length == 0) {
+  if (pageItems == null || pageItems.length === 0) {
     items.push(<Pagination.First key={1} />, <Pagination.Prev key={2} />)
     items.push(
       <Pagination.Item key={3} active disabled>
@@ -107,8 +64,8 @@ function WorshipManage() {
       <Pagination.Last key={Math.ceil(data.length / pageSize) + 4} onClick={() => onPageChanged(Math.ceil(data.length / pageSize))} />)
   }
 
-  const onPageChanged = (page: number) => {
-    if (page > Math.ceil(data.length / pageSize) || page == 0)
+  const onPageChanged = useCallback((page: number) => {
+    if (page > Math.ceil(data.length / pageSize) || page === 0)
       return
     let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
     for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
@@ -116,7 +73,50 @@ function WorshipManage() {
     }
     setPageItems(array)
     setPageNumber(page)
-  }
+  }, [data])
+
+  useEffect(() => {
+    if (worshipData === undefined)
+      return
+    let tmp: any = [...worshipData.worships]
+    setData(tmp?.sort((a: any, b: any) => {
+      if (a.worshipId > b.worshipId) {
+        return -1
+      } else if (a.worshipId < b.worshipId) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+      .map((x: any) => {
+        return {
+          worshipId: x.worshipId,
+          date: moment(x.worshipId, 'YYYYMMDD'),
+          title: x.type === '分享主日' ? '分享主日' : x.title,
+          messenger: x.messenger === '' ? '---' : x.messenger
+        }
+      }))
+  }, [worshipData])
+
+  useEffect(() => {
+    if (data !== undefined)
+      onPageChanged(1)
+  }, [data, onPageChanged])
+
+  useEffect(() => {
+    document.title = "網上崇拜"
+  }, [])
+
+  useEffect(() => {
+    if (deleteResult != null && deleteResult.deleteWorship > 0) {
+      dispatch(setLoading(false))
+      refetch()
+    }
+  }, [deleteResult, dispatch, refetch])
+
+  useEffect(() => {
+    worshipData && refetch();
+  }, [location, refetch, worshipData])
 
   return (
     <>
@@ -141,12 +141,12 @@ function WorshipManage() {
                   <span className="sr-only">Loading...</span>
                 </div>
               </th></tr>}
-              {((pageItems == null || pageItems.length == 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
+              {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
               {
                 (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value, index) => {
                   return <tr key={index}>
                     <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                    <td>{value.title}{(index == 0 && pageNumber == 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                    <td>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
                     <td>{value.messenger}</td>
                     <td><a onClick={(e: any) => onEditClicked(e, value.worshipId)}><i className="fa fa-pencil-alt"></i></a></td>
                     <td><a onClick={(e: any) => onDeleteClicked(e, value.worshipId)}><i className="fa fa-trash"></i></a></td>

@@ -76,7 +76,7 @@ function WorshipCreate() {
       reset();
       history.push('/admin/worships')
     }
-  }, [data])
+  }, [data, dispatch, reset, history])
 
   useEffect(() => {
     register('note')

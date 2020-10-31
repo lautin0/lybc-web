@@ -1,0 +1,26 @@
+{
+  "COMMON": {
+    "NOTIFICATION_TYPE": {
+      "SYSTEM": {
+        "LABEL": ""
+      },
+      "REACTION": {
+        "LABEL": "對您的見證表達了心情",
+        "PATH": "sharing"
+      },
+      "COMMENT": {
+        "LABEL": "回應了您的見證",
+        "PATH": "sharing"
+      },
+      "MENTION": {
+        "LABEL": ""
+      },
+      "NEW_COMER_REQUEST": {
+        "LABEL": ""
+      },
+      "POST_APPROVAL": {
+        "LABEL": ""
+      }
+    }
+  }
+}

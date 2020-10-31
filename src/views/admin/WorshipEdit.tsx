@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import Validators from 'utils/validator';
 
@@ -90,7 +90,7 @@ function WorshipEdit(props: WorshipEditProps) {
       reset();
       history.push('/admin/worships')
     }
-  }, [data])
+  }, [data, history, dispatch, reset])
 
   useEffect(() => {
     register('note')
@@ -100,7 +100,7 @@ function WorshipEdit(props: WorshipEditProps) {
   useEffect(() => {
     document.title = "管理控制台"
     dispatch(setLoading(true))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (wData !== undefined) {
@@ -108,20 +108,20 @@ function WorshipEdit(props: WorshipEditProps) {
         reset(wData.worship)
       })
     }
-  }, [wData])
+  }, [wData, reset])
 
   useEffect(() => {
     if (wData != null) {
       dispatch(setLoading(true))
       refetch();
     }
-  }, [location])
+  }, [location, dispatch, refetch, wData])
 
   useEffect(() => {
     if (loading === false) {
       dispatch(setLoading(false))
     }
-  }, [loading])
+  }, [loading, dispatch])
 
   useEffect(() => {
     if (fields !== undefined) {
@@ -132,12 +132,12 @@ function WorshipEdit(props: WorshipEditProps) {
           setValue(`docs[${idx}]`, field)
       })
     }
-  }, [fields])
+  }, [fields, setValue])
 
   useEffect(() => {
     if (watchType !== undefined)
       trigger()
-  }, [watchType])
+  }, [watchType, trigger])
 
   const addRow = () => {
     append({ title: '', link: '', type: '' })

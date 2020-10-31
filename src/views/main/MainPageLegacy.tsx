@@ -37,7 +37,7 @@ function MainPageLegacy(props: MainPageProps) {
     <>
       <MainNavbar page={props.page} />
       <div className="wrapper">
-        <div className="main" style={props.page == 'preacher-message' ? { top: 114, background: 'lightyellow' } : { top: 114 }}>
+        <div className="main" style={props.page === 'preacher-message' ? { top: 114, background: 'lightyellow' } : { top: 114 }}>
           <div>
             <Breadcrumb as="nav">
               {menus && menus.map((value: any, index: number) => {
@@ -48,11 +48,11 @@ function MainPageLegacy(props: MainPageProps) {
               })}
             </Breadcrumb>
           </div>
-          {props.page == 'apply-activity' && <Apply />}
-          {props.page == 'test' && <InfiniteScroll />}
+          {props.page === 'apply-activity' && <Apply />}
+          {props.page === 'test' && <InfiniteScroll />}
           {/* {props.page == 'search' && <SearchBooks />} */}
-          {props.page == 'worship' && <Worship />}
-          {props.page == 'sharing' && <Sharing />}
+          {props.page === 'worship' && <Worship />}
+          {props.page === 'sharing' && <Sharing />}
         </div>
         <DefaultFooter />
       </div>
