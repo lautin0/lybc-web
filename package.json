@@ -88,7 +88,7 @@
     "@types/enzyme": "^3.10.7",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jwt-decode": "^2.2.1",
-    "@types/lodash": "^4.14.163",
+    "@types/lodash": "^4.14.164",
     "gh-pages": "^2.1.1"
   }
 }
