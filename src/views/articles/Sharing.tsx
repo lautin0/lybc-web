@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/comments/CommentSection";
 import DOMPurify from "dompurify";
+import { NewReaction, Post, ReactionType } from "generated/graphql";
 import { REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
@@ -28,11 +29,11 @@ function Sharing() {
 
   const [post, setPost] = useState<any>()
 
-  const [react, { data: result }] = useMutation(REACT_TO_POST);
+  const [react, { data: result }] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST);
 
   const { loading, postData, refetch } = usePost({ id: id })
 
-  const setReaction = (reaction: string) => {
+  const setReaction = (reaction: ReactionType) => {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('請先登入'))
       return
@@ -41,9 +42,9 @@ function Sharing() {
       variables: {
         input: {
           username: getTokenValue(tokenPair?.token).username,
-          postOID: postData.post._id,
-          type: reaction.toUpperCase(),
-          toUsername: postData.post.user.username
+          postOID: postData?.post._id,
+          type: reaction,
+          toUsername: postData?.post.user.username
         },
       }
     }).catch(e => {
@@ -167,7 +168,7 @@ function Sharing() {
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
+                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
@@ -175,7 +176,7 @@ function Sharing() {
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
+                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>
@@ -195,7 +196,7 @@ function Sharing() {
           <Row className="text-left mt-5" id="reaction-bar">
             <Col className="form-inline" lg={{ offset: 2 }}>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
+                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
@@ -203,7 +204,7 @@ function Sharing() {
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
+                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>

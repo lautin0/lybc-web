@@ -3,6 +3,7 @@ import { setSysMessage, setLoading, setSystemFailure } from 'actions';
 import InputDropdown from 'components/forms/InputDropdown';
 import InputQuill from 'components/forms/InputQuill';
 import InputText from 'components/forms/InputText';
+import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { ADD_WORSHIP } from 'graphqls/graphql';
 import React, { useEffect } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
@@ -21,6 +22,10 @@ function WorshipCreate() {
   const methods = useForm({
     defaultValues: {
       ...formDef,
+      link: '',
+      note: '',
+      verse: '',
+      docs: [ ...formDef.docs ] as object
     }
   })
 
@@ -31,7 +36,10 @@ function WorshipCreate() {
     name: "docs"
   });
 
-  const [addWorship, { data }] = useMutation(ADD_WORSHIP);
+  const [addWorship, { data }] = useMutation<
+    { createWorship: Worship },
+    { input: NewWorship, docs: NewWorshipDoc[] }
+  >(ADD_WORSHIP);
 
   const dispatch = useDispatch();
 

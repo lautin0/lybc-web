@@ -39,7 +39,7 @@ function CommentSection(props: any) {
           type: type,
           content: data.content,
           username: getTokenValue(tokenPair?.token)?.username,
-          toUsername: postData.post.user.username
+          toUsername: postData?.post?.user.username
         },
       }
     }).catch(e => {

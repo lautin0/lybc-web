@@ -44,7 +44,10 @@ export default function authStatus(
     default:
       return {
         ...state,
-        tokenPair: { token: localStorage.getItem("token"), refreshToken: localStorage.getItem("refreshToken") }
+        tokenPair: {
+          token: localStorage.getItem("token")!,
+          refreshToken: localStorage.getItem("refreshToken")!
+        }
       }
   }
 }

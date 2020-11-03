@@ -12,7 +12,7 @@ import moment from 'moment'
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_WORSHIPS } from "graphqls/graphql";
-// import worshipData from "../../assets/data/data.json"
+import { Worship } from "generated/graphql";
 
 function WorshipList() {
   const history = useHistory();
@@ -22,7 +22,7 @@ function WorshipList() {
   const [data, setData] = useState([])
   const pageSize = 5;
 
-  const { loading, data: worshipData } = useQuery(GET_WORSHIPS)
+  const { loading, data: worshipData } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS)
 
   const onPageChanged = useCallback((page: number) => {
     if (page > Math.ceil(data.length / pageSize) || page === 0)

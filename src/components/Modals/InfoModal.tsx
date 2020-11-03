@@ -11,7 +11,7 @@ function InfoModal(props: any) {
   const [message, setMessage] = useState<any>();
   const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
 
-  const { data } = useQuery(GET_MAX_WORSHIP_ID)
+  const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
 
   const onHide = () => {
     setMessage('');

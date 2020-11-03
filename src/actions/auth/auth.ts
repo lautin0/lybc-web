@@ -1,5 +1,6 @@
-import { AuthActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, TokenPair, SignOutAction, SIGN_OUT } from "./types"
+import { AuthActionTypes, User, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, SignOutAction, SIGN_OUT } from "./types"
 import { SagaResult } from "store/system/types"
+import { TokenPair } from "generated/graphql"
 
 export function signIn(user: User): AuthActionTypes {
   return {

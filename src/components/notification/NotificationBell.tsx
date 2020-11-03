@@ -21,7 +21,10 @@ function NotificationBell(props: any) {
 
   const { data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
     (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
-  const [readNotification] = useMutation(READ_NOTIFICATIONS)
+  const [readNotification] = useMutation<
+      { readNotification: string },
+      { input: string }
+    >(READ_NOTIFICATIONS)
 
   useEffect(() => {
     refetch && setTimeout(() => {

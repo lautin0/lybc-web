@@ -13,11 +13,12 @@ import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
 import { signInSuccess, signOut } from "actions";
-import { RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
+import { REFRESH_TOKEN } from "graphqls/graphql";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { isTokenExpired } from "utils/utils";
 import { useMutation } from "@apollo/client";
+import { RefreshTokenInput, TokenPair } from "generated/graphql";
 
 function Index() {
 
@@ -27,7 +28,10 @@ function Index() {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const [refreshToken, { data }] = useMutation(REFRESH_TOKEN);
+  const [refreshToken, { data }] = useMutation<
+    { refreshToken: TokenPair },
+    { input: RefreshTokenInput }
+  >(REFRESH_TOKEN);
 
 
   React.useEffect(() => {
@@ -47,7 +51,7 @@ function Index() {
   }, [])
 
   useEffect(() => {
-    if (data !== undefined)
+    if (data !== undefined && data?.refreshToken !== undefined)
       dispatch(signInSuccess(data.refreshToken))
   }, [data, dispatch])
 

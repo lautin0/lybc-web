@@ -1,5 +1,5 @@
-import { AdminWorshipForm } from "actions";
+import { Worship } from "generated/graphql";
 
 export interface AdminState {
-    formInstance: AdminWorshipForm
+    formInstance: Worship
 }

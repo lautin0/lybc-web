@@ -3,6 +3,7 @@ import { setSysMessage, setLoading, setSystemFailure } from 'actions';
 import InputDropdown from 'components/forms/InputDropdown';
 import InputQuill from 'components/forms/InputQuill';
 import InputText from 'components/forms/InputText';
+import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
 import React, { useEffect, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
@@ -26,12 +27,19 @@ function WorshipEdit(props: WorshipEditProps) {
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
-  const [updateWorship, { data }] = useMutation(UPDATE_WORSHIP);
-  const { loading, data: wData, refetch } = useQuery(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
+  const [updateWorship, { data }] = useMutation<
+    { updateWorship: any },
+    { input: NewWorship, docs: NewWorshipDoc[] }
+  >(UPDATE_WORSHIP);
+  const { loading, data: wData, refetch } = useQuery<{ worship: Worship },{ worshipId: string }>(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm({
     defaultValues: {
       ...formDef,
+      link: '',
+      note: '',
+      verse: '',
+      docs: [ ...formDef.docs ] as object
     }
   })
 
@@ -105,7 +113,12 @@ function WorshipEdit(props: WorshipEditProps) {
   useEffect(() => {
     if (wData !== undefined) {
       setTimeout(() => {
-        reset(wData.worship)
+        reset({ 
+          ...wData.worship,
+          note: wData.worship.note!,
+          link: wData.worship.link!,
+          verse: wData.worship.verse!,
+        })
       })
     }
   }, [wData, reset])

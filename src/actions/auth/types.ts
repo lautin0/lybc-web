@@ -1,3 +1,4 @@
+import { TokenPair } from "generated/graphql"
 import { SagaResult } from "store/system/types"
 
 export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST'
@@ -10,10 +11,10 @@ export type User = {
   password: string
 }
 
-export type TokenPair = {
-    token: string | null,
-    refreshToken: string | null
-}
+// export type TokenPair = {
+//     token: string | null,
+//     refreshToken: string | null
+// }
 
 export interface SignInRequestAction {
     type: typeof SIGN_IN_REQUEST,

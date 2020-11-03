@@ -21,6 +21,7 @@ import { LOGIN, LoginInput } from "graphqls/graphql";
 
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
+import { Login, TokenPair } from "generated/graphql";
 
 function LoginPage() {
 
@@ -36,7 +37,7 @@ function LoginPage() {
   const [lastFocus, setLastFocus] = useState(false);
   const dispatch = useDispatch();
 
-  const [login, { data, loading: loginLoading, error: loginError }] = useMutation(LOGIN, { errorPolicy: 'all' });
+  const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, { input: Login }>(LOGIN, { errorPolicy: 'all' });
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -63,7 +64,7 @@ function LoginPage() {
       dispatch(signInFailure(loginError))
       return
     }
-    if (data !== undefined) {
+    if (data !== undefined && data?.login !== undefined) {
       dispatch(signInSuccess(data.login))
       const relayState = new URLSearchParams(location.search).get('relayState')
       if (relayState != null) {

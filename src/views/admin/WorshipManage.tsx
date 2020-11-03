@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
+import { Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
@@ -20,9 +21,12 @@ function WorshipManage() {
   const [data, setData] = useState([])
   const pageSize = 5;
 
-  const { loading, data: worshipData, refetch } = useQuery(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: worshipData, refetch } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
 
-  const [deleteWorship, { data: deleteResult }] = useMutation(DELETE_WORSHIP)
+  const [deleteWorship, { data: deleteResult }] = useMutation<
+   { deleteWorship: any },
+   { input: string }
+  >(DELETE_WORSHIP)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()

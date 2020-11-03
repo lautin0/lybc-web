@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/comments/CommentSection";
+import { NewReaction, Post, ReactionType } from "generated/graphql";
 import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import { Container, Row, Col, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { RootState } from "reducers";
-import { getTokenValue } from "utils/utils";
+import { getKeyValue, getTokenValue } from "utils/utils";
 // core components
 
 function PreacherMessage() {
@@ -23,10 +24,10 @@ function PreacherMessage() {
 
   const [post, setPost] = useState<any>()
 
-  const [react, { data: result }] = useMutation(REACT_TO_POST);
-  const { loading, data, refetch } = useQuery(GET_POST, { variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true });
+  const [react, { data: resultPost }] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST);
+  const { loading, data, refetch } = useQuery<{ post: Post }, { oid: string }>(GET_POST, { variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true });
 
-  const setReaction = (reaction: string) => {
+  const setReaction = (reaction: ReactionType) => {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('請先登入'))
       return
@@ -35,8 +36,8 @@ function PreacherMessage() {
       variables: {
         input: {
           username: getTokenValue(tokenPair?.token).username,
-          postOID: data.post._id,
-          type: reaction.toUpperCase()
+          postOID: data?.post._id,
+          type: reaction
         },
       }
     }).catch(e => {
@@ -48,17 +49,17 @@ function PreacherMessage() {
   useEffect(() => {
     if (data !== undefined) {
       setPost(data.post)
-    } else if (result !== undefined) {
-      setPost(result)
+    } else if (resultPost !== undefined) {
+      setPost(resultPost)
     }
-  }, [data, result])
+  }, [data, resultPost])
 
   useEffect(() => {
     document.querySelector('.scroll-animations .animated')?.classList.remove("animate__fadeInLeft");
   }, [])
 
   useEffect(() => {
-    refetch()
+    refetch && refetch()
   }, [location, refetch])
 
   useEffect(() => {
@@ -162,7 +163,7 @@ function PreacherMessage() {
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
+                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
@@ -170,7 +171,7 @@ function PreacherMessage() {
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
+                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>
@@ -190,7 +191,7 @@ function PreacherMessage() {
           <Row className="text-left mt-5" id="reaction-bar">
             <Col className="form-inline" lg={{ offset: 2 }}>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('hallelujah')}>
+                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
@@ -198,7 +199,7 @@ function PreacherMessage() {
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction('pray')}>
+                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>
@@ -207,7 +208,7 @@ function PreacherMessage() {
               </OverlayTrigger>
             </Col>
           </Row>
-          <CommentSection id="5f850dc4e52fde7c2930c34b" type="PREACHER"/>
+          <CommentSection id="5f850dc4e52fde7c2930c34b" type="PREACHER" />
         </Container>}
       </div>
     </>
