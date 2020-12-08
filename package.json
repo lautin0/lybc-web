@@ -22,7 +22,7 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "eslint-plugin-flowtype": "^3.13.0",
     "fibers": "^5.0.0",
-    "graphql": "^15.3.0",
+    "graphql": "^15.4.0",
     "html2canvas": "^1.0.0-rc.7",
     "jquery": "^3.5.1",
     "jwt-decode": "^3.0.0",
