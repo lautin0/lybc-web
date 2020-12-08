@@ -81,7 +81,7 @@ function CommentSection(props: any) {
         </div>
       </Col>
     })}
-    {tokenPair?.token && <Col 
+    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.username.toUpperCase() !== 'LYBC_PUBLIC') && <Col 
       style={{ borderTop: '.5px lightgrey solid' }} 
       md={12} lg={8} 
       className="my-2 pt-5 d-md-inline-flex"
@@ -126,6 +126,9 @@ function CommentSection(props: any) {
             發送</Button>
         </div>
       </Form>
+    </Col>}
+    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.username.toUpperCase() === 'LYBC_PUBLIC')&& <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
+      <div style={{ fontSize: 18 }}>請以私號發表回應</div>
     </Col>}
     {!tokenPair?.token && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
       <div style={{ fontSize: 18 }}>請先 <Link to={`/login-page?relayState=${location.pathname}`}>登入</Link> 以發表回應</div>

@@ -31,6 +31,9 @@ function PreacherMessage() {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('請先登入'))
       return
+    } else if(getTokenValue(tokenPair?.token)?.username.toUpperCase() === 'LYBC_PUBLIC'){
+      dispatch(setSysMessage('使用公眾號不能表達心情，請轉為私號'))
+      return
     }
     react({
       variables: {
@@ -96,6 +99,7 @@ function PreacherMessage() {
   })
 
   const renderTooltip = (props: any, type: string) => {
+    const currUser = getTokenValue(tokenPair?.token)?.username;
     let usernames: any[] = post.reactions
       .filter((r: any) =>
         r.type === type.toUpperCase()
@@ -111,10 +115,16 @@ function PreacherMessage() {
 
     let sentence = "{0}{1}表示 " + text
     let userClause = ""
+    if (usernames.some(x => x === currUser)) {
+      const idx = usernames.indexOf(currUser);
+      const clone = [...usernames]
+      usernames[0] = clone[idx]
+      usernames[idx] = clone[0]
+    }
     usernames.slice(0, 2).map((user: any, i: number) => {
       if (userClause.length > 0)
         userClause += ", "
-      userClause += user
+      userClause += (user === currUser ? '你' : user)
       return user
     })
 

@@ -164,7 +164,7 @@ function Sharing() {
             </div>
           </div>
         </Container>}
-        {(!loading && post != null) && <Container style={{ paddingTop: 90, borderRadius: '.5rem', marginBottom: 100 }}>
+        {(!loading && post != null) && <Container style={{ borderRadius: '.5rem', marginBottom: 100 }}>
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
@@ -187,9 +187,9 @@ function Sharing() {
           </Row>
           <Row className="text-left" style={{ alignItems: 'baseline' }}>
             <Col lg={{ offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
-            <Col className="text-right pr-5" lg={12}><h5 style={{ color: 'gray' }}>{post.user.nameC}{post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
           </Row>
           <Row className="justify-content-md-center">
+            <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
             </Col>
           </Row>
@@ -213,7 +213,7 @@ function Sharing() {
               </OverlayTrigger>
             </Col>
           </Row>
-          <CommentSection id={id} type="SHARING"/>
+          <CommentSection id={id} type="SHARING" />
         </Container>}
       </div>
     </>

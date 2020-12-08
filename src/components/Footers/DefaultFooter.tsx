@@ -74,11 +74,6 @@ function DefaultFooter() {
                 分享欄
               </Link>
             </li>
-            <li>
-              <Link to="/preacher-message">
-                牧者的話
-              </Link>
-            </li>
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
@@ -102,6 +97,11 @@ function DefaultFooter() {
             <li>
               <Link to="/contact-us">
                 聯絡我們
+              </Link>
+            </li>
+            <li>
+              <Link to="/preacher-message">
+                牧者的話
               </Link>
             </li>
           </ul>

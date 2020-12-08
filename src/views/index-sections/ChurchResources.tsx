@@ -4,50 +4,52 @@ import React, { useEffect } from "react";
 import {
   Row,
   Col,
-  Card} from "react-bootstrap";
+  Card
+} from "react-bootstrap";
 
 import { useHistory } from "react-router-dom";
 
 import bg7 from "assets/img/bg7.jpg";
 import bg5 from "assets/img/bg5.jpg";
 import bg3 from "assets/img/bg3.jpg";
+import { useCallback } from "react";
 
 function ChurchResources() {
   const history = useHistory();
 
+  // Check if element is scrolled into view
+  const isScrolledIntoView = (elem: Element) => {
+    var docViewTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    var docViewBottom = docViewTop + window.innerHeight
+
+    var elemTop = elem.getBoundingClientRect().top
+    var elemBottom = elemTop + elem.clientHeight
+
+    let footerEl: any = document.querySelector("footer.footer");
+
+    return docViewBottom - footerEl.clientHeight > elemBottom
+
+    // return elemBottom <= docViewBottom && elemTop >= docViewTop;
+  }
+
+  // If element is scrolled into view, fade it in
+  const handleScroll = useCallback(() => {
+    document.querySelectorAll(".scroll-animations .animated").forEach(e => {
+      if (isScrolledIntoView(e) === true) {
+        e.classList.add("animate__fadeInLeft");
+      }
+    })
+  }, []);
+
   useEffect(() => {
-    // Check if element is scrolled into view
-    const isScrolledIntoView = (elem: Element) => {
-      var docViewTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      var docViewBottom = docViewTop + window.innerHeight
-
-      var elemTop = elem.getBoundingClientRect().top
-      var elemBottom = elemTop + elem.clientHeight
-
-      let footerEl: any = document.querySelector("footer.footer");
-
-      return docViewBottom - footerEl.clientHeight > elemBottom
-
-      // return elemBottom <= docViewBottom && elemTop >= docViewTop;
-    }
-
-    const memoHandleScroll = () => handleScroll()
-
-    // If element is scrolled into view, fade it in
-    const handleScroll = () => {
-      document.querySelectorAll(".scroll-animations .animated").forEach(e => {
-        if (isScrolledIntoView(e) === true) {
-          e.classList.add("animate__fadeInLeft");
-        }
-      })
-    }
-
-    window.addEventListener("scroll", memoHandleScroll)
+    window.addEventListener("scroll", (e: any) => {
+      handleScroll();
+    })
 
     return function cleanup() {
-      window.removeEventListener("scroll", memoHandleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  })
+  }, [handleScroll])
 
   return (
     <>

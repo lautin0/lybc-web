@@ -12,6 +12,7 @@ import Worship from "views/worship/Worship";
 import Sharing from "views/articles/Sharing";
 import { getMenuHierarchy } from "utils/utils";
 import UNIVERSALS from "Universals";
+import SearchBooks from "views/book/SearchBooks";
 
 type MainPageProps = {
   page: string,
@@ -31,15 +32,15 @@ function MainPageLegacy(props: MainPageProps) {
 
   React.useEffect(() => {
     document.title = UNIVERSALS.TITLE_MAP[props.page].title
-  },[props.page])
+  }, [props.page])
 
   return (
     <>
       <MainNavbar page={props.page} />
       <div className="wrapper">
-        <div className="main" style={props.page === 'preacher-message' ? { top: 114, background: 'lightyellow' } : { top: 114 }}>
+        <div className="main" style={props.page === 'preacher-message' ? { top: 135, background: 'lightyellow' } : { top: 135 }}>
           <div>
-            <Breadcrumb as="nav">
+            <Breadcrumb as="nav" style={{ fontSize: '1.2rem' }}>
               {menus && menus.map((value: any, index: number) => {
                 if (value.link != null)
                   return <BreadcrumbItem key={index} href={value.link}>{value.title}</BreadcrumbItem>
@@ -49,8 +50,8 @@ function MainPageLegacy(props: MainPageProps) {
             </Breadcrumb>
           </div>
           {props.page === 'apply-activity' && <Apply />}
-          {props.page === 'test' && <InfiniteScroll />}
-          {/* {props.page == 'search' && <SearchBooks />} */}
+          {/* {props.page === 'test' && <InfiniteScroll />} */}
+          {props.page == 'library' && <SearchBooks />}
           {props.page === 'worship' && <Worship />}
           {props.page === 'sharing' && <Sharing />}
         </div>

@@ -100,9 +100,9 @@ function ExamplesNavbar() {
               aria-expanded={collapseOpen}
               type="button"
             >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
+              <span className="navbar-toggler-bar top-bar" style={{ background: 'white' }}></span>
+              <span className="navbar-toggler-bar middle-bar" style={{ background: 'white' }}></span>
+              <span className="navbar-toggler-bar bottom-bar" style={{ background: 'white' }}></span>
             </button>
           </div>
           <Navbar.Collapse
@@ -111,17 +111,24 @@ function ExamplesNavbar() {
           >
             <Nav>
               <Nav.Item>
-                <Nav.Link to="/index" as={Link}>
+                <Nav.Link to="/index" as={Link} style={{ color: 'white' }}>
                   回主頁
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="#pablo">
+                <Nav.Link href="#pablo" style={{ color: 'white' }}>
                   技術支援
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
+                  style={{ 
+                    color: 'white',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    paddingTop: 10
+                   }}
                   target="_blank"
                   id="facebook-tooltip"
                   href="https://www.facebook.com/lukYeungBaptistChurch"
@@ -132,6 +139,13 @@ function ExamplesNavbar() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
+                  style={{ 
+                    color: 'white',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    paddingTop: 10
+                  }}
                   href="https://www.instagram.com/lybc1997"
                   target="_blank"
                   id="instagram-tooltip"

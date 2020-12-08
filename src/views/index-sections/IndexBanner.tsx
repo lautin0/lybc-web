@@ -14,52 +14,61 @@ function IndexBanner() {
   let myRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
-    if (window.innerWidth > 991) {
-      const curr = myRef.current
+    // let tempAnim: Animation[] = []
+    // if (window.innerWidth > 991) {
+    //   const curr = myRef.current
 
-      // Some random colors
-      // const colors = ["#3CC157", "#2AA7FF", "#1B1B1B", "#FCBC0F", "#F85F36"];
-      const colors = ["#3CC157", "#2AA7FF", "#737373", "#FCBC0F", "#F85F36"];
+    //   // Some random colors
+    //   // const colors = ["#3CC157", "#2AA7FF", "#1B1B1B", "#FCBC0F", "#F85F36"];
+    //   const colors = ["#3CC157", "#2AA7FF", "#737373", "#FCBC0F", "#F85F36"];
 
-      const numBalls = 40
-      const balls = [];
+    //   const numBalls = 40
+    //   const balls = [];
 
-      for (let i = 0; i < numBalls; i++) {
-        let ball = document.createElement("div");
-        ball.classList.add("ball");
-        ball.style.background = colors[Math.floor(Math.random() * colors.length)];
-        ball.style.left = `${Math.floor(Math.random() * 100)}vw`;
-        ball.style.top = `${Math.floor(Math.random() * 100)}vh`;
-        ball.style.transform = `scale(${Math.random()})`;
-        ball.style.width = `${(Math.random() * 2) + .5}em`;
-        ball.style.height = ball.style.width;
+    //   for (let i = 0; i < numBalls; i++) {
+    //     let ball = document.createElement("div");
+    //     ball.classList.add("ball");
+    //     ball.style.background = colors[Math.floor(Math.random() * colors.length)];
+    //     ball.style.left = `${Math.floor(Math.random() * 100)}vw`;
+    //     ball.style.top = `${Math.floor(Math.random() * 100)}vh`;
+    //     ball.style.transform = `scale(${Math.random()})`;
+    //     ball.style.width = `${(Math.random() * 2) + .5}em`;
+    //     ball.style.height = ball.style.width;
 
-        balls.push(ball);
-        curr?.append(ball);
-      }
+    //     balls.push(ball);
+    //     curr?.append(ball);
+    //   }
 
-      // Keyframes
-      balls.forEach((el, i, ra) => {
-        let to = {
-          x: Math.random() * (i % 2 === 0 ? -11 : 11),
-          y: Math.random() * 12
-        };
+    //   // Keyframes
+    //   balls.forEach((el, i, ra) => {
+    //     let to = {
+    //       x: Math.random() * (i % 2 === 0 ? -11 : 11),
+    //       y: Math.random() * 12
+    //     };
 
-        let anim = el.animate(
-          [
-            { transform: "translate(0, 0)" },
-            { transform: `translate(${to.x}rem, ${to.y}rem)` }
-          ],
-          {
-            duration: (Math.random() + 1) * 2000, // random duration
-            direction: "alternate",
-            fill: "both",
-            iterations: Infinity,
-            easing: "ease-in-out"
-          }
-        );
-      });
-    }
+    //     let anim = el.animate(
+    //       [
+    //         { transform: "translate(0, 0)" },
+    //         { transform: `translate(${to.x}rem, ${to.y}rem)` }
+    //       ],
+    //       {
+    //         duration: (Math.random() + 1) * 2000, // random duration
+    //         direction: "alternate",
+    //         fill: "both",
+    //         iterations: Infinity,
+    //         easing: "ease-in-out"
+    //       }
+    //     );
+
+    //     tempAnim.push(anim)
+    //   });
+    // }
+
+    // return function cleanUp(){
+    //   for(let i: number = 0; i < tempAnim.length; i++){
+    //     tempAnim[i].removeEventListener('cancel', () => {})
+    //   }
+    // }
   },[myRef]);
 
   return (

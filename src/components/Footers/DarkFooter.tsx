@@ -34,7 +34,7 @@ function DarkFooter() {
             </li>
             <li>
               <Link to="/">
-              點滴回顧
+                點滴回顧
               </Link>
             </li>
           </ul>
@@ -72,11 +72,6 @@ function DarkFooter() {
                 分享欄
               </Link>
             </li>
-            <li>
-              <Link to="/preacher-message">
-                牧者的話
-              </Link>
-            </li>
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
@@ -95,12 +90,12 @@ function DarkFooter() {
             <li>
               <Link
                 to="/sunday-service-info"
-                // onClick={e => {
-                //   e.preventDefault();
-                //   document
-                //     .getElementById("sunday-service-info-section")
-                //     .scrollIntoView();
-                // }}
+              // onClick={e => {
+              //   e.preventDefault();
+              //   document
+              //     .getElementById("sunday-service-info-section")
+              //     .scrollIntoView();
+              // }}
               >
                 聚會時間
               </Link>
@@ -108,14 +103,19 @@ function DarkFooter() {
             <li>
               <Link
                 to="/contact-us"
-                // onClick={e => {
-                //   e.preventDefault();
-                //   document
-                //     .getElementById("contact-us-section")
-                //     .scrollIntoView();
-                // }}
+              // onClick={e => {
+              //   e.preventDefault();
+              //   document
+              //     .getElementById("contact-us-section")
+              //     .scrollIntoView();
+              // }}
               >
                 聯絡我們
+              </Link>
+            </li>
+            <li>
+              <Link to="/preacher-message">
+                牧者的話
               </Link>
             </li>
           </ul>
