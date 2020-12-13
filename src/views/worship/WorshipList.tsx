@@ -83,7 +83,7 @@ function WorshipList() {
           {totalPageNum}
         </Pagination.Item>,
       )
-    } else if(pageNumber > (totalPageNum - ((adjacency * 2) + 2))){
+    } else if(pageNumber >= (totalPageNum - ((adjacency * 2) + 1))){
       // Close to end, hide close to start
       items.push(
         <Pagination.Item active={1 === pageNumber} key={3} onClick={() => onPageChanged(1)}>
@@ -91,7 +91,7 @@ function WorshipList() {
         </Pagination.Item>,
       )
       items.push(<Pagination.Ellipsis key={4} />)
-      for (let i = (totalPageNum - ((adjacency * 2) + 2)); i <= totalPageNum; i++) {
+      for (let i = (totalPageNum - ((adjacency * 2) + 1)); i <= totalPageNum; i++) {
         items.push(
           <Pagination.Item key={i + 4} active={i === pageNumber} onClick={() => onPageChanged(i)}>
             {i}
