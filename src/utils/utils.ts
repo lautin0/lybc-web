@@ -1,6 +1,7 @@
+import { Role } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
-import UNIVERSALS, { Role } from "Universals";
+import UNIVERSALS from "Universals";
 
 export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
     if (foundObj == null)

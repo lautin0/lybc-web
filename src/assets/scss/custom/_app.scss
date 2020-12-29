@@ -93,6 +93,10 @@ ul.sitemap {
     border: none;
 }
 
+.dropdown-toggle:after {
+    display: none;
+}
+
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
     color: #666;
@@ -251,6 +255,17 @@ i.user-badge {
     }
 }
 
-.breadcrumb{
+.breadcrumb {
     background-color: transparent;
+}
+
+button.btn-link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-size: 16px;
+    /*input has OS specific font-family*/
+    // color: #069;
+    text-decoration: underline;
+    cursor: pointer;
 }

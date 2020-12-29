@@ -10,12 +10,12 @@ import {
 } from "react-bootstrap";
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { Role } from "Universals";
 import { getTokenValue, hasRole } from 'utils/utils'
 import { signOut } from "actions";
-import NotificationBell from "components/notification/NotificationBell";
+import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
+import { Role } from "generated/graphql";
 
 function IndexNavbar() {
 
@@ -123,6 +123,9 @@ function IndexNavbar() {
                 onMouseEnter={(e: any) => showDropdown(e, 0)}
                 onMouseLeave={(e: any) => hideDropdown(e, 0)}
               >
+                {/* {tokenPair?.token && <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
+                  網上崇拜
+                </NavDropdown.Item>} */}
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   網上崇拜
                 </NavDropdown.Item>
@@ -235,10 +238,10 @@ function IndexNavbar() {
               </Nav.Item>}
               {tokenPair?.token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(tokenPair.token)?.username}</p></>}>
-                  {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
+                  {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     管理控制台
                   </NavDropdown.Item>}
-                  {hasRole(tokenPair.token, Role.ADMIN) && <NavDropdown.Divider />}
+                  {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Divider />}
                   <NavDropdown.Item
                     as="a"
                     href="#"

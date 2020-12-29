@@ -1,13 +1,14 @@
 import { gql } from "@apollo/client";
 
-export type LoginInput = { 
-  username: string, 
-  password: string 
+export type LoginInput = {
+  username: string,
+  password: string
 }
 
-export type RefreshTokenInput = { 
+export type RefreshTokenInput = {
   token: string | null
 }
+
 export type NewWorshipInput = {
   worshipId: string,
   type: string,
@@ -24,7 +25,6 @@ export type NewWorshipDocInput = {
   type: string
 }
 
-
 export const LOGIN = gql`
   mutation login($input: Login!){
     login(input: $input){
@@ -33,6 +33,7 @@ export const LOGIN = gql`
     }
   }
 `
+
 export const ADD_WORSHIP = gql`
   mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!){
     createWorship(input: $input, docs: $docs){
@@ -72,49 +73,51 @@ export const UPDATE_WORSHIP = gql`
 `
 
 export const REFRESH_TOKEN = gql`
-mutation refresh($input: RefreshTokenInput!){
-  refreshToken(input: $input){
-    token
-    refreshToken
+  mutation refresh($input: RefreshTokenInput!){
+    refreshToken(input: $input){
+      token
+      refreshToken
+    }
   }
-}
 `
 
 export const GET_WORSHIP = gql`
-query GetWorship($worshipId: String!){
-  worship(worshipId: $worshipId){
-    worshipId
-    title
-    type
-    messenger
-    note
-    verse
-    link
-    docs{
+  query GetWorship($worshipId: String!){
+    worship(worshipId: $worshipId){
+      worshipId
       title
-      link
       type
+      messenger
+      note
+      verse
+      link
+      docs{
+        title
+        link
+        type
+      }
     }
   }
-}`
+`
 
 export const GET_WORSHIPS = gql`
-query {
-  worships{
-    worshipId
-    title
-    type
-    messenger
-    note
-    verse
-    link
-    docs{
+  query {
+    worships{
+      worshipId
       title
-      link
       type
+      messenger
+      note
+      verse
+      link
+      docs{
+        title
+        link
+        type
+      }
     }
   }
-}`
+`
 
 export const DELETE_WORSHIP = gql`
   mutation deleteWorship($input: String){
@@ -123,32 +126,14 @@ export const DELETE_WORSHIP = gql`
 `
 
 export const GET_MAX_WORSHIP_ID = gql`
-query {
-  maxWorshipId
-}`
+  query {
+    maxWorshipId
+  }
+`
 
-export const GET_POSTS =  gql`
-query {
-  posts{
-    _id
-    title
-    subtitle
-    content
-    creDttm
-    user{
-      username
-      name
-      nameC
-      role
-      gender
-      title
-      titleC
-    }
-    reactions {
-      username
-      type
-    }
-    comments {
+export const GET_POSTS = gql`
+  query {
+    posts{
       _id
       title
       subtitle
@@ -167,38 +152,38 @@ query {
         username
         type
       }
+      comments {
+        _id
+        title
+        subtitle
+        content
+        creDttm
+        user{
+          username
+          name
+          nameC
+          role
+          gender
+          title
+          titleC
+        }
+        reactions {
+          username
+          type
+        }
+      }
     }
   }
-}`
+`
 
-export const GET_POST =  gql`
-query getPostByOID($oid: String!){
-  post(oid: $oid){
-    _id
-    title
-    subtitle
-    content
-    creDttm
-    user{
-      username
-      name
-      nameC
-      role
-      gender
-      title
-      titleC
-    }
-    reactions {
-      username
-      type
-    }
-    comments {
+export const GET_POST = gql`
+  query getPostByOID($oid: String!){
+    post(oid: $oid){
       _id
       title
       subtitle
       content
       creDttm
-      username
       user{
         username
         name
@@ -212,9 +197,30 @@ query getPostByOID($oid: String!){
         username
         type
       }
+      comments {
+        _id
+        title
+        subtitle
+        content
+        creDttm
+        username
+        user{
+          username
+          name
+          nameC
+          role
+          gender
+          title
+          titleC
+        }
+        reactions {
+          username
+          type
+        }
+      }
     }
   }
-}`
+`
 
 export const ADD_POST = gql`
   mutation createPost($input: NewPost!){
@@ -303,8 +309,7 @@ export const REACT_TO_POST = gql`
         }
       }
     }
-  }
-`
+  }`
 
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($toUsername: String!) {
@@ -318,6 +323,7 @@ export const GET_NOTIFICATIONS = gql`
     }
   }
 `
+
 export const READ_NOTIFICATIONS = gql`
   mutation readNotification($input: String!){
     readNotification(input: $input){

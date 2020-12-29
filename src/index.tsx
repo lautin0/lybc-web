@@ -23,10 +23,10 @@ import ErrorPage from "views/error/Error";
 import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
-import PrivateRoute from "components/route/PrivateRoute";
-import { Role } from "Universals";
+import PrivateRoute from "components/Route/PrivateRoute";
 import { getClient } from "utils/auth.client";
 import DecisionModal from "components/Modals/DecisionModal";
+import { Role } from "generated/graphql";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -48,7 +48,7 @@ ReactDOM.render(
         <LoadingOverlay />
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
-          <PrivateRoute path="/admin" role={Role.ADMIN} />
+          <PrivateRoute path="/admin" role={[Role.Admin]} />
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
           <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} />
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
@@ -60,7 +60,8 @@ ReactDOM.render(
           <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
           <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
           <Route path="/worship/:id" render={props => <MainPageLegacy {...props} page="worship" />} />
-          <Redirect from="/worship/" to="/worship-list" />
+          {/* <PrivateRoute path="/worship-list" />
+          <PrivateRoute path="/worship/:id" /> */}
           <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
           <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
           <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />

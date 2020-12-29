@@ -193,11 +193,45 @@
   .show > &.dropdown-toggle,
   .show > &.dropdown-toggle:focus,
   .show > &.dropdown-toggle:hover {
-      background-color: $transparent-bg;
-      color: $btn-states-color;
-      border-color: $btn-states-color;
-      box-shadow: none;
+        background-color: $transparent-bg;
+        color: $btn-states-color;
+        border-color: $btn-states-color;
+        box-shadow: none;
   }
+
+  @if $btn-color == $filter-color{
+    border-color: lighten($btn-states-color, 50%) !important;
+
+    &:hover,
+    &:active:hover,
+    &.active:hover,
+    .show > &.dropdown-toggle:hover  {
+        background-color: $transparent-bg;
+        color: $btn-states-color !important;
+        border-color: $btn-states-color;
+        box-shadow: none;
+    }
+    
+    &:focus,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled).active:focus,
+    .show > &.dropdown-toggle {
+        background-color: $transparent-bg;
+        color: $btn-color;
+        border-color: $btn-states-color;
+        box-shadow: none;
+    }
+
+    .show > &.dropdown-toggle:focus {
+        background-color: $transparent-bg;
+        color: $btn-color;
+        border-color: $btn-states-color;
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+    }
+    
+  } 
 }
 
 

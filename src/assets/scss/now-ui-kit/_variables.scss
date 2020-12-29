@@ -46,6 +46,11 @@ $default-color:              #888888 !default;
 $default-states-color:       lighten($default-color, 6%) !default;
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 
+$filter-color:              #000000 !default;
+$filter-states-color:       lighten($filter-color, 40%) !default;
+$filter-color-opacity:      rgba(249, 99, 50, .3) !default;
+$filter-color-alert:        rgba(249, 99, 50, .8) !default;
+
 $primary-color:              #f96332 !default;
 $primary-states-color:       lighten($primary-color, 6%) !default;
 $primary-color-opacity:      rgba(249, 99, 50, .3) !default;

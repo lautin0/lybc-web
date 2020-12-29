@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from "react";
+import QueryFilter from "components/QueryFilter/QueryBar";
+import useQueryFilter, { locationType } from "hooks/useQueryFilter";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col } from "react-bootstrap";
-import { FormControl, InputGroup, Button, Card } from "react-bootstrap";
-import Select from "react-select";
+import { Row, Col } from "react-bootstrap";
+import { FormControl, InputGroup } from "react-bootstrap";
 
 // core components
 
-const dataSrc = [
-  { id: 1, title: 'The meaning of Marriage', author: 'Timothy Keller', isbn: '9780525952473', stockAt: [1, 2] },
-  { id: 2, title: 'The Power of Significance', author: 'John C. Maxwell', isbn: '9781478921950', stockAt: [1] },
-  { id: 3, title: 'The Power of Your Potential', author: 'John C. Maxwell', isbn: '9781549198427', stockAt: [2] }
-]
-
-const options = [
-  { value: 1, label: 'Church' },
-  { value: 2, label: 'EE Library' },
-]
-
 function SearchBooks() {
 
-  const [data, setData] = useState(dataSrc)
+  const qfHooks = useQueryFilter()
 
-  const handleChange = (options: any) => {
-    if(options == null)
-      setData(dataSrc)
-    else
-      setData(dataSrc.filter(x => (options as Array<any>).map(y => y.value).some(r => x.stockAt.includes(r))))
-  };
+  const { data, filterBooks, handleFilterChange, hasAttribute } = qfHooks
 
   //Default scroll to top
   useEffect(() => {
@@ -35,17 +20,20 @@ function SearchBooks() {
   }, [])
 
   return (
-    <div className="section">
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col lg="8" md="12">
+    <div className="mt-3" style={{ marginBottom: 200 }}>
+      <div className="mx-5">
+        <Row>
+          <Col lg={{ offset: 3, span: 6 }} md={12}>
             <InputGroup
               className="no-border w-100"
-              style={{ height: 60, fontSize: 20 }}
+              style={{
+                fontSize: 20
+              }}
             >
               <FormControl
-                placeholder="輸入關鍵字"
+                placeholder="輸入關鍵字 (作者/書名/ISBN)"
                 type="text"
+                onChange={(e: any) => handleFilterChange(e)}
                 onBlur={() => { }}
               ></FormControl>
               <InputGroup.Append style={{ marginLeft: 0 }}>
@@ -57,32 +45,14 @@ function SearchBooks() {
           </Col>
         </Row>
 
-        <Row className="mb-5">
-          <Col md="12" lg="4">
-            <label>館藏地點</label>
-            <Select
-              closeMenuOnSelect={false}
-              isMulti
-              options={options}
-              onChange={handleChange}
-            />
-          </Col>
-        </Row>
+        <QueryFilter hooks={qfHooks} />
 
         <Row>
 
-          {data.map((x, i) => {
-            return <Col key={x.id} md={12}>
-              <Card className="p-3">
+          {data.filter(x => filterBooks(x)).map((x) => {
+            return <Col key={x.id} lg={3} md={6} sm={12}>
+              <div className="p-3">
                 <Row>
-                  <div className="col">
-                    <div className="card-block px-2">
-                      <Card.Title><h4>{x.title}</h4></Card.Title>
-                      <Card.Text className="h4"><b>作者: </b>{x.author}</Card.Text>
-                      <Card.Text className="h4"><b>ISBN: </b>{x.isbn}</Card.Text>
-                      <a href="#" className="btn btn-info">詳細資料</a>
-                    </div>
-                  </div>
                   <div
                     className="col-auto"
                     style={{
@@ -93,18 +63,25 @@ function SearchBooks() {
                   >
                     <img src="//placehold.it/200" className="img-fluid" alt="" ></img>
                   </div>
+                  <div className="col">
+                    <div className="card-block px-2">
+                      <div><h5><b>{x.title}</b></h5></div>
+                      <div><b>作者: </b>{x.author}</div>
+                      <div><b>ISBN: </b>{x.isbn}</div>
+                    </div>
+                  </div>
                 </Row>
-                <Card.Footer>
-                  {x.stockAt.includes(1) && <span style={{ position: 'relative' }} className="m-1 badge badge-success">Church</span>}
-                  {x.stockAt.includes(2) && <span style={{ position: 'relative' }} className="m-1 badge badge-primary">EE Library</span>}
-                </Card.Footer>
-              </Card>
+                <div>
+                  {hasAttribute("CHRH", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-default">Church</span>}
+                  {hasAttribute("ELIB", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-warning">EE Library</span>}
+                </div>
+              </div>
             </Col>
           })}
 
         </Row>
 
-      </Container>
+      </div>
     </div>
   );
 }

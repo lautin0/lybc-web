@@ -10,12 +10,6 @@ type UniversalsInfo = {
     GRAPHQL_ENDPOINT: string
 }
 
-export enum Role {
-    ADMIN = "ADMIN",
-    MEMBER = "MEMBER",
-    WORKER = "WORKER"
-}
-
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
         'about-us': { title: '『香港萬國宣道浸信聯會』簡介', subtitle: null, bg: bg13 },

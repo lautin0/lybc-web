@@ -2,6 +2,7 @@ enum Role {
 	ADMIN
 	WORKER
 	MEMBER
+	PUBLIC
 }
 
 type User {

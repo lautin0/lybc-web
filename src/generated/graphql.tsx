@@ -262,7 +262,8 @@ export enum Gender {
 export enum Role {
   Admin = 'ADMIN',
   Worker = 'WORKER',
-  Member = 'MEMBER'
+  Member = 'MEMBER',
+  Public = 'PUBLIC'
 }
 
 export type User = {

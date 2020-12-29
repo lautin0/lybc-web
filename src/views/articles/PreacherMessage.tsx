@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
-import CommentSection from "components/comments/CommentSection";
+import CommentSection from "components/Comments/CommentSection";
 import { NewReaction, Post, ReactionType } from "generated/graphql";
 import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
 import moment from "moment";
@@ -31,7 +31,7 @@ function PreacherMessage() {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('請先登入'))
       return
-    } else if(getTokenValue(tokenPair?.token)?.username.toUpperCase() === 'LYBC_PUBLIC'){
+    } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
       dispatch(setSysMessage('使用公眾號不能表達心情，請轉為私號'))
       return
     }
@@ -173,16 +173,16 @@ function PreacherMessage() {
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
-                  <div style={{ display: 'inline' }}>
+                <div className="my-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
+                  <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="my-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
-                  <div style={{ display: 'inline' }}>
+                <div className="my-3" onClick={() => setReaction(ReactionType.Pray)}>
+                  <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>
@@ -201,16 +201,16 @@ function PreacherMessage() {
           <Row className="text-left mt-5" id="reaction-bar">
             <Col className="form-inline" lg={{ offset: 2 }}>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Hallelujah)}>
-                  <div style={{ display: 'inline' }}>
+                <div className="m-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
+                  <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
                   </div>
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
               <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
-                <div className="m-3" style={{ cursor: 'pointer' }} onClick={() => setReaction(ReactionType.Pray)}>
-                  <div style={{ display: 'inline' }}>
+                <div className="m-3" onClick={() => setReaction(ReactionType.Pray)}>
+                  <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
                   </div>
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>

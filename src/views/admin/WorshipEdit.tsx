@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSysMessage, setLoading, setSystemFailure } from 'actions';
-import InputDropdown from 'components/forms/InputDropdown';
-import InputQuill from 'components/forms/InputQuill';
-import InputText from 'components/forms/InputText';
+import InputDropdown from 'components/Forms/InputDropdown';
+import InputQuill from 'components/Forms/InputQuill';
+import InputText from 'components/Forms/InputText';
 import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
 import React, { useEffect, useState } from 'react'
