@@ -26,7 +26,7 @@ const UNIVERSALS: UniversalsInfo = {
         'preacher-message': { title: '牧者的話', subtitle: '黃雪梅 主任傳道', bg: bg8 },
         'sharing-list': { title: '分享欄', subtitle: null, bg: bg1 },
         'sharing': { title: '分享欄', subtitle: null },
-        'library': { title: '書藉資料庫', subtitle: null }
+        'library': { title: '書藉查詢', subtitle: null }
     },
     MENU_HIERARCHY: {
         index: {
@@ -64,7 +64,7 @@ const UNIVERSALS: UniversalsInfo = {
                     }
                 },
                 'articles': {
-                    title: '教會刊物',
+                    title: '教會資源',
                     child: {
                         'journal': {
                             title: '教會月刊',

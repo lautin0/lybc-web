@@ -138,7 +138,7 @@ function MainNavbar(props: MainNavbarProps) {
               </Nav.Item>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">教會刊物</div></>}
+                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">教會資源</div></>}
                 show={show[1]}
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
                 onMouseLeave={(e: any) => hideDropdown(e, 1)}
@@ -149,6 +149,9 @@ function MainNavbar(props: MainNavbarProps) {
                 <NavDropdown.Item as={Link} to="/sharing-list">
                   分享欄
                 </NavDropdown.Item>
+                {tokenPair?.token && <NavDropdown.Item as={Link} to="/library">
+                  書藉查詢
+                </NavDropdown.Item>}
               </NavDropdown>
               <NavDropdown
                 id=""

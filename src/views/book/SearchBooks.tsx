@@ -54,26 +54,27 @@ function SearchBooks() {
               <div className="p-3">
                 <Row>
                   <div
-                    className="col-auto"
+                    className="w-100"
                     style={{
                       alignItems: 'center',
                       justifyContent: 'center',
                       display: 'flex'
                     }}
                   >
-                    <img src="//placehold.it/200" className="img-fluid" alt="" ></img>
+                    <img src={x.imgUri} style={{ maxWidth: 145, maxHeight: 223 }} className="img-fluid" alt="" ></img>
+                    {/* <img src="//placehold.it/200" className="img-fluid" alt="" ></img> */}
                   </div>
-                  <div className="col">
+                  <div className="col-12">
                     <div className="card-block px-2">
-                      <div><h5><b>{x.title}</b></h5></div>
+                      <div><h5 className="text-center"><b>{x.title}</b></h5></div>
                       <div><b>作者: </b>{x.author}</div>
                       <div><b>ISBN: </b>{x.isbn}</div>
                     </div>
                   </div>
                 </Row>
                 <div>
-                  {hasAttribute("CHRH", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-default">Church</span>}
-                  {hasAttribute("ELIB", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-warning">EE Library</span>}
+                  {hasAttribute("CHRH", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-default">教會</span>}
+                  {hasAttribute("ELIB", locationType.value, x.attributes) && <span style={{ position: 'relative' }} className="m-1 badge badge-warning">EE圖書館</span>}
                 </div>
               </div>
             </Col>

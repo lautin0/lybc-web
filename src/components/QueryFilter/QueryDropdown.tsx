@@ -6,14 +6,13 @@ import { css } from 'styles/styles'
 import { AttributeType, FilterItemType } from './types'
 
 type QueryDropdownType = {
-  type: "checkbox" | "radio" | "select",
   attrType: AttributeType
   change: (itemList: Array<FilterItemType>, attrType?: AttributeType) => void
 }
 
 function QueryDropdown(props: QueryDropdownType) {
 
-  const { attrType, type, change } = props;
+  const { attrType, change } = props;
 
   const initialFilterState = getMockFilterDataList(attrType.value)
     .map(x => {
@@ -66,17 +65,15 @@ function QueryDropdown(props: QueryDropdownType) {
         <Form.Row>
           <Form.Group as={Col}>
             {getMockFilterDataList(attrType.value).map(x => {
-              if (type === 'checkbox') {
-                return <Form.Check
-                  key={x.value}
-                  className="form-check mx-2"
-                  type="checkbox"
-                  ref={register}
-                  id={x.value}
-                  name={x.value}
-                  label={<><span className="form-check-sign"></span>{x.label}</>}
-                ></Form.Check>
-              }
+              return <Form.Check
+                key={x.value}
+                className="form-check mx-2"
+                type="checkbox"
+                ref={register}
+                id={x.value}
+                name={x.value}
+                label={<><span className="form-check-sign"></span>{x.label}</>}
+              ></Form.Check>
             })}
           </Form.Group>
         </Form.Row>

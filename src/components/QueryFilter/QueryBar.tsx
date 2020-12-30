@@ -14,12 +14,10 @@ function QueryFilter(props: QueryFilterProps) {
 
   return <Row>
     <QueryDropdown
-      type="checkbox"
       change={handleQueryFilterChange}
       attrType={locationType}
     />
     <QueryDropdown
-      type="checkbox"
       change={handleQueryFilterChange}
       attrType={categoryType}
     />

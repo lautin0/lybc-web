@@ -1,14 +1,22 @@
+import { Role } from 'generated/graphql';
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { StaticContext } from 'react-router';
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 import AdminPanel from 'views/admin/AdminPanel';
 import ErrorPage from 'views/error/Error';
-import MainPage from 'views/main/MainPage';
-import MainPageLegacy from 'views/main/MainPageLegacy';
 
-function PrivateRoute({ path, role }: any) {
+type PrivateRouteProps = {
+  path: string,
+  role?: Array<Role>,
+  renderFn?: (props: RouteComponentProps<any, StaticContext>) => JSX.Element,
+}
+
+function PrivateRoute(props: PrivateRouteProps) {
+
+  const { path, role, renderFn } = props
 
   const token = useSelector((state: RootState) => state.auth.tokenPair);
 
@@ -42,18 +50,8 @@ function PrivateRoute({ path, role }: any) {
           <ErrorPage error="404" />
         </Route>
       </Switch>}
-      {path === '/worship-list' && <Switch>
-        <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
-        <Route path="*">
-          <ErrorPage error="404" />
-        </Route>
-      </Switch>}
-      {path === '/worship/:id' && <Switch>
-        <Route path="/worship/:id" render={props => <MainPageLegacy {...props} page="worship" />} />
-        <Redirect from="/worship/" to="/worship-list" />
-        <Route path="*">
-          <ErrorPage error="404" />
-        </Route>
+      {path !== '/admin' && <Switch>
+        <Route path={url} render={renderFn} />
       </Switch>}
     </>
   )}

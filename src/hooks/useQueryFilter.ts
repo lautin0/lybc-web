@@ -16,7 +16,7 @@ export const categoryType: AttributeType =
 
 const dataSrc = [
   {
-    id: 1, title: 'The meaning of Marriage', author: 'Timothy Keller', isbn: '9780525952473',
+    id: 1, title: 'The meaning of Marriage', author: 'Timothy Keller', isbn: '9780525952473', imgUri: "https://storage.googleapis.com/lybcstorage/photos/61iz06ua1xL.jpg",
     attributes: [
       { value: "CHRH", label: "Church", itemType: "book", attrType: locationType },
       { value: "ELIB", label: "EE Library", itemType: "book", attrType: locationType },
@@ -24,14 +24,14 @@ const dataSrc = [
     ]
   },
   {
-    id: 2, title: 'The Power of Significance', author: 'John C. Maxwell', isbn: '9781478921950',
+    id: 2, title: 'The Power of Significance', author: 'John C. Maxwell', isbn: '9781478921950', imgUri: "https://storage.googleapis.com/lybcstorage/photos/1681642590.jpeg",
     attributes: [
       { value: "CHRH", label: "Church", itemType: "book", attrType: locationType },
       { value: "DEVLM", label: "EE Library", itemType: "book", attrType: categoryType }
     ]
   },
   {
-    id: 3, title: 'The Power of Your Potential', author: 'John C. Maxwell', isbn: '9781549198427',
+    id: 3, title: 'The Power of Your Potential', author: 'John C. Maxwell', isbn: '9781549198427', imgUri: "https://storage.googleapis.com/lybcstorage/photos/61POmF9o54L.jpg",
     attributes: [
       { value: "ELIB", label: "EE Library", itemType: "book", attrType: locationType },
       { value: "DEVLM", label: "EE Library", itemType: "book", attrType: categoryType }
@@ -118,15 +118,15 @@ export default useQueryFilter
 export const getMockFilterDataList = (v: string): Array<FilterItemType> => {
   if (v === 'bkLocation') {
     return [
-      { value: "CHRH", label: "Church", checked: false },
-      { value: "ELIB", label: "EE Library", checked: false }
+      { value: "CHRH", label: "教會", checked: false },
+      { value: "ELIB", label: "EE圖書館", checked: false }
     ]
   } else if (v === 'bkCategory') {
     return [
-      { value: "FAITH", label: "Faith", checked: false },
-      { value: "RELAT", label: "Relationship", checked: false },
-      { value: "FAMIL", label: "Family", checked: false },
-      { value: "DEVLM", label: "Personal Development", checked: false }
+      { value: "FAITH", label: "信心", checked: false },
+      { value: "RELAT", label: "關係", checked: false },
+      { value: "FAMIL", label: "家庭", checked: false },
+      { value: "DEVLM", label: "個人成長", checked: false }
     ]
   } else {
     return []

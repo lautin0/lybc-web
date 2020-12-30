@@ -70,7 +70,7 @@ function DarkFooter() {
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>教會刊物</h4>
+          <h4>教會資源</h4>
           <ul className="sitemap">
             <li>
               <Link to="/journal">
@@ -82,6 +82,11 @@ function DarkFooter() {
                 分享欄
               </Link>
             </li>
+            {tokenPair?.token && <li>
+              <Link to="/library">
+                書藉查詢
+              </Link>
+            </li>}
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>

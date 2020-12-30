@@ -50,7 +50,8 @@ ReactDOM.render(
           <Route path="/index" render={(props: any) => <Index {...props} />} />
           <PrivateRoute path="/admin" role={[Role.Admin]} />
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
-          <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} />
+          <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library" />} />
+          {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
           <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
           <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} />
