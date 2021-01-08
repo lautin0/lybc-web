@@ -69,7 +69,7 @@ function ContactUs() {
 
             <p>通訊地址：荃灣青山公路264-298號南豐中心20/F 02D室</p>
 
-            <p>教會電話：<i className="fas fa-phone"></i>2493 8994 | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> 9433 1359</p>
+            <p>教會電話：<i className="fas fa-phone"></i> | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> 9433 1359</p>
 
             <p>教會電郵：lukyeungchurch@gmail.com</p>
           </Col>

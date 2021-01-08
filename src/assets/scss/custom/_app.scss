@@ -84,8 +84,8 @@ ul.sitemap {
 
 @media screen and (max-width: 991px) {
     .sidebar-collapse .navbar-collapse:before {
-        background: #45934c;
-        background: linear-gradient(#45934c, #000000 80%);
+        background: #fff;
+        // background: linear-gradient(#45934c, #000000 80%);
     }
 }
 
@@ -276,13 +276,13 @@ button.btn-link {
 }
 @media (min-aspect-ratio: 16/9) {
     .video-bg {
-        width:100%;
+        width: 100%;
         height: auto;
     }
 }
 @media (max-aspect-ratio: 16/9) {
-    .video-bg { 
-        width:auto;
+    .video-bg {
+        width: auto;
         height: 100%;
     }
 }

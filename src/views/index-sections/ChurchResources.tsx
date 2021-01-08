@@ -12,6 +12,9 @@ import { useHistory } from "react-router-dom";
 import bg7 from "assets/img/bg7.jpg";
 import bg5 from "assets/img/bg5.jpg";
 import bg3 from "assets/img/bg3.jpg";
+import sharing from "assets/img/microphone.jpg";
+import news from "assets/img/lightbulb.jpg";
+import sermon from "assets/img/sermon.png";
 import { useCallback } from "react";
 
 function ChurchResources() {
@@ -82,13 +85,13 @@ function ChurchResources() {
       // data-background-color="black"
       >
         <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 100, marginBottom: 100 }}>
-          <Col className="animated animate__animated" md="6" lg="3">
+          <Col className="animated animate__animated text-center" md="6" lg="3">
             <Card
               className="text-center"
               onClick={() => { history.push('/worship-list') }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', maxWidth: 350 }}
             >
-              <Card.Img src={bg7} />
+              <Card.Img src={sermon} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               {/* <Card.ImgOverlay>
                 <i style={{marginTop: 50}} className="fas title-fa fa-scroll"></i>
               </Card.ImgOverlay> */}
@@ -108,9 +111,12 @@ function ChurchResources() {
               </Button>
             </div> */}
           </Col>
-          <Col className="animated animate__animated" md="6" lg="3">
-            <Card className="text-center">
-              <Card.Img src={bg5} />
+          <Col className="animated animate__animated text-center" md="6" lg="3">
+            <Card
+              className="text-center"
+              style={{ maxWidth: 350 }}
+            >
+              <Card.Img src={news} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               {/* <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>
@@ -130,13 +136,13 @@ function ChurchResources() {
               </Button>
             </div> */}
           </Col>
-          <Col className="animated animate__animated" md="6" lg="3">
+          <Col className="animated animate__animated text-center" md="6" lg="3">
             <Card
               className="text-center"
               onClick={() => { history.push('/sharing-list') }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', maxWidth: 350 }}
             >
-              <Card.Img src={bg3} />
+              <Card.Img src={sharing} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               <Card.ImgOverlay>
                 <Card.Title></Card.Title>
                 <Card.Text></Card.Text>

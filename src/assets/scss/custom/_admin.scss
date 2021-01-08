@@ -30,13 +30,19 @@
 }
 
 .right-panel {
-  padding-left: 260px;
+  // padding-left: 260px;
   height: 100%;
   position: relative;
   width: 100%;
   transform: translateZ(0px);
   overflow: scroll;
   flex: 1 0 auto;
+}
+
+@media screen and (min-width: 991px) {
+  .right-panel {
+    padding-left: 260px;
+  }
 }
 
 .banner-blue {
@@ -176,12 +182,13 @@ textarea.admin {
 }
 
 .admin.invalid {
-  border-color: #FF3636 !important;
-  color: #FF3636 !important;
+  border-color: #ff3636 !important;
+  color: #ff3636 !important;
 }
 
-.admin.label, .admin.invalid::placeholder {
-  color: #FF3636;
+.admin.label,
+.admin.invalid::placeholder {
+  color: #ff3636;
 }
 
 // .admin a {

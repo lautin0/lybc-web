@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
 import { Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
+import usePagination from 'hooks/usePagination';
 import moment from 'moment';
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
@@ -16,10 +17,7 @@ function WorshipManage() {
 
   const history = useHistory();
 
-  const [pageItems, setPageItems] = React.useState<Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> | null>(null);
-  const [pageNumber, setPageNumber] = React.useState(1);
-  const [data, setData] = useState([])
-  const pageSize = 5;
+  const { pageItems, pageNumber, items, setData } = usePagination()
 
   const { loading, data: worshipData, refetch } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
 
@@ -45,40 +43,6 @@ function WorshipManage() {
     history.push('/admin/worship/' + id)
   }
 
-  let items = [];
-  if (pageItems == null || pageItems.length === 0) {
-    items.push(<Pagination.First key={1} />, <Pagination.Prev key={2} />)
-    items.push(
-      <Pagination.Item key={3} active disabled>
-        1
-      </Pagination.Item>
-    );
-    items.push(<Pagination.Next key={4} />, <Pagination.Last key={5} />)
-  } else {
-    items.push(<Pagination.First key={1} onClick={() => onPageChanged(1)} />,
-      <Pagination.Prev key={2} onClick={() => onPageChanged(pageNumber - 1)} />)
-    for (let number = 1; number <= Math.ceil(data.length / pageSize); number++) {
-      items.push(
-        <Pagination.Item key={number + 2} active={number === pageNumber} onClick={() => onPageChanged(number)}>
-          {number}
-        </Pagination.Item>,
-      );
-    }
-    items.push(<Pagination.Next key={Math.ceil(data.length / pageSize) + 3} onClick={() => onPageChanged(pageNumber + 1)} />,
-      <Pagination.Last key={Math.ceil(data.length / pageSize) + 4} onClick={() => onPageChanged(Math.ceil(data.length / pageSize))} />)
-  }
-
-  const onPageChanged = useCallback((page: number) => {
-    if (page > Math.ceil(data.length / pageSize) || page === 0)
-      return
-    let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
-    for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
-      data[i] && array.push(data[i])
-    }
-    setPageItems(array)
-    setPageNumber(page)
-  }, [data])
-
   useEffect(() => {
     if (worshipData === undefined)
       return
@@ -101,11 +65,6 @@ function WorshipManage() {
         }
       }))
   }, [worshipData])
-
-  useEffect(() => {
-    if (data !== undefined)
-      onPageChanged(1)
-  }, [data, onPageChanged])
 
   useEffect(() => {
     document.title = "網上崇拜"

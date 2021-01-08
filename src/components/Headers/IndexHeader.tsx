@@ -27,21 +27,21 @@ function IndexHeader() {
   return (
     <>
       <div className="page-header clear-filter" id="index" filter-color="gray">
-        {/* <div
+        <div
           className="page-header-image"
           style={{
             backgroundImage: "url(" + bg12 + ")"
           }}
           ref={pageHeader}
-        ></div> */}
-        <div
+        ></div>
+        {/* <div
           className="page-header-image"
           ref={pageHeader}
         >
           <video playsInline autoPlay muted loop id="myVideo" className="video-bg">
             <source src={landingVideoSrc} type="video/mp4" />
           </video>
-        </div>
+        </div> */}
         <Container>
           <div className="brand animate__animated animate__fadeInUp animate__fast" style={{ marginTop: 100 }}>
             <img

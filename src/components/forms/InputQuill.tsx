@@ -33,7 +33,7 @@ function InputQuill({ name, label, isReadOnly }: any) {
       name={name}
       render={({ onChange, onBlur, value }) =>
         <ReactQuill
-          className="mb-3"
+          className="mb-5"
           value={value || ''}
           onChange={(content: any) => onChange(content)}
           modules={editorModules}

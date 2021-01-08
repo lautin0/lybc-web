@@ -77,7 +77,7 @@ function IndexBanner() {
         <div className="section clear-filter" id="index-banner" style={{ zIndex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
           <Container>
             <div className="title" style={{ marginBottom: 50 }}>
-              <h2 className="title">教會年題 - 2020</h2>
+              <h2 className="title text-center">教會年題 - 2020</h2>
             </div>
             <Row className="text-center">
               <div className="w-100"><i style={{ fontSize: '4rem', position: 'relative' }} className="fa fa-cross"></i></div>

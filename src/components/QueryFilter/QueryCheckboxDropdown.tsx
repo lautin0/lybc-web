@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form'
 import { css } from 'styles/styles'
 import { AttributeType, FilterItemType } from './types'
 
-type QueryDropdownType = {
+type QueryCheckboxDropdownProps = {
   attrType: AttributeType
   change: (itemList: Array<FilterItemType>, attrType?: AttributeType) => void
 }
 
-function QueryDropdown(props: QueryDropdownType) {
+function QueryCheckboxDropdown(props: QueryCheckboxDropdownProps) {
 
   const { attrType, change } = props;
 
@@ -86,4 +86,4 @@ function QueryDropdown(props: QueryDropdownType) {
   </Dropdown>
 }
 
-export default QueryDropdown
+export default QueryCheckboxDropdown
