@@ -7,4 +7,13 @@ export class css {
 
   public static linkBtn = "btn-link"
 
+  public static blog = "d-flex justify-content-between"
+  public static blogText = "blog-text"
+  public static blogOP = "original-poster"
+  public static blogHeader = "header"
+  public static blogQuote = "quote"
+  public static blogFooter = "footer"
+  public static blogImg = "d-none d-md-block mt-1 blog-img"
+  public static blogImgMobile = "d-block d-md-none mt-3 blog-img"
+
 }

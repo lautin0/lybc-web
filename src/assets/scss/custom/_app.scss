@@ -286,3 +286,66 @@ button.btn-link {
         height: 100%;
     }
 }
+
+.blog-text {
+
+    margin-right: 20px;
+    color: gray;
+    cursor: pointer;
+
+    @media screen and (min-width: 576px) {
+        .header {
+            color: black;
+            font-size: 22px;
+        }
+        .quote {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .footer {
+            padding: 0;
+        }
+        .original-poster {
+            color: black;
+            font-weight: 16;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .header {
+            color: black;
+            font-size: 16px;
+        }
+        .quote {
+            font-size: 13px;
+        }
+        .foot {
+            padding: 0;
+            font-size: 12px;
+        }
+        .original-poster {
+            color: black;
+            font-weight: 13;
+        }
+    }
+
+}
+
+.blog-img {
+    cursor: pointer;
+    max-width: 250px;
+
+    @media screen and (min-width: 576px) {
+        width: 250px;
+        height: 200px; 
+        object-fit: cover;
+        border-radius: 0.125rem;
+    }
+
+    @media screen and (max-width: 576px) {
+        width: 200px;
+        height: 100px; 
+        object-fit: cover;
+        border-radius: 0.125rem;
+    }
+}

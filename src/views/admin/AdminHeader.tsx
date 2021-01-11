@@ -17,6 +17,7 @@ function AdminHeader(props: AdminHeaderProps) {
   const colorFromFunc = () => {
     switch (props.func) {
       case 'worships':
+      case 'books':
         return 'blue';
       case 'members':
         return 'teal';
@@ -48,10 +49,11 @@ function AdminHeader(props: AdminHeaderProps) {
     <header className={`banner-${colorFromFunc()}`}>
       <p className="category" style={{ color: 'white' }}>Welcome to admin panel!</p>
       <div className="form-inline row mb-3" style={{ marginTop: 40 }}>
-      {(props.func == null || props.func === '') && <>
+        {(props.func == null || props.func === '') && <>
           {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')}
           {quickItemGenerater('會員管理', 'fa fa-user', 'members')}
+          {quickItemGenerater('圖書管理', 'fa fa-book', 'books')}
         </>}
         {props.func === 'worships' && <>
           {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
@@ -62,6 +64,9 @@ function AdminHeader(props: AdminHeaderProps) {
         </>}
         {props.func === 'page-management' && <>
           {quickItemGenerater('頁面設定', 'fa fa-cog')}
+        </>}
+        {props.func === 'books' && <>
+          {quickItemGenerater('新增圖書', 'far fa-plus-square', 'new-book')}
         </>}
         {props.func === 'other' && <>
           {quickItemGenerater('系統設定', 'fa fa-wrench')}

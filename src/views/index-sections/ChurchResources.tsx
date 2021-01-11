@@ -14,7 +14,7 @@ import bg5 from "assets/img/bg5.jpg";
 import bg3 from "assets/img/bg3.jpg";
 import sharing from "assets/img/microphone.jpg";
 import news from "assets/img/lightbulb.jpg";
-import sermon from "assets/img/sermon.png";
+import sermon from "assets/img/sermon.jpg";
 import { useCallback } from "react";
 
 function ChurchResources() {

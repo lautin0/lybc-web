@@ -15,6 +15,8 @@ import WorshipEdit from './WorshipEdit';
 import logo from "assets/img/lybc_logo.png";
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import AdminNavbar from 'components/Navbars/AdminNavbar';
+import BooksCreate from './BooksCreate';
+import BooksManage from './BooksManage';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -84,6 +86,17 @@ function AdminPanel(props: AdminPanelProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
+                style={location.pathname.includes('books') ? { backgroundColor: 'lightgray' } : {}}
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  history.push('/admin/books')
+                }}
+                href="#"
+              ><i className="fa fa-book mr-2"></i>圖書管理</a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
                 style={location.pathname.includes('other') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
@@ -100,7 +113,8 @@ function AdminPanel(props: AdminPanelProps) {
               || props.func === 'worships'
               || props.func === 'other'
               || props.func === 'members'
-              || props.func === 'page-management')
+              || props.func === 'page-management'
+              || props.func === 'books')
               && <AdminHeader func={props.func} />}
             {props.func == null && <div style={{ marginLeft: 25, marginTop: 120 }}>
               <h2 style={{ color: 'gray' }}><em>選擇想使用的功能 <span role="img" aria-label="cog image">⚙️</span></em></h2>
@@ -112,6 +126,8 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'members' && <MemberManage />}
               {props.func === 'other' && <OtherFunc />}
               {props.func === 'page-management' && <PageManage />}
+              {props.func === 'new-book' && <BooksCreate />}
+              {props.func === 'books' && <BooksManage />}
             </div>
           </div>
         </div>

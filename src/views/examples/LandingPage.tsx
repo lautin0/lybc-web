@@ -295,10 +295,10 @@ function LandingPage() {
                 </InputGroup>
                 <div className="textarea-container">
                   <Form.Control
-                    cols="80"
+                    cols={80}
                     name="name"
                     placeholder="Type a message..."
-                    rows="4"
+                    rows={4}
                     as="textarea"
                   ></Form.Control>
                 </div>

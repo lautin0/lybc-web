@@ -61,7 +61,7 @@ function QueryCheckboxDropdown(props: QueryCheckboxDropdownProps) {
       {attrType.label + (countActiveFilter() > 0 ? `(${countActiveFilter()})` : "")}
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <form id="locationFilterForm" style={{ minWidth: 300, padding: 10 }} onSubmit={handleSubmit(onSubmit)}>
+      <form id="locationFilterForm" style={{ minWidth: 250, padding: 10 }} onSubmit={handleSubmit(onSubmit)}>
         <Form.Row>
           <Form.Group as={Col}>
             {getMockFilterDataList(attrType.value).map(x => {

@@ -46,6 +46,8 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/members`} render={(props: any) => <AdminPanel {...props} func="members" />} />
         <Route path={`${url}/other`} render={(props: any) => <AdminPanel {...props} func="other" />} />
         <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel {...props} func="page-management" />} />
+        <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel {...props} func="new-book" />} />
+        <Route path={`${url}/books`} render={(props: any) => <AdminPanel {...props} func="books" />} />
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

@@ -14,7 +14,10 @@ function DefaultFooter() {
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   return (
-    <footer className="footer footer-default" style={{ marginTop: '114px' }}>
+    <footer 
+      className="footer footer-default" 
+      style={{ marginTop: 40 }}
+    >
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>
           <h4>教會活動</h4>
