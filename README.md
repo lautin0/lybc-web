@@ -5,27 +5,3 @@
 # lybc-web
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/lautin0/lybc-web)
-
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm start
-```
-
-### Compiles and minifies for production
-
-```
-npm build
-```
-
-### Run your tests
-
-```
-npm test
-```
