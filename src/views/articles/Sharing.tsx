@@ -152,6 +152,19 @@ function Sharing() {
     ).length
   }
 
+  const getTitleDisplay = () => {
+    let result = ""
+    console.log(post)
+    if (post.user.role === 'WORKER') {
+      result = post.user.titleC
+    } else if (post.user.gender === 'MALE') {
+      result = '弟兄'
+    } else if (post.user.gender === 'FEMALE') {
+      result = '姊妹'
+    }
+    return result
+  }
+
   useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
@@ -192,7 +205,7 @@ function Sharing() {
             <Col lg={{ offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
           </Row>
           <Row className="justify-content-md-center">
-            <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{post.user.gender === 'MALE' ? '弟兄' : '姊妹'} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+            <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
             </Col>
           </Row>

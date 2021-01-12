@@ -5,6 +5,7 @@ import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstr
 import { useHistory } from "react-router-dom";
 import { css } from "styles/styles";
 import storm from 'assets/img/storm.jpg'
+import gethsemane from 'assets/img/gethsemane.jpg'
 
 // core components
 
@@ -13,8 +14,8 @@ function SharingList() {
   const history = useHistory();
   const [pills, setPills] = React.useState("1");
 
-  const navigate = (id: any) => {
-    history.push(`/sharing/5f850a38227dc4647ac6c586`)
+  const navigate = (id: string) => {
+    history.push('/sharing/' + id)
   }
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function SharingList() {
           <hr></hr>
           <Row className="my-1">
             <Col md={8} xs={12}>
-              <div className="my-5" onClick={() => { navigate(1) }}>
+              <div className="my-5" onClick={() => { navigate('5f850a38227dc4647ac6c586') }}>
                 <div className={css.blog}>
                   <div className={css.blogText}>
                     <div className={css.blogOP}>
@@ -60,6 +61,30 @@ function SharingList() {
                   </div>
                   <div className={css.blogImgMobile}>
                     <img src={storm}></img>
+                  </div>
+                </div>
+              </div>
+              <div className="my-5" onClick={() => { navigate('5ffcfcf7bc28ffba6fbac2bb') }}>
+                <div className={css.blog}>
+                  <div className={css.blogText}>
+                    <div className={css.blogOP}>
+                      黃雪梅主任傳道
+                    </div>
+                    <div className={css.blogHeader}>
+                      <b>在客西馬尼園!醒來吧!</b>
+                    </div>
+                    <label className={css.blogQuote}>
+                      上帝和主耶穌基督的僕人、綠楊家的牧者問候你們——就是在疫情下，守望家人、教會和香港、及至世界的兄姊妹們
+                    </label>
+                    <p className={css.blogFooter}>
+                      2020年4月5日
+                    </p>
+                  </div>
+                  <div className={css.blogImg}>
+                    <img src={gethsemane}></img>
+                  </div>
+                  <div className={css.blogImgMobile}>
+                    <img src={gethsemane}></img>
                   </div>
                 </div>
               </div>

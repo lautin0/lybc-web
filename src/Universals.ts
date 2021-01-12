@@ -2,6 +2,8 @@ import bg1 from "assets/img/bg1.jpg"
 import bg13 from "assets/img/bg13.jpg"
 import bg11 from "assets/img/bg11.jpg"
 import bg8 from "assets/img/bg8.jpg"
+import sermon from 'assets/img/sermon.jpg'
+import microphone from 'assets/img/microphone.jpg'
 
 type UniversalsInfo = {
     TITLE_MAP: any
@@ -21,10 +23,10 @@ const UNIVERSALS: UniversalsInfo = {
         'worship-list': { title: '網上崇拜', subtitle: `我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；
         他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，
         使榮耀住在我們的地上。
-        (詩篇 85:8-9 和合本2010)`, bg: bg11 },
+        (詩篇 85:8-9 和合本2010)`, bg: sermon },
         'doctrine':{ title: '綠楊浸信會會章之基本信條及聖禮', subtitle: null, bg: bg13 },
         'preacher-message': { title: '牧者的話', subtitle: '黃雪梅 主任傳道', bg: bg8 },
-        'sharing-list': { title: '分享欄', subtitle: null, bg: bg1 },
+        'sharing-list': { title: '分享欄', subtitle: null, bg: microphone },
         'sharing': { title: '分享欄', subtitle: null },
         'library': { title: '書藉查詢', subtitle: null }
     },

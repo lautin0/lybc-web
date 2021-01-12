@@ -319,7 +319,7 @@ button.btn-link {
         .quote {
             font-size: 13px;
         }
-        .foot {
+        .footer {
             padding: 0;
             font-size: 12px;
         }
@@ -333,7 +333,8 @@ button.btn-link {
 
 .blog-img {
     cursor: pointer;
-    max-width: 250px;
+    max-width: 30%;
+    min-width: 30%;
 
     @media screen and (min-width: 576px) {
         img{
