@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { css } from "styles/styles";
 import storm from 'assets/img/storm.jpg'
 import gethsemane from 'assets/img/gethsemane.jpg'
+import heart from 'assets/img/heart.jpg'
 
 // core components
 
@@ -34,11 +35,35 @@ function SharingList() {
             </Button>
           </div>
           <h5 className="description">
-            相信弟兄姊妹在生活中會遇上不少困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的見證，讓我們彼此激勵，互作見證，在主內共成長。
+            相信弟兄姊妹在生活中會遇上不少困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的想法，讓我們彼此激勵，互作見證，在主內共成長。
           </h5>
           <hr></hr>
           <Row className="my-1">
             <Col md={8} xs={12}>
+              <div className="my-5" onClick={() => { navigate('5ffda6d9ad3e428c49801c94') }}>
+                <div className={css.blog}>
+                  <div className={css.blogText}>
+                    <div className={css.blogOP}>
+                      黃雪梅主任傳道
+                    </div>
+                    <div className={css.blogHeader}>
+                      <b>重見初心</b>
+                    </div>
+                    <label className={css.blogQuote}>
+                      天寒，樹葉落下，露出樹幹。 沒有了遮掩，沒有了自建的掩護，那支撐著我們的，清清楚楚就是主自己
+                    </label>
+                    <p className={css.blogFooter}>
+                      2021年1月12日
+                    </p>
+                  </div>
+                  <div className={css.blogImg}>
+                    <img src={heart}></img>
+                  </div>
+                  <div className={css.blogImgMobile}>
+                    <img src={heart}></img>
+                  </div>
+                </div>
+              </div>
               <div className="my-5" onClick={() => { navigate('5f850a38227dc4647ac6c586') }}>
                 <div className={css.blog}>
                   <div className={css.blogText}>

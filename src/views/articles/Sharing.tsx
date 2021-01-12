@@ -201,8 +201,11 @@ function Sharing() {
               </OverlayTrigger>
             </div>
           </Row>
-          <Row className="text-left" style={{ alignItems: 'baseline' }}>
-            <Col lg={{ offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
+          <Row className="d-block d-md-none text-left" style={{ alignItems: 'baseline' }}>
+            <Col><h3><strong>{post.title}</strong></h3></Col>
+          </Row>
+          <Row className="d-none d-md-block text-center" style={{ alignItems: 'baseline' }}>
+            <Col><h3><strong>{post.title}</strong></h3></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
