@@ -5,11 +5,11 @@
         "LABEL": ""
       },
       "REACTION": {
-        "LABEL": "對您的見證表達了心情",
+        "LABEL": "對您的發佈表達了心情",
         "PATH": "sharing"
       },
       "COMMENT": {
-        "LABEL": "回應了您的見證",
+        "LABEL": "回應了您的發佈",
         "PATH": "sharing"
       },
       "MENTION": {

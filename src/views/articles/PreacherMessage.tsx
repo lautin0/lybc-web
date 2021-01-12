@@ -162,7 +162,7 @@ function PreacherMessage() {
   return (
     <>
       <div className="section">
-        {loading && <Container style={{ marginTop: -20 }}>
+        {loading && <Container style={{ marginTop: -20, marginBottom: 60  }}>
           <div className="text-center">
             <div className="spinner-grow text-secondary" role="status">
               <span className="sr-only">Loading...</span>

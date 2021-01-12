@@ -12,7 +12,6 @@ import gethsemane from 'assets/img/gethsemane.jpg'
 function SharingList() {
 
   const history = useHistory();
-  const [pills, setPills] = React.useState("1");
 
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
@@ -31,7 +30,7 @@ function SharingList() {
         <Container>
           <div className="button-container">
             <Button className="btn-round" color="info" size="lg">
-              分享您的見證
+              分享您的想法
             </Button>
           </div>
           <h5 className="description">
