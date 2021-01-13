@@ -12,9 +12,9 @@ import { useHistory } from "react-router-dom";
 import bg7 from "assets/img/bg7.jpg";
 import bg5 from "assets/img/bg5.jpg";
 import bg3 from "assets/img/bg3.jpg";
-import sharing from "assets/img/microphone.jpg";
-import news from "assets/img/lightbulb.jpg";
-import sermon from "assets/img/sermon.jpg";
+import sharing from "assets/img/microphone_sm.jpg";
+import news from "assets/img/lightbulb_sm.jpg";
+import sermon from "assets/img/sermon_sm.jpg";
 import { useCallback } from "react";
 
 function ChurchResources() {

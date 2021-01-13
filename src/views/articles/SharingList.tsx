@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { css } from "styles/styles";
-import storm from 'assets/img/storm.jpg'
-import gethsemane from 'assets/img/gethsemane.jpg'
-import heart from 'assets/img/heart.jpg'
+import storm from 'assets/img/storm_sm.jpg'
+import gethsemane from 'assets/img/gethsemane_sm.jpg'
+import heart from 'assets/img/heart_sm.jpg'
 
 // core components
 
