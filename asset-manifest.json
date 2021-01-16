@@ -1,20 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.f4fa170c.chunk.css",
-    "main.js": "/static/js/main.6ec91ed8.chunk.js",
+    "main.js": "/static/js/main.d6c21ecc.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.f50297bb.js",
-    "static/css/2.c5937a3d.chunk.css": "/static/css/2.c5937a3d.chunk.css",
-    "static/js/2.6f7533a7.chunk.js": "/static/js/2.6f7533a7.chunk.js",
+    "static/css/2.7b69e286.chunk.css": "/static/css/2.7b69e286.chunk.css",
+    "static/js/2.7e2c8af1.chunk.js": "/static/js/2.7e2c8af1.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.6f7533a7.chunk.js.LICENSE.txt": "/static/js/2.6f7533a7.chunk.js.LICENSE.txt",
-    "static/media/UploadIcon.svg": "/static/media/UploadIcon.469126df.svg",
+    "static/js/2.7e2c8af1.chunk.js.LICENSE.txt": "/static/js/2.7e2c8af1.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
     "static/media/bg1.71a28027.jpg": "/static/media/bg1.71a28027.jpg",
     "static/media/bg12.0db1026c.jpg": "/static/media/bg12.0db1026c.jpg",
     "static/media/bg13.b126abbc.jpg": "/static/media/bg13.b126abbc.jpg",
     "static/media/bg8.2c89438b.jpg": "/static/media/bg8.2c89438b.jpg",
-    "static/media/gethsemane_sm.b3683300.jpg": "/static/media/gethsemane_sm.b3683300.jpg",
-    "static/media/heart_sm.d87f50fd.jpg": "/static/media/heart_sm.d87f50fd.jpg",
     "static/media/lightbulb_sm.02a31ca1.jpg": "/static/media/lightbulb_sm.02a31ca1.jpg",
     "static/media/login.ab931d77.jpg": "/static/media/login.ab931d77.jpg",
     "static/media/lybc_logo.95501391.png": "/static/media/lybc_logo.95501391.png",
@@ -22,14 +19,13 @@
     "static/media/microphone_sm.53ae5374.jpg": "/static/media/microphone_sm.53ae5374.jpg",
     "static/media/photo5_sq.701e58a7.jpg": "/static/media/photo5_sq.701e58a7.jpg",
     "static/media/sermon.307cf97b.jpg": "/static/media/sermon.307cf97b.jpg",
-    "static/media/sermon_sm.248d05c8.jpg": "/static/media/sermon_sm.248d05c8.jpg",
-    "static/media/storm_sm.227f85ab.jpg": "/static/media/storm_sm.227f85ab.jpg"
+    "static/media/sermon_sm.248d05c8.jpg": "/static/media/sermon_sm.248d05c8.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f50297bb.js",
-    "static/css/2.c5937a3d.chunk.css",
-    "static/js/2.6f7533a7.chunk.js",
+    "static/css/2.7b69e286.chunk.css",
+    "static/js/2.7e2c8af1.chunk.js",
     "static/css/main.f4fa170c.chunk.css",
-    "static/js/main.6ec91ed8.chunk.js"
+    "static/js/main.d6c21ecc.chunk.js"
   ]
 }
