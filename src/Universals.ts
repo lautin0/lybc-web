@@ -137,7 +137,7 @@ const UNIVERSALS: UniversalsInfo = {
         // `,
         TITLE: '教會通告'
     },
-    GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query"
+    GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query",
     // GRAPHQL_ENDPOINT: "http://localhost:8080/query",
     GOOGLE_API_ENDPOINT: "https://storage.googleapis.com"
 }
