@@ -17,6 +17,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import AdminNavbar from 'components/Navbars/AdminNavbar';
 import BooksCreate from './BooksCreate';
 import BooksManage from './BooksManage';
+import PostCreate from './PostCreate';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -83,7 +84,7 @@ function AdminPanel(props: AdminPanelProps) {
                 href="#"
               ><i className="fa fa-user mr-2"></i>會員管理</a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link"
                 style={location.pathname.includes('books') ? { backgroundColor: 'lightgray' } : {}}
@@ -93,7 +94,7 @@ function AdminPanel(props: AdminPanelProps) {
                 }}
                 href="#"
               ><i className="fa fa-book mr-2"></i>圖書管理</a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link"
@@ -126,8 +127,9 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'members' && <MemberManage />}
               {props.func === 'other' && <OtherFunc />}
               {props.func === 'page-management' && <PageManage />}
-              {props.func === 'new-book' && <BooksCreate />}
-              {props.func === 'books' && <BooksManage />}
+              {props.func === 'new-post' && <PostCreate />}
+              {/* {props.func === 'new-book' && <BooksCreate />}
+              {props.func === 'books' && <BooksManage />} */}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
-import { NewReaction, Post, ReactionType } from "generated/graphql";
+import { NewReaction, Post, ReactionType, Role } from "generated/graphql";
 import { REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 // react-bootstrap components
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
+import UNIVERSALS from "Universals";
 import { getTokenValue } from "utils/utils";
 
 // core components
@@ -153,8 +154,9 @@ function Sharing() {
   }
 
   const getTitleDisplay = () => {
+    if (post.user.role === Role.Admin)
+      return ""
     let result = ""
-    console.log(post)
     if (post.user.role === 'WORKER') {
       result = post.user.titleC
     } else if (post.user.gender === 'MALE') {
@@ -202,13 +204,18 @@ function Sharing() {
             </div>
           </Row>
           <Row className="d-block d-md-none text-left" style={{ alignItems: 'baseline' }}>
-            <Col><h3><strong>{post.title}</strong></h3></Col>
+            <Col><h2><strong>{post.title}</strong></h2></Col>
           </Row>
           <Row className="d-none d-md-block text-center" style={{ alignItems: 'baseline' }}>
-            <Col><h3><strong>{post.title}</strong></h3></Col>
+            <Col><h2><strong>{post.title}</strong></h2></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+          </Row>
+          <Row className="d-none d-md-flex justify-content-md-center mb-5">
+            <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${post.imageURI}`}></img></Col>
+          </Row>
+          <Row className="justify-content-md-center">
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
             </Col>
           </Row>

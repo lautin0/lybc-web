@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { css } from "styles/styles";
-import storm from 'assets/img/storm_sm.jpg'
-import gethsemane from 'assets/img/gethsemane_sm.jpg'
-import heart from 'assets/img/heart_sm.jpg'
+import { GET_POSTS } from "graphqls/graphql";
+import { useQuery } from "@apollo/client";
+import { Post, PostType, Role } from "generated/graphql";
+import moment from 'moment'
+import UNIVERSALS from "Universals";
 
 // core components
 
@@ -14,9 +16,48 @@ function SharingList() {
 
   const history = useHistory();
 
+  const [data, setData] = useState<Post[]>()
+
+  const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
+
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
   }
+
+  const getTitleDisplay = (p: Post) => {
+    if (p.user.role === Role.Admin)
+      return ""
+    let result = ""
+    if (p.user.role === 'WORKER') {
+      result = p.user.titleC ? p.user.titleC : ""
+    } else if (p.user.gender === 'MALE') {
+      result = '弟兄'
+    } else if (p.user.gender === 'FEMALE') {
+      result = '姊妹'
+    }
+    return result
+  }
+
+  useEffect(() => {
+    if (postData === undefined)
+      return
+    let tmp: Post[] = [...postData.posts]
+    console.log(tmp)
+    setData(tmp
+      ?.filter(x => x.type == PostType.Sharing)
+      ?.filter(x => x.parantId == null)
+      .sort((a: Post, b: Post) => {
+        let aDate = moment(a.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
+        let bDate = moment(b.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
+        if (aDate.isAfter(bDate)) {
+          return -1
+        } else if (aDate.isBefore(bDate)) {
+          return 1
+        } else {
+          return 0
+        }
+      }))
+  }, [postData])
 
   useEffect(() => {
     //Default scroll to top
@@ -38,85 +79,46 @@ function SharingList() {
             相信弟兄姊妹在生活中會遇上不少困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的想法，讓我們彼此激勵，互作見證，在主內共成長。
           </h5>
           <hr></hr>
-          <Row className="my-1">
+          {(loading && !data) && <Row className="text-center my-5">
+            <div className="w-100">
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          </Row>}
+          {(!loading && data) && <Row className="my-1">
             <Col md={8} xs={12}>
-              <div className="my-5" onClick={() => { navigate('5ffda6d9ad3e428c49801c94') }}>
-                <div className={css.blog}>
-                  <div className={css.blogText}>
-                    <div className={css.blogOP}>
-                      黃雪梅主任傳道
-                    </div>
-                    <div className={css.blogHeader}>
-                      <b>重見初心</b>
-                    </div>
-                    <label className={css.blogQuote}>
-                      天寒，樹葉落下，露出樹幹。 沒有了遮掩，沒有了自建的掩護，那支撐著我們的，清清楚楚就是主自己
-                    </label>
-                    <p className={css.blogFooter}>
-                      2021年1月12日
+              {data.map((p: Post) => {
+                return <div key={p._id} className="my-5" onClick={() => { navigate(p._id) }}>
+                  <div className={css.blog}>
+                    <div className={css.blogText}>
+                      <div className={css.blogOP}>
+                        {p.user.nameC}{getTitleDisplay(p)}
+                      </div>
+                      <div className={css.blogHeader}>
+                        <b>{p.title}</b>
+                      </div>
+                      <label className={css.blogQuote}>
+                        {p.subtitle}
+                      </label>
+                      <p className={css.blogFooter}>
+                        {moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日
                     </p>
-                  </div>
-                  <div className={css.blogImg}>
-                    <img src={heart}></img>
-                  </div>
-                  <div className={css.blogImgMobile}>
-                    <img src={heart}></img>
+                    </div>
+                    <div className={css.blogImg}>
+                      <img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${p.imageURI}`}></img>
+                    </div>
+                    <div className={css.blogImgMobile}>
+                      <img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${p.imageURI}`}></img>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="my-5" onClick={() => { navigate('5f850a38227dc4647ac6c586') }}>
-                <div className={css.blog}>
-                  <div className={css.blogText}>
-                    <div className={css.blogOP}>
-                      古偉健弟兄
-                    </div>
-                    <div className={css.blogHeader}>
-                      <b>祈禱會分享(但以理組) 之 疫情中的信仰 - 神的應許和人的盼望</b>
-                    </div>
-                    <label className={css.blogQuote}>
-                      在 1 Mar 2020的崇拜講道之領受
-                    </label>
-                    <p className={css.blogFooter}>
-                      2020年4月5日
-                    </p>
-                  </div>
-                  <div className={css.blogImg}>
-                    <img src={storm}></img>
-                  </div>
-                  <div className={css.blogImgMobile}>
-                    <img src={storm}></img>
-                  </div>
-                </div>
-              </div>
-              <div className="my-5" onClick={() => { navigate('5ffcfcf7bc28ffba6fbac2bb') }}>
-                <div className={css.blog}>
-                  <div className={css.blogText}>
-                    <div className={css.blogOP}>
-                      黃雪梅主任傳道
-                    </div>
-                    <div className={css.blogHeader}>
-                      <b>在客西馬尼園!醒來吧!</b>
-                    </div>
-                    <label className={css.blogQuote}>
-                      上帝和主耶穌基督的僕人、綠楊家的牧者問候你們——就是在疫情下，守望家人、教會和香港、及至世界的兄姊妹們
-                    </label>
-                    <p className={css.blogFooter}>
-                      2020年4月5日
-                    </p>
-                  </div>
-                  <div className={css.blogImg}>
-                    <img src={gethsemane}></img>
-                  </div>
-                  <div className={css.blogImgMobile}>
-                    <img src={gethsemane}></img>
-                  </div>
-                </div>
-              </div>
+              })}
             </Col>
             <Col className="d-none d-md-block" md={4}>
 
             </Col>
-          </Row>
+          </Row>}
         </Container>
       </div>
     </>

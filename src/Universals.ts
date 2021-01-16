@@ -9,7 +9,8 @@ type UniversalsInfo = {
     TITLE_MAP: any
     MENU_HIERARCHY: any,
     NOTIFICATION: any,
-    GRAPHQL_ENDPOINT: string
+    GRAPHQL_ENDPOINT: string,
+    GOOGLE_API_ENDPOINT: string
 }
 
 const UNIVERSALS: UniversalsInfo = {
@@ -137,6 +138,7 @@ const UNIVERSALS: UniversalsInfo = {
         TITLE: '教會通告'
     },
     GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query"
-    // GRAPHQL_ENDPOINT: "http://localhost:8080/query"
+    // GRAPHQL_ENDPOINT: "http://localhost:8080/query",
+    GOOGLE_API_ENDPOINT: "https://storage.googleapis.com"
 }
 export default UNIVERSALS;

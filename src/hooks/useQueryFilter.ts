@@ -16,7 +16,7 @@ export const categoryType: AttributeType =
 
 const dataSrc = [
   {
-    id: 1, title: 'The meaning of Marriage', author: 'Timothy Keller', isbn: '9780525952473', imgUri: "https://storage.googleapis.com/lybcstorage/photos/61iz06ua1xL.jpg",
+    id: 1, title: 'The meaning of Marriage', author: 'Timothy Keller', isbn: '9780525952473', imgUri: "https://storage.googleapis.com/lybcstorage/61iz06ua1xL.jpg",
     attributes: [
       { value: "CHRH", label: "Church", itemType: "book", attrType: locationType },
       { value: "ELIB", label: "EE Library", itemType: "book", attrType: locationType },
@@ -24,20 +24,20 @@ const dataSrc = [
     ]
   },
   {
-    id: 2, title: 'The Power of Significance', author: 'John C. Maxwell', isbn: '9781478921950', imgUri: "https://storage.googleapis.com/lybcstorage/photos/1681642590.jpeg",
+    id: 2, title: 'The Power of Significance', author: 'John C. Maxwell', isbn: '9781478921950', imgUri: "https://storage.googleapis.com/lybcstorage/1681642590.jpeg",
     attributes: [
       { value: "CHRH", label: "Church", itemType: "book", attrType: locationType },
       { value: "DEVLM", label: "個人成長", itemType: "book", attrType: categoryType }
     ]
   },
   {
-    id: 3, title: 'The Power of Your Potential', author: 'John C. Maxwell', isbn: '9781549198427', imgUri: "https://storage.googleapis.com/lybcstorage/photos/61POmF9o54L.jpg",
+    id: 3, title: 'The Power of Your Potential', author: 'John C. Maxwell', isbn: '9781549198427', imgUri: "https://storage.googleapis.com/lybcstorage/61POmF9o54L.jpg",
     attributes: [
       { value: "ELIB", label: "EE Library", itemType: "book", attrType: locationType },
       { value: "DEVLM", label: "個人成長", itemType: "book", attrType: categoryType }
     ]
   },{
-    id: 4, title: '建立屬靈友誼：靈友退修導引（增訂版）', author: '陳誠東', isbn: '9789628294411', imgUri: "https://storage.googleapis.com/lybcstorage/photos/WhatsApp%20Image%202021-01-09%20at%2013.53.54.jpeg",
+    id: 4, title: '建立屬靈友誼：靈友退修導引（增訂版）', author: '陳誠東', isbn: '9789628294411', imgUri: "https://storage.googleapis.com/lybcstorage/WhatsApp%20Image%202021-01-09%20at%2013.53.54.jpeg",
     attributes: [
       { value: "CHRH", label: "Church", itemType: "book", attrType: locationType },
       { value: "RELAT", label: "關係", itemType: "book", attrType: categoryType }

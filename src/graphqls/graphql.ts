@@ -9,22 +9,6 @@ export type RefreshTokenInput = {
   token: string | null
 }
 
-export type NewWorshipInput = {
-  worshipId: string,
-  type: string,
-  title: string,
-  note: string,
-  verse: string,
-  link: string,
-  messenger: string,
-}
-
-export type NewWorshipDocInput = {
-  title: string,
-  link: string,
-  type: string
-}
-
 export const LOGIN = gql`
   mutation login($input: Login!){
     login(input: $input){
@@ -139,6 +123,9 @@ export const GET_POSTS = gql`
       subtitle
       content
       creDttm
+      type
+      imageURI
+      parantId
       user{
         username
         name
@@ -184,6 +171,7 @@ export const GET_POST = gql`
       subtitle
       content
       creDttm
+      imageURI
       user{
         username
         name
@@ -223,8 +211,8 @@ export const GET_POST = gql`
 `
 
 export const ADD_POST = gql`
-  mutation createPost($input: NewPost!){
-    createPost(input: $input){
+  mutation createPost($input: NewPost!, $image: Upload){
+    createPost(input: $input, image: $image){
       _id
       title
       subtitle

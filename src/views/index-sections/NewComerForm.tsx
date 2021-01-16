@@ -141,7 +141,7 @@ export default function NewComerForm() {
                   <Button
                     className="btn-info btn-round"
                     // href="#pablo"
-                    onClick={() => dispatch(saveNewComer(person))}
+                    // onClick={() => dispatch(saveNewComer(person))}
                     size="lg"
                   >
                     提交

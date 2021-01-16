@@ -13,6 +13,7 @@ type Post {
 	user: User!
 	creDttm: Time!
 	reactions: [Reaction]!
+	imageURI: String
 }
 
 input NewPost {

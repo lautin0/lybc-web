@@ -168,6 +168,7 @@ export type Post = {
   user: User;
   creDttm: Scalars['Time'];
   reactions: Array<Maybe<Reaction>>;
+  imageURI?: Maybe<Scalars['String']>;
 };
 
 export type NewPost = {

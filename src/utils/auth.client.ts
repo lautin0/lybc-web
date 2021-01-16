@@ -2,8 +2,13 @@ import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import UNIVERSALS from "Universals";
 import { isTokenExpired } from "./utils";
+import { createUploadLink } from 'apollo-upload-client'
 
-const httpLink = createHttpLink({
+// const httpLink = createHttpLink({
+//   uri: UNIVERSALS.GRAPHQL_ENDPOINT,
+// });
+
+const uploadLink = createUploadLink({
   uri: UNIVERSALS.GRAPHQL_ENDPOINT,
 });
 
@@ -32,7 +37,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache()
 });
 

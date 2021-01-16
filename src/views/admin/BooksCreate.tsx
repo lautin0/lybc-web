@@ -1,3 +1,4 @@
+import DropzoneCustom from "components/DropzoneCustom";
 import InputText from "components/Forms/InputText";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -79,6 +80,7 @@ function BooksCreate(props: any) {
             maxFileSize={5242880}
           />
         </Form.Row>
+        {/* <DropzoneCustom /> */}
         <Form.Row>
           <Form.Group>
             <Button
