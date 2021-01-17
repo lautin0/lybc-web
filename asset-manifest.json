@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f4fa170c.chunk.css",
-    "main.js": "/static/js/main.d6c21ecc.chunk.js",
+    "main.js": "/static/js/main.a97c83da.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.f50297bb.js",
     "static/css/2.7b69e286.chunk.css": "/static/css/2.7b69e286.chunk.css",
     "static/js/2.7e2c8af1.chunk.js": "/static/js/2.7e2c8af1.chunk.js",
@@ -19,13 +19,14 @@
     "static/media/microphone_sm.53ae5374.jpg": "/static/media/microphone_sm.53ae5374.jpg",
     "static/media/photo5_sq.701e58a7.jpg": "/static/media/photo5_sq.701e58a7.jpg",
     "static/media/sermon.307cf97b.jpg": "/static/media/sermon.307cf97b.jpg",
-    "static/media/sermon_sm.248d05c8.jpg": "/static/media/sermon_sm.248d05c8.jpg"
+    "static/media/sermon_sm.248d05c8.jpg": "/static/media/sermon_sm.248d05c8.jpg",
+    "static/media/signpost_md.275dcd85.jpg": "/static/media/signpost_md.275dcd85.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f50297bb.js",
     "static/css/2.7b69e286.chunk.css",
     "static/js/2.7e2c8af1.chunk.js",
     "static/css/main.f4fa170c.chunk.css",
-    "static/js/main.d6c21ecc.chunk.js"
+    "static/js/main.a97c83da.chunk.js"
   ]
 }
