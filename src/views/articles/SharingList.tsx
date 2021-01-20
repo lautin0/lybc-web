@@ -59,6 +59,14 @@ function SharingList() {
       }))
   }, [postData])
 
+  const trimSubtitle = (txt: string) => {
+    if (txt.length <= 50) {
+      return txt
+    } else {
+      return txt.substring(0, 50) + '...'
+    }
+  }
+
   useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
@@ -99,7 +107,7 @@ function SharingList() {
                         <b>{p.title}</b>
                       </div>
                       <label className={css.blogQuote}>
-                        {p.subtitle}
+                        {p.subtitle && trimSubtitle(p.subtitle)}
                       </label>
                       <p className={css.blogFooter}>
                         {moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日
