@@ -93,7 +93,7 @@
     "@types/apollo-upload-client": "^14.1.0",
     "@types/dom-to-image": "^2.6.0",
     "@types/dompurify": "^2.0.1",
-    "@types/enzyme": "^3.10.7",
+    "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jwt-decode": "^3.1.0",
     "@types/lodash": "^4.14.165",
