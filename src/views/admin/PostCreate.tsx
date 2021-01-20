@@ -23,7 +23,9 @@ function PostCreate(props: any) {
 
   const dispatch = useDispatch()
 
-  const dropzoneMethods = useDropzone();
+  const dropzoneMethods = useDropzone({
+    accept: 'image/*'
+  });
 
   const { acceptedFiles } = dropzoneMethods
 
@@ -95,7 +97,7 @@ function PostCreate(props: any) {
         <Form.Row>
           <InputQuill name="content" label="內文" isReadOnly={false} />
         </Form.Row>
-        <label>選擇封面</label>
+        <label className="mt-5">選擇封面</label>
         <DropzoneCustom {...dropzoneMethods} />
         <Form.Row>
           <Form.Group>

@@ -27,6 +27,10 @@ import PrivateRoute from "components/Route/PrivateRoute";
 import { getClient } from "utils/auth.client";
 import DecisionModal from "components/Modals/DecisionModal";
 import { Role } from "generated/graphql";
+import PersonalRoute from "components/Route/PersonalRoute";
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import PasswordResetModal from "components/Modals/PasswordResetModal";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -45,12 +49,14 @@ ReactDOM.render(
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <CommonModal />
         <DecisionModal />
+        <PasswordResetModal />
         <LoadingOverlay />
         <Switch>
           <Route path="/index" render={(props: any) => <Index {...props} />} />
           <PrivateRoute path="/admin" role={[Role.Admin]} />
           <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
           <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library" />} />
+          <PersonalRoute path="/personal" />
           {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
           <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
           <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />

@@ -13,8 +13,9 @@ type User {
 	nameC: String!
 	title: String
 	titleC: String
-	dob: Time!
+	dob: Time
 	gender: Gender!
+	profilePicURI: String
 	creBy: String!
 	creDttm: Time!
 	lupdBy: String!
@@ -29,9 +30,27 @@ input NewUser {
 	nameC: String!
 	title: String
 	titleC: String
-	dob: String!
+	dob: String
 	gender: Gender!
 	creBy: String!	
+}
+
+input UpdateUser {
+	username: String!
+	role: Role!
+	name: String!
+	nameC: String!
+	title: String
+	titleC: String
+	dob: Time
+	gender: Gender!
+	profilePic: Upload
+}
+
+input NewPassword {
+	username: String!
+	password: String!
+	newPassword: String!
 }
 
 extend type Query {
@@ -41,4 +60,6 @@ extend type Query {
 
 extend type Mutation {
 	createUser(input: NewUser!): User!
+	changePassword(input: NewPassword!): Boolean
+	updateUser(input: UpdateUser!): User!
 }

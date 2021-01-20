@@ -5,13 +5,15 @@ import { default as system } from './system'
 import { default as worship } from './worship'
 import { default as auth } from './auth'
 import { default as admin } from './admin'
+import { default as security } from './security'
 
 const rootReducer = combineReducers({
   newComer,
   worship,
   auth,
   system,
-  admin
+  admin,
+  security
 })
 
 export default function root(state: any, action: any) {

@@ -13,6 +13,8 @@ import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
 import defaultAvator from "assets/img/default-avatar.png";
+import { Post } from 'generated/graphql';
+import UNIVERSALS from 'Universals';
 
 function CommentSection(props: any) {
 
@@ -58,7 +60,8 @@ function CommentSection(props: any) {
       return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
-            <img alt="..." src={defaultAvator}></img>
+            {e.user.profilePicURI == null && <img alt="..." src={defaultAvator}></img>}
+            {e.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_API_ENDPOINT + e.user.profilePicURI}></img>}
           </div>
         </div>
         <div className="ml-5">
@@ -71,19 +74,19 @@ function CommentSection(props: any) {
               >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
             </OverlayTrigger>}
             {e.user.role === "MEMBER" && <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
-              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
+            >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
           </div>
           <p><b>{e.content}</b></p>
           <p className="category">{getTimePastStr(moment(e.creDttm))}</p>
         </div>
       </Col>
     })}
-    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.role.toUpperCase() !== 'PUBLIC') && <Col 
-      style={{ borderTop: '.5px lightgrey solid' }} 
-      md={12} lg={8} 
+    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.role.toUpperCase() !== 'PUBLIC') && <Col
+      style={{ borderTop: '.5px lightgrey solid' }}
+      md={12} lg={8}
       className="my-2 pt-5 d-md-inline-flex"
     >
       <div className="profile-page pt-3">
@@ -127,7 +130,7 @@ function CommentSection(props: any) {
         </div>
       </Form>
     </Col>}
-    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC')&& <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
+    {(tokenPair?.token && getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
       <div style={{ fontSize: 18 }}>請以私號發表回應</div>
     </Col>}
     {!tokenPair?.token && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">

@@ -4,6 +4,7 @@ import bg11 from "assets/img/bg11.jpg"
 import bg8 from "assets/img/bg8.jpg"
 import sermon from 'assets/img/sermon.jpg'
 import microphone from 'assets/img/microphone.jpg'
+import signpost from 'assets/img/signpost_md.jpg'
 
 type UniversalsInfo = {
     TITLE_MAP: any
@@ -18,7 +19,7 @@ const UNIVERSALS: UniversalsInfo = {
         'about-us': { title: '『香港萬國宣道浸信聯會』簡介', subtitle: null, bg: bg13 },
         'journal': { title: '教會月刊', subtitle: null, bg: bg1 },
         'apply-activity': { title: '活動報名', subtitle: null },
-        'contact-us': { title: '聯絡我們', subtitle: null, bg: bg13 },
+        'contact-us': { title: '聯絡我們', subtitle: null, bg: signpost },
         'sunday-service-info': { title: '聚會時間', subtitle: null, bg: bg13 },
         'worship': { title: '網上崇拜', subtitle: null },
         'worship-list': { title: '網上崇拜', subtitle: `我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；
@@ -117,7 +118,7 @@ const UNIVERSALS: UniversalsInfo = {
         <b>1. 入數: 本堂戶口（滙豐銀行<label class="ml-1" style="color: gray;font-size: 18px">119-379-295-001</label>)</b></br>
         <b>2. 支票:抬頭“綠楊浸信會有限公司”。</b></br>
         <b>請注意: </b></br>
-        <b>1. 請把入數紙whatsapp到教會電話號碼:<label class="ml-1" style="color: gray;font-size: 18px">94331359</label>，並註明奉獻者姓名，或致電<label class="ml-1" style="color: gray;font-size: 18px">24938994</label> 聯絡同工</b></br>
+        <b>1. 請把入數紙whatsapp到教會電話號碼:<label class="ml-1" style="color: gray;font-size: 18px">94331359</label>，並註明奉獻者姓名</b></br>
         <b>2.請在支票的背頁，清楚寫上奉獻者姓名電話，並寄回綠楊浸信會，辦公室地址:「荃灣青山公路264-298號，南豐中心20樓02D室」</b></br>
         <b>* 同工收到你的奉獻後會儘快跟你聯絡及確認。</b></br>
         <br><h3>綠楊浸信會 謹啟💟</h3>

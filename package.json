@@ -34,6 +34,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-switch": "15.5.3",
+    "react-dates": "^21.8.0",
     "react-datetime": "3.0.4",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.4",
@@ -47,6 +48,7 @@
     "react-select": "^3.1.1",
     "react-test-renderer": "^16.13.1",
     "react-to-print": "^2.5.1",
+    "react-transition-group": "^4.4.1",
     "reactstrap": "8.8.1",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
@@ -95,6 +97,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jwt-decode": "^3.1.0",
     "@types/lodash": "^4.14.165",
+    "@types/react-dates": "^21.8.1",
     "gh-pages": "^2.1.1"
   }
 }

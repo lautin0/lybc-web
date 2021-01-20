@@ -7,9 +7,10 @@ import {
 } from "react-bootstrap";
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { getTokenValue } from 'utils/utils';
+import { getTokenValue, hasRole } from 'utils/utils';
+import { Role } from "generated/graphql";
 
-function AdminNavbar() {
+function PersonalNavbar() {
 
   const history = useHistory();
 
@@ -78,7 +79,7 @@ function AdminNavbar() {
               history.push('/')
             }}
           >
-            <b>管理控制台</b>
+            <b>個人中心</b>
           </Navbar.Brand>
           <div className="d-block d-lg-none">
             <button
@@ -106,35 +107,24 @@ function AdminNavbar() {
               <li className="nav-item">
                 <a
                   className="nav-link"
-                  style={location.pathname.includes('worship') ? { backgroundColor: 'lightgray' } : {}}
+                  style={location.pathname.includes('info') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
-                    history.push('/admin/worships')
+                    history.push('/personal/info')
                   }}
                   href="#"
-                ><i className="fa fa-th-list mr-2"></i>崇拜管理</a>
+                ><i className="fa fa-user mr-2"></i>帳戶管理</a>
               </li>
               <li className="nav-item">
                 <a
                   className="nav-link"
-                  style={location.pathname.includes('page-management') ? { backgroundColor: 'lightgray' } : {}}
+                  style={location.pathname.includes('sharing') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
-                    history.push('/admin/page-management')
+                    history.push('/personal/sharing')
                   }}
                   href="#"
-                ><i className="fa fa-file mr-2"></i>頁面管理</a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  style={location.pathname.includes('member') ? { backgroundColor: 'lightgray' } : {}}
-                  onClick={(e: any) => {
-                    e.preventDefault()
-                    history.push('/admin/members')
-                  }}
-                  href="#"
-                ><i className="fa fa-user mr-2"></i>會員管理</a>
+                ><i className="fas fa-file-alt mr-2"></i>檢視文章狀態</a>
               </li>
               <li className="nav-item">
                 <a
@@ -142,7 +132,7 @@ function AdminNavbar() {
                   style={location.pathname.includes('other') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
-                    history.push('/admin/other')
+                    history.push('/personal/other')
                   }}
                   href="#"
                 ><i className="fa fa-cog mr-2"></i>其他功能</a>
@@ -156,26 +146,26 @@ function AdminNavbar() {
           <Link
             to="/index"
             className="mx-3"
-            style={{ color: 'orange' }}
+            style={{ color: 'navy' }}
           >
             回主頁
             </Link>
-          <Button
+          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <Button
             className="nav-link"
-            // color="success"
+            style={{ background: 'navy' }}
             href="#pablo"
             id="profile"
             as={Link}
-            to="/personal"
+            to="/admin"
           // onClick={() => setCollapseOpen(!collapseOpen)}
           >
-            <i className="fas fa-user" style={{ fontSize: 14 }}></i>
-            <p>{getTokenValue(tokenPair?.token)?.username}</p>
-          </Button>
+            <i className="fa fa-cog" style={{ fontSize: 14 }}></i>
+            <p>前往控制台</p>
+          </Button>}
         </div>
       </Navbar>
     </>
   );
 }
 
-export default AdminNavbar;
+export default PersonalNavbar;

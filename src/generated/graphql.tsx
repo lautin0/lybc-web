@@ -10,6 +10,7 @@ export type Scalars = {
   Float: number;
   Time: any;
   ObjectID: any;
+  Upload: any;
 };
 
 export type Login = {
@@ -29,6 +30,7 @@ export type TokenPair = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  changePassword?: Maybe<Scalars['Boolean']>;
   createPost: Post;
   createTodo: Todo;
   createUser: User;
@@ -38,12 +40,19 @@ export type Mutation = {
   react: Post;
   readNotification: Notification;
   refreshToken: TokenPair;
+  updateUser: User;
   updateWorship: Worship;
+};
+
+
+export type MutationChangePasswordArgs = {
+  input: NewPassword;
 };
 
 
 export type MutationCreatePostArgs = {
   input: NewPost;
+  image?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -85,6 +94,11 @@ export type MutationReadNotificationArgs = {
 
 export type MutationRefreshTokenArgs = {
   input?: Maybe<RefreshTokenInput>;
+};
+
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUser;
 };
 
 
@@ -155,6 +169,7 @@ export type QueryWorshipArgs = {
 
 
 
+
 export type Post = {
   __typename?: 'Post';
   _id: Scalars['ObjectID'];
@@ -179,6 +194,19 @@ export type NewPost = {
   content: Scalars['String'];
   username: Scalars['String'];
   toUsername?: Maybe<Scalars['String']>;
+};
+
+export type PendingPost = {
+  __typename?: 'PendingPost';
+  _id: Scalars['ObjectID'];
+  username: Scalars['String'];
+  documentURI: Scalars['String'];
+  postID?: Maybe<Scalars['ObjectID']>;
+  remarks?: Maybe<Scalars['String']>;
+  creDttm: Scalars['Time'];
+  status: Scalars['String'];
+  approveUsername?: Maybe<Scalars['String']>;
+  approveDttm?: Maybe<Scalars['Time']>;
 };
 
 export type PostFilter = {
@@ -276,8 +304,9 @@ export type User = {
   nameC: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   titleC?: Maybe<Scalars['String']>;
-  dob: Scalars['Time'];
+  dob?: Maybe<Scalars['Time']>;
   gender: Gender;
+  profilePicURI?: Maybe<Scalars['String']>;
   creBy: Scalars['String'];
   creDttm: Scalars['Time'];
   lupdBy: Scalars['String'];
@@ -292,9 +321,27 @@ export type NewUser = {
   nameC: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   titleC?: Maybe<Scalars['String']>;
-  dob: Scalars['String'];
+  dob?: Maybe<Scalars['String']>;
   gender: Gender;
   creBy: Scalars['String'];
+};
+
+export type UpdateUser = {
+  username: Scalars['String'];
+  role: Role;
+  name: Scalars['String'];
+  nameC: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  titleC?: Maybe<Scalars['String']>;
+  dob?: Maybe<Scalars['Time']>;
+  gender: Gender;
+  profilePic?: Maybe<Scalars['Upload']>;
+};
+
+export type NewPassword = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+  newPassword: Scalars['String'];
 };
 
 export type Worship = {

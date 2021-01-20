@@ -19,6 +19,7 @@ import { RootState } from "reducers";
 import { isTokenExpired } from "utils/utils";
 import { useMutation } from "@apollo/client";
 import { RefreshTokenInput, TokenPair } from "generated/graphql";
+import CarouselSection from "./index-sections/Carousel";
 
 function Index() {
 
@@ -74,6 +75,7 @@ function Index() {
         <IndexHeader />
         <div className="main">
           {/* <Images /> */}
+          {/* <CarouselSection /> */}
           <IndexBanner />
           <Theme />
           <ChurchResources />

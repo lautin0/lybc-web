@@ -1,5 +1,6 @@
 scalar Time
 scalar ObjectID
+scalar Upload
 
 type Post {
 	_id: ObjectID!
@@ -24,6 +25,18 @@ input NewPost {
 	content: String!
 	username: String!
 	toUsername: String
+}
+
+type PendingPost {
+	_id: ObjectID!
+	username: String!
+	documentURI: String!
+	postID: ObjectID
+	remarks: String
+	creDttm: Time!
+	status: String!
+	approveUsername: String
+	approveDttm: Time
 }
 
 input PostFilter {
@@ -94,5 +107,5 @@ extend type Query {
 }
 
 extend type Mutation {
-	createPost(input: NewPost!): Post!
+	createPost(input: NewPost!, image: Upload): Post!
 }

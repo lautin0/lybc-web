@@ -202,6 +202,9 @@ function MainNavbar(props: MainNavbarProps) {
                     管理控制台
                   </NavDropdown.Item>}
                   {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Divider />}
+                  <NavDropdown.Item as={Link} to="/personal" onClick={() => setCollapseOpen(!collapseOpen)}>
+                    個人中心
+                  </NavDropdown.Item>
                   <NavDropdown.Item
                     as="a"
                     href="#"

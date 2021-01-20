@@ -200,6 +200,7 @@ export const GET_POST = gql`
           gender
           title
           titleC
+          profilePicURI
         }
         reactions {
           username
@@ -226,6 +227,7 @@ export const ADD_POST = gql`
         gender
         title
         titleC
+        profilePicURI
       }
       reactions {
         username
@@ -245,6 +247,7 @@ export const ADD_POST = gql`
           gender
           title
           titleC
+          profilePicURI
         }
         reactions {
           username
@@ -271,6 +274,7 @@ export const REACT_TO_POST = gql`
         gender
         title
         titleC
+        profilePicURI
       }
       reactions {
         username
@@ -290,6 +294,7 @@ export const REACT_TO_POST = gql`
           gender
           title
           titleC
+          profilePicURI
         }
         reactions {
           username
@@ -317,5 +322,41 @@ export const READ_NOTIFICATIONS = gql`
     readNotification(input: $input){
       _id
     }
+  }
+`
+export const GET_USER_BY_USERNAME = gql`
+  query getUser($username: String!){
+    user(username: $username){
+      username
+      name
+      nameC
+      role
+      gender
+      title
+      titleC
+      dob
+      profilePicURI
+    }
+  }
+`
+
+export const UPDATE_USER = gql`
+  mutation updateUser($input: UpdateUser!){
+    updateUser(input: $input){
+      username
+      name
+      nameC
+      role
+      gender
+      title
+      titleC
+      profilePicURI
+    }
+  }
+`
+
+export const CHANGE_PASSWORD = gql`
+  mutation changePassword($input: NewPassword!){
+    changePassword(input: $input) 
   }
 `
