@@ -96,7 +96,7 @@
     "@types/enzyme": "^3.10.7",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jwt-decode": "^3.1.0",
-    "@types/lodash": "^4.14.165",
+    "@types/lodash": "^4.14.168",
     "@types/react-dates": "^21.8.1",
     "gh-pages": "^2.1.1"
   }
