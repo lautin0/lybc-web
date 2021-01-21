@@ -95,7 +95,7 @@ function SharingList() {
             </div>
           </Row>}
           {(!loading && data) && <Row className="my-1">
-            <Col md={8} xs={12}>
+            <Col md={12} lg={8}>
               {data.map((p: Post) => {
                 return <div key={p._id} className="my-5" onClick={() => { navigate(p._id) }}>
                   <div className={css.blog}>
@@ -114,16 +114,16 @@ function SharingList() {
                     </p>
                     </div>
                     <div className={css.blogImg}>
-                      <img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${p.imageURI}`}></img>
+                      <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>
                     </div>
                     <div className={css.blogImgMobile}>
-                      <img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${p.imageURI}`}></img>
+                      <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>
                     </div>
                   </div>
                 </div>
               })}
             </Col>
-            <Col className="d-none d-md-block" md={4}>
+            <Col className="d-none d-md-block" lg={4}>
 
             </Col>
           </Row>}

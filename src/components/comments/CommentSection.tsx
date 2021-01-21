@@ -61,7 +61,7 @@ function CommentSection(props: any) {
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
             {e.user.profilePicURI == null && <img alt="..." src={defaultAvator}></img>}
-            {e.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_API_ENDPOINT + e.user.profilePicURI}></img>}
+            {e.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + e.user.profilePicURI}></img>}
           </div>
         </div>
         <div className="ml-5">

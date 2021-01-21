@@ -213,7 +213,7 @@ function Sharing() {
             <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
           </Row>
           <Row className="d-none d-md-flex justify-content-md-center mb-5">
-            <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_API_ENDPOINT}${post.imageURI}`}></img></Col>
+            <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>

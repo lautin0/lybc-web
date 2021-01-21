@@ -313,6 +313,7 @@ export const GET_NOTIFICATIONS = gql`
       type
       param
       isRead
+      creDttm
     }
   }
 `

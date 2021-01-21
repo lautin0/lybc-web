@@ -389,3 +389,18 @@ button.btn-link {
 .profile-pic-overlay:hover {
     opacity: 1;
 }
+
+button.btn-reset-pwd {
+
+    bottom: 0;
+    margin-bottom: 0;
+
+    @media screen and (min-width: 576px) {
+        position: absolute;
+    }
+
+    @media screen and (max-width: 576px) {
+        position: relative;
+    }
+
+}

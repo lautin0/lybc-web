@@ -151,7 +151,7 @@ function PersonalEdit() {
                 </div>
                 {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <img src={defaultAvator} />}
                 {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
-                {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_API_ENDPOINT + userData.user.profilePicURI} />}
+                {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </a>
             </Form.Group>
           </Form.Row>
@@ -218,7 +218,7 @@ function PersonalEdit() {
             />
             <Form.Group as={Col} md={{ span: 5, offset: 1 }}>
               <Button
-                style={{ position: 'absolute', bottom: 0, marginBottom: 0 }}
+                className="btn-reset-pwd"
                 variant="warning"
                 type="button"
                 onClick={() => { dispatch(toggleSecurityModal(true)) }}
