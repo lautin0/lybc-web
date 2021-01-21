@@ -180,6 +180,7 @@ export const GET_POST = gql`
         gender
         title
         titleC
+        profilePicURI
       }
       reactions {
         username
@@ -325,7 +326,7 @@ export const READ_NOTIFICATIONS = gql`
     }
   }
 `
-export const GET_USER_BY_USERNAME = gql`
+export const GET_USER = gql`
   query getUser($username: String!){
     user(username: $username){
       username
@@ -336,6 +337,14 @@ export const GET_USER_BY_USERNAME = gql`
       title
       titleC
       dob
+      profilePicURI
+    }
+  }
+`
+
+export const GET_USER_PROFILE_PIC_URI = gql`
+  query getUser($username: String!){
+    user(username: $username){
       profilePicURI
     }
   }

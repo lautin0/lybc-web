@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { GET_POSTS } from "graphqls/graphql";
 import { useQuery } from "@apollo/client";
@@ -13,6 +13,8 @@ import UNIVERSALS from "Universals";
 // core components
 
 function SharingList() {
+
+  const location = useLocation()
 
   const history = useHistory();
 
@@ -72,6 +74,10 @@ function SharingList() {
     window.scrollTo(0, 0)
   }, [])
 
+  useEffect(() => {
+    postData && refetch();
+  }, [location, refetch, postData])
+
   return (
     <>
       <div
@@ -87,7 +93,7 @@ function SharingList() {
             相信弟兄姊妹在生活中會遇上不少困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的想法，讓我們彼此激勵，互作見證，在主內共成長。
           </h5>
           <hr></hr>
-          {(loading && !data) && <Row className="text-center my-5">
+          {(loading || !postData || !data) && <Row className="text-center my-5">
             <div className="w-100">
               <div className="spinner-grow text-secondary" role="status">
                 <span className="sr-only">Loading...</span>
@@ -114,10 +120,10 @@ function SharingList() {
                     </p>
                     </div>
                     <div className={css.blogImg}>
-                      <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>
+                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                     <div className={css.blogImgMobile}>
-                      <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>
+                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                   </div>
                 </div>

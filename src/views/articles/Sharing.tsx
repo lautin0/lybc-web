@@ -10,13 +10,12 @@ import React, { useEffect, useState } from "react";
 import { Tooltip, Container, Row, OverlayTrigger, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-// react-bootstrap components
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
 import UNIVERSALS from "Universals";
 import { getTokenValue } from "utils/utils";
 
-// core components
+import defaultAvator from "assets/img/default-avatar.png";
 
 function Sharing() {
 
@@ -172,6 +171,8 @@ function Sharing() {
     window.scrollTo(0, 0)
   }, [])
 
+  console.log(postData?.post.user)
+
   return (
     <>
       <div className="section">
@@ -210,11 +211,19 @@ function Sharing() {
             <Col><h2><strong>{post.title}</strong></h2></Col>
           </Row>
           <Row className="justify-content-md-center">
-            <Col className="text-left sharing my-3" lg="8" md="12" ><h5 style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+            <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
+              <div className="profile-page mr-2">
+                <div className="photo-container" style={{ width: 50, height: 50 }}>
+                  {postData?.post.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
+                  {postData?.post.user.profilePicURI == null && <img alt="..." src={defaultAvator}></img>}
+                </div>
+              </div>
+              <h5 className="my-auto" style={{ color: 'gray' }}>{post.user.nameC}{getTitleDisplay()} {moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5>
+            </Col>
           </Row>
-          <Row className="d-none d-md-flex justify-content-md-center mb-5">
+          {post.imageURI != null && <Row className="d-flex justify-content-md-center mb-5">
             <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img></Col>
-          </Row>
+          </Row>}
           <Row className="justify-content-md-center">
             <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
             </Col>
