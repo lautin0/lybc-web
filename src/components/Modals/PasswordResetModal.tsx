@@ -46,7 +46,6 @@ function PasswordResetModal(props: any) {
         type: "manual",
         message: "輸入的新密碼不一致"
       });
-      console.log(d)
       return
     }
     dispatch(setLoading(true))

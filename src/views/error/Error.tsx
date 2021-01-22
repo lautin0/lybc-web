@@ -10,12 +10,17 @@ type ErrorPageProps = {
 let ErrMsg: any = {
   401: 'Unauthorized',
   404: 'Not Found',
+  0: 'Component Error'
 }
 
 function ErrorPage(props: ErrorPageProps) {
   return (
     <>
-      <h1>Error: {props.error} {ErrMsg[props.error]}</h1>
+      {parseInt(props.error) !== 0 && <h1>Error: {props.error} {ErrMsg[props.error]}</h1>}
+      {parseInt(props.error) === 0 && <div>
+        <h1>Oops! There is something wrong.</h1>
+        <a href="./">Return to homepage</a>
+      </div>}
     </>
   );
 }

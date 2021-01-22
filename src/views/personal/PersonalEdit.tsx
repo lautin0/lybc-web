@@ -12,11 +12,13 @@ import { useHistory, useLocation } from "react-router-dom";
 import { getTokenValue } from "utils/utils";
 import { SingleDatePicker } from 'react-dates';
 
-import defaultAvator from "assets/img/default-avatar.png";
+import defaultAvatar from "assets/img/default-avatar.png";
 import { Moment } from "moment";
 import { toggleSecurityModal } from "actions/security/security";
 import moment from "moment";
 import UNIVERSALS from "Universals";
+
+import imageCompression from 'browser-image-compression';
 
 function PersonalEdit() {
 
@@ -58,12 +60,20 @@ function PersonalEdit() {
     open()
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (userData == null)
       return
     let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
-    console.log(dob)
     dispatch(setLoading(true))
+
+    const options = {
+      maxSizeMB: .05,
+      maxWidthOrHeight: 700,
+      useWebWorker: true
+    }
+
+    let compressedImg = await imageCompression(acceptedFiles[0], options)
+
     let tmp: UpdateUser = {
       username: userData?.user.username,
       role: userData?.user.role,
@@ -73,8 +83,9 @@ function PersonalEdit() {
       titleC: userData?.user.titleC,
       dob: dob,
       gender: data.gender,
-      profilePic: acceptedFiles[0]
+      profilePic: compressedImg
     }
+    
     updateUser({
       variables: {
         input: {
@@ -149,7 +160,7 @@ function PersonalEdit() {
                 </div>
                   </div>
                 </div>
-                {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <img src={defaultAvator} />}
+                {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <img src={defaultAvatar} />}
                 {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
                 {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </a>

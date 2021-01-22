@@ -12,7 +12,7 @@ import { RootState } from 'reducers';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
-import defaultAvator from "assets/img/default-avatar.png";
+import defaultAvatar from "assets/img/default-avatar.png";
 import { Post, User } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useQuery } from '@apollo/client';
@@ -30,7 +30,18 @@ function CommentSection(props: any) {
 
   const { commentPending, postData, addComment, setCommentPending } = usePost({ id: id })
 
-  const { loading, data: profilePicData } = useQuery<{ user: User },{username: string}>(GET_USER_PROFILE_PIC_URI, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: profilePicData } = useQuery<
+    { user: User },
+    {username: string}
+  >(
+    GET_USER_PROFILE_PIC_URI, 
+    { 
+      variables: { 
+        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      }, 
+      notifyOnNetworkStatusChange: true 
+    }
+  )
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -64,7 +75,7 @@ function CommentSection(props: any) {
       return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
-            {e.user.profilePicURI == null && <img alt="..." src={defaultAvator}></img>}
+            {e.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
             {e.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + e.user.profilePicURI}></img>}
           </div>
         </div>
@@ -95,7 +106,7 @@ function CommentSection(props: any) {
     >
       <div className="profile-page pt-3">
         <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 50, height: 50 }}>
-          {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvator}></img>}
+          {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
           {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
         </div>
       </div>

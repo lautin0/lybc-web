@@ -44,7 +44,6 @@ function SharingList() {
     if (postData === undefined)
       return
     let tmp: Post[] = [...postData.posts]
-    console.log(tmp)
     setData(tmp
       ?.filter(x => x.type == PostType.Sharing)
       ?.filter(x => x.parantId == null)
