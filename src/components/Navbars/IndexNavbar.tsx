@@ -128,6 +128,7 @@ function IndexNavbar() {
                   href="#pablo"
                   onClick={(e: any) => {
                     e.preventDefault();
+                    setCollapseOpen(!collapseOpen)
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
