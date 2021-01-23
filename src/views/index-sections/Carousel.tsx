@@ -12,7 +12,7 @@ import UNIVERSALS from "Universals";
 function CarouselSection() {
 
   const history = useHistory()
-  
+
   const [worshipId, setWorshipId] = useState('')
   const [index, setIndex] = useState(0);
 
@@ -50,8 +50,10 @@ function CarouselSection() {
                   />
                   <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }}>
                     <Button onClick={handleClick} style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                      <h1>主日崇拜</h1>
-                      <h3>按此進入本週主日崇拜</h3>
+                      {window.innerWidth > 991 && <><h1>主日崇拜</h1>
+                        <h3>按此進入本週主日崇拜</h3></>}
+                      {window.innerWidth <= 991 && <><h3>主日崇拜</h3>
+                      <h5>按此進入本週主日崇拜</h5></>}
                     </Button>
                   </Carousel.Caption>
                 </Carousel.Item>
