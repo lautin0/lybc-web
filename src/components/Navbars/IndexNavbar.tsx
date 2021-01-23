@@ -101,6 +101,23 @@ function IndexNavbar() {
               {" "}綠楊浸信會
             </Navbar.Brand>
             <div>
+              <div className="d-inline-block d-lg-none">
+                <a
+                  href="#pablo"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    // setCollapseOpen(!collapseOpen)
+                    if (data != null) {
+                      const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
+                      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+                        .replace("{0}", data.maxWorshipId)
+                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
+                    }
+                  }}
+                >
+                  <i style={{ fontSize: 18, color: 'steelblue' }} className="fas fa-info-circle"></i>
+                </a>
+              </div>
               {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBell className="d-inline d-lg-none" /></div>}
               <button
                 className="navbar-toggler navbar-toggler"
@@ -123,12 +140,12 @@ function IndexNavbar() {
             appear={collapseOpen}
           >
             <Nav>
-              <Nav.Item>
+              <Nav.Item className="d-none d-lg-inline">
                 <Nav.Link
                   href="#pablo"
                   onClick={(e: any) => {
                     e.preventDefault();
-                    setCollapseOpen(!collapseOpen)
+                    // setCollapseOpen(!collapseOpen)
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
@@ -249,7 +266,7 @@ function IndexNavbar() {
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
               {!tokenPair?.token && <Nav.Item>
                 <Nav.Link
-                  className="nav-link btn-outline-secondary"
+                  className="nav-link btn-outline-dark"
                   // color="success"
                   href="#pablo"
                   id="login"
@@ -257,7 +274,7 @@ function IndexNavbar() {
                   to={`/login-page?relayState=${location.pathname}`}
                   onClick={() => setCollapseOpen(!collapseOpen)}
                   // style={{ color: 'white', background: '#45934c' }}
-                  style={{ fontSize: '1.2rem', borderRadius: 12 }}
+                  style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'bold' }}
                 >
                   {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
                   <p>登入</p>
