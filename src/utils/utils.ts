@@ -31,6 +31,13 @@ export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
     return array
 }
 
+export function getNullableString(s: string | null | undefined): string{
+    if(s == null)
+        return ''
+    else 
+        return s
+}
+
 export function getTokenValue(jwt: any) {
     let authObject: any
     if (jwt) {

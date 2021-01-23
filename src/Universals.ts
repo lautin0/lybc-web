@@ -104,9 +104,6 @@ const UNIVERSALS: UniversalsInfo = {
     // NOTIFICATION: { MESSAGE: null }
     NOTIFICATION: {
         MESSAGE: `
-        <div class="mb-5 text-center w-100">
-            <a class="btn btn-warning" style="font-size: 24px;" href="/worship/{0}">前往網上崇拜錄播</a>
-        </div>
         <p><b>綠楊浸信會應對新型冠狀病毒病疫症措施通告{1}</b></p>
         <p><b>有鑑新型冠狀病毒病疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
         <p><b>1. 本周所有聚會及主日崇拜，以及主日各聚會取消。建議信徒留在家中參與網上崇拜😇。</b></p>
@@ -123,6 +120,26 @@ const UNIVERSALS: UniversalsInfo = {
         <b>* 同工收到你的奉獻後會儘快跟你聯絡及確認。</b></br>
         <br><h3>綠楊浸信會 謹啟💟</h3>
         `,
+        // MESSAGE: `
+        // <div class="mb-5 text-center w-100">
+        //     <a class="btn btn-warning" style="font-size: 24px;" href="/worship/{0}">前往網上崇拜錄播</a>
+        // </div>
+        // <p><b>綠楊浸信會應對新型冠狀病毒病疫症措施通告{1}</b></p>
+        // <p><b>有鑑新型冠狀病毒病疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
+        // <p><b>1. 本周所有聚會及主日崇拜，以及主日各聚會取消。建議信徒留在家中參與網上崇拜😇。</b></p>
+        // <p><b>2. 在此期間，南豐辦公室及綠楊教會並不向外開放。🚪</b></p>
+        // <p><b>3. 縱然教會肢體未能聚會見面，我們可透過電子媒介/平台，或直接電話問候，彼此代禱，保持緊密聯繫，彰顯主愛。💖 🙏🏻</b></p>
+        // <p><b>4. 請多留意政府疫情公布，及配合醫管局呼籲，使用有關防禦方法，保持個人衛生。😷如有肢體需要進入14天隔離，或有情況出現，請立刻通知牧者。🕎✝</b></p>
+        // <b>奉獻途徑（在這段停止崇拜聚會期適用）</b><br>
+        // <b>可以透過以下方法:</b></br>
+        // <b>1. 入數: 本堂戶口（滙豐銀行<label class="ml-1" style="color: gray;font-size: 18px">119-379-295-001</label>)</b></br>
+        // <b>2. 支票:抬頭“綠楊浸信會有限公司”。</b></br>
+        // <b>請注意: </b></br>
+        // <b>1. 請把入數紙whatsapp到教會電話號碼:<label class="ml-1" style="color: gray;font-size: 18px">94331359</label>，並註明奉獻者姓名</b></br>
+        // <b>2.請在支票的背頁，清楚寫上奉獻者姓名電話，並寄回綠楊浸信會，辦公室地址:「荃灣青山公路264-298號，南豐中心20樓02D室」</b></br>
+        // <b>* 同工收到你的奉獻後會儘快跟你聯絡及確認。</b></br>
+        // <br><h3>綠楊浸信會 謹啟💟</h3>
+        // `,
         // MESSAGE: `
         // <div class="mb-5 text-center w-100">
         //     <a class="btn btn-warning" style="font-size: 24px;" href="/worship/{0}">前往網上崇拜直播</a>

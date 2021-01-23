@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom'
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import UNIVERSALS from "Universals";
 import DOMPurify from 'dompurify'
 import { GET_MAX_WORSHIP_ID } from 'graphqls/graphql';
 import { useQuery } from '@apollo/client';
 import moment from 'moment';
+import { isEmpty } from 'lodash';
+import { getNullableString } from 'utils/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'reducers';
+import { SetSysInfoMessage } from 'actions';
 
 function InfoModal(props: any) {
-  const [message, setMessage] = useState<any>();
+
+  const dispatch = useDispatch()
+
+  const message = useSelector((state: RootState) => state.sysInfo.message);  
   const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
+  const [checked, setChecked] = useState(false)
 
   const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
 
   const onHide = () => {
-    setMessage('');
+    dispatch(SetSysInfoMessage(''))
+  }
+
+  const handleChecked = (e: any) => {
+    if(!checked){
+      localStorage.setItem('SUSPEND_FOR_TODAY_TS', moment().unix().toString())
+    } else {
+      localStorage.setItem('SUSPEND_FOR_TODAY_TS', "")
+    }
+    setChecked(!checked)    
   }
 
   useEffect(() => {
@@ -22,12 +40,15 @@ function InfoModal(props: any) {
     ReactDOM.createPortal(thisRef, document.body)
   })
 
-  useEffect(() => {
-    if (data !== undefined) {
+  useEffect(() => {    
+    let suspendForTodayTs = localStorage.getItem('SUSPEND_FOR_TODAY_TS')
+    let suspended = !isEmpty(suspendForTodayTs) && moment.unix(parseInt(getNullableString(suspendForTodayTs))).startOf('day').isSame(moment().startOf('day'))
+    setChecked(suspended)
+    if (data !== undefined && !suspended) {
       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
-      setMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
-      .replace("{0}", data.maxWorshipId)
-      .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`))
+      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+        .replace("{0}", data.maxWorshipId)
+        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
     }
   }, [data])
 
@@ -53,6 +74,15 @@ function InfoModal(props: any) {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onHide}>確定</Button>
+        <Form.Check
+          checked={checked}
+          onChange={handleChecked}
+          className="form-check mx-2"
+          type="checkbox"
+          id="suspendForToday"
+          name="suspendForToday"
+          label={<>今日不再顯示<span className="form-check-sign"></span></>}
+        ></Form.Check>
       </Modal.Footer>
     </Modal>
   );

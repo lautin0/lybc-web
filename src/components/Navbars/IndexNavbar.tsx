@@ -11,11 +11,15 @@ import {
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils'
-import { signOut } from "actions";
+import { SetSysInfoMessage, signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
 import { Role } from "generated/graphql";
+import { useQuery } from "@apollo/client";
+import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
+import moment from "moment";
+import UNIVERSALS from "Universals";
 
 function IndexNavbar() {
 
@@ -36,6 +40,9 @@ function IndexNavbar() {
     clone[idx] = !show[idx]
     setShow(clone);
   }
+
+  const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
+
   const hideDropdown = (e: any, idx: number) => {
     let clone = [...show];
     clone[idx] = false
@@ -116,6 +123,22 @@ function IndexNavbar() {
             appear={collapseOpen}
           >
             <Nav>
+              <Nav.Item>
+                <Nav.Link
+                  href="#pablo"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    if (data != null) {
+                      const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
+                      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+                        .replace("{0}", data.maxWorshipId)
+                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
+                    }
+                  }}
+                >
+                  <i style={{ fontSize: 18, color: 'steelblue' }} className="fas fa-info-circle"></i>
+                </Nav.Link>
+              </Nav.Item>
               <NavDropdown
                 id=""
                 title={<><i className="fas fa-map-signs mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">教會活動</div></>}

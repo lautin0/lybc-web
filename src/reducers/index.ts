@@ -6,6 +6,7 @@ import { default as worship } from './worship'
 import { default as auth } from './auth'
 import { default as admin } from './admin'
 import { default as security } from './security'
+import { default as sysInfo } from './sysInfo'
 
 const rootReducer = combineReducers({
   newComer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   auth,
   system,
   admin,
-  security
+  security,
+  sysInfo
 })
 
 export default function root(state: any, action: any) {

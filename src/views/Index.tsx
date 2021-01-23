@@ -75,7 +75,7 @@ function Index() {
         <IndexHeader />
         <div className="main">
           {/* <Images /> */}
-          {/* <CarouselSection /> */}
+          <CarouselSection />
           <IndexBanner />
           <Theme />
           <ChurchResources />

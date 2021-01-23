@@ -70,6 +70,11 @@ function Worship() {
       setData(wData.worship.note);
   }, [wData])
 
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="section">
       <ImageModal />
