@@ -6,7 +6,7 @@ import { GET_USER, UPDATE_USER } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { getTokenValue } from "utils/utils";
@@ -53,7 +53,12 @@ function PersonalEdit() {
     }
   });
 
-  const { handleSubmit, register, reset } = methods
+  const { handleSubmit, reset, getValues, control, trigger } = methods
+
+  const watchType = useWatch({
+    control,
+    name: 'gender',
+  })
 
   const handleOnClick = (e: any) => {
     e.preventDefault();
@@ -72,7 +77,7 @@ function PersonalEdit() {
       useWebWorker: true
     }
 
-    let compressedImg = await imageCompression(acceptedFiles[0], options)
+    let compressedImg = await acceptedFiles.length > 0 ? imageCompression(acceptedFiles[0], options) : null
 
     let tmp: UpdateUser = {
       username: userData?.user.username,
@@ -85,7 +90,7 @@ function PersonalEdit() {
       gender: data.gender,
       profilePic: compressedImg
     }
-    
+
     updateUser({
       variables: {
         input: {
@@ -140,6 +145,11 @@ function PersonalEdit() {
     }
   }, [loading, dispatch])
 
+  useEffect(() => {
+    if (watchType !== undefined)
+      trigger()
+  }, [watchType, trigger])
+
   return (
     <>
       {(!loading && userData != null) && <FormProvider {...methods}>
@@ -177,24 +187,35 @@ function PersonalEdit() {
             <Form.Group as={Col} md={{ span: 5, offset: 1 }}>
               <label>性別</label>
               <div className="d-flex justify-content-start" style={{ fontSize: 18 }}>
-                <Form.Check
-                  className="form-check-radio mx-2"
-                  type="radio"
+                <Controller
+                  render={({ onChange, onBlur, value }) => <Form.Check
+                    className="form-check-radio mx-2"
+                    type="radio"
+                    id="rbM"
+                    value={Gender.Male.toString()}
+                    onChange={(val) => onChange(val.currentTarget.value)}
+                    checked={Gender.Male.toString() === getValues().gender}
+                    name="rbGender"
+                    label={<><span className="form-check-sign"></span>男</>}
+                  ></Form.Check>
+                  }
+                  control={control}
                   name="gender"
-                  disabled={true}
-                  ref={register({})}
-                  value={Gender.Male.toString()}
-                  label={<><span className="form-check-sign"></span>男</>}
-                ></Form.Check>
-                <Form.Check
-                  className="form-check-radio mx-2"
-                  type="radio"
+                />
+                <Controller
+                  render={({ onChange, onBlur, value }) => <Form.Check
+                    className="form-check-radio mx-2"
+                    type="radio"
+                    id="rbF"
+                    value={Gender.Female.toString()}
+                    onChange={(val) => onChange(val.currentTarget.value)}
+                    checked={Gender.Female.toString() === getValues().gender}
+                    name="rbGender"
+                    label={<><span className="form-check-sign"></span>女</>}
+                  ></Form.Check>}
+                  control={control}
                   name="gender"
-                  disabled={true}
-                  ref={register({})}
-                  value={Gender.Female.toString()}
-                  label={<><span className="form-check-sign"></span>女</>}
-                ></Form.Check>
+                />
               </div>
             </Form.Group>
           </Form.Row>
@@ -252,7 +273,7 @@ function PersonalEdit() {
           </Form.Row>
         </Form>
       </FormProvider>}
-      {(loading && userData == null) && <h3>loading data, please wait...</h3>}
+      { (loading && userData == null) && <h3>loading data, please wait...</h3>}
     </>
   );
 }
