@@ -101,7 +101,7 @@ function IndexNavbar() {
               {" "}綠楊浸信會
             </Navbar.Brand>
             <div>
-              <div className="d-inline-block d-lg-none">
+              {['/', '/index'].includes(location.pathname) && <div className="d-inline-block d-lg-none">
                 <a
                   href="#pablo"
                   onClick={(e: any) => {
@@ -117,7 +117,7 @@ function IndexNavbar() {
                 >
                   <i style={{ fontSize: 18, color: 'steelblue' }} className="fas fa-info-circle"></i>
                 </a>
-              </div>
+              </div>}
               {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBell className="d-inline d-lg-none" /></div>}
               <button
                 className="navbar-toggler navbar-toggler"
@@ -140,7 +140,7 @@ function IndexNavbar() {
             appear={collapseOpen}
           >
             <Nav>
-              <Nav.Item className="d-none d-lg-inline">
+              {['/', '/index'].includes(location.pathname) && <Nav.Item className="d-none d-lg-inline">
                 <Nav.Link
                   href="#pablo"
                   onClick={(e: any) => {
@@ -156,7 +156,7 @@ function IndexNavbar() {
                 >
                   <i style={{ fontSize: 18, color: 'steelblue' }} className="fas fa-info-circle"></i>
                 </Nav.Link>
-              </Nav.Item>
+              </Nav.Item>}
               <NavDropdown
                 id=""
                 title={<><i className="fas fa-map-signs mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">教會活動</div></>}

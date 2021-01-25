@@ -414,7 +414,8 @@ button.btn-reset-pwd {
 .new-comer-section {
     position: absolute;
     clip-path: polygon(100% 56%, 100% 100%, 0 100%, 0 20%);
-    background-color: indigo;
+    background: rgb(20,34,124);
+    background: linear-gradient(52deg, rgba(20,34,124,1) 0%, rgba(86,20,187,1) 20%, rgba(0,212,255,1) 100%);
     width: 100%;
     bottom: 0px;
 
