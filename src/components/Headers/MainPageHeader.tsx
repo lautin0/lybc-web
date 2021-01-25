@@ -16,21 +16,21 @@ function MainPageHeader(props: MainPageHeaderType) {
 
   React.useEffect(() => {
     // if (window.innerWidth > 991) {
-      const updateScroll = () => {
-        let windowScrollTop = window.pageYOffset / 3;
-        pageHeader.current && (pageHeader.current.style.transform =
-          "translate3d(0," + windowScrollTop + "px,0)");
-      };
-      window.addEventListener("scroll", updateScroll);
-      return function cleanup() {
-        window.removeEventListener("scroll", updateScroll);
-      };
+    const updateScroll = () => {
+      let windowScrollTop = window.pageYOffset / 3;
+      pageHeader.current && (pageHeader.current.style.transform =
+        "translate3d(0," + windowScrollTop + "px,0)");
+    };
+    window.addEventListener("scroll", updateScroll);
+    return function cleanup() {
+      window.removeEventListener("scroll", updateScroll);
+    };
     // }
   });
 
   React.useEffect(() => {
     document.title = UNIVERSALS.TITLE_MAP[props.page].title
-  },[props.page])
+  }, [props.page])
 
   return (
     <>
@@ -44,7 +44,8 @@ function MainPageHeader(props: MainPageHeaderType) {
         ></div>
         <div className="content-center">
           <Container>
-            <h1 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h1>
+            {window.innerHeight > 375 && <h1 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h1>}
+            {window.innerHeight <= 375 && <h3 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h3>}
             {UNIVERSALS.TITLE_MAP[props.page].subtitle && <div className="text-center">
               <p className="category">{UNIVERSALS.TITLE_MAP[props.page].subtitle}</p>
               {/* <Button

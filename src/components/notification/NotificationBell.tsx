@@ -22,9 +22,9 @@ function NotificationBell(props: any) {
   const { data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
     (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
   const [readNotification] = useMutation<
-      { readNotification: string },
-      { input: string }
-    >(READ_NOTIFICATIONS)
+    { readNotification: string },
+    { input: string }
+  >(READ_NOTIFICATIONS)
 
   useEffect(() => {
     refetch && setTimeout(() => {
@@ -53,7 +53,7 @@ function NotificationBell(props: any) {
     id="app-bell"
     title={data ? <>
       <i className="fa fa-bell"
-        style={data?.notifications?.filter(x => !x.isRead).length > 0 ? { fontSize: 24, transform: 'translateX(10px)' } : { fontSize: 24 }}>
+        style={data?.notifications?.filter(x => !x.isRead).length > 0 ? { fontSize: window.innerHeight > 375 ? 24 : 18, transform: 'translateX(10px)' } : { fontSize: window.innerHeight > 375 ? 24 : 18 }}>
       </i>
       {data?.notifications?.filter(x => !x.isRead).length > 0 && <span style={{ position: 'relative' }} className="badge badge-info">{data && data.notifications.filter(x => !x.isRead).length}</span>}
     </> : ""}

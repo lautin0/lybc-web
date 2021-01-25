@@ -5,6 +5,11 @@
     margin-bottom: 20px;
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
 
+    @media screen and (max-height: 375px){
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
     a{
         vertical-align: middle;
 

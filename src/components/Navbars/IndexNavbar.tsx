@@ -84,7 +84,7 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <Navbar.Brand
-              style={{ zIndex: 9999, fontSize: '1.5rem', fontWeight: 'bold' }}
+              style={{ zIndex: 9999, fontSize: window.innerHeight > 375 ? '1.5rem' : '1.2rem', fontWeight: 'bold' }}
               href="#pablo"
               id="index-navbar-brand"
               onClick={(e: any) => {

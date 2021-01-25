@@ -38,6 +38,11 @@ h2, .h2{
 h3, .h3{
     font-size: $font-size-h3;
     margin-bottom: $margin-base-vertical * 2;
+
+    @media screen and (max-height: 375px){
+        margin-bottom: 0px;
+    }
+
     line-height: 1.4em;
 }
 h4, .h4{
