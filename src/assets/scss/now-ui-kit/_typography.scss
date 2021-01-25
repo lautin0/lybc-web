@@ -25,6 +25,10 @@ h1, .h1 {
     line-height: 1.15;
     margin-bottom: $margin-base-vertical * 2;
 
+    @media screen and (max-height: 375px){
+        margin-bottom: 0px;
+    }
+
     small{
         font-weight: $font-weight-bold;
         text-transform: uppercase;
