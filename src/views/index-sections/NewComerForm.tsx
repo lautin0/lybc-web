@@ -76,7 +76,7 @@ export default function NewComerForm() {
       <div className="new-comer-section"></div>
       <div className="d-flex flex-wrap">
         <div className="flex-fill my-auto text-center" style={{ zIndex: 1 }}>
-          <h2 className="pt-5" style={{ color: 'white' }}>讓綠楊家認識您</h2>
+          <h2 className="pt-5 name-card-title">讓綠楊家認識您</h2>
         </div>
         <div className="flex-fill mt-5 mb-5">
           <Container>
