@@ -50,6 +50,8 @@ function PersonalEdit() {
       name: '',
       nameC: '',
       gender: '',
+      email: '',
+      phone: ''
     }
   });
 
@@ -88,7 +90,9 @@ function PersonalEdit() {
       titleC: userData?.user.titleC,
       dob: dob,
       gender: data.gender,
-      profilePic: compressedImg
+      profilePic: compressedImg,
+      email: data.email.length == 0 ? null : data.email,
+      phone: data.phone.length == 0 ? null : data.phone
     }
 
     updateUser({
@@ -120,6 +124,8 @@ function PersonalEdit() {
           name: userData.user.name,
           nameC: userData.user.nameC,
           gender: userData.user.gender.toString(),
+          email: userData.user.email!,
+          phone: userData.user.phone!,
         })
         if (userData.user.dob != null) {
           setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
@@ -258,6 +264,18 @@ function PersonalEdit() {
                 <i className="fas fa-key"></i>重設密碼
             </Button>
             </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <InputText
+              name="phone"
+              label="聯絡電話"
+              md={5}
+            />
+            <InputText
+              name="email"
+              label="電郵地址"
+              md={{ span: 5, offset: 1 }}
+            />
           </Form.Row>
           <hr></hr>
           <Form.Row className="text-center">

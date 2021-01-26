@@ -5,6 +5,14 @@ enum Role {
 	PUBLIC
 }
 
+enum AccountStatus {
+	PENDING
+	ACTIVE
+	INACTIVE
+	SUSPENDED
+	CONTACTING
+}
+
 type User {
 	username: String!
 	password: String!
@@ -16,6 +24,9 @@ type User {
 	dob: Time
 	gender: Gender!
 	profilePicURI: String
+	phone: String
+	email: String
+	status: AccountStatus
 	creBy: String!
 	creDttm: Time!
 	lupdBy: String!
@@ -32,6 +43,9 @@ input NewUser {
 	titleC: String
 	dob: String
 	gender: Gender!
+	phone: String
+	email: String
+	status: AccountStatus
 	creBy: String!	
 }
 
@@ -44,6 +58,9 @@ input UpdateUser {
 	titleC: String
 	dob: Time
 	gender: Gender!
+	phone: String
+	email: String
+	status: AccountStatus	
 	profilePic: Upload
 }
 

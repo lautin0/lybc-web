@@ -31,6 +31,7 @@ export type TokenPair = {
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword?: Maybe<Scalars['Boolean']>;
+  createNameCard: NameCard;
   createPost: Post;
   createTodo: Todo;
   createUser: User;
@@ -40,6 +41,7 @@ export type Mutation = {
   react: Post;
   readNotification: Notification;
   refreshToken: TokenPair;
+  updateNameCard: NameCard;
   updateUser: User;
   updateWorship: Worship;
 };
@@ -47,6 +49,11 @@ export type Mutation = {
 
 export type MutationChangePasswordArgs = {
   input: NewPassword;
+};
+
+
+export type MutationCreateNameCardArgs = {
+  input: NewNameCard;
 };
 
 
@@ -97,6 +104,11 @@ export type MutationRefreshTokenArgs = {
 };
 
 
+export type MutationUpdateNameCardArgs = {
+  input: UpdateNameCard;
+};
+
+
 export type MutationUpdateUserArgs = {
   input: UpdateUser;
 };
@@ -107,30 +119,36 @@ export type MutationUpdateWorshipArgs = {
   docs: Array<Maybe<NewWorshipDoc>>;
 };
 
-export type Notification = {
-  __typename?: 'Notification';
+export type NameCard = {
+  __typename?: 'NameCard';
   _id: Scalars['ObjectID'];
-  type: NotificationType;
-  fromUsername?: Maybe<Scalars['String']>;
-  toUsername?: Maybe<Scalars['String']>;
-  targetId?: Maybe<Scalars['ObjectID']>;
-  param?: Maybe<Scalars['String']>;
-  isRead: Scalars['Boolean'];
-  creDttm: Scalars['Time'];
+  name: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  gender?: Maybe<Gender>;
+  remarks?: Maybe<Scalars['String']>;
+  status: AccountStatus;
+  lupdBy?: Maybe<Scalars['String']>;
+  lupdDttm: Scalars['Time'];
 };
 
-export enum NotificationType {
-  System = 'SYSTEM',
-  Reaction = 'REACTION',
-  Comment = 'COMMENT',
-  Mention = 'MENTION',
-  NewComerRequest = 'NEW_COMER_REQUEST',
-  PostApproval = 'POST_APPROVAL'
-}
+export type NewNameCard = {
+  name: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  gender?: Maybe<Gender>;
+};
+
+export type UpdateNameCard = {
+  remarks?: Maybe<Scalars['String']>;
+  status: AccountStatus;
+};
 
 export type Query = {
   __typename?: 'Query';
   maxWorshipId: Scalars['Int'];
+  nameCard?: Maybe<NameCard>;
+  nameCards: Array<NameCard>;
   notifications: Array<Maybe<Notification>>;
   post?: Maybe<Post>;
   posts: Array<Post>;
@@ -139,6 +157,11 @@ export type Query = {
   users: Array<User>;
   worship?: Maybe<Worship>;
   worships: Array<Worship>;
+};
+
+
+export type QueryNameCardArgs = {
+  oid?: Maybe<Scalars['String']>;
 };
 
 
@@ -166,6 +189,27 @@ export type QueryUserArgs = {
 export type QueryWorshipArgs = {
   worshipId?: Maybe<Scalars['String']>;
 };
+
+export type Notification = {
+  __typename?: 'Notification';
+  _id: Scalars['ObjectID'];
+  type: NotificationType;
+  fromUsername?: Maybe<Scalars['String']>;
+  toUsername?: Maybe<Scalars['String']>;
+  targetId?: Maybe<Scalars['ObjectID']>;
+  param?: Maybe<Scalars['String']>;
+  isRead: Scalars['Boolean'];
+  creDttm: Scalars['Time'];
+};
+
+export enum NotificationType {
+  System = 'SYSTEM',
+  Reaction = 'REACTION',
+  Comment = 'COMMENT',
+  Mention = 'MENTION',
+  NewComerRequest = 'NEW_COMER_REQUEST',
+  PostApproval = 'POST_APPROVAL'
+}
 
 
 
@@ -295,6 +339,14 @@ export enum Role {
   Public = 'PUBLIC'
 }
 
+export enum AccountStatus {
+  Pending = 'PENDING',
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+  Suspended = 'SUSPENDED',
+  Contacting = 'CONTACTING'
+}
+
 export type User = {
   __typename?: 'User';
   username: Scalars['String'];
@@ -307,6 +359,9 @@ export type User = {
   dob?: Maybe<Scalars['Time']>;
   gender: Gender;
   profilePicURI?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  status?: Maybe<AccountStatus>;
   creBy: Scalars['String'];
   creDttm: Scalars['Time'];
   lupdBy: Scalars['String'];
@@ -323,6 +378,9 @@ export type NewUser = {
   titleC?: Maybe<Scalars['String']>;
   dob?: Maybe<Scalars['String']>;
   gender: Gender;
+  phone?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  status?: Maybe<AccountStatus>;
   creBy: Scalars['String'];
 };
 
@@ -335,6 +393,9 @@ export type UpdateUser = {
   titleC?: Maybe<Scalars['String']>;
   dob?: Maybe<Scalars['Time']>;
   gender: Gender;
+  phone?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  status?: Maybe<AccountStatus>;
   profilePic?: Maybe<Scalars['Upload']>;
 };
 

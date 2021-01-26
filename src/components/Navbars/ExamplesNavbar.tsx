@@ -111,12 +111,12 @@ function ExamplesNavbar() {
           >
             <Nav>
               <Nav.Item>
-                <Nav.Link to="/index" as={Link} style={{ color: 'white' }}>
+                <Nav.Link to="/index" as={Link} style={{ color: collapseOpen ? 'black' : 'white' }}>
                   回主頁
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="#pablo" style={{ color: 'white' }}>
+                <Nav.Link href="#pablo" style={{ color: collapseOpen ? 'black' : 'white' }}>
                   技術支援
                 </Nav.Link>
               </Nav.Item>

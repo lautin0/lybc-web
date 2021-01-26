@@ -336,6 +336,8 @@ export const GET_USER = gql`
       gender
       title
       titleC
+      email
+      phone
       dob
       profilePicURI
     }
@@ -360,6 +362,8 @@ export const UPDATE_USER = gql`
       gender
       title
       titleC
+      phone
+      email
       profilePicURI
     }
   }
@@ -368,5 +372,17 @@ export const UPDATE_USER = gql`
 export const CHANGE_PASSWORD = gql`
   mutation changePassword($input: NewPassword!){
     changePassword(input: $input) 
+  }
+`
+
+export const ADD_NAMECARD = gql`
+  mutation createNameCard($input: NewNameCard!){
+    createNameCard(input: $input){
+      _id,
+      name,
+      email,
+      phone,
+      gender,
+    }
   }
 `

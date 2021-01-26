@@ -1,0 +1,33 @@
+type NameCard {
+	_id: ObjectID!
+	name: String!
+	email: String
+	phone: String
+	gender: Gender
+	remarks: String
+	status: AccountStatus!
+	lupdBy: String
+	lupdDttm: Time!
+}
+
+input NewNameCard {
+	name: String!
+	email: String
+	phone: String
+	gender: Gender
+}
+
+input UpdateNameCard {
+	remarks: String
+	status: AccountStatus!
+}
+
+extend type Query {
+	nameCards: [NameCard!]!
+	nameCard(oid: String): NameCard
+}
+
+extend type Mutation {
+	createNameCard(input: NewNameCard!): NameCard!
+	updateNameCard(input: UpdateNameCard!): NameCard!
+}
