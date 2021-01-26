@@ -17,6 +17,7 @@ import { Gender, NameCard, NewNameCard } from "generated/graphql";
 import { useMutation } from "@apollo/client";
 import { ADD_NAMECARD } from "graphqls/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
+import Validators from "utils/validator";
 
 // core components
 
@@ -42,7 +43,7 @@ export default function NewComerForm() {
     }
   });
 
-  const { handleSubmit, reset, getValues, control, trigger, register } = methods
+  const { handleSubmit, reset, getValues, control, errors, register, trigger } = methods
 
   const onSubmit = (data: any) => {
     dispatch(setLoading(true))
@@ -51,7 +52,7 @@ export default function NewComerForm() {
         input: {
           name: data.name,
           email: data.email.length > 0 ? data.email : null,
-          gender: data.gender,
+          gender: data.gender.length > 0 ? data.gender : null,
           phone: data.phone.length > 0 ? data.phone : null
         },
       }
@@ -67,9 +68,6 @@ export default function NewComerForm() {
       dispatch(setSysMessage('謝謝你對教會的興趣! 我們會盡快聯絡你'))
       dispatch(setLoading(false))
       reset();
-      setTimeout(() => {
-        window.location.href = './'
-      }, 1000);
     }
   }, [data, dispatch, reset])
 
@@ -109,11 +107,12 @@ export default function NewComerForm() {
                         placeholder="輸入名字"
                         type="text"
                         name="name"
-                        ref={register}
+                        ref={register({ required: true })}
                         onFocus={() => setNameFocus(true)}
                         onBlur={() => { setNameFocus(false); }}
                       ></FormControl>
                     </InputGroup>
+                    {errors.name && <label style={{ opacity: .6, color: 'red' }}>必須填寫這欄</label>}
                     <InputGroup
                       className={
                         "no-border" + (phoneFocus ? " input-group-focus" : "")
@@ -134,9 +133,10 @@ export default function NewComerForm() {
                         onFocus={() => setPhoneFocus(true)}
                         onBlur={() => { setPhoneFocus(false); }}
                         name="phone"
-                        ref={register}
+                        ref={register({ validate: Validators.NoWhiteSpaceForValue(getValues("email"), "") })}
                       ></FormControl>
                     </InputGroup>
+                    {errors.phone && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}
                     <InputGroup
                       className={
                         "no-border" + (emailFocus ? " input-group-focus" : "")
@@ -157,9 +157,10 @@ export default function NewComerForm() {
                         name="email"
                         onFocus={() => setEmailFocus(true)}
                         onBlur={() => { setEmailFocus(false); }}
-                        ref={register}
+                        ref={register({ validate: Validators.NoWhiteSpaceForValue(getValues("phone"), "") })}
                       ></FormControl>
                     </InputGroup>
+                    {errors.email && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}
                     <InputGroup>
                       <label className="col-sm-4 col-md-2 col-form-label p-2">
                         稱呼
