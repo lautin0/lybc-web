@@ -25,7 +25,6 @@ function NameCardManage() {
   }, [refetch, location, data])
 
   const getBadgeClassName = (s: AccountStatus) => {
-    console.log(s)
     switch (s) {
       case AccountStatus.Active:
         return "success"
@@ -41,7 +40,6 @@ function NameCardManage() {
   }
 
   const getStatus = (s: AccountStatus) => {
-    console.log(s === AccountStatus.Pending)
     switch (s) {
       case AccountStatus.Active:
         return "已處理"
