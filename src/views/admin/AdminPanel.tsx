@@ -18,6 +18,7 @@ import AdminNavbar from 'components/Navbars/AdminNavbar';
 import BooksCreate from './BooksCreate';
 import BooksManage from './BooksManage';
 import PostCreate from './PostCreate';
+import NameCardManage from './NameCardManage';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -128,6 +129,7 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'other' && <OtherFunc />}
               {props.func === 'page-management' && <PageManage />}
               {props.func === 'new-post' && <PostCreate />}
+              {props.func === 'namecards' && <NameCardManage />}
               {/* {props.func === 'new-book' && <BooksCreate />}
               {props.func === 'books' && <BooksManage />} */}
             </div>

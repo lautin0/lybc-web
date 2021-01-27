@@ -386,3 +386,18 @@ export const ADD_NAMECARD = gql`
     }
   }
 `
+
+export const GET_NAMECARDS = gql`
+  query {
+    nameCards{
+      _id
+      name
+      email
+      phone
+      gender
+      remarks
+      status
+      lupdDttm
+    }
+  }
+`

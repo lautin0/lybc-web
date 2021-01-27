@@ -53,7 +53,7 @@ function AdminHeader(props: AdminHeaderProps) {
           {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')}
           {quickItemGenerater('新增文章', 'fas fa-file-alt', 'post/new')}
-          {quickItemGenerater('會員管理', 'fa fa-user', 'members')}
+          {quickItemGenerater('新來賓名片', 'fas fa-id-card', 'namecards')}
           {/* {quickItemGenerater('圖書管理', 'fa fa-book', 'books')} */}
         </>}
         {props.func === 'worships' && <>
@@ -62,6 +62,7 @@ function AdminHeader(props: AdminHeaderProps) {
         </>}
         {props.func === 'members' && <>
           {quickItemGenerater('會員管理', 'fa fa-user', 'members')}
+          {quickItemGenerater('新來賓名片', 'fas fa-id-card', 'namecards')}
         </>}
         {props.func === 'page-management' && <>
           {quickItemGenerater('新增文章', 'fas fa-file-alt', 'post/new')}
