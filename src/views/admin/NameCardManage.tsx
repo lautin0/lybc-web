@@ -72,58 +72,59 @@ function NameCardManage() {
         </Container>}
         {(!loading) && <>
           {data!.nameCards.map((n, i) => {
-            return <div key={n._id}><Row className="card d-none d-lg-block mt-3 pt-5 pl-5 pr-5 pb-3">
-              <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>
-                <Col md={2}>
-                  <div>
-                    <label>名字: </label>
-                  </div>
-                  <div>
-                    <label>聯絡電話: </label>
-                  </div>
-                  <div>
-                    <label>備註: </label>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <label style={{ fontWeight: 'bold' }}>{n.name}</label>
-                  </div>
-                  <div>
-                    <label style={{ fontWeight: 'bold' }}>{n.phone}</label>
-                  </div>
-                  <div>
-                    <label style={{ fontWeight: 'bold' }}>{n.remarks}</label>
-                  </div>
-                </Col>
-                <Col md={2}>
-                  <div>
-                    <label>稱呼: </label>
-                  </div>
-                  <div>
-                    <label>電郵地址: </label>
-                  </div>
-                  <div>
-                    <label>最後更新: </label>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <label style={{ fontWeight: 'bold' }}>{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}</label>
-                  </div>
-                  <div>
-                    <label style={{ fontWeight: 'bold' }}>{n.email}</label>
-                  </div>
-                  <div>
-                    <label style={{ color: 'gray' }}>{moment(n.lupdDttm).format('LLL')}</label>
-                  </div>
-                </Col>
-              </div>
-              <div className="d-flex justify-content-end">
-                <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
-              </div>
-            </Row>
-              <Row className="card mt-3 d-none d-md-block d-lg-none p-3">
+            return <div key={n._id}>
+              <Row className="card quick-item d-none d-lg-block mt-3 pt-5 pl-5 pr-5 pb-3">
+                <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>
+                  <Col md={2}>
+                    <div>
+                      <label>名字: </label>
+                    </div>
+                    <div>
+                      <label>聯絡電話: </label>
+                    </div>
+                    <div>
+                      <label>備註: </label>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div>
+                      <label style={{ fontWeight: 'bold' }}>{n.name}</label>
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 'bold' }}>{n.phone}</label>
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 'bold' }}>{n.remarks}</label>
+                    </div>
+                  </Col>
+                  <Col md={2}>
+                    <div>
+                      <label>稱呼: </label>
+                    </div>
+                    <div>
+                      <label>電郵地址: </label>
+                    </div>
+                    <div>
+                      <label>最後更新: </label>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div>
+                      <label style={{ fontWeight: 'bold' }}>{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}</label>
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 'bold' }}>{n.email}</label>
+                    </div>
+                    <div>
+                      <label style={{ color: 'gray' }}>{moment(n.lupdDttm).format('LLL')}</label>
+                    </div>
+                  </Col>
+                </div>
+                <div className="d-flex justify-content-end">
+                  <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
+                </div>
+              </Row>
+              <Row className="card quick-item mt-3 d-none d-md-block d-lg-none p-3">
                 <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>
                   <Col md={6}>
                     <div>
@@ -170,7 +171,7 @@ function NameCardManage() {
                   <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
                 </div>
               </Row>
-              <Row className="card mt-3 d-block d-md-none p-3">
+              <Row className="card quick-item mt-3 d-block d-md-none p-3">
                 <div className="d-flex justify-content-between" style={{ fontSize: 14 }}>
                   <Col>
                     <div>
