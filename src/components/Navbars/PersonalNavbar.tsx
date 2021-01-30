@@ -110,6 +110,7 @@ function PersonalNavbar() {
                   style={location.pathname.includes('info') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen);
                     history.push('/personal/info')
                   }}
                   href="#"
@@ -121,6 +122,7 @@ function PersonalNavbar() {
                   style={location.pathname.includes('sharing') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen);
                     history.push('/personal/sharing')
                   }}
                   href="#"
@@ -132,6 +134,7 @@ function PersonalNavbar() {
                   style={location.pathname.includes('other') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen);
                     history.push('/personal/other')
                   }}
                   href="#"

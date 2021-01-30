@@ -55,7 +55,7 @@ function PersonalEdit() {
     }
   });
 
-  const { handleSubmit, reset, getValues, control, trigger } = methods
+  const { register, handleSubmit, reset, getValues, control, trigger } = methods
 
   const watchType = useWatch({
     control,
@@ -142,6 +142,9 @@ function PersonalEdit() {
     if (userData != null) {
       dispatch(setLoading(true))
       refetch();
+      setTimeout(() => {
+        trigger()
+      }, 1000);
     }
   }, [location, dispatch, refetch])
 
