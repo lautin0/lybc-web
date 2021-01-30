@@ -18,10 +18,13 @@ import { useMutation } from "@apollo/client";
 import { ADD_NAMECARD } from "graphqls/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import Validators from "utils/validator";
+import { useLocation } from "react-router-dom";
 
 // core components
 
-export default function NewComerForm() {
+export default function NameCardForm() {
+
+  const location = useLocation()
 
   const dispatch = useDispatch();
 
@@ -71,6 +74,10 @@ export default function NewComerForm() {
     }
   }, [data, dispatch, reset])
 
+  useEffect(() => {
+    reset();
+  }, [location])
+
   return (
     <>
       <div className="new-comer-section"></div>
@@ -107,7 +114,7 @@ export default function NewComerForm() {
                         placeholder="輸入名字"
                         type="text"
                         name="name"
-                        ref={register({ required: true })}
+                        ref={register({ validate: Validators.NoWhiteSpace })}
                         onFocus={() => setNameFocus(true)}
                         onBlur={() => { setNameFocus(false); }}
                       ></FormControl>
@@ -133,7 +140,7 @@ export default function NewComerForm() {
                         onFocus={() => setPhoneFocus(true)}
                         onBlur={() => { setPhoneFocus(false); }}
                         name="phone"
-                        ref={register({ validate: Validators.NoWhiteSpaceForValue(getValues("email"), "") })}
+                        ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("email")) })}
                       ></FormControl>
                     </InputGroup>
                     {errors.phone && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}
@@ -157,7 +164,7 @@ export default function NewComerForm() {
                         name="email"
                         onFocus={() => setEmailFocus(true)}
                         onBlur={() => { setEmailFocus(false); }}
-                        ref={register({ validate: Validators.NoWhiteSpaceForValue(getValues("phone"), "") })}
+                        ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("phone")) })}
                       ></FormControl>
                     </InputGroup>
                     {errors.email && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}

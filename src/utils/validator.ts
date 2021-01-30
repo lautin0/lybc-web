@@ -17,6 +17,11 @@ const Validators = {
       return value != null && trim(value).length > 0
     } : Validators.Default
   },
+  NoWhiteSpaceForWhiteSpace: (targetValue: any) => {
+    return targetValue == null && trim(targetValue).length == 0 ? (value: any) => {
+      return value != null && trim(value).length > 0
+    } : Validators.Default
+  },
   Default: (value: any) => {
     return true
   }

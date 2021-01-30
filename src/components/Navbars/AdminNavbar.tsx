@@ -109,6 +109,7 @@ function AdminNavbar() {
                   style={location.pathname.includes('worship') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen)
                     history.push('/admin/worships')
                   }}
                   href="#"
@@ -120,6 +121,7 @@ function AdminNavbar() {
                   style={location.pathname.includes('page-management') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen)
                     history.push('/admin/page-management')
                   }}
                   href="#"
@@ -131,6 +133,7 @@ function AdminNavbar() {
                   style={location.pathname.includes('member') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen)
                     history.push('/admin/members')
                   }}
                   href="#"
@@ -142,6 +145,7 @@ function AdminNavbar() {
                   style={location.pathname.includes('other') ? { backgroundColor: 'lightgray' } : {}}
                   onClick={(e: any) => {
                     e.preventDefault()
+                    setCollapseOpen(!collapseOpen)
                     history.push('/admin/other')
                   }}
                   href="#"

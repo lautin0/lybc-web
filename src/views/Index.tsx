@@ -8,7 +8,7 @@ import DarkFooter from "components/Footers/DarkFooter";
 // sections for this page
 import IndexBanner from "./index-sections/IndexBanner";
 import Theme from "./index-sections/Theme";
-import NewComerForm from "./index-sections/NewComerForm";
+import NameCardForm from "./index-sections/NameCardForm";
 import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
@@ -82,7 +82,7 @@ function Index() {
           <IndexBanner />
           <Theme />
           <ChurchResources />
-          <NewComerForm />
+          <NameCardForm />
         </div>
         <DarkFooter />
       </div>
