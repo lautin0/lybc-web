@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import 'react-quill/dist/quill.snow.css'
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ImageModal from "components/Modals/ImageModal";
 import { useDispatch } from "react-redux";
 import { setImage, setLoading } from "actions";
@@ -16,6 +16,7 @@ import { GET_WORSHIP } from "graphqls/graphql";
 import { Worship as WorshipModel } from "generated/graphql";
 
 function Worship() {
+  const location = useLocation()
   const dispatch = useDispatch();
   let { id } = useParams<any>();
 
@@ -23,7 +24,7 @@ function Worship() {
   const [data, setData] = useState('')
   const componentRef: any = useRef();
 
-  const { loading, data: wData } = useQuery<{ worship: WorshipModel }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: id } });
+  const { loading, data: wData, refetch } = useQuery<{ worship: WorshipModel }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true });
 
   const handleChange = (content: any) => {
     setData(content);
@@ -71,6 +72,13 @@ function Worship() {
   }, [wData])
 
   useEffect(() => {
+    if (wData != null) {
+      dispatch(setLoading(true))
+      refetch();
+    }
+  }, [location])
+
+  useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
   }, [])
@@ -78,7 +86,7 @@ function Worship() {
   return (
     <div className="section">
       <ImageModal />
-      {loading && <Container style={{ marginTop: -20, marginBottom: 60  }}>
+      {loading && <Container style={{ marginTop: -20, marginBottom: 60 }}>
         <div className="text-center">
           <div className="spinner-grow text-secondary" role="status">
             <span className="sr-only">Loading...</span>

@@ -9,10 +9,17 @@ import { useQuery } from "@apollo/client";
 import { Post, PostType, Role } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
+import { useDispatch, useSelector } from "react-redux";
+import { setSysMessage } from "actions";
+import { RootState } from "reducers";
 
 // core components
 
 function SharingList() {
+
+  const dispatch = useDispatch()
+
+  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   const location = useLocation()
 
@@ -68,6 +75,12 @@ function SharingList() {
     }
   }
 
+  const handleClick = () => {
+    if (tokenPair?.token == null) {
+      dispatch(setSysMessage('請先登入'))
+    }
+  }
+
   useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
@@ -84,7 +97,7 @@ function SharingList() {
       >
         <Container>
           <div className="button-container">
-            <Button className="btn-round" color="info" size="lg">
+            <Button className="btn-round" color="info" size="lg" onClick={handleClick}>
               分享您的想法
             </Button>
           </div>
