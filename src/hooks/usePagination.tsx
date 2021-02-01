@@ -53,7 +53,7 @@ function usePagination() {
 
     if (pageNumber <= 2 + (adjacency * 2)) {
       // Close to start, hide close to end
-      for (let i = 1; i <= 2 + (adjacency * 2); i++) {
+      for (let i = 1; i <= 2 + 1 + (adjacency * 2); i++) { // loop the range of window, i.e. 2*adj + 1(middle node) + start&end node
         items.push(
           <Pagination.Item key={i + 2} active={i === pageNumber} onClick={() => onPageChanged(i)}>
             {i}
@@ -74,7 +74,7 @@ function usePagination() {
         </Pagination.Item>,
       )
       items.push(<Pagination.Ellipsis key={4} />)
-      for (let i = (totalPageNum - ((adjacency * 2) + 1)); i <= totalPageNum; i++) {
+      for (let i = (totalPageNum - ((adjacency * 2) + 2 + 1) + 1); i <= totalPageNum; i++) { // Similar logic as above, but +1 at the end because the pagination is not 0-based. Can be simplfied as "wanted window size (e.g. 5) + 1"
         items.push(
           <Pagination.Item key={i + 4} active={i === pageNumber} onClick={() => onPageChanged(i)}>
             {i}
