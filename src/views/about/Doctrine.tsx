@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 // core components
 
 function Doctrine() {
+
+  const intl = useIntl()
 
   useEffect(() => {
     //Default scroll to top
@@ -25,11 +28,11 @@ function Doctrine() {
             <Col className="text-left" lg="8" md="12">
               <Dropdown style={{ zIndex: 1001 }}>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  選擇章節
+                  {intl.formatMessage({ id: "app.doctrine.select" })}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#chapter2">第二章 基本信條</Dropdown.Item>
-                  <Dropdown.Item href="#chapter3">第三章 聖禮</Dropdown.Item>
+                  <Dropdown.Item href="#chapter2">{intl.formatMessage({ id: "app.doctrine.ch2" })}</Dropdown.Item>
+                  <Dropdown.Item href="#chapter3">{intl.formatMessage({ id: "app.doctrine.ch3" })}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Col>

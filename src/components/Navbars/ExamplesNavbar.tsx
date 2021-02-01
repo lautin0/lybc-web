@@ -6,8 +6,12 @@ import {
   Nav,
   Container,
 } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 function ExamplesNavbar() {
+
+  const intl = useIntl()
+
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {
@@ -112,23 +116,23 @@ function ExamplesNavbar() {
             <Nav>
               <Nav.Item>
                 <Nav.Link to="/index" as={Link} style={{ color: collapseOpen ? 'black' : 'white' }}>
-                  回主頁
+                  {intl.formatMessage({ id: "app.back-to-home" })}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link href="#pablo" style={{ color: collapseOpen ? 'black' : 'white' }}>
-                  技術支援
+                  {intl.formatMessage({ id: "app.support" })}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
-                  style={{ 
+                  style={{
                     color: 'white',
                     alignItems: 'center',
                     justifyContent: 'center',
                     display: 'flex',
                     paddingTop: 10
-                   }}
+                  }}
                   target="_blank"
                   id="facebook-tooltip"
                   href="https://www.facebook.com/lukYeungBaptistChurch"
@@ -139,7 +143,7 @@ function ExamplesNavbar() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
-                  style={{ 
+                  style={{
                     color: 'white',
                     alignItems: 'center',
                     justifyContent: 'center',

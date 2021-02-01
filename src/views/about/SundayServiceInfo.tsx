@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Table, Container, Row, Col } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 // core components
 
 function SundayServiceInfo() {
 
+  const intl = useIntl()
+
   useEffect(() => {
     //Default scroll to top
     window.scrollTo(0, 0)
-  },[])
-  
+  }, [])
+
   return (
     <div className="section">
       <Container>
@@ -20,60 +23,60 @@ function SundayServiceInfo() {
             <Table striped>
               <thead className="text-center">
                 <tr>
-                  <th>聚會名稱</th><th>日期、時間</th><th>適合對象</th>
+                  <th>{intl.formatMessage({ id: "app.timetable.group-name" })}</th><th>{intl.formatMessage({ id: "app.timetable.datetime" })}</th><th>{intl.formatMessage({ id: "app.timetable.target-audience" })}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>主日崇拜</td><td>早上 11:30-12:45</td><td>所有信徒</td>
+                  <td>{intl.formatMessage({ id: "app.sunday-service" })}</td><td>{intl.formatMessage({ id: "app.timetable.morning" })}</td><td>{intl.formatMessage({ id: "app.timetable.all-members" })}</td>
                 </tr>
                 <tr>
-                  <td>教會祈禱會</td><td>第一個主日早上 10:00-10:45</td><td>所有信徒</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.prayer-meeting" })}</td><td>{intl.formatMessage({ id: "app.timetable.morning-of-1st-sunday" })}</td><td>{intl.formatMessage({ id: "app.timetable.all-members" })}</td>
                 </tr>
               </tbody>
               <thead className="text-center">
                 <tr>
-                  <th>聖經班</th><th>課   程</th><th>時間</th>
+                  <th>{intl.formatMessage({ id: "app.timetable.bible-study" })}</th><th>{intl.formatMessage({ id: "app.timetable.lesson" })}</th><th>{intl.formatMessage({ id: "app.timetable.time" })}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>青年組</td><td>大衛組</td><td rowSpan={6} style={{ verticalAlign: "middle", textAlign: "center" }}
-                  >主日上午<br />10:00-11:00</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.youth-group" })}</td><td>{intl.formatMessage({ id: "app.timetable.david" })}</td><td rowSpan={6} style={{ verticalAlign: "middle", textAlign: "center" }}
+                  >{intl.formatMessage({ id: "app.timetable.sunday-morning" })}<br />10:00-11:00</td>
                 </tr>
                 <tr>
-                  <td rowSpan={4}>成人組</td><td>撒母耳組</td>
+                  <td rowSpan={4}>{intl.formatMessage({ id: "app.timetable.adult" })}</td><td>{intl.formatMessage({ id: "app.timetable.samuel" })}</td>
                 </tr>
                 <tr>
-                  <td>但以理組</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.daniel" })}</td>
                 </tr>
                 <tr>
-                  <td>摩西組</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.moses" })}</td>
                 </tr>
                 <tr>
-                  <td>以利亞組</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.elijah" })}</td>
                 </tr>
                 <tr>
-                  <td>長者組</td><td>迦勒組</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.elderly-group" })}</td><td>{intl.formatMessage({ id: "app.timetable.caleb" })}</td>
                 </tr>
                 <tr>
-                  <td>個別栽培</td><td>(請與同工聯絡)</td><td>—</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.specified" })}</td><td>({intl.formatMessage({ id: "app.timetable.contact-worker" })})</td><td>—</td>
                 </tr>
               </tbody>
               <thead className="text-center">
                 <tr>
-                  <th>團契</th><th>日期、時間</th><th>對象</th>
+                  <th>{intl.formatMessage({ id: "app.timetable.fellowship" })}</th><th>{intl.formatMessage({ id: "app.timetable.datetime" })}</th><th>{intl.formatMessage({ id: "app.timetable.target" })}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>約翰團</td><td>第一、三週週六下午 2:00-3:30</td><td>長者</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.john" })}</td><td>{intl.formatMessage({ id: "app.timetable.timeslot-1" })}</td><td>{intl.formatMessage({ id: "app.timetable.elderly" })}</td>
                 </tr>
                 <tr>
-                  <td>約書亞團</td><td>週六晚上 7:00 ~ 9:30</td><td>青年</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.joshua" })}</td><td>{intl.formatMessage({ id: "app.timetable.timeslot-2" })}</td><td>{intl.formatMessage({ id: "app.timetable.youth" })}</td>
                 </tr>
                 <tr>
-                  <td>伉儷團</td><td>逢雙月第四週六下午4:00-6:00</td><td>夫婦</td>
+                  <td>{intl.formatMessage({ id: "app.timetable.married-couple-group" })}</td><td>{intl.formatMessage({ id: "app.timetable.timeslot-3" })}</td><td>{intl.formatMessage({ id: "app.timetable.married-couple" })}</td>
                 </tr>
               </tbody>
             </Table>

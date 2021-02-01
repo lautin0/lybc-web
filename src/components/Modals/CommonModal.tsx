@@ -4,8 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal } from 'react-bootstrap';
 import { RootState } from '../../reducers';
 import { resetSysError, resetSysMessage } from 'actions';
+import { useIntl } from 'react-intl';
 
 function CommonModal(props: any) {
+
+  const intl = useIntl()
+
   const result = useSelector((state: RootState) => state.system.general.result);
   const error = useSelector((state: RootState) => state.system.general.error);
   const dispatch = useDispatch();
@@ -34,23 +38,23 @@ function CommonModal(props: any) {
     >
       {error && <Modal.Header closeButton data-background-color="error">
         <Modal.Title id="contained-modal-title-vcenter">
-          錯誤
+          {intl.formatMessage({ id: "app.modal.header.error" })}
         </Modal.Title>
       </Modal.Header>}
-      {result &&  <Modal.Header closeButton className="black-close">
+      {result && <Modal.Header closeButton className="black-close">
         <Modal.Title id="contained-modal-title-vcenter">
-          系統提示
+          {intl.formatMessage({ id: "app.modal.header.info" })}
         </Modal.Title>
       </Modal.Header>}
       <Modal.Body>
         {/* <h4>系統錯誤</h4> */}
         <h4>
           {error && error.toString()}
-          {result && result.message}
+          {result && intl.formatMessage({ id: result.message })}
         </h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>確定</Button>
+        <Button onClick={onHide}>{intl.formatMessage({ id: "app.buttons.ok" })}</Button>
       </Modal.Footer>
     </Modal>
   );

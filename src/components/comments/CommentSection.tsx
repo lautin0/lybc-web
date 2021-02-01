@@ -17,8 +17,11 @@ import { Post, User } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useQuery } from '@apollo/client';
 import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
+import { useIntl } from 'react-intl';
 
 function CommentSection(props: any) {
+
+  const intl = useIntl()
 
   const { id, type } = props
 
@@ -32,18 +35,18 @@ function CommentSection(props: any) {
 
   const { loading, data: profilePicData } = useQuery<
     { user: User },
-    {username: string}
+    { username: string }
   >(
-    GET_USER_PROFILE_PIC_URI, 
-    { 
-      variables: { 
+    GET_USER_PROFILE_PIC_URI,
+    {
+      variables: {
         username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-      }, 
-      notifyOnNetworkStatusChange: true 
+      },
+      notifyOnNetworkStatusChange: true
     }
   )
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, errors } = useForm();
 
   const onSubmit = (data: any) => {
     setCommentPending(true)
@@ -70,7 +73,7 @@ function CommentSection(props: any) {
   }, [commentPending, reset])
 
   return <Row className="justify-content-md-center mt-5">
-    <Col md={12} lg={8} className="mb-3"><h4>回應</h4></Col>
+    <Col md={12} lg={8} className="mb-3"><h4>{intl.formatMessage({ id: "app.comment" })}</h4></Col>
     {postData && postData.post.comments.map((e: any) => {
       return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
@@ -111,7 +114,7 @@ function CommentSection(props: any) {
         </div>
       </div>
       <Form className="ml-md-5 col-md-10 col-sm-12" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-2" style={{ fontSize: 20 }}>您的回應</div>
+        <div className="mb-2" style={{ fontSize: 20 }}>{intl.formatMessage({ id: "app.comment.your-comment" })}</div>
         <Form.Control
           style={{
             borderLeft: '.5px lightgrey solid',
@@ -123,12 +126,13 @@ function CommentSection(props: any) {
             padding: 10
           }}
           name="content"
-          ref={register({ validate: Validators.Default }) as RBRef}
+          ref={register({ validate: Validators.NoWhiteSpace }) as RBRef}
           as="textarea"
           rows={4}
-          placeholder="在此分享您的回應..."
+          placeholder={intl.formatMessage({ id: "app.comment.comment-here" })}
           className="my-3"
         ></Form.Control>
+        {errors.content && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
         <div className="text-right">
           <Button
             variant="primary"
@@ -142,15 +146,15 @@ function CommentSection(props: any) {
               role="status"
               aria-hidden="true"
             />}
-            發送</Button>
+            {intl.formatMessage({ id: "app.buttons.send" })}</Button>
         </div>
       </Form>
     </Col>}
     {(tokenPair?.token && getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
-      <div style={{ fontSize: 18 }}>請以私號發表回應</div>
+      <div style={{ fontSize: 18 }}>{intl.formatMessage({ id: "app.comment.please-use-personal-account-to-comment" })}</div>
     </Col>}
     {!tokenPair?.token && <Col style={{ borderTop: '.5px lightgrey solid' }} md={12} lg={8} className="my-2 pt-5 d-inline-flex">
-      <div style={{ fontSize: 18 }}>請先 <Link to={`/login-page?relayState=${location.pathname}`}>登入</Link> 以發表回應</div>
+      <div style={{ fontSize: 18 }}>{intl.formatMessage({ id: "app.comment.please" })} <Link to={`/login-page?relayState=${location.pathname}`}>{intl.formatMessage({ id: "app.login" })}</Link> {intl.formatMessage({ id: "app.comment.to-comment" })}</div>
     </Col>}
   </Row>
 }

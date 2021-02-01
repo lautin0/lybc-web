@@ -11,8 +11,11 @@ import { getNullableString } from 'utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'reducers';
 import { SetSysInfoMessage } from 'actions';
+import { useIntl } from 'react-intl';
 
 function InfoModal(props: any) {
+
+  const intl = useIntl()
 
   const dispatch = useDispatch()
 
@@ -63,7 +66,7 @@ function InfoModal(props: any) {
     >
       <Modal.Header closeButton className="black-close">
         <Modal.Title id="contained-modal-title-vcenter">
-          {title}
+          {intl.formatMessage({ id: title })}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -73,7 +76,7 @@ function InfoModal(props: any) {
         ></div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>確定</Button>
+        <Button onClick={onHide}>{intl.formatMessage({ id: "app.buttons.ok" })}</Button>
         <Form.Check
           checked={checked}
           onChange={handleChecked}
@@ -81,7 +84,7 @@ function InfoModal(props: any) {
           type="checkbox"
           id="suspendForToday"
           name="suspendForToday"
-          label={<>今日不再顯示<span className="form-check-sign"></span></>}
+          label={<>{intl.formatMessage({ id: "app.modal.hide-for-today" })}<span className="form-check-sign"></span></>}
         ></Form.Check>
       </Modal.Footer>
     </Modal>

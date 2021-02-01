@@ -1,6 +1,8 @@
 import { Role } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
+import React from "react";
+import { Tooltip } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 
 export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
@@ -31,10 +33,10 @@ export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
     return array
 }
 
-export function getNullableString(s: string | null | undefined): string{
-    if(s == null)
+export function getNullableString(s: string | null | undefined): string {
+    if (s == null)
         return ''
-    else 
+    else
         return s
 }
 
@@ -76,3 +78,38 @@ export function getTimePastStr(target: Moment) {
 }
 
 export const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
+
+export const renderTooltip = (props: any, type: string, currUser: string, reactions: Array<any>, lang: string) => {
+
+    let usernames: any[] = reactions
+        .filter((r: any) =>
+            r.type === type.toUpperCase()
+        )
+        .map((x: any) => {
+            return x.username
+        })
+    let text = ''
+    if (type === 'pray')
+        text = lang === "zh" ? '記念' : 'Pray'
+    else
+        text = lang === "zh" ? '哈利路亞' : 'Hallelujah'
+
+    let sentence = (lang === "zh" ? "{0}{1}表示 " : "{0}{1}: ") + text
+    let userClause = ""
+    usernames.slice(0, 2).map((user: any) => {
+        if (userClause.length > 0)
+            userClause += ", "
+        userClause += user
+        return user
+    })
+
+    if (userClause.length > 0)
+        sentence = sentence.replace('{0}', userClause)
+    if (usernames.length - 2 > 0)
+        sentence = sentence.replace('{1}', `${lang === "zh" ? "和另外" : "and other"} ${usernames.length - 2} ${lang === "zh" ? "人" : "people"}`)
+    else
+        sentence = sentence.replace('{1}', '')
+
+    return <Tooltip {...props}> {usernames.length > 0 ? sentence : text}</Tooltip>
+    
+};

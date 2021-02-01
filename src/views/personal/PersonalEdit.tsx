@@ -109,7 +109,7 @@ function PersonalEdit() {
 
   useEffect(() => {
     if (updatedUserData !== undefined) {
-      dispatch(setSysMessage('儲存成功!'))
+      dispatch(setSysMessage('app.sys.save-success!'))
       dispatch(setLoading(false))
       reset();
       history.push('/personal/')

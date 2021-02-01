@@ -12,10 +12,13 @@ import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
 import { setSysMessage } from "actions";
 import { RootState } from "reducers";
+import { FormattedDate, useIntl } from "react-intl";
 
 // core components
 
 function SharingList() {
+
+  const intl = useIntl()
 
   const dispatch = useDispatch()
 
@@ -77,7 +80,7 @@ function SharingList() {
 
   const handleClick = () => {
     if (tokenPair?.token == null) {
-      dispatch(setSysMessage('請先登入'))
+      dispatch(setSysMessage('app.sys.require-login'))
     }
   }
 
@@ -98,11 +101,11 @@ function SharingList() {
         <Container>
           <div className="button-container">
             <Button className="btn-round" color="info" size="lg" onClick={handleClick}>
-              分享您的想法
+              {intl.formatMessage({ id: "app.buttons.sharing" })}
             </Button>
           </div>
           <h5 className="description">
-            相信弟兄姊妹在生活中會遇上不少困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的想法，讓我們彼此激勵，互作見證，在主內共成長。
+            {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
           <hr></hr>
           {(loading || !postData || !data) && <Row className="text-center my-5">
@@ -128,8 +131,13 @@ function SharingList() {
                         {p.subtitle && trimSubtitle(p.subtitle)}
                       </label>
                       <p className={css.blogFooter}>
-                        {moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日
-                    </p>
+                        {<FormattedDate
+                          value={moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                          year="numeric"
+                          month="short"
+                          day="numeric"
+                        />}
+                      </p>
                     </div>
                     <div className={css.blogImg}>
                       {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}

@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom'
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "reducers";
+import { useIntl } from "react-intl";
 
 function DarkFooter() {
+
+  const intl = useIntl()
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
@@ -15,7 +18,7 @@ function DarkFooter() {
     <footer className="footer" data-background-color="black" style={{ minHeight: '50vh' }}>
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>教會活動</h4>
+          <h4>{intl.formatMessage({ id: "app.menu.activity" })}</h4>
           <ul className="sitemap">
             {/* {tokenPair?.token && <li>
               <Link to="/worship-list">
@@ -24,113 +27,101 @@ function DarkFooter() {
             </li>} */}
             <li>
               <Link to="/worship-list">
-                網上崇拜
+                {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
               </Link>
             </li>
             <li>
               <Link to="/">
-                最新活動
+                {intl.formatMessage({ id: "app.menu.activity.latest" })}
               </Link>
             </li>
             <li>
               <Link to="/apply-activity">
-                活動報名
+                {intl.formatMessage({ id: "app.menu.activity.apply" })}
               </Link>
             </li>
             <li>
               <Link to="/">
-                團契
+                {intl.formatMessage({ id: "app.menu.activity.fellowship" })}
               </Link>
             </li>
             <li>
               <Link to="/">
-                點滴回顧
+                {intl.formatMessage({ id: "app.menu.activity.memories" })}
               </Link>
             </li>
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>事工介紹</h4>
+          <h4>{intl.formatMessage({ id: "app.menu.ministries" })}</h4>
           <ul className="sitemap">
             <li>
               <Link to="/">
-                探訪事工
+                {intl.formatMessage({ id: "app.menu.ministries.visits" })}
               </Link>
             </li>
             <li>
               <Link to="/">
-                青少年事工
+                {intl.formatMessage({ id: "app.menu.ministries.youth" })}
               </Link>
             </li>
             <li>
               <Link to="/">
-                街頭福音事工
+                {intl.formatMessage({ id: "app.menu.ministries.outreach" })}
               </Link>
             </li>
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>教會資源</h4>
+          <h4>{intl.formatMessage({ id: "app.menu.resources" })}</h4>
           <ul className="sitemap">
             <li>
               <Link to="/journal">
-                教會月刊
+                {intl.formatMessage({ id: "app.menu.resources.journal" })}
               </Link>
             </li>
             <li>
               <Link to="/sharing-list">
-                分享欄
+                {intl.formatMessage({ id: "app.menu.resources.sharing" })}
               </Link>
             </li>
             {tokenPair?.token && <li>
               <Link to="/library">
-                書藉查詢
+                {intl.formatMessage({ id: "app.menu.resources.books-enquiry" })}
               </Link>
             </li>}
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>認識綠楊</h4>
+          <h4>{intl.formatMessage({ id: "app.menu.about-us" })}</h4>
           <ul className="sitemap">
             <li>
               <Link to="/about-us">
-                關於聯會
+                {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
               </Link>
             </li>
             <li>
               <Link to="/doctrine">
-                教會信條
+                {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
               </Link>
             </li>
             <li>
               <Link
                 to="/sunday-service-info"
-              // onClick={e => {
-              //   e.preventDefault();
-              //   document
-              //     .getElementById("sunday-service-info-section")
-              //     .scrollIntoView();
-              // }}
               >
-                聚會時間
+                {intl.formatMessage({ id: "app.menu.about-us.timetable" })}
               </Link>
             </li>
             <li>
               <Link
                 to="/contact-us"
-              // onClick={e => {
-              //   e.preventDefault();
-              //   document
-              //     .getElementById("contact-us-section")
-              //     .scrollIntoView();
-              // }}
               >
-                聯絡我們
+                {intl.formatMessage({ id: "app.menu.about-us.contact" })}
               </Link>
             </li>
             <li>
               <Link to="/preacher-message">
-                牧者的話
+                {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
               </Link>
             </li>
           </ul>
@@ -144,20 +135,20 @@ function DarkFooter() {
                 target="_blank"
                 href="http://www.hkabwe.org/"
               >
-                ABWE
-                </a>
+                {intl.formatMessage({ id: "app.abwe" })}
+              </a>
             </li>
             <li>
               <Link
                 to="/about-us"
               >
-                About Us
-                </Link>
+                {intl.formatMessage({ id: "app.menu.about-us" })}
+              </Link>
             </li>
           </ul>
         </nav>
         <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
-          版權所有{" "}©2020{" "}綠楊浸信會
+          {intl.formatMessage({ id: "app.copyright" })}
         </div>
       </Container>
     </footer>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // reactstrap components
 import { Container } from "react-bootstrap";
 import UNIVERSALS from "Universals";
+import { useIntl } from "react-intl";
 
 // core components
 
@@ -13,6 +14,8 @@ type MainPageHeaderType = {
 
 function MainPageHeader(props: MainPageHeaderType) {
   let pageHeader: any = React.createRef();
+
+  const intl = useIntl()
 
   React.useEffect(() => {
     // if (window.innerWidth > 991) {
@@ -29,7 +32,7 @@ function MainPageHeader(props: MainPageHeaderType) {
   });
 
   React.useEffect(() => {
-    document.title = UNIVERSALS.TITLE_MAP[props.page].title
+    document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
   }, [props.page])
 
   return (
@@ -44,10 +47,10 @@ function MainPageHeader(props: MainPageHeaderType) {
         ></div>
         <div className="content-center">
           <Container>
-            {window.innerHeight > 375 && <h1 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h1>}
-            {window.innerHeight <= 375 && <h3 className="title">{UNIVERSALS.TITLE_MAP[props.page].title}</h3>}
+            {window.innerHeight > 375 && <h1 className="title">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h1>}
+            {window.innerHeight <= 375 && <h3 className="title">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h3>}
             {UNIVERSALS.TITLE_MAP[props.page].subtitle && <div className="text-center">
-              <p className="category">{UNIVERSALS.TITLE_MAP[props.page].subtitle}</p>
+              <p className="category">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].subtitle })}</p>
               {/* <Button
                 className="btn-icon btn-round"
                 color="info"

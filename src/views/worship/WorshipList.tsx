@@ -14,8 +14,11 @@ import { useQuery } from "@apollo/client";
 import { GET_WORSHIPS } from "graphqls/graphql";
 import { Worship } from "generated/graphql";
 import usePagination from "hooks/usePagination";
+import { useIntl } from "react-intl";
 
 function WorshipList() {
+
+  const intl = useIntl()
 
   const history = useHistory();
 
@@ -71,9 +74,9 @@ function WorshipList() {
             <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
-                  <th style={{ width: '15%' }}>日期</th>
-                  <th style={{ width: '45%' }}>標題</th>
-                  <th style={{ width: '30%' }}>講員</th>
+                  <th style={{ width: '15%' }}>{intl.formatMessage({ id: "app.tables.date" })}</th>
+                  <th style={{ width: '45%' }}>{intl.formatMessage({ id: "app.tables.topic" })}</th>
+                  <th style={{ width: '30%' }}>{intl.formatMessage({ id: "app.tables.speaker" })}</th>
                   <th style={{ width: '10%' }}></th>
                 </tr>
               </thead>
@@ -83,14 +86,14 @@ function WorshipList() {
                     <span className="sr-only">Loading...</span>
                   </div>
                 </th></tr>}
-                {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={4}>沒有記錄</th></tr>}
+                {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={4}>{intl.formatMessage({ id: "app.tables.no-record" })}</th></tr>}
                 {
                   (pageItems && pageItems.length > 0) && pageItems.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>{intl.formatMessage({ id: "app.new" })}</i></b>}</td>
                       <td onClick={() => onCellClicked(value.worshipId)}>{value.messenger}</td>
-                      <td onClick={() => onCellClicked(value.worshipId)}><a href="#">前往</a></td>
+                      <td onClick={() => onCellClicked(value.worshipId)}><a href="#">{intl.formatMessage({ id: "app.tables.goto" })}</a></td>
                     </tr>
                   })
                 }

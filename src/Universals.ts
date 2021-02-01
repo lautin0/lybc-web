@@ -16,85 +16,82 @@ type UniversalsInfo = {
 
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
-        'about-us': { title: '『香港萬國宣道浸信聯會』簡介', subtitle: null, bg: bg13 },
-        'journal': { title: '教會月刊', subtitle: null, bg: bg1 },
-        'apply-activity': { title: '活動報名', subtitle: null },
-        'contact-us': { title: '聯絡我們', subtitle: null, bg: signpost },
-        'sunday-service-info': { title: '聚會時間', subtitle: null, bg: bg13 },
-        'worship': { title: '網上崇拜', subtitle: null },
-        'worship-list': { title: '網上崇拜', subtitle: `我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；
-        他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，
-        使榮耀住在我們的地上。
-        (詩篇 85:8-9 和合本2010)`, bg: sermon },
-        'doctrine':{ title: '綠楊浸信會會章之基本信條及聖禮', subtitle: null, bg: bg13 },
-        'preacher-message': { title: '牧者的話', subtitle: '黃雪梅 主任傳道', bg: bg8 },
-        'sharing-list': { title: '分享欄', subtitle: null, bg: microphone },
-        'sharing': { title: '分享欄', subtitle: null },
-        'library': { title: '書藉查詢', subtitle: null }
+        'about-us': { title: 'app.title.about-us', subtitle: null, bg: bg13 },
+        'journal': { title: 'app.title.journal', subtitle: null, bg: bg1 },
+        'apply-activity': { title: 'app.title.apply-activity', subtitle: null },
+        'contact-us': { title: 'app.title.contact-us', subtitle: null, bg: signpost },
+        'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: bg13 },
+        'worship': { title: 'app.title.worship', subtitle: null },
+        'worship-list': { title: 'app.title.worship', subtitle: 'app.subtitle.worship', bg: sermon },
+        'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: bg13 },
+        'preacher-message': { title: 'app.title.preacher-message', subtitle: 'app.subtitle.preacher-message', bg: bg8 },
+        'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: microphone },
+        'sharing': { title: 'app.title.sharing', subtitle: null },
+        'library': { title: 'app.title.books-enquiry', subtitle: null }
     },
     MENU_HIERARCHY: {
         index: {
-            title: '主頁',
+            title: 'app.breadcrumb.index',
             link: '/',
             child: {
                 'activity': {
-                    title: '教會活動',
+                    title: 'app.menu.activity',
                     child: {
                         'apply-activity': {
-                            title: '活動報名',
+                            title: 'app.title.apply-activity',
                             link: '/apply-activity',
                         }
                     }
                 },
                 'about-church': {
-                    title: '認識綠楊',
+                    title: 'app.menu.about-us',
                     child: {
                         'about-us': {
-                            title: '關於聯會',
+                            title: 'app.menu.about-us.abwe',
                             link: '/about-us',
                         },
                         'contact-us': {
-                            title: '聯絡我們',
+                            title: 'app.menu.about-us.contact',
                             link: '/contact-us',
                         },
                         'sunday-service-info': {
-                            title: '聚會時間',
+                            title: 'app.menu.about-us.timetable',
                             link: '/sunday-service-info',
                         },
                         'doctrine': {
-                            title: '教會信條',
+                            title: 'app.menu.about-us.doctrine',
                             link: '/doctrine',
                         }
                     }
                 },
                 'articles': {
-                    title: '教會資源',
+                    title: 'app.menu.resources',
                     child: {
                         'journal': {
-                            title: '教會月刊',
+                            title: 'app.menu.resources.journal',
                             link: '/journal',
                         },
                         'preacher-message': {
-                            title: '牧者的話',
+                            title: 'app.menu.about-us.preacher-message',
                             link: '/preacher-message',
                         },
                         'sharing-list': {
-                            title: '分享欄',
+                            title: 'app.menu.resources.sharing',
                             link: '/sharing-list',
                             child: {
                                 'sharing': {
-                                    title: '文章',
+                                    title: 'app.breadcrumb.article',
                                 }
                             }
                         }
                     }
                 },
                 'worship-list': {
-                    title: '瀏覽網上崇拜',
+                    title: 'app.breadcrumb.online-sermon',
                     link: '/worship-list',
                     child: {
                         'worship': {
-                            title: '網上崇拜',
+                            title: 'app.menu.activity.online-sermon',
                         }
                     }
                 },
@@ -153,7 +150,7 @@ const UNIVERSALS: UniversalsInfo = {
         // <p><b>4. 社社交距離應盡量保持不少於一米(同住家人除外)。</b></p>
         // <p><b>崇拜座位安排，以上限4人為一組，組與組之間應保持不少於一米距離。</b></p>
         // `,
-        TITLE: '教會通告'
+        TITLE: 'app.church-notice'
     },
     GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query",
     // GRAPHQL_ENDPOINT: "http://localhost:8080/query",

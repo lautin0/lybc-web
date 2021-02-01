@@ -3,9 +3,13 @@ import React from "react";
 
 // react-bootstrap components
 import { Container } from "react-bootstrap";
+import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 function TransparentFooter() {
+
+  const intl = useIntl()
+
   return (
     <footer className="footer">
       <Container>
@@ -16,20 +20,20 @@ function TransparentFooter() {
                 target="_blank"
                 href="http://www.hkabwe.org/"
               >
-                ABWE
+                {intl.formatMessage({ id: "app.abwe" })}
                 </a>
             </li>
             <li>
               <Link
                 to="/about-us"
               >
-                About Us
+                {intl.formatMessage({ id: "app.menu.about-us" })}
               </Link>
             </li>
           </ul>
         </nav>
         <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
-          版權所有{" "}©2020{" "}綠楊浸信會
+        {intl.formatMessage({ id: "app.copyright" })}
         </div>
       </Container>
     </footer>

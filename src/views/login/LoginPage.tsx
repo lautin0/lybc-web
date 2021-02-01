@@ -22,8 +22,11 @@ import { LOGIN, LoginInput } from "graphqls/graphql";
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
 import { Login, TokenPair } from "generated/graphql";
+import { useIntl } from "react-intl";
 
 function LoginPage() {
+
+  const intl = useIntl()
 
   const location = useLocation()
 
@@ -120,7 +123,7 @@ function LoginPage() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <input
-                        placeholder="用戶名稱"
+                        placeholder={intl.formatMessage({ id: "app.forms.username" })}
                         className={errors.username ? "form-control" : "form-control form-control-danger"}
                         type="text"
                         name="username"
@@ -135,7 +138,7 @@ function LoginPage() {
                       // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.username && <label style={{ opacity: .6 }}>必須填寫這欄</label>}
+                    {errors.username && <label style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -150,7 +153,7 @@ function LoginPage() {
                       </InputGroup.Prepend>
                       <input
                         className={errors.password ? "form-control" : "form-control form-control-danger"}
-                        placeholder="密碼"
+                        placeholder={intl.formatMessage({ id: "app.forms.password" })}
                         type="password"
                         name="password"
                         // value={user.password}
@@ -164,7 +167,7 @@ function LoginPage() {
                       // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.password && <label style={{ opacity: .6 }}>必須填寫這欄</label>}
+                    {errors.password && <label style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
                   </Card.Body>
                   <Card.Footer className="text-center">
                     <Button
@@ -176,7 +179,7 @@ function LoginPage() {
                       // onClick={(e: any) => login({ variables: { input: { username: user.username, password: user.password } } })}
                       size="lg"
                     >
-                      登入
+                      {intl.formatMessage({ id: "app.login" })}
                       {loginLoading && <span className="ml-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                     </Button>
                     <div className="pull-right">
@@ -186,7 +189,7 @@ function LoginPage() {
                           href="#pablo"
                           onClick={e => e.preventDefault()}
                         >
-                          需要幫助?
+                          {intl.formatMessage({ id: "app.need-help" })}
                         </a>
                       </h6>
                     </div>

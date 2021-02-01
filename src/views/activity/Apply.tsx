@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -8,6 +8,7 @@ import {
   Pagination,
   PageItem
 } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 // import moment from 'moment'
 
@@ -15,8 +16,12 @@ const data: Array<any> = []
 
 function Apply() {
 
-  //Default scroll to top
-  window.scrollTo(0, 0)
+  const intl = useIntl()
+
+  useEffect(() => {
+    //Default scroll to top
+    window.scrollTo(0, 0)
+  }, [])
 
   function onCellClicked(uri: string) {
     window.open(uri, '_blank');
@@ -34,19 +39,19 @@ function Apply() {
             <Table striped className={data && data.length > 0 ? 'clickable' : ''}>
               <thead>
                 <tr>
-                  <th>截止日期</th>
-                  <th style={{ width: '60%' }}>活動名稱</th>
-                  <th style={{ width: '20%' }}>連結</th>
+                  <th>{intl.formatMessage({ id: "app.deadline" })}</th>
+                  <th style={{ width: '60%' }}>{intl.formatMessage({ id: "app.menu.activity.title" })}</th>
+                  <th style={{ width: '20%' }}>{intl.formatMessage({ id: "app.link" })}</th>
                 </tr>
               </thead>
               <tbody>
-                {(data == null || data.length === 0) && <tr><th className="text-center" colSpan={3}>沒有記錄</th></tr>}
+                {(data == null || data.length === 0) && <tr><th className="text-center" colSpan={3}>{intl.formatMessage({ id: "app.tables.no-record" })}</th></tr>}
                 {
                   (data && data.length > 0) && data.map((value, index) => {
                     return <tr key={index}>
                       <th scope="row">{value.date.format('YYYY-MM')}</th>
                       <td onClick={() => onCellClicked(value.uri)}>{value.title}</td>
-                      <td onClick={() => onCellClicked(value.uri)}><a href="#">下載</a></td>
+                      <td onClick={() => onCellClicked(value.uri)}><a href="#">{intl.formatMessage({ id: "app.download" })}</a></td>
                     </tr>
                   })
                 }
@@ -58,7 +63,7 @@ function Apply() {
               <Pagination.First />
               <Pagination.Prev />
               <PageItem active disabled>
-                  1
+                1
               </PageItem>
               <Pagination.Next />
               <Pagination.Last />

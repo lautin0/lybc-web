@@ -8,13 +8,16 @@ import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { FormattedDate, useIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { RootState } from "reducers";
-import { getKeyValue, getTokenValue } from "utils/utils";
+import { getKeyValue, getTokenValue, renderTooltip } from "utils/utils";
 // core components
 
 function PreacherMessage() {
+
+  const intl = useIntl()
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
@@ -29,10 +32,10 @@ function PreacherMessage() {
 
   const setReaction = (reaction: ReactionType) => {
     if (tokenPair?.token == null) {
-      dispatch(setSysMessage('請先登入'))
+      dispatch(setSysMessage('app.sys.require-login'))
       return
     } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
-      dispatch(setSysMessage('使用公眾號不能表達心情，請轉為私號'))
+      dispatch(setSysMessage('app.sys.public-account-cannot-react'))
       return
     }
     react({
@@ -98,46 +101,6 @@ function PreacherMessage() {
     };
   })
 
-  const renderTooltip = (props: any, type: string) => {
-    const currUser = getTokenValue(tokenPair?.token)?.username;
-    let usernames: any[] = post.reactions
-      .filter((r: any) =>
-        r.type === type.toUpperCase()
-      )
-      .map((x: any) => {
-        return x.username
-      })
-    let text = ''
-    if (type === 'pray')
-      text = '記念'
-    else
-      text = '哈利路亞'
-
-    let sentence = "{0}{1}表示 " + text
-    let userClause = ""
-    if (usernames.some(x => x === currUser)) {
-      const idx = usernames.indexOf(currUser);
-      const clone = [...usernames]
-      usernames[0] = clone[idx]
-      usernames[idx] = clone[0]
-    }
-    usernames.slice(0, 2).map((user: any, i: number) => {
-      if (userClause.length > 0)
-        userClause += ", "
-      userClause += (user === currUser ? '你' : user)
-      return user
-    })
-
-    if (userClause.length > 0)
-      sentence = sentence.replace('{0}', userClause)
-    if (usernames.length - 2 > 0)
-      sentence = sentence.replace('{1}', `和另外 ${usernames.length - 2} 人`)
-    else
-      sentence = sentence.replace('{1}', '')
-
-    return <Tooltip {...props}> {usernames.length > 0 ? sentence : text}</Tooltip>
-  };
-
   const isReacted = (type: string): boolean => {
     if (tokenPair?.token == null)
       return false
@@ -162,7 +125,7 @@ function PreacherMessage() {
   return (
     <>
       <div className="section">
-        {loading && <Container style={{ marginTop: -20, marginBottom: 60  }}>
+        {loading && <Container style={{ marginTop: -20, marginBottom: 60 }}>
           <div className="text-center">
             <div className="spinner-grow text-secondary" role="status">
               <span className="sr-only">Loading...</span>
@@ -172,7 +135,7 @@ function PreacherMessage() {
         {(!loading && post != null) && <Container>
           <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
             <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
                 <div className="my-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
@@ -180,7 +143,7 @@ function PreacherMessage() {
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
                 <div className="my-3" onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
@@ -192,7 +155,12 @@ function PreacherMessage() {
           </Row>
           <Row className="text-left" style={{ alignItems: 'baseline' }}>
             <Col lg={{ span: 4, offset: 4 }}><h3><strong>{post.title}</strong></h3></Col>
-            <Col lg={4}><h5 style={{ color: 'gray' }}>{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('Y')}年{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('M')}月{moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').format('D')}日</h5></Col>
+            <Col lg={4}><h5 style={{ color: 'gray' }}>{<FormattedDate
+              value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+              year="numeric"
+              month="short"
+              day="numeric"
+            />}</h5></Col>
           </Row>
           <Row className="justify-content-md-center">
             <Col className="text-left" lg="8" md="12" dangerouslySetInnerHTML={{ __html: post.content }}>
@@ -200,7 +168,7 @@ function PreacherMessage() {
           </Row>
           <Row className="text-left mt-5" id="reaction-bar">
             <Col className="form-inline" lg={{ offset: 2 }}>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
                 <div className="m-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
                   <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
@@ -208,7 +176,7 @@ function PreacherMessage() {
                   <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
               </OverlayTrigger>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray')}>
+              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
                 <div className="m-3" onClick={() => setReaction(ReactionType.Pray)}>
                   <div style={{ display: 'inline', cursor: 'pointer' }}>
                     <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>

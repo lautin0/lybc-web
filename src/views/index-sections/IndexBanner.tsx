@@ -8,10 +8,13 @@ import {
   Col,
   Button
 } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 function IndexBanner() {
 
   let myRef = createRef<HTMLDivElement>();
+
+  const intl = useIntl()
 
   useEffect(() => {
     // let tempAnim: Animation[] = []
@@ -77,23 +80,23 @@ function IndexBanner() {
         <div className="section clear-filter" id="index-banner" style={{ zIndex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
           <Container>
             <div className="title" style={{ marginBottom: 50 }}>
-              <h2 className="title text-center">教會年題 - 2020</h2>
+              <h2 className="title text-center">{intl.formatMessage({ id: "app.theme.title" })} - 2020</h2>
             </div>
             <Row className="text-center">
               <div className="w-100"><i style={{ fontSize: '4rem', position: 'relative' }} className="fa fa-cross"></i></div>
             </Row>
             <Row className="text-center mt-5">
               <Col className="ml-auto mr-auto d-none d-sm-block" md="8">
-                <h1><b>守真理，結連關係</b></h1>
-                <h1><b>證生命，同屬基督</b></h1>
+                <h1><b>{intl.formatMessage({ id: "app.theme.l1" })}</b></h1>
+                <h1><b>{intl.formatMessage({ id: "app.theme.l2" })}</b></h1>
               </Col>
               <Col className="ml-auto mr-auto d-sm-none">
-                <h2><b>守真理，結連關係</b></h2>
-                <h2><b>證生命，同屬基督</b></h2>
+                <h2><b>{intl.formatMessage({ id: "app.theme.l1" })}</b></h2>
+                <h2><b>{intl.formatMessage({ id: "app.theme.l2" })}</b></h2>
               </Col>
             </Row>
             <div className="text-center" style={{ marginBottom: 100, fontSize: 24 }}>
-              <Button className="btn-info" size="lg" as={Link} to="/about-us">探索更多</Button>
+              <Button className="btn-info" size="lg" as={Link} to="/about-us">{intl.formatMessage({ id: "app.buttons.explore" })}</Button>
             </div>
           </Container>
         </div>

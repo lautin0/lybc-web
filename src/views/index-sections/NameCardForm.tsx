@@ -19,10 +19,13 @@ import { ADD_NAMECARD } from "graphqls/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import Validators from "utils/validator";
 import { useLocation } from "react-router-dom";
+import { useIntl } from "react-intl";
 
 // core components
 
 export default function NameCardForm() {
+
+  const intl = useIntl()
 
   const location = useLocation()
 
@@ -68,7 +71,7 @@ export default function NameCardForm() {
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setSysMessage('謝謝你對教會的興趣! 我們會盡快聯絡你'))
+      dispatch(setSysMessage('app.sys.thanks-for-church-interest'))
       dispatch(setLoading(false))
       reset();
     }
@@ -82,17 +85,17 @@ export default function NameCardForm() {
     <>
       <div className="new-comer-section"></div>
       <div className="d-flex flex-wrap">
-        <div className="flex-fill my-auto text-center" style={{ zIndex: 1 }}>
-          <h2 className="pt-5 name-card-title">讓綠楊家認識您</h2>
+        <div className="flex-fill my-auto text-center col-lg-6 col-md-12" style={{ zIndex: 1 }}>
+          <h2 className="pt-5 name-card-title">{intl.formatMessage({ id: "app.namecard.title" })}</h2>
         </div>
-        <div className="flex-fill mt-5 mb-5">
+        <div className="flex-fill mt-5 mb-5 col-lg-6 col-md-12">
           <Container>
             <Row>
-              <Card className="col-sm-12 col-md-10 p-3 m-2" style={{ borderRadius: '0.7rem' }}>
+              <Card className="col-sm-12 col-md-12 col-lg-10 p-3 m-2" style={{ borderRadius: '0.7rem' }}>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                   <Card.Header className="text-left">
                     <h3 className="title-up description">
-                      留下資料，以便我們聯絡您
+                      {intl.formatMessage({ id: "app.namecard.subtitle" })}
                     </h3>
                   </Card.Header>
                   <Card.Body>
@@ -102,7 +105,7 @@ export default function NameCardForm() {
                       }
                     >
                       <label className="col-sm-4 col-md-2 col-form-label p-2">
-                        名字
+                        {intl.formatMessage({ id: "app.forms.name" })}
                       </label>
                       <InputGroup.Prepend>
                         <InputGroup.Text>
@@ -111,7 +114,7 @@ export default function NameCardForm() {
                       </InputGroup.Prepend>
                       <FormControl
                         style={{ maxWidth: 300 }}
-                        placeholder="輸入名字"
+                        placeholder={intl.formatMessage({ id: "app.forms.placeholder.name" })}
                         type="text"
                         name="name"
                         ref={register({ validate: Validators.NoWhiteSpace })}
@@ -119,14 +122,14 @@ export default function NameCardForm() {
                         onBlur={() => { setNameFocus(false); }}
                       ></FormControl>
                     </InputGroup>
-                    {errors.name && <label style={{ opacity: .6, color: 'red' }}>必須填寫這欄</label>}
+                    {errors.name && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
                     <InputGroup
                       className={
                         "no-border" + (phoneFocus ? " input-group-focus" : "")
                       }
                     >
                       <label className="col-sm-4 col-md-2 col-form-label p-2">
-                        聯絡電話
+                        {intl.formatMessage({ id: "app.forms.phone" })}
                       </label>
                       <InputGroup.Prepend>
                         <InputGroup.Text>
@@ -135,7 +138,7 @@ export default function NameCardForm() {
                       </InputGroup.Prepend>
                       <FormControl
                         style={{ maxWidth: 300 }}
-                        placeholder="輸入聯絡電話"
+                        placeholder={intl.formatMessage({ id: "app.forms.placeholder.phone" })}
                         type="text"
                         onFocus={() => setPhoneFocus(true)}
                         onBlur={() => { setPhoneFocus(false); }}
@@ -143,14 +146,14 @@ export default function NameCardForm() {
                         ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("email")) })}
                       ></FormControl>
                     </InputGroup>
-                    {errors.phone && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}
+                    {errors.phone && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
                     <InputGroup
                       className={
                         "no-border" + (emailFocus ? " input-group-focus" : "")
                       }
                     >
                       <label className="col-sm-4 col-md-2 col-form-label p-2">
-                        電子郵件
+                        {intl.formatMessage({ id: "app.forms.email" })}
                       </label>
                       <InputGroup.Prepend>
                         <InputGroup.Text>
@@ -159,7 +162,7 @@ export default function NameCardForm() {
                       </InputGroup.Prepend>
                       <FormControl
                         style={{ maxWidth: 400 }}
-                        placeholder="輸入電子郵件"
+                        placeholder={intl.formatMessage({ id: "app.forms.placeholder.email" })}
                         type="text"
                         name="email"
                         onFocus={() => setEmailFocus(true)}
@@ -167,10 +170,10 @@ export default function NameCardForm() {
                         ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("phone")) })}
                       ></FormControl>
                     </InputGroup>
-                    {errors.email && <label style={{ opacity: .6, color: 'red' }}>必須提供其中一種聯絡方式</label>}
+                    {errors.email && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
                     <InputGroup>
                       <label className="col-sm-4 col-md-2 col-form-label p-2">
-                        稱呼
+                        {intl.formatMessage({ id: "app.forms.gender" })}
                       </label>
                       <div className="d-flex justify-content-start" style={{ marginTop: -5 }}>
                         <Controller
@@ -182,7 +185,7 @@ export default function NameCardForm() {
                             onChange={(val) => onChange(val.currentTarget.value)}
                             checked={Gender.Male.toString() === getValues().gender}
                             name="rbGender"
-                            label={<><span className="form-check-sign"></span>先生</>}
+                            label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.male" })}</>}
                           ></Form.Check>
                           }
                           control={control}
@@ -197,7 +200,7 @@ export default function NameCardForm() {
                             onChange={(val) => onChange(val.currentTarget.value)}
                             checked={Gender.Female.toString() === getValues().gender}
                             name="rbGender"
-                            label={<><span className="form-check-sign"></span>女士</>}
+                            label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.female" })}</>}
                           ></Form.Check>}
                           control={control}
                           name="gender"
@@ -213,7 +216,7 @@ export default function NameCardForm() {
                       type="submit"
                       size="lg"
                     >
-                      提交
+                      {intl.formatMessage({ id: "app.buttons.submit" })}
                     </Button>
                   </Card.Footer>
                 </Form>

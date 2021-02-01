@@ -5,6 +5,7 @@ import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { useEffect } from 'react'
 import { NavDropdown } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
@@ -12,6 +13,8 @@ import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
 import * as presets from '../../assets/data/data.json'
 
 function NotificationBell(props: any) {
+
+  const intl = useIntl()
 
   const location = useLocation()
 
@@ -61,10 +64,10 @@ function NotificationBell(props: any) {
     <NavDropdown.Item
       style={{ width: 290, whiteSpace: 'pre-wrap' }}
     >
-      <p style={{ fontSize: 18 }}><strong>通知</strong></p>
+      <p style={{ fontSize: 18 }}><strong>{intl.formatMessage({ id: "app.notification" })}</strong></p>
     </NavDropdown.Item>
     <NavDropdown.Divider />
-    {data && data.notifications.length === 0 && <div className="w-100 text-center text-secondary">沒有通知</div>}
+    {data && data.notifications.length === 0 && <div className="w-100 text-center text-secondary">{intl.formatMessage({ id: "app.notification.no-record" })}</div>}
     {(data && data.notifications.length > 0) && data.notifications.map((e: any, idx: number) => {
       return <div key={e._id}>
         <NavDropdown.Item

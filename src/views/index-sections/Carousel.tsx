@@ -5,12 +5,15 @@ import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import UNIVERSALS from "Universals";
 
 // core components
 
 function CarouselSection() {
+
+  const intl = useIntl()
 
   const history = useHistory()
 
@@ -76,16 +79,16 @@ function CarouselSection() {
                   <img
                     style={{ maxHeight: 500, objectFit: "cover" }}
                     className="d-block w-100"
-                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/church-bench-md.jpg"}
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/worship-bg.jpg"}
                     alt="First slide"
                     onClick={handleClick}
                   />
                   <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }}>
                     <Button onClick={handleClick} style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                      {window.innerWidth > 991 && <><h1>主日崇拜</h1>
-                        <h3>按此進入本週主日崇拜</h3></>}
-                      {window.innerWidth <= 991 && <><h3>主日崇拜</h3>
-                        <h5>按此進入本週主日崇拜</h5></>}
+                      {window.innerWidth > 991 && <><h1>{intl.formatMessage({ id: "app.index.title" })}</h1>
+                        <h3>{intl.formatMessage({ id: "app.index.subtitle" })}</h3></>}
+                      {window.innerWidth <= 991 && <><h3>{intl.formatMessage({ id: "app.index.title" })}</h3>
+                        <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
                     </Button>
                   </Carousel.Caption>
                 </Carousel.Item>

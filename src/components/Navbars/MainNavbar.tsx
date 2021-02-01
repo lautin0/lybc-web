@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 // react-bootstrap components
@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
+import { useIntl } from "react-intl";
+import { LocaleContext } from "context/LocaleContext";
 
 import logo from "assets/img/lybc_logo.png";
 import { Role } from "generated/graphql";
@@ -24,6 +26,10 @@ type MainNavbarProps = {
 }
 
 function MainNavbar(props: MainNavbarProps) {
+
+  const [locale, setLocale] = useContext(LocaleContext)
+
+  const intl = useIntl()
 
   const location = useLocation();
 
@@ -73,7 +79,7 @@ function MainNavbar(props: MainNavbarProps) {
                 alt="logo"
                 src={logo}
               ></img>
-              {" "}綠楊浸信會
+              {" "}{intl.formatMessage({ id: "app.title" })}
             </Navbar.Brand>
             <div>
               {tokenPair?.token && <div className="d-inline-block d-lg-none"><NotificationBell className="d-inline d-lg-none" /></div>}
@@ -101,7 +107,7 @@ function MainNavbar(props: MainNavbarProps) {
             <Nav>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-map-signs mr-1"></i><p className="d-inline-block d-lg-none d-xl-inline-block">教會活動</p></>}
+                title={<><i className="fas fa-map-signs mr-1"></i><p className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.activity" })}</p></>}
                 show={show[0]}
                 onMouseEnter={(e: any) => showDropdown(e, 0)}
                 onMouseLeave={(e: any) => hideDropdown(e, 0)}
@@ -110,19 +116,19 @@ function MainNavbar(props: MainNavbarProps) {
                   網上崇拜
                 </NavDropdown.Item>} */}
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
-                  網上崇拜
+                  {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  最新活動
+                  {intl.formatMessage({ id: "app.menu.activity.latest" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/apply-activity">
-                  活動報名
+                  {intl.formatMessage({ id: "app.menu.activity.apply" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  團契
+                  {intl.formatMessage({ id: "app.menu.activity.fellowship" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  點滴回顧
+                  {intl.formatMessage({ id: "app.menu.activity.memories" })}
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Item>
@@ -133,77 +139,77 @@ function MainNavbar(props: MainNavbarProps) {
                   }}
                 >
                   <i className="fas fa-hammer"></i>
-                  <div className="d-inline-block d-lg-none d-xl-inline-block">事工介紹</div>
+                  <div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.ministries" })}</div>
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">教會資源</div></>}
+                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.resources" })}</div></>}
                 show={show[1]}
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
                 onMouseLeave={(e: any) => hideDropdown(e, 1)}
               >
                 <NavDropdown.Item as={Link} to="/journal">
-                  教會月刊
+                  {intl.formatMessage({ id: "app.menu.resources.journal" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/sharing-list">
-                  分享欄
+                  {intl.formatMessage({ id: "app.menu.resources.sharing" })}
                 </NavDropdown.Item>
                 {tokenPair?.token && <NavDropdown.Item as={Link} to="/library">
-                  書藉查詢
+                  {intl.formatMessage({ id: "app.menu.resources.books-enquiry" })}
                 </NavDropdown.Item>}
               </NavDropdown>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">認識綠楊</div></>}
+                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.about-us" })}</div></>}
                 show={show[2]}
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
               >
                 <NavDropdown.Item as={Link} to="/about-us">
-                  關於聯會
+                  {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/doctrine">
-                  教會信條
+                  {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={Link} to="/sunday-service-info"
                 >
-                  聚會時間
+                  {intl.formatMessage({ id: "app.menu.about-us.timetable" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={Link} to="/contact-us"
                 >
-                  聯絡我們
+                  {intl.formatMessage({ id: "app.menu.about-us.contact" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/preacher-message">
-                  牧者的話
+                  {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
               </NavDropdown>
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
               {!tokenPair?.token && <Nav.Item>
                 <Nav.Link
-                  className="nav-link btn-outline-secondary"
+                  className="nav-link btn-outline-dark"
                   // color="success"
                   href="#pablo"
                   id="login"
                   as={Link}
                   to={`/login-page?relayState=${location.pathname}`}
                   // style={{ color: 'rgb(69, 147, 76)' }}
-                  style={{ fontSize: '1.2rem', borderRadius: 12 }}
+                  style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'normal' }}
                 >
                   {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
-                  <p>登入</p>
+                  <p>{intl.formatMessage({ id: "app.login" })}</p>
                 </Nav.Link>
               </Nav.Item>}
               {tokenPair?.token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(tokenPair.token)?.username}</p></>}>
                   {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
-                    管理控制台
+                    {intl.formatMessage({ id: "app.admin.panel" })}
                   </NavDropdown.Item>}
                   {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Divider />}
                   <NavDropdown.Item as={Link} to="/personal" onClick={() => setCollapseOpen(!collapseOpen)}>
-                    個人中心
+                    {intl.formatMessage({ id: "app.personal" })}
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as="a"
@@ -214,7 +220,7 @@ function MainNavbar(props: MainNavbarProps) {
                       window.location.href = "./"
                     }}
                   >
-                    登出
+                    {intl.formatMessage({ id: "app.logout" })}
                   </NavDropdown.Item>
                 </NavDropdown>}
               <Nav.Item>
@@ -249,11 +255,29 @@ function MainNavbar(props: MainNavbarProps) {
                   <p className="d-lg-none d-xl-none">Instagram</p>
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  href="#"
+                  onClick={(e: any) => {
+                    e.preventDefault()
+                    setLocale && setLocale(locale == "en" ? "zh" : "en")
+                  }}
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    paddingTop: 10
+                  }}
+                >
+                  <i className="fas fa-globe-asia"></i>
+                  <p>{locale == "en" ? "中" : "En"}</p>
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
           <div style={{ marginTop: -26 }}>
-            <h3 className="title text-left d-none d-sm-block">{UNIVERSALS.TITLE_MAP[props.page].title}</h3>
-            <h4 className="my-3 title text-left d-sm-none">{UNIVERSALS.TITLE_MAP[props.page].title}</h4>
+            <h3 className="title text-left d-none d-sm-block">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title})}</h3>
+            <h4 className="my-3 title text-left d-sm-none">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title})}</h4>
           </div>
         </Container>
       </Navbar>

@@ -2,10 +2,13 @@ import { decisionComplete } from 'actions';
 import React, { useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'reducers';
 
 function DecisionModal(props: any) {
+
+  const intl = useIntl()
 
   const dispatch = useDispatch()
 
@@ -54,8 +57,8 @@ function DecisionModal(props: any) {
         </h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onConfirm}>確定</Button>
-        <Button onClick={onCancel}>取消</Button>
+        <Button onClick={onConfirm}>{intl.formatMessage({ id: "app.buttons.confirm" })}</Button>
+        <Button onClick={onCancel}>{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
       </Modal.Footer>
     </Modal>
   )

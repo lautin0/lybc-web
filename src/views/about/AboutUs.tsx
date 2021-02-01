@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useIntl } from "react-intl";
 
 // core components
 
 function AboutUs() {
+
+  const intl = useIntl()
 
   useEffect(() => {
     //Default scroll to top
@@ -30,7 +33,7 @@ function AboutUs() {
               as="a"
               target="_blank"
             >
-              前往聯會網頁 <i className="fas fa-globe"></i>
+              {intl.formatMessage({ id: "app.buttons.about-us.abwe" })} <i className="fas fa-globe"></i>
             </Button>
           </div>
           <Row className="justify-content-md-center mt-5">

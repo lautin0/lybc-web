@@ -13,12 +13,15 @@ import Sharing from "views/articles/Sharing";
 import { getMenuHierarchy } from "utils/utils";
 import UNIVERSALS from "Universals";
 import SearchBooks from "views/book/SearchBooks";
+import { useIntl } from "react-intl";
 
 type MainPageProps = {
   page: string,
 }
 
 function MainPageLegacy(props: MainPageProps) {
+
+  const intl = useIntl()
 
   let menus = getMenuHierarchy(props.page, null, null, null);
 
@@ -31,7 +34,7 @@ function MainPageLegacy(props: MainPageProps) {
   });
 
   React.useEffect(() => {
-    document.title = UNIVERSALS.TITLE_MAP[props.page].title
+    document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
   }, [props.page])
 
   return (
@@ -43,9 +46,9 @@ function MainPageLegacy(props: MainPageProps) {
             <Breadcrumb as="nav" style={{ fontSize: '1.2rem' }}>
               {menus && menus.map((value: any, index: number) => {
                 if (value.link != null)
-                  return <BreadcrumbItem key={index} href={value.link}>{value.title}</BreadcrumbItem>
+                  return <BreadcrumbItem key={index} href={value.link}>{intl.formatMessage({ id: value.title })}</BreadcrumbItem>
                 else
-                  return <BreadcrumbItem key={index} active as="span">{value.title}</BreadcrumbItem>
+                  return <BreadcrumbItem key={index} active as="span">{intl.formatMessage({ id: value.title })}</BreadcrumbItem>
               })}
             </Breadcrumb>
           </div>
