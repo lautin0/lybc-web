@@ -28,7 +28,7 @@ function WorshipManage() {
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()
-    dispatch(decisionRequest('app.decision.confirm-delete', () => {
+    dispatch(decisionRequest('確認刪除?', () => {
       dispatch(setLoading(true))
       deleteWorship({
         variables: {
