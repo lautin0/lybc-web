@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
-import { Container, Row, Card, Col, Button, Nav, Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { GET_POSTS } from "graphqls/graphql";
@@ -13,10 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSysMessage } from "actions";
 import { RootState } from "reducers";
 import { FormattedDate, useIntl } from "react-intl";
+import { useStore } from "store";
 
 // core components
 
 function SharingList() {
+
+  const setOpen = useStore(state => state.setOpen)
+  const setTitle = useStore(state => state.setTitle)
 
   const intl = useIntl()
 
@@ -81,7 +85,12 @@ function SharingList() {
   const handleClick = () => {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('app.sys.require-login'))
+      return
     }
+
+    setOpen(true)
+    setTitle("app.modal.header.new-sharing-record")
+
   }
 
   useEffect(() => {

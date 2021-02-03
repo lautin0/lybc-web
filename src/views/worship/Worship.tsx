@@ -14,8 +14,10 @@ import html2canvas from 'html2canvas'
 import { useQuery } from "@apollo/client";
 import { GET_WORSHIP } from "graphqls/graphql";
 import { Worship as WorshipModel } from "generated/graphql";
+import { useIntl } from "react-intl";
 
 function Worship() {
+  const intl = useIntl()
   const location = useLocation()
   const dispatch = useDispatch();
   let { id } = useParams<any>();
@@ -110,7 +112,7 @@ function Worship() {
             className="nav-justified w-100 mb-5"
             style={{ fontSize: 20 }}
           >
-            <Tab eventKey="home" title="筆記">
+            <Tab eventKey="home" title={intl.formatMessage({ id: "app.worship.notes" })}>
               <div className="mb-2 form-inline">
                 {wData.worship.docs.map((value: any, index: number) => {
                   return <div style={{ width: 'fit-content' }} className="mr-3" key={index}>
@@ -141,13 +143,13 @@ function Worship() {
               <Row className="mt-5 justify-content-end">
                 <div className="d-block d-lg-none">
                   <Button style={{ transform: 'translate(0px, 25px)' }} variant="primary" onClick={handleDownloadNote}>
-                    文字轉圖<i className="ml-1 fas fa-exchange-alt"></i>
+                    {intl.formatMessage({ id: "app.buttons.export-image" })}<i className="ml-1 fas fa-image"></i>
                   </Button>
                 </div>
                 <div className="d-none d-lg-block">
                   <ReactToPrint
                     trigger={() =>
-                      <Button variant="primary">另存PDF<i className="fa fa-print ml-1" aria-hidden="true"></i>
+                      <Button variant="primary">{intl.formatMessage({ id: "app.buttons.export-pdf" })}<i className="fa fa-print ml-1" aria-hidden="true"></i>
                       </Button>}
                     content={() => componentRef.current}
                   />
@@ -160,7 +162,7 @@ function Worship() {
                 </div>
               </Row>
             </Tab>
-            <Tab eventKey="scripture" title="經文">
+            <Tab eventKey="scripture" title={intl.formatMessage({ id: "app.worship.scripture" })}>
               <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.worship.verse as string) }}>
               </div>
             </Tab>

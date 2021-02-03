@@ -27,7 +27,7 @@ type MainNavbarProps = {
 
 function MainNavbar(props: MainNavbarProps) {
 
-  const [locale, setLocale] = useContext(LocaleContext)
+  const [locale, setLocale, persistLocale] = useContext(LocaleContext)
 
   const intl = useIntl()
 
@@ -260,7 +260,7 @@ function MainNavbar(props: MainNavbarProps) {
                   href="#"
                   onClick={(e: any) => {
                     e.preventDefault()
-                    setLocale && setLocale(locale == "en" ? "zh" : "en")
+                    persistLocale && persistLocale(locale == "en" ? "zh" : "en")
                   }}
                   style={{
                     alignItems: 'center',

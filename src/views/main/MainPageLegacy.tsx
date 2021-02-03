@@ -14,12 +14,15 @@ import { getMenuHierarchy } from "utils/utils";
 import UNIVERSALS from "Universals";
 import SearchBooks from "views/book/SearchBooks";
 import { useIntl } from "react-intl";
+import { useHistory } from "react-router-dom";
 
 type MainPageProps = {
   page: string,
 }
 
 function MainPageLegacy(props: MainPageProps) {
+
+  const history = useHistory()
 
   const intl = useIntl()
 
@@ -46,7 +49,16 @@ function MainPageLegacy(props: MainPageProps) {
             <Breadcrumb as="nav" style={{ fontSize: '1.2rem' }}>
               {menus && menus.map((value: any, index: number) => {
                 if (value.link != null)
-                  return <BreadcrumbItem key={index} href={value.link}>{intl.formatMessage({ id: value.title })}</BreadcrumbItem>
+                  return <BreadcrumbItem
+                    key={index}
+                    href="#"
+                    onClick={(e: any) => {
+                      e.preventDefault()
+                      history.push(value.link)
+                    }}
+                  >
+                    {intl.formatMessage({ id: value.title })}
+                  </BreadcrumbItem>
                 else
                   return <BreadcrumbItem key={index} active as="span">{intl.formatMessage({ id: value.title })}</BreadcrumbItem>
               })}

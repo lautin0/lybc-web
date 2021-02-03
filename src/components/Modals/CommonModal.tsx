@@ -37,12 +37,12 @@ function CommonModal(props: any) {
       centered
     >
       {error && <Modal.Header closeButton data-background-color="error">
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" as="h3">
           {intl.formatMessage({ id: "app.modal.header.error" })}
         </Modal.Title>
       </Modal.Header>}
       {result && <Modal.Header closeButton className="black-close">
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" as="h3">
           {intl.formatMessage({ id: "app.modal.header.info" })}
         </Modal.Title>
       </Modal.Header>}

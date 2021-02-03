@@ -92,7 +92,7 @@ function PasswordResetModal(props: any) {
           className="black-close"
           style={{ backgroundColor: 'lightgray' }}
         >
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id="contained-modal-title-vcenter" as="h3">
             重設密碼
         </Modal.Title>
         </Modal.Header>

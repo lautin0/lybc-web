@@ -25,7 +25,7 @@ import { LocaleContext } from "context/LocaleContext";
 
 function IndexNavbar() {
 
-  const [locale, setLocale] = useContext(LocaleContext)
+  const [locale, setLocale, persistLocale] = useContext(LocaleContext)
 
   const intl = useIntl()
 
@@ -353,7 +353,7 @@ function IndexNavbar() {
                   href="#"
                   onClick={(e: any) => {
                     e.preventDefault()
-                    setLocale && setLocale(locale == "en" ? "zh" : "en")
+                    persistLocale && persistLocale(locale == "en" ? "zh" : "en")
                   }}
                   style={{
                     alignItems: 'center',

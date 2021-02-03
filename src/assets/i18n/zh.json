@@ -89,6 +89,9 @@
   "app.buttons.cancel": "取消",
   "app.buttons.close": "關閉",
   "app.buttons.send": "發送",
+  "app.buttons.save": "儲存",
+  "app.buttons.export-pdf": "另存PDF",
+  "app.buttons.export-image": "文字轉圖",
 
   "app.index.title": "主日崇拜",
   "app.index.subtitle": "按此進入本週主日崇拜",
@@ -170,6 +173,7 @@
   "app.modal.header.info": "系統提示",
   "app.modal.header.warning": "警告",
   "app.modal.header.error": "錯誤",
+  "app.modal.header.new-sharing-record": "新增分享",
   "app.modal.hide-for-today": "今日不再顯示",
 
   "app.sys.save-success": "儲存成功!",
@@ -184,6 +188,9 @@
   "app.comment.to-comment": "以發表回應",
   "app.comment.comment-here": "在此分享您的回應...",
 
-  "app.decision.confirm-delete": "確認刪除?"
+  "app.decision.confirm-delete": "確認刪除?",
+
+  "app.worship.scripture": "經文",
+  "app.worhship.notes": "筆記"
 
 }

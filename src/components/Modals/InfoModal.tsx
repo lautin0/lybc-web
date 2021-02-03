@@ -65,7 +65,7 @@ function InfoModal(props: any) {
       centered
     >
       <Modal.Header closeButton className="black-close">
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" as="h3">
           {intl.formatMessage({ id: title })}
         </Modal.Title>
       </Modal.Header>

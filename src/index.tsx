@@ -37,6 +37,7 @@ import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
 import CommonModal from "components/Modals/CommonModal";
 import DecisionModal from "components/Modals/DecisionModal";
 import PasswordResetModal from "components/Modals/PasswordResetModal";
+import SharingModal from "components/Modals/SharingModal";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -56,17 +57,18 @@ const messages = {
 
 function App() {
 
-  const [locale, setLocale] = useLanguage()
+  const [locale, setLocale, persistLocale] = useLanguage()
 
   return <ApolloProvider client={getClient()}>
     <Provider store={store}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <LocaleContext.Provider value={[locale, setLocale]}>
+        <LocaleContext.Provider value={[locale, setLocale, persistLocale]}>
           <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
             <CommonModal />
             <DecisionModal />
             <PasswordResetModal />
             <LoadingOverlay />
+            <SharingModal />
             <Switch>
               <Route path="/index" render={(props: any) => <Index {...props} />} />
               <PrivateRoute path="/admin" role={[Role.Admin]} />

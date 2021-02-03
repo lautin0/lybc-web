@@ -89,6 +89,9 @@
   "app.buttons.cancel": "Cancel",
   "app.buttons.close": "Close",
   "app.buttons.send": "Send",
+  "app.buttons.save": "Save",
+  "app.buttons.export-pdf": "Export PDF",
+  "app.buttons.export-image": "Convert Image",
 
   "app.index.title": "Sunday Service",
   "app.index.subtitle": "Click to Enter",
@@ -170,6 +173,7 @@
   "app.modal.header.info": "System Info",
   "app.modal.header.warning": "System Warning",
   "app.modal.header.error": "Sysadm Error",
+  "app.modal.header.new-sharing-record": "New Sharing Record",
   "app.modal.hide-for-today": "Hide for Today",
 
   "app.sys.save-success": "Save Success!",
@@ -184,6 +188,9 @@
   "app.comment.to-comment": "to comment",
   "app.comment.comment-here": "Share your comment here...",
 
-  "app.decision.confirm-delete": "Confirm Delete?"
+  "app.decision.confirm-delete": "Confirm Delete?",
+
+  "app.worship.scripture": "Scripture",
+  "app.worship.notes": "Notes"
 
 }
