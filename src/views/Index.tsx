@@ -20,8 +20,14 @@ import { isTokenExpired } from "utils/utils";
 import { useMutation } from "@apollo/client";
 import { RefreshTokenInput, TokenPair } from "generated/graphql";
 import CarouselSection from "./index-sections/Carousel";
+import { useIntl } from "react-intl";
+import useLanguage from "hooks/useLanguage";
 
 function Index() {
+
+  const [locale] = useLanguage()
+
+  const intl = useIntl()
 
   const dispatch = useDispatch()
 
@@ -46,8 +52,8 @@ function Index() {
   });
 
   useEffect(() => {
-    document.title = "綠楊浸信會 LYBC"
-  }, [])
+    document.title = intl.formatMessage({ id: "app.title" })
+  }, [locale])
 
   useEffect(() => {
     if (data !== undefined && data?.refreshToken !== undefined)

@@ -5,9 +5,11 @@ import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
 import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
+import useLanguage from 'hooks/useLanguage';
 import React, { useEffect, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
@@ -18,6 +20,10 @@ type WorshipEditProps = {
 }
 
 function WorshipEdit(props: WorshipEditProps) {
+
+  const [locale] = useLanguage()
+
+  const intl = useIntl()
 
   const [isReadOnly, setIsReadOnly] = useState(true)
 
@@ -31,7 +37,7 @@ function WorshipEdit(props: WorshipEditProps) {
     { updateWorship: any },
     { input: NewWorship, docs: NewWorshipDoc[] }
   >(UPDATE_WORSHIP);
-  const { loading, data: wData, refetch } = useQuery<{ worship: Worship },{ worshipId: string }>(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
+  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm({
     defaultValues: {
@@ -39,7 +45,7 @@ function WorshipEdit(props: WorshipEditProps) {
       link: '',
       note: '',
       verse: '',
-      docs: [ ...formDef.docs ] as object
+      docs: [...formDef.docs] as object
     }
   })
 
@@ -106,14 +112,13 @@ function WorshipEdit(props: WorshipEditProps) {
   }, [register])
 
   useEffect(() => {
-    document.title = "管理控制台"
     dispatch(setLoading(true))
   }, [dispatch])
 
   useEffect(() => {
     if (wData !== undefined) {
       setTimeout(() => {
-        reset({ 
+        reset({
           ...wData.worship,
           note: wData.worship.note!,
           link: wData.worship.link!,
@@ -151,6 +156,10 @@ function WorshipEdit(props: WorshipEditProps) {
     if (watchType !== undefined)
       trigger()
   }, [watchType, trigger])
+
+  useEffect(() => {
+    document.title = intl.formatMessage({ id: "app.admin.panel" })
+  }, [locale])
 
   const addRow = () => {
     append({ title: '', link: '', type: '' })

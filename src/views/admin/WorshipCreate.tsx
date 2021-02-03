@@ -5,15 +5,21 @@ import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
 import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { ADD_WORSHIP } from 'graphqls/graphql';
+import useLanguage from 'hooks/useLanguage';
 import React, { useEffect } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'reducers';
 import Validators from 'utils/validator';
 
 function WorshipCreate() {
+
+  const [locale] = useLanguage()
+
+  const intl = useIntl()
 
   const history = useHistory()
 
@@ -92,8 +98,8 @@ function WorshipCreate() {
   }, [register])
 
   useEffect(() => {
-    document.title = "管理控制台"
-  }, [])
+    document.title = intl.formatMessage({ id: "app.admin.panel"})
+  }, [locale])
 
 
   const addRow = () => {

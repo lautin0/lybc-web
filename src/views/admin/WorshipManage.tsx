@@ -2,14 +2,20 @@ import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
 import { Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
+import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
 import moment from 'moment';
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 function WorshipManage() {
+
+  const [locale] = useLanguage()
+
+  const intl = useIntl()
 
   const dispatch = useDispatch();
 
@@ -67,8 +73,8 @@ function WorshipManage() {
   }, [worshipData])
 
   useEffect(() => {
-    document.title = "網上崇拜"
-  }, [])
+    document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
+  }, [locale])
 
   useEffect(() => {
     if (deleteResult != null && deleteResult.deleteWorship > 0) {

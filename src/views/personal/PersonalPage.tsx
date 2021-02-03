@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import PersonalNavbar from 'components/Navbars/PersonalNavbar';
 import PersonalEdit from './PersonalEdit';
+import { useIntl } from 'react-intl';
+import useLanguage from 'hooks/useLanguage';
 
 type PersonalPageProps = {
   func: string
@@ -12,15 +14,13 @@ type PersonalPageProps = {
 
 function PersonalPage(props: PersonalPageProps) {
 
-  const [collapseOpen, setCollapseOpen] = useState(false);
-
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const [locale] = useLanguage()
+  
+  const intl = useIntl()
 
   const history = useHistory()
 
   const location = useLocation()
-
-  const { id } = useParams<any>()
 
   useEffect(() => {
     document.body.classList.add("sidebar-collapse");
@@ -31,8 +31,8 @@ function PersonalPage(props: PersonalPageProps) {
   });
 
   useEffect(() => {
-    document.title = "個人中心"
-  })
+    document.title = intl.formatMessage({ id: "app.personal" })
+  }, [locale])
 
   return (
     <>

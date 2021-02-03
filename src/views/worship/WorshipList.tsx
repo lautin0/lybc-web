@@ -15,8 +15,11 @@ import { GET_WORSHIPS } from "graphqls/graphql";
 import { Worship } from "generated/graphql";
 import usePagination from "hooks/usePagination";
 import { useIntl } from "react-intl";
+import useLanguage from "hooks/useLanguage";
 
 function WorshipList() {
+
+  const [locale] = useLanguage()
 
   const intl = useIntl()
 
@@ -54,8 +57,8 @@ function WorshipList() {
   }, [worshipData])
 
   useEffect(() => {
-    document.title = "網上崇拜"
-  }, [])
+    document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
+  }, [locale])
 
   useEffect(() => {
     //Default scroll to top

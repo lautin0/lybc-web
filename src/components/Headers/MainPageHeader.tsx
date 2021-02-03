@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Container } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
+import useLanguage from "hooks/useLanguage";
 
 // core components
 
@@ -15,6 +16,8 @@ type MainPageHeaderType = {
 function MainPageHeader(props: MainPageHeaderType) {
   let pageHeader: any = React.createRef();
 
+  const [locale] = useLanguage()
+  
   const intl = useIntl()
 
   React.useEffect(() => {
@@ -33,7 +36,7 @@ function MainPageHeader(props: MainPageHeaderType) {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
-  }, [props.page])
+  }, [props.page, locale])
 
   return (
     <>

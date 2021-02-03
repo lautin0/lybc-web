@@ -15,6 +15,7 @@ import UNIVERSALS from "Universals";
 import SearchBooks from "views/book/SearchBooks";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
+import useLanguage from "hooks/useLanguage";
 
 type MainPageProps = {
   page: string,
@@ -22,6 +23,8 @@ type MainPageProps = {
 
 function MainPageLegacy(props: MainPageProps) {
 
+  const [locale] = useLanguage()
+  
   const history = useHistory()
 
   const intl = useIntl()
@@ -38,7 +41,7 @@ function MainPageLegacy(props: MainPageProps) {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
-  }, [props.page])
+  }, [props.page, locale])
 
   return (
     <>
