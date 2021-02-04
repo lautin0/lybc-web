@@ -75,7 +75,7 @@ function Worship() {
 
   useEffect(() => {
     if (wData != null) {
-      dispatch(setLoading(true))
+      // dispatch(setLoading(true))
       refetch();
     }
   }, [location])

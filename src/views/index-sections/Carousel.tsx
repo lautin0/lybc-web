@@ -31,6 +31,7 @@ function CarouselSection() {
 
   const handleClick = () => {
     history.push('/worship/' + worshipId)
+    console.log('goto')
   }
 
   useEffect(() => {
