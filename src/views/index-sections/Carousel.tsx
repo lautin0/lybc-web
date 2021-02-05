@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { setLoading } from "actions";
 import axios from "axios";
 import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import React, { useEffect, useState } from "react";
 // react-bootstrap components
 import { Button, Carousel, Col, Row } from "react-bootstrap";
 import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import UNIVERSALS from "Universals";
 
@@ -17,8 +19,11 @@ function CarouselSection() {
 
   const history = useHistory()
 
+  const dispatch = useDispatch()
+
   const [worshipId, setWorshipId] = useState('')
   const [index, setIndex] = useState(0);
+  const [clickFunc, setClickFunc] = useState<((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined>((e: any) => { })
   // const [votd, setVotd] = useState('')
   // const [votdImg, setVotdImg] = useState('')
   // const [votdSrc, setVotdSrc] = useState('')
@@ -31,14 +36,22 @@ function CarouselSection() {
 
   const handleClick = () => {
     history.push('/worship/' + worshipId)
-    console.log('goto')
   }
 
   useEffect(() => {
+    dispatch(setLoading(true))
+  }, [])
+
+  useEffect(() => {
     if (data !== undefined) {
+      dispatch(setLoading(false))
       setWorshipId(data.maxWorshipId)
     }
   }, [data])
+
+  useEffect(() => {
+    worshipId.length > 0 && setClickFunc(() => handleClick)
+  }, [worshipId])
 
   // useEffect(() => {
   //   axios.get("https://www.bible.com/verse-of-the-day").then((res) => {
@@ -84,8 +97,8 @@ function CarouselSection() {
                     alt="First slide"
                     onClick={handleClick}
                   />
-                  <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }}>
-                    <Button onClick={handleClick} style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
+                  <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }} onClick={handleClick}>
+                    <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
                       {window.innerWidth > 991 && <><h1>{intl.formatMessage({ id: "app.index.title" })}</h1>
                         <h3>{intl.formatMessage({ id: "app.index.subtitle" })}</h3></>}
                       {window.innerWidth <= 991 && <><h3>{intl.formatMessage({ id: "app.index.title" })}</h3>
