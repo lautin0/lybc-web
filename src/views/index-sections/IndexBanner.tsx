@@ -72,7 +72,7 @@ function IndexBanner() {
     //     tempAnim[i].removeEventListener('cancel', () => {})
     //   }
     // }
-  },[myRef]);
+  }, [myRef]);
 
   return (
     <>
@@ -80,18 +80,18 @@ function IndexBanner() {
         <div className="section clear-filter" id="index-banner" style={{ zIndex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
           <Container>
             <div className="title" style={{ marginBottom: 50 }}>
-              <h2 className="title text-center">{intl.formatMessage({ id: "app.theme.title" })} - 2020</h2>
+              <h2 className="title text-center">{intl.formatMessage({ id: "app.theme.title" })} - 2021</h2>
             </div>
             <Row className="text-center">
               <div className="w-100"><i style={{ fontSize: '4rem', position: 'relative' }} className="fa fa-cross"></i></div>
             </Row>
             <Row className="text-center mt-5">
               <Col className="ml-auto mr-auto d-none d-sm-block" md="8">
-                <h1><b>{intl.formatMessage({ id: "app.theme.l1" })}</b></h1>
-                <h1><b>{intl.formatMessage({ id: "app.theme.l2" })}</b></h1>
+                <h1 style={{ marginBottom: 100 }}><b>{intl.formatMessage({ id: "app.theme.l1" })}{", "}{intl.formatMessage({ id: "app.theme.l2" })}</b></h1>
+                {/* <h1><b>{intl.formatMessage({ id: "app.theme.l2" })}</b></h1> */}
               </Col>
               <Col className="ml-auto mr-auto d-sm-none">
-                <h2><b>{intl.formatMessage({ id: "app.theme.l1" })}</b></h2>
+                <h2><b>{intl.formatMessage({ id: "app.theme.l1" })},</b></h2>
                 <h2><b>{intl.formatMessage({ id: "app.theme.l2" })}</b></h2>
               </Col>
             </Row>
