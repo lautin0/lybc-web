@@ -6,6 +6,8 @@ import Adapter from 'enzyme-adapter-react-16';
 import { Router } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import { GET_WORSHIPS } from 'graphqls/graphql';
+import { IntlProvider } from 'react-intl';
+import en from '../../assets/i18n/en.json';
 
 configure({ adapter: new Adapter() });
 
@@ -41,18 +43,20 @@ it('can render and update a loginPage', () => {
 
   const historyMock: any = { push: jest.fn(), location: {}, listen: jest.fn() };
   const wrapper = mount(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <Router history={historyMock}>
-        <WorshipList />
-      </Router>
-    </MockedProvider>,
+    <IntlProvider locale="en" messages={en}>
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Router history={historyMock}>
+          <WorshipList />
+        </Router>
+      </MockedProvider>
+    </IntlProvider>,
   )
   // ).find('.selector').at(1);
 
   const button = worshipListPage.querySelector('button');
   const label = worshipListPage.querySelector('p');
   // expect(label.textContent).toBe('You clicked 0 times');
-  expect(document.title).toBe('網上崇拜');
+  expect(document.title).toBe('Online Sermon');
   // Test second render and componentDidUpdate
   // act(() => {
   //   button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
