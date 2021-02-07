@@ -17,6 +17,7 @@ enum NotificationType {
 	MENTION
 	NEW_COMER_REQUEST
 	POST_APPROVAL
+	PEND_POST
 }
 
 extend type Query {

@@ -30,6 +30,8 @@ input NewPost {
 type PendingPost {
 	_id: ObjectID!
 	username: String!
+	title: String!
+	subtitle: String!
 	documentURI: String!
 	postID: ObjectID
 	remarks: String
@@ -39,10 +41,22 @@ type PendingPost {
 	approveDttm: Time
 }
 
+input NewPendingPost {
+	username: String!
+	title: String!
+	subtitle: String!
+}
+
+input UpdatePendingPost {
+	postID: String
+	remarks: String
+	status: String!
+	approveUsername: String
+}
+
 input PostFilter {
-  
-  AND: [PostFilter!]
-  OR: [PostFilter!]
+	AND: [PostFilter!]
+	OR: [PostFilter!]
 
 	# All values that are equal to given value.
 	username: String
@@ -104,8 +118,12 @@ enum PostType {
 extend type Query {
 	posts(postFilter: PostFilter, sort: PostSort): [Post!]!
 	post(oid: String!): Post
+	pendingPosts: [PendingPost!]!
+	pendingPost(oid: String!): PendingPost
 }
 
 extend type Mutation {
 	createPost(input: NewPost!, image: Upload): Post!
+	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!
+	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!
 }

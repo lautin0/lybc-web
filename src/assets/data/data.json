@@ -20,6 +20,9 @@
       },
       "POST_APPROVAL": {
         "LABEL": ""
+      },
+      "PEND_POST": {
+        "LABEL": "提交了分享文章"
       }
     }
   }

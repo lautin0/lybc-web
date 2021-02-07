@@ -401,3 +401,29 @@ export const GET_NAMECARDS = gql`
     }
   }
 `
+
+export const PEND_POST = gql`
+  mutation pendPost($input: NewPendingPost!, $doc: Upload!) {
+    pendPost(input: $input, doc: $doc){
+      _id
+    }
+  }
+`
+
+export const GET_PENDING_POSTS = gql`
+  query {
+    pendingPost{
+      _id
+      username
+      title
+      subtitle
+      documentURI
+      postID
+      remarks
+      creDttm
+      status
+      approveUsername
+      approveDttm
+    }
+  }
+`

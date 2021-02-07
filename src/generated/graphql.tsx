@@ -30,6 +30,7 @@ export type TokenPair = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  approvePost: Post;
   changePassword?: Maybe<Scalars['Boolean']>;
   createNameCard: NameCard;
   createPost: Post;
@@ -38,12 +39,20 @@ export type Mutation = {
   createWorship: Worship;
   deleteWorship: Scalars['Int'];
   login: TokenPair;
+  pendPost: PendingPost;
   react: Post;
   readNotification: Notification;
   refreshToken: TokenPair;
   updateNameCard: NameCard;
   updateUser: User;
   updateWorship: Worship;
+};
+
+
+export type MutationApprovePostArgs = {
+  input: NewPost;
+  image?: Maybe<Scalars['Upload']>;
+  postRefInput: UpdatePendingPost;
 };
 
 
@@ -86,6 +95,12 @@ export type MutationDeleteWorshipArgs = {
 
 export type MutationLoginArgs = {
   input: Login;
+};
+
+
+export type MutationPendPostArgs = {
+  input: NewPendingPost;
+  doc: Scalars['Upload'];
 };
 
 
@@ -150,6 +165,8 @@ export type Query = {
   nameCard?: Maybe<NameCard>;
   nameCards: Array<NameCard>;
   notifications: Array<Maybe<Notification>>;
+  pendingPost?: Maybe<PendingPost>;
+  pendingPosts: Array<PendingPost>;
   post?: Maybe<Post>;
   posts: Array<Post>;
   todos: Array<Todo>;
@@ -167,6 +184,11 @@ export type QueryNameCardArgs = {
 
 export type QueryNotificationsArgs = {
   toUsername: Scalars['String'];
+};
+
+
+export type QueryPendingPostArgs = {
+  oid: Scalars['String'];
 };
 
 
@@ -208,7 +230,8 @@ export enum NotificationType {
   Comment = 'COMMENT',
   Mention = 'MENTION',
   NewComerRequest = 'NEW_COMER_REQUEST',
-  PostApproval = 'POST_APPROVAL'
+  PostApproval = 'POST_APPROVAL',
+  PendPost = 'PEND_POST'
 }
 
 
@@ -244,6 +267,8 @@ export type PendingPost = {
   __typename?: 'PendingPost';
   _id: Scalars['ObjectID'];
   username: Scalars['String'];
+  title: Scalars['String'];
+  subtitle: Scalars['String'];
   documentURI: Scalars['String'];
   postID?: Maybe<Scalars['ObjectID']>;
   remarks?: Maybe<Scalars['String']>;
@@ -251,6 +276,19 @@ export type PendingPost = {
   status: Scalars['String'];
   approveUsername?: Maybe<Scalars['String']>;
   approveDttm?: Maybe<Scalars['Time']>;
+};
+
+export type NewPendingPost = {
+  username: Scalars['String'];
+  title: Scalars['String'];
+  subtitle: Scalars['String'];
+};
+
+export type UpdatePendingPost = {
+  postID?: Maybe<Scalars['String']>;
+  remarks?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+  approveUsername?: Maybe<Scalars['String']>;
 };
 
 export type PostFilter = {

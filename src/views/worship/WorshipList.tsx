@@ -16,6 +16,7 @@ import { Worship } from "generated/graphql";
 import usePagination from "hooks/usePagination";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
+import { WorshipListItemType } from "./types/types";
 
 function WorshipList() {
 
@@ -27,7 +28,7 @@ function WorshipList() {
 
   const { loading, data: worshipData } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS)
 
-  const { pageItems, pageNumber, setData, items } = usePagination()
+  const { pageItems, pageNumber, setData, items } = usePagination<WorshipListItemType>()
 
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
@@ -37,7 +38,7 @@ function WorshipList() {
     if (worshipData === undefined)
       return
     let tmp: any = [...worshipData.worships]
-    setData(tmp?.sort((a: any, b: any) => {
+    setData(tmp?.sort((a: WorshipListItemType, b: WorshipListItemType) => {
       if (a.worshipId > b.worshipId) {
         return -1
       } else if (a.worshipId < b.worshipId) {
@@ -46,12 +47,13 @@ function WorshipList() {
         return 0
       }
     })
-      .map((x: any) => {
+      .map((x: WorshipListItemType): WorshipListItemType => {
         return {
           worshipId: x.worshipId,
           date: moment(x.worshipId, 'YYYYMMDD'),
           title: x.type === '分享主日' ? '分享主日' : x.title,
-          messenger: x.messenger === '' ? '---' : x.messenger
+          messenger: x.messenger === '' ? '---' : x.messenger,
+          type: x.type
         }
       }))
   }, [worshipData])

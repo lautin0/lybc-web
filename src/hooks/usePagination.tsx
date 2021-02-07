@@ -2,13 +2,13 @@ import moment from "moment";
 import React, { useState, useCallback, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 
-function usePagination() {
+function usePagination<T>() {
 
   const pageSize = 5;
 
   const adjacency = 1;
 
-  const [pageItems, setPageItems] = useState<Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> | null>(null);
+  const [pageItems, setPageItems] = useState<Array<T> | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [data, setData] = useState([])
 
@@ -17,7 +17,7 @@ function usePagination() {
   const onPageChanged = useCallback((page: number) => {
     if (page > totalPageNum || page === 0)
       return
-    let array: Array<{ worshipId: string, date: moment.Moment, title: string, messenger: string }> = [];
+    let array: Array<T> = [];
     for (let i = (pageSize * page) - pageSize; i < pageSize * page; i++) {
       data[i] && array.push(data[i])
     }

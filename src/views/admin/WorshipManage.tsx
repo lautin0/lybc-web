@@ -4,12 +4,13 @@ import { Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { WorshipListItemType } from 'views/worship/types/types';
 
 function WorshipManage() {
 
@@ -23,13 +24,13 @@ function WorshipManage() {
 
   const history = useHistory();
 
-  const { pageItems, pageNumber, items, setData } = usePagination()
+  const { pageItems, pageNumber, items, setData } = usePagination<WorshipListItemType>()
 
   const { loading, data: worshipData, refetch } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
 
   const [deleteWorship, { data: deleteResult }] = useMutation<
-   { deleteWorship: any },
-   { input: string }
+    { deleteWorship: any },
+    { input: string }
   >(DELETE_WORSHIP)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
@@ -53,7 +54,7 @@ function WorshipManage() {
     if (worshipData === undefined)
       return
     let tmp: any = [...worshipData.worships]
-    setData(tmp?.sort((a: any, b: any) => {
+    setData(tmp?.sort((a: WorshipListItemType, b: WorshipListItemType) => {
       if (a.worshipId > b.worshipId) {
         return -1
       } else if (a.worshipId < b.worshipId) {
@@ -62,12 +63,13 @@ function WorshipManage() {
         return 0
       }
     })
-      .map((x: any) => {
+      .map((x: WorshipListItemType): WorshipListItemType => {
         return {
           worshipId: x.worshipId,
           date: moment(x.worshipId, 'YYYYMMDD'),
           title: x.type === '分享主日' ? '分享主日' : x.title,
-          messenger: x.messenger === '' ? '---' : x.messenger
+          messenger: x.messenger === '' ? '---' : x.messenger,
+          type: x.type
         }
       }))
   }, [worshipData])

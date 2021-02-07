@@ -106,6 +106,24 @@ function CarouselSection() {
                     </Button>
                   </Carousel.Caption>
                 </Carousel.Item>
+                <Carousel.Item style={{ background: 'lightgray' }}>
+                  <img
+                    style={{ maxHeight: 500, objectFit: "cover" }}
+                    className="d-block w-100"
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/together_md.jpg"}
+                    alt="Second slide"
+                  />
+
+                  <Carousel.Caption style={{
+                    background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
+                  }}>
+                    <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
+                      <h4>{intl.formatMessage({ id: "app.theme.title" })}</h4>
+                      <h3>{intl.formatMessage({ id: "app.theme.l1" })}</h3>
+                      <h3>{intl.formatMessage({ id: "app.theme.l2" })}</h3>
+                    </Button>
+                  </Carousel.Caption>
+                </Carousel.Item>
                 {/* <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ maxHeight: 500, objectFit: "cover" }}

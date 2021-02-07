@@ -58,7 +58,7 @@ function DropzoneCustom(props: DropzoneState) {
     isDragAccept
   ]);
 
-  return <Col md={6} sm={12}>
+  return <Col xl={6} lg={12}>
     <div {...getRootProps({ style })}>
       <input {...getInputProps()} />
       <p>把檔案拖曳到此處，或點擊開始選擇</p>
