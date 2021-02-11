@@ -66,7 +66,7 @@ function AdminHeader(props: AdminHeaderProps) {
         </>}
         {props.func === 'page-management' && <>
           {quickItemGenerater('新增文章', 'fas fa-file-alt', 'post/new')}
-          {quickItemGenerater('待審閱文章', 'fas fa-glasses', 'post/pending')}
+          {quickItemGenerater('審閱文章', 'fas fa-glasses', 'post/pending')}
           {quickItemGenerater('頁面設定', 'fa fa-cog')}
         </>}
         {/* {props.func === 'books' && <>

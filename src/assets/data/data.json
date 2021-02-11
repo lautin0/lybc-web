@@ -2,7 +2,8 @@
   "COMMON": {
     "NOTIFICATION_TYPE": {
       "SYSTEM": {
-        "LABEL": ""
+        "LABEL": "",
+        "PATH": null
       },
       "REACTION": {
         "LABEL": "對您的發佈表達了心情",
@@ -13,16 +14,20 @@
         "PATH": "sharing"
       },
       "MENTION": {
-        "LABEL": ""
+        "LABEL": "",
+        "PATH": null
       },
       "NEW_COMER_REQUEST": {
-        "LABEL": ""
+        "LABEL": "",
+        "PATH": null
       },
       "POST_APPROVAL": {
-        "LABEL": ""
+        "LABEL": "你的文章已獲批核並發佈",
+        "PATH": "sharing"
       },
       "PEND_POST": {
-        "LABEL": "提交了分享文章"
+        "LABEL": "提交了分享文章",
+        "PATH": "admin/post/pending"
       }
     }
   }

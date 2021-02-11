@@ -11,15 +11,13 @@ import { Form, Col, Button } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { RootState } from 'reducers';
 import Validators from 'utils/validator';
 
-type WorshipEditProps = {
-  worshipId: string
-}
+function WorshipEdit() {
 
-function WorshipEdit(props: WorshipEditProps) {
+  const { id } = useParams<any>()
 
   const [locale] = useLanguage()
 
@@ -37,7 +35,7 @@ function WorshipEdit(props: WorshipEditProps) {
     { updateWorship: any },
     { input: NewWorship, docs: NewWorshipDoc[] }
   >(UPDATE_WORSHIP);
-  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: props.worshipId }, notifyOnNetworkStatusChange: true })
+  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm({
     defaultValues: {

@@ -192,6 +192,10 @@
   "app.decision.confirm-delete": "確認刪除?",
 
   "app.worship.scripture": "經文",
-  "app.worhship.notes": "筆記"
+  "app.worhship.notes": "筆記",
+
+  "app.post.rejected": "已拒絕",
+  "app.post.approved": "已批核",
+  "app.post.withheld": "已暫緩"
 
 }

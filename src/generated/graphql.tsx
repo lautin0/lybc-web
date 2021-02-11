@@ -44,6 +44,7 @@ export type Mutation = {
   readNotification: Notification;
   refreshToken: TokenPair;
   updateNameCard: NameCard;
+  updatePendingPost: PendingPost;
   updateUser: User;
   updateWorship: Worship;
 };
@@ -121,6 +122,11 @@ export type MutationRefreshTokenArgs = {
 
 export type MutationUpdateNameCardArgs = {
   input: UpdateNameCard;
+};
+
+
+export type MutationUpdatePendingPostArgs = {
+  input: UpdatePendingPost;
 };
 
 
@@ -273,7 +279,7 @@ export type PendingPost = {
   postID?: Maybe<Scalars['ObjectID']>;
   remarks?: Maybe<Scalars['String']>;
   creDttm: Scalars['Time'];
-  status: Scalars['String'];
+  status: PostStatus;
   approveUsername?: Maybe<Scalars['String']>;
   approveDttm?: Maybe<Scalars['Time']>;
 };
@@ -285,9 +291,10 @@ export type NewPendingPost = {
 };
 
 export type UpdatePendingPost = {
+  _id: Scalars['String'];
   postID?: Maybe<Scalars['String']>;
   remarks?: Maybe<Scalars['String']>;
-  status: Scalars['String'];
+  status: PostStatus;
   approveUsername?: Maybe<Scalars['String']>;
 };
 
@@ -329,6 +336,14 @@ export enum PostSort {
 export enum PostType {
   Sharing = 'SHARING',
   Preacher = 'PREACHER'
+}
+
+export enum PostStatus {
+  Pending = 'PENDING',
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED',
+  Withdraw = 'WITHDRAW',
+  Withhold = 'WITHHOLD'
 }
 
 export enum ReactionType {

@@ -409,10 +409,9 @@ export const PEND_POST = gql`
     }
   }
 `
-
 export const GET_PENDING_POSTS = gql`
   query {
-    pendingPost{
+    pendingPosts{
       _id
       username
       title
@@ -424,6 +423,48 @@ export const GET_PENDING_POSTS = gql`
       status
       approveUsername
       approveDttm
+    }
+  }
+`
+
+export const GET_PENDING_POST = gql`
+  query getPendingPostByOID($oid: String!){
+    pendingPost(oid: $oid){
+      _id
+      username
+      title
+      subtitle
+      documentURI
+      postID
+      remarks
+      creDttm
+      status
+      approveUsername
+      approveDttm
+    }
+  }
+`
+
+export const UPDATE_PENDING_POST = gql`
+  mutation updatePendingPost($input: UpdatePendingPost!){
+    updatePendingPost(input: $input){
+      _id
+      title
+      subtitle
+      postID
+      status
+      remarks
+      approveUsername
+      approveDttm
+    }
+  }
+`
+
+
+export const APPROVE_POST = gql`
+  mutation approvePost($input: NewPost!, $image: Upload, $postRefInput: UpdatePendingPost!){
+    approvePost(input: $input, image: $image, postRefInput: $postRefInput){
+      _id
     }
   }
 `

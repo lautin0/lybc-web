@@ -53,8 +53,8 @@ function WorshipManage() {
   useEffect(() => {
     if (worshipData === undefined)
       return
-    let tmp: any = [...worshipData.worships]
-    setData(tmp?.sort((a: WorshipListItemType, b: WorshipListItemType) => {
+    let tmp: Array<Worship> = worshipData.worships != null ? [...worshipData.worships] : []
+    setData(tmp?.sort((a: Worship, b: Worship) => {
       if (a.worshipId > b.worshipId) {
         return -1
       } else if (a.worshipId < b.worshipId) {
@@ -63,7 +63,7 @@ function WorshipManage() {
         return 0
       }
     })
-      .map((x: WorshipListItemType): WorshipListItemType => {
+      .map((x: Worship): WorshipListItemType => {
         return {
           worshipId: x.worshipId,
           date: moment(x.worshipId, 'YYYYMMDD'),

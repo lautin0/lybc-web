@@ -19,7 +19,8 @@ import BooksCreate from './BooksCreate';
 import BooksManage from './BooksManage';
 import PostCreate from './PostCreate';
 import NameCardManage from './NameCardManage';
-import PostManage from './PostManage';
+import PendingPostManage from './PendingPostManage';
+import PendingPostEdit from './PendingPostEdit';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -29,15 +30,9 @@ type AdminPanelProps = {
 
 function AdminPanel(props: AdminPanelProps) {
 
-  const [collapseOpen, setCollapseOpen] = useState(false);
-
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
-
   const history = useHistory()
 
   const location = useLocation()
-
-  const { id } = useParams<any>()
 
   useEffect(() => {
     document.body.classList.add("sidebar-collapse");
@@ -46,6 +41,10 @@ function AdminPanel(props: AdminPanelProps) {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
+  useEffect(() => {
+    document.title = "管理控制台"
+  }, [])
 
   return (
     <>
@@ -124,14 +123,15 @@ function AdminPanel(props: AdminPanelProps) {
             </div>}
             <div className="content-panel">
               {props.func === 'new-worship' && <WorshipCreate />}
-              {props.func === 'edit-worship' && <WorshipEdit worshipId={id} />}
+              {props.func === 'edit-worship' && <WorshipEdit />}
               {props.func === 'worships' && <WorshipManage />}
               {props.func === 'members' && <MemberManage />}
               {props.func === 'other' && <OtherFunc />}
               {props.func === 'page-management' && <PageManage />}
               {props.func === 'new-post' && <PostCreate />}
               {props.func === 'namecards' && <NameCardManage />}
-              {props.func === 'pending-posts' && <PostManage />}
+              {props.func === 'pending-posts' && <PendingPostManage />}
+              {props.func === 'new-proxy-posts' && <PendingPostEdit />}              
               {/* {props.func === 'new-book' && <BooksCreate />}
               {props.func === 'books' && <BooksManage />} */}
             </div>

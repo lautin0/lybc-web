@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { Notification } from 'generated/graphql';
+import { Notification, NotificationType } from 'generated/graphql';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { useEffect } from 'react'
@@ -68,12 +68,12 @@ function NotificationBell(props: any) {
     </NavDropdown.Item>
     <NavDropdown.Divider />
     {data && data.notifications.length === 0 && <div className="w-100 text-center text-secondary">{intl.formatMessage({ id: "app.notification.no-record" })}</div>}
-    {(data && data.notifications.length > 0) && data.notifications.map((e: any, idx: number) => {
+    {(data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
       return <div key={e._id}>
         <NavDropdown.Item
           as={Link}
           // to={e.path + e.param}
-          to={`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param}`}
+          to={`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param != null ? e.param : ''}`}
           onClick={() => {
             // e.preventDefault()
             handleClick(idx)
@@ -81,10 +81,10 @@ function NotificationBell(props: any) {
           style={{ width: 290, whiteSpace: 'pre-wrap', display: 'flex' }}
         >
           <div className="mr-2">
-            <i style={{ fontSize: 24 }} className={e.type === 'LIKE' ? "fa fa-thumbs-up" : "fas fa-comment-dots"}></i>
+            <i style={{ fontSize: 24 }} className={e.type === NotificationType.Reaction ? "fa fa-thumbs-up" : "fas fa-comment-dots"}></i>
           </div>
           <div>
-            <span>{e.fromUsername + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</span>
+            <span>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</span>
             <br />
             <span className="text-secondary">{getTimePastStr(moment(e.creDttm))}</span>
           </div>

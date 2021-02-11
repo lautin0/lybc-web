@@ -192,6 +192,10 @@
   "app.decision.confirm-delete": "Confirm Delete?",
 
   "app.worship.scripture": "Scripture",
-  "app.worship.notes": "Notes"
+  "app.worship.notes": "Notes",
+
+  "app.post.rejected": "Rejected Post",
+  "app.post.approved": "Approved Post",
+  "app.post.withheld": "Withheld Post"
 
 }

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { PendingPost } from 'generated/graphql';
+import { PendingPost, PostStatus } from 'generated/graphql';
 import { GET_PENDING_POSTS } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
@@ -9,7 +9,7 @@ import { Container, Row, Table, Pagination } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useLocation, useHistory } from 'react-router-dom';
 
-function PostManage() {
+function PendingPostManage() {
 
   const [locale] = useLanguage()
 
@@ -21,17 +21,17 @@ function PostManage() {
 
   const { pageItems, pageNumber, items, setData } = usePagination<PendingPost>()
 
-  const { loading, data: pPostData, refetch } = useQuery<{ pPost: PendingPost[] }>(GET_PENDING_POSTS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: pPostData, refetch } = useQuery<{ pendingPosts: PendingPost[] }>(GET_PENDING_POSTS, { notifyOnNetworkStatusChange: true })
 
   function onEditClicked(e: SyntheticEvent, id: any) {
     e.preventDefault();
-    history.push('/admin/worship/' + id)
+    history.push('/admin/post/pending/' + id)
   }
 
   useEffect(() => {
     if (pPostData === undefined)
       return
-    let tmp: any = [...pPostData.pPost]
+    let tmp: Array<PendingPost> = pPostData.pendingPosts != null ? [...pPostData.pendingPosts] : []
     setData(tmp?.sort((a: PendingPost, b: PendingPost) => {
       if (a.creDttm > b.creDttm) {
         return -1
@@ -53,10 +53,35 @@ function PostManage() {
         }
       }))
   }, [pPostData])
+  
+  const getBadgeClassName = (s: PostStatus) => {
+    switch (s) {
+      case PostStatus.Approved:
+        return "success"
+      case PostStatus.Rejected:
+      case PostStatus.Withdraw:
+        return "danger"
+      case PostStatus.Pending:
+        return "primary"
+      case PostStatus.Withhold:
+        return "warning"
+    }
+  }
 
-  useEffect(() => {
-    document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
-  }, [locale])
+  const getStatus = (s: PostStatus) => {
+    switch (s) {
+      case PostStatus.Approved:
+        return "已發佈"
+      case PostStatus.Rejected:
+        return "已拒絕"
+      case PostStatus.Pending:
+        return "待審閱"
+      case PostStatus.Withhold:
+        return "暫緩發佈"
+      case PostStatus.Withdraw:
+        return "已撤回"
+    }
+  }
 
   useEffect(() => {
     pPostData && refetch();
@@ -66,15 +91,16 @@ function PostManage() {
     <>
       <Container className="mt-5">
         <Row className="text-left">
-          <h3>待審閱列表</h3>
+          <h3>待審閱文章</h3>
         </Row>
         <Row className="mt-3">
           <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
             <thead>
               <tr>
                 <th style={{ width: '50%' }}>標題</th>
-                <th style={{ width: '35%' }}>投稿人</th>
+                <th style={{ width: '25%' }}>投稿人</th>
                 <th style={{ width: '15%' }}>投稿日期</th>
+                <th style={{ width: '10%' }}></th>
                 <th style={{ width: '10%' }}></th>
               </tr>
             </thead>
@@ -88,9 +114,10 @@ function PostManage() {
               {
                 (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value, index) => {
                   return <tr key={value._id}>
-                    <td>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
+                    <td>{value.title}</td>
                     <td>{value.username}</td>
                     <th scope="row">{value.creDttm.format('YYYY-MM-DD')}</th>
+                    <td><span style={{ position: 'relative', fontSize: 16 }} className={`badge badge-${getBadgeClassName(value.status)}`}>{getStatus(value.status)}</span></td>
                     <td><a onClick={(e: any) => onEditClicked(e, value._id)}><i className="fa fa-pencil-alt"></i></a></td>
                   </tr>
                 })
@@ -108,4 +135,4 @@ function PostManage() {
   )
 }
 
-export default PostManage;
+export default PendingPostManage;

@@ -10,7 +10,7 @@ function usePagination<T>() {
 
   const [pageItems, setPageItems] = useState<Array<T> | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Array<T>>([])
 
   const totalPageNum = Math.ceil(data.length / pageSize)
 
