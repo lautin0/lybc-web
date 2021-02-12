@@ -7,6 +7,7 @@ import PersonalNavbar from 'components/Navbars/PersonalNavbar';
 import PersonalEdit from './PersonalEdit';
 import { useIntl } from 'react-intl';
 import useLanguage from 'hooks/useLanguage';
+import PersonalSharing from './PersonalSharing';
 
 type PersonalPageProps = {
   func: string
@@ -79,6 +80,7 @@ function PersonalPage(props: PersonalPageProps) {
           <div style={{ margin: '0px 48px 24px' }}>
             <div className="content-panel">
               {props.func === 'info' && <PersonalEdit />}
+              {props.func === 'sharing' && <PersonalSharing />}
               {/* {props.func === 'books' && <BooksManage />} */}
             </div>
           </div>
