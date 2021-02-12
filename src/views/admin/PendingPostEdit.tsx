@@ -98,7 +98,8 @@ function PendingPostEdit() {
     let pPostTmp: UpdatePendingPost = {
       _id: pData?.pendingPost._id,
       status: PostStatus.Approved,
-      remarks: getValues("remarks") as string
+      remarks: getValues("remarks") as string,
+      username: data.username
     }
     approvePost({
       variables: {
@@ -139,7 +140,8 @@ function PendingPostEdit() {
     let tmp: UpdatePendingPost = {
       _id: pData?.pendingPost._id,
       status: s,
-      remarks: getValues("remarks") as string
+      remarks: getValues("remarks") as string,
+      username: getValues("username") as string,
     }
     updatePendingPost({
       variables: {

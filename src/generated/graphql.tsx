@@ -237,6 +237,8 @@ export enum NotificationType {
   Mention = 'MENTION',
   NewComerRequest = 'NEW_COMER_REQUEST',
   PostApproval = 'POST_APPROVAL',
+  PostWithhold = 'POST_WITHHOLD',
+  PostReject = 'POST_REJECT',
   PendPost = 'PEND_POST'
 }
 
@@ -292,6 +294,7 @@ export type NewPendingPost = {
 
 export type UpdatePendingPost = {
   _id: Scalars['String'];
+  username: Scalars['String'];
   postID?: Maybe<Scalars['String']>;
   remarks?: Maybe<Scalars['String']>;
   status: PostStatus;

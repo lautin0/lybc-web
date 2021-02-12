@@ -90,7 +90,6 @@ function SharingList() {
 
     setOpen(true)
     setTitle("app.modal.header.new-sharing-record")
-
   }
 
   useEffect(() => {

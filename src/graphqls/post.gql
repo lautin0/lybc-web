@@ -49,6 +49,7 @@ input NewPendingPost {
 
 input UpdatePendingPost {
 	_id: String!
+	username: String!
 	postID: String
 	remarks: String
 	status: PostStatus!
