@@ -118,9 +118,14 @@ function CarouselSection() {
                     background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
                   }}>
                     <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                      <h4>{intl.formatMessage({ id: "app.theme.title" })}</h4>
-                      <h3>{intl.formatMessage({ id: "app.theme.l1" })}</h3>
-                      <h3>{intl.formatMessage({ id: "app.theme.l2" })}</h3>
+                      {window.innerWidth > 991 && <><h3>{intl.formatMessage({ id: "app.theme.title" })}</h3>
+                        <h2>{intl.formatMessage({ id: "app.theme.l1" })}</h2>
+                        <h2>{intl.formatMessage({ id: "app.theme.l2" })}</h2>
+                      </>}
+                      {window.innerWidth <= 991 && <><h5>{intl.formatMessage({ id: "app.theme.title" })}</h5>
+                        <h4 style={{ marginTop: 0 }}>{intl.formatMessage({ id: "app.theme.l1" })}</h4>
+                        <h4 style={{ marginTop: 0 }}>{intl.formatMessage({ id: "app.theme.l2" })}</h4>
+                      </>}
                     </Button>
                   </Carousel.Caption>
                 </Carousel.Item>
