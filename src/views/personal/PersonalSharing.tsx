@@ -1,16 +1,21 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
 import { AccountStatus, Gender, NameCard, PendingPost, PostStatus, Worship } from 'generated/graphql';
-import { DELETE_WORSHIP, GET_NAMECARDS, GET_PENDING_POSTS, GET_WORSHIPS } from 'graphqls/graphql';
+import { DELETE_WORSHIP, GET_NAMECARDS, GET_PENDING_POSTS, GET_PENDING_POSTS_BY_USERNAME, GET_WORSHIPS } from 'graphqls/graphql';
 import usePagination from 'hooks/usePagination';
 import moment from 'moment';
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Pagination, Container, Row, Table, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { RootState } from 'reducers';
+import { useStore } from 'store';
 import UNIVERSALS from 'Universals';
+import { getTokenValue } from 'utils/utils';
 
 function PersonalSharing() {
+
+  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   const dispatch = useDispatch();
 
@@ -18,7 +23,13 @@ function PersonalSharing() {
 
   const history = useHistory();
 
-  const { data, loading, refetch } = useQuery<{ pendingPosts: PendingPost[] }>(GET_PENDING_POSTS, { notifyOnNetworkStatusChange: true })
+  const setPendingPostID = useStore(state => state.setPendingPostID)
+  const setOpen = useStore(state => state.setOpen)
+  const setTitle = useStore(state => state.setTitle)
+
+  const { data, loading, refetch } = useQuery<
+    { pendingPosts: PendingPost[] },
+    { username: string }>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     if (data != null)
@@ -54,6 +65,14 @@ function PersonalSharing() {
     }
   }
 
+  const handleClick = useCallback((id, status) => {
+    if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
+      return
+    setPendingPostID(id)
+    setOpen(true)
+    setTitle("app.modal.header.edit-sharing-record")
+  }, [])
+
   return (
     <>
       <Container className="mt-5">
@@ -68,10 +87,15 @@ function PersonalSharing() {
             </div>
           </div>
         </Container>}
+        {(!loading && data?.pendingPosts.length == 0) && <Container>
+          <h3>
+            沒有記錄
+          </h3>
+        </Container>}
         {(!loading) && <>
           {data!.pendingPosts.map((p, i) => {
             return <div key={p._id}>
-              <Col className="card quick-item mt-3 p-3" md={4} xs={12}>
+              <Col className="card quick-item mt-3 p-3" md={6} xs={12} onClick={() => handleClick(p._id, p.status)}>
                 <div>
                   <label>標題: </label>
                 </div>

@@ -127,6 +127,7 @@ export type MutationUpdateNameCardArgs = {
 
 export type MutationUpdatePendingPostArgs = {
   input: UpdatePendingPost;
+  doc?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -195,6 +196,11 @@ export type QueryNotificationsArgs = {
 
 export type QueryPendingPostArgs = {
   oid: Scalars['String'];
+};
+
+
+export type QueryPendingPostsArgs = {
+  username?: Maybe<Scalars['String']>;
 };
 
 

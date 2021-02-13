@@ -93,6 +93,7 @@
   "app.buttons.save": "儲存",
   "app.buttons.export-pdf": "另存PDF",
   "app.buttons.export-image": "文字轉圖",
+  "app.buttons.withdraw": "撤回",
 
   "app.index.title": "主日崇拜",
   "app.index.subtitle": "按此進入本週主日崇拜",
@@ -175,6 +176,7 @@
   "app.modal.header.warning": "警告",
   "app.modal.header.error": "錯誤",
   "app.modal.header.new-sharing-record": "新增分享",
+  "app.modal.header.edit-sharing-record": "文章概要",
   "app.modal.hide-for-today": "今日不再顯示",
 
   "app.sys.save-success": "儲存成功!",

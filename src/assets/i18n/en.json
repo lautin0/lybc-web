@@ -93,6 +93,7 @@
   "app.buttons.save": "Save",
   "app.buttons.export-pdf": "Export PDF",
   "app.buttons.export-image": "Convert Image",
+  "app.buttons.withdraw": "Withdraw",
 
   "app.index.title": "Sunday Service",
   "app.index.subtitle": "Click to Enter",
@@ -175,6 +176,7 @@
   "app.modal.header.warning": "System Warning",
   "app.modal.header.error": "Sysadm Error",
   "app.modal.header.new-sharing-record": "New Sharing Record",
+  "app.modal.header.edit-sharing-record": "Sharing Record",
   "app.modal.hide-for-today": "Hide for Today",
 
   "app.sys.save-success": "Save Success!",

@@ -427,6 +427,24 @@ export const GET_PENDING_POSTS = gql`
   }
 `
 
+export const GET_PENDING_POSTS_BY_USERNAME = gql`
+  query pendingPosts($username: String){
+    pendingPosts(username: $username){
+      _id
+      username
+      title
+      subtitle
+      documentURI
+      postID
+      remarks
+      creDttm
+      status
+      approveUsername
+      approveDttm
+    }
+  }
+`
+
 export const GET_PENDING_POST = gql`
   query getPendingPostByOID($oid: String!){
     pendingPost(oid: $oid){
@@ -446,8 +464,8 @@ export const GET_PENDING_POST = gql`
 `
 
 export const UPDATE_PENDING_POST = gql`
-  mutation updatePendingPost($input: UpdatePendingPost!){
-    updatePendingPost(input: $input){
+  mutation updatePendingPost($input: UpdatePendingPost!, $doc: Upload){
+    updatePendingPost(input: $input, doc: $doc){
       _id
       title
       subtitle

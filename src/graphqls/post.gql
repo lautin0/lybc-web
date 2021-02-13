@@ -128,13 +128,13 @@ enum PostStatus {
 extend type Query {
 	posts(postFilter: PostFilter, sort: PostSort): [Post!]!
 	post(oid: String!): Post
-	pendingPosts: [PendingPost!]!
+	pendingPosts(username: String): [PendingPost!]!
 	pendingPost(oid: String!): PendingPost
 }
 
 extend type Mutation {
 	createPost(input: NewPost!, image: Upload): Post!
 	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!
-	updatePendingPost(input: UpdatePendingPost!): PendingPost!
+	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!
 	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!
 }

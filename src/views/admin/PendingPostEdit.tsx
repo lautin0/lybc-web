@@ -275,7 +275,7 @@ function PendingPostEdit() {
                       <i style={{ fontSize: 72, color: '#f04100' }} className="fas fa-file-alt"></i>
                     </div>
                     <div>
-                      <label style={{ fontSize: 18 }}>{stripFileName(documentURI)}</label>
+                      <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripFileName(documentURI)}</label>
                     </div>
                   </a>
                 </div>
@@ -315,7 +315,7 @@ function PendingPostEdit() {
                   </Button>}
                 </Form.Group>
               </Form.Row>
-              {(readOnly && (pData?.pendingPost.status !== PostStatus.Rejected && pData?.pendingPost.status !== PostStatus.Approved)) && <Form.Row>
+              {(readOnly && (pData?.pendingPost.status != null && ![PostStatus.Rejected, PostStatus.Approved, PostStatus.Withdraw].includes(pData?.pendingPost.status!))) && <Form.Row>
                 <Form.Group>
                   <Button
                     variant="success"
