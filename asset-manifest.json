@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.95916df1.chunk.css",
-    "main.js": "/static/js/main.7535f4b5.chunk.js",
+    "main.css": "/static/css/main.0ac11d62.chunk.css",
+    "main.js": "/static/js/main.7c1a98d0.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css": "/static/css/2.610f19ea.chunk.css",
     "static/js/2.5d9b6be1.chunk.js": "/static/js/2.5d9b6be1.chunk.js",
@@ -9,11 +9,11 @@
     "static/js/2.5d9b6be1.chunk.js.LICENSE.txt": "/static/js/2.5d9b6be1.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
     "static/media/bg1.71a28027.jpg": "/static/media/bg1.71a28027.jpg",
-    "static/media/bg12.0db1026c.jpg": "/static/media/bg12.0db1026c.jpg",
     "static/media/bg13.b126abbc.jpg": "/static/media/bg13.b126abbc.jpg",
     "static/media/bg8.2c89438b.jpg": "/static/media/bg8.2c89438b.jpg",
     "static/media/lightbulb_sm.02a31ca1.jpg": "/static/media/lightbulb_sm.02a31ca1.jpg",
     "static/media/login.ab931d77.jpg": "/static/media/login.ab931d77.jpg",
+    "static/media/ly_bg6.25f31c86.jpg": "/static/media/ly_bg6.25f31c86.jpg",
     "static/media/lybc_logo.95501391.png": "/static/media/lybc_logo.95501391.png",
     "static/media/microphone.a4e56f03.jpg": "/static/media/microphone.a4e56f03.jpg",
     "static/media/microphone_sm.53ae5374.jpg": "/static/media/microphone_sm.53ae5374.jpg",
@@ -26,7 +26,7 @@
     "static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css",
     "static/js/2.5d9b6be1.chunk.js",
-    "static/css/main.95916df1.chunk.css",
-    "static/js/main.7535f4b5.chunk.js"
+    "static/css/main.0ac11d62.chunk.css",
+    "static/js/main.7c1a98d0.chunk.js"
   ]
 }
