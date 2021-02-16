@@ -50,6 +50,15 @@
     .page-header-image{
         position: absolute;
         background-size: cover;
+        background-position: center center;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .index-page-header-image{
+        position: absolute;
+        background-size: cover;
         background-position: center top;
         width: 100%;
         height: 100%;

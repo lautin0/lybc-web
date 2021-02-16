@@ -29,7 +29,7 @@ function IndexHeader() {
     <>
       <div className="page-header clear-filter" id="index" filter-color="gray">
         <div
-          className="page-header-image"
+          className="index-page-header-image"
           style={{
             backgroundImage: "url(" + bg + "), linear-gradient(105deg, rgb(0, 109, 1) 0%, navy 42%, rgb(107, 0, 0) 100%)",
             // backgroundImage: "url(" + bg + ")",
