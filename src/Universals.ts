@@ -24,6 +24,7 @@ const UNIVERSALS: UniversalsInfo = {
         'worship': { title: 'app.title.worship', subtitle: null },
         'worship-list': { title: 'app.title.worship', subtitle: 'app.subtitle.worship', bg: sermon },
         'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: bg13 },
+        'careers':{ title: 'app.title.careers', subtitle: null, bg: bg13 },
         'preacher-message': { title: 'app.title.preacher-message', subtitle: 'app.subtitle.preacher-message', bg: bg8 },
         'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: microphone },
         'sharing': { title: 'app.title.sharing', subtitle: null },

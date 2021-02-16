@@ -16,6 +16,7 @@ import SearchBooks from "views/book/SearchBooks";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import useLanguage from "hooks/useLanguage";
+import Careers from "views/about/Careers";
 
 type MainPageProps = {
   page: string,
@@ -72,6 +73,7 @@ function MainPageLegacy(props: MainPageProps) {
           {props.page == 'library' && <SearchBooks />}
           {props.page === 'worship' && <Worship />}
           {props.page === 'sharing' && <Sharing />}
+          {props.page === 'careers' && <Careers />}
         </div>
         <DefaultFooter />
       </div>

@@ -253,6 +253,9 @@ function IndexNavbar() {
                 <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)}>
+                  {intl.formatMessage({ id: "app.title.careers" })}
+                </NavDropdown.Item>
                 {/* <NavDropdown.Item
                   target="_blank"
                   onClick={e => {

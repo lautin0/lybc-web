@@ -129,6 +129,11 @@ function DefaultFooter() {
                 {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
               </Link>
             </li>
+            <li>
+              <Link to="/careers">
+                {intl.formatMessage({ id: "app.title.careers" })}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -115,7 +115,8 @@ function CarouselSection() {
                   />
 
                   <Carousel.Caption style={{
-                    background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
+                    // background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
+                    background: 'rgba(100, 100, 100, .5)'
                   }}>
                     <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
                       {window.innerWidth > 991 && <><h3>{intl.formatMessage({ id: "app.theme.title" })}</h3>

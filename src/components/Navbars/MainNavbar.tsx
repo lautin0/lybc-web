@@ -185,6 +185,9 @@ function MainNavbar(props: MainNavbarProps) {
                 <NavDropdown.Item as={Link} to="/preacher-message">
                   {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/careers">
+                  {intl.formatMessage({ id: "app.title.careers" })}
+                </NavDropdown.Item>
               </NavDropdown>
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
               {!tokenPair?.token && <Nav.Item>
@@ -276,8 +279,8 @@ function MainNavbar(props: MainNavbarProps) {
             </Nav>
           </Navbar.Collapse>
           <div style={{ marginTop: -26 }}>
-            <h3 className="title text-left d-none d-sm-block">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title})}</h3>
-            <h4 className="my-3 title text-left d-sm-none">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title})}</h4>
+            <h3 className="title text-left d-none d-sm-block">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h3>
+            <h4 className="my-3 title text-left d-sm-none">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h4>
           </div>
         </Container>
       </Navbar>
