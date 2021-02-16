@@ -199,6 +199,11 @@
 
   "app.post.rejected": "Rejected Post",
   "app.post.approved": "Approved Post",
-  "app.post.withheld": "Withheld Post"
+  "app.post.withheld": "Withheld Post",
+
+  "app.careers.header": "Openings",
+  "app.careers.l1": "Preacher",
+  "app.careers.l2": "Duty：Mainaly focus on preaching youth and adults",
+  "app.careers.contact": "If you are interested, please send your CV via email"
 
 }

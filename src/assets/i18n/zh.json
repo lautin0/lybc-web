@@ -199,6 +199,11 @@
 
   "app.post.rejected": "已拒絕",
   "app.post.approved": "已批核",
-  "app.post.withheld": "已暫緩"
+  "app.post.withheld": "已暫緩",
+
+  "app.careers.header": "現開放招聘",
+  "app.careers.l1": "教牧同工",
+  "app.careers.l2": "負責範疇：主要牧養職青及成人",
+  "app.careers.contact": "請申請者電郵求職信及履歷致"
 
 }
