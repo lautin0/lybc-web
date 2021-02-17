@@ -86,7 +86,7 @@ function CarouselSection() {
       <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 30 }}>
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
-            <Col md={6} sm={12}>
+            <Col md={6} sm={12} className="mb-5">
               <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>最新消息</b></h3>
               <h5>17-02-2021<a href="#" onClick={e => { e.preventDefault() }} className="ml-3">記念聖灰日</a></h5>
               <hr style={{ width: '80%' }}></hr>
