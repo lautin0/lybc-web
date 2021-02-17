@@ -34,7 +34,7 @@ function IndexHeader() {
             backgroundImage: "url(" + bg + "), linear-gradient(105deg, rgb(0, 109, 1) 0%, navy 42%, rgb(107, 0, 0) 100%)",
             // backgroundImage: "url(" + bg + ")",
             // backgroundColor: 'darkslateblue',
-            top: 76,
+            // top: 76,
             backgroundBlendMode: 'screen',
           }}
           ref={pageHeader}
