@@ -5,7 +5,7 @@ import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
 
 // react-bootstrap components
-import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -83,11 +83,17 @@ function CarouselSection() {
 
   return (
     <>
-      <div className="section" id="carousel" style={{ marginBottom: 30 }}>
-        <div>
-          <Row className="justify-content-center" style={{ marginRight: 0, marginLeft: 0 }}>
-            <Col xl={6} md={8} sm={12}>
-
+      <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 30 }}>
+        <Container>
+          <Row style={{ marginRight: 0, marginLeft: 0 }}>
+            <Col md={6} sm={12}>
+              <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>最新消息</b></h3>
+              <h5>17-02-2021<a href="#" onClick={e => { e.preventDefault() }} className="ml-3">記念聖灰日</a></h5>
+              <hr style={{ width: '80%' }}></hr>
+              <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault();history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>
+              <hr style={{ width: '80%' }}></hr>
+            </Col>
+            <Col md={6} sm={12}>
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
                 <Carousel.Item>
                   <img
@@ -99,7 +105,7 @@ function CarouselSection() {
                   />
                   <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }} onClick={handleClick}>
                     <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                      {window.innerWidth > 991 && <><h1>{intl.formatMessage({ id: "app.index.title" })}</h1>
+                      {window.innerWidth > 991 && <><h2>{intl.formatMessage({ id: "app.index.title" })}</h2>
                         <h3>{intl.formatMessage({ id: "app.index.subtitle" })}</h3></>}
                       {window.innerWidth <= 991 && <><h3>{intl.formatMessage({ id: "app.index.title" })}</h3>
                         <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
@@ -119,9 +125,9 @@ function CarouselSection() {
                     background: 'rgba(100, 100, 100, .5)'
                   }}>
                     <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                      {window.innerWidth > 991 && <><h3>{intl.formatMessage({ id: "app.theme.title" })}</h3>
-                        <h2>{intl.formatMessage({ id: "app.theme.l1" })}</h2>
-                        <h2>{intl.formatMessage({ id: "app.theme.l2" })}</h2>
+                      {window.innerWidth > 991 && <><h4>{intl.formatMessage({ id: "app.theme.title" })}</h4>
+                        <h3>{intl.formatMessage({ id: "app.theme.l1" })}</h3>
+                        <h3>{intl.formatMessage({ id: "app.theme.l2" })}</h3>
                       </>}
                       {window.innerWidth <= 991 && <><h5>{intl.formatMessage({ id: "app.theme.title" })}</h5>
                         <h4 style={{ marginTop: 0 }}>{intl.formatMessage({ id: "app.theme.l1" })}</h4>
@@ -163,9 +169,9 @@ function CarouselSection() {
               </Carousel>
             </Col>
           </Row>
-        </div>
+        </Container>
       </div>
-      <hr style={{ width: '80%' }} />
+      {/* <hr style={{ width: '80%' }} /> */}
     </>
   );
 }

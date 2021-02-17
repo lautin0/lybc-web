@@ -105,7 +105,11 @@
 
   "app.theme2.title": "Word centered Faith",
   "app.theme2.subtitle": "What we value",
-  "app.theme2.l1": "The church values inner lives, the teaching of truth, and the Word of God. We encourage bearing witness to each other so that each other can take root in the truth and grow together in the Lord.",
+  "app.theme2.l0": "The church values inner lives, the teaching of truth, and the Word of God. We encourage bearing witness to each other so that each other can take root in the truth and grow together in the Lord.",
+  "app.theme2.l1": "Lives centered with the Word of God",
+  "app.theme2.l2": "The Truth from Jesus",
+  "app.theme2.l3": "Testimony of the Gospel",
+  "app.theme2.l4": "Sharing of the fruitful lives",
 
   "app.tables.date": "Date",
   "app.tables.topic": "Topic",

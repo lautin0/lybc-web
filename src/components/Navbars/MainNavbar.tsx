@@ -119,7 +119,7 @@ function MainNavbar(props: MainNavbarProps) {
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  {intl.formatMessage({ id: "app.menu.activity.latest" })}
+                  {intl.formatMessage({ id: "app.latest-updates" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/apply-activity">
                   {intl.formatMessage({ id: "app.menu.activity.apply" })}

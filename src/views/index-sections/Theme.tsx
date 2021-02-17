@@ -14,18 +14,19 @@ function Theme() {
 
   return (
     <>
-      <div className="section" data-background-color="violet" style={{ paddingBottom: 100 }}>
+      <div className="section" data-background-color="black" style={{ paddingBottom: 100 }}>
         <Container>
           <Row>
-            <Col className="justify-content-center text-center" md="6">
-              <h2>{intl.formatMessage({ id: "app.theme2.title" })}</h2>
-              <img style={{ maxHeight: 400 }} src={photoSq5} alt="bible" />
+            <Col className="mt-5" md="6">
+              <h2 className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>{intl.formatMessage({ id: "app.theme2.subtitle" })}</h2>
+              <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l1" })}</p>
+              <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l2" })}</p>
+              <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l3" })}</p>
+              <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l4" })}</p>
             </Col>
-            <Col className="justify-content-center text-center my-auto" md="6">
-              <h3 className="mt-5">{intl.formatMessage({ id: "app.theme2.subtitle" })}</h3>
-              <p style={{ fontSize: 20 }} className="description">
-                {intl.formatMessage({ id: "app.theme2.l1" })}
-              </p>
+            <Col className="justify-content-center text-center" md="6">
+              {/* <h2>{intl.formatMessage({ id: "app.theme2.title" })}</h2> */}
+              <img style={{ maxHeight: 500 }} src={photoSq5} alt="bible" />
             </Col>
           </Row>
         </Container>

@@ -15,11 +15,11 @@ function Careers() {
   >
     <Container>
       <h3 className="mb-5">{intl.formatMessage({ id: 'app.careers.header' })}: </h3>
-      <Row style={{ borderLeft: 'solid .5rem #FFB236' }}>
+      <Row>
         <Col sm={12} md={6}>
-          <b style={{ fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l1' })}</b>
-          <p style={{ fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l2' })}</p>
-          <p>15-02-2021</p>
+          <b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236', fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l1' })}</b>
+          <p className="pl-4" style={{ fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l2' })}</p>
+          <p className="pl-4">15-02-2021</p>
         </Col>
       </Row>
       <div className="text-center mt-5" style={{ fontSize: 18 }}>

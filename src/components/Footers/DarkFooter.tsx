@@ -32,7 +32,7 @@ function DarkFooter() {
             </li>
             <li>
               <Link to="/">
-                {intl.formatMessage({ id: "app.menu.activity.latest" })}
+                {intl.formatMessage({ id: "app.latest-updates" })}
               </Link>
             </li>
             <li>
