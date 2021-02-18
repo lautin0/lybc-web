@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
-import CommentSection from "components2/Comments/CommentSection";
+import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
 import { NewReaction, Post, ReactionType, Role } from "generated/graphql";
 import { REACT_TO_POST } from "graphqls/graphql";
