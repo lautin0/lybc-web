@@ -33,7 +33,7 @@ jobs:
 
       # run tests!
       - run: npm run test
-      - run: npm run build
+      - run: CI=false npm run build
       - deploy:
           command: |
             git config --global user.email $GH_EMAIL
