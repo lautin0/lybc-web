@@ -48,7 +48,7 @@ function IndexHeader() {
           </video>
         </div> */}
         <Container>
-          <div className="brand animate__animated animate__fadeInUp animate__fast" style={{ marginTop: 100 }}>
+          <div id="index-upper-div" className="brand animate__animated animate__fadeInUp animate__fast">
             <img
               alt="..."
               className="n-logo"
@@ -57,7 +57,7 @@ function IndexHeader() {
             <h1 style={{ fontWeight: 'bold' }} className="h1-seo">綠楊浸信會</h1>
             <h3 style={{ fontWeight: 'bold' }}>Luk Yeung Baptist Church</h3>
           </div>
-          <h6 className="category category-absolute" style={{ top: '90vh' }}>
+          <h6 className="category category-absolute">
             <i style={{ color: 'white', fontSize: 30 }} className="fas fa-chevron-down animate__animated animate__bounce animate__infinite animate__slow"></i>
           </h6>
         </Container>

@@ -441,3 +441,23 @@ button.btn-reset-pwd {
         color: black
     }
 }
+
+@media screen and (min-height: 500px){
+    .category.category-absolute {
+        top: 90vh !important;
+    }
+    
+    #index-upper-div{
+        margin-top: 125px;
+    }
+}
+
+@media screen and (max-height: 500px){
+    .category.category-absolute {
+        top: 105vh !important;
+    }
+    
+    #index-upper-div{
+        margin-top: 50px;
+    }
+}
