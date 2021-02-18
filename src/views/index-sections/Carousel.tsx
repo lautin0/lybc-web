@@ -87,11 +87,12 @@ function CarouselSection() {
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
             <Col md={6} sm={12} className="mb-5">
-              <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>最新消息</b></h3>
+              <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>{intl.formatMessage({ id: 'app.latest-updates' })}</b></h3>
               <h5>17-02-2021<a href="#" onClick={e => { e.preventDefault() }} className="ml-3">記念聖灰日</a></h5>
               <hr style={{ width: '80%' }}></hr>
-              <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault();history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>
+              <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault(); history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>
               <hr style={{ width: '80%' }}></hr>
+              {/* <div className="text-right pr-5"><a href="#" onClick={e => { e.preventDefault() }}><h5>{intl.formatMessage({ id: 'app.show-more' })}</h5></a></div> */}
             </Col>
             <Col md={6} sm={12}>
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>

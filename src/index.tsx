@@ -77,7 +77,7 @@ function App() {
               <PersonalRoute path="/personal" />
               {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
               <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
-              <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} />
+              {/* <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} /> */}
               <Route path="/careers" render={(props: any) => <MainPageLegacy {...props} page="careers" />} />
               <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} />
               <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" deemed />} />

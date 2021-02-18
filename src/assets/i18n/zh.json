@@ -17,6 +17,8 @@
   "app.support": "技術支援",
   "app.need-help": "需要幫助?",
   "app.church-notice": "教會通告",
+  "app.more": "更多",
+  "app.show-more": "顯示更多",
 
   "app.breadcrumb.index": "主頁",
   "app.breadcrumb.online-sermon": "瀏覽網上崇拜",
@@ -42,6 +44,7 @@
 
   "app.menu.about-us": "認識綠楊",
   "app.menu.about-us.abwe": "關於聯會",
+  "app.menu.about-us.lybc": "關於綠楊",
   "app.menu.about-us.doctrine": "聯會信條",
   "app.menu.about-us.timetable": "聚會時間",
   "app.menu.about-us.contact": "聯絡我們",
@@ -206,8 +209,9 @@
   "app.post.withheld": "已暫緩",
 
   "app.careers.header": "現開放招聘",
+  "app.careers.duty": "負責範疇",
   "app.careers.l1": "教牧同工",
-  "app.careers.l2": "負責範疇：主要牧養職青及成人",
+  "app.careers.l2": "主要牧養職青及成人",
   "app.careers.contact": "請申請者電郵求職信及履歷致"
 
 }

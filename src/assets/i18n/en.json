@@ -17,6 +17,8 @@
   "app.support": "Support",
   "app.need-help": "Need Help?",
   "app.church-notice": "Church Notice",
+  "app.more": "More",
+  "app.show-more": "Show More",
 
   "app.breadcrumb.index": "Home",
   "app.breadcrumb.online-sermon": "Worship List",
@@ -42,6 +44,7 @@
 
   "app.menu.about-us": "About",
   "app.menu.about-us.abwe": "ABWE",
+  "app.menu.about-us.lybc": "LYBC",
   "app.menu.about-us.doctrine": "Doctrine",
   "app.menu.about-us.timetable": "Timetable",
   "app.menu.about-us.contact": "Contact Us",
@@ -206,8 +209,9 @@
   "app.post.withheld": "Withheld Post",
 
   "app.careers.header": "Openings",
+  "app.careers.duty": "Duty",
   "app.careers.l1": "Preacher",
-  "app.careers.l2": "Duty：Mainaly focus on preaching youth and adults",
+  "app.careers.l2": "Mainaly focus on preaching youth and adults",
   "app.careers.contact": "If you are interested, please send your CV via email"
 
 }

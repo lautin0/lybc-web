@@ -98,13 +98,13 @@ function DefaultFooter() {
           </ul>
         </div>
         <div className="col-sm-1 col-md-2" style={{ width: '50%' }}>
-          <h4>{intl.formatMessage({ id: "app.menu.about-us" })}</h4>
+          <h4>{intl.formatMessage({ id: "app.menu.about-us.lybc" })}</h4>
           <ul className="sitemap">
-            <li>
+            {/* <li>
               <Link to="/about-us">
                 {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/doctrine">
                 {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
@@ -148,13 +148,13 @@ function DefaultFooter() {
                 {intl.formatMessage({ id: "app.abwe" })}
               </a>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/about-us"
               >
                 {intl.formatMessage({ id: "app.menu.about-us" })}
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
         <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>

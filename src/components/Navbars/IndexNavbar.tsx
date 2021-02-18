@@ -227,14 +227,14 @@ function IndexNavbar() {
               <NavDropdown
                 id=""
                 title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">
-                  {intl.formatMessage({ id: "app.menu.about-us" })}</div></>}
+                  {intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div></>}
                 show={show[2]}
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
               >
-                <NavDropdown.Item as={Link} to="/about-us" onClick={() => setCollapseOpen(!collapseOpen)}>
+                {/* <NavDropdown.Item as={Link} to="/about-us" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/doctrine" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>

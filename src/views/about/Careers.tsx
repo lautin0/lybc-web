@@ -18,6 +18,7 @@ function Careers() {
       <Row>
         <Col sm={12} md={6}>
           <b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236', fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l1' })}</b>
+          <p className="pl-4" style={{ fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.duty' })}: </p>
           <p className="pl-4" style={{ fontSize: 22 }}>{intl.formatMessage({ id: 'app.careers.l2' })}</p>
           <p className="pl-4">15-02-2021</p>
         </Col>

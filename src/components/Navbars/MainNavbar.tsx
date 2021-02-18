@@ -161,14 +161,14 @@ function MainNavbar(props: MainNavbarProps) {
               </NavDropdown>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.about-us" })}</div></>}
+                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div></>}
                 show={show[2]}
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
               >
-                <NavDropdown.Item as={Link} to="/about-us">
+                {/* <NavDropdown.Item as={Link} to="/about-us">
                   {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/doctrine">
                   {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>
