@@ -1,11 +1,8 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { decisionRequest, setLoading } from 'actions';
-import { AccountStatus, Gender, NameCard, PendingPost, PostStatus, Worship } from 'generated/graphql';
-import { DELETE_WORSHIP, GET_NAMECARDS, GET_PENDING_POSTS, GET_PENDING_POSTS_BY_USERNAME, GET_WORSHIPS } from 'graphqls/graphql';
-import usePagination from 'hooks/usePagination';
-import moment from 'moment';
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
-import { Pagination, Container, Row, Table, Col } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import { PendingPost, PostStatus } from 'generated/graphql';
+import { GET_PENDING_POSTS_BY_USERNAME } from 'graphqls/graphql';
+import React, { useCallback, useEffect } from 'react'
+import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
@@ -17,11 +14,9 @@ function PersonalSharing() {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const dispatch = useDispatch();
 
   const location = useLocation();
 
-  const history = useHistory();
 
   const setPendingPostID = useStore(state => state.setPendingPostID)
   const setOpen = useStore(state => state.setOpen)
@@ -93,7 +88,7 @@ function PersonalSharing() {
           </h3>
         </Container>}
         {(!loading) && <>
-          {data!.pendingPosts.map((p, i) => {
+          {data!.pendingPosts.map((p) => {
             return <div key={p._id}>
               <Col className="card quick-item mt-3 p-3" md={6} xs={12} onClick={() => handleClick(p._id, p.status)}>
                 <div>
