@@ -21,7 +21,7 @@ import ErrorPage from "views/error/Error";
 import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
-import PrivateRoute from "./components/Route/PrivateRoute";
+import PrivateRoute from "components/Route/PrivateRoute";
 import { getClient } from "utils/auth.client";
 import { Role } from "generated/graphql";
 import PersonalRoute from "./components/Route/PersonalRoute";
