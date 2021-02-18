@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
-import CommentSection from "components/Comments/CommentSection";
+import CommentSection from "components2/Comments/CommentSection";
 import { NewReaction, Post, ReactionType } from "generated/graphql";
 import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
 import moment from "moment";
