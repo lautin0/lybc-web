@@ -40,19 +40,19 @@ orbs:
 #           command: |
 #             rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
 #             CI=false npm run deploy
-workflows:
-  push:
-    jobs:
-      - react/install
-      - react/eslint:
-          requires:
-            - react/install
-      - react/test:
-          requires:
-            - react/install
-      - react/coverage:
-          requires:
-            - react/install
+# workflows:
+#   push:
+#     jobs:
+#       - react/install
+#       - react/eslint:
+#           requires:
+#             - react/install
+#       - react/test:
+#           requires:
+#             - react/install
+#       - react/coverage:
+#           requires:
+#             - react/install
 steps:
       - deploy:
           command: |
