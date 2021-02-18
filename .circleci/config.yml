@@ -1,67 +1,41 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 # Use a package of configuration called an orb.
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-  # Declare a dependency on the react-orb
-  react: thefrontside/react@0.2.0
-# Orchestrate or schedule a set of jobs
-# jobs:
-#   run_deploy:
-#     docker:
-#       # specify the version you desire here
-#       - image: circleci/node:10.16.3
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
 
-#     working_directory: ~/lybc-web
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
 
-#     steps:
-#       - checkout
+    working_directory: ~/repo
 
-#       # Download and cache dependencies
-#       - restore_cache:
-#           keys:
-#           - v1-dependencies-{{ checksum "package.json" }}
-#           # fallback to using the latest cache if no exact match is found
-#           - v1-dependencies-
+    steps:
+      - checkout
 
-#       - run: npm install
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-#       - save_cache:
-#           paths:
-#             - node_modules
-#           key: v1-dependencies-{{ checksum "package.json" }}
-          
-#       - run:
-#           command: |
-#             CI=false npm run build
-            
-#       - deploy:
-#           command: |
-#             rm -rf node_modules/gh-pages/.cache/github.com\!lautin0\!lybc-web.git
-#             CI=false npm run deploy
-# workflows:
-#   push:
-#     jobs:
-#       - react/install
-#       - react/eslint:
-#           requires:
-#             - react/install
-#       - react/test:
-#           requires:
-#             - react/install
-#       - react/coverage:
-#           requires:
-#             - react/install
-steps:
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      # - run: yarn test
+      - run: npm run build
       - deploy:
           command: |
             git config --global user.email $GH_EMAIL
             git config --global user.name $GH_NAME
             npm run deploy
-#       - run_deploy:
-#           requires:
-#             - react/coverage
-#           filters:
-#             branches:
-#               only: master
