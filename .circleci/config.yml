@@ -53,6 +53,12 @@ workflows:
       - react/coverage:
           requires:
             - react/install
+steps:
+      - deploy:
+          command: |
+            git config --global user.email $GH_EMAIL
+            git config --global user.name $GH_NAME
+            npm run deploy
 #       - run_deploy:
 #           requires:
 #             - react/coverage
