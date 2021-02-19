@@ -140,7 +140,7 @@ function DarkFooter() {
                 target="_blank"
                 href="http://www.hkabwe.org/"
               >
-                {intl.formatMessage({ id: "app.abwe" })}
+                {intl.formatMessage({ id: "app.abwe" })}.
               </a>
             </li>
             {/* <li>
