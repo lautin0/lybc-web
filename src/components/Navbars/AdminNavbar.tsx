@@ -208,7 +208,7 @@ function AdminNavbar() {
                 {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
               </div>
             </div>
-            <p>{getTokenValue(tokenPair?.token)?.username}</p>
+            <p>{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
           </Link>
         </div>
       </Navbar>
