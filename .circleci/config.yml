@@ -2,9 +2,6 @@
 version: 2.1
 # Use a package of configuration called an orb.
 jobs:
-  filters:
-    branches:
-      only: master
   build:
     docker:
       # specify the version you desire here
@@ -42,3 +39,6 @@ jobs:
             git config --global user.email $GH_EMAIL
             git config --global user.name $GH_NAME
             CI=false npm run deploy
+  filters:
+    branches:
+      only: master
