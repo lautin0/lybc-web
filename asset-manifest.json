@@ -1,16 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.c84703e6.chunk.css",
-    "main.js": "/static/js/main.2d70b122.chunk.js",
+    "main.js": "/static/js/main.5bdffba1.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css": "/static/css/2.610f19ea.chunk.css",
-    "static/js/2.202f2e47.chunk.js": "/static/js/2.202f2e47.chunk.js",
+    "static/js/2.949b37f8.chunk.js": "/static/js/2.949b37f8.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.202f2e47.chunk.js.LICENSE.txt": "/static/js/2.202f2e47.chunk.js.LICENSE.txt",
+    "static/js/2.949b37f8.chunk.js.LICENSE.txt": "/static/js/2.949b37f8.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
     "static/media/bg1.71a28027.jpg": "/static/media/bg1.71a28027.jpg",
     "static/media/bg13.b126abbc.jpg": "/static/media/bg13.b126abbc.jpg",
     "static/media/bg8.2c89438b.jpg": "/static/media/bg8.2c89438b.jpg",
+    "static/media/lightbulb.265ea923.jpg": "/static/media/lightbulb.265ea923.jpg",
     "static/media/lightbulb_sm.02a31ca1.jpg": "/static/media/lightbulb_sm.02a31ca1.jpg",
     "static/media/login.ab931d77.jpg": "/static/media/login.ab931d77.jpg",
     "static/media/ly_bg6.25f31c86.jpg": "/static/media/ly_bg6.25f31c86.jpg",
@@ -25,8 +26,8 @@
   "entrypoints": [
     "static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css",
-    "static/js/2.202f2e47.chunk.js",
+    "static/js/2.949b37f8.chunk.js",
     "static/css/main.c84703e6.chunk.css",
-    "static/js/main.2d70b122.chunk.js"
+    "static/js/main.5bdffba1.chunk.js"
   ]
 }
