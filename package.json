@@ -67,7 +67,7 @@
     "minify-sass": "node-sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.css --source-map true",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -m ‘auto commit [ci skip]’ -d build",
+    "deploy": "gh-pages -m 'auto commit [ci skip]' -d build",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
