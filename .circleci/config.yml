@@ -3,6 +3,8 @@ version: 2.1
 # Use a package of configuration called an orb.
 jobs:
   build:
+    only:
+      - master
     docker:
       # specify the version you desire here
       - image: circleci/node:latest
