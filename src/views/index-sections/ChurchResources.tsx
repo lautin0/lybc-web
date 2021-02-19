@@ -75,8 +75,9 @@ function ChurchResources() {
           </Col>
           <Col className="animated animate__animated text-center" md="6" lg="3">
             <Card
+              onClick={() => { history.push('/news-list') }}
               className="text-center"
-              style={{ maxWidth: 350 }}
+              style={{ cursor: 'pointer', maxWidth: 350 }}
             >
               <Card.Img src={news} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               <Card.Body>

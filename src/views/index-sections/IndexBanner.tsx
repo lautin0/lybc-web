@@ -96,7 +96,7 @@ function IndexBanner() {
               </Col>
             </Row>
             <div className="text-center" style={{ marginBottom: 100, fontSize: 24 }}>
-              <Button className="btn-info" size="lg" as={Link} to="/about-us">{intl.formatMessage({ id: "app.buttons.explore" })}</Button>
+              <Button className="btn-info" size="lg" as={Link} to="/contact-us">{intl.formatMessage({ id: "app.buttons.explore" })}</Button>
             </div>
           </Container>
         </div>
