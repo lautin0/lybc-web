@@ -5,6 +5,7 @@ import bg8 from "assets/img/bg8.jpg"
 import sermon from 'assets/img/sermon.jpg'
 import microphone from 'assets/img/microphone.jpg'
 import signpost from 'assets/img/signpost_md.jpg'
+import news from "assets/img/lightbulb.jpg";
 
 type UniversalsInfo = {
     TITLE_MAP: any
@@ -28,7 +29,9 @@ const UNIVERSALS: UniversalsInfo = {
         'preacher-message': { title: 'app.title.preacher-message', subtitle: 'app.subtitle.preacher-message', bg: bg8 },
         'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: microphone },
         'sharing': { title: 'app.title.sharing', subtitle: null },
-        'library': { title: 'app.title.books-enquiry', subtitle: null }
+        'library': { title: 'app.title.books-enquiry', subtitle: null },
+        'news': { title: 'app.latest-updates', subtitle: null },
+        'news-list': { title: 'app.latest-updates', subtitle: null, bg: news }
     },
     MENU_HIERARCHY: {
         index: {
@@ -45,7 +48,7 @@ const UNIVERSALS: UniversalsInfo = {
                     }
                 },
                 'about-church': {
-                    title: 'app.menu.about-us',
+                    title: 'app.menu.about-us.lybc',
                     child: {
                         'about-us': {
                             title: 'app.menu.about-us.abwe',
@@ -62,6 +65,10 @@ const UNIVERSALS: UniversalsInfo = {
                         'doctrine': {
                             title: 'app.menu.about-us.doctrine',
                             link: '/doctrine',
+                        },
+                        'careers': {
+                            title: 'app.title.careers',
+                            link: '/careers',
                         }
                     }
                 },
@@ -85,6 +92,15 @@ const UNIVERSALS: UniversalsInfo = {
                                 }
                             }
                         }
+                    }
+                },
+                'news-list': {
+                    title: 'app.latest-updates',
+                    link: '/news-list',
+                    child: {
+                        'news': {
+                            title: "app.content",                            
+                        },
                     }
                 },
                 'worship-list': {

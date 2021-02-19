@@ -13,6 +13,7 @@ import Doctrine from "views/about/Doctrine";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
 import WorshipList from "views/worship/WorshipList";
 import SharingList from "views/articles/SharingList";
+import LatestNewsList from "views/latest/LatestNewsList";
 
 type MainPageProps = {
 
@@ -49,6 +50,7 @@ function MainPage(props: MainPageProps) {
         {props.page === 'worship-list' && <WorshipList />}
         {props.page === 'preacher-message' && <PreacherMessage />}
         {props.page === 'sharing-list' && <SharingList />}
+        {props.page === 'news-list' && <LatestNewsList />}
         <DefaultFooter />
       </div>
     </>

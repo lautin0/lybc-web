@@ -179,7 +179,7 @@ function IndexNavbar() {
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/news-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.latest-updates" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/apply-activity" onClick={() => setCollapseOpen(!collapseOpen)}>

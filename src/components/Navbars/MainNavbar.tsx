@@ -118,10 +118,10 @@ function MainNavbar(props: MainNavbarProps) {
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/news-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.latest-updates" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/apply-activity">
+                <NavDropdown.Item as={Link} to="/apply-activity" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.activity.apply" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item>
@@ -149,13 +149,13 @@ function MainNavbar(props: MainNavbarProps) {
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
                 onMouseLeave={(e: any) => hideDropdown(e, 1)}
               >
-                <NavDropdown.Item as={Link} to="/journal">
+                <NavDropdown.Item as={Link} to="/journal" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.resources.journal" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/sharing-list">
+                <NavDropdown.Item as={Link} to="/sharing-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.resources.sharing" })}
                 </NavDropdown.Item>
-                {tokenPair?.token && <NavDropdown.Item as={Link} to="/library">
+                {tokenPair?.token && <NavDropdown.Item as={Link} to="/library" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.resources.books-enquiry" })}
                 </NavDropdown.Item>}
               </NavDropdown>
@@ -169,7 +169,7 @@ function MainNavbar(props: MainNavbarProps) {
                 {/* <NavDropdown.Item as={Link} to="/about-us">
                   {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
                 </NavDropdown.Item> */}
-                <NavDropdown.Item as={Link} to="/doctrine">
+                <NavDropdown.Item as={Link} to="/doctrine" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item
@@ -182,10 +182,10 @@ function MainNavbar(props: MainNavbarProps) {
                 >
                   {intl.formatMessage({ id: "app.menu.about-us.contact" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/preacher-message">
+                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/careers">
+                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.title.careers" })}
                 </NavDropdown.Item>
               </NavDropdown>

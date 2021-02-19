@@ -31,7 +31,7 @@ function DarkFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/news-list">
                 {intl.formatMessage({ id: "app.latest-updates" })}
               </Link>
             </li>
