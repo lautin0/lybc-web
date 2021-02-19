@@ -158,10 +158,10 @@ function SharingList() {
               })}
             </Col>
             <Col className="d-none d-md-block" lg={4}>
-              <div className="mt-5" style={{ position: 'sticky', top: '20vh', fontSize: 20 }}>
+              {/* <div className="mt-5" style={{ position: 'sticky', top: '20vh', fontSize: 20 }}>
                 <div className="ml-5"><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>
                 <div className="text-center"><i>---暫無文章---</i></div>
-              </div>
+              </div> */}
             </Col>
           </Row>}
         </Container>
