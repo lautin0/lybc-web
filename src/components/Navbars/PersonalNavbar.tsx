@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
-  Button,
   Navbar
 } from "react-bootstrap";
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils';
-import { Role } from "generated/graphql";
+import { Role, User } from "generated/graphql";
+import logo from "assets/img/lybc_logo.png";
+import { useQuery } from "@apollo/client";
+import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
+import UNIVERSALS from "Universals";
+import defaultAvatar from "assets/img/default-avatar.png";
 
 function PersonalNavbar() {
 
@@ -16,24 +20,25 @@ function PersonalNavbar() {
 
   const location = useLocation();
 
-  const dispatch = useDispatch();
+  const { loading, data: profilePicData } = useQuery<
+    { user: User },
+    { username: string }
+  >(
+    GET_USER_PROFILE_PIC_URI,
+    {
+      variables: {
+        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      },
+      notifyOnNetworkStatusChange: true
+    }
+  )
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
-  const [navbarColor, setNavbarColor] = useState("");
+  const [, setNavbarColor] = useState("");
   const [collapseOpen, setCollapseOpen] = useState(false);
 
   const [show, setShow] = useState([false, false, false]);
-  const showDropdown = (e: any, idx: number) => {
-    let clone = [...show].map(x => false);
-    clone[idx] = !show[idx]
-    setShow(clone);
-  }
-  const hideDropdown = (e: any, idx: number) => {
-    let clone = [...show];
-    clone[idx] = false
-    setShow(clone);
-  }
 
   useEffect(() => {
     const updateNavbarColor = () => {
@@ -66,11 +71,11 @@ function PersonalNavbar() {
           }}
         />
       ) : null}
-      <Navbar expand="lg" style={{ background: 'white' }}>
+      <Navbar expand="lg" style={{ background: '#161b22' }}>
         <div className="navbar-translate navbar-admin-translate">
           <Navbar.Brand
             className="d-none d-lg-block"
-            style={{ color: 'gray', fontWeight: 'bold', fontSize: 24 }}
+            style={{ color: 'lightgray', fontWeight: 'bold', fontSize: 18 }}
             href="#pablo"
             id="admin-index-navbar-brand"
             onClick={(e: any) => {
@@ -79,6 +84,11 @@ function PersonalNavbar() {
               history.push('/')
             }}
           >
+            <img
+              style={{ maxHeight: 30, maxWidth: 30, marginRight: 10 }}
+              alt="logo"
+              src={logo}
+            ></img>
             <b>個人中心</b>
           </Navbar.Brand>
           <div className="d-block d-lg-none">
@@ -146,25 +156,49 @@ function PersonalNavbar() {
         <div className="form-inline">
           {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
           {/* <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button> */}
-          <Link
+          {/* <Link
             to="/index"
             className="mx-3"
-            style={{ color: 'navy' }}
+            style={{ color: 'lightgray' }}
           >
             回主頁
+          </Link> */}
+          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <>
+            <Link
+              className="nav-link"
+              href="#pablo"
+              id="profile"
+              to="/admin"
+              style={{ color: 'lightgray' }}
+            // onClick={() => setCollapseOpen(!collapseOpen)}
+            >
+              <i className="fa fa-cog" style={{ fontSize: 14 }}></i>
+              <p>前往控制台</p>
             </Link>
-          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <Button
-            className="nav-link"
-            style={{ background: 'navy' }}
-            href="#pablo"
-            id="profile"
-            as={Link}
-            to="/admin"
-          // onClick={() => setCollapseOpen(!collapseOpen)}
-          >
-            <i className="fa fa-cog" style={{ fontSize: 14 }}></i>
-            <p>前往控制台</p>
-          </Button>}
+            <Link
+              className="nav-link"
+              href="#pablo"
+              id="profile"
+              to="/personal"
+              style={{
+                color: 'lightgray',
+                alignItems: 'center',
+                justifyContent: 'center',
+                display: 'flex',
+                paddingTop: 10
+              }}
+              onClick={e => e.preventDefault()}
+            >
+              {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
+              <div className="profile-page mr-2">
+                <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 28, height: 28 }}>
+                  {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
+                  {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+                </div>
+              </div>
+              <p>{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
+            </Link>
+          </>}
         </div>
       </Navbar>
     </>

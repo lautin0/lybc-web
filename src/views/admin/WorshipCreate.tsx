@@ -144,7 +144,7 @@ function WorshipCreate() {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h2>
+        <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3>
         <Form.Row>
           <InputText
             name="title"

@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
-  Button,
   Navbar
 } from "react-bootstrap";
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue } from 'utils/utils';
+import logo from "assets/img/lybc_logo.png";
+import { useQuery } from "@apollo/client";
+import { User } from "generated/graphql";
+import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
+import defaultAvatar from "assets/img/default-avatar.png";
+import UNIVERSALS from "Universals";
 
 function AdminNavbar() {
 
@@ -21,6 +26,19 @@ function AdminNavbar() {
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");
   const [collapseOpen, setCollapseOpen] = useState(false);
+
+  const { loading, data: profilePicData } = useQuery<
+    { user: User },
+    { username: string }
+  >(
+    GET_USER_PROFILE_PIC_URI,
+    {
+      variables: {
+        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      },
+      notifyOnNetworkStatusChange: true
+    }
+  )
 
   const [show, setShow] = useState([false, false, false]);
   const showDropdown = (e: any, idx: number) => {
@@ -65,11 +83,11 @@ function AdminNavbar() {
           }}
         />
       ) : null}
-      <Navbar expand="lg" style={{ background: 'white' }}>
+      <Navbar expand="lg" style={{ background: '#292961' }}>
         <div className="navbar-translate navbar-admin-translate">
           <Navbar.Brand
             className="d-none d-lg-block"
-            style={{ color: 'gray', fontWeight: 'bold', fontSize: 24 }}
+            style={{ color: 'lightgray', fontWeight: 'bold', fontSize: 18 }}
             href="#pablo"
             id="admin-index-navbar-brand"
             onClick={(e: any) => {
@@ -78,6 +96,11 @@ function AdminNavbar() {
               history.push('/')
             }}
           >
+            <img
+              style={{ maxHeight: 30, maxWidth: 30, marginRight: 10 }}
+              alt="logo"
+              src={logo}
+            ></img>
             <b>管理控制台</b>
           </Navbar.Brand>
           <div className="d-block d-lg-none">
@@ -157,25 +180,36 @@ function AdminNavbar() {
         <div className="form-inline">
           {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
           {/* <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button> */}
-          <Link
+          {/* <Link
             to="/index"
             className="mx-3"
-            style={{ color: 'orange' }}
+            style={{ color: 'lightgray' }}
           >
             回主頁
-            </Link>
-          <Button
+          </Link> */}
+          <Link
             className="nav-link"
-            // color="success"
             href="#pablo"
             id="profile"
-            as={Link}
             to="/personal"
+            style={{ 
+              color: 'lightgray',
+              alignItems: 'center',
+              justifyContent: 'center',
+              display: 'flex',
+              paddingTop: 10
+             }}
           // onClick={() => setCollapseOpen(!collapseOpen)}
           >
-            <i className="fas fa-user" style={{ fontSize: 14 }}></i>
+            {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
+            <div className="profile-page mr-2">
+              <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 28, height: 28 }}>
+                {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
+                {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+              </div>
+            </div>
             <p>{getTokenValue(tokenPair?.token)?.username}</p>
-          </Button>
+          </Link>
         </div>
       </Navbar>
     </>

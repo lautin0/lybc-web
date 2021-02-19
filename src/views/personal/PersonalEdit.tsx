@@ -160,7 +160,7 @@ function PersonalEdit() {
   }, [watchType, trigger])
 
   return (
-    <>
+    <div className="mt-5">
       {(!loading && userData != null) && <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div {...getRootProps({ className: 'dropzone' })}>
@@ -295,7 +295,7 @@ function PersonalEdit() {
         </Form>
       </FormProvider>}
       { (loading && userData == null) && <h3>loading data, please wait...</h3>}
-    </>
+    </div>
   );
 }
 
