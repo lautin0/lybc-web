@@ -11,7 +11,7 @@ function InputTextArea(props: InputTextProps = initInputTextState) {
   const { register, errors } = useFormContext()
 
   return <Form.Group as={Col} md={md} sm={sm}>
-    <Form.Label className={(!skipValidate && errors[name]) ? "admin invalid" : ""}>{label}</Form.Label>
+    <Form.Label style={{ fontSize: 18 }} className={(!skipValidate && errors[name]) ? "admin invalid" : ""}>{label}</Form.Label>
     <Form.Control
       className={(!skipValidate && errors[name]) ? "form-control admin invalid" : "form-control admin"}
       style={{

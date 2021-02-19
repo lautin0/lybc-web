@@ -172,7 +172,7 @@ function WorshipEdit() {
           label={`檔案${idx + 1}連結`}
           isReadOnly={isReadOnly}
           placeholder="e.g. https://www.abc.com/"
-          md={6}
+          md={5}
           sm={12}
           skipValidate={true}
         />
@@ -180,7 +180,7 @@ function WorshipEdit() {
           name={`docs[${idx}].title`}
           label="名稱"
           isReadOnly={isReadOnly}
-          md={3}
+          md={{ span: 3, offset: 1 }}
           sm={12}
           skipValidate={true}
         />
@@ -189,11 +189,11 @@ function WorshipEdit() {
           label="檔案類型"
           isReadOnly={isReadOnly}
           ds={docTypes}
-          md={3}
+          md={2}
           sm={12}
           skipValidate={true}
         />
-        {!isReadOnly && <Form.Group as={Col} className="text-right" md={12}>
+        {!isReadOnly && <Form.Group as={Col} className="text-right" md={11}>
           <Button className="mx-1" onClick={() => addRow()} variant="info"><i className="fa fa-plus"></i></Button>
           {fields.length > 1 && <Button onClick={() => remove(idx)} variant="info"><i className="fa fa-trash"></i></Button>}
         </Form.Group>}
@@ -218,6 +218,7 @@ function WorshipEdit() {
             name="title"
             label="講題"
             placeholder="請輸入講題"
+            md={5}
             isReadOnly={isReadOnly}
             validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
           />
@@ -226,6 +227,7 @@ function WorshipEdit() {
             label="日期"
             placeholder="YYYYMMDD"
             isReadOnly={isReadOnly}
+            md={{ span: 5, offset: 1 }}
             strongReadOnly={true}
           />
         </Form.Row>
@@ -235,6 +237,7 @@ function WorshipEdit() {
             label="分類"
             isReadOnly={isReadOnly}
             ds={dropdownData}
+            md={5}
             validateFn={Validators.NoWhiteSpace}
           />
           <InputText
@@ -242,6 +245,7 @@ function WorshipEdit() {
             label="講員"
             placeholder="請輸入講員姓名"
             isReadOnly={isReadOnly}
+            md={{ span: 5, offset: 1 }}
             validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
           />
         </Form.Row>
@@ -249,6 +253,7 @@ function WorshipEdit() {
           <InputText
             name="link"
             label="影片連結"
+            md={11}
             placeholder="e.g. https://www.abc.com/"
             isReadOnly={isReadOnly}
           />

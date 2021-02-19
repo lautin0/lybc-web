@@ -32,9 +32,9 @@ export type InputDropdownProps = {
   
   isReadOnly?: boolean,
     
-  md?: number,
+  md?: number | { span: number, offset?: number },
   
-  sm?: number,
+  sm?: number | { span: number, offset?: number },
   
   skipValidate?: boolean,
 

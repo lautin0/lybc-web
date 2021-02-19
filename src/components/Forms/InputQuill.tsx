@@ -27,7 +27,7 @@ function InputQuill({ name, label, isReadOnly }: any) {
   }), []);
 
   return <>
-    <Form.Label>{label}</Form.Label>
+    <Form.Label style={{ fontSize: 18 }}>{label}</Form.Label>
     <Controller
       control={control}
       name={name}
