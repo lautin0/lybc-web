@@ -102,9 +102,9 @@ function PersonalNavbar() {
               aria-expanded={collapseOpen}
               type="button"
             >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin top-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin middle-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin bottom-bar"></span>
             </button>
           </div>
         </div>
@@ -163,6 +163,13 @@ function PersonalNavbar() {
           >
             回主頁
           </Link> */}
+          <Link
+            to="/index"
+            className="mx-3"
+            style={{ color: 'lightgray' }}
+          >
+            <i className="fas fa-home" style={{ fontSize: 18 }}></i>
+          </Link>
           {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <>
             <Link
               className="nav-link"
@@ -172,8 +179,7 @@ function PersonalNavbar() {
               style={{ color: 'lightgray' }}
             // onClick={() => setCollapseOpen(!collapseOpen)}
             >
-              <i className="fa fa-cog" style={{ fontSize: 14 }}></i>
-              <p>前往控制台</p>
+              <i className="fa fa-cog" style={{ fontSize: 18 }}></i>
             </Link>
             <Link
               className="nav-link"
@@ -191,12 +197,12 @@ function PersonalNavbar() {
             >
               {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
               <div className="profile-page mr-2">
-                <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 28, height: 28 }}>
+                <div className="photo-container mb-3 my-auto ml-3 mx-auto" style={{ width: 28, height: 28 }}>
                   {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
                   {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
                 </div>
               </div>
-              <p>{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
+              <p className="d-none d-md-inline-block">{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
             </Link>
           </>}
         </div>

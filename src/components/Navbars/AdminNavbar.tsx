@@ -114,9 +114,9 @@ function AdminNavbar() {
               aria-expanded={collapseOpen}
               type="button"
             >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin top-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin middle-bar"></span>
+              <span className="navbar-toggler-bar toggler-bar-admin bottom-bar"></span>
             </button>
           </div>
         </div>
@@ -180,13 +180,13 @@ function AdminNavbar() {
         <div className="form-inline">
           {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
           {/* <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button> */}
-          {/* <Link
+          <Link
             to="/index"
             className="mx-3"
             style={{ color: 'lightgray' }}
           >
-            回主頁
-          </Link> */}
+              <i className="fas fa-home" style={{ fontSize: 18 }}></i>
+          </Link>
           <Link
             className="nav-link"
             href="#pablo"
@@ -203,12 +203,12 @@ function AdminNavbar() {
           >
             {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
             <div className="profile-page mr-2">
-              <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 28, height: 28 }}>
+              <div className="photo-container mb-3 my-auto ml-3 mx-auto" style={{ width: 28, height: 28 }}>
                 {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
                 {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
               </div>
             </div>
-            <p>{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
+            <p className="d-none d-md-inline-block">{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>
           </Link>
         </div>
       </Navbar>
