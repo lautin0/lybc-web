@@ -293,17 +293,18 @@ button.btn-link {
 .blog-text {
 
     margin-right: 20px;
-    color: gray;
-    cursor: pointer;
+    color: gray;    
 
     @media screen and (min-width: 576px) {
         .header {
             color: black;
             font-size: 22px;
+            cursor: pointer;
         }
         .quote {
             font-size: 18px;
             margin-top: 20px;
+            cursor: pointer;
         }
         .footer {
             padding: 0;

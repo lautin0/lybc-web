@@ -126,31 +126,34 @@ function SharingList() {
           {(!loading && data) && <Row className="my-1">
             <Col md={12} lg={8}>
               {data.map((p: Post) => {
-                return <div key={p._id} className="my-5" onClick={() => { navigate(p._id) }}>
+                return <div key={p._id} className="my-5">
                   <div className={css.blog}>
                     <div className={css.blogText}>
-                      <div className={css.blogOP}>
+                      <div className={css.blogOP} onClick={() => { navigate(p._id) }}>
                         {p.user.nameC}{getTitleDisplay(p)}
                       </div>
-                      <div className={css.blogHeader}>
+                      <div className={css.blogHeader} onClick={() => { navigate(p._id) }}>
                         <b>{p.title}</b>
                       </div>
-                      <label className={css.blogQuote}>
+                      <label className={css.blogQuote} onClick={() => { navigate(p._id) }}>
                         {p.subtitle && trimSubtitle(p.subtitle)}
                       </label>
-                      <p className={css.blogFooter}>
-                        {<FormattedDate
-                          value={moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
-                          year="numeric"
-                          month="short"
-                          day="numeric"
-                        />}
-                      </p>
+                      <div className="d-flex justify-content-between">
+                        <p className={css.blogFooter}>
+                          {<FormattedDate
+                            value={moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                            year="numeric"
+                            month="short"
+                            day="numeric"
+                          />}
+                        </p>
+                        {/* <i className="far fa-bookmark pt-1"></i> */}
+                      </div>
                     </div>
-                    <div className={css.blogImg}>
+                    <div className={css.blogImg} onClick={() => { navigate(p._id) }}>
                       {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
-                    <div className={css.blogImgMobile}>
+                    <div className={css.blogImgMobile} onClick={() => { navigate(p._id) }}>
                       {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                   </div>
