@@ -24,7 +24,7 @@ import loginImg from "assets/img/login.jpg";
 import { Login, TokenPair } from "generated/graphql";
 import { useIntl } from "react-intl";
 
-function LoginPage() {
+function LoginPage({ loginFn }: any) {
 
   const intl = useIntl()
 
@@ -34,7 +34,7 @@ function LoginPage() {
 
   //const userDef = useSelector((state: RootState) => state.auth.user)
 
-  const { register, handleSubmit, errors } = useForm()
+  const { reset, register, handleSubmit, errors } = useForm()
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
@@ -56,10 +56,15 @@ function LoginPage() {
 
   const onSubmit = (data: any) => {
     const payload: LoginInput = { username: data.username, password: data.password }
+    if(loginFn != null){
+      loginFn(payload)
+      reset()
+      return
+    }    
     login({ variables: { input: payload } })
       .catch(err =>
         dispatch(signInFailure(err))
-      )
+      )    
   }
 
   useEffect(() => {
@@ -138,7 +143,7 @@ function LoginPage() {
                       // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.username && <label style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
+                    {errors.username && <label role="alert" style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -167,7 +172,7 @@ function LoginPage() {
                       // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
-                    {errors.password && <label style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
+                    {errors.password && <label role="alert" style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}
                   </Card.Body>
                   <Card.Footer className="text-center">
                     <Button
