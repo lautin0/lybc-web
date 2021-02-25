@@ -37,16 +37,24 @@ function SharingList() {
   const [data, setData] = useState<Post[]>()
 
   const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
-  // const [addFavPost, { data: addResult }] = useMutation<
-  //   { favPost: FavouritePost },
-  //   { input: UpdateFavouritePost }
-  // >(ADD_FAV_POST, {
-  //   refetchQueries: [
-  //     { query: GET_POSTS },
-  //     { query: GET_FAVOURITE_POST, variables: { username: getTokenValue(tokenPair?.token).username } }
-  //   ]
-  // });
-  // const [removeFavPost, { data: removeResult }] = useMutation<{ favPost: FavouritePost }, { input: UpdateFavouritePost }>(REMOVE_FAV_POST);
+  const [addFavPost] = useMutation<
+    { favPost: FavouritePost },
+    { input: UpdateFavouritePost }
+  >(ADD_FAV_POST, {
+    refetchQueries: [
+      { query: GET_POSTS },
+      { query: GET_FAVOURITE_POST }
+    ]
+  });
+  const [removeFavPost] = useMutation<
+    { favPost: FavouritePost },
+    { input: UpdateFavouritePost }
+  >(REMOVE_FAV_POST, {
+    refetchQueries: [
+      { query: GET_POSTS },
+      { query: GET_FAVOURITE_POST }
+    ]
+  });
 
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
@@ -86,31 +94,29 @@ function SharingList() {
     }
   }, [postData])
 
-  // const handleAddFavPost = (id: string) => {
-  //   addFavPost({
-  //     variables: {
-  //       input: {
-  //         username: getTokenValue(tokenPair?.token).username,
-  //         postID: id
-  //       },
-  //     }
-  //   }).catch(e => {
-  //     dispatch(setSystemFailure(e))
-  //   })
-  // }
-
-  // const handleRemoveFavPost = (id: string) => {
-  //   removeFavPost({
-  //     variables: {
-  //       input: {
-  //         username: getTokenValue(tokenPair?.token).username,
-  //         postID: id
-  //       },
-  //     }
-  //   }).catch(e => {
-  //     dispatch(setSystemFailure(e))
-  //   })
-  // }
+  const handleFavPost = (isFavourited: boolean, id: string) => {
+    if (isFavourited) {
+      removeFavPost({
+        variables: {
+          input: {
+            postID: id
+          },
+        }
+      }).catch(e => {
+        dispatch(setSystemFailure(e))
+      })
+    } else {
+      addFavPost({
+        variables: {
+          input: {
+            postID: id
+          },
+        }
+      }).catch(e => {
+        dispatch(setSystemFailure(e))
+      })
+    }
+  }
 
   const trimSubtitle = (txt: string) => {
     if (txt.length <= 50) {
@@ -154,21 +160,21 @@ function SharingList() {
             {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
           <hr></hr>
-          {(loading || !postData || !data) && <Row className="mt-5 text-center">
-              <div className="w-100">
-                <div className="spinner-grow text-secondary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
+          {(tokenPair?.token == null && (loading || !postData || !data)) && <Row className="mt-5 text-center">
+            <div className="w-100">
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="sr-only">Loading...</span>
               </div>
-            </Row>}
+            </div>
+          </Row>}
           <Row className="my-1">
-            {/* {(loading || !postData || !data) && <Col className="mt-5 text-center" md={12} lg={8}>
+            {(tokenPair?.token != null && (loading || !postData || !data)) && <Col className="mt-5 text-center" md={12} lg={8}>
               <div className="w-100">
                 <div className="spinner-grow text-secondary" role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>
-            </Col>} */}
+            </Col>}
             {(!loading && data) && <Col md={12} lg={8}>
               {data.map((p: Post) => {
                 return <div key={p._id} className="my-5">
@@ -192,11 +198,11 @@ function SharingList() {
                             day="numeric"
                           />}
                         </p>
-                        {/* <i
-                          onClick={() => handleAddFavPost(p._id)}
-                          className="far fa-bookmark pt-1"
+                        {tokenPair?.token != null && <i
+                          onClick={() => handleFavPost(p.isFavourited, p._id)}
+                          className={`${p.isFavourited ? "fas" : "far"} fa-bookmark pt-1`}
                           style={{ cursor: 'pointer' }}
-                        ></i> */}
+                        ></i>}
                       </div>
                     </div>
                     <div className={css.blogImg} onClick={() => { navigate(p._id) }}>
@@ -210,7 +216,7 @@ function SharingList() {
               })}
             </Col>}
             <Col className="d-none d-md-block" lg={4}>
-              {/* <FavouritePostList username={getTokenValue(tokenPair?.token).username} /> */}
+              {tokenPair?.token != null && <FavouritePostList />}
             </Col>
           </Row>
         </Container>

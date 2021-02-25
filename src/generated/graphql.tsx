@@ -197,11 +197,6 @@ export type Query = {
 };
 
 
-export type QueryFavouritePostsArgs = {
-  username: Scalars['String'];
-};
-
-
 export type QueryNameCardArgs = {
   oid?: Maybe<Scalars['String']>;
 };
@@ -283,6 +278,7 @@ export type Post = {
   creDttm: Scalars['Time'];
   reactions: Array<Maybe<Reaction>>;
   imageURI?: Maybe<Scalars['String']>;
+  isFavourited: Scalars['Boolean'];
 };
 
 export type NewPost = {
@@ -335,7 +331,6 @@ export type FavouritePost = {
 };
 
 export type UpdateFavouritePost = {
-  username: Scalars['String'];
   postID: Scalars['String'];
 };
 

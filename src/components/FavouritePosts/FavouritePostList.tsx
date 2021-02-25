@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import UNIVERSALS from 'Universals'
 import defaultAvatar from "assets/img/default-avatar.png";;
 
-function FavouritePostList({ username }: any) {
+function FavouritePostList() {
 
   const location = useLocation()
   const history = useHistory()
@@ -16,7 +16,7 @@ function FavouritePostList({ username }: any) {
   const { loading, data: favPostData, refetch } = useQuery<
     { favouritePosts: FavouritePost[] },
     { username: string }
-  >(GET_FAVOURITE_POST, { variables: { username: username }, notifyOnNetworkStatusChange: true })
+  >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     favPostData && refetch();
@@ -39,7 +39,7 @@ function FavouritePostList({ username }: any) {
   return <div className="p-3" style={{ position: 'sticky', top: '20vh', fontSize: 20, background: 'rgba(240,240,240,.7)', minHeight: '20vmin' }}>
     <div><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>
     {(loading || !favPostData) && <div className="mt-5 text-center w-100">
-      <div className="spinner-grow text-secondary" role="status">
+      <div className="spinner-border text-secondary" role="status">
         <span className="sr-only">Loading...</span>
       </div>
     </div>}
@@ -62,9 +62,9 @@ function FavouritePostList({ username }: any) {
             </div>
             <div style={{ fontSize: 13 }}>{x.post?.user.nameC + getTitleDisplay(x.post!)}</div>
           </div>
-          <div 
-            onClick={e => { history.push('sharing/' + x.post?._id) }} 
-            className="mb-2" 
+          <div
+            onClick={e => { history.push('sharing/' + x.post?._id) }}
+            className="mb-2"
             style={{ fontSize: 16, fontWeight: 'bold', cursor: 'pointer' }}
           >{x.post?.title}</div>
           <div style={{ fontSize: 13 }}>{<FormattedDate

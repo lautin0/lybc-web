@@ -13,17 +13,15 @@ function usePost({ id }: any) {
   const [addComment, { data: comment }] = useMutation<
     { createPost: Post },
     { input: NewPost }
-  >(ADD_POST);
+  >(ADD_POST, {
+    refetchQueries: [
+      { query: GET_POST, variables: { oid: id } }
+    ]
+  })
 
   useEffect(() => {
     !called && loadingPost()
   }, [called, loadingPost])
-
-  useEffect(() => {
-    if (comment !== undefined) {
-      refetch && refetch()
-    }
-  }, [comment, refetch])
 
   useEffect(() => {
     if (loading !== undefined)

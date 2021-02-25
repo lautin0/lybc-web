@@ -22,17 +22,19 @@ function NotificationBell(props: any) {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
+  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
     (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
   const [readNotification] = useMutation<
     { readNotification: string },
     { input: string }
-  >(READ_NOTIFICATIONS)
+  >(READ_NOTIFICATIONS, {
+    refetchQueries: [
+      { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }
+    ]
+  })
 
   useEffect(() => {
-    refetch && setTimeout(() => {
-      refetch()
-    }, 200);
+    refetch && refetch()
   }, [location, refetch])
 
   const handleClick = (i: number) => {
@@ -68,7 +70,7 @@ function NotificationBell(props: any) {
     </NavDropdown.Item>
     <NavDropdown.Divider />
     {data && data.notifications.length === 0 && <div className="w-100 text-center text-secondary">{intl.formatMessage({ id: "app.notification.no-record" })}</div>}
-    {(data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
+    {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
       return <div key={e._id}>
         <NavDropdown.Item
           as={Link}

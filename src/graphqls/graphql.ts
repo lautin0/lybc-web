@@ -120,12 +120,12 @@ export const GET_POSTS = gql`
     posts{
       _id
       title
-      subtitle
-      content
+      subtitle      
       creDttm
       type
       imageURI
       parantId
+      isFavourited
       user{
         username
         name
@@ -134,30 +134,6 @@ export const GET_POSTS = gql`
         gender
         title
         titleC
-      }
-      reactions {
-        username
-        type
-      }
-      comments {
-        _id
-        title
-        subtitle
-        content
-        creDttm
-        user{
-          username
-          name
-          nameC
-          role
-          gender
-          title
-          titleC
-        }
-        reactions {
-          username
-          type
-        }
       }
     }
   }
@@ -488,8 +464,8 @@ export const APPROVE_POST = gql`
 `
 
 export const GET_FAVOURITE_POST = gql`
-  query favouritePosts($username: String!){
-    favouritePosts(username: $username){
+  query favouritePosts{
+    favouritePosts{
       _id
       username
       lupdDttm
