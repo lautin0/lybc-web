@@ -38,7 +38,18 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(uploadLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    typePolicies: {
+      Post: {
+        fields: {
+          user: {
+            // Short for options.mergeObjects(existing, incoming).
+            merge: true,
+          },
+        },
+      },
+    },
+  })
 });
 
 export function getClient() {

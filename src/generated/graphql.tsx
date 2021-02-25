@@ -30,6 +30,7 @@ export type TokenPair = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addFavouritePost: Scalars['Int'];
   approvePost: Post;
   changePassword?: Maybe<Scalars['Boolean']>;
   createNameCard: NameCard;
@@ -43,10 +44,16 @@ export type Mutation = {
   react: Post;
   readNotification: Notification;
   refreshToken: TokenPair;
+  removeFavouritePost: Scalars['Int'];
   updateNameCard: NameCard;
   updatePendingPost: PendingPost;
   updateUser: User;
   updateWorship: Worship;
+};
+
+
+export type MutationAddFavouritePostArgs = {
+  input?: Maybe<UpdateFavouritePost>;
 };
 
 
@@ -120,6 +127,11 @@ export type MutationRefreshTokenArgs = {
 };
 
 
+export type MutationRemoveFavouritePostArgs = {
+  input?: Maybe<UpdateFavouritePost>;
+};
+
+
 export type MutationUpdateNameCardArgs = {
   input: UpdateNameCard;
 };
@@ -168,6 +180,7 @@ export type UpdateNameCard = {
 
 export type Query = {
   __typename?: 'Query';
+  favouritePosts: Array<Maybe<FavouritePost>>;
   maxWorshipId: Scalars['Int'];
   nameCard?: Maybe<NameCard>;
   nameCards: Array<NameCard>;
@@ -181,6 +194,11 @@ export type Query = {
   users: Array<User>;
   worship?: Maybe<Worship>;
   worships: Array<Worship>;
+};
+
+
+export type QueryFavouritePostsArgs = {
+  username: Scalars['String'];
 };
 
 
@@ -305,6 +323,20 @@ export type UpdatePendingPost = {
   remarks?: Maybe<Scalars['String']>;
   status: PostStatus;
   approveUsername?: Maybe<Scalars['String']>;
+};
+
+export type FavouritePost = {
+  __typename?: 'FavouritePost';
+  _id: Scalars['ObjectID'];
+  username: Scalars['String'];
+  lupdDttm: Scalars['Time'];
+  postID: Scalars['ObjectID'];
+  post?: Maybe<Post>;
+};
+
+export type UpdateFavouritePost = {
+  username: Scalars['String'];
+  postID: Scalars['String'];
 };
 
 export type PostFilter = {

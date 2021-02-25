@@ -56,6 +56,19 @@ input UpdatePendingPost {
 	approveUsername: String
 }
 
+type FavouritePost {
+	_id: ObjectID!
+	username: String!
+	lupdDttm: Time!
+	postID: ObjectID!
+	post: Post
+}
+
+input UpdateFavouritePost {
+	username: String!
+	postID: String!
+}
+
 input PostFilter {
 	AND: [PostFilter!]
 	OR: [PostFilter!]
@@ -130,6 +143,7 @@ extend type Query {
 	post(oid: String!): Post
 	pendingPosts(username: String): [PendingPost!]!
 	pendingPost(oid: String!): PendingPost
+	favouritePosts(username: String!): [FavouritePost]!
 }
 
 extend type Mutation {
@@ -137,4 +151,6 @@ extend type Mutation {
 	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!
 	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!
 	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!
+	addFavouritePost(input: UpdateFavouritePost): Int!
+	removeFavouritePost(input: UpdateFavouritePost): Int!
 }

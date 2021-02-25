@@ -486,3 +486,39 @@ export const APPROVE_POST = gql`
     }
   }
 `
+
+export const GET_FAVOURITE_POST = gql`
+  query favouritePosts($username: String!){
+    favouritePosts(username: $username){
+      _id
+      username
+      lupdDttm
+      post {
+        _id
+        title
+        user {
+          username
+          role
+          nameC
+          titleC
+          gender
+          profilePicURI
+        }
+        imageURI
+        creDttm
+      }
+    }
+  }
+`
+
+export const ADD_FAV_POST = gql`
+  mutation addFavouritePost($input: UpdateFavouritePost!){
+    addFavouritePost(input: $input)
+  }
+`
+
+export const REMOVE_FAV_POST = gql`
+  mutation removeFavouritePost($input: UpdateFavouritePost!){
+    removeFavouritePost(input: $input)
+  }
+`

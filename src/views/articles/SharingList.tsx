@@ -4,16 +4,18 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
-import { GET_POSTS } from "graphqls/graphql";
-import { useQuery } from "@apollo/client";
-import { Post, PostType, Role } from "generated/graphql";
+import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
+import { useMutation, useQuery } from "@apollo/client";
+import { FavouritePost, Post, PostType, Role, UpdateFavouritePost } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
-import { setSysMessage } from "actions";
+import { setSysMessage, setSystemFailure } from "actions";
 import { RootState } from "reducers";
 import { FormattedDate, useIntl } from "react-intl";
 import { useStore } from "store";
+import FavouritePostList from "components/FavouritePosts/FavouritePostList";
+import { getTokenValue } from "utils/utils";
 
 // core components
 
@@ -35,6 +37,16 @@ function SharingList() {
   const [data, setData] = useState<Post[]>()
 
   const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
+  // const [addFavPost, { data: addResult }] = useMutation<
+  //   { favPost: FavouritePost },
+  //   { input: UpdateFavouritePost }
+  // >(ADD_FAV_POST, {
+  //   refetchQueries: [
+  //     { query: GET_POSTS },
+  //     { query: GET_FAVOURITE_POST, variables: { username: getTokenValue(tokenPair?.token).username } }
+  //   ]
+  // });
+  // const [removeFavPost, { data: removeResult }] = useMutation<{ favPost: FavouritePost }, { input: UpdateFavouritePost }>(REMOVE_FAV_POST);
 
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
@@ -55,24 +67,50 @@ function SharingList() {
   }
 
   useEffect(() => {
-    if (postData === undefined)
-      return
-    let tmp: Post[] = [...postData.posts]
-    setData(tmp
-      ?.filter(x => x.type == PostType.Sharing)
-      ?.filter(x => x.parantId == null)
-      .sort((a: Post, b: Post) => {
-        let aDate = moment(a.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
-        let bDate = moment(b.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
-        if (aDate.isAfter(bDate)) {
-          return -1
-        } else if (aDate.isBefore(bDate)) {
-          return 1
-        } else {
-          return 0
-        }
-      }))
+    if (postData !== undefined) {
+      let tmp: Post[] = [...postData.posts]
+      setData(tmp
+        ?.filter(x => x.type == PostType.Sharing)
+        ?.filter(x => x.parantId == null)
+        .sort((a: Post, b: Post) => {
+          let aDate = moment(a.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
+          let bDate = moment(b.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
+          if (aDate.isAfter(bDate)) {
+            return -1
+          } else if (aDate.isBefore(bDate)) {
+            return 1
+          } else {
+            return 0
+          }
+        }))
+    }
   }, [postData])
+
+  // const handleAddFavPost = (id: string) => {
+  //   addFavPost({
+  //     variables: {
+  //       input: {
+  //         username: getTokenValue(tokenPair?.token).username,
+  //         postID: id
+  //       },
+  //     }
+  //   }).catch(e => {
+  //     dispatch(setSystemFailure(e))
+  //   })
+  // }
+
+  // const handleRemoveFavPost = (id: string) => {
+  //   removeFavPost({
+  //     variables: {
+  //       input: {
+  //         username: getTokenValue(tokenPair?.token).username,
+  //         postID: id
+  //       },
+  //     }
+  //   }).catch(e => {
+  //     dispatch(setSystemFailure(e))
+  //   })
+  // }
 
   const trimSubtitle = (txt: string) => {
     if (txt.length <= 50) {
@@ -116,15 +154,22 @@ function SharingList() {
             {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
           <hr></hr>
-          {(loading || !postData || !data) && <Row className="text-center my-5">
-            <div className="w-100">
-              <div className="spinner-grow text-secondary" role="status">
-                <span className="sr-only">Loading...</span>
+          {(loading || !postData || !data) && <Row className="mt-5 text-center">
+              <div className="w-100">
+                <div className="spinner-grow text-secondary" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
               </div>
-            </div>
-          </Row>}
-          {(!loading && data) && <Row className="my-1">
-            <Col md={12} lg={8}>
+            </Row>}
+          <Row className="my-1">
+            {/* {(loading || !postData || !data) && <Col className="mt-5 text-center" md={12} lg={8}>
+              <div className="w-100">
+                <div className="spinner-grow text-secondary" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            </Col>} */}
+            {(!loading && data) && <Col md={12} lg={8}>
               {data.map((p: Post) => {
                 return <div key={p._id} className="my-5">
                   <div className={css.blog}>
@@ -147,7 +192,11 @@ function SharingList() {
                             day="numeric"
                           />}
                         </p>
-                        {/* <i className="far fa-bookmark pt-1"></i> */}
+                        {/* <i
+                          onClick={() => handleAddFavPost(p._id)}
+                          className="far fa-bookmark pt-1"
+                          style={{ cursor: 'pointer' }}
+                        ></i> */}
                       </div>
                     </div>
                     <div className={css.blogImg} onClick={() => { navigate(p._id) }}>
@@ -159,14 +208,11 @@ function SharingList() {
                   </div>
                 </div>
               })}
-            </Col>
+            </Col>}
             <Col className="d-none d-md-block" lg={4}>
-              {/* <div className="mt-5" style={{ position: 'sticky', top: '20vh', fontSize: 20 }}>
-                <div className="ml-5"><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>
-                <div className="text-center"><i>---暫無文章---</i></div>
-              </div> */}
+              {/* <FavouritePostList username={getTokenValue(tokenPair?.token).username} /> */}
             </Col>
-          </Row>}
+          </Row>
         </Container>
       </div>
     </>

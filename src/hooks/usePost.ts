@@ -3,9 +3,7 @@ import { NewPost, Post } from "generated/graphql";
 import { ADD_POST, GET_POST } from "graphqls/graphql";
 import { useEffect, useState } from "react";
 
-function usePost(props: any) {
-
-  const { id } = props
+function usePost({ id }: any) {
 
   const [commentPending, setCommentPending] = useState<boolean>(false)
 

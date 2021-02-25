@@ -3,7 +3,7 @@ import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
 import { NewReaction, Post, ReactionType, Role } from "generated/graphql";
-import { REACT_TO_POST } from "graphqls/graphql";
+import { GET_POST, REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -32,7 +32,11 @@ function Sharing() {
 
   const [post, setPost] = useState<any>()
 
-  const [react, { data: result }] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST);
+  const [react] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST, {
+    refetchQueries: [
+      { query: GET_POST, variables: { oid: id } }
+    ]
+  });
 
   const { loading, postData, refetch } = usePost({ id: id })
 
@@ -61,10 +65,8 @@ function Sharing() {
   useEffect(() => {
     if (postData !== undefined) {
       setPost(postData.post)
-    } else if (result !== undefined) {
-      setPost(result)
     }
-  }, [postData, result])
+  }, [postData])
 
   useEffect(() => {
     document.querySelector('.scroll-animations .animated')?.classList.remove("animate__fadeInLeft");
