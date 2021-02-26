@@ -6,14 +6,14 @@ import { NewReaction, Post, ReactionType, Role } from "generated/graphql";
 import { GET_POST, REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Tooltip, Container, Row, OverlayTrigger, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
 import UNIVERSALS from "Universals";
-import { getTokenValue, renderTooltip } from "utils/utils";
+import { getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
 
 import defaultAvatar from "assets/img/default-avatar.png";
 import { FormattedDate, useIntl } from "react-intl";
@@ -30,7 +30,7 @@ function Sharing() {
 
   const location = useLocation()
 
-  const [post, setPost] = useState<any>()
+  const [post, setPost] = useState<Post>()
 
   const [react] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST, {
     refetchQueries: [
@@ -109,34 +109,23 @@ function Sharing() {
     };
   })
 
-  const isReacted = (type: string): boolean => {
-    if (tokenPair?.token == null)
+  const isReacted = useCallback((type: string): boolean => {
+    if (tokenPair?.token == null || post == null)
       return false
     return post.reactions.filter((r: any) =>
       r.username === getTokenValue(tokenPair?.token).username &&
       r.type === type.toUpperCase()
     ).length > 0
-  }
+  }, [post, tokenPair])
 
-  const reactionCount = (type: string): number => {
-    return post.reactions.filter((r: any) =>
-      r.type === type.toUpperCase()
-    ).length
-  }
-
-  const getTitleDisplay = () => {
-    if (post.user.role === Role.Admin)
-      return ""
-    let result = ""
-    if (post.user.role === 'WORKER') {
-      result = post.user.titleC
-    } else if (post.user.gender === 'MALE') {
-      result = '弟兄'
-    } else if (post.user.gender === 'FEMALE') {
-      result = '姊妹'
+  const reactionCount = useCallback((type: string): number => {
+    if (post != null) {
+      return post.reactions.filter((r: any) =>
+        r.type === type.toUpperCase()
+      ).length
     }
-    return result
-  }
+    return 0
+  }, [post])
 
   useEffect(() => {
     //Default scroll to top
@@ -189,7 +178,7 @@ function Sharing() {
                 </div>
               </div>
               <div className="my-auto" style={{ color: 'gray' }}>
-                <div><b>{post.user.nameC}{getTitleDisplay()}</b></div>
+                <div><b>{post.user.nameC}{getTitleDisplay(post)}</b></div>
                 <div><i>{<FormattedDate
                   value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
                   year="numeric"

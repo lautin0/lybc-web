@@ -6,7 +6,8 @@ import React, { useEffect } from 'react'
 import { FormattedDate } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
 import UNIVERSALS from 'Universals'
-import defaultAvatar from "assets/img/default-avatar.png";;
+import defaultAvatar from "assets/img/default-avatar.png";
+import { getTitleDisplay } from 'utils/utils';
 
 function FavouritePostList() {
 
@@ -21,20 +22,6 @@ function FavouritePostList() {
   useEffect(() => {
     favPostData && refetch();
   }, [location, refetch, favPostData])
-
-  const getTitleDisplay = (p: Post) => {
-    if (p.user.role === Role.Admin)
-      return ""
-    let result = ""
-    if (p.user.role === 'WORKER') {
-      result = p.user.titleC ? p.user.titleC : ""
-    } else if (p.user.gender === 'MALE') {
-      result = '弟兄'
-    } else if (p.user.gender === 'FEMALE') {
-      result = '姊妹'
-    }
-    return result
-  }
 
   return <div className="p-3" style={{ position: 'sticky', top: '20vh', fontSize: 20, background: 'rgba(240,240,240,.7)', minHeight: '20vmin' }}>
     <div><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>

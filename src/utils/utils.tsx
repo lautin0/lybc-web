@@ -1,4 +1,4 @@
-import { Role } from "generated/graphql";
+import { Post, Role } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
 import React from "react";
@@ -111,5 +111,19 @@ export const renderTooltip = (props: any, type: string, currUser: string, reacti
         sentence = sentence.replace('{1}', '')
 
     return <Tooltip {...props}> {usernames.length > 0 ? sentence : text}</Tooltip>
-    
+
 };
+
+export function getTitleDisplay(p: Post) {
+    if (p.user.role === Role.Admin)
+        return ""
+    let result = ""
+    if (p.user.role === 'WORKER') {
+        result = p.user.titleC ? p.user.titleC : ""
+    } else if (p.user.gender === 'MALE') {
+        result = '弟兄'
+    } else if (p.user.gender === 'FEMALE') {
+        result = '姊妹'
+    }
+    return result
+}

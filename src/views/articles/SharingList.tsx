@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Button } from "react-bootstrap";
@@ -15,9 +15,18 @@ import { RootState } from "reducers";
 import { FormattedDate, useIntl } from "react-intl";
 import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
-import { getTokenValue } from "utils/utils";
+import { getClient } from "utils/auth.client";
+import { getTitleDisplay } from "utils/utils";
 
 // core components
+
+const trimSubtitle = (txt: string) => {
+  if (txt.length <= 50) {
+    return txt
+  } else {
+    return txt.substring(0, 50) + '...'
+  }
+}
 
 function SharingList() {
 
@@ -36,42 +45,55 @@ function SharingList() {
 
   const [data, setData] = useState<Post[]>()
 
+  const cacheData = useMemo(() => {
+    if (data != null)
+      return getClient().readQuery({ query: GET_POSTS })
+    return null
+  }, [data])
+
+  const getFavouritedPost = useCallback((id, favourited) => {
+    if (data == null)
+      return null
+    let tmp = data?.filter(x => x._id === id)[0]
+    return { ...tmp, isFavourited: favourited } as Post
+  }, [data])
+
   const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
   const [addFavPost] = useMutation<
     { favPost: FavouritePost },
     { input: UpdateFavouritePost }
   >(ADD_FAV_POST, {
     refetchQueries: [
-      { query: GET_POSTS },
       { query: GET_FAVOURITE_POST }
-    ]
+    ],
+    update: (cache, res) => {
+      cache.writeQuery({
+        query: GET_POSTS,
+        data: {
+          posts: [...cacheData.posts, getFavouritedPost(res.data?.favPost.postID, true)]
+        }
+      })
+    }
   });
   const [removeFavPost] = useMutation<
     { favPost: FavouritePost },
     { input: UpdateFavouritePost }
   >(REMOVE_FAV_POST, {
     refetchQueries: [
-      { query: GET_POSTS },
       { query: GET_FAVOURITE_POST }
-    ]
+    ],
+    update: (cache, res) => {
+      cache.writeQuery({
+        query: GET_POSTS,
+        data: {
+          posts: [...cacheData.posts, getFavouritedPost(res.data?.favPost.postID, false)]
+        }
+      })
+    }
   });
 
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
-  }
-
-  const getTitleDisplay = (p: Post) => {
-    if (p.user.role === Role.Admin)
-      return ""
-    let result = ""
-    if (p.user.role === 'WORKER') {
-      result = p.user.titleC ? p.user.titleC : ""
-    } else if (p.user.gender === 'MALE') {
-      result = '弟兄'
-    } else if (p.user.gender === 'FEMALE') {
-      result = '姊妹'
-    }
-    return result
   }
 
   useEffect(() => {
@@ -94,7 +116,7 @@ function SharingList() {
     }
   }, [postData])
 
-  const handleFavPost = (isFavourited: boolean, id: string) => {
+  const handleFavPost = useCallback((isFavourited: boolean, id: string) => {
     if (isFavourited) {
       removeFavPost({
         variables: {
@@ -116,17 +138,9 @@ function SharingList() {
         dispatch(setSystemFailure(e))
       })
     }
-  }
+  }, [removeFavPost, addFavPost, dispatch])
 
-  const trimSubtitle = (txt: string) => {
-    if (txt.length <= 50) {
-      return txt
-    } else {
-      return txt.substring(0, 50) + '...'
-    }
-  }
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (tokenPair?.token == null) {
       dispatch(setSysMessage('app.sys.require-login'))
       return
@@ -134,7 +148,7 @@ function SharingList() {
 
     setOpen(true)
     setTitle("app.modal.header.new-sharing-record")
-  }
+  }, [tokenPair])
 
   useEffect(() => {
     //Default scroll to top
