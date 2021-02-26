@@ -472,6 +472,7 @@ export const GET_FAVOURITE_POST = gql`
       post {
         _id
         title
+        subtitle
         user {
           username
           role

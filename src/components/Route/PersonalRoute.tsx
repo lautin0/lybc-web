@@ -43,6 +43,7 @@ function PersonalRoute(props: PrivateRouteProps) {
         <Route path={`${url}/info`} render={(props: any) => <PersonalPage {...props} func="info" />} />
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage {...props} func="sharing" />} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage {...props} func="other" />} />
+        <Route path={`${url}/favourite-posts`} render={(props: any) => <PersonalPage {...props} func="favourite-posts" />} />
         <Redirect from={`${url}/`} to={`${url}/info`}/>
         <Route path="*">
           <ErrorPage error="404" />

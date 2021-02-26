@@ -8,6 +8,7 @@ import PersonalEdit from './PersonalEdit';
 import { useIntl } from 'react-intl';
 import useLanguage from 'hooks/useLanguage';
 import PersonalSharing from './PersonalSharing';
+import PersonalFavouriteList from './PersonalFavouriteList';
 
 type PersonalPageProps = {
   func: string
@@ -16,7 +17,7 @@ type PersonalPageProps = {
 function PersonalPage(props: PersonalPageProps) {
 
   const [locale] = useLanguage()
-  
+
   const intl = useIntl()
 
   const history = useHistory()
@@ -66,6 +67,17 @@ function PersonalPage(props: PersonalPageProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
+                style={location.pathname.includes('sharing') ? { backgroundColor: 'lightgray' } : {}}
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  history.push('/personal/favourite-posts')
+                }}
+                href="#"
+              ><i className="fas fa-bookmark mr-2"></i>喜愛列表</a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
                 style={location.pathname.includes('other') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
@@ -81,6 +93,7 @@ function PersonalPage(props: PersonalPageProps) {
             <div className="content-panel">
               {props.func === 'info' && <PersonalEdit />}
               {props.func === 'sharing' && <PersonalSharing />}
+              {props.func === 'favourite-posts' && <PersonalFavouriteList />}
               {/* {props.func === 'books' && <BooksManage />} */}
             </div>
           </div>

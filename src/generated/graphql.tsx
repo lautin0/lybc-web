@@ -30,7 +30,7 @@ export type TokenPair = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addFavouritePost: Scalars['Int'];
+  addFavouritePost: Scalars['String'];
   approvePost: Post;
   changePassword?: Maybe<Scalars['Boolean']>;
   createNameCard: NameCard;
@@ -44,7 +44,7 @@ export type Mutation = {
   react: Post;
   readNotification: Notification;
   refreshToken: TokenPair;
-  removeFavouritePost: Scalars['Int'];
+  removeFavouritePost: Scalars['String'];
   updateNameCard: NameCard;
   updatePendingPost: PendingPost;
   updateUser: User;

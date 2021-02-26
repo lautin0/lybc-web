@@ -24,7 +24,7 @@ function Theme() {
               <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l3" })}</p>
               <p style={{ fontSize: 20, fontWeight: 'bold' }} className="description my-5">- {intl.formatMessage({ id: "app.theme2.l4" })}</p>
             </Col>
-            <Col className="justify-content-center text-center" md="6">
+            <Col className="justify-content-center text-center mt-md-1 mt-sm-5" md="6">
               {/* <h2>{intl.formatMessage({ id: "app.theme2.title" })}</h2> */}
               <img style={{ maxHeight: 500 }} src={photoSq5} alt="bible" />
             </Col>

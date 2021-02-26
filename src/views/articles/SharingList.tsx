@@ -59,8 +59,8 @@ function SharingList() {
   }, [data])
 
   const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
-  const [addFavPost] = useMutation<
-    { favPost: FavouritePost },
+  const [addFavPost, { loading: addFavLoading }] = useMutation<
+    { postID: string },
     { input: UpdateFavouritePost }
   >(ADD_FAV_POST, {
     refetchQueries: [
@@ -70,13 +70,13 @@ function SharingList() {
       cache.writeQuery({
         query: GET_POSTS,
         data: {
-          posts: [...cacheData.posts, getFavouritedPost(res.data?.favPost.postID, true)]
+          posts: [...cacheData.posts, getFavouritedPost(res.data?.postID, true)]
         }
       })
     }
   });
-  const [removeFavPost] = useMutation<
-    { favPost: FavouritePost },
+  const [removeFavPost, { loading: removeFavLoading }] = useMutation<
+    { postID: string },
     { input: UpdateFavouritePost }
   >(REMOVE_FAV_POST, {
     refetchQueries: [
@@ -86,7 +86,7 @@ function SharingList() {
       cache.writeQuery({
         query: GET_POSTS,
         data: {
-          posts: [...cacheData.posts, getFavouritedPost(res.data?.favPost.postID, false)]
+          posts: [...cacheData.posts, getFavouritedPost(res.data?.postID, false)]
         }
       })
     }
@@ -117,6 +117,8 @@ function SharingList() {
   }, [postData])
 
   const handleFavPost = useCallback((isFavourited: boolean, id: string) => {
+    if(loading || addFavLoading || removeFavLoading)
+      return
     if (isFavourited) {
       removeFavPost({
         variables: {
@@ -138,7 +140,7 @@ function SharingList() {
         dispatch(setSystemFailure(e))
       })
     }
-  }, [removeFavPost, addFavPost, dispatch])
+  }, [removeFavPost, addFavPost, dispatch, loading, addFavLoading, removeFavLoading])
 
   const handleClick = useCallback(() => {
     if (tokenPair?.token == null) {
@@ -174,7 +176,7 @@ function SharingList() {
             {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
           <hr></hr>
-          {(tokenPair?.token == null && (loading || !postData || !data)) && <Row className="mt-5 text-center">
+          {(tokenPair?.token == null && (!cacheData)) && <Row className="mt-5 text-center">
             <div className="w-100">
               <div className="spinner-grow text-secondary" role="status">
                 <span className="sr-only">Loading...</span>
@@ -182,14 +184,14 @@ function SharingList() {
             </div>
           </Row>}
           <Row className="my-1">
-            {(tokenPair?.token != null && (loading || !postData || !data)) && <Col className="mt-5 text-center" md={12} lg={8}>
+            {(tokenPair?.token != null && (!cacheData)) && <Col className="mt-5 text-center" md={12} lg={8}>
               <div className="w-100">
                 <div className="spinner-grow text-secondary" role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>
             </Col>}
-            {(!loading && data) && <Col md={12} lg={8}>
+            {data && <Col md={12} lg={8}>
               {data.map((p: Post) => {
                 return <div key={p._id} className="my-5">
                   <div className={css.blog}>
@@ -229,7 +231,7 @@ function SharingList() {
                 </div>
               })}
             </Col>}
-            <Col className="d-none d-md-block" lg={4}>
+            <Col className="d-none d-lg-block" lg={4}>
               {tokenPair?.token != null && <FavouritePostList />}
             </Col>
           </Row>

@@ -151,6 +151,6 @@ extend type Mutation {
 	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!
 	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!
 	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!
-	addFavouritePost(input: UpdateFavouritePost): Int!
-	removeFavouritePost(input: UpdateFavouritePost): Int!
+	addFavouritePost(input: UpdateFavouritePost): String!
+	removeFavouritePost(input: UpdateFavouritePost): String!
 }

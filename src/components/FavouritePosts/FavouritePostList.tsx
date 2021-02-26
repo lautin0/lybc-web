@@ -25,13 +25,8 @@ function FavouritePostList() {
 
   return <div className="p-3" style={{ position: 'sticky', top: '20vh', fontSize: 20, background: 'rgba(240,240,240,.7)', minHeight: '20vmin' }}>
     <div><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>
-    {(loading || !favPostData) && <div className="mt-5 text-center w-100">
-      <div className="spinner-border text-secondary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>}
     {(!loading && favPostData?.favouritePosts.length === 0) && <div className="text-center"><i>---暫無文章---</i></div>}
-    {(!loading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((x, i) => {
+    {(favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.slice(0, 3).map((x, i) => {
       return <div key={x._id} className="my-2 d-flex justify-content-between">
         <div>
           <div
@@ -63,6 +58,22 @@ function FavouritePostList() {
         </div>
       </div>
     })}
+    {(favPostData != null && favPostData?.favouritePosts?.length > 0) && <div className="text-center">
+      <a
+        href="#"
+        onClick={e => { 
+          e.preventDefault(); 
+          history.push('personal/favourite-posts') 
+        }}
+        style={{ fontSize: 13, cursor: 'pointer' }}
+        className="w-100 text-primary"
+      >查看全部喜愛文章</a>
+    </div>}
+    {(loading || !favPostData) && <div className="mt-5 text-center w-100">
+      <div className="spinner-border text-secondary" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>}
   </div>
 }
 
