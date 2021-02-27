@@ -159,6 +159,8 @@ function PersonalEdit() {
       trigger()
   }, [watchType, trigger])
 
+  console.log(userData)
+
   return (
     <div className="mt-5">
       {(!loading && userData != null) && <FormProvider {...methods}>

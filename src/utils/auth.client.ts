@@ -40,14 +40,9 @@ const client = new ApolloClient({
   link: authLink.concat(uploadLink),
   cache: new InMemoryCache({
     typePolicies: {
-      Post: {
-        fields: {
-          user: {
-            // Short for options.mergeObjects(existing, incoming).
-            merge: true,
-          },
-        },
-      },
+      User: {
+        merge: true
+      }
     },
   })
 });
