@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Pagination } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
 import { useMutation, useQuery } from "@apollo/client";
-import { FavouritePost, Post, PostType, Role, UpdateFavouritePost } from "generated/graphql";
+import { Post, PostType, UpdateFavouritePost } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
+import usePagination from "hooks/usePagination";
 
 // core components
 
@@ -43,20 +44,20 @@ function SharingList() {
 
   const history = useHistory();
 
-  const [data, setData] = useState<Post[]>()
+  const { pageItems, setData, items } = usePagination<Post>()
 
   const cacheData = useMemo(() => {
-    if (data != null)
+    if (pageItems != null)
       return getClient().readQuery({ query: GET_POSTS })
     return null
-  }, [data])
+  }, [pageItems])
 
   const getFavouritedPost = useCallback((id, favourited) => {
-    if (data == null)
+    if (pageItems == null)
       return null
-    let tmp = data?.filter(x => x._id === id)[0]
+    let tmp = pageItems?.filter(x => x._id === id)[0]
     return { ...tmp, isFavourited: favourited } as Post
-  }, [data])
+  }, [pageItems])
 
   const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
   const [addFavPost, { loading: addFavLoading }] = useMutation<
@@ -117,7 +118,7 @@ function SharingList() {
   }, [postData])
 
   const handleFavPost = useCallback((isFavourited: boolean, id: string) => {
-    if(loading || addFavLoading || removeFavLoading)
+    if (loading || addFavLoading || removeFavLoading)
       return
     if (isFavourited) {
       removeFavPost({
@@ -191,8 +192,8 @@ function SharingList() {
                 </div>
               </div>
             </Col>}
-            {data && <Col md={12} lg={8}>
-              {data.map((p: Post) => {
+            {pageItems && <Col md={12} lg={8}>
+              {pageItems.map((p: Post) => {
                 return <div key={p._id} className="my-5">
                   <div className={css.blog}>
                     <div className={css.blogText}>
@@ -234,6 +235,11 @@ function SharingList() {
             <Col className="d-none d-lg-block" lg={4}>
               {tokenPair?.token != null && <FavouritePostList />}
             </Col>
+          </Row>
+          <Row>
+            <Pagination className="pagination-warning">
+              {items}
+            </Pagination>
           </Row>
         </Container>
       </div>
