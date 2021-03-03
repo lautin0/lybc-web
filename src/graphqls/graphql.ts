@@ -124,7 +124,6 @@ export const GET_POSTS = gql`
       creDttm
       type
       imageURI
-      parantId
       isFavourited
       user{
         username
@@ -134,6 +133,7 @@ export const GET_POSTS = gql`
         gender
         title
         titleC
+          parentId
       }
     }
   }

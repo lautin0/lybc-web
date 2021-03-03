@@ -267,7 +267,7 @@ export enum NotificationType {
 export type Post = {
   __typename?: 'Post';
   _id: Scalars['ObjectID'];
-  parantId?: Maybe<Scalars['ObjectID']>;
+  parentId?: Maybe<Scalars['ObjectID']>;
   comments: Array<Maybe<Post>>;
   title?: Maybe<Scalars['String']>;
   subtitle?: Maybe<Scalars['String']>;
@@ -282,7 +282,7 @@ export type Post = {
 };
 
 export type NewPost = {
-  parantId?: Maybe<Scalars['String']>;
+  parentId?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   subtitle?: Maybe<Scalars['String']>;
   type: PostType;
@@ -416,11 +416,6 @@ export type NewTodo = {
   username: Scalars['String'];
 };
 
-export enum Gender {
-  Male = 'MALE',
-  Female = 'FEMALE'
-}
-
 export enum Role {
   Admin = 'ADMIN',
   Worker = 'WORKER',
@@ -434,6 +429,11 @@ export enum AccountStatus {
   Inactive = 'INACTIVE',
   Suspended = 'SUSPENDED',
   Contacting = 'CONTACTING'
+}
+
+export enum Gender {
+  Male = 'MALE',
+  Female = 'FEMALE'
 }
 
 export type User = {

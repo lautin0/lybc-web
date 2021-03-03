@@ -4,7 +4,7 @@ scalar Upload
 
 type Post {
 	_id: ObjectID!
-	parantId: ObjectID
+	parentId: ObjectID
 	comments: [Post]!
 	title: String
 	subtitle: String
@@ -19,7 +19,7 @@ type Post {
 }
 
 input NewPost {
-	parantId: String
+	parentId: String
 	title: String
 	subtitle: String
 	type: PostType!

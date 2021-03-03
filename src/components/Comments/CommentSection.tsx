@@ -53,7 +53,7 @@ function CommentSection(props: any) {
     addComment({
       variables: {
         input: {
-          parantId: id,
+          parentId: id,
           title: "",
           subtitle: "",
           type: type,

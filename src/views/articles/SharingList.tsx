@@ -102,7 +102,7 @@ function SharingList() {
       let tmp: Post[] = [...postData.posts]
       setData(tmp
         ?.filter(x => x.type == PostType.Sharing)
-        ?.filter(x => x.parantId == null)
+        ?.filter(x => x.parentId == null)
         .sort((a: Post, b: Post) => {
           let aDate = moment(a.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
           let bDate = moment(b.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')

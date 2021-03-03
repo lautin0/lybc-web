@@ -13,6 +13,11 @@ enum AccountStatus {
 	CONTACTING
 }
 
+enum Gender {
+	MALE
+	FEMALE
+}
+
 type User {
 	username: String!
 	password: String!

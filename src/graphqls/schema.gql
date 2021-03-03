@@ -20,8 +20,3 @@ type Query {
 type Mutation {
 	createTodo(input: NewTodo!): Todo!
 }
-
-enum Gender {
-	MALE
-	FEMALE
-}
