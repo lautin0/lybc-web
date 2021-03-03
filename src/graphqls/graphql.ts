@@ -119,6 +119,7 @@ export const GET_POSTS = gql`
   query {
     posts{
       _id
+      parentId
       title
       subtitle      
       creDttm
@@ -133,7 +134,6 @@ export const GET_POSTS = gql`
         gender
         title
         titleC
-          parentId
       }
     }
   }
