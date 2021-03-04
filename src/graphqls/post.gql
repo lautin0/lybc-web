@@ -2,7 +2,7 @@ scalar Time
 scalar ObjectID
 scalar Upload
 
-type Post {
+type Post implements Node {
 	_id: ObjectID!
 	parentId: ObjectID
 	comments: [Post]!
@@ -16,6 +16,25 @@ type Post {
 	reactions: [Reaction]!
 	imageURI: String
 	isFavourited: Boolean!
+}
+
+# A connection object for posts
+type PostsConnection {
+	# The total number of posts
+	totalCount: Int!
+	# The edges posts.
+	edges: [PostsEdge!]
+	# A list of the posts, as a convenience when edges are not needed.
+	posts: [Post!]
+	# Information for paginating this connection
+	pageInfo: PageInfo!
+}
+
+type PostsEdge {
+	# A cursor used for pagination
+	cursor: ID!
+	# The post represented by this friendship edge
+	node: Post
 }
 
 input NewPost {
@@ -139,18 +158,31 @@ enum PostStatus {
 }
 
 extend type Query {
-	posts(postFilter: PostFilter, sort: PostSort): [Post!]!
+
+	posts(first: Int, last: Int, after: String, before: String, postFilter: PostFilter, sort: PostSort): PostsConnection!
+
 	post(oid: String!): Post
+
 	pendingPosts(username: String): [PendingPost!]!
+	
 	pendingPost(oid: String!): PendingPost
+	
 	favouritePosts: [FavouritePost]!
+
 }
 
 extend type Mutation {
+
 	createPost(input: NewPost!, image: Upload): Post!
+	
 	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!
+	
 	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!
+	
 	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!
+	
 	addFavouritePost(input: UpdateFavouritePost): String!
+	
 	removeFavouritePost(input: UpdateFavouritePost): String!
+
 }

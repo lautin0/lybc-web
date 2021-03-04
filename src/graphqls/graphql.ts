@@ -116,24 +116,35 @@ export const GET_MAX_WORSHIP_ID = gql`
 `
 
 export const GET_POSTS = gql`
-  query {
-    posts{
-      _id
-      parentId
-      title
-      subtitle      
-      creDttm
-      type
-      imageURI
-      isFavourited
-      user{
-        username
-        name
-        nameC
-        role
-        gender
-        title
-        titleC
+  query Posts($first: Int, $last: Int, $after: String, $before: String){
+    posts(first: $first, last: $last, after: $after, before: $before){
+      edges{
+        node{
+          _id
+          parentId
+          title
+          subtitle      
+          creDttm
+          type
+          imageURI
+          isFavourited
+          user{
+            username
+            name
+            nameC
+            role
+            gender
+            title
+            titleC
+          }
+        }
+        cursor
+      }
+      pageInfo{
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
       }
     }
   }

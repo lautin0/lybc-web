@@ -3,6 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import UNIVERSALS from "Universals";
 import { isTokenExpired } from "./utils";
 import { createUploadLink } from 'apollo-upload-client'
+import { relayStylePagination } from "@apollo/client/utilities";
 
 // const httpLink = createHttpLink({
 //   uri: UNIVERSALS.GRAPHQL_ENDPOINT,
@@ -40,6 +41,16 @@ const client = new ApolloClient({
   link: authLink.concat(uploadLink),
   cache: new InMemoryCache({
     typePolicies: {
+      Query: {
+        fields: {
+          posts: relayStylePagination(),
+          favouritePosts: {
+            merge(existing = [], incoming: any[]) {
+              return incoming
+            },
+          },
+        },
+      },
       User: {
         merge: true
       }

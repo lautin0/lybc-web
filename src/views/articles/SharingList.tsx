@@ -5,8 +5,8 @@ import { Container, Row, Col, Button, Pagination } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
-import { useMutation, useQuery } from "@apollo/client";
-import { Post, PostType, UpdateFavouritePost } from "generated/graphql";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { Post, PostsConnection, PostType, UpdateFavouritePost } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,46 +48,52 @@ function SharingList() {
 
   const cacheData = useMemo(() => {
     if (pageItems != null)
-      return getClient().readQuery({ query: GET_POSTS })
+      return getClient().readQuery<{ posts: PostsConnection }>({ query: GET_POSTS })
     return null
   }, [pageItems])
 
-  const getFavouritedPost = useCallback((id, favourited) => {
-    if (pageItems == null)
-      return null
-    let tmp = pageItems?.filter(x => x._id === id)[0]
-    return { ...tmp, isFavourited: favourited } as Post
-  }, [pageItems])
-
-  const { loading, data: postData, refetch } = useQuery<{ posts: Post[] }>(GET_POSTS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: postData, refetch, fetchMore } = useQuery<
+    { posts: PostsConnection },
+    { first?: number, last?: number, after?: string, before?: string }
+  >(GET_POSTS, { variables: { first: 2 }, notifyOnNetworkStatusChange: true })
   const [addFavPost, { loading: addFavLoading }] = useMutation<
-    { postID: string },
+    { addFavouritePost: string },
     { input: UpdateFavouritePost }
   >(ADD_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }
     ],
     update: (cache, res) => {
-      cache.writeQuery({
-        query: GET_POSTS,
+      cache.writeFragment({
+        id: `Post:${res.data?.addFavouritePost}`,
+        fragment: gql`
+        fragment currPost on Post {
+          isFavourited
+        }
+        `,
         data: {
-          posts: [...cacheData.posts, getFavouritedPost(res.data?.postID, true)]
+          isFavourited: true
         }
       })
     }
   });
   const [removeFavPost, { loading: removeFavLoading }] = useMutation<
-    { postID: string },
+    { removeFavouritePost: string },
     { input: UpdateFavouritePost }
   >(REMOVE_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }
     ],
     update: (cache, res) => {
-      cache.writeQuery({
-        query: GET_POSTS,
+      cache.writeFragment({
+        id: `Post:${res.data?.removeFavouritePost}`,
+        fragment: gql`
+        fragment currPost on Post {
+          isFavourited
+        }
+        `,
         data: {
-          posts: [...cacheData.posts, getFavouritedPost(res.data?.postID, false)]
+          isFavourited: false
         }
       })
     }
@@ -99,21 +105,7 @@ function SharingList() {
 
   useEffect(() => {
     if (postData !== undefined) {
-      let tmp: Post[] = [...postData.posts]
-      setData(tmp
-        ?.filter(x => x.type == PostType.Sharing)
-        ?.filter(x => x.parentId == null)
-        .sort((a: Post, b: Post) => {
-          let aDate = moment(a.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
-          let bDate = moment(b.creDttm, 'YYYY-MM-DDTHH:mm:ssZ')
-          if (aDate.isAfter(bDate)) {
-            return -1
-          } else if (aDate.isBefore(bDate)) {
-            return 1
-          } else {
-            return 0
-          }
-        }))
+      setData([...postData.posts.edges?.map(x => x.node!)!])
     }
   }, [postData])
 
@@ -236,10 +228,20 @@ function SharingList() {
               {tokenPair?.token != null && <FavouritePostList />}
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Pagination className="pagination-warning">
               {items}
             </Pagination>
+          </Row> */}
+          <Row>
+            <Button variant="primary" onClick={() => {
+              postData?.posts.pageInfo.hasNextPage && fetchMore({
+                variables: {
+                  after: postData?.posts.pageInfo.endCursor
+                }
+              })
+            }
+            }>More</Button>
           </Row>
         </Container>
       </div>

@@ -188,7 +188,7 @@ export type Query = {
   pendingPost?: Maybe<PendingPost>;
   pendingPosts: Array<PendingPost>;
   post?: Maybe<Post>;
-  posts: Array<Post>;
+  posts: PostsConnection;
   todos: Array<Todo>;
   user?: Maybe<User>;
   users: Array<User>;
@@ -223,6 +223,10 @@ export type QueryPostArgs = {
 
 
 export type QueryPostsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
   postFilter?: Maybe<PostFilter>;
   sort?: Maybe<PostSort>;
 };
@@ -264,7 +268,7 @@ export enum NotificationType {
 
 
 
-export type Post = {
+export type Post = Node & {
   __typename?: 'Post';
   _id: Scalars['ObjectID'];
   parentId?: Maybe<Scalars['ObjectID']>;
@@ -279,6 +283,20 @@ export type Post = {
   reactions: Array<Maybe<Reaction>>;
   imageURI?: Maybe<Scalars['String']>;
   isFavourited: Scalars['Boolean'];
+};
+
+export type PostsConnection = {
+  __typename?: 'PostsConnection';
+  totalCount: Scalars['Int'];
+  edges?: Maybe<Array<PostsEdge>>;
+  posts?: Maybe<Array<Post>>;
+  pageInfo: PageInfo;
+};
+
+export type PostsEdge = {
+  __typename?: 'PostsEdge';
+  cursor: Scalars['ID'];
+  node?: Maybe<Post>;
 };
 
 export type NewPost = {
@@ -401,6 +419,18 @@ export type NewReaction = {
   toUsername?: Maybe<Scalars['String']>;
   postOID: Scalars['String'];
   type: ReactionType;
+};
+
+export type Node = {
+  _id: Scalars['ObjectID'];
+};
+
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  startCursor: Scalars['ID'];
+  endCursor: Scalars['ID'];
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
 };
 
 export type Todo = {

@@ -1,6 +1,17 @@
 # GraphQL schema example
 # # https://gqlgen.com/getting-started/
 
+interface Node {
+	_id: ObjectID!
+}
+
+type PageInfo {
+	startCursor: ID!
+	endCursor: ID!
+	hasNextPage: Boolean!
+	hasPreviousPage: Boolean!
+}
+
 type Todo {
 	id: ID!
 	text: String!
