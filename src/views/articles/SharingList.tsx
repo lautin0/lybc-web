@@ -151,7 +151,9 @@ function SharingList() {
   }, [])
 
   useEffect(() => {
-    postData && refetch();
+    postData && refetch({
+      first: cacheData?.posts.edges?.length
+    });
   }, [location, refetch, postData])
 
   return (
