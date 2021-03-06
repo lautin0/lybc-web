@@ -118,6 +118,7 @@ export const GET_MAX_WORSHIP_ID = gql`
 export const GET_POSTS = gql`
   query Posts($first: Int, $last: Int, $after: String, $before: String){
     posts(first: $first, last: $last, after: $after, before: $before){
+      totalCount
       edges{
         node{
           _id

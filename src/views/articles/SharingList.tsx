@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col, Button, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Post, PostsConnection, PostType, UpdateFavouritePost } from "generated/graphql";
+import { Post, PostsConnection, UpdateFavouritePost } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +30,7 @@ const trimSubtitle = (txt: string) => {
 }
 
 function SharingList() {
+  const lastScrollTop = useRef(0);
 
   const setOpen = useStore(state => state.setOpen)
   const setTitle = useStore(state => state.setTitle)
@@ -56,6 +57,9 @@ function SharingList() {
     { posts: PostsConnection },
     { first?: number, last?: number, after?: string, before?: string }
   >(GET_POSTS, { variables: { first: 2 }, notifyOnNetworkStatusChange: true })
+
+  const postDataRef = useRef(postData);
+
   const [addFavPost, { loading: addFavLoading }] = useMutation<
     { addFavouritePost: string },
     { input: UpdateFavouritePost }
@@ -106,6 +110,7 @@ function SharingList() {
   useEffect(() => {
     if (postData !== undefined) {
       setData([...postData.posts.edges?.map(x => x.node!)!])
+      postDataRef.current = postData
     }
   }, [postData])
 
@@ -156,6 +161,42 @@ function SharingList() {
     });
   }, [location, refetch, postData])
 
+  const handleScroll = useCallback(() => {
+    let st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st <= lastScrollTop.current) {
+      lastScrollTop.current = st <= 0 ? 0 : st;
+      return
+    }
+    lastScrollTop.current = st <= 0 ? 0 : st;
+
+    let lastEl: any = document.querySelector("div.sharing-list > div:last-child");
+    let footerEl: any = document.querySelector("footer.footer");
+    if (!lastEl) {
+      return
+    }
+    let lastElOffset = lastEl.offsetTop + lastEl.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+    if (pageOffset - footerEl.clientHeight > lastElOffset && postDataRef.current?.posts.pageInfo.hasNextPage) {
+      fetchMore({
+        variables: {
+          after: postDataRef.current.posts.pageInfo.endCursor
+        }
+      })
+    }
+  }, [postData])
+
+  useEffect(() => {
+    if (postData === undefined)
+      return
+    window.addEventListener("scroll", (e: any) => {
+      handleScroll();
+    })
+
+    return function cleanup() {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll, postData])
+
   return (
     <>
       <div
@@ -171,22 +212,9 @@ function SharingList() {
             {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
           <hr></hr>
-          {(tokenPair?.token == null && (!cacheData)) && <Row className="mt-5 text-center">
-            <div className="w-100">
-              <div className="spinner-grow text-secondary" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            </div>
-          </Row>}
           <Row className="my-1">
-            {(tokenPair?.token != null && (!cacheData)) && <Col className="mt-5 text-center" md={12} lg={8}>
-              <div className="w-100">
-                <div className="spinner-grow text-secondary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </div>
-            </Col>}
-            {pageItems && <Col md={12} lg={8}>
+            {pageItems == null && <Col md={12} lg={8} className="clearfix"></Col>}
+            {pageItems && <Col className="sharing-list" md={12} lg={8}>
               {pageItems.map((p: Post) => {
                 return <div key={p._id} className="my-5">
                   <div className={css.blog}>
@@ -230,21 +258,11 @@ function SharingList() {
               {tokenPair?.token != null && <FavouritePostList />}
             </Col>
           </Row>
-          {/* <Row>
-            <Pagination className="pagination-warning">
-              {items}
-            </Pagination>
-          </Row> */}
-          <Row>
-            <Button variant="primary" onClick={() => {
-              postData?.posts.pageInfo.hasNextPage && fetchMore({
-                variables: {
-                  after: postData?.posts.pageInfo.endCursor
-                }
-              })
-            }
-            }>More</Button>
-          </Row>
+          <Container className="text-center" style={{ height: 100 }}>
+            {loading && <label>
+              <Spinner animation="grow" />
+            </label>}
+          </Container>
         </Container>
       </div>
     </>
