@@ -58,7 +58,7 @@ function AdminPanel(props: AdminPanelProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
-                style={location.pathname.includes('page-management') ? { backgroundColor: 'lightgray' } : {}}
+                style={location.pathname.includes('page-management') || location.pathname.includes('post') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
                   history.push('/admin/page-management')
@@ -69,7 +69,7 @@ function AdminPanel(props: AdminPanelProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
-                style={location.pathname.includes('member') ? { backgroundColor: 'lightgray' } : {}}
+                style={location.pathname.includes('member') || location.pathname.includes('namecards') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
                   history.push('/admin/members')

@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { RootState } from 'reducers';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PersonalNavbar from 'components/Navbars/PersonalNavbar';
 import PersonalEdit from './PersonalEdit';
 import { useIntl } from 'react-intl';
@@ -67,7 +65,7 @@ function PersonalPage(props: PersonalPageProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
-                style={location.pathname.includes('sharing') ? { backgroundColor: 'lightgray' } : {}}
+                style={location.pathname.includes('favourite') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
                   history.push('/personal/favourite-posts')
