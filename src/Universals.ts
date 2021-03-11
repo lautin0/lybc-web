@@ -31,6 +31,7 @@ const UNIVERSALS: UniversalsInfo = {
         'sharing': { title: 'app.title.sharing', subtitle: null },
         'library': { title: 'app.title.books-enquiry', subtitle: null },
         'news': { title: 'app.latest-updates', subtitle: null },
+        'news2': { title: 'app.latest-updates', subtitle: null },
         'news-list': { title: 'app.latest-updates', subtitle: null, bg: news }
     },
     MENU_HIERARCHY: {
@@ -99,6 +100,9 @@ const UNIVERSALS: UniversalsInfo = {
                     link: '/news-list',
                     child: {
                         'news': {
+                            title: "app.content",                            
+                        },
+                        'news2': {
                             title: "app.content",                            
                         },
                     }

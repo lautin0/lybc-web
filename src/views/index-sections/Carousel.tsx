@@ -88,6 +88,8 @@ function CarouselSection() {
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
             <Col md={6} sm={12} className="mb-5">
               <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>{intl.formatMessage({ id: 'app.latest-updates' })}</b></h3>
+              <h5>11-03-2021<a href="#" onClick={e => { e.preventDefault(); history.push('news2') }} className="ml-3">本年度免稅慈善奉獻收據</a></h5>
+              <hr style={{ width: '80%' }}></hr>
               <h5>17-02-2021<a href="#" onClick={e => { e.preventDefault(); history.push('news') }} className="ml-3">記念聖灰日</a></h5>
               <hr style={{ width: '80%' }}></hr>
               <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault(); history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>

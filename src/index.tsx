@@ -38,7 +38,6 @@ import CommonModal from "components/Modals/CommonModal";
 import DecisionModal from "components/Modals/DecisionModal";
 import PasswordResetModal from "components/Modals/PasswordResetModal";
 import SharingModal from "components/Modals/SharingModal";
-import LatestNews from "views/latest/LatestNews";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -93,6 +92,7 @@ function App() {
               <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
               <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
               <Route path="/news/" render={props => <MainPageLegacy {...props} page="news" />} />
+              <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} />
               <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" deemed />} />
               <Redirect from="/sharing/" to="/sharing-list" />
               <Route exact path="/"><Index /></Route>

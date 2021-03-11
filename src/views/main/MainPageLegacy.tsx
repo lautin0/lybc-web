@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import useLanguage from "hooks/useLanguage";
 import Careers from "views/about/Careers";
 import LatestNews from "views/latest/LatestNews";
+import LatestNews2 from "views/latest/LatestNews2";
 
 type MainPageProps = {
   page: string,
@@ -75,6 +76,7 @@ function MainPageLegacy(props: MainPageProps) {
           {props.page === 'worship' && <Worship />}
           {props.page === 'sharing' && <Sharing />}
           {props.page === 'news' && <LatestNews />}
+          {props.page === 'news2' && <LatestNews2 />}
           {props.page === 'careers' && <Careers />}
         </div>
         <DefaultFooter />
