@@ -22,6 +22,7 @@ import { RefreshTokenInput, TokenPair } from "generated/graphql";
 import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
+import Images from "./index-sections/Images";
 
 function Index() {
 
@@ -85,7 +86,7 @@ function Index() {
         <div className="main">
           {/* <Images /> */}
           <CarouselSection />
-          <IndexBanner />
+          {/* <IndexBanner /> */}
           <Theme />
           <ChurchResources />
           <NameCardForm />

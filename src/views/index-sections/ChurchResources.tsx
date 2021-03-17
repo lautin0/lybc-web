@@ -59,6 +59,7 @@ function ChurchResources() {
     <>
       <div
         className="section clear-filter"
+        style={{ marginTop: 100 }}
       >
         <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 100, marginBottom: 100 }}>
           <Col className="animated animate__animated text-center" md="6" lg="3">
@@ -69,7 +70,7 @@ function ChurchResources() {
             >
               <Card.Img src={sermon} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               <Card.Body>
-                <Card.Title>{intl.formatMessage({ id: "app.title.worship" })}</Card.Title>
+                <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.title.worship" })}</Card.Title>
               </Card.Body>
             </Card>
           </Col>
@@ -81,7 +82,7 @@ function ChurchResources() {
             >
               <Card.Img src={news} style={{ width: 350, height: 215, objectFit: 'fill' }} />
               <Card.Body>
-                <Card.Title>{intl.formatMessage({ id: "app.latest-updates" })}</Card.Title>
+                <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.latest-updates" })}</Card.Title>
               </Card.Body>
             </Card>
           </Col>
@@ -92,12 +93,8 @@ function ChurchResources() {
               style={{ cursor: 'pointer', maxWidth: 350 }}
             >
               <Card.Img src={sharing} style={{ width: 350, height: 215, objectFit: 'fill' }} />
-              <Card.ImgOverlay>
-                <Card.Title></Card.Title>
-                <Card.Text></Card.Text>
-              </Card.ImgOverlay>
               <Card.Body>
-                <Card.Title>{intl.formatMessage({ id: "app.title.sharing" })}</Card.Title>
+                <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.title.sharing" })}</Card.Title>
                 <Card.Text></Card.Text>
               </Card.Body>
             </Card>

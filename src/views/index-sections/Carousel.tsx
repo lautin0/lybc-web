@@ -83,7 +83,7 @@ function CarouselSection() {
 
   return (
     <>
-      <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 30 }}>
+      <div className="section" id="carousel" style={{ marginTop: 100, marginBottom: 200 }}>
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
             <Col md={6} sm={12} className="mb-5">
@@ -100,7 +100,7 @@ function CarouselSection() {
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
                 <Carousel.Item>
                   <img
-                    style={{ maxHeight: 500, objectFit: "cover" }}
+                    style={{ height: 400, objectFit: "cover" }}
                     className="d-block w-100"
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/worship-bg.jpg"}
                     alt="First slide"
@@ -117,7 +117,7 @@ function CarouselSection() {
                 </Carousel.Item>
                 <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
-                    style={{ maxHeight: 500, objectFit: "cover" }}
+                    style={{ height: 400, objectFit: "cover" }}
                     className="d-block w-100"
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/together_md.jpg"}
                     alt="Second slide"
@@ -139,9 +139,9 @@ function CarouselSection() {
                     </Button>
                   </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item style={{ background: 'lightgray' }}>
+                <Carousel.Item style={{ background: '#2c2c2c' }}>
                   <img
-                    style={{ maxHeight: 500, objectFit: "cover" }}
+                    style={{ height: 400, objectFit: "contain" }}
                     className="d-block w-100"
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/WhatsApp%20Image%202021-03-17%20at%2014.07.56.jpeg"}
                     alt="Second slide"

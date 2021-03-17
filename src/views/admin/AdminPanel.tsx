@@ -13,6 +13,7 @@ import PostCreate from './PostCreate';
 import NameCardManage from './NameCardManage';
 import PendingPostManage from './PendingPostManage';
 import PendingPostEdit from './PendingPostEdit';
+import NewsCreate from './NewsCreate';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -58,7 +59,9 @@ function AdminPanel(props: AdminPanelProps) {
             <li className="nav-item">
               <a
                 className="nav-link"
-                style={location.pathname.includes('page-management') || location.pathname.includes('post') ? { backgroundColor: 'lightgray' } : {}}
+                style={location.pathname.includes('page-management') || 
+                  location.pathname.includes('post') || 
+                  location.pathname.includes('latests') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
                   history.push('/admin/page-management')
@@ -124,6 +127,7 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'namecards' && <NameCardManage />}
               {props.func === 'pending-posts' && <PendingPostManage />}
               {props.func === 'new-proxy-posts' && <PendingPostEdit />}              
+              {props.func === 'new-latests' && <NewsCreate />}       
               {/* {props.func === 'new-book' && <BooksCreate />}
               {props.func === 'books' && <BooksManage />} */}
             </div>

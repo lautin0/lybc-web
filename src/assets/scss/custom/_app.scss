@@ -419,7 +419,7 @@ button.btn-reset-pwd {
     background: rgb(20,34,124);
     background: linear-gradient(52deg, rgba(20,34,124,1) 0%, rgba(86,20,187,1) 20%, rgba(0,212,255,1) 100%);
     width: 100%;
-    bottom: 0px;
+    bottom: -1px;
 
     @media screen and (min-width: 991px){
         height: 550px;

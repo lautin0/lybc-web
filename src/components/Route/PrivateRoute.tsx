@@ -50,6 +50,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel {...props} func="namecards" />} />
         <Route path={`${url}/post/pending/:id`} render={(props: any) => <AdminPanel {...props} func="new-proxy-posts" />} />
         <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel {...props} func="pending-posts" />} />
+        <Route path={`${url}/latests/new`} render={(props: any) => <AdminPanel {...props} func="new-latests" />} />
         {/* <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel {...props} func="new-book" />} />
         <Route path={`${url}/books`} render={(props: any) => <AdminPanel {...props} func="books" />} /> */}
         <Route path="*">

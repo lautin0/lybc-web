@@ -389,7 +389,8 @@ export enum PostSort {
 
 export enum PostType {
   Sharing = 'SHARING',
-  Preacher = 'PREACHER'
+  Preacher = 'PREACHER',
+  News = 'NEWS'
 }
 
 export enum PostStatus {

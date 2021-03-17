@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl';
 import useLanguage from 'hooks/useLanguage';
 import PersonalSharing from './PersonalSharing';
 import PersonalFavouriteList from './PersonalFavouriteList';
+import PersonalOther from './PersonalOther';
 
 type PersonalPageProps = {
   func: string
@@ -92,6 +93,7 @@ function PersonalPage(props: PersonalPageProps) {
               {props.func === 'info' && <PersonalEdit />}
               {props.func === 'sharing' && <PersonalSharing />}
               {props.func === 'favourite-posts' && <PersonalFavouriteList />}
+              {props.func === 'other' && <PersonalOther />}
               {/* {props.func === 'books' && <BooksManage />} */}
             </div>
           </div>

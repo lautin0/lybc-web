@@ -19,7 +19,7 @@ function DefaultFooter() {
   return (
     <footer
       className="footer footer-default"
-      style={{ marginTop: 150 }}
+      style={{ marginTop: 100 }}
     >
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>

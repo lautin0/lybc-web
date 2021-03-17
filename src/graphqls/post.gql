@@ -147,6 +147,7 @@ enum PostSort {
 enum PostType {
 	SHARING
 	PREACHER
+	NEWS
 }
 
 enum PostStatus {

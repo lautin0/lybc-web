@@ -84,7 +84,7 @@ export default function NameCardForm() {
   return (
     <>
       <div className="new-comer-section"></div>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap" style={{ marginTop: 100 }}>
         <div className="flex-fill my-auto text-center col-lg-6 col-md-12" style={{ zIndex: 1 }}>
           <h2 className="pt-5 name-card-title">{intl.formatMessage({ id: "app.namecard.title" })}</h2>
         </div>
