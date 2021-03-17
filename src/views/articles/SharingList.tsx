@@ -162,6 +162,8 @@ function SharingList() {
   }, [location, refetch, postData])
 
   const handleScroll = useCallback(() => {
+    if(fetchMore == undefined)
+      return
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st <= lastScrollTop.current) {
       lastScrollTop.current = st <= 0 ? 0 : st;
@@ -183,7 +185,7 @@ function SharingList() {
         }
       })
     }
-  }, [postData])
+  }, [postData, fetchMore])
 
   useEffect(() => {
     if (postData === undefined)
