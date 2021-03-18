@@ -15,7 +15,7 @@ function DarkFooter() {
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   return (
-    <footer className="footer" data-background-color="black" style={{ minHeight: '50vh' }}>
+    <footer className="footer" data-background-color="black">
       <div className="d-flex flex-wrap" style={{ marginBottom: '7vh' }}>
         <div className="offset-sm-2 col-sm-1 col-md-2" style={{ width: '50%' }}>
           <h4>{intl.formatMessage({ id: "app.menu.activity" })}</h4>
