@@ -210,11 +210,11 @@ function SharingList() {
               {intl.formatMessage({ id: "app.buttons.sharing" })}
             </Button>
           </div>
-          <h5 className="description">
+          {/* <h5 className="description">
             {intl.formatMessage({ id: "app.sharing.subtitle" })}
           </h5>
-          <hr></hr>
-          <Row className="my-1">
+          <hr></hr> */}
+          <Row className="mt-5">
             {pageItems == null && <Col md={12} lg={8} className="clearfix"></Col>}
             {pageItems && <Col className="sharing-list" md={12} lg={8}>
               {pageItems.map((p: Post) => {

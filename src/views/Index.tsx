@@ -23,6 +23,7 @@ import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
 import Images from "./index-sections/Images";
+import ArticleComponent from "./index-sections/ArticleComponent";
 
 function Index() {
 
@@ -87,7 +88,8 @@ function Index() {
           {/* <Images /> */}
           <CarouselSection />
           {/* <IndexBanner /> */}
-          <Theme />
+          {/* <Theme /> */}
+          <ArticleComponent />
           <ChurchResources />
           <NameCardForm />
         </div>

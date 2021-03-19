@@ -83,7 +83,7 @@ function CarouselSection() {
 
   return (
     <>
-      <div className="section" id="carousel" style={{ marginTop: 100, marginBottom: 200 }}>
+      <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 50 }}>
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
             <Col md={6} sm={12} className="mb-5">

@@ -59,11 +59,10 @@ function ChurchResources() {
     <>
       <div
         className="section clear-filter"
-        style={{ marginTop: 100 }}
       >
-        <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 100, marginBottom: 100 }}>
+        <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 150, marginBottom: 100 }}>
           <Col className="animated animate__animated text-center" md="6" lg="3">
-            <Card
+            {/* <Card
               className="text-center"
               onClick={() => { history.push('/worship-list') }}
               style={{ cursor: 'pointer', maxWidth: 350 }}
@@ -72,22 +71,22 @@ function ChurchResources() {
               <Card.Body>
                 <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.title.worship" })}</Card.Title>
               </Card.Body>
-            </Card>
-          </Col>
-          <Col className="animated animate__animated text-center" md="6" lg="3">
-            <Card
-              onClick={() => { history.push('/news-list') }}
-              className="text-center"
-              style={{ cursor: 'pointer', maxWidth: 350 }}
+            </Card> */}
+            <div
+              onClick={() => { history.push('/worship-list') }}
+              style={{ cursor: 'pointer' }}
             >
-              <Card.Img src={news} style={{ width: 350, height: 215, objectFit: 'fill' }} />
-              <Card.Body>
-                <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.latest-updates" })}</Card.Title>
-              </Card.Body>
-            </Card>
+              <div>
+                <i className="fas fa-praying-hands mb-3" style={{ fontSize: 72 }}></i>
+              </div>
+              <div>
+                <h2><strong>{intl.formatMessage({ id: "app.title.worship" })}</strong></h2>
+                <p className="description">{intl.formatMessage({ id: 'app.subtitle.worship' })}</p>
+              </div>
+            </div>
           </Col>
           <Col className="animated animate__animated text-center" md="6" lg="3">
-            <Card
+            {/* <Card
               className="text-center"
               onClick={() => { history.push('/sharing-list') }}
               style={{ cursor: 'pointer', maxWidth: 350 }}
@@ -97,7 +96,43 @@ function ChurchResources() {
                 <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.title.sharing" })}</Card.Title>
                 <Card.Text></Card.Text>
               </Card.Body>
-            </Card>
+            </Card> */}
+            <div
+              onClick={() => { history.push('/sharing-list') }}
+              style={{ cursor: 'pointer' }}
+            >
+              <div>
+                <i className="fas fa-hands mb-3" style={{ fontSize: 72 }}></i>
+              </div>
+              <div>
+                <h2><strong>{intl.formatMessage({ id: "app.title.sharing" })}</strong></h2>
+                <p className="description">{intl.formatMessage({ id: "app.sharing.subtitle" })}</p>
+              </div>
+            </div>
+          </Col>
+          <Col className="animated animate__animated text-center" md="6" lg="3">
+            {/* <Card
+              onClick={() => { history.push('/news-list') }}
+              className="text-center"
+              style={{ cursor: 'pointer', maxWidth: 350 }}
+            >
+              <Card.Img src={news} style={{ width: 350, height: 215, objectFit: 'fill' }} />
+              <Card.Body>
+                <Card.Title style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.latest-updates" })}</Card.Title>
+              </Card.Body>
+            </Card> */}
+            <div
+              onClick={() => { history.push('/news-list') }}
+              style={{ cursor: 'pointer' }}
+            >
+              <div>
+                <i className="fas fa-bullhorn mb-3" style={{ fontSize: 72 }}></i>
+              </div>
+              <div>
+                <h2><strong>{intl.formatMessage({ id: "app.latest-updates" })}</strong></h2>
+                <p className="description">了解教會的最新動態</p>
+              </div>
+            </div>
           </Col>
         </Row>
       </div>
