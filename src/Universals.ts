@@ -15,10 +15,12 @@ type UniversalsInfo = {
     GOOGLE_STORAGE_ENDPOINT: string
 }
 
+const googleEndPoint = "https://storage.googleapis.com"
+
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
         'about-us': { title: 'app.title.about-us', subtitle: null, bg: bg13 },
-        'journal': { title: 'app.title.journal', subtitle: null, bg: bg1 },
+        'journal': { title: 'app.title.journal', subtitle: null, bg: googleEndPoint + "/lybcstorage/reading.jpg" },
         'apply-activity': { title: 'app.title.apply-activity', subtitle: null },
         'contact-us': { title: 'app.title.contact-us', subtitle: null, bg: signpost },
         'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: bg13 },
@@ -175,6 +177,6 @@ const UNIVERSALS: UniversalsInfo = {
     },
     GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query",
     // GRAPHQL_ENDPOINT: "http://localhost:8080/query",
-    GOOGLE_STORAGE_ENDPOINT: "https://storage.googleapis.com"
+    GOOGLE_STORAGE_ENDPOINT: googleEndPoint
 }
 export default UNIVERSALS;
