@@ -20,6 +20,7 @@
   "app.more": "更多",
   "app.show-more": "顯示更多",
   "app.content": "內容",
+  "app.stay-tuned": "了解教會的最新動態",
 
   "app.breadcrumb.index": "主頁",
   "app.breadcrumb.online-sermon": "瀏覽網上崇拜",
@@ -114,6 +115,15 @@
   "app.theme2.l2": "真理的教導",
   "app.theme2.l3": "福音的確據",
   "app.theme2.l4": "信徒互相分享生命見證",
+  "app.theme.statement.title": "立志宣告: 三個相信，三個願意",
+  "app.theme.statement.l1": "我信上帝既是公義的，也是滿有慈愛信實和憐憫的主，祂的恩典夠我用，在急難中祂必把我拯救出來。",
+  "app.theme.statement.l2": "我信禱告是上帝藉著祂愛子耶穌基督賜給我們的權柄，是有力量、有果效的，按上帝心意禱告的必蒙垂聽。",
+  "app.theme.statement.l3": "我信我主耶穌基督是教會的頭，教會是他的身體，祂在我還作罪人的時候為我捨己，顯明了祂的愛。",
+  "app.theme.statement.l4": "我願意勤讀聖經，常學習神的話語，追求真理。",
+  "app.theme.statement.l5": "我願意為屬靈友伴恆切地禱告，互相分享，分擔彼此的難處，在信仰路上互相扶持同行。",
+  "app.theme.statement.l6": "我願意學習接納所有主所愛的，主動關心被忽略的人，努力實踐基督的愛。",
+  "app.theme.statement.scripture": "我又告訴你們，你們當中若有兩個人，在地上同心為甚麼事祈求，我在天上的父必為他們成全。 因為無論在哪裡，有兩三個人奉我的名聚會，我就在他們中間。",
+  "app.theme.statement.scripture.source": "馬太福音 18:19-20",
 
   "app.tables.date": "日期",
   "app.tables.topic": "標題",

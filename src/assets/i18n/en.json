@@ -20,6 +20,7 @@
   "app.more": "More",
   "app.show-more": "Show More",
   "app.content": "Content",
+  "app.stay-tuned": "Stay tuned to our latest updates",
 
   "app.breadcrumb.index": "Home",
   "app.breadcrumb.online-sermon": "Worship List",
@@ -114,6 +115,15 @@
   "app.theme2.l2": "The Truth from Jesus",
   "app.theme2.l3": "Testimony of the Gospel",
   "app.theme2.l4": "Sharing of the fruitful lives",
+  "app.theme.statement.title": "Determination: 3 beliefs, 3 willingness",
+  "app.theme.statement.l1": "I believe that God is both righteous and full of love, faithfulness and compassion. His grace is sufficient for me, and He will save me in distress.",
+  "app.theme.statement.l2": "I believe that prayer is the authority given to us by God through His beloved Son Jesus Christ. It is powerful and effective. Those who pray according to God's will will be heard.",
+  "app.theme.statement.l3": "I believe that our Lord Jesus Christ is the head of the church, and the church is his body. He gave himself up for me when I was still a sinner and showed his love.",
+  "app.theme.statement.l4": "I am willing to read the Bible diligently, often study God's word, and pursue the truth.",
+  "app.theme.statement.l5": "I am willing to pray persistently for my spiritual friends, share with each other, share each other's difficulties, and support each other on the road of faith.",
+  "app.theme.statement.l6": "I am willing to learn to accept all that the Lord loves, take the initiative to care for the neglected, and strive to practice the love of Christ.",
+  "app.theme.statement.scripture": "Again I say to you, that if two of you agree on earth about anything that they may ask, it shall be done for them by My Father who is in heaven. For where two or three have gathered together in My name, I am there in their midst.",
+  "app.theme.statement.scripture.source": "Matthew 18:19-20",
 
   "app.tables.date": "Date",
   "app.tables.topic": "Topic",

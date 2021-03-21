@@ -130,7 +130,7 @@ function ChurchResources() {
               </div>
               <div>
                 <h2><strong>{intl.formatMessage({ id: "app.latest-updates" })}</strong></h2>
-                <p className="description">了解教會的最新動態</p>
+                <p className="description">{intl.formatMessage({ id: 'app.stay-tuned' })}</p>
               </div>
             </div>
           </Col>
