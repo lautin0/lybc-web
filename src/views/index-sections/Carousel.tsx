@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { setLoading } from "actions";
 import axios from "axios";
 import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
@@ -28,23 +28,23 @@ function CarouselSection() {
   // const [votdImg, setVotdImg] = useState('')
   // const [votdSrc, setVotdSrc] = useState('')
 
-  const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
+  const { data, loading } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
 
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
   };
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     history.push('/worship/' + worshipId)
-  }
+  }, [worshipId])
 
   useEffect(() => {
-    dispatch(setLoading(true))
+    // dispatch(setLoading(true))
   }, [])
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setLoading(false))
+      // dispatch(setLoading(false))
       setWorshipId(data.maxWorshipId)
     }
   }, [data])
@@ -98,7 +98,7 @@ function CarouselSection() {
             </Col>
             <Col md={6} sm={12}>
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
-                <Carousel.Item>
+                {!loading && <Carousel.Item>
                   <img
                     style={{ height: 400, objectFit: "cover" }}
                     className="d-block w-100"
@@ -114,7 +114,7 @@ function CarouselSection() {
                         <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
                     </Button>
                   </Carousel.Caption>
-                </Carousel.Item>
+                </Carousel.Item>}
                 <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ height: 400, objectFit: "cover" }}

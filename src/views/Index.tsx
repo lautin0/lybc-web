@@ -69,6 +69,7 @@ function Index() {
         .catch(() => {
           // dispatch(signInFailure(err))
           dispatch(signOut())
+          window.location.reload()
         })
     }
   }, [location, dispatch, refreshToken, tokenPair])
