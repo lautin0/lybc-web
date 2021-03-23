@@ -1,28 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.721d6cc2.chunk.css",
-    "main.js": "/static/js/main.8fb7afb1.chunk.js",
+    "main.css": "/static/css/main.6a57821a.chunk.css",
+    "main.js": "/static/js/main.0296ede2.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css": "/static/css/2.610f19ea.chunk.css",
     "static/js/2.63e27da3.chunk.js": "/static/js/2.63e27da3.chunk.js",
     "index.html": "/index.html",
     "static/js/2.63e27da3.chunk.js.LICENSE.txt": "/static/js/2.63e27da3.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
-    "static/media/bg13.b126abbc.jpg": "/static/media/bg13.b126abbc.jpg",
-    "static/media/bg8.2c89438b.jpg": "/static/media/bg8.2c89438b.jpg",
     "static/media/lightbulb.265ea923.jpg": "/static/media/lightbulb.265ea923.jpg",
     "static/media/login.ab931d77.jpg": "/static/media/login.ab931d77.jpg",
     "static/media/ly_bg6.25f31c86.jpg": "/static/media/ly_bg6.25f31c86.jpg",
-    "static/media/lybc_logo.95501391.png": "/static/media/lybc_logo.95501391.png",
-    "static/media/microphone.a4e56f03.jpg": "/static/media/microphone.a4e56f03.jpg",
-    "static/media/sermon.307cf97b.jpg": "/static/media/sermon.307cf97b.jpg",
-    "static/media/signpost_md.30723d5b.jpg": "/static/media/signpost_md.30723d5b.jpg"
+    "static/media/lybc_logo.95501391.png": "/static/media/lybc_logo.95501391.png"
   },
   "entrypoints": [
     "static/js/runtime-main.f50297bb.js",
     "static/css/2.610f19ea.chunk.css",
     "static/js/2.63e27da3.chunk.js",
-    "static/css/main.721d6cc2.chunk.css",
-    "static/js/main.8fb7afb1.chunk.js"
+    "static/css/main.6a57821a.chunk.css",
+    "static/js/main.0296ede2.chunk.js"
   ]
 }
