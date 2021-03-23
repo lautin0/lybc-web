@@ -1,10 +1,6 @@
 import bg1 from "assets/img/bg1.jpg"
-import bg13 from "assets/img/bg13.jpg"
 import bg11 from "assets/img/bg11.jpg"
 import bg8 from "assets/img/bg8.jpg"
-import sermon from 'assets/img/sermon.jpg'
-import microphone from 'assets/img/microphone.jpg'
-import signpost from 'assets/img/signpost_md.jpg'
 import news from "assets/img/lightbulb.jpg";
 
 type UniversalsInfo = {
@@ -19,17 +15,17 @@ const googleEndPoint = "https://storage.googleapis.com"
 
 const UNIVERSALS: UniversalsInfo = {
     TITLE_MAP: {
-        'about-us': { title: 'app.title.about-us', subtitle: null, bg: bg13 },
-        'journal': { title: 'app.title.journal', subtitle: null, bg: googleEndPoint + "/lybcstorage/reading.jpg" },
+        'about-us': { title: 'app.title.about-us', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'journal': { title: 'app.title.journal', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-blue-oil-paint.jpeg" },
         'apply-activity': { title: 'app.title.apply-activity', subtitle: null },
-        'contact-us': { title: 'app.title.contact-us', subtitle: null, bg: signpost },
-        'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: bg13 },
+        'contact-us': { title: 'app.title.contact-us', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'worship': { title: 'app.title.worship', subtitle: null },
-        'worship-list': { title: 'app.title.worship', subtitle: 'app.subtitle.worship', bg: sermon },
-        'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: bg13 },
-        'careers':{ title: 'app.title.careers', subtitle: null, bg: bg13 },
-        'preacher-message': { title: 'app.title.preacher-message', subtitle: 'app.subtitle.preacher-message', bg: bg8 },
-        'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: microphone },
+        'worship-list': { title: 'app.title.worship', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-orange-oil-paint.jpeg" },
+        'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'careers':{ title: 'app.title.careers', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'preacher-message': { title: 'app.title.preacher-message', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-blue-oil-paint.jpeg" },
         'sharing': { title: 'app.title.sharing', subtitle: null },
         'library': { title: 'app.title.books-enquiry', subtitle: null },
         'news': { title: 'app.latest-updates', subtitle: null },

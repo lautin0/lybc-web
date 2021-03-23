@@ -72,16 +72,16 @@ function App() {
             <Switch>
               <Route path="/index" render={(props: any) => <Index {...props} />} />
               <PrivateRoute path="/admin" role={[Role.Admin]} />
-              <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" deemed />} />
+              <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" />} />
               <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library" />} />
               <PersonalRoute path="/personal" />
               {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
               <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
-              {/* <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" deemed />} /> */}
+              {/* <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" />} /> */}
               <Route path="/careers" render={(props: any) => <MainPageLegacy {...props} page="careers" />} />
-              <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" deemed />} />
-              <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" deemed />} />
-              <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" deemed />} />
+              <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" />} />
+              <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" />} />
+              <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" />} />
               <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
               <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
               <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
@@ -89,11 +89,11 @@ function App() {
               {/* <PrivateRoute path="/worship-list" />
         <PrivateRoute path="/worship/:id" /> */}
               <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
-              <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" deemed />} />
+              <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" />} />
               <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
               <Route path="/news/" render={props => <MainPageLegacy {...props} page="news" />} />
               <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} />
-              <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" deemed />} />
+              <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" />} />
               <Redirect from="/sharing/" to="/sharing-list" />
               <Route exact path="/"><Index /></Route>
               <Route path="*">

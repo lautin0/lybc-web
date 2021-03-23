@@ -6,7 +6,6 @@ import { Container } from "react-bootstrap";
 // core components
 
 import logo from "assets/img/lybc_logo.png";
-import bg12 from "assets/img/bg12.jpg";
 import bg from "assets/img/ly_bg6.jpg";
 import landingVideoSrc from "assets/video/rain.mp4"
 

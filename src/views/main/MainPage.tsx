@@ -18,21 +18,18 @@ import LatestNewsList from "views/latest/LatestNewsList";
 type MainPageProps = {
 
   // page id
-  page: string,
-
-  // demmed theme
-  deemed: boolean
+  page: string
 
 }
 
 function MainPage(props: MainPageProps) {
 
   React.useEffect(() => {
-    props.deemed && document.body.classList.add("profile-page");
+    document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
     return function cleanup() {
-      props.deemed && document.body.classList.remove("profile-page");
+      document.body.classList.remove("profile-page");
       document.body.classList.remove("sidebar-collapse");
     };
   });
@@ -58,8 +55,7 @@ function MainPage(props: MainPageProps) {
 }
 
 MainPage.propTypes = {
-  page: PropTypes.string.isRequired,
-  deemed: PropTypes.bool
+  page: PropTypes.string.isRequired
 };
 
 export default MainPage;

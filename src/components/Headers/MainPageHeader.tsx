@@ -50,34 +50,10 @@ function MainPageHeader(props: MainPageHeaderType) {
         ></div>
         <div className="content-center">
           <Container>
-            {window.innerHeight > 375 && <h1 className="title">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h1>}
+            {window.innerHeight > 375 && <h1 className="title" style={{ textAlign: 'left' }}>{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h1>}
             {window.innerHeight <= 375 && <h3 className="title">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h3>}
             {UNIVERSALS.TITLE_MAP[props.page].subtitle && <div className="text-center">
               <p className="category">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].subtitle })}</p>
-              {/* <Button
-                className="btn-icon btn-round"
-                color="info"
-                href="#pablo"
-                onClick={(e: any) => e.preventDefault()}
-              >
-                <i className="fab fa-facebook-square"></i>
-              </Button>
-              <Button
-                className="btn-icon btn-round"
-                color="info"
-                href="#pablo"
-                onClick={(e: any) => e.preventDefault()}
-              >
-                <i className="fab fa-twitter"></i>
-              </Button>
-              <Button
-                className="btn-icon btn-round"
-                color="info"
-                href="#pablo"
-                onClick={(e: any) => e.preventDefault()}
-              >
-                <i className="fab fa-google-plus"></i>
-              </Button> */}
             </div>}
           </Container>
         </div>
