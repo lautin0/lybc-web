@@ -27,6 +27,8 @@ import { Role } from "generated/graphql";
 import PersonalRoute from "components/Route/PersonalRoute";
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import en from './assets/i18n/en.json';
 import zh from './assets/i18n/zh.json';
 import { IntlProvider } from "react-intl";

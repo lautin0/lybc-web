@@ -24,6 +24,7 @@ import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
 import Images from "./index-sections/Images";
 import ArticleComponent from "./index-sections/ArticleComponent";
+import SlideSection from "./index-sections/SlideSection";
 
 function Index() {
 
@@ -92,6 +93,7 @@ function Index() {
           {/* <Theme /> */}
           <ArticleComponent />
           <ChurchResources />
+          {/* <SlideSection /> */}
           <NameCardForm />
         </div>
         <DarkFooter />
