@@ -89,11 +89,11 @@ function Index() {
         <div className="main">
           {/* <Images /> */}
           <CarouselSection />
+          <SlideSection />
           {/* <IndexBanner /> */}
           {/* <Theme /> */}
           <ArticleComponent />
           <ChurchResources />
-          {/* <SlideSection /> */}
           <NameCardForm />
         </div>
         <DarkFooter />

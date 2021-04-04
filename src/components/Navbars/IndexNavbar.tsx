@@ -108,7 +108,7 @@ function IndexNavbar() {
               {" "}{intl.formatMessage({ id: "app.title" })}
             </Navbar.Brand>
             <div>
-              {['/', '/index'].includes(location.pathname) && <div className="d-inline-block d-lg-none">
+              {(['/', '/index'].includes(location.pathname) && UNIVERSALS.NOTIFICATION.MESSAGE != null && UNIVERSALS.NOTIFICATION.MESSAGE.length > 0) && <div className="d-inline-block d-lg-none">
                 <a
                   href="#pablo"
                   onClick={(e: any) => {
@@ -147,7 +147,7 @@ function IndexNavbar() {
             appear={collapseOpen}
           >
             <Nav>
-              {['/', '/index'].includes(location.pathname) && <Nav.Item className="d-none d-lg-inline">
+              {(['/', '/index'].includes(location.pathname) && UNIVERSALS.NOTIFICATION.MESSAGE != null && UNIVERSALS.NOTIFICATION.MESSAGE.length > 0) && <Nav.Item className="d-none d-lg-inline">
                 <Nav.Link
                   href="#pablo"
                   onClick={(e: any) => {
