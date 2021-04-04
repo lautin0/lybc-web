@@ -119,6 +119,7 @@ const UNIVERSALS: UniversalsInfo = {
     },
     // NOTIFICATION: { MESSAGE: null }
     NOTIFICATION: {
+        MESSAGE: "",
         // MESSAGE: `
         // <p><b>綠楊浸信會應對新型冠狀病毒病疫症措施通告{1}</b></p>
         // <p><b>有鑑新型冠狀病毒病疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
