@@ -25,6 +25,8 @@ import useLanguage from "hooks/useLanguage";
 import Images from "./index-sections/Images";
 import ArticleComponent from "./index-sections/ArticleComponent";
 import SlideSection from "./index-sections/SlideSection";
+import TimelineSection from "./index-sections/TimelineSection";
+import ImageRotateSection from "./index-sections/ImageRotateSection";
 
 function Index() {
 
@@ -90,10 +92,12 @@ function Index() {
           {/* <Images /> */}
           <CarouselSection />
           <SlideSection />
+          <ImageRotateSection />
+          <ChurchResources />
           {/* <IndexBanner /> */}
           {/* <Theme /> */}
           <ArticleComponent />
-          <ChurchResources />
+          {/* <TimelineSection /> */}
           <NameCardForm />
         </div>
         <DarkFooter />

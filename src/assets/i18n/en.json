@@ -8,6 +8,7 @@
   "app.admin.panel": "Admin Panel",
   "app.personal": "Personal Centre",
   "app.latest-updates": "Latest Updates",
+  "app.latest-updates.content": "Check the latest news and meeting arrangements of the church, and stay tuned to the latest news of the church!",
   "app.new": "New",
   "app.deadline": "Deadline",
   "app.link": "Link",
@@ -22,6 +23,10 @@
   "app.content": "Content",
   "app.stay-tuned": "Click here to view our latest updates and Sunday services/gatherings arrangement. Stay tuned!",
   "app.featured": "Featured",
+  "app.testimony": "Testimony",
+  "app.testimony.content": "Read the sharing of brothers, sisters and pastors. At the same time, you can also share your testimony. Take watch and walk together.",
+  "app.online-sermon.content": "Join online sermon. Unlimited time and place. Keep the sacraments and remember Christ.",
+  "app.anytime-anywhere": "Anytime, Anywhere",
 
   "app.breadcrumb.index": "Home",
   "app.breadcrumb.online-sermon": "Worship List",

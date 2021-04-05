@@ -60,7 +60,7 @@ function ChurchResources() {
       <div
         className="section clear-filter"
       >
-        <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 150, marginBottom: 100 }}>
+        <Row className="justify-content-center mx-auto scroll-animations" style={{ marginTop: 50, marginBottom: 100 }}>
           <Col className="animated animate__animated text-center" md="6" lg="3">
             {/* <Card
               className="text-center"

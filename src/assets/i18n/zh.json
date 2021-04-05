@@ -8,6 +8,7 @@
   "app.admin.panel": "管理控制台",
   "app.personal": "個人中心",
   "app.latest-updates": "最新消息",
+  "app.latest-updates.content": "查看教會的最新消息和聚會安排，緊貼教會最新動態！",
   "app.new": "新",
   "app.deadline": "截止日期",
   "app.link": "連結",
@@ -22,6 +23,10 @@
   "app.content": "內容",
   "app.stay-tuned": "按此瀏覽教會的最新消息和聚會安排，緊貼教會最新動態！",
   "app.featured": "精選",
+  "app.testimony": "見證分享",
+  "app.testimony.content": "閱覽弟兄姊妹和牧者的分享，同時你也可以分享自己的見證或想法，一起守望同行。",
+  "app.online-sermon.content": "瀏覽網上崇拜，不限時間地域，持守聖禮，記念基督。",
+  "app.anytime-anywhere": "隨時隨地，進入教會",
 
   "app.breadcrumb.index": "主頁",
   "app.breadcrumb.online-sermon": "瀏覽網上崇拜",
