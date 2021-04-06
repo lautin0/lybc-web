@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { setLoading } from "actions";
 import axios from "axios";
+import LoadingDiv from "components/Loading/LoadingDiv";
 import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -37,10 +38,6 @@ function CarouselSection() {
   const handleClick = useCallback(() => {
     history.push('/worship/' + worshipId)
   }, [worshipId])
-
-  useEffect(() => {
-    // dispatch(setLoading(true))
-  }, [])
 
   useEffect(() => {
     if (data !== undefined) {
@@ -97,8 +94,9 @@ function CarouselSection() {
               {/* <div className="text-right pr-5"><a href="#" onClick={e => { e.preventDefault() }}><h5>{intl.formatMessage({ id: 'app.show-more' })}</h5></a></div> */}
             </Col>
             <Col lg={6} sm={12}>
+            {!loading && 
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
-                {!loading && <Carousel.Item>
+                <Carousel.Item>
                   <img
                     style={{ height: 400, objectFit: "cover" }}
                     className="d-block w-100"
@@ -114,7 +112,7 @@ function CarouselSection() {
                         <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
                     </Button>
                   </Carousel.Caption>
-                </Carousel.Item>}
+                </Carousel.Item>
                 <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ height: 400, objectFit: "cover" }}
@@ -177,7 +175,8 @@ function CarouselSection() {
                   </p>
                   </Carousel.Caption>
                 </Carousel.Item> */}
-              </Carousel>
+              </Carousel>}
+              {loading && <LoadingDiv />}
             </Col>
           </Row>
         </Container>
