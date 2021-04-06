@@ -142,81 +142,92 @@ function Sharing() {
             </div>
           </div>
         </Container>}
-        {(!loading && post != null) && <Container style={{ borderRadius: '.5rem', marginBottom: 100 }}>
-          <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
-            <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
-                <div className="my-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
-                  <div style={{ display: 'inline', cursor: 'pointer' }}>
-                    <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
+        {(!loading && post != null) && <>
+          <Container>
+            <Row className="d-block d-md-none text-left" style={{ alignItems: 'baseline' }}>
+              <Col><h2><strong>{post.title}</strong></h2></Col>
+            </Row>
+            <Row className="d-none d-md-block text-center" style={{ alignItems: 'baseline' }}>
+              <Col><h2><strong>{post.title}</strong></h2></Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
+                <div className="profile-page mr-3">
+                  <div className="photo-container" style={{ width: 50, height: 50 }}>
+                    {postData?.post.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
+                    {postData?.post.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
                   </div>
-                  <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                 </div>
-              </OverlayTrigger>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
-                <div className="my-3" onClick={() => setReaction(ReactionType.Pray)}>
-                  <div style={{ display: 'inline', cursor: 'pointer' }}>
-                    <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
-                  </div>
-                  <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>
+                <div className="my-auto" style={{ color: 'gray' }}>
+                  <div><b>{post.user.nameC}{getTitleDisplay(post)}</b></div>
+                  <div><i>{<FormattedDate
+                    value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                    year="numeric"
+                    month="short"
+                    day="numeric"
+                  />}</i></div>
                 </div>
-              </OverlayTrigger>
+              </Col>
+            </Row>
+          </Container>
+          {post.imageURI != null && <>
+            <div className="justify-content-center d-none d-lg-flex mb-5" style={{ marginLeft: 200, marginRight: 200 }}>
+              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
-          </Row>
-          <Row className="d-block d-md-none text-left" style={{ alignItems: 'baseline' }}>
-            <Col><h2><strong>{post.title}</strong></h2></Col>
-          </Row>
-          <Row className="d-none d-md-block text-center" style={{ alignItems: 'baseline' }}>
-            <Col><h2><strong>{post.title}</strong></h2></Col>
-          </Row>
-          <Row className="justify-content-md-center">
-            <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
-              <div className="profile-page mr-3">
-                <div className="photo-container" style={{ width: 50, height: 50 }}>
-                  {postData?.post.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
-                  {postData?.post.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
-                </div>
-              </div>
-              <div className="my-auto" style={{ color: 'gray' }}>
-                <div><b>{post.user.nameC}{getTitleDisplay(post)}</b></div>
-                <div><i>{<FormattedDate
-                  value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
-                  year="numeric"
-                  month="short"
-                  day="numeric"
-                />}</i></div>
-              </div>
-            </Col>
-          </Row>
-          {post.imageURI != null && <Row className="d-flex justify-content-md-center mb-5">
-            <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img></Col>
-          </Row>}
-          <Row className="justify-content-md-center">
-            <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
-            </Col>
-          </Row>
-          <Row className="text-left mt-5" id="reaction-bar">
-            <Col className="form-inline" lg={{ offset: 2 }}>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
-                <div className="m-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
-                  <div style={{ display: 'inline', cursor: 'pointer' }}>
-                    <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
+            <div className="justify-content-center d-none d-md-flex d-lg-none mb-5" style={{ marginLeft: '7rem', marginRight: '7rem' }}>
+              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
+            </div>
+            <div className="justify-content-center d-flex d-md-none mx-5 mb-5">
+              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
+            </div>
+          </>}
+          <Container style={{ marginBottom: 100 }}>
+            <Row className="text-left d-none d-lg-block scroll-animations" style={{ position: "sticky", top: '40vh' }}>
+              <div style={{ position: "absolute", marginTop: 80 }} className="animated animate__animated animate__fast">
+                <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
+                  <div className="my-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
+                    <div style={{ display: 'inline', cursor: 'pointer' }}>
+                      <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
+                    </div>
+                    <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
                   </div>
-                  <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
-                </div>
-              </OverlayTrigger>
-              <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
-                <div className="m-3" onClick={() => setReaction(ReactionType.Pray)}>
-                  <div style={{ display: 'inline', cursor: 'pointer' }}>
-                    <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
+                </OverlayTrigger>
+                <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
+                  <div className="my-3" onClick={() => setReaction(ReactionType.Pray)}>
+                    <div style={{ display: 'inline', cursor: 'pointer' }}>
+                      <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
+                    </div>
+                    <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>
                   </div>
-                  <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>
-                </div>
-              </OverlayTrigger>
-            </Col>
-          </Row>
-          <CommentSection id={id} type="SHARING" />
-        </Container>}
+                </OverlayTrigger>
+              </div>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
+              </Col>
+            </Row>
+            <Row className="text-left mt-5" id="reaction-bar">
+              <Col className="form-inline" lg={{ offset: 2 }}>
+                <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'hallelujah', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
+                  <div className="m-3" onClick={() => setReaction(ReactionType.Hallelujah)}>
+                    <div style={{ display: 'inline', cursor: 'pointer' }}>
+                      <i className={`fas fa-hanukiah reaction ${isReacted('hallelujah') ? "reacted" : ""}`}></i>
+                    </div>
+                    <span style={{ fontSize: 24 }} className="m-1">{reactionCount('hallelujah')}</span>
+                  </div>
+                </OverlayTrigger>
+                <OverlayTrigger overlay={(props: any) => renderTooltip(props, 'pray', getTokenValue(tokenPair?.token)?.username, post.reactions, intl.locale)}>
+                  <div className="m-3" onClick={() => setReaction(ReactionType.Pray)}>
+                    <div style={{ display: 'inline', cursor: 'pointer' }}>
+                      <i className={`fas fa-praying-hands reaction ${isReacted('pray') ? "reacted" : ""}`}></i>
+                    </div>
+                    <span style={{ fontSize: 24 }} className="m-1">{reactionCount('pray')}</span>
+                  </div>
+                </OverlayTrigger>
+              </Col>
+            </Row>
+            <CommentSection id={id} type="SHARING" />
+          </Container></>}
       </div>
     </>
   );

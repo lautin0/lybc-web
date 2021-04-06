@@ -86,7 +86,7 @@ function CarouselSection() {
       <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 50 }}>
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
-            <Col md={6} sm={12} className="mb-5">
+            <Col lg={6} sm={12} className="mb-5">
               <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>{intl.formatMessage({ id: 'app.latest-updates' })}</b></h3>
               <h5>11-03-2021<a href="#" onClick={e => { e.preventDefault(); history.push('news2') }} className="ml-3">本年度免稅慈善奉獻收據</a></h5>
               <hr style={{ width: '80%' }}></hr>
@@ -96,7 +96,7 @@ function CarouselSection() {
               <hr style={{ width: '80%' }}></hr>
               {/* <div className="text-right pr-5"><a href="#" onClick={e => { e.preventDefault() }}><h5>{intl.formatMessage({ id: 'app.show-more' })}</h5></a></div> */}
             </Col>
-            <Col md={6} sm={12}>
+            <Col lg={6} sm={12}>
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
                 {!loading && <Carousel.Item>
                   <img

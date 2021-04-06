@@ -35,7 +35,7 @@ import { IntlProvider } from "react-intl";
 import { getKeyValue } from "utils/utils";
 import { LocaleContext } from "context/LocaleContext";
 import useLanguage from "hooks/useLanguage";
-import LoadingOverlay from "components/LoadingOverlay/LoadingOverlay";
+import LoadingOverlay from "components/Loading/LoadingOverlay";
 import CommonModal from "components/Modals/CommonModal";
 import DecisionModal from "components/Modals/DecisionModal";
 import PasswordResetModal from "components/Modals/PasswordResetModal";

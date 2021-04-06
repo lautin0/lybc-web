@@ -1,3 +1,4 @@
+import LoadingDiv from 'components/Loading/LoadingDiv';
 import moment from 'moment';
 import React, { useCallback, useState } from 'react'
 import { FormattedDate, useIntl } from 'react-intl';
@@ -48,27 +49,27 @@ function SlideSection() {
 
   const [dragging, setDragging] = useState(false)
 
-    const handleBeforeChange = useCallback(() => {
-        setDragging(true)
-    }, [setDragging])
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true)
+  }, [setDragging])
 
-    const handleAfterChange = useCallback(() => {
-        setDragging(false)
-    }, [setDragging])
+  const handleAfterChange = useCallback(() => {
+    setDragging(false)
+  }, [setDragging])
 
-    const handleOnItemClick = useCallback(
-        e => {
-            if (dragging) e.stopPropagation()
-        },
-        [dragging]
-    ) 
+  const handleOnItemClick = useCallback(
+    e => {
+      if (dragging) e.stopPropagation()
+    },
+    [dragging]
+  )
 
   return <div className="photos section mx-5" style={{ marginTop: 150, marginBottom: 150 }} id="Photos">
     <div className="section-head">
       <h2>{intl.formatMessage({ id: 'app.featured' })}</h2>
     </div>
     <div className="slider-section photos-list">
-      <Slider 
+      <Slider
         beforeChange={handleBeforeChange}
         afterChange={handleAfterChange}
         {...settings}
@@ -81,6 +82,12 @@ function SlideSection() {
                 onClick={() => { history.push(item.link) }}
               >
                 <img
+                  className="d-none d-md-block"
+                  style={{ width: 410, height: 270, objectFit: 'cover' }}
+                  src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/" + item.imgUri}
+                />
+                <img
+                  className="d-block d-md-none"
                   src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/" + item.imgUri}
                 />
                 <h4>{<FormattedDate
