@@ -85,7 +85,7 @@ function SlideSection() {
         {...settings}
       >
         {loading && dummyList.current.map((item, idx) => {
-          return <LoadingDiv />
+          return <LoadingDiv key={idx} />
         })}
         {!loading && (postData?.posts.edges!).slice(0, 9).map((item, index) => {
           return (
@@ -95,7 +95,12 @@ function SlideSection() {
                 onClick={() => { history.push("sharing/" + item.node?._id) }}
               >
                 <img
-                  className="d-none d-md-block"
+                  className="d-none d-lg-block"
+                  style={{ width: '100%', height: 350, objectFit: 'cover' }}
+                  src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
+                />
+                <img
+                  className="d-none d-md-block d-lg-none"
                   style={{ width: 410, height: 270, objectFit: 'cover' }}
                   src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                 />

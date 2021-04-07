@@ -22,6 +22,7 @@ function InputQuill({ name, label, isReadOnly }: any) {
       // [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
       // [{ 'direction': 'rtl' }],                         // text direction
       [{ 'align': [] }],
+      ['video'],
       ['clean']                                         // remove formatting button
     ]
   }), []);

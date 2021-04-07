@@ -203,7 +203,7 @@ function Sharing() {
               </div>
             </Row>
             <Row className="justify-content-md-center">
-              <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}>
+              <Col className="text-left sharing" lg="8" md="12" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content, { ADD_TAGS: ["iframe"], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] }) }}>
               </Col>
             </Row>
             <Row className="text-left mt-5" id="reaction-bar">

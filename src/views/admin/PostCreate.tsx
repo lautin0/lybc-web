@@ -49,6 +49,9 @@ function PostCreate(props: any) {
     let tmp: NewPost = { ...data }
     tmp.type = PostType.Sharing
     tmp.username = getTokenValue(tokenPair?.token).username
+    if(tmp.content.indexOf('iframe') > -1){
+      tmp.content = tmp.content.replace("iframe", "iframe width=\"660\" height=\"371\"")
+    }
     let file = acceptedFiles[0]
     addPost({
       variables: {
