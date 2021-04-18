@@ -8,6 +8,7 @@ import { FormattedDate, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import Slider from "react-slick";
 import UNIVERSALS from 'Universals';
+import noImg from 'assets/img/no-img.jpg';
 
 const settings = {
   dots: true,
@@ -94,20 +95,38 @@ function SlideSection() {
                 className="gatsby-image-wrapper"
                 onClick={() => { history.push("sharing/" + item.node?._id) }}
               >
-                <img
-                  className="d-none d-lg-block"
-                  style={{ width: '100%', height: 350, objectFit: 'cover' }}
-                  src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                />
-                <img
-                  className="d-none d-md-block d-lg-none"
-                  style={{ width: 410, height: 270, objectFit: 'cover' }}
-                  src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                />
-                <img
-                  className="d-block d-md-none"
-                  src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                />
+                {item.node?.imageURI && <>
+                  <img
+                    className="d-none d-lg-block"
+                    style={{ width: '100%', height: 350, objectFit: 'cover' }}
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
+                  />
+                  <img
+                    className="d-none d-md-block d-lg-none"
+                    style={{ width: 410, height: 270, objectFit: 'cover' }}
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
+                  />
+                  <img
+                    className="d-block d-md-none"
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
+                  />
+                </>}
+                {!item.node?.imageURI && <>
+                  <img
+                    className="d-none d-lg-block"
+                    style={{ width: '100%', height: 350, objectFit: 'cover' }}
+                    src={noImg}
+                  />
+                  <img
+                    className="d-none d-md-block d-lg-none"
+                    style={{ width: 410, height: 270, objectFit: 'cover' }}
+                    src={noImg}
+                  />
+                  <img
+                    className="d-block d-md-none"
+                    src={noImg}
+                  />
+                </>}
                 <h4>{<FormattedDate
                   value={item.node?.creDttm}
                   year="numeric"
