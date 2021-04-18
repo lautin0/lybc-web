@@ -177,7 +177,7 @@ function Sharing() {
             <div className="justify-content-center d-none d-md-flex d-lg-none mb-5" style={{ marginLeft: '7rem', marginRight: '7rem' }}>
               <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
-            <div className="justify-content-center d-flex d-md-none mb-5" style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+            <div className="d-md-none mb-5">
               <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
           </>}
