@@ -95,7 +95,7 @@ function SlideSection() {
                 onClick={() => { history.push("sharing/" + item.node?._id) }}
               >
                 <img
-                  className="d-md-none d-lg-block"
+                  className="d-none d-lg-block"
                   style={{ width: '100%', height: 350, objectFit: 'cover' }}
                   src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                 />
