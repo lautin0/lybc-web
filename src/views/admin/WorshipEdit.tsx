@@ -201,7 +201,7 @@ function WorshipEdit() {
           isReadOnly={isReadOnly}
           placeholder="e.g. https://www.abc.com/"
           md={5}
-          sm={12}
+          xs={12}
           skipValidate={true}
         />
         {/* <InputText
@@ -217,7 +217,7 @@ function WorshipEdit() {
           label="名稱"
           isReadOnly={isReadOnly}
           md={3}
-          sm={12}
+          xs={12}
           skipValidate={true}
         />
         {/* <InputDropdown
@@ -235,7 +235,7 @@ function WorshipEdit() {
           isReadOnly={isReadOnly}
           ds={docTypes}
           md={2}
-          sm={12}
+          xs={12}
           skipValidate={true}
         />
         {!isReadOnly && <Grid container item justify="flex-end" md={10}>
@@ -268,6 +268,7 @@ function WorshipEdit() {
               label="講題"
               placeholder="請輸入講題"
               md={5}
+              xs={12}
               isReadOnly={isReadOnly}
               validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
             />
@@ -285,6 +286,7 @@ function WorshipEdit() {
               placeholder="YYYYMMDD"
               isReadOnly={isReadOnly}
               md={5}
+              xs={12}
               strongReadOnly={true}
             />
           </Form.Row>
@@ -303,6 +305,7 @@ function WorshipEdit() {
               isReadOnly={isReadOnly}
               ds={dropdownData}
               md={5}
+              xs={12}
               validateFn={Validators.NoWhiteSpace}
             />
             {/* <InputText
@@ -319,6 +322,7 @@ function WorshipEdit() {
               placeholder="請輸入講員姓名"
               isReadOnly={isReadOnly}
               md={5}
+              xs={12}
               validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
             />
           </Form.Row>
@@ -334,6 +338,7 @@ function WorshipEdit() {
               name="link"
               label="影片連結"
               md={10}
+              xs={12}
               placeholder="e.g. https://www.abc.com/"
               isReadOnly={isReadOnly}
             />

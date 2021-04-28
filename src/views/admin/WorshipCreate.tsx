@@ -142,7 +142,7 @@ function WorshipCreate() {
           label={`檔案${idx + 1}連結`}
           placeholder="e.g. https://www.abc.com/"
           md={5}
-          sm={12}
+          xs={12}
           skipValidate={true}
         />
         {/* <InputText
@@ -156,7 +156,7 @@ function WorshipCreate() {
           name={`docs[${idx}].title`}
           label="名稱"
           md={3}
-          sm={12}
+          xs={12}
           skipValidate={true}
         />
         {/* <InputDropdown
@@ -198,7 +198,7 @@ function WorshipCreate() {
           /> */}
           <MuiInputText
             md={5}
-            sm={12}
+            xs={12}
             name="title"
             label="講題"
             placeholder="請輸入講題"
@@ -213,7 +213,7 @@ function WorshipCreate() {
           /> */}
           <MuiInputText
             md={5}
-            sm={12}
+            xs={12}
             name="worshipId"
             label="日期"
             placeholder="YYYYMMDD"
@@ -245,7 +245,7 @@ function WorshipCreate() {
           /> */}
           <MuiInputText
             md={5}
-            sm={12}
+            xs={12}
             name="messenger"
             label="講員"
             placeholder="請輸入講員姓名"
@@ -261,7 +261,7 @@ function WorshipCreate() {
           /> */}
           <MuiInputText
             md={10}
-            sm={12}
+            xs={12}
             name="link"
             label="影片連結"
             placeholder="e.g. https://www.abc.com/"

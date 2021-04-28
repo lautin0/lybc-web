@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
 
 function MuiInputText(props: any) {
 
-   const { name, label, isReadOnly, md, sm, skipValidate, placeholder, validateFn, strongReadOnly } = props;
+   const { name, label, isReadOnly, md, sm, xs, skipValidate, placeholder, validateFn, strongReadOnly } = props;
 
    const { errors, control } = useFormContext()
 
@@ -27,6 +27,7 @@ function MuiInputText(props: any) {
       item
       md={md}
       sm={sm}
+      xs={xs}
       className={classes.item}
    >
       <Controller
