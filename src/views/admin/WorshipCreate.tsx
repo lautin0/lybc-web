@@ -3,6 +3,7 @@ import { setSysMessage, setLoading, setSystemFailure } from 'actions';
 import InputDropdown from 'components/Forms/InputDropdown';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
+import MuiInputText from 'components/Forms/MuiInputText';
 import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { ADD_WORSHIP } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
@@ -146,18 +147,32 @@ function WorshipCreate() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3>
         <Form.Row>
-          <InputText
+          {/* <InputText
             name="title"
             label="講題"
             placeholder="請輸入講題"
             md={5}
             validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+          /> */}
+          <MuiInputText
+            width={1/3}
+            name="title"
+            label="講題"
+            placeholder="請輸入講題"
+            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
           />
-          <InputText
+          {/* <InputText
             name="worshipId"
             label="日期"
             placeholder="YYYYMMDD"
             md={{ span: 5, offset: 1 }}
+            validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputText
+            width={1/3}
+            name="worshipId"
+            label="日期"
+            placeholder="請輸入主題"
             validateFn={Validators.NoWhiteSpace}
           />
         </Form.Row>
