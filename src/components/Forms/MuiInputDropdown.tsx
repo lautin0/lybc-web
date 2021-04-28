@@ -34,7 +34,12 @@ export default function MuiInputDropdown(props: any) {
       rules={{ validate: validateFn }}
       defaultValue=""
       render={({ onChange, onBlur, value }) => {
-        return <FormControl variant="filled" fullWidth={true} error={!skipValidate && !!errors[name]}>
+        return <FormControl
+          variant="filled"
+          fullWidth={true}
+          error={!skipValidate && !!errors[name]}
+          disabled={strongReadOnly || isReadOnly}
+        >
           <InputLabel id="demo-simple-select-filled-label">{label}</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
