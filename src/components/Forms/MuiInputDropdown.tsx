@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     item: {
       paddingRight: theme.spacing(3),
-      textAlign: 'center',
+      // textAlign: 'center',
       color: theme.palette.text.secondary,
       whiteSpace: 'nowrap',
       marginBottom: theme.spacing(1),

@@ -35,11 +35,12 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
    window?: any
+   drawer: any
 }
 
 const ClippedDrawer: FC<Props> = (props): ReactElement => {
    const classes = useStyles();
-   const { window } = props;
+   const { window, drawer } = props;
    const theme = useTheme();
    const { mobileOpen, setMobileOpen } = useContext(LayoutContext)
 
@@ -55,49 +56,49 @@ const ClippedDrawer: FC<Props> = (props): ReactElement => {
 
    const container = window !== undefined ? () => window().document.body : undefined;
 
-   const drawer = (
-      <>
-         <Toolbar />
-         <div className={classes.drawerContainer}>
-            <List>
-               {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                  text === 'Inbox' ? <div key={text}>
-                     <ListItem button onClick={handleClick}>
-                        <ListItemIcon>
-                           <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Inbox" />
-                        {open ? <ExpandLess /> : <ExpandMore />}
-                     </ListItem>
-                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                           <ListItem button className={classes.nested}>
-                              <ListItemIcon>
-                                 <StarBorder />
-                              </ListItemIcon>
-                              <ListItemText primary="Starred" />
-                           </ListItem>
-                        </List>
-                     </Collapse>
-                  </div> :
-                     <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                     </ListItem>
-               ))}
-            </List>
-            <Divider />
-            <List>
-               {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                  <ListItem button key={text}>
-                     <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                     <ListItemText primary={text} />
-                  </ListItem>
-               ))}
-            </List>
-         </div>
-      </>
-   )
+   // const drawer = (
+   //    <>
+   //       <Toolbar />
+   //       <div className={classes.drawerContainer}>
+   //          <List>
+   //             {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+   //                text === 'Inbox' ? <div key={text}>
+   //                   <ListItem button onClick={handleClick}>
+   //                      <ListItemIcon>
+   //                         <InboxIcon />
+   //                      </ListItemIcon>
+   //                      <ListItemText primary="Inbox" />
+   //                      {open ? <ExpandLess /> : <ExpandMore />}
+   //                   </ListItem>
+   //                   <Collapse in={open} timeout="auto" unmountOnExit>
+   //                      <List component="div" disablePadding>
+   //                         <ListItem button className={classes.nested}>
+   //                            <ListItemIcon>
+   //                               <StarBorder />
+   //                            </ListItemIcon>
+   //                            <ListItemText primary="Starred" />
+   //                         </ListItem>
+   //                      </List>
+   //                   </Collapse>
+   //                </div> :
+   //                   <ListItem button key={text}>
+   //                      <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+   //                      <ListItemText primary={text} />
+   //                   </ListItem>
+   //             ))}
+   //          </List>
+   //          <Divider />
+   //          <List>
+   //             {['All mail', 'Trash', 'Spam'].map((text, index) => (
+   //                <ListItem button key={text}>
+   //                   <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+   //                   <ListItemText primary={text} />
+   //                </ListItem>
+   //             ))}
+   //          </List>
+   //       </div>
+   //    </>
+   // )
 
    return (
       <nav className={classes.drawer} aria-label="mailbox folders">

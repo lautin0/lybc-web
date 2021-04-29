@@ -92,7 +92,8 @@ function PostCreate(props: any) {
             validateFn={Validators.NoWhiteSpace}
           /> */}
           <MuiInputText
-            width={1/2}
+            md={6}
+            xs={12}
             name="title"
             label="主題"
             placeholder="請輸入主題"
@@ -107,7 +108,7 @@ function PostCreate(props: any) {
             validateFn={Validators.NoWhiteSpace}
           /> */}
           <MuiInputText
-            width={1}
+            xs={12}
             name="subtitle"
             label="副標題"
             placeholder="請輸入副標題"
