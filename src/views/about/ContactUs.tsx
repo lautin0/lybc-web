@@ -60,19 +60,19 @@ function ContactUs() {
         </div>
         <Row className="justify-content-md-center mt-5">
           <Col className="text-left" lg="8" md="12">
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.head-preacher" })}：{intl.formatMessage({ id: "app.contact.head-preacher.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.head-preacher" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.head-preacher.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.preacher-worker" })}：{intl.formatMessage({ id: "app.contact.preacher-worker.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.preacher-worker" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.preacher-worker.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.theology-student" })}：{intl.formatMessage({ id: "app.contact.theology-student.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.theology-student" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.theology-student.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.church-address" })}：{intl.formatMessage({ id: "app.contact.church-address.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.church-address" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.church-address.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.corresp-address" })}：{intl.formatMessage({ id: "app.contact.corresp-address.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.corresp-address" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.corresp-address.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.phone" })}：<i className="fas fa-phone"></i> | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> {intl.formatMessage({ id: "app.contact.phone.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.phone" })}</strong>：<b><i className="fas fa-phone"></i> | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> {intl.formatMessage({ id: "app.contact.phone.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><b>{intl.formatMessage({ id: "app.contact.email" })}：{intl.formatMessage({ id: "app.contact.email.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.email" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.email.value" })}</b></p>
           </Col>
         </Row>
         <Row className="justify-content-center" style={{ marginTop: 30 }}>

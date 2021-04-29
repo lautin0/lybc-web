@@ -1,8 +1,10 @@
 import { useMutation } from "@apollo/client";
+import { Typography } from "@material-ui/core";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
 import InputText from "components/Forms/InputText";
+import MuiInputText from "components/Forms/MuiInputText";
 import { NewPost, Post, PostType } from "generated/graphql";
 import { ADD_POST } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
@@ -49,6 +51,9 @@ function PostCreate(props: any) {
     let tmp: NewPost = { ...data }
     tmp.type = PostType.Sharing
     tmp.username = getTokenValue(tokenPair?.token).username
+    if(tmp.content.indexOf('iframe') > -1){
+      tmp.content = tmp.content.replace("iframe", "iframe width=\"660\" height=\"371\"")
+    }
     let file = acceptedFiles[0]
     addPost({
       variables: {
@@ -76,10 +81,19 @@ function PostCreate(props: any) {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="category mt-5" style={{ color: 'black' }}>文章內容</h3>
+        {/* <h3 className="category mt-5" style={{ color: 'black' }}>文章內容</h3> */}
+        <Typography variant="h4">文章內容</Typography>
         <Form.Row>
-          <InputText
+          {/* <InputText
             md={6}
+            name="title"
+            label="主題"
+            placeholder="請輸入主題"
+            validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputText
+            md={6}
+            xs={12}
             name="title"
             label="主題"
             placeholder="請輸入主題"
@@ -87,7 +101,14 @@ function PostCreate(props: any) {
           />
         </Form.Row>
         <Form.Row>
-          <InputText
+          {/* <InputText
+            name="subtitle"
+            label="副標題"
+            placeholder="請輸入副標題"
+            validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputText
+            xs={12}
             name="subtitle"
             label="副標題"
             placeholder="請輸入副標題"

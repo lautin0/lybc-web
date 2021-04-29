@@ -1,11 +1,9 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { decisionRequest, setLoading } from 'actions';
-import { AccountStatus, Gender, NameCard, Worship } from 'generated/graphql';
-import { DELETE_WORSHIP, GET_NAMECARDS, GET_WORSHIPS } from 'graphqls/graphql';
-import usePagination from 'hooks/usePagination';
+import { useQuery } from '@apollo/client';
+import { AccountStatus, Gender, NameCard } from 'generated/graphql';
+import { GET_NAMECARDS } from 'graphqls/graphql';
 import moment from 'moment';
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
-import { Pagination, Container, Row, Table, Col } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 

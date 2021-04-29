@@ -1,13 +1,17 @@
 import { useMutation } from '@apollo/client';
+import { Button, createStyles, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Add, Delete } from '@material-ui/icons';
 import { setSysMessage, setLoading, setSystemFailure } from 'actions';
 import InputDropdown from 'components/Forms/InputDropdown';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
+import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
+import MuiInputText from 'components/Forms/MuiInputText';
 import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { ADD_WORSHIP } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import React, { useEffect } from 'react'
-import { Form, Col, Button } from 'react-bootstrap';
+import { Form, Col } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +19,22 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from 'reducers';
 import Validators from 'utils/validator';
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    button: {
+      margin: theme.spacing(1),
+    },
+    divider: {
+      [theme.breakpoints.up('md')]: {
+        display: 'none'
+      },
+    }
+  }),
+);
+
 function WorshipCreate() {
+
+  const classes = useStyles()
 
   const [locale] = useLanguage()
 
@@ -31,11 +50,11 @@ function WorshipCreate() {
       link: '',
       note: '',
       verse: '',
-      docs: [ ...formDef.docs ] as object
+      docs: [...formDef.docs] as object
     }
   })
 
-  const { register, getValues, handleSubmit, reset, control } = methods
+  const { register, getValues, handleSubmit, reset, control, trigger } = methods
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -98,7 +117,7 @@ function WorshipCreate() {
   }, [register])
 
   useEffect(() => {
-    document.title = intl.formatMessage({ id: "app.admin.panel"})
+    document.title = intl.formatMessage({ id: "app.admin.panel" })
   }, [locale])
 
 
@@ -110,33 +129,56 @@ function WorshipCreate() {
 
     return fields.map((item: any, idx: number) => {
       return <Form.Row key={item.id}>
-        <InputText
+        {/* <InputText
           name={`docs[${idx}].link`}
           label={`檔案${idx + 1}連結`}
           placeholder="e.g. https://www.abc.com/"
           md={5}
           sm={12}
           skipValidate={true}
+        /> */}
+        <MuiInputText
+          name={`docs[${idx}].link`}
+          label={`檔案${idx + 1}連結`}
+          placeholder="e.g. https://www.abc.com/"
+          md={5}
+          xs={12}
+          skipValidate={true}
         />
-        <InputText
+        {/* <InputText
           name={`docs[${idx}].title`}
           label="名稱"
           md={{ span: 3, offset: 1 }}
           sm={12}
           skipValidate={true}
+        /> */}
+        <MuiInputText
+          name={`docs[${idx}].title`}
+          label="名稱"
+          md={3}
+          xs={12}
+          skipValidate={true}
         />
-        <InputDropdown
+        {/* <InputDropdown
           name={`docs[${idx}].type`}
           label="檔案類型"
           ds={docTypes}
           md={2}
           sm={12}
           skipValidate={true}
+        /> */}
+        <MuiInputDropdown
+          name={`docs[${idx}].type`}
+          label="檔案類型"
+          ds={docTypes}
+          md={2}
+          xs={12}
+          skipValidate={true}
         />
-        <Form.Group as={Col} className="text-right" md={11}>
-          <Button className="mx-1" onClick={() => addRow()} variant="info"><i className="fa fa-plus"></i></Button>
-          {fields.length > 1 && <Button onClick={() => remove(idx)} variant="info"><i className="fa fa-trash"></i></Button>}
-        </Form.Group>
+        <Grid container item justify="flex-end" md={10}>
+          <Button onClick={() => addRow()} className={classes.button} variant="contained" color="primary" startIcon={<Add />}>新增</Button>
+          {fields.length > 1 && <Button onClick={() => remove(idx)} className={classes.button} variant="contained" color="secondary" startIcon={<Delete />}>刪除</Button>}
+        </Grid>
       </Form.Row>
     })
   }
@@ -144,47 +186,88 @@ function WorshipCreate() {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3>
-        <Form.Row>
-          <InputText
+        {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
+        <Typography variant="h4" className="mt-3">崇拜資料</Typography>
+        <Form.Row className="mb-5">
+          {/* <InputText
             name="title"
             label="講題"
             placeholder="請輸入講題"
             md={5}
             validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+          /> */}
+          <MuiInputText
+            md={5}
+            xs={12}
+            name="title"
+            label="講題"
+            placeholder="請輸入講題"
+            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
           />
-          <InputText
+          {/* <InputText
             name="worshipId"
             label="日期"
             placeholder="YYYYMMDD"
             md={{ span: 5, offset: 1 }}
             validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputText
+            md={5}
+            xs={12}
+            name="worshipId"
+            label="日期"
+            placeholder="YYYYMMDD"
+            validateFn={Validators.NoWhiteSpace}
           />
         </Form.Row>
-        <Form.Row>
-          <InputDropdown
+        <Form.Row className="mb-5">
+          {/* <InputDropdown
             name="type"
             label="分類"
             ds={dropdownData}
             md={5}
             validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputDropdown
+            md={5}
+            xs={12}
+            ds={dropdownData}
+            name="type"
+            label="分類"
+            validateFn={Validators.NoWhiteSpace}
           />
-          <InputText
+          {/* <InputText
             name="messenger"
             label="講員"
             placeholder="請輸入講員姓名"
             md={{ span: 5, offset: 1 }}
             validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+          /> */}
+          <MuiInputText
+            md={5}
+            xs={12}
+            name="messenger"
+            label="講員"
+            placeholder="請輸入講員姓名"
+            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
           />
         </Form.Row>
         <Form.Row>
-          <InputText
+          {/* <InputText
             name="link"
             label="影片連結"
             md={11}
             placeholder="e.g. https://www.abc.com/"
+          /> */}
+          <MuiInputText
+            md={10}
+            xs={12}
+            name="link"
+            label="影片連結"
+            placeholder="e.g. https://www.abc.com/"
           />
         </Form.Row>
+        <Divider className={classes.divider} light />
         {rowGenerator()}
         <Form.Row className="mb-5">
           <InputQuill
@@ -201,13 +284,15 @@ function WorshipCreate() {
         <Form.Row>
           <Form.Group>
             <Button
-              variant="primary"
+              variant="contained"
+              color="primary"
               type="submit"
             >儲存</Button>
             <Button
               className="mx-3"
               onClick={() => {
                 reset()
+                trigger()
               }}
             >
               重設

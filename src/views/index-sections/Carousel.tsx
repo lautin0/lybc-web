@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { setLoading } from "actions";
 import axios from "axios";
+import LoadingDiv from "components/Loading/LoadingDiv";
 import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -37,10 +38,6 @@ function CarouselSection() {
   const handleClick = useCallback(() => {
     history.push('/worship/' + worshipId)
   }, [worshipId])
-
-  useEffect(() => {
-    // dispatch(setLoading(true))
-  }, [])
 
   useEffect(() => {
     if (data !== undefined) {
@@ -86,7 +83,7 @@ function CarouselSection() {
       <div className="section" id="carousel" style={{ marginTop: 50, marginBottom: 50 }}>
         <Container>
           <Row style={{ marginRight: 0, marginLeft: 0 }}>
-            <Col md={6} sm={12} className="mb-5">
+            <Col lg={6} sm={12} className="mb-5">
               <h3><b className="pl-3" style={{ borderLeft: 'solid .5rem #FFB236' }}>{intl.formatMessage({ id: 'app.latest-updates' })}</b></h3>
               <h5>11-03-2021<a href="#" onClick={e => { e.preventDefault(); history.push('news2') }} className="ml-3">本年度免稅慈善奉獻收據</a></h5>
               <hr style={{ width: '80%' }}></hr>
@@ -96,9 +93,10 @@ function CarouselSection() {
               <hr style={{ width: '80%' }}></hr>
               {/* <div className="text-right pr-5"><a href="#" onClick={e => { e.preventDefault() }}><h5>{intl.formatMessage({ id: 'app.show-more' })}</h5></a></div> */}
             </Col>
-            <Col md={6} sm={12}>
+            <Col lg={6} sm={12}>
+            {!loading && 
               <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
-                {!loading && <Carousel.Item>
+                <Carousel.Item>
                   <img
                     style={{ height: 400, objectFit: "cover" }}
                     className="d-block w-100"
@@ -114,7 +112,7 @@ function CarouselSection() {
                         <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
                     </Button>
                   </Carousel.Caption>
-                </Carousel.Item>}
+                </Carousel.Item>
                 <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ height: 400, objectFit: "cover" }}
@@ -177,7 +175,8 @@ function CarouselSection() {
                   </p>
                   </Carousel.Caption>
                 </Carousel.Item> */}
-              </Carousel>
+              </Carousel>}
+              {loading && <LoadingDiv />}
             </Col>
           </Row>
         </Container>

@@ -1,8 +1,3 @@
-import bg1 from "assets/img/bg1.jpg"
-import bg11 from "assets/img/bg11.jpg"
-import bg8 from "assets/img/bg8.jpg"
-import news from "assets/img/lightbulb.jpg";
-
 type UniversalsInfo = {
     TITLE_MAP: any
     MENU_HIERARCHY: any,
@@ -30,7 +25,7 @@ const UNIVERSALS: UniversalsInfo = {
         'library': { title: 'app.title.books-enquiry', subtitle: null },
         'news': { title: 'app.latest-updates', subtitle: null },
         'news2': { title: 'app.latest-updates', subtitle: null },
-        'news-list': { title: 'app.latest-updates', subtitle: null, bg: news }
+        'news-list': { title: 'app.latest-updates', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-orange-oil-paint.jpeg" }
     },
     MENU_HIERARCHY: {
         index: {
