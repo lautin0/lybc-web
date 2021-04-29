@@ -31,10 +31,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm uninstall @material-ui/data-grid
-      
-      - run: npm install @material-ui/data-grid^4.0.0-alpha.1
-      
       - run: npm install
 
       - save_cache:
