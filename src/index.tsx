@@ -40,6 +40,8 @@ import CommonModal from "components/Modals/CommonModal";
 import DecisionModal from "components/Modals/DecisionModal";
 import PasswordResetModal from "components/Modals/PasswordResetModal";
 import SharingModal from "components/Modals/SharingModal";
+import LayoutContext from "context/LayoutContext";
+import useLayout from "hooks/useLayout";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -60,51 +62,54 @@ const messages = {
 function App() {
 
   const [locale, setLocale, persistLocale] = useLanguage()
+  const [mobileOpen, setMobileOpen, darkMode, setDarkMode] = useLayout()
 
   return <ApolloProvider client={getClient()}>
     <Provider store={store}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <LocaleContext.Provider value={[locale, setLocale, persistLocale]}>
-          <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
-            <CommonModal />
-            <DecisionModal />
-            <PasswordResetModal />
-            <LoadingOverlay />
-            <SharingModal />
-            <Switch>
-              <Route path="/index" render={(props: any) => <Index {...props} />} />
-              <PrivateRoute path="/admin" role={[Role.Admin]} />
-              <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" />} />
-              <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library" />} />
-              <PersonalRoute path="/personal" />
-              {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
-              <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
-              {/* <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" />} /> */}
-              <Route path="/careers" render={(props: any) => <MainPageLegacy {...props} page="careers" />} />
-              <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" />} />
-              <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" />} />
-              <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" />} />
-              <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
-              <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
-              <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
-              <Route path="/worship/:id" render={props => <MainPageLegacy {...props} page="worship" />} />
-              {/* <PrivateRoute path="/worship-list" />
+          <LayoutContext.Provider value={{ mobileOpen, setMobileOpen, darkMode, setDarkMode }} >
+            <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
+              <CommonModal />
+              <DecisionModal />
+              <PasswordResetModal />
+              <LoadingOverlay />
+              <SharingModal />
+              <Switch>
+                <Route path="/index" render={(props: any) => <Index {...props} />} />
+                <PrivateRoute path="/admin" role={[Role.Admin]} />
+                <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal" />} />
+                <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library" />} />
+                <PersonalRoute path="/personal" />
+                {/* <Route path="/library" render={props => <MainPageLegacy {...props} page="library" />} /> */}
+                <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity" />} />
+                {/* <Route path="/about-us" render={(props: any) => <MainPage {...props} page="about-us" />} /> */}
+                <Route path="/careers" render={(props: any) => <MainPageLegacy {...props} page="careers" />} />
+                <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us" />} />
+                <Route path="/doctrine" render={(props: any) => <MainPage {...props} page="doctrine" />} />
+                <Route path="/sunday-service-info" render={(props: any) => <MainPage {...props} page="sunday-service-info" />} />
+                <Route path="/test" render={props => <MainPageLegacy {...props} page="test" />} />
+                <Route path="/login-page" render={(props: any) => <LoginPage {...props} />} />
+                <Route path="/worship-list" render={(props: any) => <MainPage {...props} page="worship-list" />} />
+                <Route path="/worship/:id" render={props => <MainPageLegacy {...props} page="worship" />} />
+                {/* <PrivateRoute path="/worship-list" />
         <PrivateRoute path="/worship/:id" /> */}
-              <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
-              <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" />} />
-              <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
-              <Route path="/news/" render={props => <MainPageLegacy {...props} page="news" />} />
-              <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} />
-              <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" />} />
-              <Redirect from="/sharing/" to="/sharing-list" />
-              <Route exact path="/"><Index /></Route>
-              <Route path="*">
-                <ErrorPage error="404" />
-              </Route>
-              {/* <Redirect to="/index" />
+                <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
+                <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" />} />
+                <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
+                <Route path="/news/" render={props => <MainPageLegacy {...props} page="news" />} />
+                <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} />
+                <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" />} />
+                <Redirect from="/sharing/" to="/sharing-list" />
+                <Route exact path="/"><Index /></Route>
+                <Route path="*">
+                  <ErrorPage error="404" />
+                </Route>
+                {/* <Redirect to="/index" />
       <Redirect from="/" to="/index" /> */}
-            </Switch>
-          </IntlProvider>
+              </Switch>
+            </IntlProvider>
+          </LayoutContext.Provider>
         </LocaleContext.Provider>
       </BrowserRouter>
     </Provider>
