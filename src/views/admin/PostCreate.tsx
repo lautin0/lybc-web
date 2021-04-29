@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
@@ -8,7 +8,7 @@ import MuiInputText from "components/Forms/MuiInputText";
 import { NewPost, Post, PostType } from "generated/graphql";
 import { ADD_POST } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,7 +82,7 @@ function PostCreate(props: any) {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>文章內容</h3> */}
-        <Typography variant="h4">文章內容</Typography>
+        <Typography className="my-3" variant="h4">文章內容</Typography>
         <Form.Row>
           {/* <InputText
             md={6}
@@ -123,7 +123,8 @@ function PostCreate(props: any) {
         <Form.Row>
           <Form.Group>
             <Button
-              variant="primary"
+              variant="contained"
+              color="primary"
               type="submit"
             >
               儲存

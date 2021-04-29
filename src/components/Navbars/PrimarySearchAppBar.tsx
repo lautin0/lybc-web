@@ -18,6 +18,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Brightness4 } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
+import { useHistory } from 'react-router-dom';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('sm')]: {
          display: 'block',
       },
+      cursor: 'pointer'
    },
    search: {
       position: 'relative',
@@ -102,6 +105,8 @@ export default function PrimarySearchAppBar() {
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
    const { mobileOpen, setMobileOpen, darkMode, setDarkMode } = useContext(LayoutContext)
 
+   const history = useHistory()
+
    const handleDrawerToggle = () => {
       setMobileOpen && setMobileOpen(!mobileOpen);
    };
@@ -141,8 +146,8 @@ export default function PrimarySearchAppBar() {
          open={isMenuOpen}
          onClose={handleMenuClose}
       >
-         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+         <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
+         <MenuItem onClick={() => history.push('/personal/')}>個人中心</MenuItem>
       </Menu>
    );
 
@@ -202,7 +207,9 @@ export default function PrimarySearchAppBar() {
                   <MenuIcon />
                </IconButton>
                <Typography className={classes.title} variant="h6" noWrap>
-                  管理控制台
+                  <Link onClick={() => history.push('/admin/')}>
+                     管理控制台
+                  </Link>
                </Typography>
                <div className={classes.search}>
                   <div className={classes.searchIcon}>
@@ -223,11 +230,11 @@ export default function PrimarySearchAppBar() {
                      control={<Switch color="default" checked={!!darkMode} onChange={handleChange} name="cbDarkMode" />}
                      className={classes.formLabel} label={<Brightness4 className={classes.switchIcon} />}
                   />
-                  <IconButton aria-label="show 4 new mails" color="inherit">
+                  {/* <IconButton aria-label="show 4 new mails" color="inherit">
                      <Badge badgeContent={4} color="secondary">
                         <MailIcon />
                      </Badge>
-                  </IconButton>
+                  </IconButton> */}
                   <IconButton aria-label="show 17 new notifications" color="inherit">
                      <Badge badgeContent={17} color="secondary">
                         <NotificationsIcon />

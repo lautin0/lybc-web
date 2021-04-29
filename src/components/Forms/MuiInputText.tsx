@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
 
 function MuiInputText(props: any) {
 
-   const { name, label, isReadOnly, md, sm, xs, skipValidate, placeholder, validateFn, strongReadOnly } = props;
+   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly } = props;
 
    const { errors, control } = useFormContext()
 
@@ -42,10 +42,12 @@ function MuiInputText(props: any) {
                placeholder={placeholder}
                fullWidth={true}
                label={label}
+               multiline={multiline}
+               rows={rows}
                variant="outlined"
                onChange={onChange}
                onBlur={onBlur}
-               value={value}
+               value={value || ''}
                disabled={strongReadOnly || isReadOnly}
                helperText={(!skipValidate && errors[name]) && <label style={{ opacity: .6, color: '#FF3636' }}>必須輸入這欄</label>}
             />

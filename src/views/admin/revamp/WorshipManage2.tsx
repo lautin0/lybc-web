@@ -45,13 +45,12 @@ function WorshipManage2() {
   }
 
   const columns: GridColDef[] = [
-    { field: 'date', headerName: '日期', flex: .35, disableClickEventBubbling: true },
-    { field: 'title', headerName: '講題', flex: 1, disableClickEventBubbling: true },
-    { field: 'messenger', headerName: '講員', flex: .35, disableClickEventBubbling: true },
+    { field: 'date', headerName: '日期', width: 200 },
+    { field: 'title', headerName: '講題', flex: 1 },
+    { field: 'messenger', headerName: '講員', flex: .5 },
     {
       field: 'worshipId',
-      flex: .35,
-      disableClickEventBubbling: true,
+      width: 250,
       renderHeader: (params: GridColumnHeaderParams) => (
         <></>
       ),
@@ -131,8 +130,8 @@ function WorshipManage2() {
 
   return (
     <>
-      <Typography variant="h4">崇拜管理</Typography>
-      <div style={{ height: 300, width: '100%' }}>
+      <Typography className="my-3" variant="h4">崇拜管理</Typography>
+      <div style={{ width: '100%' }}>
         <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>
     </>

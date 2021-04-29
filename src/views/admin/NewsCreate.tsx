@@ -1,12 +1,14 @@
 import { useMutation } from '@apollo/client';
+import { Button, Typography } from '@material-ui/core';
 import { setLoading, setSystemFailure, setSysMessage } from 'actions';
 import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
+import MuiInputText from 'components/Forms/MuiInputText';
 import { Post, NewPost, PostType } from 'generated/graphql';
 import { ADD_POST } from 'graphqls/graphql';
 import React, { useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +17,7 @@ import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
-function NewsCreate(){
+function NewsCreate() {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
@@ -75,10 +77,19 @@ function NewsCreate(){
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="category mt-5" style={{ color: 'black' }}>新增最新消息</h3>
+        {/* <h3 className="category mt-5" style={{ color: 'black' }}>新增最新消息</h3> */}
+        <Typography className="my-3" variant="h4">新增最新消息</Typography>
         <Form.Row>
-          <InputText
+          {/* <InputText
             md={6}
+            name="title"
+            label="標題"
+            placeholder="請輸入標題"
+            validateFn={Validators.NoWhiteSpace}
+          /> */}
+          <MuiInputText
+            md={6}
+            xs={12}
             name="title"
             label="標題"
             placeholder="請輸入標題"
@@ -93,7 +104,8 @@ function NewsCreate(){
         <Form.Row>
           <Form.Group>
             <Button
-              variant="primary"
+              variant="contained"
+              color="primary"
               type="submit"
             >
               儲存

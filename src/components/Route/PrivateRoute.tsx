@@ -5,7 +5,7 @@ import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
-import AdminPanel from 'views/admin/AdminPanel';
+import AdminPanel2 from 'views/admin/revamp/AdminPanel2';
 import ErrorPage from 'views/error/Error';
 
 type PrivateRouteProps = {
@@ -39,20 +39,20 @@ function PrivateRoute(props: PrivateRouteProps) {
   return <Route path={path} render={({ match: { url } }) => (
     <>
       {path === '/admin' && <Switch>
-        <Route path={`${url}/`} render={(props: any) => <AdminPanel {...props} />} exact />
-        <Route path={`${url}/worships`} render={(props: any) => <AdminPanel {...props} func="worships" />} />
-        <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel {...props} func="new-worship" />} />
-        <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel {...props} func="edit-worship" />} />
-        <Route path={`${url}/members`} render={(props: any) => <AdminPanel {...props} func="members" />} />
-        <Route path={`${url}/other`} render={(props: any) => <AdminPanel {...props} func="other" />} />
-        <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel {...props} func="page-management" />} />
-        <Route path={`${url}/post/new`} render={(props: any) => <AdminPanel {...props} func="new-post" />} />
-        <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel {...props} func="namecards" />} />
-        <Route path={`${url}/post/pending/:id`} render={(props: any) => <AdminPanel {...props} func="new-proxy-posts" />} />
-        <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel {...props} func="pending-posts" />} />
-        <Route path={`${url}/latests/new`} render={(props: any) => <AdminPanel {...props} func="new-latests" />} />
-        {/* <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel {...props} func="new-book" />} />
-        <Route path={`${url}/books`} render={(props: any) => <AdminPanel {...props} func="books" />} /> */}
+        <Route path={`${url}/`} render={(props: any) => <AdminPanel2 {...props} />} exact />
+        <Route path={`${url}/worships`} render={(props: any) => <AdminPanel2 {...props} func="worships" />} />
+        <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel2 {...props} func="new-worship" />} />
+        <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel2 {...props} func="edit-worship" />} />
+        <Route path={`${url}/members`} render={(props: any) => <AdminPanel2 {...props} func="members" />} />
+        <Route path={`${url}/other`} render={(props: any) => <AdminPanel2 {...props} func="other" />} />
+        <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel2 {...props} func="page-management" />} />
+        <Route path={`${url}/post/new`} render={(props: any) => <AdminPanel2 {...props} func="new-post" />} />
+        <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel2 {...props} func="namecards" />} />
+        <Route path={`${url}/post/pending/:id`} render={(props: any) => <AdminPanel2 {...props} func="new-proxy-posts" />} />
+        <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel2 {...props} func="pending-posts" />} />
+        <Route path={`${url}/latests/new`} render={(props: any) => <AdminPanel2 {...props} func="new-latests" />} />
+        {/* <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel2 {...props} func="new-book" />} />
+        <Route path={`${url}/books`} render={(props: any) => <AdminPanel2 {...props} func="books" />} /> */}
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

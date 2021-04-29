@@ -58,7 +58,6 @@
     "react-test-renderer": "^16.13.1",
     "react-to-print": "^2.5.1",
     "react-transition-group": "^4.4.1",
-    "reactstrap": "8.9.0",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
     "sass": "^1.32.2",

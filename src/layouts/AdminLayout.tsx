@@ -56,7 +56,7 @@ const funcList = [
    },
    {
       title: "會員管理", path: '/admin/members', children: [
-         { title: "會員管理", path: '/admin/members', icon: <PersonIcon /> },
+         { title: "會員管理", path: '/admin/other', icon: <PersonIcon /> },
          { title: "新來賓名片", path: '/admin/namecards', icon: <RecentActors /> }
       ]
    },
@@ -65,12 +65,12 @@ const funcList = [
          { title: "新增文章", path: '/admin/post/new', icon: <Add /> },
          { title: "審閱文章", path: '/admin/post/pending', icon: <Spellcheck /> },
          { title: "新增消息", path: '/admin/latests/new', icon: <NoteAdd /> },
-         { title: "頁面設定", icon: <BuildIcon /> }
+         { title: "頁面設定", path: '/admin/other', icon: <BuildIcon /> }
       ]
    },
    {
       title: "其他功能", path: '/admin/other', children: [
-         { title: "系統設定", icon: <BuildIcon /> }
+         { title: "系統設定", path: '/admin/other', icon: <BuildIcon /> }
       ]
    }
 ]
