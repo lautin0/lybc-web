@@ -93,7 +93,7 @@
     ]
   },
   "optionalDependencies": {
-    "typescript": "~4.0.5"
+    "typescript": "~4.2.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.21.4",
