@@ -4,7 +4,7 @@ import * as actions from '../actions'
 import { api } from '../services'
 import { MSG_OPERATION_SUCCESS } from './index'
 
-export function* fetchNewComers(action: any) {
+export function* fetchNewComers(action: any): Generator<any, any, any>  {
     const { pageSize, page } = action;
     try {
         const results = yield call(api.fetchNewComers, pageSize, page)
@@ -23,7 +23,7 @@ export function* saveNewComer(person: any) {
     }
 }
 
-export function* watchSaveNewComer() {
+export function* watchSaveNewComer(): Generator<any, any, any>  {
     while (true) {
         let payload = yield take(actions.SAVE_NEWCOMER_REQUEST)
         yield call(saveNewComer, payload.person)

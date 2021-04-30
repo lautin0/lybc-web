@@ -254,7 +254,7 @@ function WorshipEdit() {
           <Typography variant="h4" className="my-3">崇拜資料</Typography>
           {isReadOnly && <Button onClick={() => setIsReadOnly(false)} className={classes.button} variant="contained" color="secondary" startIcon={<Lock />}>解鎖</Button>}
           {!isReadOnly && <Button onClick={() => setIsReadOnly(true)} className={classes.button} variant="contained" color="primary" startIcon={<LockOpen />}>鎖定</Button>}
-          <Form.Row>
+          <Form.Row className="mt-3 mb-5">
             {/* <InputText
               name="title"
               label="講題"
@@ -290,7 +290,7 @@ function WorshipEdit() {
               strongReadOnly={true}
             />
           </Form.Row>
-          <Form.Row>
+          <Form.Row className="mb-5">
             {/* <InputDropdown
               name="type"
               label="分類"
@@ -326,7 +326,7 @@ function WorshipEdit() {
               validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
             />
           </Form.Row>
-          <Form.Row>
+          <Form.Row className="mb-5">
             {/* <InputText
               name="link"
               label="影片連結"
