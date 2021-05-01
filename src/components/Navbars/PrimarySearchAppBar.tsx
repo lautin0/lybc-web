@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,25 +11,22 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { Brightness4, Comment, ThumbUp } from '@material-ui/icons';
+import { NightsStay, WbSunny } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
-import { Avatar, ClickAwayListener, Divider, Grid, Grow, Link, MenuList, Paper, Popper } from '@material-ui/core';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_NOTIFICATIONS, GET_USER_PROFILE_PIC_URI, READ_NOTIFICATIONS } from 'graphqls/graphql';
+import { Avatar, Link } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
+import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
-import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
-import { Notification, NotificationType, User } from 'generated/graphql';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'reducers';
-import * as presets from '../../assets/data/data.json'
-import { setSystemFailure } from 'actions';
-import moment from 'moment';
+import { getTokenValue } from 'utils/utils';
+import { User } from 'generated/graphql';
+import { useDispatch } from 'react-redux';
+import NotificationBell2 from 'components/Notification/NotificationBell2';
+import useNotification from 'hooks/useNotification';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -110,12 +107,6 @@ const useStyles = makeStyles((theme) => ({
    small: {
       width: theme.spacing(3),
       height: theme.spacing(3),
-   },
-   bellMenuRoot: {
-      whiteSpace: 'pre-wrap'
-   },
-   bellMenuText: {
-      maxWidth: 190,
    }
 }));
 
@@ -129,6 +120,8 @@ export default function PrimarySearchAppBar() {
 
    const dispatch = useDispatch()
 
+   const methods = useNotification()
+
    const { loading, data: profilePicData } = useQuery<
       { user: User },
       { username: string }
@@ -141,68 +134,6 @@ export default function PrimarySearchAppBar() {
          notifyOnNetworkStatusChange: true
       }
    )
-
-   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
-
-   const { loading: notiLoading, data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
-      (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
-   const [readNotification] = useMutation<
-      { readNotification: string },
-      { input: string }
-   >(READ_NOTIFICATIONS, {
-      refetchQueries: [
-         { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }
-      ]
-   })
-
-   const [open, setOpen] = React.useState(false);
-   const anchorRef = React.useRef<HTMLButtonElement>(null);
-
-   const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-   };
-
-   const handleClose = (event: React.MouseEvent<EventTarget>) => {
-      if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-         return;
-      }
-
-      setOpen(false);
-   };
-
-   const handleReadClick = (i: number) => {
-      if (data?.notifications[i].isRead)
-         return
-      const update = data?.notifications.map((e, idx) => {
-         if (idx === i)
-            return { ...e, isRead: true }
-         return e
-      })
-      readNotification({
-         variables: {
-            input: update?.[i]._id
-         }
-      }).catch(e => {
-         dispatch(setSystemFailure(e))
-      })
-   }
-
-   function handleListKeyDown(event: React.KeyboardEvent) {
-      if (event.key === 'Tab') {
-         event.preventDefault();
-         setOpen(false);
-      }
-   }
-
-   // return focus to the button when we transitioned from !open -> open
-   const prevOpen = React.useRef(open);
-   React.useEffect(() => {
-      if (prevOpen.current === true && open === false) {
-         anchorRef.current!.focus();
-      }
-
-      prevOpen.current = open;
-   }, [open]);
 
    const handleDrawerToggle = () => {
       setMobileOpen && setMobileOpen(!mobileOpen);
@@ -259,32 +190,32 @@ export default function PrimarySearchAppBar() {
          open={isMobileMenuOpen}
          onClose={handleMobileMenuClose}
       >
-         <MenuItem>
+         {/* <MenuItem>
             <IconButton aria-label="show 4 new mails" color="inherit">
                <Badge badgeContent={4} color="secondary">
                   <MailIcon />
                </Badge>
             </IconButton>
             <p>Messages</p>
-         </MenuItem>
+         </MenuItem> */}
          <MenuItem>
-            <IconButton aria-label="show 11 new notifications" color="inherit">
-               <Badge badgeContent={11} color="secondary">
+            <IconButton aria-label="show new notifications" color="inherit">
+               <Badge badgeContent={methods.data && methods.data.notifications.filter(x => !x.isRead).length} color="secondary">
                   <NotificationsIcon />
                </Badge>
             </IconButton>
-            <p>Notifications</p>
+            <Typography>Notifications</Typography>
          </MenuItem>
-         <MenuItem onClick={handleProfileMenuOpen}>
+         <MenuItem onClick={handleProfileMenuOpen} alignItems="center">
             <IconButton
                aria-label="account of current user"
                aria-controls="primary-search-account-menu"
                aria-haspopup="true"
                color="inherit"
             >
-               <AccountCircle />
-            </IconButton>
-            <p>Profile</p>
+               {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
+               {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}            </IconButton>
+            <Typography>Profile</Typography>
          </MenuItem>
       </Menu>
    );
@@ -325,68 +256,14 @@ export default function PrimarySearchAppBar() {
                <div className={classes.sectionDesktop}>
                   <FormControlLabel
                      control={<Switch color="default" checked={!!darkMode} onChange={handleChange} name="cbDarkMode" />}
-                     className={classes.formLabel} label={<Brightness4 className={classes.switchIcon} />}
+                     className={classes.formLabel} label={!!darkMode ? <WbSunny className={classes.switchIcon} /> : <NightsStay className={classes.switchIcon} />}
                   />
                   {/* <IconButton aria-label="show 4 new mails" color="inherit">
                      <Badge badgeContent={4} color="secondary">
                         <MailIcon />
                      </Badge>
                   </IconButton> */}
-                  <div>
-                     <IconButton
-                        aria-label="show 17 new notifications"
-                        color="inherit"
-                        ref={anchorRef}
-                        onClick={handleToggle}
-                     >
-                        <Badge badgeContent={data && data.notifications.filter(x => !x.isRead).length} color="secondary">
-                           <NotificationsIcon />
-                        </Badge>
-                     </IconButton>
-                     <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                        {({ TransitionProps, placement }) => (
-                           <Grow
-                              {...TransitionProps}
-                              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', width: 300 }}
-                           >
-                              <Paper>
-                                 <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                       {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
-                                          return <div key={e._id}>
-                                             <MenuItem
-                                                className={classes.bellMenuRoot}
-                                                onClick={(evt) => {
-                                                   history.push(`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param != null ? e.param : ''}`)
-                                                   handleReadClick(idx)
-                                                   handleClose(evt)
-                                                }}
-                                             >
-                                                <Grid container spacing={3} alignItems="center">
-                                                   <Grid item>
-                                                      {e.type === NotificationType.Reaction ? <ThumbUp /> : <Comment />}
-                                                   </Grid>
-                                                   <Grid item>
-                                                      <Grid container alignItems="center" className={classes.bellMenuText}>
-                                                         <Typography>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
-                                                      </Grid>
-                                                      <Typography variant="body2">{getTimePastStr(moment(e.creDttm))}</Typography>
-                                                   </Grid>
-                                                   <Grid item className="ml-auto">
-                                                      {!e.isRead && <Badge variant="dot" color="secondary"></Badge>}
-                                                   </Grid>
-                                                </Grid>
-                                             </MenuItem>
-                                             <Divider />
-                                          </div>
-                                       })}
-                                    </MenuList>
-                                 </ClickAwayListener>
-                              </Paper>
-                           </Grow>
-                        )}
-                     </Popper>
-                  </div>
+                  <NotificationBell2 {...methods} />
                   <IconButton
                      edge="end"
                      aria-label="account of current user"
