@@ -16,10 +16,20 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { Brightness4 } from '@material-ui/icons';
+import { Brightness4, Comment, ThumbUp } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
-import { Link } from '@material-ui/core';
+import { Avatar, ClickAwayListener, Divider, Grid, Grow, Link, MenuList, Paper, Popper } from '@material-ui/core';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_NOTIFICATIONS, GET_USER_PROFILE_PIC_URI, READ_NOTIFICATIONS } from 'graphqls/graphql';
+import UNIVERSALS from 'Universals';
+import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
+import { Notification, NotificationType, User } from 'generated/graphql';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'reducers';
+import * as presets from '../../assets/data/data.json'
+import { setSystemFailure } from 'actions';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -96,6 +106,16 @@ const useStyles = makeStyles((theme) => ({
    },
    formLabel: {
       marginBottom: 0
+   },
+   small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+   },
+   bellMenuRoot: {
+      whiteSpace: 'pre-wrap'
+   },
+   bellMenuText: {
+      maxWidth: 190,
    }
 }));
 
@@ -106,6 +126,83 @@ export default function PrimarySearchAppBar() {
    const { mobileOpen, setMobileOpen, darkMode, setDarkMode } = useContext(LayoutContext)
 
    const history = useHistory()
+
+   const dispatch = useDispatch()
+
+   const { loading, data: profilePicData } = useQuery<
+      { user: User },
+      { username: string }
+   >(
+      GET_USER_PROFILE_PIC_URI,
+      {
+         variables: {
+            username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+         },
+         notifyOnNetworkStatusChange: true
+      }
+   )
+
+   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+
+   const { loading: notiLoading, data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
+      (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
+   const [readNotification] = useMutation<
+      { readNotification: string },
+      { input: string }
+   >(READ_NOTIFICATIONS, {
+      refetchQueries: [
+         { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }
+      ]
+   })
+
+   const [open, setOpen] = React.useState(false);
+   const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+   const handleToggle = () => {
+      setOpen((prevOpen) => !prevOpen);
+   };
+
+   const handleClose = (event: React.MouseEvent<EventTarget>) => {
+      if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+         return;
+      }
+
+      setOpen(false);
+   };
+
+   const handleReadClick = (i: number) => {
+      if (data?.notifications[i].isRead)
+         return
+      const update = data?.notifications.map((e, idx) => {
+         if (idx === i)
+            return { ...e, isRead: true }
+         return e
+      })
+      readNotification({
+         variables: {
+            input: update?.[i]._id
+         }
+      }).catch(e => {
+         dispatch(setSystemFailure(e))
+      })
+   }
+
+   function handleListKeyDown(event: React.KeyboardEvent) {
+      if (event.key === 'Tab') {
+         event.preventDefault();
+         setOpen(false);
+      }
+   }
+
+   // return focus to the button when we transitioned from !open -> open
+   const prevOpen = React.useRef(open);
+   React.useEffect(() => {
+      if (prevOpen.current === true && open === false) {
+         anchorRef.current!.focus();
+      }
+
+      prevOpen.current = open;
+   }, [open]);
 
    const handleDrawerToggle = () => {
       setMobileOpen && setMobileOpen(!mobileOpen);
@@ -235,11 +332,61 @@ export default function PrimarySearchAppBar() {
                         <MailIcon />
                      </Badge>
                   </IconButton> */}
-                  <IconButton aria-label="show 17 new notifications" color="inherit">
-                     <Badge badgeContent={17} color="secondary">
-                        <NotificationsIcon />
-                     </Badge>
-                  </IconButton>
+                  <div>
+                     <IconButton
+                        aria-label="show 17 new notifications"
+                        color="inherit"
+                        ref={anchorRef}
+                        onClick={handleToggle}
+                     >
+                        <Badge badgeContent={data && data.notifications.filter(x => !x.isRead).length} color="secondary">
+                           <NotificationsIcon />
+                        </Badge>
+                     </IconButton>
+                     <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                        {({ TransitionProps, placement }) => (
+                           <Grow
+                              {...TransitionProps}
+                              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', width: 300 }}
+                           >
+                              <Paper>
+                                 <ClickAwayListener onClickAway={handleClose}>
+                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                       {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
+                                          return <div key={e._id}>
+                                             <MenuItem
+                                                className={classes.bellMenuRoot}
+                                                onClick={(evt) => {
+                                                   history.push(`/${getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).PATH}/${e.param != null ? e.param : ''}`)
+                                                   handleReadClick(idx)
+                                                   handleClose(evt)
+                                                }}
+                                             >
+                                                <Grid container spacing={3} alignItems="center">
+                                                   <Grid item>
+                                                      {e.type === NotificationType.Reaction ? <ThumbUp /> : <Comment />}
+                                                   </Grid>
+                                                   <Grid item>
+                                                      <Grid container alignItems="center" className={classes.bellMenuText}>
+                                                         <Typography>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
+                                                      </Grid>
+                                                      <Typography variant="body2">{getTimePastStr(moment(e.creDttm))}</Typography>
+                                                   </Grid>
+                                                   <Grid item className="ml-auto">
+                                                      {!e.isRead && <Badge variant="dot" color="secondary"></Badge>}
+                                                   </Grid>
+                                                </Grid>
+                                             </MenuItem>
+                                             <Divider />
+                                          </div>
+                                       })}
+                                    </MenuList>
+                                 </ClickAwayListener>
+                              </Paper>
+                           </Grow>
+                        )}
+                     </Popper>
+                  </div>
                   <IconButton
                      edge="end"
                      aria-label="account of current user"
@@ -248,7 +395,8 @@ export default function PrimarySearchAppBar() {
                      onClick={handleProfileMenuOpen}
                      color="inherit"
                   >
-                     <AccountCircle />
+                     {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
+                     {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
                   </IconButton>
                </div>
                <div className={classes.sectionMobile}>

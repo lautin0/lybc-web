@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   heading: {
-    fontSize: theme.typography.pxToRem(15),
+    // fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
 }))
@@ -263,7 +263,7 @@ function PendingPostEdit() {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography className={classes.heading}>第一部份：文章資料</Typography>
+            <Typography variant="h6" className={classes.heading}>第一部份：文章資料</Typography>
           </AccordionSummary>}
           <AccordionDetails className="d-block">
             <div>
@@ -367,7 +367,7 @@ function PendingPostEdit() {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography className={classes.heading}>第二部份：發佈</Typography>
+            <Typography variant="h6" className={classes.heading}>第二部份：發佈</Typography>
           </AccordionSummary>
           <AccordionDetails className="d-block">
             <div>

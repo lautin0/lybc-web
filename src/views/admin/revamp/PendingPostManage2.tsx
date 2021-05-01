@@ -50,9 +50,9 @@ function PendingPostManage2() {
   }
 
   const columns: GridColDef[] = [
-    { field: 'title', headerName: '標題', flex: .9 },
-    { field: 'username', headerName: '投稿人', flex: .5 },
     { field: 'creDttm', headerName: '投稿日期', width: 150 },
+    { field: 'title', headerName: '標題', width: 300 },
+    { field: 'username', headerName: '投稿人', width: 200 },
     {
       field: 'status',
       width: 100,

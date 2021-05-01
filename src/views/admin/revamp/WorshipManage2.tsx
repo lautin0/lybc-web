@@ -45,9 +45,9 @@ function WorshipManage2() {
   }
 
   const columns: GridColDef[] = [
-    { field: 'date', headerName: '日期', width: 200 },
-    { field: 'title', headerName: '講題', flex: 1 },
-    { field: 'messenger', headerName: '講員', flex: .5 },
+    { field: 'date', headerName: '日期', width: 150 },
+    { field: 'title', headerName: '講題', width: 400 },
+    { field: 'messenger', headerName: '講員', width: 250 },
     {
       field: 'worshipId',
       width: 250,
