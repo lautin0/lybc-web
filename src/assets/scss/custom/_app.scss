@@ -514,3 +514,7 @@ button.btn-reset-pwd {
         }
     }
 }
+
+button:focus.MuiButtonBase-root{
+    outline: none;
+}

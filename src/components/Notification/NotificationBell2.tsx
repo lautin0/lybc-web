@@ -1,19 +1,36 @@
-import { IconButton, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, Grid, Typography, Divider, Badge, makeStyles } from '@material-ui/core';
+import { IconButton, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, Grid, Typography, Divider, Badge, makeStyles, Link } from '@material-ui/core';
 import { Comment, Notifications, ThumbUp } from '@material-ui/icons';
+import NotificationContext from 'context/NotificationContext';
 import { Notification, NotificationType } from 'generated/graphql';
-import useNotification from 'hooks/useNotification';
 import moment from 'moment';
+import { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { getKeyValue, getTimePastStr } from 'utils/utils';
 import * as presets from '../../assets/data/data.json'
 
 
 const useStyles = makeStyles((theme) => ({
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+  // small: {
+  //   width: theme.spacing(3),
+  //   height: theme.spacing(3),
+  // },
+  bellMenuNoRecordRow: {
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: 50,
+    width: '100%',
+    justifyContent: 'center'
+  },
+  bellMenuViewAllRow: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(3)
   },
   bellMenuRoot: {
+    minHeight: 65,
     whiteSpace: 'pre-wrap'
   },
   bellMenuText: {
@@ -21,13 +38,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function NotificationBell2(props: ReturnType<typeof useNotification>) {
+function NotificationBell2() {
 
   const classes = useStyles()
 
   const history = useHistory()
 
-  const { loading, data, anchorRef, open, handleClose, handleReadClick, handleToggle, handleListKeyDown } = props
+  const intl = useIntl()
+
+  const { loading, data, handleClose, handleReadClick, anchorRef, handleToggle, handleListKeyDown, open } = useContext(NotificationContext)!
 
   return <div>
     <IconButton
@@ -49,6 +68,7 @@ function NotificationBell2(props: ReturnType<typeof useNotification>) {
           <Paper>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                {data && data.notifications.length === 0 && <Typography className={classes.bellMenuNoRecordRow}>{intl.formatMessage({ id: "app.notification.no-record" })}</Typography>}
                 {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
                   return <div key={e._id}>
                     <MenuItem
@@ -77,6 +97,12 @@ function NotificationBell2(props: ReturnType<typeof useNotification>) {
                     {(idx !== data.notifications.length - 1) && <Divider />}
                   </div>
                 })}
+                {data && data.notifications.length > 0 && <Typography className={classes.bellMenuViewAllRow} component={Link} href="#"
+                  onClick={(e: any) => {
+                    e.preventDefault()
+                    history.push('/personal/notifications')
+                  }}
+                >查看全部</Typography>}
               </MenuList>
             </ClickAwayListener>
           </Paper>

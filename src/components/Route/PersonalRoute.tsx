@@ -6,7 +6,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 import ErrorPage from 'views/error/Error';
-import PersonalPage from 'views/personal/PersonalPage';
+import PersonalPage2 from 'views/personal/revamp/PersonalPage2';
 
 type PrivateRouteProps = {
   path: string,
@@ -39,11 +39,14 @@ function PersonalRoute(props: PrivateRouteProps) {
   return <Route path={path} render={({ match: { url } }) => (
     <>
       {path === '/personal' && <Switch>
-        {/* <Route path={`${url}/`} render={(props: any) => <PersonalPage {...props} />} exact /> */}
-        <Route path={`${url}/info`} render={(props: any) => <PersonalPage {...props} func="info" />} />
-        <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage {...props} func="sharing" />} />
-        <Route path={`${url}/other`} render={(props: any) => <PersonalPage {...props} func="other" />} />
-        <Route path={`${url}/favourite-posts`} render={(props: any) => <PersonalPage {...props} func="favourite-posts" />} />
+        {/* <Route path={`${url}/`} render={(props: any) => <PersonalPage2 {...props} />} exact /> */}
+        <Route path={`${url}/info`} render={(props: any) => <PersonalPage2 {...props} func="info" />} />
+        <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} />
+        <Route path={`${url}/other`} render={(props: any) => <PersonalPage2 {...props} func="other" />} />
+        <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage2 {...props} func="notifications" />} />
+        <Route path={`${url}/favourite-posts`} render={(props: any) => <PersonalPage2 {...props} func="favourite-posts" />} />
+        <Route path={`${url}/center`} render={(props: any) => <PersonalPage2 {...props} />} />
+        <Route path={`${url}/settings`} render={(props: any) => <PersonalPage2 {...props} func="settings" />} />
         <Redirect from={`${url}/`} to={`${url}/info`}/>
         <Route path="*">
           <ErrorPage error="404" />

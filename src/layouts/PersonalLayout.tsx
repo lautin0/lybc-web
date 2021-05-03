@@ -13,7 +13,7 @@ import {
    Toolbar,
    Typography
 } from '@material-ui/core';
-import { Add, Bookmark, ExpandLess, ExpandMore, Face, NoteAdd, Notifications, RecentActors, Spellcheck, ViewQuilt } from '@material-ui/icons';
+import { Add, Bookmark, ExpandLess, ExpandMore, Face, NoteAdd, Notifications, RecentActors, Settings, Spellcheck, ViewQuilt } from '@material-ui/icons';
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
 import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
@@ -21,6 +21,7 @@ import { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
+import PersonalSearchAppBar from 'components/Navbars/PersonalSearchAppBar';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -42,31 +43,26 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const funcList = [
+interface MenuItemType {
+   title: string,
+   path: string,
+   icon?: ReactElement,
+   children?: Array<MenuItemType>
+}
+
+const personalFuncList: Array<MenuItemType> = [
    {
-      title: "崇拜管理", path: '/admin/worships', children: [
-         { title: "新增崇拜", path: '/admin/worship/new', icon: <Add /> },
-         { title: "管理崇拜", path: '/admin/worships', icon: <ViewQuilt /> }
-      ]
+      title: "個人中心",
+      path: '/personal/center',
+      icon: <Face />
+      // children: [
+      //    { title: "帳戶管理", path: '/personal/info', icon: <Face /> },
+      //    { title: "文章狀態", path: '/personal/other', icon: <Spellcheck /> },
+      //    { title: "喜愛列表", path: '/personal/other', icon: <Bookmark /> },
+      // ]
    },
    {
-      title: "會員管理", path: '/admin/members', children: [
-         { title: "會員管理", path: '/admin/other', icon: <PersonIcon /> },
-         { title: "新來賓名片", path: '/admin/namecards', icon: <RecentActors /> }
-      ]
-   },
-   {
-      title: "頁面管理", path: '/admin/page-management', children: [
-         { title: "新增文章", path: '/admin/post/new', icon: <Add /> },
-         { title: "審閱文章", path: '/admin/post/pending', icon: <Spellcheck /> },
-         { title: "新增消息", path: '/admin/latests/new', icon: <NoteAdd /> },
-         { title: "頁面設定", path: '/admin/other', icon: <BuildIcon /> }
-      ]
-   },
-   {
-      title: "其他功能", path: '/admin/other', children: [
-         { title: "系統設定", path: '/admin/other', icon: <BuildIcon /> }
-      ]
+      title: "通知", icon: <Notifications />, path: '/personal/notifications'
    }
 ]
 
@@ -74,7 +70,7 @@ interface Props {
 
 }
 
-const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
+const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
    const classes = useStyles();
    const { darkMode } = useContext(LayoutContext)
 
@@ -92,13 +88,11 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
          <Toolbar />
          <div className={classes.drawerContainer}>
             <List>
-               {funcList.map((item, index) => (
+               {personalFuncList.map((item, index) => (
                   item.children != null ? <div key={item.title}>
                      <ListItem button onClick={() => handleClick(item.title)}>
-                        {/* <ListItemIcon>
-                           {item.icon}
-                        </ListItemIcon> */}
-                        <ListItemText primary={<Typography className={classes.menuItem}>{item.title}</Typography>} className={classes.menuItem} />
+                        <ListItemIcon>{index % 2 !== 0 ? <Notifications /> : <PersonIcon />}</ListItemIcon>
+                        <ListItemText primary={item.title} />
                         {expanded[item.title] ? <ExpandLess /> : <ExpandMore />}
                      </ListItem>
                      <Collapse in={expanded[item.title]} timeout="auto" unmountOnExit>
@@ -115,12 +109,19 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
                      </Collapse>
                   </div> :
                      <ListItem button key={item.title} onClick={() => { history.push(item.path!) }}>
-                        {/* <ListItemIcon>
+                        <ListItemIcon>
                            {item.icon}
-                        </ListItemIcon> */}
-                        <ListItemText primary={<Typography className={classes.menuItem}>{item.title}</Typography>} className={classes.menuItem} />
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography>{item.title}</Typography>} />
                      </ListItem>
                ))}
+               <Divider />
+               <ListItem button onClick={() => { history.push('/personal/settings') }}>
+                  <ListItemIcon>
+                     <Settings />
+                  </ListItemIcon>
+                  <ListItemText primary={<Typography>帳戶設定</Typography>} />
+               </ListItem>
             </List>
          </div>
       </>
@@ -132,19 +133,19 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'light',
 
-         // primary: {
-         //    light: '#48ad88',
-         //    main: '#007d5b',
-         //    dark: '#005032',
-         //    contrastText: '#fff',
-         // },
+         primary: {
+            light: '#9a67ea',
+            main: '#673ab7',
+            dark: '#320b86',
+            contrastText: '#fff',
+         },
 
-         // secondary: {
-         //    light: '#7b7bd5',
-         //    main: '#494fa3',
-         //    dark: '#0d2774',
-         //    contrastText: '#fff',
-         // },
+         secondary: {
+            light: '#ffff56',
+            main: '#ffea00',
+            dark: '#c7b800',
+            contrastText: '#fff',
+         },
 
       },
 
@@ -156,19 +157,19 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'dark',
 
-         // primary: {
-         //    light: '#48ad88',
-         //    main: '#007d5b',
-         //    dark: '#005032',
-         //    contrastText: '#fff',
-         // },
+         primary: {
+            light: '#9a67ea',
+            main: '#673ab7',
+            dark: '#320b86',
+            contrastText: '#fff',
+         },
 
-         // secondary: {
-         //    light: '#7b7bd5',
-         //    main: '#494fa3',
-         //    dark: '#0d2774',
-         //    contrastText: '#fff',
-         // },
+         secondary: {
+            light: '#ffff56',
+            main: '#ffea00',
+            dark: '#c7b800',
+            contrastText: '#fff',
+         },
 
       },
 
@@ -179,7 +180,7 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
-         <AdminSearchAppBar />
+         <PersonalSearchAppBar />
          <ClippedDrawer drawer={drawer} />
          <main className={classes.content}>
             {props.children}
@@ -188,4 +189,4 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
    </ThemeProvider>
 }
 
-export default AdminLayout;
+export default PersonalLayout;

@@ -42,6 +42,8 @@ import PasswordResetModal from "components/Modals/PasswordResetModal";
 import SharingModal from "components/Modals/SharingModal";
 import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
+import AdminPanel2 from "views/admin/revamp/AdminPanel2";
+import PersonalPage2 from "views/personal/revamp/PersonalPage2";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 

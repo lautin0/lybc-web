@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText
   },
   danger: {
-    backgroundColor: red[600],
+    backgroundColor: red[700],
     color: theme.palette.primary.contrastText
   },
   warning: {
-    backgroundColor: yellow[600],
+    backgroundColor: yellow[800],
     color: theme.palette.primary.contrastText
   },
   info: {
@@ -120,7 +120,6 @@ function PendingPostManage2() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-        return classes.info
       case PostStatus.Withhold:
         return classes.warning
     }

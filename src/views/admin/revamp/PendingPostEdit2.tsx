@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   warning: {
-    backgroundColor: yellow[600],
+    backgroundColor: yellow[700],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
   },
@@ -201,7 +201,6 @@ function PendingPostEdit() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-        return classes.info
       case PostStatus.Withhold:
         return classes.warning
     }

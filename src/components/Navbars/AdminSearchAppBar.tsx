@@ -27,6 +27,7 @@ import { User } from 'generated/graphql';
 import { useDispatch } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import useNotification from 'hooks/useNotification';
+import NotificationContext from 'context/NotificationContext';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -110,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export default function PrimarySearchAppBar() {
+export default function AdminSearchAppBar() {
    const classes = useStyles();
    const [anchorEl, setAnchorEl] = useState(null);
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -118,9 +119,7 @@ export default function PrimarySearchAppBar() {
 
    const history = useHistory()
 
-   const dispatch = useDispatch()
-
-   const methods = useNotification()
+   const { data: notificationData } = useContext(NotificationContext)!
 
    const { loading, data: profilePicData } = useQuery<
       { user: User },
@@ -175,7 +174,7 @@ export default function PrimarySearchAppBar() {
          onClose={handleMenuClose}
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
-         <MenuItem onClick={() => history.push('/personal/')}>個人中心</MenuItem>
+         <MenuItem onClick={() => history.push('/personal/center')}>個人中心</MenuItem>
       </Menu>
    );
 
@@ -200,7 +199,7 @@ export default function PrimarySearchAppBar() {
          </MenuItem> */}
          <MenuItem>
             <IconButton aria-label="show new notifications" color="inherit">
-               <Badge badgeContent={methods.data && methods.data.notifications.filter(x => !x.isRead).length} color="secondary">
+               <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x.isRead).length} color="secondary">
                   <NotificationsIcon />
                </Badge>
             </IconButton>
@@ -263,7 +262,7 @@ export default function PrimarySearchAppBar() {
                         <MailIcon />
                      </Badge>
                   </IconButton> */}
-                  <NotificationBell2 {...methods} />
+                  <NotificationBell2 />
                   <IconButton
                      edge="end"
                      aria-label="account of current user"
