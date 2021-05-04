@@ -323,6 +323,18 @@ export default function PersonalMain() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
+          {(!favLoading && favPostData?.favouritePosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+            <Grid container item xs={12} justify="center">
+              <Typography variant="h5">
+                沒有記錄
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} justify="center">
+              <Typography>
+                你可以在分享欄列表添加你喜愛的文章
+              </Typography>
+            </Grid>
+          </Grid>}
           {(!loading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((p, i) => {
             return <Grid container key={p._id} direction="row" spacing={3} className={classes.gridRowRoot}>
               {i > 0 && <Divider className={classes.divider} />}
@@ -368,61 +380,66 @@ export default function PersonalMain() {
           })}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Grid container>
-            {(!loading && data?.pendingPosts.length == 0) && <Grid item>
-              <Typography variant="h4">
+          {(!loading && data?.pendingPosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+            <Grid container item xs={12} justify="center">
+              <Typography variant="h5">
                 沒有記錄
-            </Typography>
-            </Grid>}
-            {(!loading) && <>
-              {data?.pendingPosts && data!.pendingPosts.map((p) => {
-                return (
-                  <Grid item key={p._id} md={4} xs={12}>
-                    <Card variant="outlined">
-                      <CardContent onClick={() => handleClick(p._id, p.status)} className={classes.linkGrid}>
-                        <Grid container spacing={3}>
-                          <Grid container item justify="space-between">
-                            <Grid item>
-                              <Typography variant="h4">{p.title}</Typography>
-                            </Grid>
-                            <Grid item>
-                              <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
-                            </Grid>
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} justify="center">
+              <Typography>
+                你可以在分享欄提交你的文章
+              </Typography>
+            </Grid>
+          </Grid>}
+          {(!loading) && <Grid container spacing={2}>
+            {data?.pendingPosts && data!.pendingPosts.map((p) => {
+              return (
+                <Grid item key={p._id} md={5} xs={12}>
+                  <Card variant="outlined">
+                    <CardContent onClick={() => handleClick(p._id, p.status)} className={classes.linkGrid}>
+                      <Grid container spacing={3}>
+                        <Grid container item justify="space-between">
+                          <Grid item>
+                            <Typography variant="h4">{p.title}</Typography>
                           </Grid>
                           <Grid item>
-                            <Typography variant="h5">{p.subtitle}</Typography>
+                            <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
                           </Grid>
                         </Grid>
+                        <Grid item>
+                          <Typography variant="h5">{p.subtitle}</Typography>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      <Link target="_blank" href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + p.documentURI}>
+                        <GetApp />
+                      </Link>
+                      <IconButton
+                        className={clsx(classes.expand, {
+                          [classes.expandOpen]: expanded[p._id],
+                        })}
+                        onClick={() => handleExpandedClick(p._id)}
+                        aria-expanded={expanded[p._id]}
+                        aria-label="show more"
+                      >
+                        <ExpandMore />
+                      </IconButton>
+                    </CardActions>
+                    <Collapse in={expanded[p._id]} timeout="auto" unmountOnExit>
+                      <CardContent>
+                        <Typography paragraph>備註:</Typography>
+                        <Typography paragraph>
+                          {p.remarks != null ? p.remarks : "---"}
+                        </Typography>
                       </CardContent>
-                      <CardActions disableSpacing>
-                        <Link target="_blank" href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + p.documentURI}>
-                          <GetApp />
-                        </Link>
-                        <IconButton
-                          className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded[p._id],
-                          })}
-                          onClick={() => handleExpandedClick(p._id)}
-                          aria-expanded={expanded[p._id]}
-                          aria-label="show more"
-                        >
-                          <ExpandMore />
-                        </IconButton>
-                      </CardActions>
-                      <Collapse in={expanded[p._id]} timeout="auto" unmountOnExit>
-                        <CardContent>
-                          <Typography paragraph>備註:</Typography>
-                          <Typography paragraph>
-                            {p.remarks != null ? p.remarks : "---"}
-                          </Typography>
-                        </CardContent>
-                      </Collapse>
-                    </Card>
-                  </Grid>
-                )
-              })}
-            </>}
-          </Grid>
+                    </Collapse>
+                  </Card>
+                </Grid>
+              )
+            })}
+          </Grid>}
         </TabPanel>
       </Grid>
     </Grid>

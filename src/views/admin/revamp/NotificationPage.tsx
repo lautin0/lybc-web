@@ -12,7 +12,7 @@ import * as presets from '../../../assets/data/data.json'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: 120
+    minHeight: 80
   },
   listRoot: {
     // whiteSpace: 'pre-wrap'
