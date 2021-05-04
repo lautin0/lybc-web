@@ -2,7 +2,6 @@ import {
    Collapse,
    createMuiTheme,
    CssBaseline,
-   Divider,
    List,
    ListItem,
    ListItemIcon,
@@ -13,7 +12,7 @@ import {
    Toolbar,
    Typography
 } from '@material-ui/core';
-import { Add, Bookmark, ExpandLess, ExpandMore, Face, NoteAdd, Notifications, RecentActors, Spellcheck, ViewQuilt } from '@material-ui/icons';
+import { Add, ExpandLess, ExpandMore, NoteAdd, RecentActors, Spellcheck, ViewQuilt } from '@material-ui/icons';
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
 import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
@@ -21,6 +20,7 @@ import { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
+import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -179,6 +179,7 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
+         <MuiCommonModal />
          <AdminSearchAppBar />
          <ClippedDrawer drawer={drawer} />
          <main className={classes.content}>

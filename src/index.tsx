@@ -44,6 +44,7 @@ import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
 import AdminPanel2 from "views/admin/revamp/AdminPanel2";
 import PersonalPage2 from "views/personal/revamp/PersonalPage2";
+import MuiCommonModal from "components/Modals/revamp/MuiCommonModal";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -71,7 +72,7 @@ function App() {
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <LocaleContext.Provider value={[locale, setLocale, persistLocale]}>
           <LayoutContext.Provider value={{ mobileOpen, setMobileOpen, darkMode, setDarkMode }} >
-            <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
+            <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>              
               <CommonModal />
               <DecisionModal />
               <PasswordResetModal />

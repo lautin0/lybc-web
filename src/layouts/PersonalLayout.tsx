@@ -13,15 +13,14 @@ import {
    Toolbar,
    Typography
 } from '@material-ui/core';
-import { Add, Bookmark, ExpandLess, ExpandMore, Face, NoteAdd, Notifications, RecentActors, Settings, Spellcheck, ViewQuilt } from '@material-ui/icons';
+import { ExpandLess, ExpandMore, Face, Notifications, Settings } from '@material-ui/icons';
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
-import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
 import { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
-import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
 import PersonalSearchAppBar from 'components/Navbars/PersonalSearchAppBar';
+import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -141,10 +140,10 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          },
 
          secondary: {
-            light: '#ffff56',
-            main: '#ffea00',
-            dark: '#c7b800',
-            contrastText: '#fff',
+            light: '#fff263',
+            main: '#fbc02d',
+            dark: '#c49000',
+            contrastText: '#000',
          },
 
       },
@@ -165,10 +164,10 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          },
 
          secondary: {
-            light: '#ffff56',
-            main: '#ffea00',
-            dark: '#c7b800',
-            contrastText: '#fff',
+            light: '#fff263',
+            main: '#fbc02d',
+            dark: '#c49000',
+            contrastText: '#000',
          },
 
       },
@@ -180,6 +179,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
+         <MuiCommonModal />
          <PersonalSearchAppBar />
          <ClippedDrawer drawer={drawer} />
          <main className={classes.content}>
