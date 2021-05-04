@@ -263,36 +263,44 @@ export default function PersonalMain() {
                 <Typography variant="h5">{userData?.user.name}</Typography>
               </Grid>
               <Grid container spacing={2} className={classes.infoRoot}>
-                <Grid container item direction="row">
+                <Grid container item alignItems="center">
                   <Grid item xs={3}>
-                    <Typography>用戶名稱: </Typography>
+                    <Typography variant="body2">用戶名稱: </Typography>
                   </Grid>
                   <Grid item xs={9}>
                     <Typography>{userData?.user.username}</Typography>
                   </Grid>
                 </Grid>
-                <Grid container item>
+                <Grid container item alignItems="center">
                   <Grid item xs={3}>
-                    <Typography>中文名字: </Typography>
+                    <Typography variant="body2">中文名字: </Typography>
                   </Grid>
                   <Grid item xs={9}>
                     <Typography>{userData?.user.nameC}</Typography>
                   </Grid>
                 </Grid>
-                <Grid container item>
+                <Grid container item  alignItems="center">
                   <Grid item xs={3}>
-                    <Typography>稱呼: </Typography>
+                    <Typography variant="body2">稱呼: </Typography>
                   </Grid>
                   <Grid item xs={9}>
                     <Typography>{userData?.user.gender.toString() === "MALE" ? "男" : "女"}</Typography>
                   </Grid>
                 </Grid>
-                <Grid container item>
+                <Grid container item alignItems="center">
                   <Grid item xs={3}>
-                    <Typography>聯絡電話: </Typography>
+                    <Typography variant="body2">聯絡電話: </Typography>
                   </Grid>
                   <Grid item xs={9}>
                     <Typography>{userData?.user.phone}</Typography>
+                  </Grid>
+                </Grid>
+                <Grid container item alignItems="center">
+                  <Grid item xs={3}>
+                    <Typography variant="body2">電郵地址: </Typography>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Typography>{userData?.user.email}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
