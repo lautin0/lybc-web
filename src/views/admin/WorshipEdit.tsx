@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { createStyles, Grid, makeStyles, Button, Divider, Typography } from '@material-ui/core';
 import { Add, Delete, Lock, LockOpen } from '@material-ui/icons';
-import { setSysMessage, setLoading, setSystemFailure } from 'actions';
+import { setLoading } from 'actions';
 import InputDropdown from 'components/Forms/InputDropdown';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
@@ -17,6 +17,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { RootState } from 'reducers';
+import { useModalStore } from 'store';
 import Validators from 'utils/validator';
 
 const useStyles = makeStyles((theme) =>
@@ -47,6 +48,9 @@ function WorshipEdit() {
   const history = useHistory()
 
   const location = useLocation()
+
+  const setMessage = useModalStore(state => state.setMessage)
+  const setModalError = useModalStore(state => state.setError)
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
@@ -109,14 +113,14 @@ function WorshipEdit() {
       }
     }).catch((err: any) => {
       dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setModalError(err)
       history.push('/admin/worships')
     })
   }
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
+      setMessage('app.sys.save-success')
       dispatch(setLoading(false))
       reset();
       history.push('/admin/worships')

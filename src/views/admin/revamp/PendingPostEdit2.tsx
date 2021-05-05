@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, makeStyles, Typography } from '@material-ui/core'
 import { cyan, green, red, yellow } from '@material-ui/core/colors'
 import { ExpandMore } from '@material-ui/icons'
-import { setLoading, setSystemFailure, setSysMessage } from 'actions'
+import { setLoading } from 'actions'
 import { RBRef } from 'adapter/types'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
@@ -20,6 +20,7 @@ import { useIntl } from 'react-intl'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { RootState } from 'reducers'
+import { useModalStore } from 'store'
 import UNIVERSALS from 'Universals'
 import { getTokenValue } from 'utils/utils'
 import Validators from 'utils/validator'
@@ -70,6 +71,9 @@ function PendingPostEdit() {
   const dispatch = useDispatch()
 
   const classes = useStyles()
+
+  const setMessage = useModalStore(state => state.setMessage)
+  const setModalError = useModalStore(state => state.setError)
 
   const [documentURI, setDocumentURI] = useState("")
 
@@ -149,7 +153,7 @@ function PendingPostEdit() {
       }
     }).catch((err: any) => {
       dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setModalError(err)
       reset();
     })
   }
@@ -189,7 +193,7 @@ function PendingPostEdit() {
       }
     }).catch((err: any) => {
       dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setModalError(err)
     })
   }
 
@@ -223,7 +227,7 @@ function PendingPostEdit() {
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
+      setMessage('app.sys.save-success')
       dispatch(setLoading(false))
       reset();
       history.push('/admin/post/pending')
@@ -239,7 +243,7 @@ function PendingPostEdit() {
         msg = 'app.post.approved'
       else if (updatePendingPostData?.updatePendingPost.status === PostStatus.Withhold)
         msg = 'app.post.withheld'
-      dispatch(setSysMessage(msg))
+      setMessage(msg)
       dispatch(setLoading(false))
       reset();
       refetch();

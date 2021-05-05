@@ -52,7 +52,7 @@ function MuiCommonModal() {
         <Button
           onClick={onHide}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           {intl.formatMessage({ id: "app.buttons.ok" })}
         </Button>

@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
-import { setLoading, setSystemFailure, setSysMessage } from 'actions';
+import { setLoading } from 'actions';
 import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
@@ -14,6 +14,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'reducers';
+import { useModalStore } from 'store';
 import { getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
@@ -24,6 +25,9 @@ function NewsCreate() {
   const history = useHistory()
 
   const dispatch = useDispatch()
+
+  const setMessage = useModalStore(state => state.setMessage)
+  const setModalError = useModalStore(state => state.setError)
 
   const dropzoneMethods = useDropzone({
     accept: 'image/*'
@@ -60,14 +64,14 @@ function NewsCreate() {
       }
     }).catch((err: any) => {
       dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setModalError(err)
       reset();
     })
   }
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
+      setMessage('app.sys.save-success')
       dispatch(setLoading(false))
       reset();
       history.push('/admin/page-management')

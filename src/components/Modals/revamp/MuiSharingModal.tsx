@@ -1,7 +1,7 @@
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles, TextField } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
-import { setLoading, setSystemFailure, setSysMessage } from 'actions';
+import { setLoading } from 'actions';
 import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus } from 'generated/graphql';
 import { PEND_POST, UPDATE_PENDING_POST, GET_PENDING_POST } from 'graphqls/graphql';
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'reducers';
-import { usePendingPostStore } from 'store'
+import { useModalStore, usePendingPostStore } from 'store'
 import { getTokenValue } from 'utils/utils';
 import SharingForm2 from 'views/articles/SharingForm2';
 
@@ -29,6 +29,9 @@ export default function MuiSharingModal() {
    const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
    const dispatch = useDispatch()
+
+   const setMessage = useModalStore(state => state.setMessage)
+   const setModalError = useModalStore(state => state.setError)
 
    const [pendPost, { data }] = useMutation<
       { pendingPost: PendingPost },
@@ -85,7 +88,7 @@ export default function MuiSharingModal() {
             }
          }).catch((err: any) => {
             dispatch(setLoading(false))
-            dispatch(setSystemFailure(err))
+            setModalError(err)
             onHide()
          })
       } else {
@@ -98,7 +101,7 @@ export default function MuiSharingModal() {
             }
          }).catch((err: any) => {
             dispatch(setLoading(false))
-            dispatch(setSystemFailure(err))
+            setModalError(err)
             onHide()
          })
       }
@@ -120,14 +123,14 @@ export default function MuiSharingModal() {
          }
       }).catch((err: any) => {
          dispatch(setLoading(false))
-         dispatch(setSystemFailure(err))
+         setModalError(err)
          onHide()
       })
    }
 
    useEffect(() => {
       if (data !== undefined) {
-         dispatch(setSysMessage('app.sys.save-success'))
+         setMessage('app.sys.save-success')
          dispatch(setLoading(false))
          onHide()
       }
@@ -135,7 +138,7 @@ export default function MuiSharingModal() {
 
    useEffect(() => {
       if (updateData !== undefined) {
-         dispatch(setSysMessage('app.sys.save-success'))
+         setMessage('app.sys.save-success')
          dispatch(setLoading(false))
          onHide()
       }
