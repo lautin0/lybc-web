@@ -22,6 +22,7 @@ import clsx from 'clsx';
 import { usePendingPostStore } from 'store';
 import { RootState } from 'reducers';
 import { green, red, yellow, cyan } from '@material-ui/core/colors';
+import { Skeleton } from '@material-ui/lab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -119,7 +120,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
-  }
+  },
+  circleLoading: {
+    width: theme.spacing(14),
+    height: theme.spacing(14)
+  },
 }));
 
 const trimSubtitle = (txt: string) => {
@@ -246,7 +251,32 @@ export default function PersonalMain() {
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <Card variant="outlined">
-          <CardContent>
+          {loading && <CardContent>
+            <Grid container spacing={3}>
+              <Grid container item xs={12} justify="center">
+                <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
+              </Grid>
+              <Grid container item justify="center">
+                <Grid item xs={7}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
+                <Grid item xs={7}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
+              </Grid>
+              <Grid container item justify="center" spacing={1}>
+                <Grid item xs={9}>
+                  <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </CardContent>}
+          {!loading && <CardContent>
             <Grid container spacing={3}>
               <Grid container justify="flex-end">
                 <Grid item>
@@ -279,7 +309,7 @@ export default function PersonalMain() {
                     <Typography>{userData?.user.nameC}</Typography>
                   </Grid>
                 </Grid>
-                <Grid container item  alignItems="center">
+                <Grid container item alignItems="center">
                   <Grid item xs={3}>
                     <Typography variant="body2">稱呼: </Typography>
                   </Grid>
@@ -320,7 +350,7 @@ export default function PersonalMain() {
                 </Grid>
               </Grid>
             </Grid>
-          </CardContent>
+          </CardContent>}
         </Card>
       </Grid>
       <Grid item xs={12} md={8} className={classes.tabRoot}>
@@ -343,7 +373,39 @@ export default function PersonalMain() {
               </Typography>
             </Grid>
           </Grid>}
-          {(!loading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((p, i) => {
+          {favLoading && <Grid container direction="row" spacing={3} className={classes.gridRowRoot}>
+            <Grid container item direction="column" xs={8} spacing={1}>
+              <Grid container item direction="row" alignItems="center" spacing={2}>
+                <Typography>
+                  <Skeleton animation="wave" variant="circle" height={40} width={40} />
+                </Typography>
+                <Grid item>
+                  <Typography variant="body2">
+                    <Skeleton animation="wave" width={120} />
+                  </Typography>
+                  <Typography variant="body2">
+                    <Skeleton animation="wave" width={100} />
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={25} width="70%" animation="wave" />
+              </Grid>
+            </Grid>
+            <Grid xs={4} item>
+              <Skeleton animation="wave" variant="rect" height={190} />
+            </Grid>
+          </Grid>}
+          {(!favLoading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((p, i) => {
             return <Grid container key={p._id} direction="row" spacing={3} className={classes.gridRowRoot}>
               {i > 0 && <Divider className={classes.divider} />}
               <Grid container item direction="column" xs={8} spacing={3}>
@@ -388,7 +450,39 @@ export default function PersonalMain() {
           })}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {(!loading && data?.pendingPosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+          {pPostLoading && <Grid container direction="row" spacing={3} className={classes.gridRowRoot}>
+            <Grid container item direction="column" xs={8} spacing={1}>
+              <Grid container item direction="row" alignItems="center" spacing={2}>
+                <Typography>
+                  <Skeleton animation="wave" variant="circle" height={40} width={40} />
+                </Typography>
+                <Grid item>
+                  <Typography variant="body2">
+                    <Skeleton animation="wave" width={120} />
+                  </Typography>
+                  <Typography variant="body2">
+                    <Skeleton animation="wave" width={100} />
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={30} animation="wave" />
+              </Grid>
+              <Grid item>
+                <Skeleton height={25} width="70%" animation="wave" />
+              </Grid>
+            </Grid>
+            <Grid xs={4} item>
+              <Skeleton animation="wave" variant="rect" height={190} />
+            </Grid>
+          </Grid>}
+          {(!pPostLoading && data?.pendingPosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
             <Grid container item xs={12} justify="center">
               <Typography variant="h5">
                 沒有記錄
