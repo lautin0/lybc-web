@@ -94,7 +94,7 @@ function PasswordResetModal(props: any) {
         >
           <Modal.Title id="contained-modal-title-vcenter" as="h3">
             重設密碼
-        </Modal.Title>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container className="ml-2">

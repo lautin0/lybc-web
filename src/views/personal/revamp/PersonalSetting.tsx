@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Avatar, Button, Divider, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_USER, UPDATE_USER } from 'graphqls/graphql';
+import { CHANGE_PASSWORD, GET_USER, UPDATE_USER } from 'graphqls/graphql';
 import { getTokenValue } from 'utils/utils';
-import { Gender, UpdateUser, User } from 'generated/graphql';
+import { Gender, NewPassword, UpdateUser, User } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { setLoading, setSystemFailure, setSysMessage } from 'actions';
 import imageCompression from 'browser-image-compression';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch } from 'react-redux';
 import { AccountCircle } from '@material-ui/icons';
@@ -21,6 +21,7 @@ import MuiInputText from 'components/Forms/MuiInputText';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Skeleton } from '@material-ui/lab';
+import Validators from 'utils/validator';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -152,7 +153,21 @@ export default function PersonalSetting() {
     }
   });
 
-  const { register, handleSubmit, reset, getValues, control, trigger, setValue: setFormValue } = methods
+  const { handleSubmit, reset, control, trigger } = methods
+
+  const pwdFormMethods = useForm({
+    defaultValues: {
+      password: '',
+      newPassword: '',
+      confirmPassword: ''
+    }
+  })
+
+  const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
+
+  const [changePassword, { data }] = useMutation<
+    { input: NewPassword }
+  >(CHANGE_PASSWORD);
 
   const watchType = useWatch({
     control,
@@ -162,6 +177,36 @@ export default function PersonalSetting() {
   const handleOnClick = (e: any) => {
     e.preventDefault();
     open()
+  }
+
+  const onPasswordSubmit = (data: any) => {
+    if (data.newPassword !== data.confirmPassword) {
+      setError('confirmPassword', {
+        type: "manual",
+        message: "輸入的新密碼不一致"
+      });
+      setError('newPassword', {
+        type: "manual",
+        message: "輸入的新密碼不一致"
+      });
+      return
+    }
+    dispatch(setLoading(true))
+    let tmp: NewPassword = {
+      password: data.password,
+      newPassword: data.newPassword,
+      username: getTokenValue(localStorage.getItem('token')).username
+    }
+    changePassword({
+      variables: {
+        input: {
+          ...tmp
+        },
+      }
+    }).catch((err: any) => {
+      dispatch(setLoading(false))
+      dispatch(setSystemFailure(err))
+    })
   }
 
   const onSubmit = async (data: any) => {
@@ -260,6 +305,14 @@ export default function PersonalSetting() {
     if (watchType !== undefined)
       trigger()
   }, [watchType, trigger])
+
+
+  useEffect(() => {
+    if (data !== undefined) {
+      dispatch(setSysMessage('app.sys.save-success'))
+      dispatch(setLoading(false))
+    }
+  }, [data, dispatch])
 
   return (
     <div className={classes.root}>
@@ -472,8 +525,46 @@ export default function PersonalSetting() {
           </FormProvider>}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          安全設定
-      </TabPanel>
+          <FormProvider {...pwdFormMethods}>
+            <form onSubmit={handlePasswordSubmit(onPasswordSubmit)}>
+              <Typography style={{ marginBottom: 20 }} variant="h5">更改密碼</Typography>
+              <Grid container spacing={3} xs={12} md={6} direction="column">
+                <Divider />
+                <Grid item>
+                  <MuiInputText
+                    placeholder="請輸入現時密碼"
+                    label="現時密碼"
+                    type="password"
+                    name="password"
+                    validateFn={Validators.NoWhiteSpace}
+                  />
+                </Grid>
+                <Grid item>
+                  <MuiInputText
+                    placeholder="請輸入新密碼"
+                    label="新密碼"
+                    type="password"
+                    name="newPassword"
+                    validateFn={Validators.NoWhiteSpace}
+                  />
+                </Grid>
+                <Grid item>
+                  <MuiInputText
+                    label="確認新密碼"
+                    placeholder="確認新密碼"
+                    type="password"
+                    name="confirmPassword"
+                    validateFn={Validators.NoWhiteSpace}
+                  />
+                </Grid>
+                <Divider />
+                <Grid item>
+                  <Button variant="contained" color="secondary" type="submit">變更密碼</Button>
+                </Grid>
+              </Grid>
+            </form>
+          </FormProvider>
+        </TabPanel>
       </div>
     </div>
   );

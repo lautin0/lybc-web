@@ -1,6 +1,4 @@
 import { createStyles, Grid, makeStyles, TextField } from '@material-ui/core';
-import { RBRef } from 'adapter/types';
-import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) =>
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme) =>
 
 function MuiInputText(props: any) {
 
-   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size } = props;
+   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size, type } = props;
 
    const { errors, control } = useFormContext()
 
@@ -39,8 +37,9 @@ function MuiInputText(props: any) {
             return <TextField
                error={!skipValidate && !!errors[name]}
                // id="standard-error-helper-text"  
-               size={size}
+               size={size} // "small" | "medium"
                placeholder={placeholder}
+               type={type || 'text'}
                fullWidth={true}
                label={label}
                multiline={multiline}
@@ -50,7 +49,7 @@ function MuiInputText(props: any) {
                onBlur={onBlur}
                value={value || ''}
                disabled={strongReadOnly || isReadOnly}
-               helperText={(!skipValidate && errors[name]) && <label style={{ opacity: .6, color: '#FF3636' }}>必須輸入這欄</label>}
+               helperText={(!skipValidate && errors[name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{errors[name].message != "" ? errors[name].message : "必須輸入這欄"}</label>}
             />
          }}
       />
