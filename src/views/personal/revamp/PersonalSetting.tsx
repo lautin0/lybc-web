@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Button, Grid } from '@material-ui/core';
+import { Avatar, Button, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER, UPDATE_USER } from 'graphqls/graphql';
@@ -12,16 +12,14 @@ import { Gender, UpdateUser, User } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { setLoading, setSystemFailure, setSysMessage } from 'actions';
-import { toggleSecurityModal } from 'actions/security/security';
 import imageCompression from 'browser-image-compression';
-import InputText from 'components/Forms/InputText';
 import moment, { Moment } from 'moment';
-import { Form, Col } from 'react-bootstrap';
-import { SingleDatePicker } from 'react-dates';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch } from 'react-redux';
 import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,20 +59,54 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: '75vh',
+    height: '85vh',
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   avatar: {
     border: '.1rem lightgray solid',
-    width: theme.spacing(14),
-    height: theme.spacing(14)
+    width: theme.spacing(19),
+    height: theme.spacing(19)
   },
   iconBtn: {
     width: theme.spacing(5),
     height: theme.spacing(5)
   },
+  profilePicContainer: {
+    borderRadius: '100%',
+    display: 'flex',
+    flex: '0 0 150px',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    position: 'relative'
+  },
+  profilePicOverlay: {
+    alignItems: 'center',
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    left: 0,
+    opacity: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transition: 'opacity 0.25s',
+    zIndex: 1,
+
+    backgroundColor: 'rgba(46,204,113,0.4)',
+    background: 'linear-gradient(65deg, rgba(46,204,113,0.4), rgba(243,156,18,0.4))',
+    color: '#fafafa',
+    fontSize: 24,
+    '&:hover': {
+      opacity: 1
+    },
+  },
+  profileBtn: {
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0)'
+    }
+  }
 }));
 
 export default function PersonalSetting() {
@@ -117,15 +149,16 @@ export default function PersonalSetting() {
       nameC: '',
       gender: '',
       email: '',
-      phone: ''
+      phone: '',
+      dob: ''
     }
   });
 
-  const { register, handleSubmit, reset, getValues, control, trigger } = methods
+  const { register, handleSubmit, reset, getValues, control, trigger, setValue: setFormValue } = methods
 
   const watchType = useWatch({
     control,
-    name: 'gender',
+    name: 'dob',
   })
 
   const handleOnClick = (e: any) => {
@@ -136,7 +169,7 @@ export default function PersonalSetting() {
   const onSubmit = async (data: any) => {
     if (userData == null)
       return
-    let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
+    // let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
     dispatch(setLoading(true))
 
     const options = {
@@ -154,7 +187,7 @@ export default function PersonalSetting() {
       nameC: data.nameC,
       title: userData?.user.title,
       titleC: userData?.user.titleC,
-      dob: dob,
+      dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
       profilePic: compressedImg,
       email: data.email.length == 0 ? null : data.email,
@@ -192,7 +225,12 @@ export default function PersonalSetting() {
           gender: userData.user.gender.toString(),
           email: userData.user.email!,
           phone: userData.user.phone!,
+          dob: userData.user.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : ''
         })
+        // if (userData.user.dob) {
+        //   console.log(userData.user.dob)
+        //   setFormValue('dob', moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
+        // }
         if (userData.user.dob != null) {
           setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
         }
@@ -245,37 +283,55 @@ export default function PersonalSetting() {
               <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
               </div>
-              <Grid>
-                <Grid>
-                  <a className="profile-pic mx-auto" href="#" onClick={handleOnClick}>
-                    <div className="profile-pic-overlay">
-                      <div>
+              <Grid container spacing={2} direction="column">
+                <Grid item xs={12} md={5} container justify="center">
+                  <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
+                    <div className={classes.profilePicContainer}>
+                      {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <AccountCircle />}
+                      {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
+                      {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                      <div className={classes.profilePicOverlay}>
                         <div>
-                          <i style={{ fontSize: 36 }} className="fas fa-camera"></i>
+                          <div>
+                            <i style={{ fontSize: 36 }} className="fas fa-camera"></i>
+                          </div>
+                          <div>
+                            變更頭像
                         </div>
-                        <div>
-                          變更頭像
                         </div>
                       </div>
                     </div>
-                    {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <AccountCircle />}
-                    {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
-                    {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
-                  </a>
+                  </IconButton>
                 </Grid>
-              </Grid>
-              <hr></hr>
-              <Grid>
-                <MuiInputText
-                  name="username"
-                  label="用戶編號"
-                  md={5}
-                  isReadOnly={true}
-                />
-                <Grid>
-                  <label>性別</label>
-                  <div className="d-flex justify-content-start" style={{ fontSize: 18 }}>
-                    <Controller
+                <Grid item>
+                  <MuiInputText
+                    name="username"
+                    label="用戶編號"
+                    md={5}
+                    isReadOnly={true}
+                    size="small"
+                  />
+                </Grid>
+                <Grid item>
+                  <Typography>性別</Typography>
+                  <Controller
+                    as={
+                      <RadioGroup aria-label="gender" row>
+                        <FormControlLabel
+                          value={Gender.Male.toString()}
+                          control={<Radio />}
+                          label="男" />
+                        <FormControlLabel
+                          value={Gender.Female.toString()}
+                          control={<Radio />}
+                          label="女"
+                        />
+                      </RadioGroup>
+                    }
+                    name="gender"
+                    control={control}
+                  />
+                  {/* <Controller
                       render={({ onChange, onBlur, value }) => <Form.Check
                         className="form-check-radio mx-2"
                         type="radio"
@@ -303,19 +359,18 @@ export default function PersonalSetting() {
                       ></Form.Check>}
                       control={control}
                       name="gender"
-                    />
-                  </div>
+                    /> */}
                 </Grid>
-              </Grid>
-              <Grid>
-                <MuiInputText
-                  name="nameC"
-                  label="中文名稱"
-                  md={5}
-                />
-                <Grid>
-                  <label>出生日期</label><br></br>
-                  <SingleDatePicker
+                <Grid item>
+                  <MuiInputText
+                    name="nameC"
+                    label="中文名稱"
+                    md={5}
+                    size="small"
+                  />
+                </Grid>
+                <Grid item>
+                  {/* <SingleDatePicker
                     placeholder="出生日期"
                     isOutsideRange={() => false}
                     numberOfMonths={1}
@@ -327,34 +382,55 @@ export default function PersonalSetting() {
                     inputIconPosition="after"
                     // displayFormat="yyyyMMDD"
                     id="dob" // PropTypes.string.isRequired,
+                  /> */}
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Controller
+                      name="dob"
+                      control={control}
+                      defaultValue={null}
+                      render={({ ref, ...rest }: any) => (
+                        <KeyboardDatePicker
+                          variant="inline"
+                          margin="normal"
+                          id="date-picker-dialog"
+                          label="出生日期"
+                          format="dd/MM/yyyy"
+                          KeyboardButtonProps={{
+                            "aria-label": "change date"
+                          }}
+                          {...rest}
+                        />
+                      )}
+                    />
+                  </MuiPickersUtilsProvider>
+                </Grid>
+                <Grid item>
+                  <MuiInputText
+                    name="name"
+                    label="英文名稱"
+                    md={5}
+                    size="small"
                   />
                 </Grid>
-              </Grid>
-              <Grid>
-                <MuiInputText
-                  name="name"
-                  label="英文名稱"
-                  md={5}
-                />
-              </Grid>
-              <Grid>
-                <MuiInputText
-                  name="phone"
-                  label="聯絡電話"
-                  md={5}
-                />
-                <MuiInputText
-                  name="email"
-                  label="電郵地址"
-                  md={5}
-                  xs={12}
-                />
-              </Grid>
-              <hr></hr>
-              <Grid container>
+                <Grid item>
+                  <MuiInputText
+                    name="phone"
+                    label="聯絡電話"
+                    md={5}
+                    size="small"
+                  />
+                </Grid>
+                <Grid item>
+                  <MuiInputText
+                    name="email"
+                    label="電郵地址"
+                    md={5}
+                    xs={12}
+                    size="small"
+                  />
+                </Grid>
                 <Grid item>
                   <Button
-                    style={{ background: '#009999' }}
                     variant="contained"
                     color="primary"
                     type="submit"

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
 
 function MuiInputText(props: any) {
 
-   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly } = props;
+   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size } = props;
 
    const { errors, control } = useFormContext()
 
@@ -39,6 +39,7 @@ function MuiInputText(props: any) {
             return <TextField
                error={!skipValidate && !!errors[name]}
                // id="standard-error-helper-text"  
+               size={size}
                placeholder={placeholder}
                fullWidth={true}
                label={label}
