@@ -112,22 +112,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function PersonalSetting() {
   const classes = useStyles();
 
-
   const history = useHistory()
 
   const dispatch = useDispatch()
 
   const location = useLocation()
 
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-
-  const [date, setDate] = useState<Moment | null>(null)
-  const [focused, setFocused] = useState<boolean>(false)
 
   const dropzoneMethods = useDropzone({
     accept: 'image/*'
@@ -142,15 +137,13 @@ export default function PersonalSetting() {
 
   const { loading, data: userData, refetch } = useQuery<{ user: User }, { username: string }>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
 
-  const methods = useForm({
+  const methods = useForm<User>({
     defaultValues: {
       username: '',
       name: '',
-      nameC: '',
-      gender: '',
+      nameC: '',      
       email: '',
       phone: '',
-      dob: ''
     }
   });
 
@@ -222,18 +215,18 @@ export default function PersonalSetting() {
           username: userData.user.username,
           name: userData.user.name,
           nameC: userData.user.nameC,
-          gender: userData.user.gender.toString(),
+          gender: userData.user.gender,
           email: userData.user.email!,
           phone: userData.user.phone!,
-          dob: userData.user.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : ''
+          dob: userData.user.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
         })
         // if (userData.user.dob) {
         //   console.log(userData.user.dob)
         //   setFormValue('dob', moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
         // }
-        if (userData.user.dob != null) {
-          setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
-        }
+        // if (userData.user.dob != null) {
+        //   setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
+        // }
       })
     }
   }, [userData, reset])
@@ -330,6 +323,7 @@ export default function PersonalSetting() {
                     }
                     name="gender"
                     control={control}
+                    defaultValue={null}
                   />
                   {/* <Controller
                       render={({ onChange, onBlur, value }) => <Form.Check
