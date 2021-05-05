@@ -20,6 +20,7 @@ import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { Skeleton } from '@material-ui/lab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -106,6 +107,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&:hover': {
       backgroundColor: 'rgba(0,0,0,0)'
     }
+  },
+  circleLoading: {
+    width: theme.spacing(14),
+    height: theme.spacing(14)
   }
 }));
 
@@ -141,7 +146,7 @@ export default function PersonalSetting() {
     defaultValues: {
       username: '',
       name: '',
-      nameC: '',      
+      nameC: '',
       email: '',
       phone: '',
     }
@@ -194,14 +199,14 @@ export default function PersonalSetting() {
         },
       }
     }).catch((err: any) => {
-      dispatch(setLoading(false))
+      // dispatch(setLoading(false))
       dispatch(setSystemFailure(err))
     })
   }
 
   useEffect(() => {
     if (updatedUserData !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success!'))
+      dispatch(setSysMessage('app.sys.save-success'))
       dispatch(setLoading(false))
       reset();
       history.push('/personal/')
@@ -231,25 +236,25 @@ export default function PersonalSetting() {
     }
   }, [userData, reset])
 
-  useEffect(() => {
-    dispatch(setLoading(true))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(setLoading(true))
+  // }, [])
 
   useEffect(() => {
     if (userData != null) {
-      dispatch(setLoading(true))
+      // dispatch(setLoading(true))
       refetch();
       setTimeout(() => {
         trigger()
-      }, 1000);
+      }, 100);
     }
   }, [location, dispatch, refetch])
 
-  useEffect(() => {
-    if (loading === false) {
-      dispatch(setLoading(false))
-    }
-  }, [loading, dispatch])
+  // useEffect(() => {
+  //   if (loading === false) {
+  //     dispatch(setLoading(false))
+  //   }
+  // }, [loading, dispatch])
 
   useEffect(() => {
     if (watchType !== undefined)
@@ -271,6 +276,36 @@ export default function PersonalSetting() {
       </Tabs>
       <div style={{ overflow: 'auto', width: '100%' }}>
         <TabPanel value={value} index={0}>
+          {loading && <Grid container spacing={3} xs={12} md={6}>
+            <Grid container item xs={12} justify="center">
+              <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
+            </Grid>
+            <Grid container item justify="center" spacing={3}>
+              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
+              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
+              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
+            </Grid>
+            <Grid container item justify="center" spacing={1}>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+              </Grid>
+            </Grid>
+          </Grid>}
           {(!loading && userData != null) && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div {...getRootProps({ className: 'dropzone' })}>
