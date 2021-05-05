@@ -39,3 +39,24 @@ export const usePendingPostStore = create<PendingPostState>((set, get, api) => (
   setTitle: (s: string) => set(state => ({ title: s })),
   setPendingPostID: (id: string) => set(state => ({ pendingPostID: id }))
 }))
+
+
+export type ModalState = {
+  callback: Function | null
+  message: string | null
+  error: string | null
+
+  setCallback: (id: Function | null) => void
+  setMessage: (s: string | null) => void
+  setError: (err: string | null) => void
+}
+
+export const useModalStore = create<ModalState>((set, get, api) => ({
+  callback: null,
+  message: null,
+  error: null,
+
+  setCallback: (fn: Function | null) => set(state => ({ callback: fn })),
+  setMessage: (s: string | null) => set(state => ({ message: s })),
+  setError: (err: string | null) => set(state => ({ error: err }))
+}))

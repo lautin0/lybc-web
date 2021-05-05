@@ -16,10 +16,11 @@ import { Add, ExpandLess, ExpandMore, NoteAdd, RecentActors, Spellcheck, ViewQui
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
 import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
-import { FC, ReactElement, useContext, useState } from 'react'
+import React, { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
+import MuiSharingModal from 'components/Modals/revamp/MuiSharingModal';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -179,6 +180,7 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
+         <MuiSharingModal />
          <MuiCommonModal />
          <AdminSearchAppBar />
          <ClippedDrawer drawer={drawer} />

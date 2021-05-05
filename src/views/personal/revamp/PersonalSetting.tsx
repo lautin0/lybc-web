@@ -11,7 +11,7 @@ import { getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, User } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
-import { setLoading, setSystemFailure, setSysMessage } from 'actions';
+import { setLoading } from 'actions';
 import imageCompression from 'browser-image-compression';
 import moment from 'moment';
 import { useDropzone } from 'react-dropzone';
@@ -22,6 +22,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import { Skeleton } from '@material-ui/lab';
 import Validators from 'utils/validator';
+import { useModalStore } from 'store';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: '85vh',
+    height: '84vh',
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -116,6 +117,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default function PersonalSetting() {
+
   const classes = useStyles();
 
   const history = useHistory()
@@ -123,6 +125,9 @@ export default function PersonalSetting() {
   const dispatch = useDispatch()
 
   const location = useLocation()
+
+  const setMessage = useModalStore(state => state.setMessage)
+  const setErrorModal = useModalStore(state => state.setError)
 
   const [value, setValue] = React.useState(0);
 
@@ -205,7 +210,7 @@ export default function PersonalSetting() {
       }
     }).catch((err: any) => {
       dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setErrorModal(err)
     })
   }
 
@@ -245,13 +250,13 @@ export default function PersonalSetting() {
       }
     }).catch((err: any) => {
       // dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+      setErrorModal(err)
     })
   }
 
   useEffect(() => {
     if (updatedUserData !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
+      setMessage('app.sys.save-success')
       dispatch(setLoading(false))
       reset();
       history.push('/personal/')
@@ -309,7 +314,7 @@ export default function PersonalSetting() {
 
   useEffect(() => {
     if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
+      setMessage('app.sys.save-success')
       dispatch(setLoading(false))
     }
   }, [data, dispatch])
@@ -333,29 +338,24 @@ export default function PersonalSetting() {
             <Grid container item xs={12} justify="center">
               <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
             </Grid>
-            <Grid container item justify="center" spacing={3}>
-              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
-              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
-              <Grid item xs={9}><Typography variant="h5"><Skeleton animation="wave" /></Typography></Grid>
-            </Grid>
             <Grid container item justify="center" spacing={1}>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="body2"><Skeleton animation="wave" /></Typography>
+                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
               </Grid>
             </Grid>
           </Grid>}

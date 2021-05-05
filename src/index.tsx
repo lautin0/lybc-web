@@ -44,7 +44,7 @@ import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
 import AdminPanel2 from "views/admin/revamp/AdminPanel2";
 import PersonalPage2 from "views/personal/revamp/PersonalPage2";
-import MuiCommonModal from "components/Modals/revamp/MuiCommonModal";
+import MuiSharingModal from "components/Modals/revamp/MuiSharingModal";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 

@@ -292,7 +292,7 @@ export default function PersonalMain() {
               <Grid container item justify="center">
                 <Typography variant="h5">{userData?.user.name}</Typography>
               </Grid>
-              <Grid container spacing={2} className={classes.infoRoot}>
+              <Grid container spacing={1} className={classes.infoRoot}>
                 <Grid container item alignItems="center">
                   <Grid item xs={3}>
                     <Typography variant="body2">用戶名稱: </Typography>
@@ -311,7 +311,7 @@ export default function PersonalMain() {
                 </Grid>
                 <Grid container item alignItems="center">
                   <Grid item xs={3}>
-                    <Typography variant="body2">稱呼: </Typography>
+                    <Typography variant="body2">性別: </Typography>
                   </Grid>
                   <Grid item xs={9}>
                     <Typography>{userData?.user.gender.toString() === "MALE" ? "男" : "女"}</Typography>
@@ -437,7 +437,7 @@ export default function PersonalMain() {
                     startIcon={<Delete />}
                   >
                     移除
-                      </Button>
+                  </Button>
                 </Grid>
               </Grid>
               <Grid xs={4} item className={css.blogImg} onClick={() => { navigate(p.post?._id) }}>

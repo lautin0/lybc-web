@@ -20,6 +20,7 @@ import { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory } from 'react-router-dom';
 import PersonalSearchAppBar from 'components/Navbars/PersonalSearchAppBar';
+import MuiSharingModal from 'components/Modals/revamp/MuiSharingModal';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -179,6 +180,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
+         <MuiSharingModal />
          <MuiCommonModal />
          <PersonalSearchAppBar />
          <ClippedDrawer drawer={drawer} />
