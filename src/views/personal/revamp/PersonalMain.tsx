@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link } from '@material-ui/core';
-import { FavouritePost, PendingPost, PostStatus, UpdateFavouritePost, User } from 'generated/graphql';
+import { FavouritePost, MutationRemoveFavouritePostArgs, PendingPost, PostStatus, QueryPendingPostsArgs, QueryUserArgs, UpdateFavouritePost, User } from 'generated/graphql';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_FAVOURITE_POST, GET_PENDING_POSTS_BY_USERNAME, GET_USER, REMOVE_FAV_POST } from 'graphqls/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
@@ -143,16 +143,15 @@ export default function PersonalMain() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, { username: string }>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
 
   const { loading: favLoading, data: favPostData, refetch: favRefetch } = useQuery<
-    { favouritePosts: FavouritePost[] },
-    { username: string }
+    { favouritePosts: FavouritePost[] }
   >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
 
   const [removeFavPost, { loading: removeFavLoading }] = useMutation<
     { postID: string },
-    { input: UpdateFavouritePost }
+    MutationRemoveFavouritePostArgs
   >(REMOVE_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }
@@ -176,7 +175,7 @@ export default function PersonalMain() {
 
   const { data, loading: pPostLoading, refetch: pPostRefetch } = useQuery<
     { pendingPosts: PendingPost[] },
-    { username: string }>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
+    QueryPendingPostsArgs>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     if (data != null)

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import InputText from "components/Forms/InputText";
-import { Gender, UpdateUser, User } from "generated/graphql";
+import { Gender, MutationUpdateUserArgs, QueryUserArgs, UpdateUser, User } from "generated/graphql";
 import { GET_USER, UPDATE_USER } from "graphqls/graphql";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
@@ -39,10 +39,10 @@ function PersonalEdit() {
 
   const [updateUser, { data: updatedUserData }] = useMutation<
     { updateUser: User },
-    { input: UpdateUser }
+    MutationUpdateUserArgs
   >(UPDATE_USER);
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, { username: string }>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm({
     defaultValues: {

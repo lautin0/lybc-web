@@ -13,7 +13,7 @@ import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
 import defaultAvatar from "assets/img/default-avatar.png";
-import { Post, User } from 'generated/graphql';
+import { Post, QueryUserArgs, User } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useQuery } from '@apollo/client';
 import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
@@ -35,7 +35,7 @@ function CommentSection(props: any) {
 
   const { loading, data: profilePicData } = useQuery<
     { user: User },
-    { username: string }
+    QueryUserArgs
   >(
     GET_USER_PROFILE_PIC_URI,
     {

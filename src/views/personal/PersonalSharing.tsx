@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { PendingPost, PostStatus } from 'generated/graphql';
+import { PendingPost, PostStatus, QueryPendingPostsArgs } from 'generated/graphql';
 import { GET_PENDING_POSTS_BY_USERNAME } from 'graphqls/graphql';
 import React, { useCallback, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
@@ -24,7 +24,7 @@ function PersonalSharing() {
 
   const { data, loading, refetch } = useQuery<
     { pendingPosts: PendingPost[] },
-    { username: string }>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
+    QueryPendingPostsArgs>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     if (data != null)

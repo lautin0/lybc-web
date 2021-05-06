@@ -7,7 +7,7 @@ import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
+import { MutationUpdateWorshipArgs, NewWorship, NewWorshipDoc, QueryWorshipArgs, Worship } from 'generated/graphql';
 import { GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import React, { useEffect, useState } from 'react'
@@ -56,9 +56,9 @@ function WorshipEdit() {
 
   const [updateWorship, { data }] = useMutation<
     { updateWorship: any },
-    { input: NewWorship, docs: NewWorshipDoc[] }
+    MutationUpdateWorshipArgs
   >(UPDATE_WORSHIP);
-  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true })
+  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, QueryWorshipArgs>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm({
     defaultValues: {

@@ -7,7 +7,7 @@ import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
+import { MutationCreateWorshipArgs, NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
 import { ADD_WORSHIP } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import React, { useEffect } from 'react'
@@ -67,7 +67,7 @@ function WorshipCreate() {
 
   const [addWorship, { data }] = useMutation<
     { createWorship: Worship },
-    { input: NewWorship, docs: NewWorshipDoc[] }
+    MutationCreateWorshipArgs
   >(ADD_WORSHIP);
 
   const dispatch = useDispatch();

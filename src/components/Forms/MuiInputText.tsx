@@ -17,6 +17,7 @@ type MuiInputTextProp = {
    name: string
    label?: string
    isReadOnly?: boolean
+   lg? :any
    md?: any
    sm?: any
    xs?: any
@@ -32,7 +33,7 @@ type MuiInputTextProp = {
 
 function MuiInputText(props: MuiInputTextProp) {
 
-   const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size, type } = props;
+   const { name, label, isReadOnly, md, sm, xs, lg, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size, type } = props;
 
    const { errors, control } = useFormContext()
 
@@ -40,6 +41,7 @@ function MuiInputText(props: MuiInputTextProp) {
 
    return <Grid
       item
+      lg={lg}
       md={md}
       sm={sm}
       xs={xs}

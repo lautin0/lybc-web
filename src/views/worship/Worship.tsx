@@ -13,7 +13,7 @@ import moment from "moment";
 import html2canvas from 'html2canvas'
 import { useQuery } from "@apollo/client";
 import { GET_WORSHIP } from "graphqls/graphql";
-import { Worship as WorshipModel } from "generated/graphql";
+import { QueryWorshipArgs, Worship as WorshipModel } from "generated/graphql";
 import { useIntl } from "react-intl";
 
 function Worship() {
@@ -26,7 +26,7 @@ function Worship() {
   const [data, setData] = useState('')
   const componentRef: any = useRef();
 
-  const { loading, data: wData, refetch } = useQuery<{ worship: WorshipModel }, { worshipId: string }>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true });
+  const { loading, data: wData, refetch } = useQuery<{ worship: WorshipModel }, QueryWorshipArgs>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true });
 
   const handleChange = (content: any) => {
     setData(content);

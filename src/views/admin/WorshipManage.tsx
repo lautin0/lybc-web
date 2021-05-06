@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
-import { Worship } from 'generated/graphql';
+import { MutationDeleteWorshipArgs, Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
@@ -30,7 +30,7 @@ function WorshipManage() {
 
   const [deleteWorship, { data: deleteResult }] = useMutation<
     { deleteWorship: any },
-    { input: string }
+    MutationDeleteWorshipArgs
   >(DELETE_WORSHIP)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {

@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { NewPost, Post } from "generated/graphql";
+import { MutationCreatePostArgs, NewPost, Post } from "generated/graphql";
 import { ADD_POST, GET_POST } from "graphqls/graphql";
 import { useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ function usePost({ id }: any) {
 
   const [addComment, { data: comment }] = useMutation<
     { createPost: Post },
-    { input: NewPost }
+    MutationCreatePostArgs
   >(ADD_POST, {
     refetchQueries: [
       { query: GET_POST, variables: { oid: id } }

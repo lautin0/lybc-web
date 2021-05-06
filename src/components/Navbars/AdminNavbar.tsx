@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue } from 'utils/utils';
 import logo from "assets/img/lybc_logo.png";
 import { useQuery } from "@apollo/client";
-import { User } from "generated/graphql";
+import { QueryUserArgs, User } from "generated/graphql";
 import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
 import defaultAvatar from "assets/img/default-avatar.png";
 import UNIVERSALS from "Universals";
@@ -29,7 +29,7 @@ function AdminNavbar() {
 
   const { loading, data: profilePicData } = useQuery<
     { user: User },
-    { username: string }
+    QueryUserArgs
   >(
     GET_USER_PROFILE_PIC_URI,
     {

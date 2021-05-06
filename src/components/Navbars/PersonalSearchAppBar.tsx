@@ -23,7 +23,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
 import { getTokenValue, hasRole } from 'utils/utils';
-import { Role, User } from 'generated/graphql';
+import { QueryUserArgs, Role, User } from 'generated/graphql';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
@@ -128,7 +128,7 @@ export default function PersonalSearchAppBar() {
 
    const { loading, data: profilePicData } = useQuery<
       { user: User },
-      { username: string }
+      QueryUserArgs
    >(
       GET_USER_PROFILE_PIC_URI,
       {

@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { Notification } from 'generated/graphql';
+import { MutationReadNotificationArgs, Notification, QueryNotificationsArgs } from 'generated/graphql';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,11 +16,11 @@ export default function useNotification(){
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
+  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, QueryNotificationsArgs>
     (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
   const [readNotification] = useMutation<
     { readNotification: string },
-    { input: string }
+    MutationReadNotificationArgs
   >(READ_NOTIFICATIONS, {
     refetchQueries: [
       { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }

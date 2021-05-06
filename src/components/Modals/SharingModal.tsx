@@ -8,7 +8,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
-import { NewPendingPost, PendingPost, PostStatus, UpdatePendingPost } from 'generated/graphql';
+import { MutationPendPostArgs, MutationUpdatePendingPostArgs, NewPendingPost, PendingPost, PostStatus, UpdatePendingPost } from 'generated/graphql';
 import { getTokenValue } from 'utils/utils';
 import { RootState } from 'reducers';
 import { useLazyQuery, useMutation } from '@apollo/client';
@@ -22,11 +22,11 @@ function SharingModal(props: any) {
 
   const [pendPost, { data }] = useMutation<
     { pendingPost: PendingPost },
-    { input: NewPendingPost, doc: any }
+    MutationPendPostArgs
   >(PEND_POST);
   const [updatePendingPost, { data: updateData }] = useMutation<
     { pendingPost: PendingPost },
-    { input: UpdatePendingPost, doc?: any }
+    MutationUpdatePendingPostArgs
   >(UPDATE_PENDING_POST);
 
   const [readOnly, setReadOnly] = useState(false)

@@ -7,7 +7,7 @@ import {
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils';
-import { Role, User } from "generated/graphql";
+import { QueryUserArgs, Role, User } from "generated/graphql";
 import logo from "assets/img/lybc_logo.png";
 import { useQuery } from "@apollo/client";
 import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
@@ -22,7 +22,7 @@ function PersonalNavbar() {
 
   const { loading, data: profilePicData } = useQuery<
     { user: User },
-    { username: string }
+    QueryUserArgs
   >(
     GET_USER_PROFILE_PIC_URI,
     {

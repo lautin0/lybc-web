@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
-import { NewReaction, Post, ReactionType } from "generated/graphql";
+import { MutationReactArgs, NewReaction, Post, QueryPostArgs, ReactionType } from "generated/graphql";
 import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -27,8 +27,8 @@ function PreacherMessage() {
 
   const [post, setPost] = useState<any>()
 
-  const [react, { data: resultPost }] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST);
-  const { loading, data, refetch } = useQuery<{ post: Post }, { oid: string }>(GET_POST, { variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true });
+  const [react, { data: resultPost }] = useMutation<{ post: Post }, MutationReactArgs>(REACT_TO_POST);
+  const { loading, data, refetch } = useQuery<{ post: Post }, QueryPostArgs>(GET_POST, { variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true });
 
   const setReaction = (reaction: ReactionType) => {
     if (tokenPair?.token == null) {

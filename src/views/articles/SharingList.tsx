@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Post, PostsConnection, UpdateFavouritePost } from "generated/graphql";
+import { MutationAddFavouritePostArgs, MutationRemoveFavouritePostArgs, Post, PostsConnection, QueryPostsArgs, UpdateFavouritePost } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,14 +55,14 @@ function SharingList() {
 
   const { loading, data: postData, refetch, fetchMore } = useQuery<
     { posts: PostsConnection },
-    { first?: number, last?: number, after?: string, before?: string }
+    QueryPostsArgs
   >(GET_POSTS, { variables: { first: 2 }, notifyOnNetworkStatusChange: true })
 
   const postDataRef = useRef(postData);
 
   const [addFavPost, { loading: addFavLoading }] = useMutation<
     { addFavouritePost: string },
-    { input: UpdateFavouritePost }
+    MutationAddFavouritePostArgs
   >(ADD_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }
@@ -83,7 +83,7 @@ function SharingList() {
   });
   const [removeFavPost, { loading: removeFavLoading }] = useMutation<
     { removeFavouritePost: string },
-    { input: UpdateFavouritePost }
+    MutationRemoveFavouritePostArgs
   >(REMOVE_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }

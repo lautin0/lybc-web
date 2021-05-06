@@ -8,7 +8,7 @@ import UNIVERSALS from 'Universals';
 import { useMutation, useQuery } from '@apollo/client';
 import { CHANGE_PASSWORD, GET_USER, UPDATE_USER } from 'graphqls/graphql';
 import { getTokenValue } from 'utils/utils';
-import { Gender, NewPassword, UpdateUser, User } from 'generated/graphql';
+import { Gender, MutationChangePasswordArgs, MutationUpdateUserArgs, NewPassword, QueryUserArgs, UpdateUser, User } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { setLoading } from 'actions';
@@ -143,10 +143,10 @@ export default function PersonalSetting() {
 
   const [updateUser, { data: updatedUserData }] = useMutation<
     { updateUser: User },
-    { input: UpdateUser }
+    MutationUpdateUserArgs
   >(UPDATE_USER);
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, { username: string }>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
 
   const methods = useForm<User>({
     defaultValues: {
@@ -171,7 +171,7 @@ export default function PersonalSetting() {
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
   const [changePassword, { data }] = useMutation<
-    { input: NewPassword }
+    MutationChangePasswordArgs
   >(CHANGE_PASSWORD);
 
   const watchType = useWatch({
@@ -334,7 +334,7 @@ export default function PersonalSetting() {
       </Tabs>
       <div style={{ overflow: 'auto', width: '100%' }}>
         <TabPanel value={value} index={0}>
-          {loading && <Grid container spacing={3} xs={12} md={6}>
+          {loading && <Grid container item spacing={3} xs={12} md={6} lg={4}>
             <Grid container item xs={12} justify="center">
               <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
             </Grid>
@@ -365,7 +365,7 @@ export default function PersonalSetting() {
                 <input {...getInputProps()} />
               </div>
               <Grid container spacing={2} direction="column">
-                <Grid item xs={12} md={4} container justify="center">
+                <Grid item xs={12} md={6} lg={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
                       {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <AccountCircle />}
@@ -388,7 +388,8 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="username"
                     label="用戶編號"
-                    md={4}
+                    md={6}
+                    lg={4}
                     isReadOnly={true}
                     size="small"
                   />
@@ -447,7 +448,8 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="nameC"
                     label="中文名稱"
-                    md={4}
+                    md={6}
+                    lg={4}
                     size="small"
                   />
                 </Grid>
@@ -490,7 +492,8 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="name"
                     label="英文名稱"
-                    md={4}
+                    md={6}
+                    lg={4}
                     size="small"
                   />
                 </Grid>
@@ -498,7 +501,8 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="phone"
                     label="聯絡電話"
-                    md={4}
+                    md={6}
+                    lg={4}
                     size="small"
                   />
                 </Grid>
@@ -506,7 +510,8 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="email"
                     label="電郵地址"
-                    md={4}
+                    md={6}
+                    lg={4}
                     xs={12}
                     size="small"
                   />
@@ -528,7 +533,7 @@ export default function PersonalSetting() {
           <FormProvider {...pwdFormMethods}>
             <form onSubmit={handlePasswordSubmit(onPasswordSubmit)}>
               <Typography style={{ marginBottom: 20 }} variant="h5">更改密碼</Typography>
-              <Grid container spacing={3} xs={12} md={4} direction="column">
+              <Grid container item spacing={3} xs={12} md={6} lg={4} direction="column">
                 <Divider />
                 <Grid item>
                   <MuiInputText

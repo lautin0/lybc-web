@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
-import { NewReaction, Post, ReactionType, Role } from "generated/graphql";
+import { MutationReactArgs, NewReaction, Post, ReactionType, Role } from "generated/graphql";
 import { GET_POST, REACT_TO_POST } from "graphqls/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
@@ -32,7 +32,7 @@ function Sharing() {
 
   const [post, setPost] = useState<Post>()
 
-  const [react] = useMutation<{ post: Post }, { input: NewReaction }>(REACT_TO_POST, {
+  const [react] = useMutation<{ post: Post }, MutationReactArgs>(REACT_TO_POST, {
     refetchQueries: [
       { query: GET_POST, variables: { oid: id } }
     ]

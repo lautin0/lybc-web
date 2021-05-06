@@ -15,8 +15,7 @@ function FavouritePostList() {
   const history = useHistory()
 
   const { loading, data: favPostData, refetch } = useQuery<
-    { favouritePosts: FavouritePost[] },
-    { username: string }
+    { favouritePosts: FavouritePost[] }
   >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
 
   useEffect(() => {

@@ -21,7 +21,7 @@ import { LOGIN, LoginInput } from "graphqls/graphql";
 
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
-import { Login, TokenPair } from "generated/graphql";
+import { Login, MutationLoginArgs, TokenPair } from "generated/graphql";
 import { useIntl } from "react-intl";
 
 function LoginPage({ loginFn }: any) {
@@ -40,7 +40,7 @@ function LoginPage({ loginFn }: any) {
   const [lastFocus, setLastFocus] = useState(false);
   const dispatch = useDispatch();
 
-  const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, { input: Login }>(LOGIN, { errorPolicy: 'all' });
+  const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, MutationLoginArgs>(LOGIN, { errorPolicy: 'all' });
 
   React.useEffect(() => {
     document.body.classList.add("login-page");

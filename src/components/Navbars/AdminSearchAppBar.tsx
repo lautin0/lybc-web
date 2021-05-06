@@ -23,7 +23,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
-import { User } from 'generated/graphql';
+import { QueryUserArgs, User } from 'generated/graphql';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
 import { signOut } from 'actions';
@@ -125,7 +125,7 @@ export default function AdminSearchAppBar() {
 
    const { loading, data: profilePicData } = useQuery<
       { user: User },
-      { username: string }
+      QueryUserArgs
    >(
       GET_USER_PROFILE_PIC_URI,
       {

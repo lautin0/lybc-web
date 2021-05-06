@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { isTokenExpired } from "utils/utils";
 import { useMutation } from "@apollo/client";
-import { RefreshTokenInput, TokenPair } from "generated/graphql";
+import { MutationRefreshTokenArgs, RefreshTokenInput, TokenPair } from "generated/graphql";
 import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
@@ -42,7 +42,7 @@ function Index() {
 
   const [refreshToken, { data }] = useMutation<
     { refreshToken: TokenPair },
-    { input: RefreshTokenInput }
+    MutationRefreshTokenArgs
   >(REFRESH_TOKEN);
 
 

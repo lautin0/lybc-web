@@ -2,7 +2,7 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles, TextField } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import { setLoading } from 'actions';
-import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus } from 'generated/graphql';
+import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus, MutationPendPostArgs, MutationUpdatePendingPostArgs } from 'generated/graphql';
 import { PEND_POST, UPDATE_PENDING_POST, GET_PENDING_POST } from 'graphqls/graphql';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
@@ -35,11 +35,11 @@ export default function MuiSharingModal() {
 
    const [pendPost, { data }] = useMutation<
       { pendingPost: PendingPost },
-      { input: NewPendingPost, doc: any }
+      MutationPendPostArgs
    >(PEND_POST);
    const [updatePendingPost, { data: updateData }] = useMutation<
       { pendingPost: PendingPost },
-      { input: UpdatePendingPost, doc?: any }
+      MutationUpdatePendingPostArgs
    >(UPDATE_PENDING_POST);
 
    const [readOnly, setReadOnly] = useState(false)

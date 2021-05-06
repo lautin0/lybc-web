@@ -4,7 +4,7 @@ import { RBRef } from 'adapter/types'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
 import InputText from 'components/Forms/InputText'
-import { Post, NewPost, PostType, PendingPost, UpdatePendingPost, PostStatus } from 'generated/graphql'
+import { Post, NewPost, PostType, PendingPost, UpdatePendingPost, PostStatus, QueryPendingPostArgs, MutationUpdatePendingPostArgs, MutationApprovePostArgs } from 'generated/graphql'
 import { APPROVE_POST, GET_PENDING_POST, UPDATE_PENDING_POST } from 'graphqls/graphql'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -37,10 +37,10 @@ function PendingPostEdit() {
 
   const [updatePendingPost, { data: updatePendingPostData }] = useMutation<
     { updatePendingPost: PendingPost },
-    { input: UpdatePendingPost }
+    MutationUpdatePendingPostArgs
   >(UPDATE_PENDING_POST);
 
-  const { loading, data: pData, refetch } = useQuery<{ pendingPost: PendingPost }, { oid: string }>(GET_PENDING_POST, { variables: { oid: id }, notifyOnNetworkStatusChange: true })
+  const { loading, data: pData, refetch } = useQuery<{ pendingPost: PendingPost }, QueryPendingPostArgs>(GET_PENDING_POST, { variables: { oid: id }, notifyOnNetworkStatusChange: true })
 
   const dropzoneMethods = useDropzone({
     accept: 'image/*'
@@ -50,7 +50,7 @@ function PendingPostEdit() {
 
   const [approvePost, { data }] = useMutation<
     { approvePost: Post },
-    { input: NewPost, image: any, postRefInput: UpdatePendingPost }
+    MutationApprovePostArgs
   >(APPROVE_POST);
 
   const methods = useForm({

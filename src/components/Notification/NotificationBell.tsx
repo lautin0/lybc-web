@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { Notification, NotificationType } from 'generated/graphql';
+import { MutationReadNotificationArgs, Notification, NotificationType, QueryNotificationsArgs } from 'generated/graphql';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { useEffect } from 'react'
@@ -22,11 +22,11 @@ function NotificationBell(props: any) {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, { toUsername: string }>
+  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, QueryNotificationsArgs>
     (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
   const [readNotification] = useMutation<
     { readNotification: string },
-    { input: string }
+    MutationReadNotificationArgs
   >(READ_NOTIFICATIONS, {
     refetchQueries: [
       { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }

@@ -13,7 +13,7 @@ import {
   Row
 } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import { Gender, NameCard, NewNameCard } from "generated/graphql";
+import { Gender, MutationCreateNameCardArgs, NameCard, NewNameCard } from "generated/graphql";
 import { useMutation } from "@apollo/client";
 import { ADD_NAMECARD } from "graphqls/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
@@ -37,7 +37,7 @@ export default function NameCardForm() {
 
   const [addNameCard, { data }] = useMutation<
     { createNameCard: NameCard },
-    { input: NewNameCard }
+    MutationCreateNameCardArgs
   >(ADD_NAMECARD);
 
   const methods = useForm({

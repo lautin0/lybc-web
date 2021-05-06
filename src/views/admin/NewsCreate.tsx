@@ -5,7 +5,7 @@ import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
 import InputText from 'components/Forms/InputText';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { Post, NewPost, PostType } from 'generated/graphql';
+import { Post, NewPost, PostType, MutationCreatePostArgs } from 'generated/graphql';
 import { ADD_POST } from 'graphqls/graphql';
 import React, { useEffect } from 'react'
 import { Form } from 'react-bootstrap';
@@ -37,7 +37,7 @@ function NewsCreate() {
 
   const [addPost, { data }] = useMutation<
     { createPost: Post },
-    { input: NewPost, image: any }
+    MutationCreatePostArgs
   >(ADD_POST);
 
   const methods = useForm({

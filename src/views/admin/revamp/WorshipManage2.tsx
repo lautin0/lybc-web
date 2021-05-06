@@ -3,7 +3,7 @@ import { Button, Typography } from '@material-ui/core';
 import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { Create, Delete } from '@material-ui/icons';
 import { decisionRequest, setLoading } from 'actions';
-import { Worship } from 'generated/graphql';
+import { MutationDeleteWorshipArgs, Worship } from 'generated/graphql';
 import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
 import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
@@ -85,7 +85,7 @@ function WorshipManage2() {
 
   const [deleteWorship, { data: deleteResult }] = useMutation<
     { deleteWorship: any },
-    { input: string }
+    MutationDeleteWorshipArgs
   >(DELETE_WORSHIP)
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import LoadingDiv from 'components/Loading/LoadingDiv';
-import { PostsConnection } from 'generated/graphql';
+import { PostsConnection, QueryPostsArgs } from 'generated/graphql';
 import { GET_POSTS } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { useCallback, useRef, useState } from 'react'
@@ -48,7 +48,7 @@ function SlideSection() {
 
   const { loading, data: postData, refetch, fetchMore } = useQuery<
     { posts: PostsConnection },
-    { first?: number, last?: number, after?: string, before?: string }
+    QueryPostsArgs
   >(GET_POSTS, { variables: { first: 5 }, notifyOnNetworkStatusChange: true })
 
   // const [data, setData] = useState([

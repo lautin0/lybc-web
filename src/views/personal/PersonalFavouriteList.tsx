@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { FavouritePost, UpdateFavouritePost } from 'generated/graphql';
+import { FavouritePost, MutationRemoveFavouritePostArgs, UpdateFavouritePost } from 'generated/graphql';
 import { GET_FAVOURITE_POST, REMOVE_FAV_POST } from 'graphqls/graphql';
 import moment from 'moment';
 import React, { useCallback, useEffect } from 'react'
@@ -28,13 +28,12 @@ function PersonalFavouriteList() {
   const dispatch = useDispatch()
 
   const { loading, data: favPostData, refetch } = useQuery<
-    { favouritePosts: FavouritePost[] },
-    { username: string }
+    { favouritePosts: FavouritePost[] }    
   >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
 
   const [removeFavPost, { loading: removeFavLoading }] = useMutation<
     { postID: string },
-    { input: UpdateFavouritePost }
+    MutationRemoveFavouritePostArgs
   >(REMOVE_FAV_POST, {
     refetchQueries: [
       { query: GET_FAVOURITE_POST }
