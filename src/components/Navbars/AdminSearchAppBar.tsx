@@ -15,7 +15,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { NightsStay, WbSunny } from '@material-ui/icons';
+import { ExitToApp, NightsStay, WbSunny } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Link } from '@material-ui/core';
@@ -24,10 +24,10 @@ import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 import { User } from 'generated/graphql';
-import { useDispatch } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
-import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
+import { signOut } from 'actions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -119,6 +119,8 @@ export default function AdminSearchAppBar() {
 
    const history = useHistory()
 
+   const dispatch = useDispatch()
+
    const { data: notificationData } = useContext(NotificationContext)!
 
    const { loading, data: profilePicData } = useQuery<
@@ -175,6 +177,15 @@ export default function AdminSearchAppBar() {
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
          <MenuItem onClick={() => history.push('/personal/center')}>個人中心</MenuItem>
+         <MenuItem 
+            onClick={() => {
+               dispatch(signOut())
+               window.location.href = './'
+            }} 
+            alignItems="center"
+         >
+            登出
+         </MenuItem>
       </Menu>
    );
 
@@ -197,7 +208,7 @@ export default function AdminSearchAppBar() {
             </IconButton>
             <p>Messages</p>
          </MenuItem> */}
-         <MenuItem>
+         <MenuItem onClick={() => history.push('/personal/notifications')}>
             <IconButton aria-label="show new notifications" color="inherit">
                <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x.isRead).length} color="secondary">
                   <NotificationsIcon />
@@ -213,7 +224,8 @@ export default function AdminSearchAppBar() {
                color="inherit"
             >
                {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
-               {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}            </IconButton>
+               {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
+            </IconButton>
             <Typography>Profile</Typography>
          </MenuItem>
       </Menu>

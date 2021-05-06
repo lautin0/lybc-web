@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,7 +15,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { NightsStay, WbSunny } from '@material-ui/icons';
+import { ExitToApp, NightsStay, WbSunny } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Link } from '@material-ui/core';
@@ -26,9 +26,9 @@ import { getTokenValue, hasRole } from 'utils/utils';
 import { Role, User } from 'generated/graphql';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
-import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import { RootState } from 'reducers';
+import { signOut } from 'actions';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -119,7 +119,9 @@ export default function PersonalSearchAppBar() {
    const { mobileOpen, setMobileOpen, darkMode, setDarkMode } = useContext(LayoutContext)
 
    const history = useHistory()
-   
+
+   const dispatch = useDispatch()
+
    const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
    const { data: notificationData } = useContext(NotificationContext)!
@@ -178,6 +180,15 @@ export default function PersonalSearchAppBar() {
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <MenuItem onClick={() => history.push('/admin/')}>管理控制台</MenuItem>}
+         <MenuItem 
+            onClick={() => {
+               dispatch(signOut())
+               window.location.href = './'
+            }} 
+            alignItems="center"
+         >
+            登出
+         </MenuItem>
       </Menu>
    );
 
@@ -200,7 +211,7 @@ export default function PersonalSearchAppBar() {
             </IconButton>
             <p>Messages</p>
          </MenuItem> */}
-         <MenuItem>
+         <MenuItem onClick={() => history.push('/personal/notifications')}>
             <IconButton aria-label="show new notifications" color="inherit">
                <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x.isRead).length} color="secondary">
                   <NotificationsIcon />

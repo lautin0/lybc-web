@@ -13,7 +13,24 @@ const useStyles = makeStyles((theme) =>
    }),
 );
 
-function MuiInputText(props: any) {
+type MuiInputTextProp = {
+   name: string
+   label?: string
+   isReadOnly?: boolean
+   md?: any
+   sm?: any
+   xs?: any
+   rows?: number
+   multiline?: boolean
+   skipValidate?: boolean
+   placeholder?: string
+   validateFn?: any
+   strongReadOnly?: boolean
+   size?: "small" | "medium"
+   type?: string
+}
+
+function MuiInputText(props: MuiInputTextProp) {
 
    const { name, label, isReadOnly, md, sm, xs, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size, type } = props;
 

@@ -14,9 +14,26 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-export default function MuiInputDropdown(props: any) {
+type MuiInputDropdownProp = {
+  name: string
+  label?: string
+  isReadOnly?: boolean
+  ds: Array<any>
+  md?: any
+  sm?: any
+  xs?: any
+  rows?: number
+  multiline?: boolean
+  skipValidate?: boolean
+  validateFn?: any
+  strongReadOnly?: boolean
+  size?: "small" | "medium"
+  type?: string
+}
 
-  const { name, label, isReadOnly, ds, md, sm, xs, skipValidate, placeholder, validateFn, strongReadOnly } = props;
+export default function MuiInputDropdown(props: MuiInputDropdownProp) {
+
+  const { name, label, isReadOnly, ds, md, sm, xs, skipValidate, validateFn, strongReadOnly } = props;
 
   const { errors, control } = useFormContext()
 
@@ -26,6 +43,7 @@ export default function MuiInputDropdown(props: any) {
     item
     md={md}
     xs={xs}
+    sm={sm}
     className={classes.item}
   >
     <Controller

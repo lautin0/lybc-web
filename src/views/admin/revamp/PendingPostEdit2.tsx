@@ -329,8 +329,7 @@ function PendingPostEdit() {
                 name="remarks"
                 multiline={true}
                 rows={4}
-                readOnly={readOnly}
-                className="my-3"
+                isReadOnly={readOnly}
               ></MuiInputText>
               <Form.Row className="mb-3">
                 <Form.Group>

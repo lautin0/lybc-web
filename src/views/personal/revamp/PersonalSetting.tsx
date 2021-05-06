@@ -365,7 +365,7 @@ export default function PersonalSetting() {
                 <input {...getInputProps()} />
               </div>
               <Grid container spacing={2} direction="column">
-                <Grid item xs={12} md={5} container justify="center">
+                <Grid item xs={12} md={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
                       {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <AccountCircle />}
@@ -388,7 +388,7 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="username"
                     label="用戶編號"
-                    md={5}
+                    md={4}
                     isReadOnly={true}
                     size="small"
                   />
@@ -447,7 +447,7 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="nameC"
                     label="中文名稱"
-                    md={5}
+                    md={4}
                     size="small"
                   />
                 </Grid>
@@ -490,7 +490,7 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="name"
                     label="英文名稱"
-                    md={5}
+                    md={4}
                     size="small"
                   />
                 </Grid>
@@ -498,7 +498,7 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="phone"
                     label="聯絡電話"
-                    md={5}
+                    md={4}
                     size="small"
                   />
                 </Grid>
@@ -506,7 +506,7 @@ export default function PersonalSetting() {
                   <MuiInputText
                     name="email"
                     label="電郵地址"
-                    md={5}
+                    md={4}
                     xs={12}
                     size="small"
                   />
@@ -528,10 +528,11 @@ export default function PersonalSetting() {
           <FormProvider {...pwdFormMethods}>
             <form onSubmit={handlePasswordSubmit(onPasswordSubmit)}>
               <Typography style={{ marginBottom: 20 }} variant="h5">更改密碼</Typography>
-              <Grid container spacing={3} xs={12} md={6} direction="column">
+              <Grid container spacing={3} xs={12} md={4} direction="column">
                 <Divider />
                 <Grid item>
                   <MuiInputText
+                    size="small"
                     placeholder="請輸入現時密碼"
                     label="現時密碼"
                     type="password"
@@ -541,6 +542,7 @@ export default function PersonalSetting() {
                 </Grid>
                 <Grid item>
                   <MuiInputText
+                    size="small"
                     placeholder="請輸入新密碼"
                     label="新密碼"
                     type="password"
@@ -550,6 +552,7 @@ export default function PersonalSetting() {
                 </Grid>
                 <Grid item>
                   <MuiInputText
+                    size="small"
                     label="確認新密碼"
                     placeholder="確認新密碼"
                     type="password"
