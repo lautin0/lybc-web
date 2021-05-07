@@ -2,7 +2,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { setSystemFailure } from 'actions';
 import { MutationReadNotificationArgs, Notification, QueryNotificationsArgs } from 'generated/graphql';
 import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
@@ -40,9 +40,11 @@ export default function useNotification(){
     prevOpen.current = open;
   }, [open]);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     setOpen((prevOpen) => !prevOpen);
-  };
+    if(prevOpen)
+      refetch()
+  }, [refetch])
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
@@ -76,10 +78,6 @@ export default function useNotification(){
     }
   }
 
-  useEffect(() => {
-    refetch && refetch()
-  }, [location, refetch])
-
-  return { loading, data, anchorRef, open, handleClose, handleReadClick, handleToggle, handleListKeyDown }
+  return { loading, data, anchorRef, open, handleClose, handleReadClick, handleToggle, handleListKeyDown, refetch }
   
 }
