@@ -1,8 +1,6 @@
-import { useQuery, useMutation } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { MutationReadNotificationArgs, Notification, QueryNotificationsArgs } from 'generated/graphql';
-import { GET_NOTIFICATIONS, READ_NOTIFICATIONS } from 'graphqls/graphql';
-import React, { useCallback, useEffect } from 'react'
+import { NotificationsDocument, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
@@ -16,14 +14,12 @@ export default function useNotification(){
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const { loading, data, refetch } = useQuery<{ notifications: Notification[] }, QueryNotificationsArgs>
-    (GET_NOTIFICATIONS, { variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true });
-  const [readNotification] = useMutation<
-    { readNotification: string },
-    MutationReadNotificationArgs
-  >(READ_NOTIFICATIONS, {
+  const { loading, data, refetch } = useNotificationsQuery({
+    variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
+  })
+  const [readNotification] = useReadNotificationMutation({
     refetchQueries: [
-      { query: GET_NOTIFICATIONS, variables: { toUsername: getTokenValue(tokenPair?.token).username } }
+      { query: NotificationsDocument, variables: { toUsername: getTokenValue(tokenPair?.token).username } }
     ]
   })
 
@@ -55,7 +51,7 @@ export default function useNotification(){
   };
 
   const handleReadClick = (i: number) => {
-    if (data?.notifications[i].isRead)
+    if (data?.notifications[i]?.isRead)
       return
     const update = data?.notifications.map((e, idx) => {
       if (idx === i)
@@ -64,7 +60,7 @@ export default function useNotification(){
     })
     readNotification({
       variables: {
-        input: update?.[i]._id
+        input: update?.[i]?._id
       }
     }).catch(e => {
       dispatch(setSystemFailure(e))

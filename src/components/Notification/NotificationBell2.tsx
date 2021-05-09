@@ -55,7 +55,7 @@ function NotificationBell2() {
       ref={anchorRef}
       onClick={handleToggle}
     >
-      <Badge badgeContent={data && data.notifications.filter(x => !x.isRead).length} color="secondary">
+      <Badge badgeContent={data && data.notifications.filter(x => !x?.isRead).length} color="secondary">
         <Notifications />
       </Badge>
     </IconButton>
@@ -69,7 +69,8 @@ function NotificationBell2() {
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                 {data && data.notifications.length === 0 && <Typography className={classes.bellMenuNoRecordRow}>{intl.formatMessage({ id: "app.notification.no-record" })}</Typography>}
-                {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
+                {(!loading && data && data.notifications.length > 0) && data.notifications.map((n, idx) => {
+                  let e = n as Notification
                   return <div key={e._id}>
                     <MenuItem
                       className={classes.bellMenuRoot}

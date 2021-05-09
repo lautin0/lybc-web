@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,15 +15,13 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { ExitToApp, NightsStay, WbSunny } from '@material-ui/icons';
+import { NightsStay, WbSunny } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Link } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
-import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
 import { getTokenValue, hasRole } from 'utils/utils';
-import { QueryUserArgs, Role, User } from 'generated/graphql';
+import { Role, useUserProfilePicUriQuery } from 'generated/graphql';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
@@ -126,18 +124,25 @@ export default function PersonalSearchAppBar() {
 
    const { data: notificationData } = useContext(NotificationContext)!
 
-   const { loading, data: profilePicData } = useQuery<
-      { user: User },
-      QueryUserArgs
-   >(
-      GET_USER_PROFILE_PIC_URI,
-      {
-         variables: {
-            username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-         },
-         notifyOnNetworkStatusChange: true
-      }
-   )
+   // const { loading, data: profilePicData } = useQuery<
+   //    { user: User },
+   //    QueryUserArgs
+   // >(
+   //    GET_USER_PROFILE_PIC_URI,
+   //    {
+   //       variables: {
+   //          username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+   //       },
+   //       notifyOnNetworkStatusChange: true
+   //    }
+   // )
+
+   const { loading, data: profilePicData } = useUserProfilePicUriQuery({
+      variables: {
+         username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      },
+      notifyOnNetworkStatusChange: true
+   })
 
    const handleDrawerToggle = () => {
       setMobileOpen && setMobileOpen(!mobileOpen);
@@ -180,11 +185,11 @@ export default function PersonalSearchAppBar() {
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <MenuItem onClick={() => history.push('/admin/')}>管理控制台</MenuItem>}
-         <MenuItem 
+         <MenuItem
             onClick={() => {
                dispatch(signOut())
                window.location.href = './'
-            }} 
+            }}
             alignItems="center"
          >
             登出
@@ -213,7 +218,7 @@ export default function PersonalSearchAppBar() {
          </MenuItem> */}
          <MenuItem onClick={() => history.push('/personal/notifications')}>
             <IconButton aria-label="show new notifications" color="inherit">
-               <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x.isRead).length} color="secondary">
+               <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x?.isRead).length} color="secondary">
                   <NotificationsIcon />
                </Badge>
             </IconButton>
@@ -226,8 +231,8 @@ export default function PersonalSearchAppBar() {
                aria-haspopup="true"
                color="inherit"
             >
-               {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
-               {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}</IconButton>
+               {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
+               {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}</IconButton>
             <Typography>Profile</Typography>
          </MenuItem>
       </Menu>
@@ -285,8 +290,8 @@ export default function PersonalSearchAppBar() {
                      onClick={handleProfileMenuOpen}
                      color="inherit"
                   >
-                     {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
-                     {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
+                     {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
+                     {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
                   </IconButton>
                </div>
                <div className={classes.sectionMobile}>

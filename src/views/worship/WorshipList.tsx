@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -10,9 +10,7 @@ import {
 
 import moment from 'moment'
 import { useHistory } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_WORSHIPS } from "graphqls/graphql";
-import { Worship } from "generated/graphql";
+import { useWorshipsQuery, Worship } from "generated/graphql";
 import usePagination from "hooks/usePagination";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
@@ -26,8 +24,8 @@ function WorshipList() {
 
   const history = useHistory();
 
-  const { loading, data: worshipData } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS)
-
+  const { loading, data: worshipData } = useWorshipsQuery()
+  
   const { pageItems, pageNumber, setData, items } = usePagination<WorshipListItemType>()
 
   function onCellClicked(id: any) {

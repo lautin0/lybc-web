@@ -1,8 +1,5 @@
-import { useQuery } from "@apollo/client";
-import { setLoading } from "actions";
-import axios from "axios";
 import LoadingDiv from "components/Loading/LoadingDiv";
-import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
+import { useMaxWorshipIdQuery } from "generated/graphql";
 import React, { useCallback, useEffect, useState } from "react";
 
 // react-bootstrap components
@@ -29,7 +26,7 @@ function CarouselSection() {
   // const [votdImg, setVotdImg] = useState('')
   // const [votdSrc, setVotdSrc] = useState('')
 
-  const { data, loading } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
+  const { data, loading } = useMaxWorshipIdQuery()
 
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
@@ -42,7 +39,7 @@ function CarouselSection() {
   useEffect(() => {
     if (data !== undefined) {
       // dispatch(setLoading(false))
-      setWorshipId(data.maxWorshipId)
+      setWorshipId(data?.maxWorshipId.toString())
     }
   }, [data])
 

@@ -1,17 +1,13 @@
-import { useMutation, useQuery } from '@apollo/client';
 import { createStyles, Grid, makeStyles, Button, Divider, Typography } from '@material-ui/core';
 import { Add, Delete, Lock, LockOpen } from '@material-ui/icons';
 import { setLoading } from 'actions';
-import InputDropdown from 'components/Forms/InputDropdown';
 import InputQuill from 'components/Forms/InputQuill';
-import InputText from 'components/Forms/InputText';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { MutationUpdateWorshipArgs, NewWorship, NewWorshipDoc, QueryWorshipArgs, Worship } from 'generated/graphql';
-import { GET_WORSHIP, UPDATE_WORSHIP } from 'graphqls/graphql';
+import { useUpdateWorshipMutation, useWorshipQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import React, { useEffect, useState } from 'react'
-import { Form, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react'
+import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,12 +49,14 @@ function WorshipEdit() {
   const setModalError = useModalStore(state => state.setError)
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
+  
+  const [updateWorship, { data }] = useUpdateWorshipMutation()
 
-  const [updateWorship, { data }] = useMutation<
-    { updateWorship: any },
-    MutationUpdateWorshipArgs
-  >(UPDATE_WORSHIP);
-  const { loading, data: wData, refetch } = useQuery<{ worship: Worship }, QueryWorshipArgs>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true })
+  const {loading, data: wData, refetch } = useWorshipQuery({
+    variables: {
+      worshipId: id
+    }
+  });
 
   const methods = useForm({
     defaultValues: {
@@ -141,9 +139,9 @@ function WorshipEdit() {
       setTimeout(() => {
         reset({
           ...wData.worship,
-          note: wData.worship.note!,
-          link: wData.worship.link!,
-          verse: wData.worship.verse!,
+          note: wData.worship?.note!,
+          link: wData.worship?.link!,
+          verse: wData.worship?.verse!,
         })
       })
     }

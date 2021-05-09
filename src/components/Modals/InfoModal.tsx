@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import UNIVERSALS from "Universals";
 import DOMPurify from 'dompurify'
-import { GET_MAX_WORSHIP_ID } from 'graphqls/graphql';
 import { useQuery } from '@apollo/client';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'reducers';
 import { SetSysInfoMessage } from 'actions';
 import { useIntl } from 'react-intl';
+import { useMaxWorshipIdQuery } from 'generated/graphql';
 
 function InfoModal(props: any) {
 
@@ -23,7 +23,7 @@ function InfoModal(props: any) {
   const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
   const [checked, setChecked] = useState(false)
 
-  const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
+  const { data } = useMaxWorshipIdQuery()
 
   const onHide = () => {
     dispatch(SetSysInfoMessage(''))
@@ -50,7 +50,7 @@ function InfoModal(props: any) {
     if (data !== undefined && !suspended) {
       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
-        .replace("{0}", data.maxWorshipId)
+        .replace("{0}", data?.maxWorshipId.toString())
         .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
     }
   }, [data])

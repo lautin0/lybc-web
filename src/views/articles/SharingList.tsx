@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
-import { ADD_FAV_POST, GET_FAVOURITE_POST, GET_POSTS, REMOVE_FAV_POST } from "graphqls/graphql";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { MutationAddFavouritePostArgs, MutationRemoveFavouritePostArgs, Post, PostsConnection, QueryPostsArgs, UpdateFavouritePost } from "generated/graphql";
+import { gql } from "@apollo/client";
+import { FavouritePostsDocument, Post, PostsConnection, PostsDocument, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,23 +48,19 @@ function SharingList() {
 
   const cacheData = useMemo(() => {
     if (pageItems != null)
-      return getClient().readQuery<{ posts: PostsConnection }>({ query: GET_POSTS })
+      return getClient().readQuery<{ posts: PostsConnection }>({ query: PostsDocument })
     return null
   }, [pageItems])
 
-  const { loading, data: postData, refetch, fetchMore } = useQuery<
-    { posts: PostsConnection },
-    QueryPostsArgs
-  >(GET_POSTS, { variables: { first: 2 }, notifyOnNetworkStatusChange: true })
+  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
+    variables: { first: 2 }, notifyOnNetworkStatusChange: true
+  })
 
   const postDataRef = useRef(postData);
 
-  const [addFavPost, { loading: addFavLoading }] = useMutation<
-    { addFavouritePost: string },
-    MutationAddFavouritePostArgs
-  >(ADD_FAV_POST, {
+  const [addFavPost, { loading: addFavLoading }] = useAddFavouritePostMutation({
     refetchQueries: [
-      { query: GET_FAVOURITE_POST }
+      { query: FavouritePostsDocument }
     ],
     update: (cache, res) => {
       cache.writeFragment({
@@ -80,28 +75,26 @@ function SharingList() {
         }
       })
     }
-  });
-  const [removeFavPost, { loading: removeFavLoading }] = useMutation<
-    { removeFavouritePost: string },
-    MutationRemoveFavouritePostArgs
-  >(REMOVE_FAV_POST, {
+  })
+
+  const [removeFavPost, { loading: removeFavLoading }] = useRemoveFavouritePostMutation({
     refetchQueries: [
-      { query: GET_FAVOURITE_POST }
+      { query: FavouritePostsDocument }
     ],
     update: (cache, res) => {
       cache.writeFragment({
         id: `Post:${res.data?.removeFavouritePost}`,
         fragment: gql`
-        fragment currPost on Post {
-          isFavourited
-        }
-        `,
+            fragment currPost on Post {
+              isFavourited
+            }
+            `,
         data: {
           isFavourited: false
         }
       })
     }
-  });
+  })
 
   const navigate = (id: string) => {
     history.push('/sharing/' + id)
@@ -109,7 +102,7 @@ function SharingList() {
 
   useEffect(() => {
     if (postData !== undefined) {
-      setData([...postData.posts.edges?.map(x => x.node!)!])
+      setData([...postData.posts.edges?.map(x => x.node!)!] as Array<Post>)
       postDataRef.current = postData
     }
   }, [postData])
@@ -162,7 +155,7 @@ function SharingList() {
   }, [location, refetch, postData])
 
   const handleScroll = useCallback(() => {
-    if(fetchMore == undefined)
+    if (fetchMore == undefined)
       return
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st <= lastScrollTop.current) {

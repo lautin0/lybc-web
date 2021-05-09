@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
   Navbar
 } from "react-bootstrap";
 import { RootState } from "reducers";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils';
-import { QueryUserArgs, Role, User } from "generated/graphql";
+import { Role, useUserProfilePicUriQuery } from "generated/graphql";
 import logo from "assets/img/lybc_logo.png";
-import { useQuery } from "@apollo/client";
-import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
 import UNIVERSALS from "Universals";
 import defaultAvatar from "assets/img/default-avatar.png";
 
@@ -20,18 +18,12 @@ function PersonalNavbar() {
 
   const location = useLocation();
 
-  const { loading, data: profilePicData } = useQuery<
-    { user: User },
-    QueryUserArgs
-  >(
-    GET_USER_PROFILE_PIC_URI,
-    {
-      variables: {
-        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-      },
-      notifyOnNetworkStatusChange: true
-    }
-  )
+  const { loading, data: profilePicData } = useUserProfilePicUriQuery({
+    variables: {
+      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+    },
+    notifyOnNetworkStatusChange: true
+  })
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
@@ -209,8 +201,8 @@ function PersonalNavbar() {
               {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
               <div className="profile-page mr-2">
                 <div className="photo-container mb-3 my-auto ml-3 mx-auto" style={{ width: 28, height: 28 }}>
-                  {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
-                  {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+                  {(loading || profilePicData?.user?.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
+                  {(!loading && profilePicData?.user?.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
                 </div>
               </div>
               <p className="d-none d-md-inline-block">{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>

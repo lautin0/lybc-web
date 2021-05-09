@@ -1,21 +1,17 @@
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { MutationCreatePostArgs, NewPost, Post } from "generated/graphql";
-import { ADD_POST, GET_POST } from "graphqls/graphql";
+import { PostDocument, useCreatePostMutation, usePostLazyQuery } from "generated/graphql";
 import { useEffect, useState } from "react";
 
 function usePost({ id }: any) {
 
   const [commentPending, setCommentPending] = useState<boolean>(false)
 
-  const [loadingPost, { called, loading, data: postData, refetch }] = useLazyQuery<{ post: Post }, { oid: string }>
-    (GET_POST, { variables: { oid: id }, notifyOnNetworkStatusChange: true });
+  const [loadingPost, { called, loading, data: postData, refetch }] = usePostLazyQuery({
+    variables: { oid: id }, notifyOnNetworkStatusChange: true
+  })
 
-  const [addComment, { data: comment }] = useMutation<
-    { createPost: Post },
-    MutationCreatePostArgs
-  >(ADD_POST, {
+  const [addComment, { data: comment }] = useCreatePostMutation({
     refetchQueries: [
-      { query: GET_POST, variables: { oid: id } }
+      { query: PostDocument, variables: { oid: id } }
     ]
   })
 

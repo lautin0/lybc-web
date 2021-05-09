@@ -74,14 +74,3 @@ input NewPassword {
 	password: String!
 	newPassword: String!
 }
-
-extend type Query {
-	users: [User!]!
-	user(username: String): User
-}
-
-extend type Mutation {
-	createUser(input: NewUser!): User!
-	changePassword(input: NewPassword!): Boolean
-	updateUser(input: UpdateUser!): User!
-}

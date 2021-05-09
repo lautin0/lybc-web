@@ -1,0 +1,50 @@
+type Query {
+	nameCards: [NameCard!]!
+	nameCard(oid: String): NameCard
+
+	notifications(toUsername: String!): [Notification]!
+
+	posts(first: Int, last: Int, after: String, before: String, postFilter: PostFilter, sort: PostSort): PostsConnection!
+	post(oid: String!): Post
+	pendingPosts(username: String): [PendingPost!]!
+	pendingPost(oid: String!): PendingPost
+	favouritePosts: [FavouritePost]!
+
+	todos: [Todo!]!
+
+	users: [User!]!
+	user(username: String): User
+
+	worships: [Worship!]!
+	worship(worshipId: String): Worship
+	maxWorshipId: Int!
+}
+
+type Mutation {
+	createNameCard(input: NewNameCard!): NameCard!
+	updateNameCard(input: UpdateNameCard!): NameCard!
+
+	login(input: Login!): TokenPair!
+	refreshToken(input: RefreshTokenInput): TokenPair!
+
+	readNotification(input: String!): Notification!
+
+	createPost(input: NewPost!, image: Upload): Post!	
+	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!	
+	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!	
+	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!	
+	addFavouritePost(input: UpdateFavouritePost): String!	
+	removeFavouritePost(input: UpdateFavouritePost): String!
+
+	react(input: NewReaction!): Post!
+
+	createTodo(input: NewTodo!): Todo!
+
+	createUser(input: NewUser!): User!
+	changePassword(input: NewPassword!): Boolean
+	updateUser(input: UpdateUser!): User!
+
+	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
+	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
+	deleteWorship(input: String): Int!
+}

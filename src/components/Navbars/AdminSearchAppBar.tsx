@@ -15,15 +15,13 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { ExitToApp, NightsStay, WbSunny } from '@material-ui/icons';
+import { NightsStay, WbSunny } from '@material-ui/icons';
 import LayoutContext from 'context/LayoutContext';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Link } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
-import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
-import { QueryUserArgs, User } from 'generated/graphql';
+import { useUserProfilePicUriQuery } from 'generated/graphql';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
 import { signOut } from 'actions';
@@ -123,18 +121,12 @@ export default function AdminSearchAppBar() {
 
    const { data: notificationData } = useContext(NotificationContext)!
 
-   const { loading, data: profilePicData } = useQuery<
-      { user: User },
-      QueryUserArgs
-   >(
-      GET_USER_PROFILE_PIC_URI,
-      {
-         variables: {
-            username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-         },
-         notifyOnNetworkStatusChange: true
-      }
-   )
+   const { loading, data: profilePicData } = useUserProfilePicUriQuery({
+      variables: {
+         username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      },
+      notifyOnNetworkStatusChange: true
+   })
 
    const handleDrawerToggle = () => {
       setMobileOpen && setMobileOpen(!mobileOpen);
@@ -177,11 +169,11 @@ export default function AdminSearchAppBar() {
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
          <MenuItem onClick={() => history.push('/personal/center')}>個人中心</MenuItem>
-         <MenuItem 
+         <MenuItem
             onClick={() => {
                dispatch(signOut())
                window.location.href = './'
-            }} 
+            }}
             alignItems="center"
          >
             登出
@@ -210,7 +202,7 @@ export default function AdminSearchAppBar() {
          </MenuItem> */}
          <MenuItem onClick={() => history.push('/personal/notifications')}>
             <IconButton aria-label="show new notifications" color="inherit">
-               <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x.isRead).length} color="secondary">
+               <Badge badgeContent={notificationData && notificationData.notifications.filter(x => !x?.isRead).length} color="secondary">
                   <NotificationsIcon />
                </Badge>
             </IconButton>
@@ -223,8 +215,8 @@ export default function AdminSearchAppBar() {
                aria-haspopup="true"
                color="inherit"
             >
-               {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
-               {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
+               {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
+               {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
             </IconButton>
             <Typography>Profile</Typography>
          </MenuItem>
@@ -283,8 +275,8 @@ export default function AdminSearchAppBar() {
                      onClick={handleProfileMenuOpen}
                      color="inherit"
                   >
-                     {(loading || profilePicData?.user.profilePicURI == null) && <AccountCircle />}
-                     {(!loading && profilePicData?.user.profilePicURI != null) && <Avatar className={classes.small} alt={profilePicData?.user.username} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
+                     {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
+                     {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
                   </IconButton>
                </div>
                <div className={classes.sectionMobile}>

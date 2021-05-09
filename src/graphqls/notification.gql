@@ -21,11 +21,3 @@ enum NotificationType {
 	POST_REJECT
 	PEND_POST
 }
-
-extend type Query {
-	notifications(toUsername: String!): [Notification]!
-}
-
-extend type Mutation {
-	readNotification(input: String!): Notification!
-}

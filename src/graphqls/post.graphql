@@ -1,0 +1,274 @@
+query posts($first: Int, $last: Int, $after: String, $before: String) {
+	posts(first: $first, last: $last, after: $after, before: $before) {
+		totalCount
+		edges {
+			node {
+				_id
+				parentId
+				title
+				subtitle      
+				creDttm
+				type
+				imageURI
+				isFavourited
+				user {
+					username
+					name
+					nameC
+					role
+					gender
+					title
+					titleC
+				}
+			}
+			cursor
+		}
+		pageInfo {
+			hasNextPage
+			hasPreviousPage
+			startCursor
+			endCursor
+		}
+	}
+}
+
+query post($oid: String!) {
+	post(oid: $oid) {
+		_id
+		title
+		subtitle
+		content
+		creDttm
+		imageURI
+		user {
+			username
+			name
+			nameC
+			role
+			gender
+			title
+			titleC
+			profilePicURI
+		}
+		reactions {
+			username
+			type
+		}
+		comments {
+			_id
+			title
+			subtitle
+			content
+			creDttm
+			username
+			user {
+				username
+				name
+				nameC
+				role
+				gender
+				title
+				titleC
+				profilePicURI
+			}
+			reactions {
+				username
+				type
+			}
+		}
+	}
+}
+
+mutation createPost($input: NewPost!, $image: Upload) {
+	createPost(input: $input, image: $image) {
+		_id
+		title
+		subtitle
+		content
+		creDttm
+		user {
+			username
+			name
+			nameC
+			role
+			gender
+			title
+			titleC
+			profilePicURI
+		}
+		reactions {
+			username
+			type
+		}
+		comments {
+			_id
+			title
+			subtitle
+			content
+			creDttm
+			user {
+				username
+				name
+				nameC
+				role
+				gender
+				title
+				titleC
+				profilePicURI
+			}
+			reactions {
+				username
+				type
+			}
+		}
+	}
+}
+
+mutation pendPost($input: NewPendingPost!, $doc: Upload!) {
+	pendPost(input: $input, doc: $doc) {
+		_id
+	}
+}
+
+query pendingPosts {
+	pendingPosts {
+		_id
+		username
+		title
+		subtitle
+		documentURI
+		postID
+		remarks
+		creDttm
+		status
+		approveUsername
+		approveDttm
+	}
+}
+
+query pendingPostsByUsername($username: String) {
+	pendingPosts(username: $username) {
+		_id
+		username
+		title
+		subtitle
+		documentURI
+		postID
+		remarks
+		creDttm
+		status
+		approveUsername
+		approveDttm
+	}
+}
+
+query pendingPost($oid: String!) {
+	pendingPost(oid: $oid) {
+		_id
+		username
+		title
+		subtitle
+		documentURI
+		postID
+		remarks
+		creDttm
+		status
+		approveUsername
+		approveDttm
+	}
+}
+
+mutation updatePendingPost($input: UpdatePendingPost!, $doc: Upload) {
+	updatePendingPost(input: $input, doc: $doc) {
+		_id
+		title
+		subtitle
+		postID
+		status
+		remarks
+		approveUsername
+		approveDttm
+	}
+}
+
+mutation approvePost($input: NewPost!, $image: Upload, $postRefInput: UpdatePendingPost!) {
+	approvePost(input: $input, image: $image, postRefInput: $postRefInput) {
+		_id
+	}
+}
+
+query favouritePosts {
+	favouritePosts {
+		_id
+		username
+		lupdDttm
+		post {
+			_id
+			title
+			subtitle
+			user {
+				username
+				role
+				nameC
+				titleC
+				gender
+				profilePicURI
+			}
+			imageURI
+			creDttm
+		}
+	}
+}
+
+mutation addFavouritePost($input: UpdateFavouritePost!) {
+	addFavouritePost(input: $input)
+}
+
+mutation removeFavouritePost($input: UpdateFavouritePost!) {
+	removeFavouritePost(input: $input)
+}
+
+mutation react($input: NewReaction!) {
+	react(input: $input) {
+		_id
+		title
+		subtitle
+		content
+		creDttm
+		user {
+			username
+			name
+			nameC
+			role
+			gender
+			title
+			titleC
+			profilePicURI
+		}
+		reactions {
+			username
+			type
+		}
+		comments {
+			_id
+			title
+			subtitle
+			content
+			creDttm
+			user {
+				username
+				name
+				nameC
+				role
+				gender
+				title
+				titleC
+				profilePicURI
+			}
+			reactions {
+				username
+				type
+			}
+		}
+	}
+}

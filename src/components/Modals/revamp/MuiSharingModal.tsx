@@ -1,9 +1,8 @@
 import { useMutation, useLazyQuery } from '@apollo/client';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import { setLoading } from 'actions';
-import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus, MutationPendPostArgs, MutationUpdatePendingPostArgs } from 'generated/graphql';
-import { PEND_POST, UPDATE_PENDING_POST, GET_PENDING_POST } from 'graphqls/graphql';
+import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus, MutationPendPostArgs, MutationUpdatePendingPostArgs, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
 import { useDropzone } from 'react-dropzone';
@@ -33,14 +32,8 @@ export default function MuiSharingModal() {
    const setMessage = useModalStore(state => state.setMessage)
    const setModalError = useModalStore(state => state.setError)
 
-   const [pendPost, { data }] = useMutation<
-      { pendingPost: PendingPost },
-      MutationPendPostArgs
-   >(PEND_POST);
-   const [updatePendingPost, { data: updateData }] = useMutation<
-      { pendingPost: PendingPost },
-      MutationUpdatePendingPostArgs
-   >(UPDATE_PENDING_POST);
+   const [pendPost, { data }] = usePendPostMutation()
+   const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
 
    const [readOnly, setReadOnly] = useState(false)
 
@@ -51,9 +44,11 @@ export default function MuiSharingModal() {
    const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
 
    const intl = useIntl()
-
-   const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = useLazyQuery<{ pendingPost: PendingPost }, { oid: string }>
-      (GET_PENDING_POST, { variables: { oid: pendingPostID! }, notifyOnNetworkStatusChange: true });
+   
+   const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+      variables: { oid: pendingPostID! },
+      notifyOnNetworkStatusChange: true
+   })
 
    const dropzoneMethods = useDropzone({
       accept: '.docx,.pdf'
@@ -111,7 +106,7 @@ export default function MuiSharingModal() {
       dispatch(setLoading(true))
       setReadOnly(false)
       let tmp: UpdatePendingPost = {
-         _id: pPostData?.pendingPost._id,
+         _id: pPostData?.pendingPost?._id,
          status: PostStatus.Withdraw,
          username: getTokenValue(tokenPair?.token).username
       }
@@ -164,9 +159,9 @@ export default function MuiSharingModal() {
    useEffect(() => {
       if (pPostData != null) {
          reset({
-            title: pPostData.pendingPost.title,
-            subtitle: pPostData.pendingPost.subtitle,
-            remarks: pPostData.pendingPost.remarks == null ? "" : pPostData.pendingPost.remarks
+            title: pPostData.pendingPost?.title,
+            subtitle: pPostData.pendingPost?.subtitle,
+            remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
          })
          setReadOnly(true)
       }
@@ -182,14 +177,14 @@ export default function MuiSharingModal() {
             <form onSubmit={handleSubmit(onSubmit)}>
                <DialogTitle id="form-dialog-title">表單資料</DialogTitle>
                <DialogContent>
-                  <SharingForm2 status={pPostData?.pendingPost.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
+                  <SharingForm2 status={pPostData?.pendingPost?.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
                </DialogContent>
                <DialogActions>
-                  {(pPostData?.pendingPost.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+                  {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
                      <Button variant="contained" type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
                      <Button onClick={onHide} variant="contained" color="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
                   </div>}
-                  {(pPostData?.pendingPost.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+                  {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
                      <Button
                         type="button"
                         variant="contained"

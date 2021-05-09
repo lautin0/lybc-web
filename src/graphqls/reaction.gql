@@ -18,7 +18,3 @@ input NewReaction {
 	postOID: String!
 	type: ReactionType!
 }
-
-extend type Mutation {
-  react(input: NewReaction!): Post!
-}

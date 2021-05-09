@@ -1,0 +1,53 @@
+query user($username: String!) {
+	user(username: $username) {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		email
+		phone
+		dob
+		profilePicURI
+	}
+}
+
+query userProfilePicURI($username: String!) {
+	user(username: $username) {
+		profilePicURI
+	}
+}
+
+mutation updateUser($input: UpdateUser!) {
+	updateUser(input: $input) {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		phone
+		email
+		profilePicURI
+	}
+}
+
+mutation changePassword($input: NewPassword!) {
+	changePassword(input: $input) 
+}
+
+mutation refreshToken($input: RefreshTokenInput!) {
+	refreshToken(input: $input) {
+		token
+		refreshToken
+	}
+}
+mutation login($input: Login!) {
+	login(input: $input) {
+		token
+		refreshToken
+	}
+}

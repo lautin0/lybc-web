@@ -1,17 +1,14 @@
-import { useMutation, useQuery } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
 import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { Create, Delete } from '@material-ui/icons';
 import { decisionRequest, setLoading } from 'actions';
-import { MutationDeleteWorshipArgs, Worship } from 'generated/graphql';
-import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
+import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
-import React, { SyntheticEvent, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { WorshipListItemType } from 'views/worship/types/types';
 
 function WorshipManage2() {
 
@@ -25,7 +22,7 @@ function WorshipManage2() {
 
   const history = useHistory();
 
-  const { loading, data: worshipData, refetch } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()
@@ -83,10 +80,7 @@ function WorshipManage2() {
 
   const [data, setData] = useState<GridRowsProp>([])
 
-  const [deleteWorship, { data: deleteResult }] = useMutation<
-    { deleteWorship: any },
-    MutationDeleteWorshipArgs
-  >(DELETE_WORSHIP)
+  const [deleteWorship, { data: deleteResult }] = useDeleteWorshipMutation()
 
   useEffect(() => {
     if (worshipData === undefined)

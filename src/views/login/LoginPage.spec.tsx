@@ -7,9 +7,9 @@ import { Provider } from "react-redux";
 import { createStore } from 'redux'
 import rootReducer from '../../reducers/index'
 import { MockedProvider } from "@apollo/client/testing";
-import { GET_USER } from "graphqls/graphql";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import { UserDocument } from "generated/graphql";
 
 const mockLogin = jest.fn((username, password) => {
   return Promise.resolve({ username, password });
@@ -20,7 +20,7 @@ const store = createStore(rootReducer)
 const mocks = [
   {
     request: {
-      query: GET_USER,
+      query: UserDocument,
     },
     result: {
       data: {

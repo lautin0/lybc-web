@@ -32,15 +32,3 @@ input NewWorshipDoc {
 	type: String
 	link: String 
 }
-
-extend type Query {
-	worships: [Worship!]!
-	worship(worshipId: String): Worship
-	maxWorshipId: Int!
-}
-
-extend type Mutation {
-	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
-	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
-	deleteWorship(input: String): Int!
-}

@@ -1,13 +1,11 @@
-import { useQuery } from '@apollo/client';
 import { Button, Chip, makeStyles, Typography } from '@material-ui/core';
 import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
-import { Create, Delete } from '@material-ui/icons';
-import { PendingPost, PostStatus } from 'generated/graphql';
-import { GET_PENDING_POSTS } from 'graphqls/graphql';
+import { Create } from '@material-ui/icons';
+import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
-import React, { SyntheticEvent, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -42,7 +40,7 @@ function PendingPostManage2() {
 
   const history = useHistory();
 
-  const { loading, data: pPostData, refetch } = useQuery<{ pendingPosts: PendingPost[] }>(GET_PENDING_POSTS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: pPostData, refetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
 
   function onEditClicked(e: SyntheticEvent, id: any) {
     e.preventDefault();

@@ -1,9 +1,6 @@
-import { useQuery } from '@apollo/client';
 import LoadingDiv from 'components/Loading/LoadingDiv';
-import { PostsConnection, QueryPostsArgs } from 'generated/graphql';
-import { GET_POSTS } from 'graphqls/graphql';
-import moment from 'moment';
-import React, { useCallback, useRef, useState } from 'react'
+import { usePostsQuery } from 'generated/graphql';
+import { useCallback, useRef, useState } from 'react'
 import { FormattedDate, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import Slider from "react-slick";
@@ -45,11 +42,10 @@ function SlideSection() {
   const intl = useIntl()
 
   const dummyList = useRef([{}, {}, {}])
-
-  const { loading, data: postData, refetch, fetchMore } = useQuery<
-    { posts: PostsConnection },
-    QueryPostsArgs
-  >(GET_POSTS, { variables: { first: 5 }, notifyOnNetworkStatusChange: true })
+  
+  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
+    variables: { first: 5 }, notifyOnNetworkStatusChange: true
+  })
 
   // const [data, setData] = useState([
   //   { date: moment('01/20/2021', 'MM/DD/YYYY').toDate(), title: '個人召命反思', link: 'sharing/600793e496f47f672e379c7b', imgUri: 'bg-color-oil-paint.jpeg' },

@@ -6,26 +6,20 @@ import IndexHeader from "components/Headers/IndexHeader";
 import DarkFooter from "components/Footers/DarkFooter";
 
 // sections for this page
-import IndexBanner from "./index-sections/IndexBanner";
-import Theme from "./index-sections/Theme";
 import NameCardForm from "./index-sections/NameCardForm";
 import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
 import { signInSuccess, signOut } from "actions";
-import { REFRESH_TOKEN } from "graphqls/graphql";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { isTokenExpired } from "utils/utils";
-import { useMutation } from "@apollo/client";
-import { MutationRefreshTokenArgs, RefreshTokenInput, TokenPair } from "generated/graphql";
+import { RefreshTokenInput, useRefreshTokenMutation } from "generated/graphql";
 import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
-import Images from "./index-sections/Images";
 import ArticleComponent from "./index-sections/ArticleComponent";
 import SlideSection from "./index-sections/SlideSection";
-import TimelineSection from "./index-sections/TimelineSection";
 import ImageRotateSection from "./index-sections/ImageRotateSection";
 
 function Index() {
@@ -40,11 +34,7 @@ function Index() {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
-  const [refreshToken, { data }] = useMutation<
-    { refreshToken: TokenPair },
-    MutationRefreshTokenArgs
-  >(REFRESH_TOKEN);
-
+  const [refreshToken, { data }] = useRefreshTokenMutation()
 
   React.useEffect(() => {
     document.body.classList.add("index-page");

@@ -1,22 +1,17 @@
-import { useQuery } from '@apollo/client';
-import { AccountStatus, Gender, NameCard } from 'generated/graphql';
-import { GET_NAMECARDS } from 'graphqls/graphql';
+import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function NameCardManage() {
 
-  const dispatch = useDispatch();
-
   const location = useLocation();
 
-  const history = useHistory();
-
-  const { data, loading, refetch } = useQuery<{ nameCards: NameCard[] }>(GET_NAMECARDS, { notifyOnNetworkStatusChange: true })
-
+  const { data, loading, refetch } = useNameCardsQuery({
+    notifyOnNetworkStatusChange: true
+  })
+  
   useEffect(() => {
     if (data != null)
       refetch()
@@ -67,7 +62,7 @@ function NameCardManage() {
           </div>
         </Container>}
         {(!loading) && <>
-          {data!.nameCards.map((n, i) => {
+          {data!.nameCards.map((n) => {
             return <div key={n._id}>
               <Row className="card quick-item d-none d-lg-block mt-3 pt-5 pl-5 pr-5 pb-3">
                 <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>

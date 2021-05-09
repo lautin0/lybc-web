@@ -1,10 +1,8 @@
-import { useQuery } from '@apollo/client';
-import { PendingPost, PostStatus, QueryPendingPostsArgs } from 'generated/graphql';
-import { GET_PENDING_POSTS_BY_USERNAME } from 'graphqls/graphql';
-import React, { useCallback, useEffect } from 'react'
+import { PostStatus, usePendingPostsByUsernameQuery } from 'generated/graphql';
+import { useCallback, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { useStore } from 'store';
 import UNIVERSALS from 'Universals';
@@ -22,10 +20,8 @@ function PersonalSharing() {
   const setOpen = useStore(state => state.setOpen)
   const setTitle = useStore(state => state.setTitle)
 
-  const { data, loading, refetch } = useQuery<
-    { pendingPosts: PendingPost[] },
-    QueryPendingPostsArgs>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
-
+  const { data, loading, refetch } = usePendingPostsByUsernameQuery({ variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
+  
   useEffect(() => {
     if (data != null)
       refetch()

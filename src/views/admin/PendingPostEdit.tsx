@@ -4,8 +4,7 @@ import { RBRef } from 'adapter/types'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
 import InputText from 'components/Forms/InputText'
-import { Post, NewPost, PostType, PendingPost, UpdatePendingPost, PostStatus, QueryPendingPostArgs, MutationUpdatePendingPostArgs, MutationApprovePostArgs } from 'generated/graphql'
-import { APPROVE_POST, GET_PENDING_POST, UPDATE_PENDING_POST } from 'graphqls/graphql'
+import { Post, NewPost, PostType, PendingPost, UpdatePendingPost, PostStatus, QueryPendingPostArgs, MutationUpdatePendingPostArgs, MutationApprovePostArgs, useUpdatePendingPostMutation, usePendingPostQuery, useApprovePostMutation } from 'generated/graphql'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Form, Button, Accordion, Card } from 'react-bootstrap'
@@ -35,23 +34,18 @@ function PendingPostEdit() {
 
   const [documentURI, setDocumentURI] = useState("")
 
-  const [updatePendingPost, { data: updatePendingPostData }] = useMutation<
-    { updatePendingPost: PendingPost },
-    MutationUpdatePendingPostArgs
-  >(UPDATE_PENDING_POST);
+  const [updatePendingPost, { data: updatePendingPostData }] = useUpdatePendingPostMutation()
 
-  const { loading, data: pData, refetch } = useQuery<{ pendingPost: PendingPost }, QueryPendingPostArgs>(GET_PENDING_POST, { variables: { oid: id }, notifyOnNetworkStatusChange: true })
-
+  const { loading, data: pData, refetch } = usePendingPostQuery({
+    variables: { oid: id }, notifyOnNetworkStatusChange: true
+  })
   const dropzoneMethods = useDropzone({
     accept: 'image/*'
   });
 
   const { acceptedFiles } = dropzoneMethods
 
-  const [approvePost, { data }] = useMutation<
-    { approvePost: Post },
-    MutationApprovePostArgs
-  >(APPROVE_POST);
+  const [approvePost, { data }] = useApprovePostMutation()
 
   const methods = useForm({
     defaultValues: {
@@ -72,12 +66,12 @@ function PendingPostEdit() {
     if (pData !== undefined) {
       reset({
         ...pData.pendingPost,
-        remarks: pData.pendingPost.remarks!,
-        status: pData.pendingPost.status.toString(),
-        creDttm: moment(pData.pendingPost.creDttm).format('DD/MM/YYYY')
+        remarks: pData.pendingPost?.remarks!,
+        status: pData.pendingPost?.status.toString(),
+        creDttm: moment(pData.pendingPost?.creDttm).format('DD/MM/YYYY')
       })
-      setDocumentURI(pData.pendingPost.documentURI)
-      if (pData.pendingPost.status !== PostStatus.Pending)
+      setDocumentURI(pData.pendingPost?.documentURI as string)
+      if (pData.pendingPost?.status !== PostStatus.Pending)
         setReadOnly(true)
     }
   }, [pData, reset])
@@ -96,7 +90,7 @@ function PendingPostEdit() {
     tmp.username = getTokenValue(tokenPair?.token).username
     let file = acceptedFiles[0]
     let pPostTmp: UpdatePendingPost = {
-      _id: pData?.pendingPost._id,
+      _id: pData?.pendingPost?._id,
       status: PostStatus.Approved,
       remarks: getValues("remarks") as string,
       username: data.username
@@ -138,7 +132,7 @@ function PendingPostEdit() {
     dispatch(setLoading(true))
     setReadOnly(false)
     let tmp: UpdatePendingPost = {
-      _id: pData?.pendingPost._id,
+      _id: pData?.pendingPost?._id,
       status: s,
       remarks: getValues("remarks") as string,
       username: getValues("username") as string,
@@ -216,7 +210,7 @@ function PendingPostEdit() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="category mt-5" style={{ color: 'black' }}>管理員代發文章</h2>
         <div className="mb-3" style={{ fontSize: 22 }}>
-          狀態: <span style={{ position: 'relative', fontSize: 22 }} className={`p-2 badge badge-${getBadgeClassName(pData?.pendingPost.status!)}`}>{getStatus(pData?.pendingPost.status!)}</span>
+          狀態: <span style={{ position: 'relative', fontSize: 22 }} className={`p-2 badge badge-${getBadgeClassName(pData?.pendingPost?.status! as PostStatus)}`}>{getStatus(pData?.pendingPost?.status! as PostStatus)}</span>
         </div>
         <Accordion defaultActiveKey="0">
           {!readOnly && <Card.Header>
@@ -315,7 +309,7 @@ function PendingPostEdit() {
                   </Button>}
                 </Form.Group>
               </Form.Row>
-              {(readOnly && (pData?.pendingPost.status != null && ![PostStatus.Rejected, PostStatus.Approved, PostStatus.Withdraw].includes(pData?.pendingPost.status!))) && <Form.Row>
+              {(readOnly && (pData?.pendingPost?.status != null && ![PostStatus.Rejected, PostStatus.Approved, PostStatus.Withdraw].includes(pData?.pendingPost.status!))) && <Form.Row>
                 <Form.Group>
                   <Button
                     variant="success"

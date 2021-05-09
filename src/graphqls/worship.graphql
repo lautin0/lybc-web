@@ -1,0 +1,75 @@
+query worship($worshipId: String!) {
+	worship(worshipId: $worshipId) {
+		worshipId
+		title
+		type
+		messenger
+		note
+		verse
+		link
+		docs {
+			title
+			link
+			type
+		}
+	}
+}
+
+query worships {
+	worships {
+		worshipId
+		title
+		type
+		messenger
+		note
+		verse
+		link
+		docs {
+			title
+			link
+			type
+		}
+	}
+}
+
+query maxWorshipId {
+	maxWorshipId
+}
+
+mutation createWorship($input: NewWorship!, $docs: [NewWorshipDoc]!) {
+	createWorship(input: $input, docs: $docs) {
+		worshipId, 
+		title
+		type, 
+		messenger, 
+		note, 
+		link, 
+		verse
+		docs {
+			title
+			type
+			link
+		}
+	}
+}
+
+mutation updateWorship($input: NewWorship!, $docs: [NewWorshipDoc]!) {
+	updateWorship(input: $input, docs: $docs) {
+		worshipId, 
+		title
+		type, 
+		messenger, 
+		note, 
+		link, 
+		verse
+		docs {
+			title
+			type
+			link
+		}
+	}
+}
+
+mutation deleteWorship($input: String) {
+	deleteWorship(input: $input)  
+}

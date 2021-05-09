@@ -1,9 +1,7 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import InputText from "components/Forms/InputText";
-import { Gender, MutationUpdateUserArgs, QueryUserArgs, UpdateUser, User } from "generated/graphql";
-import { GET_USER, UPDATE_USER } from "graphqls/graphql";
-import React, { useEffect, useState } from "react";
+import { Gender, UpdateUser, useUpdateUserMutation, useUserQuery } from "generated/graphql";
+import { useEffect, useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
@@ -37,12 +35,11 @@ function PersonalEdit() {
 
   const { acceptedFiles, open, getRootProps, getInputProps } = dropzoneMethods
 
-  const [updateUser, { data: updatedUserData }] = useMutation<
-    { updateUser: User },
-    MutationUpdateUserArgs
-  >(UPDATE_USER);
+  const [updateUser, { data: updatedUserData }] = useUpdateUserMutation()
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useUserQuery({
+    variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true
+  })
 
   const methods = useForm({
     defaultValues: {
@@ -82,12 +79,12 @@ function PersonalEdit() {
     let compressedImg = await acceptedFiles.length > 0 ? imageCompression(acceptedFiles[0], options) : null
 
     let tmp: UpdateUser = {
-      username: userData?.user.username,
-      role: userData?.user.role,
+      username: userData?.user?.username!,
+      role: userData?.user?.role!,
       name: data.name,
       nameC: data.nameC,
-      title: userData?.user.title,
-      titleC: userData?.user.titleC,
+      title: userData?.user?.title,
+      titleC: userData?.user?.titleC,
       dob: dob,
       gender: data.gender,
       profilePic: compressedImg,
@@ -120,15 +117,15 @@ function PersonalEdit() {
     if (userData !== undefined) {
       setTimeout(() => {
         reset({
-          username: userData.user.username,
-          name: userData.user.name,
-          nameC: userData.user.nameC,
-          gender: userData.user.gender.toString(),
-          email: userData.user.email!,
-          phone: userData.user.phone!,
+          username: userData.user?.username,
+          name: userData.user?.name,
+          nameC: userData.user?.nameC,
+          gender: userData.user?.gender.toString(),
+          email: userData.user?.email!,
+          phone: userData.user?.phone!,
         })
-        if (userData.user.dob != null) {
-          setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
+        if (userData.user?.dob != null) {
+          setDate(moment(userData.user?.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
         }
       })
     }
@@ -179,9 +176,9 @@ function PersonalEdit() {
                 </div>
                   </div>
                 </div>
-                {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <img src={defaultAvatar} />}
+                {(acceptedFiles.length == 0 && userData.user?.profilePicURI == null) && <img src={defaultAvatar} />}
                 {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
-                {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                {(userData.user?.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </a>
             </Form.Group>
           </Form.Row>

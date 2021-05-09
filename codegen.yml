@@ -1,5 +1,8 @@
 overwrite: true
-schema: "./src/**/*.gql"
+schema: 
+  - "**/*.gql"
+  - "lib/type-defs.graphqls"
+documents: "**/*.graphql"
 generates:
   src/generated/graphql.tsx:
     plugins:

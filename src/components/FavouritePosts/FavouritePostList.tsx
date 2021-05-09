@@ -1,8 +1,7 @@
 import { useQuery } from '@apollo/client';
-import { FavouritePost, Post, Role } from 'generated/graphql';
-import { GET_FAVOURITE_POST } from 'graphqls/graphql';
+import { FavouritePost, useFavouritePostsQuery } from 'generated/graphql';
 import moment from 'moment';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { FormattedDate } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
 import UNIVERSALS from 'Universals'
@@ -14,9 +13,7 @@ function FavouritePostList() {
   const location = useLocation()
   const history = useHistory()
 
-  const { loading, data: favPostData, refetch } = useQuery<
-    { favouritePosts: FavouritePost[] }
-  >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
+  const { loading, data: favPostData, refetch } = useFavouritePostsQuery({ notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     favPostData && refetch();
@@ -25,7 +22,8 @@ function FavouritePostList() {
   return <div className="p-3" style={{ position: 'sticky', top: '20vh', fontSize: 20, background: 'rgba(240,240,240,.7)', minHeight: '20vmin' }}>
     <div><i className="far fa-bookmark text-center ml-3 mb-1"></i><label className="ml-3" style={{ color: 'gray' }}>喜愛列表</label></div>
     {(!loading && favPostData?.favouritePosts.length === 0) && <div className="text-center"><i>---暫無文章---</i></div>}
-    {(favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.slice(0, 3).map((x, i) => {
+    {(favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.slice(0, 3).map((f, i) => {
+      let x = f as FavouritePost
       return <div key={x._id} className="my-2 d-flex justify-content-between">
         <div>
           <div

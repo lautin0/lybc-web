@@ -1,11 +1,9 @@
-import { useMutation, useQuery } from '@apollo/client';
 import { decisionRequest, setLoading } from 'actions';
-import { MutationDeleteWorshipArgs, Worship } from 'generated/graphql';
-import { DELETE_WORSHIP, GET_WORSHIPS } from 'graphqls/graphql';
+import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
-import moment, { Moment } from 'moment';
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import moment from 'moment';
+import { SyntheticEvent, useEffect } from 'react'
 import { Pagination, Container, Row, Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -26,12 +24,9 @@ function WorshipManage() {
 
   const { pageItems, pageNumber, items, setData } = usePagination<WorshipListItemType>()
 
-  const { loading, data: worshipData, refetch } = useQuery<{ worships: Worship[] }>(GET_WORSHIPS, { notifyOnNetworkStatusChange: true })
+  const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
-  const [deleteWorship, { data: deleteResult }] = useMutation<
-    { deleteWorship: any },
-    MutationDeleteWorshipArgs
-  >(DELETE_WORSHIP)
+  const [deleteWorship, { data: deleteResult }] = useDeleteWorshipMutation()
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()

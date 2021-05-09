@@ -15,9 +15,8 @@ import { SetSysInfoMessage, signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
-import { Role } from "generated/graphql";
+import { Role, useMaxWorshipIdQuery } from "generated/graphql";
 import { useQuery } from "@apollo/client";
-import { GET_MAX_WORSHIP_ID } from "graphqls/graphql";
 import moment from "moment";
 import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
@@ -48,7 +47,7 @@ function IndexNavbar() {
     setShow(clone);
   }
 
-  const { data } = useQuery<{ maxWorshipId: string }>(GET_MAX_WORSHIP_ID)
+  const { data } = useMaxWorshipIdQuery()
 
   const hideDropdown = (e: any, idx: number) => {
     let clone = [...show];
@@ -117,7 +116,7 @@ function IndexNavbar() {
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
-                        .replace("{0}", data.maxWorshipId)
+                        .replace("{0}", data?.maxWorshipId.toString())
                         .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
                     }
                   }}
@@ -156,7 +155,7 @@ function IndexNavbar() {
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
-                        .replace("{0}", data.maxWorshipId)
+                        .replace("{0}", data?.maxWorshipId.toString())
                         .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
                     }
                   }}

@@ -1,0 +1,22 @@
+mutation createNameCard($input: NewNameCard!) {
+	createNameCard(input: $input) {
+		_id, 
+		name, 
+		email, 
+		phone, 
+		gender, 
+	}
+}
+
+query nameCards {
+	nameCards {
+		_id
+		name
+		email
+		phone
+		gender
+		remarks
+		status
+		lupdDttm
+	}
+}

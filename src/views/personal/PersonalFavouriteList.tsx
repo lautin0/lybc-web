@@ -1,9 +1,7 @@
-import { useMutation, useQuery } from '@apollo/client';
 import { setSystemFailure } from 'actions';
-import { FavouritePost, MutationRemoveFavouritePostArgs, UpdateFavouritePost } from 'generated/graphql';
-import { GET_FAVOURITE_POST, REMOVE_FAV_POST } from 'graphqls/graphql';
+import { FavouritePost, FavouritePostsDocument, useFavouritePostsQuery, useRemoveFavouritePostMutation } from 'generated/graphql';
 import moment from 'moment';
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -27,18 +25,13 @@ function PersonalFavouriteList() {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const { loading, data: favPostData, refetch } = useQuery<
-    { favouritePosts: FavouritePost[] }    
-  >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
+  const { loading, data: favPostData, refetch } = useFavouritePostsQuery({ notifyOnNetworkStatusChange: true })
 
-  const [removeFavPost, { loading: removeFavLoading }] = useMutation<
-    { postID: string },
-    MutationRemoveFavouritePostArgs
-  >(REMOVE_FAV_POST, {
+  const [removeFavPost, { loading: removeFavLoading }] = useRemoveFavouritePostMutation({
     refetchQueries: [
-      { query: GET_FAVOURITE_POST }
+      { query: FavouritePostsDocument }
     ]
-  });
+  })
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
@@ -77,7 +70,8 @@ function PersonalFavouriteList() {
     </div>}
     {(!loading && favPostData?.favouritePosts.length === 0) && <div style={{ fontSize: 22 }} className="text-center"><i>---暫無文章---</i></div>}
     <Col md={12} lg={8}>
-      {(!loading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((p, i) => {
+      {(!loading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((e, i) => {
+        let p = e as FavouritePost
         return <div key={p._id} className="my-3">
           <hr></hr>
           <div className={css.blog}>

@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../reducers';
 import { toggleSecurityModal } from 'actions/security/security';
 import { useMutation } from '@apollo/client';
-import { CHANGE_PASSWORD } from 'graphqls/graphql';
-import { MutationChangePasswordArgs, NewPassword } from 'generated/graphql';
+import { MutationChangePasswordArgs, NewPassword, useChangePasswordMutation } from 'generated/graphql';
 import { useForm } from 'react-hook-form';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
 import { getTokenValue } from 'utils/utils';
@@ -23,9 +22,7 @@ function PasswordResetModal(props: any) {
     }
   })
 
-  const [changePassword, { data }] = useMutation<
-    MutationChangePasswordArgs
-  >(CHANGE_PASSWORD);
+  const [changePassword, { data }]  = useChangePasswordMutation()
 
   const onHide = () => {
     dispatch(toggleSecurityModal(false))

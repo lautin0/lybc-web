@@ -11,9 +11,7 @@ import { ComponentToPrintProps } from "./types/types";
 import DOMPurify from "dompurify";
 import moment from "moment";
 import html2canvas from 'html2canvas'
-import { useQuery } from "@apollo/client";
-import { GET_WORSHIP } from "graphqls/graphql";
-import { QueryWorshipArgs, Worship as WorshipModel } from "generated/graphql";
+import { useWorshipQuery } from "generated/graphql";
 import { useIntl } from "react-intl";
 
 function Worship() {
@@ -26,8 +24,9 @@ function Worship() {
   const [data, setData] = useState('')
   const componentRef: any = useRef();
 
-  const { loading, data: wData, refetch } = useQuery<{ worship: WorshipModel }, QueryWorshipArgs>(GET_WORSHIP, { variables: { worshipId: id }, notifyOnNetworkStatusChange: true });
-
+  const { loading, data: wData, refetch } = useWorshipQuery({
+    variables: { worshipId: id }, notifyOnNetworkStatusChange: true
+  })
   const handleChange = (content: any) => {
     setData(content);
   }
@@ -69,8 +68,8 @@ function Worship() {
   }
 
   useEffect(() => {
-    if (wData !== undefined && wData.worship.note)
-      setData(wData.worship.note);
+    if (wData !== undefined && wData.worship?.note)
+      setData(wData.worship?.note);
   }, [wData])
 
   useEffect(() => {
@@ -98,11 +97,11 @@ function Worship() {
       {!loading && wData != null && <Container style={{ marginTop: -20 }}>
         <Row className="justify-content-md-center">
           <Col className="text-center" lg="8" md="12">
-            <h2>{`${moment(wData.worship.worshipId, 'YYYYMMDD').format('LL')} ${wData.worship.type}`}</h2>
+            <h2>{`${moment(wData.worship?.worshipId, 'YYYYMMDD').format('LL')} ${wData.worship?.type}`}</h2>
           </Col>
         </Row>
-        {wData.worship.link !== '' && <Row className="justify-content-center mt-3">
-          <iframe title="sermon-video" width="660" height="371" src={wData.worship.link as string} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        {wData.worship?.link !== '' && <Row className="justify-content-center mt-3">
+          <iframe title="sermon-video" width="660" height="371" src={wData.worship?.link as string} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Row>}
         <Row className="mt-5 mb-5 text-center justify-content-center ml-1 mr-1">
           <Tabs
@@ -114,7 +113,7 @@ function Worship() {
           >
             <Tab eventKey="home" title={intl.formatMessage({ id: "app.worship.notes" })}>
               <div className="mb-2 form-inline">
-                {wData.worship.docs.map((value: any, index: number) => {
+                {wData.worship?.docs.map((value: any, index: number) => {
                   return <div style={{ width: 'fit-content' }} className="mr-3" key={index}>
                     <a href={value.link} rel="noopener noreferrer" target="_blank" className="dl-link">
                       <div>
@@ -163,7 +162,7 @@ function Worship() {
               </Row>
             </Tab>
             <Tab eventKey="scripture" title={intl.formatMessage({ id: "app.worship.scripture" })}>
-              <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.worship.verse as string) }}>
+              <div className="text-left mb-5 verse" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(wData.worship?.verse as string) }}>
               </div>
             </Tab>
           </Tabs>

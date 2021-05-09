@@ -1,0 +1,17 @@
+query notifications($toUsername: String!) {
+	notifications(toUsername: $toUsername) {
+		_id
+		toUsername
+		fromUsername
+		type
+		param
+		isRead
+		creDttm
+	}
+}
+
+mutation readNotification($input: String!) {
+	readNotification(input: $input) {
+		_id
+	}
+}

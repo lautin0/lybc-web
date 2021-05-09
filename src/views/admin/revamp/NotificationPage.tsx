@@ -43,7 +43,8 @@ export default function NotificationPage() {
           <CardContent>
             <Typography className="mb-3" variant="h4">通知</Typography>
             {(!loading && data && data.notifications.length === 0) && <Typography className={classes.noRecord}>沒有通知</Typography>}
-            {(!loading && data && data.notifications.length > 0) && data.notifications.map((e: Notification, idx: number) => {
+            {(!loading && data && data.notifications.length > 0) && data.notifications.map((n, idx) => {
+              let e = n as Notification
               return <MenuItem
                 key={e._id}
                 className={classes.listRoot}

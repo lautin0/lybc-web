@@ -5,7 +5,6 @@ import WorshipList from './WorshipList';
 import Adapter from 'enzyme-adapter-react-16';
 import { Router } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
-import { GET_WORSHIPS } from 'graphqls/graphql';
 import { IntlProvider } from 'react-intl';
 import en from '../../assets/i18n/en.json';
 

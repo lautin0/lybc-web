@@ -1,10 +1,8 @@
-import { useQuery } from '@apollo/client';
-import { PendingPost, PostStatus } from 'generated/graphql';
-import { GET_PENDING_POSTS } from 'graphqls/graphql';
+import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import usePagination from 'hooks/usePagination';
 import moment from 'moment';
-import React, { SyntheticEvent, useEffect } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import { Container, Row, Table, Pagination } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useLocation, useHistory } from 'react-router-dom';
@@ -13,16 +11,14 @@ function PendingPostManage() {
 
   const [locale] = useLanguage()
 
-  const intl = useIntl()
-
   const location = useLocation();
 
   const history = useHistory();
 
-  const { pageItems, pageNumber, items, setData } = usePagination<PendingPost>()
+  const { pageItems, items, setData } = usePagination<PendingPost>()
 
-  const { loading, data: pPostData, refetch } = useQuery<{ pendingPosts: PendingPost[] }>(GET_PENDING_POSTS, { notifyOnNetworkStatusChange: true })
-
+  const { loading, data: pPostData, refetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
+  
   function onEditClicked(e: SyntheticEvent, id: any) {
     e.preventDefault();
     history.push('/admin/post/pending/' + id)
@@ -53,7 +49,7 @@ function PendingPostManage() {
         }
       }))
   }, [pPostData])
-  
+
   const getBadgeClassName = (s: PostStatus) => {
     switch (s) {
       case PostStatus.Approved:
@@ -112,7 +108,7 @@ function PendingPostManage() {
               </th></tr>}
               {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
               {
-                (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value, index) => {
+                (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value) => {
                   return <tr key={value._id}>
                     <td>{value.title}</td>
                     <td>{value.username}</td>

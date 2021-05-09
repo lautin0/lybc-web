@@ -2,7 +2,6 @@ import { setSystemFailure } from 'actions';
 import { RBRef } from 'adapter/types';
 import usePost from 'hooks/usePost';
 import moment from 'moment';
-import React from 'react'
 import { useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -13,10 +12,8 @@ import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
 import defaultAvatar from "assets/img/default-avatar.png";
-import { Post, QueryUserArgs, User } from 'generated/graphql';
+import { Post, useUserProfilePicUriQuery } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
-import { useQuery } from '@apollo/client';
-import { GET_USER_PROFILE_PIC_URI } from 'graphqls/graphql';
 import { useIntl } from 'react-intl';
 
 function CommentSection(props: any) {
@@ -33,18 +30,12 @@ function CommentSection(props: any) {
 
   const { commentPending, postData, addComment, setCommentPending } = usePost({ id: id })
 
-  const { loading, data: profilePicData } = useQuery<
-    { user: User },
-    QueryUserArgs
-  >(
-    GET_USER_PROFILE_PIC_URI,
-    {
-      variables: {
-        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-      },
-      notifyOnNetworkStatusChange: true
-    }
-  )
+  const { loading, data: profilePicData } = useUserProfilePicUriQuery({
+    variables: {
+      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+    },
+    notifyOnNetworkStatusChange: true
+  })
 
   const { register, handleSubmit, reset, errors } = useForm();
 
@@ -74,7 +65,8 @@ function CommentSection(props: any) {
 
   return <Row className="justify-content-md-center mt-5">
     <Col md={12} lg={8} className="mb-3"><h4>{intl.formatMessage({ id: "app.comment" })}</h4></Col>
-    {postData && postData.post.comments.map((e: any) => {
+    {postData && postData.post?.comments.map(c => {
+      let e = c as Post
       return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
@@ -94,8 +86,8 @@ function CommentSection(props: any) {
             {e.user.role === "MEMBER" && <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
-            >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>}
+              className={"comment-user-link "}
+            >{e.username}</a>}
           </div>
           <p><b>{e.content}</b></p>
           <p className="category">{getTimePastStr(moment(e.creDttm))}</p>
@@ -109,8 +101,8 @@ function CommentSection(props: any) {
     >
       <div className="profile-page pt-3">
         <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 50, height: 50 }}>
-          {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
-          {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+          {(loading || profilePicData?.user?.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
+          {(!loading && profilePicData?.user?.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
         </div>
       </div>
       <Form className="ml-md-5 col-md-10 col-sm-12" onSubmit={handleSubmit(onSubmit)}>

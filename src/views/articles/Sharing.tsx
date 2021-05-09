@@ -1,13 +1,11 @@
-import { useMutation } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
-import { MutationReactArgs, NewReaction, Post, ReactionType, Role } from "generated/graphql";
-import { GET_POST, REACT_TO_POST } from "graphqls/graphql";
+import { Post, PostDocument, ReactionType, useReactMutation } from "generated/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
-import { Tooltip, Container, Row, OverlayTrigger, Col } from "react-bootstrap";
+import { useCallback, useEffect, useState } from "react";
+import { Container, Row, OverlayTrigger, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useLocation, useParams } from "react-router-dom";
@@ -32,11 +30,11 @@ function Sharing() {
 
   const [post, setPost] = useState<Post>()
 
-  const [react] = useMutation<{ post: Post }, MutationReactArgs>(REACT_TO_POST, {
+  const [react] = useReactMutation({
     refetchQueries: [
-      { query: GET_POST, variables: { oid: id } }
+      { query: PostDocument, variables: { oid: id } }
     ]
-  });
+  })
 
   const { loading, postData, refetch } = usePost({ id: id })
 
@@ -52,9 +50,9 @@ function Sharing() {
       variables: {
         input: {
           username: getTokenValue(tokenPair?.token).username,
-          postOID: postData?.post._id,
+          postOID: postData?.post?._id,
           type: reaction,
-          toUsername: postData?.post.user.username
+          toUsername: postData?.post?.user.username
         },
       }
     }).catch(e => {
@@ -64,7 +62,7 @@ function Sharing() {
 
   useEffect(() => {
     if (postData !== undefined) {
-      setPost(postData.post)
+      setPost(postData.post as Post)
     }
   }, [postData])
 
@@ -154,8 +152,8 @@ function Sharing() {
               <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
                 <div className="profile-page mr-3">
                   <div className="photo-container" style={{ width: 50, height: 50 }}>
-                    {postData?.post.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
-                    {postData?.post.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
+                    {postData?.post?.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
+                    {postData?.post?.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
                   </div>
                 </div>
                 <div className="my-auto" style={{ color: 'gray' }}>

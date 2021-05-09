@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -8,9 +8,7 @@ import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenValue } from 'utils/utils';
 import logo from "assets/img/lybc_logo.png";
-import { useQuery } from "@apollo/client";
-import { QueryUserArgs, User } from "generated/graphql";
-import { GET_USER_PROFILE_PIC_URI } from "graphqls/graphql";
+import { useUserProfilePicUriQuery } from "generated/graphql";
 import defaultAvatar from "assets/img/default-avatar.png";
 import UNIVERSALS from "Universals";
 
@@ -27,18 +25,12 @@ function AdminNavbar() {
   const [navbarColor, setNavbarColor] = useState("");
   const [collapseOpen, setCollapseOpen] = useState(false);
 
-  const { loading, data: profilePicData } = useQuery<
-    { user: User },
-    QueryUserArgs
-  >(
-    GET_USER_PROFILE_PIC_URI,
-    {
-      variables: {
-        username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
-      },
-      notifyOnNetworkStatusChange: true
-    }
-  )
+  const { loading, data: profilePicData } = useUserProfilePicUriQuery({
+    variables: {
+      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+    },
+    notifyOnNetworkStatusChange: true
+  })
 
   const [show, setShow] = useState([false, false, false]);
   const showDropdown = (e: any, idx: number) => {
@@ -185,27 +177,27 @@ function AdminNavbar() {
             className="mx-3"
             style={{ color: 'lightgray' }}
           >
-              <i className="fas fa-home" style={{ fontSize: 18 }}></i>
+            <i className="fas fa-home" style={{ fontSize: 18 }}></i>
           </Link>
           <Link
             className="nav-link"
             href="#pablo"
             id="profile"
             to="/personal"
-            style={{ 
+            style={{
               color: 'lightgray',
               alignItems: 'center',
               justifyContent: 'center',
               display: 'flex',
               paddingTop: 10
-             }}
+            }}
           // onClick={() => setCollapseOpen(!collapseOpen)}
           >
             {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
             <div className="profile-page mr-2">
               <div className="photo-container mb-3 my-auto ml-3 mx-auto" style={{ width: 28, height: 28 }}>
-                {(loading || profilePicData?.user.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
-                {(!loading && profilePicData?.user.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+                {(loading || profilePicData?.user?.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
+                {(!loading && profilePicData?.user?.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
               </div>
             </div>
             <p className="d-none d-md-inline-block">{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>

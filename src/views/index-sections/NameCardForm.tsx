@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 
@@ -13,9 +13,7 @@ import {
   Row
 } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import { Gender, MutationCreateNameCardArgs, NameCard, NewNameCard } from "generated/graphql";
-import { useMutation } from "@apollo/client";
-import { ADD_NAMECARD } from "graphqls/graphql";
+import { Gender, useCreateNameCardMutation } from "generated/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import Validators from "utils/validator";
 import { useLocation } from "react-router-dom";
@@ -35,10 +33,7 @@ export default function NameCardForm() {
   const [phoneFocus, setPhoneFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const [addNameCard, { data }] = useMutation<
-    { createNameCard: NameCard },
-    MutationCreateNameCardArgs
-  >(ADD_NAMECARD);
+  const [addNameCard, { data }] = useCreateNameCardMutation()
 
   const methods = useForm({
     defaultValues: {

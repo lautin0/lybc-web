@@ -5,10 +5,8 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import { Avatar, Button, Divider, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
-import { useMutation, useQuery } from '@apollo/client';
-import { CHANGE_PASSWORD, GET_USER, UPDATE_USER } from 'graphqls/graphql';
 import { getTokenValue } from 'utils/utils';
-import { Gender, MutationChangePasswordArgs, MutationUpdateUserArgs, NewPassword, QueryUserArgs, UpdateUser, User } from 'generated/graphql';
+import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { setLoading } from 'actions';
@@ -141,12 +139,14 @@ export default function PersonalSetting() {
 
   const { acceptedFiles, open, getRootProps, getInputProps } = dropzoneMethods
 
-  const [updateUser, { data: updatedUserData }] = useMutation<
-    { updateUser: User },
-    MutationUpdateUserArgs
-  >(UPDATE_USER);
+  const [updateUser, { data: updatedUserData }] = useUpdateUserMutation()
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useUserQuery({
+    variables: {
+      username: getTokenValue(localStorage.getItem('token')).username 
+    },
+    notifyOnNetworkStatusChange: true
+  })
 
   const methods = useForm<User>({
     defaultValues: {
@@ -170,9 +170,7 @@ export default function PersonalSetting() {
 
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
-  const [changePassword, { data }] = useMutation<
-    MutationChangePasswordArgs
-  >(CHANGE_PASSWORD);
+  const [changePassword, { data }] = useChangePasswordMutation()
 
   const watchType = useWatch({
     control,
@@ -229,12 +227,12 @@ export default function PersonalSetting() {
     let compressedImg = await acceptedFiles.length > 0 ? imageCompression(acceptedFiles[0], options) : null
 
     let tmp: UpdateUser = {
-      username: userData?.user.username,
-      role: userData?.user.role,
+      username: userData.user?.username!,
+      role: userData.user?.role!,
       name: data.name,
       nameC: data.nameC,
-      title: userData?.user.title,
-      titleC: userData?.user.titleC,
+      title: userData?.user?.title,
+      titleC: userData?.user?.titleC,
       dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
       profilePic: compressedImg,
@@ -267,13 +265,13 @@ export default function PersonalSetting() {
     if (userData !== undefined) {
       setTimeout(() => {
         reset({
-          username: userData.user.username,
-          name: userData.user.name,
-          nameC: userData.user.nameC,
-          gender: userData.user.gender,
-          email: userData.user.email!,
-          phone: userData.user.phone!,
-          dob: userData.user.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
+          username: userData.user?.username,
+          name: userData.user?.name,
+          nameC: userData.user?.nameC,
+          gender: userData.user?.gender,
+          email: userData.user?.email!,
+          phone: userData.user?.phone!,
+          dob: userData.user?.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
         })
         // if (userData.user.dob) {
         //   console.log(userData.user.dob)
@@ -368,9 +366,9 @@ export default function PersonalSetting() {
                 <Grid item xs={12} md={6} lg={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
-                      {(acceptedFiles.length == 0 && userData.user.profilePicURI == null) && <AccountCircle />}
+                      {(acceptedFiles.length == 0 && userData.user?.profilePicURI == null) && <AccountCircle />}
                       {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
-                      {(userData.user.profilePicURI != null && acceptedFiles.length == 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                      {(userData.user?.profilePicURI != null && acceptedFiles.length == 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
                       <div className={classes.profilePicOverlay}>
                         <div>
                           <div>

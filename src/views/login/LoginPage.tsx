@@ -17,11 +17,10 @@ import { signInFailure, signInSuccess } from "actions";
 import { useMutation } from "@apollo/client";
 import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { LOGIN, LoginInput } from "graphqls/graphql";
 
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
-import { Login, MutationLoginArgs, TokenPair } from "generated/graphql";
+import { Login, LoginDocument, MutationLoginArgs, TokenPair, useLoginMutation } from "generated/graphql";
 import { useIntl } from "react-intl";
 
 function LoginPage({ loginFn }: any) {
@@ -40,7 +39,8 @@ function LoginPage({ loginFn }: any) {
   const [lastFocus, setLastFocus] = useState(false);
   const dispatch = useDispatch();
 
-  const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, MutationLoginArgs>(LOGIN, { errorPolicy: 'all' });
+  // const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, MutationLoginArgs>(LoginDocument, { errorPolicy: 'all' });
+  const [login, { data, loading: loginLoading, error: loginError }] = useLoginMutation({ errorPolicy: 'all' })
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -55,16 +55,16 @@ function LoginPage({ loginFn }: any) {
   });
 
   const onSubmit = (data: any) => {
-    const payload: LoginInput = { username: data.username, password: data.password }
-    if(loginFn != null){
+    const payload: Login = { username: data.username, password: data.password }
+    if (loginFn != null) {
       loginFn(payload)
       reset()
       return
-    }    
+    }
     login({ variables: { input: payload } })
       .catch(err =>
         dispatch(signInFailure(err))
-      )    
+      )
   }
 
   useEffect(() => {

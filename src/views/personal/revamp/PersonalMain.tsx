@@ -6,9 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link } from '@material-ui/core';
-import { FavouritePost, MutationRemoveFavouritePostArgs, PendingPost, PostStatus, QueryPendingPostsArgs, QueryUserArgs, UpdateFavouritePost, User } from 'generated/graphql';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_FAVOURITE_POST, GET_PENDING_POSTS_BY_USERNAME, GET_USER, REMOVE_FAV_POST } from 'graphqls/graphql';
+import { FavouritePost, FavouritePostsDocument, PostStatus, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
 import { AccountCircle, Delete, Edit, ExpandMore, GetApp } from '@material-ui/icons';
@@ -143,20 +141,19 @@ export default function PersonalMain() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { loading, data: userData, refetch } = useQuery<{ user: User }, QueryUserArgs>(GET_USER, { variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true })
+  const { loading, data: userData, refetch } = useUserQuery({
+    variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true
+  })
 
-  const { loading: favLoading, data: favPostData, refetch: favRefetch } = useQuery<
-    { favouritePosts: FavouritePost[] }
-  >(GET_FAVOURITE_POST, { notifyOnNetworkStatusChange: true })
+  const { loading: favLoading, data: favPostData, refetch: favRefetch } = useFavouritePostsQuery({
+    notifyOnNetworkStatusChange: true
+  })
 
-  const [removeFavPost, { loading: removeFavLoading }] = useMutation<
-    { postID: string },
-    MutationRemoveFavouritePostArgs
-  >(REMOVE_FAV_POST, {
+  const [removeFavPost, { loading: removeFavLoading }] = useRemoveFavouritePostMutation({
     refetchQueries: [
-      { query: GET_FAVOURITE_POST }
+      { query: FavouritePostsDocument }
     ]
-  });
+  })
 
   const [expanded, setExpanded] = useState<any>({});
 
@@ -173,10 +170,9 @@ export default function PersonalMain() {
   const setModalOpen = usePendingPostStore(state => state.setOpen)
   const setTitle = usePendingPostStore(state => state.setTitle)
 
-  const { data, loading: pPostLoading, refetch: pPostRefetch } = useQuery<
-    { pendingPosts: PendingPost[] },
-    QueryPendingPostsArgs>(GET_PENDING_POSTS_BY_USERNAME, { variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true })
-
+  const { data, loading: pPostLoading, refetch: pPostRefetch } = usePendingPostsByUsernameQuery({
+    variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
+  })
   useEffect(() => {
     if (data != null)
       pPostRefetch()
@@ -289,7 +285,7 @@ export default function PersonalMain() {
                 {userData?.user && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </Grid>
               <Grid container item justify="center">
-                <Typography variant="h5">{userData?.user.name}</Typography>
+                <Typography variant="h5">{userData?.user?.name}</Typography>
               </Grid>
               <Grid container spacing={1} className={classes.infoRoot}>
                 <Grid container item alignItems="center">
@@ -297,7 +293,7 @@ export default function PersonalMain() {
                     <Typography variant="body2">用戶名稱: </Typography>
                   </Grid>
                   <Grid item xs={9}>
-                    <Typography>{userData?.user.username}</Typography>
+                    <Typography>{userData?.user?.username}</Typography>
                   </Grid>
                 </Grid>
                 <Grid container item alignItems="center">
@@ -305,7 +301,7 @@ export default function PersonalMain() {
                     <Typography variant="body2">中文名字: </Typography>
                   </Grid>
                   <Grid item xs={9}>
-                    <Typography>{userData?.user.nameC}</Typography>
+                    <Typography>{userData?.user?.nameC}</Typography>
                   </Grid>
                 </Grid>
                 <Grid container item alignItems="center">
@@ -313,7 +309,7 @@ export default function PersonalMain() {
                     <Typography variant="body2">性別: </Typography>
                   </Grid>
                   <Grid item xs={9}>
-                    <Typography>{userData?.user.gender.toString() === "MALE" ? "男" : "女"}</Typography>
+                    <Typography>{userData?.user?.gender.toString() === "MALE" ? "男" : "女"}</Typography>
                   </Grid>
                 </Grid>
                 <Grid container item alignItems="center">
@@ -321,7 +317,7 @@ export default function PersonalMain() {
                     <Typography variant="body2">聯絡電話: </Typography>
                   </Grid>
                   <Grid item xs={9}>
-                    <Typography>{userData?.user.phone}</Typography>
+                    <Typography>{userData?.user?.phone}</Typography>
                   </Grid>
                 </Grid>
                 <Grid container item alignItems="center">
@@ -329,7 +325,7 @@ export default function PersonalMain() {
                     <Typography variant="body2">電郵地址: </Typography>
                   </Grid>
                   <Grid item xs={9}>
-                    <Typography>{userData?.user.email}</Typography>
+                    <Typography>{userData?.user?.email}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -338,7 +334,7 @@ export default function PersonalMain() {
                   <Typography>徽章: </Typography>
                 </Grid>
                 <Grid item>
-                  {(userData?.user && userData.user.role === "ADMIN" || userData?.user.role === "WORKER") && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
+                  {(userData?.user && userData.user.role === "ADMIN" || userData?.user?.role === "WORKER") && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
                 </Grid>
               </Grid>
               <Grid container item direction="row" alignItems="center" spacing={1}>
@@ -404,7 +400,8 @@ export default function PersonalMain() {
               <Skeleton animation="wave" variant="rect" height={190} />
             </Grid>
           </Grid>}
-          {(!favLoading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((p, i) => {
+          {(!favLoading && favPostData != null && favPostData?.favouritePosts?.length > 0) && favPostData?.favouritePosts.map((f, i) => {
+            let p = f as FavouritePost
             return <Grid container key={p._id} direction="row" spacing={3} className={classes.gridRowRoot}>
               {i > 0 && <Divider className={classes.divider} />}
               <Grid container item direction="column" xs={8} spacing={3}>

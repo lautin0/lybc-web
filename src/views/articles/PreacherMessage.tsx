@@ -1,18 +1,16 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
-import { MutationReactArgs, NewReaction, Post, QueryPostArgs, ReactionType } from "generated/graphql";
-import { REACT_TO_POST, GET_POST } from "graphqls/graphql";
+import { ReactionType, usePostQuery, useReactMutation } from "generated/graphql";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { RootState } from "reducers";
-import { getKeyValue, getTokenValue, renderTooltip } from "utils/utils";
+import { getTokenValue, renderTooltip } from "utils/utils";
 // core components
 
 function PreacherMessage() {
@@ -27,8 +25,8 @@ function PreacherMessage() {
 
   const [post, setPost] = useState<any>()
 
-  const [react, { data: resultPost }] = useMutation<{ post: Post }, MutationReactArgs>(REACT_TO_POST);
-  const { loading, data, refetch } = useQuery<{ post: Post }, QueryPostArgs>(GET_POST, { variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true });
+  const [react, { data: resultPost }] = useReactMutation()
+  const { loading, data, refetch } = usePostQuery({ variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true })
 
   const setReaction = (reaction: ReactionType) => {
     if (tokenPair?.token == null) {
@@ -42,7 +40,7 @@ function PreacherMessage() {
       variables: {
         input: {
           username: getTokenValue(tokenPair?.token).username,
-          postOID: data?.post._id,
+          postOID: data?.post?._id,
           type: reaction
         },
       }

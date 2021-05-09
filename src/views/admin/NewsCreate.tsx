@@ -1,13 +1,10 @@
-import { useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
 import { setLoading } from 'actions';
 import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
-import InputText from 'components/Forms/InputText';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { Post, NewPost, PostType, MutationCreatePostArgs } from 'generated/graphql';
-import { ADD_POST } from 'graphqls/graphql';
-import React, { useEffect } from 'react'
+import { NewPost, PostType, useCreatePostMutation } from 'generated/graphql';
+import { useEffect } from 'react'
 import { Form } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -35,10 +32,7 @@ function NewsCreate() {
 
   const { acceptedFiles } = dropzoneMethods
 
-  const [addPost, { data }] = useMutation<
-    { createPost: Post },
-    MutationCreatePostArgs
-  >(ADD_POST);
+  const [addPost, { data }] = useCreatePostMutation()
 
   const methods = useForm({
     defaultValues: {

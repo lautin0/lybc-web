@@ -1,17 +1,13 @@
-import { useMutation } from '@apollo/client';
 import { Button, createStyles, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
 import { setLoading } from 'actions';
-import InputDropdown from 'components/Forms/InputDropdown';
 import InputQuill from 'components/Forms/InputQuill';
-import InputText from 'components/Forms/InputText';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { MutationCreateWorshipArgs, NewWorship, NewWorshipDoc, Worship } from 'generated/graphql';
-import { ADD_WORSHIP } from 'graphqls/graphql';
+import { useCreateWorshipMutation } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import React, { useEffect } from 'react'
-import { Form, Col } from 'react-bootstrap';
+import { useEffect } from 'react'
+import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,10 +61,11 @@ function WorshipCreate() {
     name: "docs"
   });
 
-  const [addWorship, { data }] = useMutation<
-    { createWorship: Worship },
-    MutationCreateWorshipArgs
-  >(ADD_WORSHIP);
+  // const [addWorship, { data }] = useMutation<
+  //   { createWorship: Worship },
+  //   MutationCreateWorshipArgs
+  // >(ADD_WORSHIP);
+  const [addWorship, { data }] = useCreateWorshipMutation()
 
   const dispatch = useDispatch();
 

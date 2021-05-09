@@ -1,16 +1,12 @@
-import classes from '*.module.css';
-import { useQuery } from '@apollo/client';
-import { CardContent, Typography, CardActions, Card, Button, Collapse, makeStyles, Chip, IconButton, Grid } from '@material-ui/core';
+import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid } from '@material-ui/core';
 import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
-import { AccountStatus, Gender, NameCard } from 'generated/graphql';
-import { GET_NAMECARDS } from 'graphqls/graphql';
+import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Container } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,11 +62,9 @@ const useStyles = makeStyles((theme) => ({
 function NameCardManage2() {
 
   const classes = useStyles()
-  const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
 
-  const { data, loading, refetch } = useQuery<{ nameCards: NameCard[] }>(GET_NAMECARDS, { notifyOnNetworkStatusChange: true })
+  const { data, loading, refetch } = useNameCardsQuery({ notifyOnNetworkStatusChange: true })
 
   const [expanded, setExpanded] = useState<any>({});
 
@@ -128,7 +122,7 @@ function NameCardManage2() {
         </div>
       </Container>}
       {!loading && <Grid container spacing={3} className={classes.gridRoot}>
-        {data!.nameCards.map((n, i) => (
+        {data!.nameCards.map((n) => (
           <Grid key={n._id} item xs={12} sm={4}>
             <Card className={classes.root} variant="outlined">
               <CardContent>

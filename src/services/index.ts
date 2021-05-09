@@ -2,7 +2,7 @@ import axios from "axios";
 import { Person } from "actions";
 import { User } from "actions/auth/types";
 import { getClient } from "utils/auth.client";
-import { LOGIN, LoginInput, RefreshTokenInput, REFRESH_TOKEN } from "graphqls/graphql";
+import { Login, LoginDocument, RefreshTokenDocument, RefreshTokenInput } from "generated/graphql";
 
 const getConfig = () => {
   let token = localStorage.getItem("token")
@@ -24,10 +24,10 @@ export const api = {
 
   signIn(user: User) {
     // return axios.post('/auth/', user);
-    const payload: LoginInput = { username: user.username, password: user.password }
+    const payload: Login = { username: user.username, password: user.password }
     return getClient()
       .mutate({
-        mutation: LOGIN,
+        mutation: LoginDocument,
         variables: { input: payload }
       })
   },
@@ -36,7 +36,7 @@ export const api = {
     const payload: RefreshTokenInput = { token: token }
     return getClient()
       .mutate({
-        mutation: REFRESH_TOKEN,
+        mutation: RefreshTokenDocument,
         variables: { input: payload }
       })
   }

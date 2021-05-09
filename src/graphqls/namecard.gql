@@ -21,13 +21,3 @@ input UpdateNameCard {
 	remarks: String
 	status: AccountStatus!
 }
-
-extend type Query {
-	nameCards: [NameCard!]!
-	nameCard(oid: String): NameCard
-}
-
-extend type Mutation {
-	createNameCard(input: NewNameCard!): NameCard!
-	updateNameCard(input: UpdateNameCard!): NameCard!
-}

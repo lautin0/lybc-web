@@ -5,8 +5,7 @@ import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
 import InputText from "components/Forms/InputText";
 import MuiInputText from "components/Forms/MuiInputText";
-import { MutationCreatePostArgs, NewPost, Post, PostType } from "generated/graphql";
-import { ADD_POST } from "graphqls/graphql";
+import { MutationCreatePostArgs, NewPost, Post, PostType, useCreatePostMutation } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
@@ -35,10 +34,7 @@ function PostCreate(props: any) {
 
   const { acceptedFiles } = dropzoneMethods
 
-  const [addPost, { data }] = useMutation<
-    { createPost: Post },
-    MutationCreatePostArgs
-  >(ADD_POST);
+  const [addPost, { data }] = useCreatePostMutation()
 
   const methods = useForm({
     defaultValues: {
@@ -48,7 +44,7 @@ function PostCreate(props: any) {
     }
   });
 
-  const { handleSubmit, getValues, reset } = methods
+  const { handleSubmit, reset } = methods
 
   const onSubmit = (data: any) => {
     dispatch(setLoading(true))

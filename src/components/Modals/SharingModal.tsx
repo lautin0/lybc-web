@@ -8,26 +8,19 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
-import { MutationPendPostArgs, MutationUpdatePendingPostArgs, NewPendingPost, PendingPost, PostStatus, UpdatePendingPost } from 'generated/graphql';
+import { MutationPendPostArgs, MutationUpdatePendingPostArgs, NewPendingPost, PendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
 import { getTokenValue } from 'utils/utils';
 import { RootState } from 'reducers';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { GET_PENDING_POST, PEND_POST, UPDATE_PENDING_POST } from 'graphqls/graphql';
 
 function SharingModal(props: any) {
 
   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   const dispatch = useDispatch()
-
-  const [pendPost, { data }] = useMutation<
-    { pendingPost: PendingPost },
-    MutationPendPostArgs
-  >(PEND_POST);
-  const [updatePendingPost, { data: updateData }] = useMutation<
-    { pendingPost: PendingPost },
-    MutationUpdatePendingPostArgs
-  >(UPDATE_PENDING_POST);
+  
+  const [pendPost, { data }] = usePendPostMutation()
+  const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
 
   const [readOnly, setReadOnly] = useState(false)
 
@@ -39,8 +32,13 @@ function SharingModal(props: any) {
 
   const intl = useIntl()
 
-  const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = useLazyQuery<{ pendingPost: PendingPost }, { oid: string }>
-    (GET_PENDING_POST, { variables: { oid: pendingPostID! }, notifyOnNetworkStatusChange: true });
+  // const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = useLazyQuery<{ pendingPost: PendingPost }, { oid: string }>
+  //   (GET_PENDING_POST, { variables: { oid: pendingPostID! }, notifyOnNetworkStatusChange: true });
+
+  const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+    variables: { oid: pendingPostID! },
+    notifyOnNetworkStatusChange: true
+  })
 
   const dropzoneMethods = useDropzone({
     accept: '.docx,.pdf'
@@ -98,7 +96,7 @@ function SharingModal(props: any) {
     dispatch(setLoading(true))
     setReadOnly(false)
     let tmp: UpdatePendingPost = {
-      _id: pPostData?.pendingPost._id,
+      _id: pPostData?.pendingPost?._id,
       status: PostStatus.Withdraw,
       username: getTokenValue(tokenPair?.token).username
     }
@@ -151,9 +149,9 @@ function SharingModal(props: any) {
   useEffect(() => {
     if (pPostData != null) {
       reset({
-        title: pPostData.pendingPost.title,
-        subtitle: pPostData.pendingPost.subtitle,
-        remarks: pPostData.pendingPost.remarks == null ? "" : pPostData.pendingPost.remarks
+        title: pPostData.pendingPost?.title,
+        subtitle: pPostData.pendingPost?.subtitle,
+        remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
       })
       setReadOnly(true)
     }
@@ -184,15 +182,15 @@ function SharingModal(props: any) {
             <div
               style={{ minHeight: '40vh', overflowY: 'scroll' }}
             >
-              <SharingForm status={pPostData?.pendingPost.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
+              <SharingForm status={pPostData?.pendingPost?.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
             </div>
           </Modal.Body>
           <Modal.Footer className="justify-content-end">
-            {(pPostData?.pendingPost.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+            {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
               <Button type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
               <Button onClick={onHide} variant="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
             </div>}
-            {(pPostData?.pendingPost.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+            {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
               <Button
                 type="button"
                 variant="danger"
