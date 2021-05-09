@@ -49,10 +49,10 @@ function WorshipEdit() {
   const setModalError = useModalStore(state => state.setError)
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
-  
+
   const [updateWorship, { data }] = useUpdateWorshipMutation()
 
-  const {loading, data: wData, refetch } = useWorshipQuery({
+  const { called, loading, data: wData, refetch } = useWorshipQuery({
     variables: {
       worshipId: id
     }
@@ -131,8 +131,8 @@ function WorshipEdit() {
   }, [register])
 
   useEffect(() => {
-    dispatch(setLoading(true))
-  }, [dispatch])
+    !called && dispatch(setLoading(true))
+  }, [dispatch, called])
 
   useEffect(() => {
     if (wData !== undefined) {
