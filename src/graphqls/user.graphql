@@ -14,6 +14,22 @@ query user($username: String!) {
 	}
 }
 
+query users {
+	users {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		email
+		phone
+		dob
+		profilePicURI
+	}
+}
+
 query userProfilePicURI($username: String!) {
 	user(username: $username) {
 		profilePicURI

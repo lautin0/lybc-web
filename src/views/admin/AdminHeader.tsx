@@ -19,7 +19,7 @@ function AdminHeader(props: AdminHeaderProps) {
       case 'worships':
       case 'books':
         return 'blue';
-      case 'members':
+      case 'users':
         return 'teal';
       case 'page-management':
         return 'purple';
@@ -60,8 +60,8 @@ function AdminHeader(props: AdminHeaderProps) {
           {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {/* {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')} */}
         </>}
-        {props.func === 'members' && <>
-          {quickItemGenerater('會員管理', 'fa fa-user', 'members')}
+        {props.func === 'users' && <>
+          {quickItemGenerater('會員管理', 'fa fa-user', 'users')}
           {quickItemGenerater('新來賓名片', 'fas fa-id-card', 'namecards')}
         </>}
         {props.func === 'page-management' && <>

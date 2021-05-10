@@ -14,6 +14,7 @@ import NameCardManage from './NameCardManage';
 import PendingPostManage from './PendingPostManage';
 import PendingPostEdit from './PendingPostEdit';
 import NewsCreate from './NewsCreate';
+import UserManage from './UserManage';
 
 // const getKeyValue = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 
@@ -75,7 +76,7 @@ function AdminPanel(props: AdminPanelProps) {
                 style={location.pathname.includes('member') || location.pathname.includes('namecards') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
-                  history.push('/admin/members')
+                  history.push('/admin/users')
                 }}
                 href="#"
               ><i className="fa fa-user mr-2"></i>會員管理</a>
@@ -109,7 +110,7 @@ function AdminPanel(props: AdminPanelProps) {
             {(props.func == null
               || props.func === 'worships'
               || props.func === 'other'
-              || props.func === 'members'
+              || props.func === 'users'
               || props.func === 'page-management'
               || props.func === 'books')
               && <AdminHeader func={props.func} />}
@@ -120,7 +121,7 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'new-worship' && <WorshipCreate />}
               {props.func === 'edit-worship' && <WorshipEdit />}
               {props.func === 'worships' && <WorshipManage />}
-              {props.func === 'members' && <MemberManage />}
+              {props.func === 'users' && <UserManage />}
               {props.func === 'other' && <OtherFunc />}
               {props.func === 'page-management' && <PageManage />}
               {props.func === 'new-post' && <PostCreate />}
