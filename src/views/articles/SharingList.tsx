@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
@@ -44,16 +44,16 @@ function SharingList() {
 
   const history = useHistory();
 
-  const { pageItems, setData, items } = usePagination<Post>()
+  const [ posts, setPosts ] = useState<Array<Post>>([])
 
   const cacheData = useMemo(() => {
-    if (pageItems != null)
+    if (posts != null)
       return getClient().readQuery<{ posts: PostsConnection }>({ query: PostsDocument })
     return null
-  }, [pageItems])
+  }, [posts])
 
   const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
-    variables: { first: 2 }, notifyOnNetworkStatusChange: true
+    variables: { first: 4 }, notifyOnNetworkStatusChange: true
   })
 
   const postDataRef = useRef(postData);
@@ -102,7 +102,7 @@ function SharingList() {
 
   useEffect(() => {
     if (postData !== undefined) {
-      setData([...postData.posts.edges?.map(x => x.node!)!] as Array<Post>)
+      setPosts([...postData.posts.edges?.map(x => x.node!)!] as Array<Post>)
       postDataRef.current = postData
     }
   }, [postData])
@@ -208,9 +208,9 @@ function SharingList() {
           </h5>
           <hr></hr> */}
           <Row className="mt-5">
-            {pageItems == null && <Col md={12} lg={8} className="clearfix"></Col>}
-            {pageItems && <Col className="sharing-list" md={12} lg={8}>
-              {pageItems.map((p: Post) => {
+            {posts == null && <Col md={12} lg={8} className="clearfix"></Col>}
+            {posts && <Col className="sharing-list" md={12} lg={8}>
+              {posts.map((p: Post) => {
                 return <div key={p._id} className="my-5">
                   <div className={css.blog}>
                     <div className={css.blogText}>
