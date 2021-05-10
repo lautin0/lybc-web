@@ -8,18 +8,12 @@ function MuiCommonModal() {
 
   const intl = useIntl()
 
-  const message = useModalStore(state => state.message)
-  const setMessage = useModalStore(state => state.setMessage)
-
-  const error = useModalStore(state => state.error)
-  const setError = useModalStore(state => state.setError)
-
-  const callback = useModalStore(state => state.callback)
+  const state = useModalStore()
 
   const onHide = () => {
-    error && setError(null)
-    message && setMessage(null)
-    callback && callback.call(null);
+    state.error && state.setError(null)
+    state.message && state.setMessage(null)
+    state.callback && state.callback.call(null);
   }
 
   useEffect(() => {
@@ -29,23 +23,23 @@ function MuiCommonModal() {
 
   return (
     <Dialog
-      open={error != null || message != null}
+      open={state.error != null || state.message != null}
       onClose={onHide}
       aria-labelledby="form-dialog-title"
       maxWidth="sm"
       fullWidth={true}>
-      {error && <DialogTitle id="form-dialog-title">
+      {state.error && <DialogTitle id="form-dialog-title">
         {intl.formatMessage({ id: "app.modal.header.error" })}
       </DialogTitle>}
       {
-        message && <DialogTitle>
+        state.message && <DialogTitle>
           {intl.formatMessage({ id: "app.modal.header.info" })}
         </DialogTitle>
       }
       <DialogContent>
         <Typography variant="h5">
-          {error && error.toString()}
-          {message && intl.formatMessage({ id: message })}
+          {state.error && state.error.toString()}
+          {state.message && intl.formatMessage({ id: state.message })}
         </Typography>
       </DialogContent>
       <DialogActions>
