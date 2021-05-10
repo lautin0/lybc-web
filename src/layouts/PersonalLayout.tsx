@@ -16,12 +16,13 @@ import {
 import { ExpandLess, ExpandMore, Face, Notifications, Settings } from '@material-ui/icons';
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
 import LayoutContext from 'context/LayoutContext';
-import { FC, ReactElement, useContext, useState } from 'react'
+import React, { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory } from 'react-router-dom';
 import PersonalSearchAppBar from 'components/Navbars/PersonalSearchAppBar';
 import MuiSharingModal from 'components/Modals/revamp/MuiSharingModal';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
+import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -182,6 +183,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          <CssBaseline />
          <MuiSharingModal />
          <MuiCommonModal />
+         <MuiDecisionModal />
          <PersonalSearchAppBar />
          <ClippedDrawer drawer={drawer} />
          <main className={classes.content}>

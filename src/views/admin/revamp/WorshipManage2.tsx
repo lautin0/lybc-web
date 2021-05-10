@@ -9,6 +9,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useDecisionModalStore } from 'store';
 
 function WorshipManage2() {
 
@@ -24,16 +25,20 @@ function WorshipManage2() {
 
   const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
+  const setMessage = useDecisionModalStore(state => state.setMessage)
+  const setPositiveFn = useDecisionModalStore(state => state.setPositiveFn)
+
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()
-    dispatch(decisionRequest('確認刪除?', () => {
+    setMessage('確認刪除?')
+    setPositiveFn(() => {
       dispatch(setLoading(true))
       deleteWorship({
         variables: {
           input: id
         }
       })
-    }))
+    })
   };
 
   function onEditClicked(e: SyntheticEvent, id: any) {

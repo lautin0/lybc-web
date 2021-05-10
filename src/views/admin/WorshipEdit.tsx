@@ -131,10 +131,6 @@ function WorshipEdit() {
   }, [register])
 
   useEffect(() => {
-    !called && dispatch(setLoading(true))
-  }, [dispatch, called])
-
-  useEffect(() => {
     if (wData !== undefined) {
       setTimeout(() => {
         reset({
@@ -157,6 +153,8 @@ function WorshipEdit() {
   useEffect(() => {
     if (loading === false) {
       dispatch(setLoading(false))
+    } else {
+      dispatch(setLoading(true))
     }
   }, [loading, dispatch])
 

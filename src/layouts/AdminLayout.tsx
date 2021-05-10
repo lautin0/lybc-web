@@ -22,6 +22,7 @@ import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
 import MuiSharingModal from 'components/Modals/revamp/MuiSharingModal';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
+import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -182,6 +183,7 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
          <CssBaseline />
          <MuiSharingModal />
          <MuiCommonModal />
+         <MuiDecisionModal />
          <AdminSearchAppBar />
          <ClippedDrawer drawer={drawer} />
          <main className={classes.content}>

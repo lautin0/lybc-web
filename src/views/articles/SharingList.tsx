@@ -66,10 +66,10 @@ function SharingList() {
       cache.writeFragment({
         id: `Post:${res.data?.addFavouritePost}`,
         fragment: gql`
-        fragment currPost on Post {
-          isFavourited
-        }
-        `,
+            fragment currPost on Post {
+              isFavourited
+            }
+          `,
         data: {
           isFavourited: true
         }
@@ -88,7 +88,7 @@ function SharingList() {
             fragment currPost on Post {
               isFavourited
             }
-            `,
+          `,
         data: {
           isFavourited: false
         }

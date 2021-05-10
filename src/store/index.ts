@@ -60,3 +60,27 @@ export const useModalStore = create<ModalState>((set, get, api) => ({
   setMessage: (s: string | null) => set(state => ({ message: s })),
   setError: (err: string | null) => set(state => ({ error: err }))
 }))
+
+export type DecisionModalState = {
+  positiveFn: Function | null
+  negativeFn: Function | null
+  message: string | null
+  title: string | null
+
+  setPositiveFn: (id: Function | null) => void
+  setNegativeFn: (id: Function | null) => void
+  setMessage: (msg: string | null) => void
+  setTitle: (title: string | null) => void
+}
+
+export const useDecisionModalStore = create<DecisionModalState>((set, get, api) => ({
+  positiveFn: null,
+  negativeFn: null,
+  message: null,
+  title: null,
+
+  setPositiveFn: (fn: Function | null) => set(state => ({ positiveFn: fn })),
+  setNegativeFn: (fn: Function | null) => set(state => ({ negativeFn: fn })),
+  setMessage: (msg: string | null) => set(state => ({ message: msg })),
+  setTitle: (title: string | null) => set(state => ({ title: title }))
+}))
