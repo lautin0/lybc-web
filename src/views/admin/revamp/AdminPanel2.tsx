@@ -17,6 +17,8 @@ import PendingPostEdit2 from './PendingPostEdit2';
 import NotificationPage from './NotificationPage';
 import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
+import UserManage from '../UserManage';
+import UserEdit from '../UserEdit';
 
 type AdminPanelProps = {
    func: string
@@ -61,8 +63,8 @@ export default function AdminPanel2(props: AdminPanelProps) {
                      // props.func == null
                      // || props.func === 'worships'
                      // || props.func === 'other'
-                     props.func === 'members'
-                     || props.func === 'page-management'
+                     // || props.func === 'users'
+                     props.func === 'page-management'
                      || props.func === 'books')
                      && <AdminHeader func={props.func} />}
                   {props.func == null && <div>
@@ -72,7 +74,8 @@ export default function AdminPanel2(props: AdminPanelProps) {
                      {props.func === 'new-worship' && <WorshipCreate />}
                      {props.func === 'edit-worship' && <WorshipEdit />}
                      {props.func === 'worships' && <WorshipManage2 />}
-                     {props.func === 'members' && <MemberManage />}
+                     {props.func === 'users' && <UserManage />}
+                     {props.func === 'user' && <UserEdit />}
                      {props.func === 'other' && <OtherFunc />}
                      {props.func === 'page-management' && <PageManage />}
                      {props.func === 'new-post' && <PostCreate />}

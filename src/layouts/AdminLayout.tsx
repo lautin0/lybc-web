@@ -52,8 +52,8 @@ const funcList = [
       ]
    },
    {
-      title: "會員管理", path: '/admin/members', children: [
-         { title: "會員管理", path: '/admin/other', icon: <PersonIcon /> },
+      title: "會員管理", path: '/admin/users', children: [
+         { title: "會員管理", path: '/admin/users', icon: <PersonIcon /> },
          { title: "新來賓名片", path: '/admin/namecards', icon: <RecentActors /> }
       ]
    },

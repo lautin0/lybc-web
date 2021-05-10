@@ -149,7 +149,7 @@ function AdminNavbar() {
                   onClick={(e: any) => {
                     e.preventDefault()
                     setCollapseOpen(!collapseOpen)
-                    history.push('/admin/members')
+                    history.push('/admin/users')
                   }}
                   href="#"
                 ><i className="fa fa-user mr-2"></i>會員管理</a>

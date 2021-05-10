@@ -19,6 +19,7 @@ type MuiInputDropdownProp = {
   label?: string
   isReadOnly?: boolean
   ds: Array<any>
+  lg?: any
   md?: any
   sm?: any
   xs?: any
@@ -33,7 +34,7 @@ type MuiInputDropdownProp = {
 
 export default function MuiInputDropdown(props: MuiInputDropdownProp) {
 
-  const { name, label, isReadOnly, ds, md, sm, xs, skipValidate, validateFn, strongReadOnly } = props;
+  const { name, label, isReadOnly, ds, lg, md, sm, xs, skipValidate, validateFn, strongReadOnly } = props;
 
   const { errors, control } = useFormContext()
 
@@ -41,6 +42,7 @@ export default function MuiInputDropdown(props: MuiInputDropdownProp) {
 
   return <Grid
     item
+    lg={lg}
     md={md}
     xs={xs}
     sm={sm}
