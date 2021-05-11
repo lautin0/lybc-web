@@ -239,7 +239,8 @@ export default function PersonalSetting() {
       gender: data.gender,
       profilePic: compressedImg,
       email: data.email.length == 0 ? null : data.email,
-      phone: data.phone.length == 0 ? null : data.phone
+      phone: data.phone.length == 0 ? null : data.phone,
+      status: userData.user?.status
     }
 
     updateUser({

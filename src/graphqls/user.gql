@@ -67,10 +67,18 @@ input UpdateUser {
 	email: String
 	status: AccountStatus	
 	profilePic: Upload
+	profilePicURI: String
 }
 
 input NewPassword {
 	username: String!
 	password: String!
+	newPassword: String!
+}
+
+input NewPasswordAdmin {
+	admUsername: String!
+	admPassword: String!
+	username: String!
 	newPassword: String!
 }

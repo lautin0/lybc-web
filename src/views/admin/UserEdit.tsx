@@ -64,10 +64,11 @@ export default function UserEdit() {
          nameC: formData.nameC,
          title: formData.title,
          titleC: formData.titleC,
-         dob: formData.dob === '' ? null : formData.dob,
+         dob: data.user?.dob,
          gender: formData.gender,
          email: formData.email.length == 0 ? null : formData.email,
          phone: formData.phone.length == 0 ? null : formData.phone,
+         profilePicURI: data.user?.profilePicURI,
          status: checked ? AccountStatus.Active : AccountStatus.Suspended
       }
 

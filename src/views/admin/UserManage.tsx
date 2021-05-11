@@ -3,7 +3,7 @@ import { blue, green, grey, yellow } from "@material-ui/core/colors";
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { Block, Build } from "@material-ui/icons";
 import { setLoading } from "actions";
-import { AccountStatus, UpdateUser, useUpdateUserMutation, useUsersQuery } from "generated/graphql";
+import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -42,8 +42,8 @@ export default function UserManage() {
    const decision = useDecisionModalStore()
 
    const { loading, data: uData, refetch } = useUsersQuery({ notifyOnNetworkStatusChange: true })
-   const [updateUser] = useUpdateUserMutation()
-   
+   const [changeStatus] = useChangeAccountStatusMutation()
+
    const [data, setData] = useState<GridRowsProp>([])
 
    const columns: GridColDef[] = [
@@ -131,34 +131,19 @@ export default function UserManage() {
       decision.setMessage("確定停用帳戶?")
       decision.setPositiveFn(() => {
          dispatch(setLoading(true))
-
-         let tmp: UpdateUser = {
-            username: row['username'],
-            role: row['role'],
-            name: row['name'],
-            nameC: row['nameC'],
-            title: row['title'],
-            titleC: row['titleC'],
-            dob: row['dob'],
-            gender: row['gender'],
-            email: row['email'],
-            phone: row['phone'],
-            status: AccountStatus.Suspended
-         }
-
-         updateUser({
+         changeStatus({
             variables: {
-               input: {
-                  ...tmp
-               },
+               username: row['username'],
+               status: AccountStatus.Suspended
             }
+         })
+         .then(e => {
+            setMessage('app.sys.save-success')
+            dispatch(setLoading(false))
+            history.push('/admin/users')
          }).catch((err: any) => {
             dispatch(setLoading(false))
             setErrorModal(err)
-         }).then(e => {
-            setMessage('app.sys.save-success')
-            dispatch(setLoading(false))            
-            history.push('/admin/users')
          })
       })
    }

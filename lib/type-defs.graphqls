@@ -42,6 +42,8 @@ type Mutation {
 
 	createUser(input: NewUser!): User!
 	changePassword(input: NewPassword!): Boolean
+	changePasswordAdmin(input: NewPasswordAdmin!): Boolean
+	changeAccountStatus(username: String!, status: AccountStatus!): User!
 	updateUser(input: UpdateUser!): User!
 
 	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
