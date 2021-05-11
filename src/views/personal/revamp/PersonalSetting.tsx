@@ -143,7 +143,7 @@ export default function PersonalSetting() {
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
-      username: getTokenValue(localStorage.getItem('token')).username 
+      username: getTokenValue(localStorage.getItem('token')).username
     },
     notifyOnNetworkStatusChange: true
   })
@@ -224,7 +224,9 @@ export default function PersonalSetting() {
       useWebWorker: true
     }
 
-    let compressedImg = await acceptedFiles.length > 0 ? imageCompression(acceptedFiles[0], options) : null
+    let compressedImg = null
+    if (acceptedFiles.length > 0)
+      compressedImg = await imageCompression(acceptedFiles[0], options)
 
     let tmp: UpdateUser = {
       username: userData.user?.username!,
@@ -247,7 +249,7 @@ export default function PersonalSetting() {
         },
       }
     }).catch((err: any) => {
-      // dispatch(setLoading(false))
+      dispatch(setLoading(false))
       setErrorModal(err)
     })
   }

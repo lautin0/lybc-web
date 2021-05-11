@@ -864,7 +864,7 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'username' | 'name' | 'nameC' | 'role' | 'gender' | 'title' | 'titleC' | 'email' | 'phone' | 'dob' | 'profilePicURI'>
+    & Pick<User, 'username' | 'name' | 'nameC' | 'role' | 'gender' | 'title' | 'titleC' | 'email' | 'phone' | 'dob' | 'profilePicURI' | 'status'>
   )> }
 );
 
@@ -875,7 +875,7 @@ export type UsersQuery = (
   { __typename?: 'Query' }
   & { users: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'username' | 'name' | 'nameC' | 'role' | 'gender' | 'title' | 'titleC' | 'email' | 'phone' | 'dob' | 'profilePicURI'>
+    & Pick<User, 'username' | 'name' | 'nameC' | 'role' | 'gender' | 'title' | 'titleC' | 'email' | 'phone' | 'dob' | 'profilePicURI' | 'status'>
   )> }
 );
 
@@ -1838,6 +1838,7 @@ export const UserDocument = gql`
     phone
     dob
     profilePicURI
+    status
   }
 }
     `;
@@ -1883,6 +1884,7 @@ export const UsersDocument = gql`
     phone
     dob
     profilePicURI
+    status
   }
 }
     `;
