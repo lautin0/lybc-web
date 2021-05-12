@@ -53,6 +53,21 @@ mutation updateUser($input: UpdateUser!) {
 	}
 }
 
+mutation createUser($input: NewUser!) {
+	createUser(input: $input) {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		phone
+		email
+		profilePicURI
+	}
+}
+
 mutation changeAccountStatus($username: String!, $status: AccountStatus!) {
 	changeAccountStatus(username: $username, status: $status) {
 		username

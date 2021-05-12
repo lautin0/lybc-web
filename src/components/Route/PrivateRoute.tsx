@@ -44,7 +44,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel2 {...props} func="new-worship" />} />
         <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel2 {...props} func="edit-worship" />} />
         <Route path={`${url}/users`} render={(props: any) => <AdminPanel2 {...props} func="users" />} />
-        <Route path={`${url}/user/new`} render={(props: any) => <AdminPanel2 {...props} func="user" />} />
+        <Route path={`${url}/user/new`} render={(props: any) => <AdminPanel2 {...props} func="new-user" />} />
         <Route path={`${url}/user/:username`} render={(props: any) => <AdminPanel2 {...props} func="user" />} />
         <Route path={`${url}/other`} render={(props: any) => <AdminPanel2 {...props} func="other" />} />
         <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel2 {...props} func="page-management" />} />

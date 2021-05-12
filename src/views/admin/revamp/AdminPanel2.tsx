@@ -19,6 +19,7 @@ import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import UserManage from '../UserManage';
 import UserEdit from '../UserEdit';
+import UserCreate from '../UserCreate';
 
 type AdminPanelProps = {
    func: string
@@ -76,6 +77,7 @@ export default function AdminPanel2(props: AdminPanelProps) {
                      {props.func === 'worships' && <WorshipManage2 />}
                      {props.func === 'users' && <UserManage />}
                      {props.func === 'user' && <UserEdit />}
+                     {props.func === 'new-user' && <UserCreate />}
                      {props.func === 'other' && <OtherFunc />}
                      {props.func === 'page-management' && <PageManage />}
                      {props.func === 'new-post' && <PostCreate />}
