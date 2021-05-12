@@ -1,13 +1,16 @@
-import { Button, Divider, FormControlLabel, Grid, makeStyles, Radio, RadioGroup, Switch, Typography } from "@material-ui/core";
+import { Button, Divider, FormControlLabel, Grid, InputAdornment, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
+import { VpnKey } from "@material-ui/icons";
 import { setLoading } from "actions";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
-import { AccountStatus, Gender, Role, UpdateUser, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
-import { useEffect, useState } from "react";
+import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
+import moment, { Moment } from "moment";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useModalStore } from "store";
+import { getTokenValue } from "utils/utils";
 
 const useStyles = makeStyles(theme => ({
    divider: {
@@ -29,10 +32,26 @@ export default function UserEdit() {
    const history = useHistory()
    const location = useLocation()
 
+   const pwdInitState = {
+      admPassword: '',
+      admUsername: '',
+      username: '',
+      newPassword: ''
+   }
+   const [pwdConf, setPwdConf] = useState('')
+   const [pwdErrors, setpwdErrors] = useState<any>({})
+   const [newPasswordAdmin, setNewPasswordAdmin] = useState<NewPasswordAdmin>(pwdInitState)
+
+   const [date, setDate] = useState<Moment>()
+
+   const [locked, setLocked] = useState(true)
+
    const { username } = useParams<any>()
 
    const { loading, data, refetch } = useUserQuery({ variables: { username: username }, notifyOnNetworkStatusChange: true })
-   const [updateUser, { data: updatedUserData }] = useUpdateUserMutation()
+   const [updateUser] = useUpdateUserMutation()
+   const [changePassword] = useChangePasswordAdminMutation()
+   const [changeAccountStatus] = useChangeAccountStatusMutation()
 
    const setMessage = useModalStore(state => state.setMessage)
    const setErrorModal = useModalStore(state => state.setError)
@@ -51,10 +70,16 @@ export default function UserEdit() {
 
    const { handleSubmit, control, reset } = methods
 
+   const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setNewPasswordAdmin({
+         ...newPasswordAdmin,
+         [e.target.id]: e.target.value
+      })
+   }
+
    const onSubmit = (formData: any) => {
       if (data == null)
          return
-      // let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
       dispatch(setLoading(true))
 
       let tmp: UpdateUser = {
@@ -64,12 +89,12 @@ export default function UserEdit() {
          nameC: formData.nameC,
          title: formData.title,
          titleC: formData.titleC,
-         dob: data.user?.dob,
+         dob: date,
          gender: formData.gender,
-         email: formData.email.length == 0 ? null : formData.email,
-         phone: formData.phone.length == 0 ? null : formData.phone,
+         email: formData.email == null || formData.email.length == 0 ? null : formData.email,
+         phone: formData.phone == null || formData.phone.length == 0 ? null : formData.phone,
          profilePicURI: data.user?.profilePicURI,
-         status: checked ? AccountStatus.Active : AccountStatus.Suspended
+         status: data.user?.status
       }
 
       updateUser({
@@ -78,14 +103,114 @@ export default function UserEdit() {
                ...tmp
             },
          }
-      }).catch((err: any) => {
-         dispatch(setLoading(false))
-         setErrorModal(err)
       }).then(e => {
          setMessage('app.sys.save-success')
          dispatch(setLoading(false))
          reset();
          history.push('/admin/users')
+      }).catch((err: any) => {
+         dispatch(setLoading(false))
+         setErrorModal(err)
+      })
+   }
+
+   const validationMachine = (id: string): boolean => {
+
+      switch (id) {
+         case "admPassword":
+            if (newPasswordAdmin.admPassword === '') {
+               setpwdErrors({
+                  ...pwdErrors,
+                  admPassword: { error: "請輸入管理員密碼" },
+               })
+               return false
+            } else {
+               let dummy = pwdErrors
+               delete dummy.admPassword
+               setpwdErrors(dummy)
+            }
+            break
+         case "newPassword":
+         case "pwdConf":
+            if (id === "newPassword" && newPasswordAdmin.newPassword === '') {
+               setpwdErrors({
+                  ...pwdErrors,
+                  newPassword: { error: "請輸入新密碼" },
+               })
+               return false
+            } else {
+               let dummy = pwdErrors
+               delete dummy.newPassword
+               setpwdErrors(dummy)
+            }
+            if (id === "pwdConf" && pwdConf === '') {
+               setpwdErrors({
+                  ...pwdErrors,
+                  pwdConf: { error: "請輸入確認密碼" },
+               })
+               return false
+            } else {
+               let dummy = pwdErrors
+               delete dummy.pwdConf
+               setpwdErrors(dummy)
+            }
+            if (newPasswordAdmin.newPassword !== pwdConf) {
+               setpwdErrors({
+                  ...pwdErrors,
+                  pwdConf: { error: "輸入的新密碼不一致" },
+                  newPassword: { error: "輸入的新密碼不一致" },
+               })
+               return false
+            } else {
+               let dummy = pwdErrors
+               delete dummy.newPassword
+               delete dummy.pwdConf
+               setpwdErrors(dummy)
+            }
+            break;
+      }
+
+      return true
+   }
+
+   const handleChangePassword = () => {
+      if (locked) {
+         setLocked(false)
+         return
+      }
+
+      let valid = true
+      for (const s of ["admPassword", "newPassword", "pwdConf"]) {
+         if (!validationMachine(s)) {
+            valid = false
+            break
+         }
+      }
+      if(!valid)
+         return
+
+      dispatch(setLoading(true))
+      let tmp: NewPasswordAdmin = {
+         admUsername: getTokenValue(localStorage.getItem('token')).username,
+         admPassword: newPasswordAdmin.admPassword,
+         username: data?.user?.username!,
+         newPassword: newPasswordAdmin.newPassword,
+      }
+      changePassword({
+         variables: {
+            input: {
+               ...tmp
+            },
+         }
+      }).then(res => {
+         setMessage('app.sys.save-success')
+         dispatch(setLoading(false))
+         setLocked(true)
+         setpwdErrors({})
+         setNewPasswordAdmin(pwdInitState)
+      }).catch((err: any) => {
+         dispatch(setLoading(false))
+         setErrorModal(err)
       })
    }
 
@@ -103,6 +228,7 @@ export default function UserEdit() {
             titleC: data.user?.titleC
          })
          setChecked(data.user?.status === AccountStatus.Active)
+         setDate(moment(data.user?.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
       }
    }, [data])
 
@@ -112,15 +238,6 @@ export default function UserEdit() {
          refetch();
       }
    }, [location, dispatch, refetch])
-
-   // useEffect(() => {
-   //    if (updatedUserData !== undefined) {
-   //       setMessage('app.sys.save-success')
-   //       dispatch(setLoading(false))
-   //       reset();
-   //       history.push('/admin/users')
-   //    }
-   // }, [updatedUserData, dispatch, reset, history])
 
    useEffect(() => {
       if (loading === false) {
@@ -225,19 +342,119 @@ export default function UserEdit() {
                </Grid>
             </Grid>
          </Grid>
-         <Typography className="mt-3" variant="h5">選項</Typography>
+         <Typography className="mt-5" variant="h5">選項</Typography>
          <Divider className={classes.divider} />
-         <Grid container spacing={2} direction="row">
-            <Grid item>
-               <Typography color={checked ? "primary" : "secondary"} variant="h5">{checked ? "已啟用" : "已停用"}</Typography>
+         <Grid container item spacing={2} xs={12} md={6} lg={4} direction="column">
+            <Grid item container direction="row" alignItems="center" className="mb-3">
+               {data?.user?.role !== Role.Admin && <Grid className="my-3" item container direction="row">
+                  <Grid className="mr-5">
+                     <Typography variant="h6">帳戶狀態</Typography>
+                  </Grid>
+                  <Grid>
+                     <Switch
+                        onChange={() => {
+                           dispatch(setLoading(true))
+                           changeAccountStatus({
+                              variables: {
+                                 username: data?.user?.username!,
+                                 status: checked ? AccountStatus.Suspended : AccountStatus.Active
+                              }
+                           }).then(res => {
+                              setMessage('app.sys.save-success')
+                              setChecked(!checked)
+                           })
+                              .catch(err => setErrorModal(err))
+                              .finally(() => dispatch(setLoading(false)))
+
+                        }}
+                        checked={checked}
+                        color="primary"
+                     />
+                  </Grid>
+                  <Grid>
+                     <Typography color={checked ? "primary" : "secondary"} variant="h5">{checked ? "已啟用" : "已停用"}</Typography>
+                  </Grid>
+               </Grid>}
+               <Grid className="mr-5">
+                  <Typography color="secondary" variant="h6">重設密碼</Typography>
+               </Grid>
+               <Grid>
+                  <Button
+                     variant="contained"
+                     color={locked ? "default" : "secondary"}
+                     type="button"
+                     onClick={handleChangePassword}
+                  >
+                     {locked ? "開始重設" : "完成設定"}
+                  </Button>
+               </Grid>
+               {!locked && <Grid className="ml-3">
+                  <Button
+                     variant="contained"
+                     color="default"
+                     type="button"
+                     onClick={() => {
+                        setNewPasswordAdmin(pwdInitState)
+                        setPwdConf("")
+                        setLocked(true)
+                        setpwdErrors({})
+                     }}
+                  >
+                     取消
+                  </Button>
+               </Grid>}
             </Grid>
-            <Grid item>
-               <Switch
-                  onChange={() => setChecked(!checked)}
-                  checked={checked}
-                  color="primary"
-               />
-            </Grid>
+            {!locked && <>
+               <Grid item>
+                  <TextField
+                     error={pwdErrors['admPassword'] != null}
+                     size="small"
+                     variant="outlined"
+                     placeholder="請輸入管理員密碼"
+                     label="管理員密碼"
+                     type="password"
+                     id="admPassword"
+                     helperText={pwdErrors['admPassword'] && pwdErrors['admPassword'].error}
+                     value={newPasswordAdmin.admPassword}
+                     onChange={handleChange}
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position="end">
+                              <VpnKey />
+                           </InputAdornment>
+                        ),
+                     }}
+                  />
+               </Grid>
+               <Grid item>
+                  <TextField
+                     error={pwdErrors['newPassword'] != null}
+                     size="small"
+                     variant="outlined"
+                     placeholder="請輸入新密碼"
+                     label="新密碼"
+                     type="password"
+                     id="newPassword"
+                     helperText={pwdErrors['newPassword'] && pwdErrors['newPassword'].error}
+                     value={newPasswordAdmin.newPassword}
+                     onChange={handleChange}
+                  />
+               </Grid>
+               <Grid item>
+                  <TextField
+                     error={pwdErrors['pwdConf'] != null}
+                     size="small"
+                     variant="outlined"
+                     label="確認新密碼"
+                     placeholder="確認新密碼"
+                     id="pwdConf"
+                     type="password"
+                     helperText={pwdErrors['pwdConf'] && pwdErrors['pwdConf'].error}
+                     value={pwdConf}
+                     onChange={e => setPwdConf(e.target.value)}
+                  />
+               </Grid>
+            </>}
          </Grid>
          <Grid className="mt-3" container spacing={2} direction="column">
             <Grid item>
@@ -245,6 +462,7 @@ export default function UserEdit() {
                   variant="contained"
                   color="primary"
                   type="submit"
+                  disabled={!locked}
                >
                   更新
                </Button>
