@@ -1,4 +1,4 @@
-import { InputLabel, Select, MenuItem, FormControl, FormHelperText, Grid, createStyles, makeStyles } from '@material-ui/core'
+import { InputLabel, Select, MenuItem, FormControl, FormHelperText, Grid, createStyles, makeStyles, SelectProps } from '@material-ui/core'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
@@ -23,16 +23,14 @@ type MuiInputDropdownProp = {
   md?: any
   sm?: any
   xs?: any
-  rows?: number
-  multiline?: boolean
   skipValidate?: boolean
   validateFn?: any
   strongReadOnly?: boolean
-  size?: "small" | "medium"
-  type?: string
 }
 
-export default function MuiInputDropdown(props: MuiInputDropdownProp) {
+type MergedSelectProp = SelectProps & MuiInputDropdownProp
+
+export default function MuiInputDropdown(props: MergedSelectProp) {
 
   const { name, label, isReadOnly, ds, lg, md, sm, xs, skipValidate, validateFn, strongReadOnly } = props;
 
@@ -67,9 +65,6 @@ export default function MuiInputDropdown(props: MuiInputDropdownProp) {
             value={value}
             onChange={onChange}
           >
-            {/* <MenuItem value="">
-              <em>None</em>
-            </MenuItem> */}
             {ds.map((item: any, idx: number) => {
               return <MenuItem key={idx} disabled={item.disabled} value={item.value}>{item.display}</MenuItem>
             })}

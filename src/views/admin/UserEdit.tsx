@@ -317,7 +317,6 @@ export default function UserEdit() {
                   <MuiInputDropdown
                      name="role"
                      label="角色"
-                     size="small"
                      ds={[
                         { value: Role.Admin, display: "管理員👑", disabled: false },
                         { value: Role.Worker, display: "同工", disabled: false },

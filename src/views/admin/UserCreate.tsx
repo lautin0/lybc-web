@@ -1,10 +1,11 @@
-import { Button, Divider, FormControlLabel, Grid, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Button, Divider, FormControlLabel, Grid, InputAdornment, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { AccountCircle, VpnKey } from "@material-ui/icons";
 import { setLoading } from "actions";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
 import { Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
 import moment, { Moment } from "moment";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -87,38 +88,58 @@ export default function UserCreate() {
    }
 
    return <FormProvider {...methods}>
-      <Typography className="my-3" variant="h4">會員管理</Typography>
+      <Typography className="my-3" variant="h4">建立新會員</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-         <Divider className={classes.divider} />
          <Grid container direction="row">
             <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
+               <Grid item xs={12} md={10}>
+                  <Typography variant="h6">系統資料</Typography>
+                  <Divider />
+               </Grid>
                <Grid item>
                   <MuiInputText
                      name="username"
-                     label="用戶編號"
-                     size="small"
+                     label="用戶名稱"
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position="end">
+                              <AccountCircle />
+                           </InputAdornment>
+                        ),
+                     }}
                   />
                </Grid>
                <Grid item>
-                  <Typography>性別</Typography>
-                  <Controller
-                     as={
-                        <RadioGroup aria-label="gender" row>
-                           <FormControlLabel
-                              value={Gender.Male.toString()}
-                              control={<Radio color="primary" />}
-                              label="男" />
-                           <FormControlLabel
-                              value={Gender.Female.toString()}
-                              control={<Radio color="primary" />}
-                              label="女"
-                           />
-                        </RadioGroup>
-                     }
-                     name="gender"
-                     control={control}
-                     defaultValue={null}
+                  <MuiInputText
+                     name="password"
+                     type="password"
+                     label="密碼"
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position="end">
+                              <VpnKey />
+                           </InputAdornment>
+                        ),
+                     }}
                   />
+               </Grid>
+               <Grid item>
+                  <MuiInputText
+                     name="passwordConf"
+                     label="確認密碼"
+                     type="password"
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position="end">
+                              <VpnKey />
+                           </InputAdornment>
+                        ),
+                     }}
+                  />
+               </Grid>
+               <Grid item xs={12} md={10}>
+                  <Typography variant="h6">個人資料</Typography>
+                  <Divider />
                </Grid>
                <Grid item>
                   <MuiInputText
@@ -162,13 +183,31 @@ export default function UserCreate() {
                      size="small"
                   />
                </Grid>
-            </Grid>
-            <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
+               <Grid item>
+                  <Typography>性別</Typography>
+                  <Controller
+                     as={
+                        <RadioGroup aria-label="gender" row>
+                           <FormControlLabel
+                              value={Gender.Male.toString()}
+                              control={<Radio color="primary" />}
+                              label="男" />
+                           <FormControlLabel
+                              value={Gender.Female.toString()}
+                              control={<Radio color="primary" />}
+                              label="女"
+                           />
+                        </RadioGroup>
+                     }
+                     name="gender"
+                     control={control}
+                     defaultValue={null}
+                  />
+               </Grid>
                <Grid item>
                   <MuiInputDropdown
                      name="role"
                      label="角色"
-                     size="small"
                      ds={[
                         { value: Role.Admin, display: "管理員👑", disabled: false },
                         { value: Role.Worker, display: "同工", disabled: false },
@@ -183,10 +222,10 @@ export default function UserCreate() {
             <Grid item>
                <Button
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   type="submit"
                >
-                  更新
+                  建立
                </Button>
             </Grid>
          </Grid>
