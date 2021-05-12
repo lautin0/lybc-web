@@ -1,10 +1,11 @@
 import { Button, Chip, makeStyles, Typography } from "@material-ui/core";
 import { blue, green, grey, yellow } from "@material-ui/core/colors";
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
-import { Block, Build } from "@material-ui/icons";
+import { AddCircle, Block, Build } from "@material-ui/icons";
 import { setLoading } from "actions";
+import clsx from "clsx";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
-import { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDecisionModalStore, useModalStore } from "store";
@@ -25,7 +26,14 @@ const useStyles = makeStyles(theme => ({
    badgeSuspended: {
       backgroundColor: grey[500],
       color: theme.palette.primary.contrastText
-   }
+   },
+   success: {
+      backgroundColor: green[700],
+      color: theme.palette.primary.contrastText,
+      "&:hover": {
+        backgroundColor: green[600]
+      }
+    }
 }))
 
 export default function UserManage() {
@@ -123,7 +131,7 @@ export default function UserManage() {
       },
    ];
 
-   function onEditClicked(e: SyntheticEvent, username: any) {
+   function onEditClicked(e: any, username: any) {
       history.push('/admin/user/' + username)
    }
 
@@ -137,14 +145,14 @@ export default function UserManage() {
                status: AccountStatus.Suspended
             }
          })
-         .then(e => {
-            setMessage('app.sys.save-success')
-            dispatch(setLoading(false))
-            history.push('/admin/users')
-         }).catch((err: any) => {
-            dispatch(setLoading(false))
-            setErrorModal(err)
-         })
+            .then(e => {
+               setMessage('app.sys.save-success')
+               dispatch(setLoading(false))
+               history.push('/admin/users')
+            }).catch((err: any) => {
+               dispatch(setLoading(false))
+               setErrorModal(err)
+            })
       })
    }
 
@@ -161,6 +169,12 @@ export default function UserManage() {
    return (
       <>
          <Typography className="my-3" variant="h4">會員管理</Typography>
+         <Button
+            className={clsx(classes.success, "my-3")}
+            variant="contained"
+            startIcon={<AddCircle />}
+            // onClick={() => history.push('/admin/user/new')}
+         >建立</Button>
          <div style={{ width: '100%' }}>
             <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
          </div>

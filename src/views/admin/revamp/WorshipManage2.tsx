@@ -1,9 +1,12 @@
-import { Button, Typography } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
 import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
-import { Create, Delete } from '@material-ui/icons';
+import { AddCircle, Create, Delete } from '@material-ui/icons';
 import { decisionRequest, setLoading } from 'actions';
+import clsx from 'clsx';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
+import { color } from 'html2canvas/dist/types/css/types/color';
 import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
@@ -11,7 +14,19 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDecisionModalStore } from 'store';
 
+const useStyles = makeStyles(theme => ({
+  success: {
+    backgroundColor: green[700],
+    color: theme.palette.primary.contrastText,
+    "&:hover": {
+      backgroundColor: green[600]
+    }
+  }
+}))
+
 function WorshipManage2() {
+
+  const classes = useStyles()
 
   const [locale] = useLanguage()
 
@@ -130,6 +145,12 @@ function WorshipManage2() {
   return (
     <>
       <Typography className="my-3" variant="h4">崇拜管理</Typography>
+      <Button 
+        className={clsx(classes.success, "my-3")} 
+        variant="contained" 
+        startIcon={<AddCircle />}
+        onClick={() => history.push('/admin/worship/new')}
+      >建立</Button>
       <div style={{ width: '100%' }}>
         <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>
