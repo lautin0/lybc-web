@@ -173,7 +173,7 @@ export default function UserManage() {
             className={clsx(classes.success, "my-3")}
             variant="contained"
             startIcon={<AddCircle />}
-            // onClick={() => history.push('/admin/user/new')}
+            onClick={() => history.push('/admin/user/new')}
          >建立</Button>
          <div style={{ width: '100%' }}>
             <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
