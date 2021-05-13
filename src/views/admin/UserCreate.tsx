@@ -1,42 +1,25 @@
-import { Button, Divider, FormControlLabel, Grid, InputAdornment, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Radio, RadioGroup, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import { setLoading } from "actions";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
-import { Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
-import moment, { Moment } from "moment";
-import React, { useState } from "react";
+import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
+import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useModalStore } from "store";
-
-const useStyles = makeStyles(theme => ({
-   divider: {
-      width: '100%',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3),
-      [theme.breakpoints.up('md')]: {
-         width: '60%'
-      }
-   }
-}))
+import { getTokenValue } from "utils/utils";
+import Validators from "utils/validator";
 
 export default function UserCreate() {
-
-   const classes = useStyles()
 
    const dispatch = useDispatch()
 
    const history = useHistory()
-   const location = useLocation()
-
-   const [date, setDate] = useState<Moment>()
 
    const setMessage = useModalStore(state => state.setMessage)
    const setErrorModal = useModalStore(state => state.setError)
-
-   const [checked, setChecked] = useState(false)
 
    const [createUser] = useCreateUserMutation()
 
@@ -50,14 +33,35 @@ export default function UserCreate() {
       }
    })
 
-   const { handleSubmit, control, reset } = methods
+   const { handleSubmit, control, reset, setError, errors } = methods
 
    const onSubmit = (formData: any) => {
+
+      if (formData.password !== formData.passwordConf) {
+         setError('password', {
+            type: 'manual',
+            message: "輸入的密碼不一致"
+         });
+         setError('passwordConf', {
+            type: "manual",
+            message: "輸入的密碼不一致"
+         });
+         return
+      }
+
+      if (formData.gender == null) {
+         setError('gender', {
+            type: 'manual',
+            message: "請選擇"
+         })
+         return
+      }
+
       dispatch(setLoading(true))
 
       let tmp: NewUser = {
-         username: formData.username!,
-         role: formData.role!,
+         username: formData.username,
+         role: formData.role,
          name: formData.name,
          nameC: formData.nameC,
          title: formData.title,
@@ -67,7 +71,8 @@ export default function UserCreate() {
          email: formData.email == null || formData.email.length == 0 ? null : formData.email,
          phone: formData.phone == null || formData.phone.length == 0 ? null : formData.phone,
          password: formData.password,
-         creBy: moment().format('yyyy-MM-DDTHH:mm:ss-SSSS')
+         status: AccountStatus.Active,
+         creBy: getTokenValue(localStorage.getItem('token')).username
       }
 
       createUser({
@@ -100,6 +105,7 @@ export default function UserCreate() {
                   <MuiInputText
                      name="username"
                      label="用戶名稱"
+                     validateFn={Validators.NoWhiteSpace}
                      InputProps={{
                         endAdornment: (
                            <InputAdornment position="end">
@@ -114,6 +120,7 @@ export default function UserCreate() {
                      name="password"
                      type="password"
                      label="密碼"
+                     validateFn={Validators.NoWhiteSpace}
                      InputProps={{
                         endAdornment: (
                            <InputAdornment position="end">
@@ -128,6 +135,7 @@ export default function UserCreate() {
                      name="passwordConf"
                      label="確認密碼"
                      type="password"
+                     validateFn={Validators.NoWhiteSpace}
                      InputProps={{
                         endAdornment: (
                            <InputAdornment position="end">
@@ -145,6 +153,7 @@ export default function UserCreate() {
                   <MuiInputText
                      name="nameC"
                      label="中文名稱"
+                     validateFn={Validators.NoWhiteSpace}
                      size="small"
                   />
                </Grid>
@@ -152,6 +161,7 @@ export default function UserCreate() {
                   <MuiInputText
                      name="name"
                      label="英文名稱"
+                     validateFn={Validators.NoWhiteSpace}
                      size="small"
                   />
                </Grid>
@@ -184,30 +194,34 @@ export default function UserCreate() {
                   />
                </Grid>
                <Grid item>
-                  <Typography>性別</Typography>
-                  <Controller
-                     as={
-                        <RadioGroup aria-label="gender" row>
-                           <FormControlLabel
-                              value={Gender.Male.toString()}
-                              control={<Radio color="primary" />}
-                              label="男" />
-                           <FormControlLabel
-                              value={Gender.Female.toString()}
-                              control={<Radio color="primary" />}
-                              label="女"
-                           />
-                        </RadioGroup>
-                     }
-                     name="gender"
-                     control={control}
-                     defaultValue={null}
-                  />
+                  <FormControl component="fieldset" error={errors["gender"] != null}>
+                     <FormLabel component="legend">性別</FormLabel>
+                     <Controller
+                        as={
+                           <RadioGroup aria-label="gender" row>
+                              <FormControlLabel
+                                 value={Gender.Male.toString()}
+                                 control={<Radio color="primary" />}
+                                 label="男" />
+                              <FormControlLabel
+                                 value={Gender.Female.toString()}
+                                 control={<Radio color="primary" />}
+                                 label="女"
+                              />
+                           </RadioGroup>
+                        }
+                        name="gender"
+                        control={control}
+                        defaultValue={null}
+                     />
+                     {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
+                  </FormControl>
                </Grid>
                <Grid item>
                   <MuiInputDropdown
                      name="role"
                      label="角色"
+                     validateFn={Validators.NoWhiteSpace}
                      ds={[
                         { value: Role.Admin, display: "管理員👑", disabled: false },
                         { value: Role.Worker, display: "同工", disabled: false },
