@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
 
-function LatestNews() {
+function News() {
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -45,4 +45,4 @@ function LatestNews() {
     </div>
 }
 
-export default LatestNews;
+export default News;

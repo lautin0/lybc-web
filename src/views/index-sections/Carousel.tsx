@@ -86,8 +86,8 @@ function CarouselSection() {
               <hr style={{ width: '80%' }}></hr>
               <h5>17-02-2021<a href="#" onClick={e => { e.preventDefault(); history.push('news') }} className="ml-3">記念聖灰日</a></h5>
               <hr style={{ width: '80%' }}></hr>
-              <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault(); history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>
-              <hr style={{ width: '80%' }}></hr>
+              {/* <h5>15-02-2021<a href="./" onClick={e => { e.preventDefault(); history.push('careers') }} className="ml-3">教會招聘教牧同工</a></h5>
+              <hr style={{ width: '80%' }}></hr> */}
               {/* <div className="text-right pr-5"><a href="#" onClick={e => { e.preventDefault() }}><h5>{intl.formatMessage({ id: 'app.show-more' })}</h5></a></div> */}
             </Col>
             <Col lg={6} sm={12}>
