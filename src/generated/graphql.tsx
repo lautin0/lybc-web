@@ -358,6 +358,7 @@ export type PostFilter = {
   username_ends_with?: Maybe<Scalars['String']>;
   username_not_ends_with?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  parentIDNotNull?: Maybe<Scalars['Boolean']>;
   creDttm?: Maybe<Scalars['Time']>;
   creDttm_not?: Maybe<Scalars['Time']>;
   creDttm_in?: Maybe<Array<Scalars['Time']>>;
@@ -640,6 +641,7 @@ export type PostsQueryVariables = Exact<{
   last?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
+  postFilter?: Maybe<PostFilter>;
 }>;
 
 
@@ -1239,8 +1241,14 @@ export type ReadNotificationMutationHookResult = ReturnType<typeof useReadNotifi
 export type ReadNotificationMutationResult = Apollo.MutationResult<ReadNotificationMutation>;
 export type ReadNotificationMutationOptions = Apollo.BaseMutationOptions<ReadNotificationMutation, ReadNotificationMutationVariables>;
 export const PostsDocument = gql`
-    query posts($first: Int, $last: Int, $after: String, $before: String) {
-  posts(first: $first, last: $last, after: $after, before: $before) {
+    query posts($first: Int, $last: Int, $after: String, $before: String, $postFilter: PostFilter) {
+  posts(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    postFilter: $postFilter
+  ) {
     totalCount
     edges {
       node {
@@ -1290,6 +1298,7 @@ export const PostsDocument = gql`
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
+ *      postFilter: // value for 'postFilter'
  *   },
  * });
  */

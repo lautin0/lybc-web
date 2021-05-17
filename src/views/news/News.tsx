@@ -1,27 +1,41 @@
+import DOMPurify from 'dompurify';
+import { usePostQuery } from 'generated/graphql';
 import moment from 'moment';
 import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
+import { useParams } from 'react-router';
 
 function News() {
+
+    const { id } = useParams<any>()
+
+    const { data, loading } = usePostQuery({ variables: { oid: id }, notifyOnNetworkStatusChange: true })
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
     return <div className="section">
-        <Container style={{ borderRadius: '.5rem', marginBottom: 100 }}>
+        {loading && <Container style={{ marginTop: -20, marginBottom: 60 }}>
+            <div className="text-center">
+                <div className="spinner-grow text-secondary" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        </Container>}
+        {(!loading && data != null) && <Container style={{ borderRadius: '.5rem', marginBottom: 100 }}>
             <Row className="d-block d-md-none text-left" style={{ alignItems: 'baseline' }}>
-                <Col><h2><strong>本年度免稅慈善奉獻收據</strong></h2></Col>
+                <Col><h2><strong>{data?.post?.title}</strong></h2></Col>
             </Row>
             <Row className="d-none d-md-block text-center" style={{ alignItems: 'baseline' }}>
-                <Col><h2><strong>本年度免稅慈善奉獻收據</strong></h2></Col>
+                <Col><h2><strong>{data?.post?.title}</strong></h2></Col>
             </Row>
             <Row className="justify-content-md-center">
                 <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
                     <div className="my-auto" style={{ color: 'gray' }}>
                         <div><i>{<FormattedDate
-                            value={moment('2021-02-17', 'YYYY-MM-DD').toDate()}
+                            value={moment(data?.post?.creDttm, 'YYYY-MM-DD').toDate()}
                             year="numeric"
                             month="short"
                             day="numeric"
@@ -34,14 +48,10 @@ function News() {
         </Row>} */}
             <Row className="justify-content-md-center">
                 <Col className="text-left sharing" lg="8" md="12">
-                    <div>
-                        <p>奉獻港幣100元或以上可獲奉獻收據，可按香港特別行政區稅務條例申請扣稅。</p>
-                        <p>本年度『收據』的奉獻截數日期為28-3-2021 。此日期以後收到的奉獻，將撥落下一報稅年度。</p>
-                        <p>奉獻教會存款戶口： 匯豐銀行1 1 9 -3 7 9 -2 9 5 -0 0 1</p>
-                    </div>
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.post?.content!, { ADD_TAGS: ["iframe"], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] }) }}></div>
                 </Col>
             </Row>
-        </Container>
+        </Container>}
     </div>
 }
 

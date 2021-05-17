@@ -1,6 +1,6 @@
 import LoadingDiv from 'components/Loading/LoadingDiv';
-import { usePostsQuery } from 'generated/graphql';
-import { useCallback, useRef, useState } from 'react'
+import { PostFilter, PostType, usePostsQuery } from 'generated/graphql';
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { FormattedDate, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import Slider from "react-slick";
@@ -43,8 +43,12 @@ function SlideSection() {
 
   const dummyList = useRef([{}, {}, {}])
   
-  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
-    variables: { first: 5 }, notifyOnNetworkStatusChange: true
+  const postFilter: PostFilter = useMemo(() => ({
+    AND: [{ parentIDNotNull: false }],
+    type: PostType.Sharing
+  }),[])
+  const { loading, data: postData } = usePostsQuery({
+    variables: { first: 5, postFilter: postFilter }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true
   })
 
   const [dragging, setDragging] = useState(false)

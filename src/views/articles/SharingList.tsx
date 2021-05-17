@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { gql } from "@apollo/client";
-import { FavouritePostsDocument, Post, PostsConnection, PostsDocument, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
+import { FavouritePostsDocument, Post, PostFilter, PostsConnection, PostsDocument, PostType, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,8 +52,12 @@ function SharingList() {
     return null
   }, [posts])
 
-  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
-    variables: { first: 4 }, notifyOnNetworkStatusChange: true
+  const postFilter: PostFilter = useMemo(() => ({
+    AND: [{ parentIDNotNull: false }],
+    type: PostType.Sharing
+  }),[])
+  const { loading, data: postData, refetch, fetchMore, called } = usePostsQuery({
+    variables: { first: 4, postFilter: postFilter }, notifyOnNetworkStatusChange: true
   })
 
   const postDataRef = useRef(postData);
@@ -172,13 +176,13 @@ function SharingList() {
     let lastElOffset = lastEl.offsetTop + lastEl.clientHeight;
     let pageOffset = window.pageYOffset + window.innerHeight;
     if (pageOffset - footerEl.clientHeight > lastElOffset && postDataRef.current?.posts.pageInfo.hasNextPage) {
-      fetchMore({
+      (postData != null && called) && fetchMore({
         variables: {
           after: postDataRef.current.posts.pageInfo.endCursor
         }
       })
     }
-  }, [postData, fetchMore])
+  }, [postData, fetchMore, postDataRef])
 
   useEffect(() => {
     if (postData === undefined)
@@ -190,7 +194,7 @@ function SharingList() {
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll, postData])
+  }, [handleScroll, postData, called])
 
   return (
     <>
