@@ -112,7 +112,7 @@ function NameCardManage2() {
 
   return (
     <>
-      <Typography className="my-3" variant="h4">網上新來賓名單</Typography>
+      <Typography className="my-3" variant="h5">網上新來賓名單</Typography>
       <hr></hr>
       {loading && <Container>
         <div className="text-center">

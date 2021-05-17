@@ -250,7 +250,7 @@ export default function UserEdit() {
 
    return <FormProvider {...methods}>
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h4">會員管理</Typography>
+      <Typography className="my-3" variant="h5">會員管理</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
          <Typography variant="h5">一般</Typography>
          <Divider className={classes.divider} />

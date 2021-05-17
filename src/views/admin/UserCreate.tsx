@@ -95,7 +95,7 @@ export default function UserCreate() {
 
    return <FormProvider {...methods}>
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h4">建立新會員</Typography>
+      <Typography className="my-3" variant="h5">建立新會員</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
          <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
             <Grid item xs={12} md={10}>

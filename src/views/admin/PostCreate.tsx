@@ -82,7 +82,7 @@ function PostCreate(props: any) {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>文章內容</h3> */}
-        <Typography className="my-3" variant="h4">文章內容</Typography>
+        <Typography className="my-3" variant="h5">文章內容</Typography>
         <Form.Row>
           {/* <InputText
             md={6}

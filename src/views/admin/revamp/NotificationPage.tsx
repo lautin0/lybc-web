@@ -41,7 +41,7 @@ export default function NotificationPage() {
       <Grid item xs={12} md={8}>
         <Card>
           <CardContent>
-            <Typography className="mb-3" variant="h4">通知</Typography>
+            <Typography className="mb-3" variant="h5">通知</Typography>
             {(!loading && data && data.notifications.length === 0) && <Typography className={classes.noRecord}>沒有通知</Typography>}
             {(!loading && data && data.notifications.length > 0) && data.notifications.map((n, idx) => {
               let e = n as Notification

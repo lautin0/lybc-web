@@ -253,7 +253,7 @@ function WorshipEdit() {
       {!loading && <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
-          <Typography variant="h4" className="my-3">崇拜資料</Typography>
+          <Typography variant="h5" className="my-3">崇拜資料</Typography>
           {isReadOnly && <Button onClick={() => setIsReadOnly(false)} className={classes.button} variant="contained" color="secondary" startIcon={<Lock />}>解鎖</Button>}
           {!isReadOnly && <Button onClick={() => setIsReadOnly(true)} className={classes.button} variant="contained" color="primary" startIcon={<LockOpen />}>鎖定</Button>}
           <Form.Row className="mt-3 mb-5">

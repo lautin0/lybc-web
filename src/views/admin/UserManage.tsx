@@ -170,7 +170,7 @@ export default function UserManage() {
    return (
       <>
          <RouterBreadcrumbs />
-         <Typography className="my-3" variant="h4">會員管理</Typography>
+         <Typography className="my-3" variant="h5">會員管理</Typography>
          <Button
             className={clsx(classes.success, "my-3")}
             variant="contained"

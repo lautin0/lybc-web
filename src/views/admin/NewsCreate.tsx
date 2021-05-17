@@ -76,7 +76,7 @@ function NewsCreate() {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>新增最新消息</h3> */}
-        <Typography className="my-3" variant="h4">新增最新消息</Typography>
+        <Typography className="my-3" variant="h5">新增最新消息</Typography>
         <Form.Row>
           {/* <InputText
             md={6}

@@ -146,7 +146,7 @@ function WorshipManage2() {
   return (
     <>
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h4">崇拜管理</Typography>
+      <Typography className="my-3" variant="h5">崇拜管理</Typography>
       <Button 
         className={clsx(classes.success, "my-3")} 
         variant="contained" 

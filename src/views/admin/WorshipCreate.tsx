@@ -190,7 +190,7 @@ function WorshipCreate() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <RouterBreadcrumbs />
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
-        <Typography variant="h4" className="my-3">崇拜資料</Typography>
+        <Typography variant="h5" className="my-3">崇拜資料</Typography>
         <Form.Row className="mb-5">
           {/* <InputText
             name="title"

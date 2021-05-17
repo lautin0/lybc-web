@@ -144,7 +144,7 @@ function PendingPostManage2() {
 
   return (
     <>
-      <Typography className="my-3" variant="h4">待審閱文章</Typography>
+      <Typography className="my-3" variant="h5">待審閱文章</Typography>
       <div style={{ width: '100%' }}>
         <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>

@@ -248,7 +248,7 @@ function PendingPostEdit() {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <h2 className="category mt-5" style={{ color: 'black' }}>管理員代發文章</h2> */}
-        <Typography className="my-3" variant="h4">管理員代發文章</Typography>
+        <Typography className="my-3" variant="h5">管理員代發文章</Typography>
         <Typography className="mb-3" variant="h5">
           狀態: <Chip label={getStatus(pData?.pendingPost?.status!)} className={getBadgeClassName(pData?.pendingPost?.status!)} />
         </Typography>
