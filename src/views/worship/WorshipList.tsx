@@ -5,11 +5,24 @@ import { useHistory } from "react-router-dom";
 import { useWorshipsQuery } from "generated/graphql";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
-import { Button, Container, CssBaseline } from "@material-ui/core";
+import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
 import { DataGrid, GridCellParams, GridColDef, GridRowsProp, GridSortDirection } from "@material-ui/data-grid";
-import { PlayArrow } from "@material-ui/icons";
+import { YouTube } from "@material-ui/icons";
+import { red } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) => ({
+  goButton: {
+    backgroundColor: '#fe0000',
+    color: theme.palette.primary.contrastText,
+    "&:hover": {
+      backgroundColor: red[600]
+    }
+  }
+}))
 
 function WorshipList() {
+
+  const classes = useStyles()
 
   const [locale] = useLanguage()
 
@@ -66,10 +79,10 @@ function WorshipList() {
       renderCell: (params: GridCellParams) => (
         <Button
           variant="contained"
-          color="primary"
+          className={classes.goButton}
           size="small"
           style={{ marginLeft: 16 }}
-          startIcon={<PlayArrow />}
+          startIcon={<YouTube />}
         >
           {intl.formatMessage({ id: "app.tables.goto" })}
         </Button>
