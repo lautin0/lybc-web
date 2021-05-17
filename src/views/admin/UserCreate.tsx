@@ -95,141 +95,139 @@ export default function UserCreate() {
    return <FormProvider {...methods}>
       <Typography className="my-3" variant="h4">建立新會員</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-         <Grid container direction="row">
-            <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
-               <Grid item xs={12} md={10}>
-                  <Typography variant="h6">系統資料</Typography>
-                  <Divider />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="username"
-                     label="用戶名稱"
-                     validateFn={Validators.NoWhiteSpace}
-                     InputProps={{
-                        endAdornment: (
-                           <InputAdornment position="end">
-                              <AccountCircle />
-                           </InputAdornment>
-                        ),
-                     }}
+         <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
+            <Grid item xs={12} md={10}>
+               <Typography variant="h6">系統資料</Typography>
+               <Divider />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="username"
+                  label="用戶名稱"
+                  validateFn={Validators.NoWhiteSpace}
+                  InputProps={{
+                     endAdornment: (
+                        <InputAdornment position="end">
+                           <AccountCircle />
+                        </InputAdornment>
+                     ),
+                  }}
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="password"
+                  type="password"
+                  label="密碼"
+                  validateFn={Validators.NoWhiteSpace}
+                  InputProps={{
+                     endAdornment: (
+                        <InputAdornment position="end">
+                           <VpnKey />
+                        </InputAdornment>
+                     ),
+                  }}
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="passwordConf"
+                  label="確認密碼"
+                  type="password"
+                  validateFn={Validators.NoWhiteSpace}
+                  InputProps={{
+                     endAdornment: (
+                        <InputAdornment position="end">
+                           <VpnKey />
+                        </InputAdornment>
+                     ),
+                  }}
+               />
+            </Grid>
+            <Grid item xs={12} md={10}>
+               <Typography variant="h6">個人資料</Typography>
+               <Divider />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="nameC"
+                  label="中文名稱"
+                  validateFn={Validators.NoWhiteSpace}
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="name"
+                  label="英文名稱"
+                  validateFn={Validators.NoWhiteSpace}
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="phone"
+                  label="聯絡電話"
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="email"
+                  label="電郵地址"
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="titleC"
+                  label="中文頭銜"
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <MuiInputText
+                  name="title"
+                  label="英文頭銜"
+                  size="small"
+               />
+            </Grid>
+            <Grid item>
+               <FormControl component="fieldset" error={errors["gender"] != null}>
+                  <FormLabel component="legend">性別</FormLabel>
+                  <Controller
+                     as={
+                        <RadioGroup aria-label="gender" row>
+                           <FormControlLabel
+                              value={Gender.Male.toString()}
+                              control={<Radio color="primary" />}
+                              label="男" />
+                           <FormControlLabel
+                              value={Gender.Female.toString()}
+                              control={<Radio color="primary" />}
+                              label="女"
+                           />
+                        </RadioGroup>
+                     }
+                     name="gender"
+                     control={control}
+                     defaultValue={null}
                   />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="password"
-                     type="password"
-                     label="密碼"
-                     validateFn={Validators.NoWhiteSpace}
-                     InputProps={{
-                        endAdornment: (
-                           <InputAdornment position="end">
-                              <VpnKey />
-                           </InputAdornment>
-                        ),
-                     }}
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="passwordConf"
-                     label="確認密碼"
-                     type="password"
-                     validateFn={Validators.NoWhiteSpace}
-                     InputProps={{
-                        endAdornment: (
-                           <InputAdornment position="end">
-                              <VpnKey />
-                           </InputAdornment>
-                        ),
-                     }}
-                  />
-               </Grid>
-               <Grid item xs={12} md={10}>
-                  <Typography variant="h6">個人資料</Typography>
-                  <Divider />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="nameC"
-                     label="中文名稱"
-                     validateFn={Validators.NoWhiteSpace}
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="name"
-                     label="英文名稱"
-                     validateFn={Validators.NoWhiteSpace}
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="phone"
-                     label="聯絡電話"
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="email"
-                     label="電郵地址"
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="titleC"
-                     label="中文頭銜"
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <MuiInputText
-                     name="title"
-                     label="英文頭銜"
-                     size="small"
-                  />
-               </Grid>
-               <Grid item>
-                  <FormControl component="fieldset" error={errors["gender"] != null}>
-                     <FormLabel component="legend">性別</FormLabel>
-                     <Controller
-                        as={
-                           <RadioGroup aria-label="gender" row>
-                              <FormControlLabel
-                                 value={Gender.Male.toString()}
-                                 control={<Radio color="primary" />}
-                                 label="男" />
-                              <FormControlLabel
-                                 value={Gender.Female.toString()}
-                                 control={<Radio color="primary" />}
-                                 label="女"
-                              />
-                           </RadioGroup>
-                        }
-                        name="gender"
-                        control={control}
-                        defaultValue={null}
-                     />
-                     {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
-                  </FormControl>
-               </Grid>
-               <Grid item>
-                  <MuiInputDropdown
-                     name="role"
-                     label="角色"
-                     validateFn={Validators.NoWhiteSpace}
-                     ds={[
-                        { value: Role.Admin, display: "管理員👑", disabled: false },
-                        { value: Role.Worker, display: "同工", disabled: false },
-                        { value: Role.Member, display: "會友", disabled: false },
-                        { value: Role.Public, display: "公共帳號", disabled: false }
-                     ]}
-                  />
-               </Grid>
+                  {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
+               </FormControl>
+            </Grid>
+            <Grid item>
+               <MuiInputDropdown
+                  name="role"
+                  label="角色"
+                  validateFn={Validators.NoWhiteSpace}
+                  ds={[
+                     { value: Role.Admin, display: "管理員👑", disabled: false },
+                     { value: Role.Worker, display: "同工", disabled: false },
+                     { value: Role.Member, display: "會友", disabled: false },
+                     { value: Role.Public, display: "公共帳號", disabled: false }
+                  ]}
+               />
             </Grid>
          </Grid>
          <Grid className="mt-3" container spacing={2} direction="column">
