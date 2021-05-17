@@ -1,6 +1,7 @@
 import { createStyles, Grid, makeStyles, Button, Divider, Typography } from '@material-ui/core';
 import { Add, Delete, Lock, LockOpen } from '@material-ui/icons';
 import { setLoading } from 'actions';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -248,6 +249,7 @@ function WorshipEdit() {
 
   return (
     <>
+      <RouterBreadcrumbs />
       {!loading && <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}

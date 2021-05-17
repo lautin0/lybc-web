@@ -1,6 +1,7 @@
 import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Radio, RadioGroup, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import { setLoading } from "actions";
+import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
 import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
@@ -93,6 +94,7 @@ export default function UserCreate() {
    }
 
    return <FormProvider {...methods}>
+      <RouterBreadcrumbs />
       <Typography className="my-3" variant="h4">建立新會員</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
          <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>

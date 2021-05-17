@@ -1,6 +1,7 @@
-import { Button, Divider, FormControlLabel, Grid, InputAdornment, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
-import { VpnKey } from "@material-ui/icons";
+import { Breadcrumbs, Button, Divider, FormControlLabel, Grid, InputAdornment, Link, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
+import { NavigateNext, VpnKey } from "@material-ui/icons";
 import { setLoading } from "actions";
+import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
 import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
@@ -186,7 +187,7 @@ export default function UserEdit() {
             break
          }
       }
-      if(!valid)
+      if (!valid)
          return
 
       dispatch(setLoading(true))
@@ -248,6 +249,7 @@ export default function UserEdit() {
    }, [loading, dispatch])
 
    return <FormProvider {...methods}>
+      <RouterBreadcrumbs />
       <Typography className="my-3" variant="h4">會員管理</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
          <Typography variant="h5">一般</Typography>

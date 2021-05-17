@@ -4,6 +4,7 @@ import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowDa
 import { AddCircle, Block, Build } from "@material-ui/icons";
 import { setLoading } from "actions";
 import clsx from "clsx";
+import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -168,6 +169,7 @@ export default function UserManage() {
 
    return (
       <>
+         <RouterBreadcrumbs />
          <Typography className="my-3" variant="h4">會員管理</Typography>
          <Button
             className={clsx(classes.success, "my-3")}

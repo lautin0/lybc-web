@@ -4,6 +4,7 @@ import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderPar
 import { AddCircle, Create, Delete } from '@material-ui/icons';
 import { decisionRequest, setLoading } from 'actions';
 import clsx from 'clsx';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import { color } from 'html2canvas/dist/types/css/types/color';
@@ -144,6 +145,7 @@ function WorshipManage2() {
 
   return (
     <>
+      <RouterBreadcrumbs />
       <Typography className="my-3" variant="h4">崇拜管理</Typography>
       <Button 
         className={clsx(classes.success, "my-3")} 

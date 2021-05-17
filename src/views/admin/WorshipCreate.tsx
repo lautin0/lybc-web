@@ -1,6 +1,7 @@
 import { Button, createStyles, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
 import { setLoading } from 'actions';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -187,6 +188,7 @@ function WorshipCreate() {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <RouterBreadcrumbs />
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
         <Typography variant="h4" className="my-3">崇拜資料</Typography>
         <Form.Row className="mb-5">
