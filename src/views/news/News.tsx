@@ -4,7 +4,7 @@ import moment from 'moment';
 import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 function News() {
 
