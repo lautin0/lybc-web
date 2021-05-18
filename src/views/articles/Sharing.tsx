@@ -170,13 +170,13 @@ function Sharing() {
           </Container>
           {post.imageURI != null && <>
             <div className="justify-content-center d-none d-lg-flex mb-5" style={{ marginLeft: 200, marginRight: 200 }}>
-              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
+              <img alt="blog cover" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
             <div className="justify-content-center d-none d-md-flex d-lg-none mb-5" style={{ marginLeft: '7rem', marginRight: '7rem' }}>
-              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
+              <img alt="blog cover" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
             <div className="d-md-none mb-5">
-              <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
+              <img alt="blog cover" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img>
             </div>
           </>}
           <Container style={{ marginBottom: 100 }}>

@@ -55,6 +55,7 @@ function useQueryFilter() {
     filters.map((x, i) => {
       if (x.attrType?.value === attrType?.value)
         idx = i;
+      return x
     })
 
     let cloneFilter = [...filters]

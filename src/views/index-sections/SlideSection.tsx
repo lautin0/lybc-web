@@ -90,32 +90,38 @@ function SlideSection() {
               >
                 {item.node?.imageURI && <>
                   <img
+                    alt="blog preview"
                     className="d-none d-lg-block"
                     style={{ width: '100%', height: 350, objectFit: 'cover' }}
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                   <img
+                    alt="blog preview"
                     className="d-none d-md-block d-lg-none"
                     style={{ width: 410, height: 270, objectFit: 'cover' }}
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                   <img
+                    alt="blog preview"
                     className="d-block d-md-none"
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                 </>}
                 {!item.node?.imageURI && <>
                   <img
+                    alt="no blog preview"
                     className="d-none d-lg-block"
                     style={{ width: '100%', height: 350, objectFit: 'cover' }}
                     src={noImg}
                   />
                   <img
+                    alt="no blog preview"
                     className="d-none d-md-block d-lg-none"
                     style={{ width: 410, height: 270, objectFit: 'cover' }}
                     src={noImg}
                   />
                   <img
+                    alt="no blog preview"
                     className="d-block d-md-none"
                     src={noImg}
                   />

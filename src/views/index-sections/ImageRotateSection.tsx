@@ -25,7 +25,7 @@ function ImageRotateSection() {
       </Col>
       <Col md="6">
         <div className="rotate-img">
-          <img src={src}></img>
+          <img alt="rotating lybc website" src={src}></img>
         </div>
       </Col>
     </Row>

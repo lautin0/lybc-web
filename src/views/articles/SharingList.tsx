@@ -243,10 +243,10 @@ function SharingList() {
                       </div>
                     </div>
                     <div className={css.blogImg} onClick={() => { navigate(p._id) }}>
-                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
+                      {p.imageURI != null && <img alt="blog preview" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                     <div className={css.blogImgMobile} onClick={() => { navigate(p._id) }}>
-                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
+                      {p.imageURI != null && <img alt="blog preview" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                   </div>
                 </div>

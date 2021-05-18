@@ -78,13 +78,13 @@ function CommentSection(props: any) {
           <div className="mb-2">
             {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{e.user.role === "ADMIN" ? "網站管理人員" : (e.user.role === "WORKER" ? "教會同工" : "")}</Tooltip>}>
               <a
-                href="#"
+                href="/"
                 onClick={(e) => e.preventDefault()}
                 className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
               >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
             </OverlayTrigger>}
             {e.user.role === "MEMBER" && <a
-              href="#"
+              href="/"
               onClick={(e) => e.preventDefault()}
               className={"comment-user-link "}
             >{e.username}</a>}

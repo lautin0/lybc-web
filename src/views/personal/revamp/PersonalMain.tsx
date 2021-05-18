@@ -332,7 +332,7 @@ export default function PersonalMain() {
                   <Typography>徽章: </Typography>
                 </Grid>
                 <Grid item>
-                  {(userData?.user && userData.user.role === "ADMIN" || userData?.user?.role === "WORKER") && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
+                  {(userData?.user && (userData.user.role === "ADMIN" || userData?.user?.role === "WORKER")) && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
                 </Grid>
               </Grid>
               <Grid container item direction="row" alignItems="center" spacing={1}>
@@ -435,10 +435,10 @@ export default function PersonalMain() {
                 </Grid>
               </Grid>
               <Grid xs={4} item className={css.blogImg} onClick={() => { navigate(p.post?._id) }}>
-                {p.post?.imageURI != null && <img style={{ height: 150, width: 200 }} src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
+                {p.post?.imageURI != null && <img alt="blog cover" style={{ height: 150, width: 200 }} src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
               </Grid>
               <Grid item className={css.blogImgMobile} onClick={() => { navigate(p.post?._id) }}>
-                {p.post?.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
+                {p.post?.imageURI != null && <img alt="blog cover" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
               </Grid>
             </Grid>
           })}

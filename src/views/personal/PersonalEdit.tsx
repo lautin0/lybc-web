@@ -167,7 +167,7 @@ function PersonalEdit() {
           </div>
           <Form.Row>
             <Form.Group as={Col} md={5} className="text-center">
-              <a className="profile-pic mx-auto" href="#" onClick={handleOnClick}>
+              <a className="profile-pic mx-auto" href="/" onClick={handleOnClick}>
                 <div className="profile-pic-overlay">
                   <div>
                     <div>
@@ -178,9 +178,9 @@ function PersonalEdit() {
                 </div>
                   </div>
                 </div>
-                {(acceptedFiles.length === 0 && !userData.user?.profilePicURI) && <img src={defaultAvatar} />}
-                {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
-                {(userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                {(acceptedFiles.length === 0 && !userData.user?.profilePicURI) && <img alt="no personal icon" src={defaultAvatar} />}
+                {(acceptedFiles.length > 0) && <img alt="upload personal icon" src={URL.createObjectURL(acceptedFiles[0])} />}
+                {(userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <img alt="personal icon" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </a>
             </Form.Group>
           </Form.Row>

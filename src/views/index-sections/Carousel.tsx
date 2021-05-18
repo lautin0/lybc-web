@@ -103,7 +103,7 @@ function CarouselSection() {
                     year="numeric"
                     month="short"
                     day="numeric"
-                  /><a href="#" onClick={e => { e.preventDefault(); history.push('news/' + x.node?._id) }} className="ml-3">{x.node?.title}</a></h5>
+                  /><a href="/" onClick={e => { e.preventDefault(); history.push('news/' + x.node?._id) }} className="ml-3">{x.node?.title}</a></h5>
                   <hr style={{ width: '80%' }}></hr>
                 </div>
               ))}

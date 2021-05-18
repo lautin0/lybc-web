@@ -56,7 +56,7 @@ function FavouritePostList() {
     })}
     {(favPostData != null && favPostData?.favouritePosts?.length > 0) && <div className="text-center">
       <a
-        href="#"
+        href="/"
         onClick={e => { 
           e.preventDefault(); 
           history.push('personal/favourite-posts') 

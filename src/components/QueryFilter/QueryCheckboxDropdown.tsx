@@ -20,7 +20,7 @@ function QueryCheckboxDropdown(props: QueryCheckboxDropdownProps) {
       let value: boolean | undefined = x.checked;
       return { [key]: value }
     })
-    .reduce((a, b, i, []) => {
+    .reduce((a, b) => {
       return {
         ...a,
         ...b
