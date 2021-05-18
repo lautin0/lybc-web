@@ -107,14 +107,14 @@ function AdminPanel(props: AdminPanelProps) {
         </nav>
         <div className="right-panel">
           <div style={{ margin: '0px 48px 24px' }}>
-            {(props.func == null
+            {(!props.func
               || props.func === 'worships'
               || props.func === 'other'
               || props.func === 'users'
               || props.func === 'page-management'
               || props.func === 'books')
               && <AdminHeader func={props.func} />}
-            {props.func == null && <div style={{ marginLeft: 25, marginTop: 120 }}>
+            {!props.func && <div style={{ marginLeft: 25, marginTop: 120 }}>
               <h2 style={{ color: 'gray' }}><em>選擇想使用的功能 <span role="img" aria-label="cog image">⚙️</span></em></h2>
             </div>}
             <div className="content-panel">

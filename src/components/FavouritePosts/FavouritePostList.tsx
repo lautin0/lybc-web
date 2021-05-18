@@ -34,8 +34,8 @@ function FavouritePostList() {
           >
             <div className="profile-page mr-2">
               <div className="photo-container my-auto ml-3 mx-auto" style={{ width: 25, height: 25 }}>
-                {(x.post?.user.profilePicURI == null) && <img style={{ marginTop: -8 }} alt="..." src={defaultAvatar}></img>}
-                {(x.post?.user.profilePicURI != null) && <img style={{ marginTop: -8 }} alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + x.post?.user.profilePicURI}></img>}
+                {!x.post?.user.profilePicURI && <img style={{ marginTop: -8 }} alt="..." src={defaultAvatar}></img>}
+                {x.post?.user.profilePicURI && <img style={{ marginTop: -8 }} alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + x.post?.user.profilePicURI}></img>}
               </div>
             </div>
             <div style={{ fontSize: 13 }}>{x.post?.user.nameC + getTitleDisplay(x.post!)}</div>

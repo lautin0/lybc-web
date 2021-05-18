@@ -62,7 +62,7 @@ export default function AdminPanel2(props: AdminPanelProps) {
                      props.func === 'page-management'
                      || props.func === 'books')
                      && <AdminHeader func={props.func} />}
-                  {props.func == null && <div>
+                  {!props.func && <div>
                      <h2 style={{ color: 'gray' }}><em>管理控制台 主頁 <span role="img" aria-label="cog image">⚙️</span></em></h2>
                   </div>}
                   <div>

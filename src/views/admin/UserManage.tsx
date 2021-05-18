@@ -103,8 +103,8 @@ export default function UserManage() {
                >
                   檢視
                </Button>
-               {params.row['role'] != "ADMIN" && <Button
-                  disabled={params.row['status'] == "SUSPENDED"}
+               {params.row['role'] !== "ADMIN" && <Button
+                  disabled={params.row['status'] === "SUSPENDED"}
                   variant="contained"
                   color="secondary"
                   size="small"

@@ -65,7 +65,7 @@ function PersonalEdit() {
   }
 
   const onSubmit = async (data: any) => {
-    if (userData == null)
+    if (!userData)
       return
     let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
     dispatch(setLoading(true))
@@ -90,8 +90,8 @@ function PersonalEdit() {
       dob: dob,
       gender: data.gender,
       profilePic: compressedImg,
-      email: data.email.length == 0 ? null : data.email,
-      phone: data.phone.length == 0 ? null : data.phone
+      email: data.email.length === 0 ? null : data.email,
+      phone: data.phone.length === 0 ? null : data.phone
     }
 
     updateUser({
@@ -178,9 +178,9 @@ function PersonalEdit() {
                 </div>
                   </div>
                 </div>
-                {(acceptedFiles.length == 0 && userData.user?.profilePicURI == null) && <img src={defaultAvatar} />}
+                {(acceptedFiles.length === 0 && !userData.user?.profilePicURI) && <img src={defaultAvatar} />}
                 {(acceptedFiles.length > 0) && <img src={URL.createObjectURL(acceptedFiles[0])} />}
-                {(userData.user?.profilePicURI != null && acceptedFiles.length == 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                {(userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <img src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </a>
             </Form.Group>
           </Form.Row>
@@ -293,7 +293,7 @@ function PersonalEdit() {
           </Form.Row>
         </Form>
       </FormProvider>}
-      { (loading && userData == null) && <h3>loading data, please wait...</h3>}
+      { (loading && !userData) && <h3>loading data, please wait...</h3>}
     </div>
   );
 }

@@ -279,7 +279,7 @@ export default function PersonalMain() {
                 </Grid>
               </Grid>
               <Grid container item xs={12} justify="center">
-                {userData?.user == null && <AccountCircle />}
+                {!userData?.user && <AccountCircle />}
                 {userData?.user && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </Grid>
               <Grid container item justify="center">
@@ -354,7 +354,7 @@ export default function PersonalMain() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          {(!favLoading && favPostData?.favouritePosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+          {(!favLoading && favPostData?.favouritePosts.length === 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
             <Grid container item xs={12} justify="center">
               <Typography variant="h5">
                 沒有記錄
@@ -476,7 +476,7 @@ export default function PersonalMain() {
               <Skeleton animation="wave" variant="rect" height={190} />
             </Grid>
           </Grid>}
-          {(!pPostLoading && data?.pendingPosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+          {(!pPostLoading && data?.pendingPosts.length === 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
             <Grid container item xs={12} justify="center">
               <Typography variant="h5">
                 沒有記錄

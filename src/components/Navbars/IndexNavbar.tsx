@@ -353,7 +353,7 @@ function IndexNavbar() {
                   href="#"
                   onClick={(e: any) => {
                     e.preventDefault()
-                    persistLocale && persistLocale(locale == "en" ? "zh" : "en")
+                    persistLocale && persistLocale(locale === "en" ? "zh" : "en")
                   }}
                   style={{
                     alignItems: 'center',
@@ -363,7 +363,7 @@ function IndexNavbar() {
                   }}
                 >
                   <i className="fas fa-globe-asia"></i>
-                  <p>{locale == "en" ? "中" : "En"}</p>
+                  <p>{locale === "en" ? "中" : "En"}</p>
                 </Nav.Link>
               </Nav.Item>
             </Nav>

@@ -50,7 +50,7 @@ export default function UserCreate() {
          return
       }
 
-      if (formData.gender == null) {
+      if (!formData.gender) {
          setError('gender', {
             type: 'manual',
             message: "請選擇"
@@ -69,8 +69,8 @@ export default function UserCreate() {
          titleC: formData.titleC,
          // dob: date,
          gender: formData.gender,
-         email: formData.email == null || formData.email.length == 0 ? null : formData.email,
-         phone: formData.phone == null || formData.phone.length == 0 ? null : formData.phone,
+         email: !formData.email || formData.email.length === 0 ? null : formData.email,
+         phone: !formData.phone || formData.phone.length === 0 ? null : formData.phone,
          password: formData.password,
          status: AccountStatus.Active,
          creBy: getTokenValue(localStorage.getItem('token')).username

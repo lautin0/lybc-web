@@ -38,7 +38,7 @@ export default function RouterBreadcrumbs() {
 
    return <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
       {location.pathname.split('/').slice(1).map((s, i) => (
-         Object.keys(mappings).includes(s) && <Link key={s + Math.random().toFixed(2)} className={classes.anchor} href={getKeyValue(mappings, s)[0] == null ? undefined : "#"} onClick={(e: any) => { e.preventDefault(); if (getKeyValue(mappings, s)[0] == null) return; history.push(getKeyValue(mappings, s)[0]); }}>{getKeyValue(mappings, s)[2]}{getKeyValue(mappings, s)[1]}</Link>
+         Object.keys(mappings).includes(s) && <Link key={s + Math.random().toFixed(2)} className={classes.anchor} href={(!getKeyValue(mappings, s)[0]) ? undefined : "#"} onClick={(e: any) => { e.preventDefault(); if (!getKeyValue(mappings, s)[0]) return; history.push(getKeyValue(mappings, s)[0]); }}>{getKeyValue(mappings, s)[2]}{getKeyValue(mappings, s)[1]}</Link>
       ))}
    </Breadcrumbs>
 }

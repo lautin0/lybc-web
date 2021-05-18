@@ -39,7 +39,7 @@ function Sharing() {
   const { loading, postData, refetch } = usePost({ id: id })
 
   const setReaction = (reaction: ReactionType) => {
-    if (tokenPair?.token == null) {
+    if (!tokenPair?.token) {
       dispatch(setSysMessage('app.sys.require-login'))
       return
     } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
@@ -82,7 +82,7 @@ function Sharing() {
 
       let el: any = document.querySelector("div#reaction-bar");
 
-      if (el == null)
+      if (!el)
         return false
       return docViewBottom > el.getBoundingClientRect().top + window.pageYOffset
     }
@@ -108,7 +108,7 @@ function Sharing() {
   })
 
   const isReacted = useCallback((type: string): boolean => {
-    if (tokenPair?.token == null || post == null)
+    if (!tokenPair?.token || !post)
       return false
     return post.reactions.filter((r: any) =>
       r.username === getTokenValue(tokenPair?.token).username &&
@@ -152,8 +152,8 @@ function Sharing() {
               <Col className="text-left sharing my-3 d-flex" lg="8" md="12" >
                 <div className="profile-page mr-3">
                   <div className="photo-container" style={{ width: 50, height: 50 }}>
-                    {postData?.post?.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
-                    {postData?.post?.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
+                    {postData?.post?.user.profilePicURI && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + postData?.post.user.profilePicURI}></img>}
+                    {!postData?.post?.user.profilePicURI && <img alt="..." src={defaultAvatar}></img>}
                   </div>
                 </div>
                 <div className="my-auto" style={{ color: 'gray' }}>

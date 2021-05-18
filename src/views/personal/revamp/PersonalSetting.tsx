@@ -213,7 +213,7 @@ export default function PersonalSetting() {
   }
 
   const onSubmit = async (data: any) => {
-    if (userData == null)
+    if (!userData)
       return
     // let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
     dispatch(setLoading(true))
@@ -238,8 +238,8 @@ export default function PersonalSetting() {
       dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
       profilePic: compressedImg,
-      email: data.email.length == 0 ? null : data.email,
-      phone: data.phone.length == 0 ? null : data.phone,
+      email: data.email.length === 0 ? null : data.email,
+      phone: data.phone.length === 0 ? null : data.phone,
       status: userData.user?.status
     }
 
@@ -369,9 +369,9 @@ export default function PersonalSetting() {
                 <Grid item xs={12} md={6} lg={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
-                      {(acceptedFiles.length == 0 && userData.user?.profilePicURI == null) && <AccountCircle className={classes.avatar} />}
+                      {(acceptedFiles.length === 0 && !userData.user?.profilePicURI) && <AccountCircle className={classes.avatar} />}
                       {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
-                      {(userData.user?.profilePicURI != null && acceptedFiles.length == 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                      {(userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
                       <div className={classes.profilePicOverlay}>
                         <div>
                           <div>

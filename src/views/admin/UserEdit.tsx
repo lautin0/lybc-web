@@ -79,7 +79,7 @@ export default function UserEdit() {
    }
 
    const onSubmit = (formData: any) => {
-      if (data == null)
+      if (!data)
          return
       dispatch(setLoading(true))
 
@@ -92,8 +92,8 @@ export default function UserEdit() {
          titleC: formData.titleC,
          dob: date,
          gender: formData.gender,
-         email: formData.email == null || formData.email.length == 0 ? null : formData.email,
-         phone: formData.phone == null || formData.phone.length == 0 ? null : formData.phone,
+         email: !formData.email || formData.email.length === 0 ? null : formData.email,
+         phone: !formData.phone || formData.phone.length === 0 ? null : formData.phone,
          profilePicURI: data.user?.profilePicURI,
          status: data.user?.status
       }

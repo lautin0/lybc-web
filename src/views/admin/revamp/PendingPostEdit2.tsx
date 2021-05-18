@@ -145,7 +145,7 @@ function PendingPostEdit() {
   }
 
   const stripFileName = (s: string) => {
-    if (s == null) return ""
+    if (!s) return ""
     const word = '/lybcstorage/'
     return s.substring(word.length, s.length)
   }

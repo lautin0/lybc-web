@@ -201,8 +201,8 @@ function PersonalNavbar() {
               {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
               <div className="profile-page mr-2">
                 <div className="photo-container mb-3 my-auto ml-3 mx-auto" style={{ width: 28, height: 28 }}>
-                  {(loading || profilePicData?.user?.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
-                  {(!loading && profilePicData?.user?.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+                  {(loading || !profilePicData?.user?.profilePicURI) && <img alt="..." src={defaultAvatar}></img>}
+                  {(!loading && profilePicData?.user?.profilePicURI) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
                 </div>
               </div>
               <p className="d-none d-md-inline-block">{getTokenValue(tokenPair?.token)?.username.toUpperCase()}</p>

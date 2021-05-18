@@ -79,7 +79,7 @@ function ProfilePage() {
                   >
                     <Nav.Item>
                       <Nav.Link
-                        className={pills == "1" ? "active" : ""}
+                        className={pills === "1" ? "active" : ""}
                         // href="#pablo"
                         onClick={(e: any) => {
                           e.preventDefault();
@@ -91,7 +91,7 @@ function ProfilePage() {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={pills == "2" ? "active" : ""}
+                        className={pills === "2" ? "active" : ""}
                         // href="#pablo"
                         onClick={(e: any) => {
                           e.preventDefault();
@@ -103,7 +103,7 @@ function ProfilePage() {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={pills == "3" ? "active" : ""}
+                        className={pills === "3" ? "active" : ""}
                         // href="#pablo"
                         onClick={(e: any) => {
                           e.preventDefault();

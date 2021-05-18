@@ -44,7 +44,7 @@ export default function PersonalPage2(props: PersonalPageProps) {
          <PersonalLayout>
             <div className={classes.panel}>
                <div>
-                  {props.func == null && <PersonalMain />}
+                  {!props.func && <PersonalMain />}
                   {props.func === 'info' && <PersonalEdit />}
                   {props.func === 'settings' && <PersonalSetting />}
                   {/* {props.func === 'sharing' && <PersonalSharing />}

@@ -159,7 +159,7 @@ export default function MuiSharingModal() {
          reset({
             title: pPostData.pendingPost?.title,
             subtitle: pPostData.pendingPost?.subtitle,
-            remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
+            remarks: !pPostData.pendingPost?.remarks ? "" : pPostData.pendingPost.remarks
          })
          setReadOnly(true)
       }
@@ -178,11 +178,11 @@ export default function MuiSharingModal() {
                   <SharingForm2 status={pPostData?.pendingPost?.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
                </DialogContent>
                <DialogActions>
-                  {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+                  {(!pPostData?.pendingPost?.status || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
                      <Button variant="contained" type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
                      <Button onClick={onHide} variant="contained" color="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
                   </div>}
-                  {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+                  {(pPostData?.pendingPost?.status && pPostData.pendingPost.status === PostStatus.Pending) && <div>
                      <Button
                         type="button"
                         variant="contained"

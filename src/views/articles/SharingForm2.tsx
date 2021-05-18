@@ -33,7 +33,7 @@ function SharingForm2(props: SharingFormPropsType) {
       label="備註"
       isReadOnly={readOnly}
     />}
-    {(status == null || status === PostStatus.Withhold) && <><label className="mt-5">選擇文章檔案 (接受格式: docx, pdf)</label>
+    {(!status || status === PostStatus.Withhold) && <><label className="mt-5">選擇文章檔案 (接受格式: docx, pdf)</label>
       <DropzoneCustom {...dropzoneMethods} />
     </>}
   </>

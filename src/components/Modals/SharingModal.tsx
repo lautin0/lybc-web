@@ -150,7 +150,7 @@ function SharingModal(props: any) {
       reset({
         title: pPostData.pendingPost?.title,
         subtitle: pPostData.pendingPost?.subtitle,
-        remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
+        remarks: !pPostData.pendingPost?.remarks ? "" : pPostData.pendingPost.remarks
       })
       setReadOnly(true)
     }
@@ -185,11 +185,11 @@ function SharingModal(props: any) {
             </div>
           </Modal.Body>
           <Modal.Footer className="justify-content-end">
-            {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+            {(!pPostData?.pendingPost?.status || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
               <Button type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
               <Button onClick={onHide} variant="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
             </div>}
-            {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+            {(pPostData?.pendingPost?.status && pPostData.pendingPost.status === PostStatus.Pending) && <div>
               <Button
                 type="button"
                 variant="danger"

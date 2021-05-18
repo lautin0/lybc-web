@@ -58,7 +58,7 @@ export default function NotificationPage() {
                   </Grid>
                   <Grid item xs={8}>
                     <Grid container alignItems="center" className={classes.listText}>
-                      <Typography>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
+                      <Typography>{(!e.fromUsername ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
                     </Grid>
                     <Typography variant="body2">{getTimePastStr(moment(e.creDttm))}</Typography>
                   </Grid>

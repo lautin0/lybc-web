@@ -31,7 +31,7 @@ function usePagination<T>() {
 
   useEffect(() => {
     let tmpItems = [];
-    if (pageItems == null || pageItems.length === 0) {
+    if (!pageItems || pageItems.length === 0) {
       tmpItems.push(<Pagination.First key={1} />, <Pagination.Prev key={2} />)
       tmpItems.push(
         <Pagination.Item key={3} active disabled>

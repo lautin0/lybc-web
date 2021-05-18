@@ -70,7 +70,7 @@ function MainPageLegacy(props: MainPageProps) {
           </div>
           {props.page === 'apply-activity' && <Apply />}
           {/* {props.page === 'test' && <InfiniteScroll />} */}
-          {props.page == 'library' && <SearchBooks />}
+          {props.page === 'library' && <SearchBooks />}
           {props.page === 'worship' && <Worship />}
           {props.page === 'sharing' && <Sharing />}
           {props.page === 'news' && <News />}

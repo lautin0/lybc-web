@@ -137,7 +137,7 @@ function SharingList() {
   }, [removeFavPost, addFavPost, dispatch, loading, addFavLoading, removeFavLoading])
 
   const handleClick = useCallback(() => {
-    if (tokenPair?.token == null) {
+    if (!tokenPair?.token) {
       dispatch(setSysMessage('app.sys.require-login'))
       return
     }
@@ -158,7 +158,7 @@ function SharingList() {
   }, [location, refetch, postData])
 
   const handleScroll = useCallback(() => {
-    if (fetchMore == undefined)
+    if (!fetchMore)
       return
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st <= lastScrollTop.current) {
@@ -211,7 +211,7 @@ function SharingList() {
           </h5>
           <hr></hr> */}
           <Row className="mt-5">
-            {posts == null && <Col md={12} lg={8} className="clearfix"></Col>}
+            {!posts && <Col md={12} lg={8} className="clearfix"></Col>}
             {posts && <Col className="sharing-list" md={12} lg={8}>
               {posts.map((p: Post) => {
                 return <div key={p._id} className="my-5">

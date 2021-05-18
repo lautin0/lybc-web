@@ -6,13 +6,13 @@ import { Tooltip } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 
 export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
-    if (foundObj == null)
+    if (!foundObj)
         foundObj = { isFound: false }
     let isCurrent = false;
     let currId: any;
-    if (array == null)
+    if (!array)
         array = []
-    if (obj == null)
+    if (!obj)
         obj = UNIVERSALS.MENU_HIERARCHY
     if (Object.keys(obj).includes(id)) {
         array.unshift({ title: obj[id].title, link: null })
@@ -34,7 +34,7 @@ export function getMenuHierarchy(id: any, obj: any, array: any, foundObj: any) {
 }
 
 export function getNullableString(s: string | null | undefined): string {
-    if (s == null)
+    if (!s)
         return ''
     else
         return s
@@ -54,23 +54,23 @@ export function getTokenValue(jwt: any) {
 
 export function isTokenExpired(jwt: any) {
     let token = getTokenValue(jwt)
-    if (token == null)
+    if (!token)
         return true
     return Date.now() >= token.exp * 1000
 }
 
 export function hasRole(jwt: any, role: Role) {
     let token = getTokenValue(jwt)
-    if (token == null)
+    if (!token)
         return false
     return role.toString().toUpperCase() === token.role.toUpperCase()
 }
 
 export function nullOrEmpty(checkee: any) {
     if (typeof checkee === "string")
-        return checkee == null || checkee === ''
+        return !checkee || checkee === ''
     if (typeof checkee === "object")
-        return checkee == null || Object.keys(checkee).length === 0
+        return !checkee || Object.keys(checkee).length === 0
 }
 
 export function getTimePastStr(target: Moment) {
