@@ -52,7 +52,7 @@ function PersonalEdit() {
     }
   });
 
-  const { register, handleSubmit, reset, getValues, control, trigger } = methods
+  const { handleSubmit, reset, getValues, control, trigger } = methods
 
   const watchType = useWatch({
     control,

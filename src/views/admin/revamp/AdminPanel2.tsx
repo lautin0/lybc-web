@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import AdminLayout from 'layouts/AdminLayout';
-import { useHistory, useLocation } from 'react-router-dom';
 import AdminHeader from '../AdminHeader';
-import MemberManage from '../MemberManage';
 import NewsCreate from '../NewsCreate';
 import OtherFunc from '../OtherFunc';
 import PageManage from '../PageManage';
@@ -14,7 +12,6 @@ import WorshipManage2 from './WorshipManage2';
 import PendingPostManage2 from './PendingPostManage2';
 import NameCardManage2 from './NameCardManage2';
 import PendingPostEdit2 from './PendingPostEdit2';
-import NotificationPage from './NotificationPage';
 import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import UserManage from '../UserManage';
@@ -35,11 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function AdminPanel2(props: AdminPanelProps) {
+
    const classes = useStyles();
-
-   const history = useHistory()
-
-   const location = useLocation()
 
    const methods = useNotification()
 

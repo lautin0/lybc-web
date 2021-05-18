@@ -145,7 +145,7 @@ export default function PersonalMain() {
     variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true
   })
 
-  const { loading: favLoading, data: favPostData, refetch: favRefetch } = useFavouritePostsQuery({
+  const { loading: favLoading, data: favPostData } = useFavouritePostsQuery({
     notifyOnNetworkStatusChange: true
   })
 
@@ -239,8 +239,6 @@ export default function PersonalMain() {
         return classes.warning
     }
   }
-
-  const setOpen = usePendingPostStore(state => state.setOpen)
 
   return (
     <Grid container spacing={3}>

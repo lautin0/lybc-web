@@ -16,7 +16,6 @@ import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
-import usePagination from "hooks/usePagination";
 
 // core components
 

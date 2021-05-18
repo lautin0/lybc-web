@@ -1,5 +1,5 @@
 import useNotification from "hooks/useNotification";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 const NotificationContext = React.createContext<ReturnType<typeof useNotification> | null>(null)
 

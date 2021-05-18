@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import { FavouritePost, useFavouritePostsQuery } from 'generated/graphql';
 import moment from 'moment';
 import { useEffect } from 'react'

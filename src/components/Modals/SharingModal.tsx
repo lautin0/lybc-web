@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
@@ -8,10 +8,9 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
-import { MutationPendPostArgs, MutationUpdatePendingPostArgs, NewPendingPost, PendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
+import { NewPendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
 import { getTokenValue } from 'utils/utils';
 import { RootState } from 'reducers';
-import { useLazyQuery, useMutation } from '@apollo/client';
 
 function SharingModal(props: any) {
 
@@ -35,7 +34,7 @@ function SharingModal(props: any) {
   // const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = useLazyQuery<{ pendingPost: PendingPost }, { oid: string }>
   //   (GET_PENDING_POST, { variables: { oid: pendingPostID! }, notifyOnNetworkStatusChange: true });
 
-  const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+  const [loadingPendingPost, { data: pPostData }] = usePendingPostLazyQuery({
     variables: { oid: pendingPostID! },
     notifyOnNetworkStatusChange: true
   })

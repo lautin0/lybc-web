@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Col } from "react-bootstrap";
-import { DropzoneState, useDropzone } from "react-dropzone";
+import { DropzoneState } from "react-dropzone";
 
 function DropzoneCustom(props: DropzoneState) {
   const {

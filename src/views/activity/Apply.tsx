@@ -6,8 +6,6 @@ import { useIntl } from "react-intl";
 
 // import moment from 'moment'
 
-const data: Array<any> = []
-
 function Apply() {
 
   const intl = useIntl()
@@ -16,10 +14,6 @@ function Apply() {
     //Default scroll to top
     window.scrollTo(0, 0)
   }, [])
-
-  function onCellClicked(uri: string) {
-    window.open(uri, '_blank');
-  };
 
   return (
     <>

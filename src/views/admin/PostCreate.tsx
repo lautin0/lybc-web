@@ -1,13 +1,11 @@
-import { useMutation } from "@apollo/client";
 import { Button, Typography } from "@material-ui/core";
 import { setLoading } from "actions";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
-import InputText from "components/Forms/InputText";
 import MuiInputText from "components/Forms/MuiInputText";
-import { MutationCreatePostArgs, NewPost, Post, PostType, useCreatePostMutation } from "generated/graphql";
-import React, { useEffect, useState } from "react";
+import { NewPost, PostType, useCreatePostMutation } from "generated/graphql";
+import { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";

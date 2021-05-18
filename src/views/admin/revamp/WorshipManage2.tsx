@@ -2,12 +2,11 @@ import { Button, makeStyles, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { AddCircle, Create, Delete } from '@material-ui/icons';
-import { decisionRequest, setLoading } from 'actions';
+import { setLoading } from 'actions';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import { color } from 'html2canvas/dist/types/css/types/color';
 import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';

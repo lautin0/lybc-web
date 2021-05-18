@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
-import _ from 'lodash'
 
 // react-bootstrap components
 import {
@@ -44,7 +43,7 @@ export default function NameCardForm() {
     }
   });
 
-  const { handleSubmit, reset, getValues, control, errors, register, trigger } = methods
+  const { handleSubmit, reset, getValues, control, errors, register } = methods
 
   const onSubmit = (data: any) => {
     dispatch(setLoading(true))

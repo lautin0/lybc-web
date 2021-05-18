@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
-  Button,
   NavDropdown,
   Navbar,
   Nav,
@@ -27,7 +26,7 @@ type MainNavbarProps = {
 
 function MainNavbar(props: MainNavbarProps) {
 
-  const [locale, setLocale, persistLocale] = useContext(LocaleContext)
+  const { locale, persistLocale } = useContext(LocaleContext)
 
   const intl = useIntl()
 

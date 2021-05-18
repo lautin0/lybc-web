@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useHistory, useLocation } from 'react-router-dom';
 import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import { makeStyles } from '@material-ui/core';
@@ -25,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonalPage2(props: PersonalPageProps) {
    const classes = useStyles();
-
-   const history = useHistory()
-
-   const location = useLocation()
 
    const methods = useNotification()
 

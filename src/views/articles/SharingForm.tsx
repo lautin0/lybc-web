@@ -3,7 +3,6 @@ import InputText from 'components/Forms/InputText'
 import InputTextArea from 'components/Forms/InputTextArea';
 import { PostStatus } from 'generated/graphql';
 import React from 'react'
-import { Col, Form } from 'react-bootstrap';
 import { DropzoneState } from 'react-dropzone';
 
 type SharingFormPropsType = {

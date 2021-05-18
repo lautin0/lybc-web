@@ -53,7 +53,7 @@ function WorshipEdit() {
 
   const [updateWorship, { data }] = useUpdateWorshipMutation()
 
-  const { called, loading, data: wData, refetch } = useWorshipQuery({
+  const { loading, data: wData, refetch } = useWorshipQuery({
     variables: {
       worshipId: id
     }

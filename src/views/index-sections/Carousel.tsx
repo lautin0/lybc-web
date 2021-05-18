@@ -1,12 +1,11 @@
 import LoadingDiv from "components/Loading/LoadingDiv";
 import { PostType, useMaxWorshipIdQuery, usePostsQuery } from "generated/graphql";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import UNIVERSALS from "Universals";
 
@@ -18,13 +17,12 @@ function CarouselSection() {
 
   const history = useHistory()
 
-  const dispatch = useDispatch()
 
-  const { data: newsData, loading: newsLoading, refetch } = usePostsQuery({ variables: { last: 5, postFilter: { type: PostType.News } }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true })
+  const { data: newsData } = usePostsQuery({ variables: { last: 5, postFilter: { type: PostType.News } }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true })
 
   const [worshipId, setWorshipId] = useState('')
   const [index, setIndex] = useState(0);
-  const [clickFunc, setClickFunc] = useState<((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined>((e: any) => { })
+  const [setClickFunc] = useState<any>(() => { })
   // const [votd, setVotd] = useState('')
   // const [votdImg, setVotdImg] = useState('')
   // const [votdSrc, setVotdSrc] = useState('')
@@ -47,8 +45,10 @@ function CarouselSection() {
   }, [data])
 
   useEffect(() => {
+    if (!setClickFunc || !handleClick)
+      return
     worshipId.length > 0 && setClickFunc(() => handleClick)
-  }, [worshipId])
+  }, [worshipId, setClickFunc, handleClick])
 
   // useEffect(() => {
   //   axios.get("https://www.bible.com/verse-of-the-day").then((res) => {
@@ -96,14 +96,14 @@ function CarouselSection() {
                   <div className="text-line"></div>
                 </div>
               </div>}
-              {!loading && newsData?.posts.edges?.map((x, i) => (
+              {!loading && newsData?.posts.edges?.map((x) => (
                 <div key={x.node?._id}>
                   <h5><FormattedDate
-                        value={moment(x.node?.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
-                        year="numeric"
-                        month="short"
-                        day="numeric"
-                     /><a href="#" onClick={e => { e.preventDefault(); history.push('news/' + x.node?._id) }} className="ml-3">{x.node?.title}</a></h5>
+                    value={moment(x.node?.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                    year="numeric"
+                    month="short"
+                    day="numeric"
+                  /><a href="#" onClick={e => { e.preventDefault(); history.push('news/' + x.node?._id) }} className="ml-3">{x.node?.title}</a></h5>
                   <hr style={{ width: '80%' }}></hr>
                 </div>
               ))}

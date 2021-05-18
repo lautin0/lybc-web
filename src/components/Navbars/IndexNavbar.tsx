@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
-  Button,
   NavDropdown,
   Navbar,
   Nav,
@@ -16,7 +15,6 @@ import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
 import { Role, useMaxWorshipIdQuery } from "generated/graphql";
-import { useQuery } from "@apollo/client";
 import moment from "moment";
 import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
@@ -24,7 +22,7 @@ import { LocaleContext } from "context/LocaleContext";
 
 function IndexNavbar() {
 
-  const [locale, setLocale, persistLocale] = useContext(LocaleContext)
+  const { locale, persistLocale } = useContext(LocaleContext)
 
   const intl = useIntl()
 

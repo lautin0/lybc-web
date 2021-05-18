@@ -3,7 +3,6 @@ import { grey } from "@material-ui/core/colors";
 import { Comment, ThumbUp } from "@material-ui/icons";
 import NotificationContext from "context/NotificationContext";
 import { Notification, NotificationType } from "generated/graphql";
-import useNotification from "hooks/useNotification";
 import moment from 'moment';
 import { useContext } from "react";
 import { useHistory } from 'react-router-dom';

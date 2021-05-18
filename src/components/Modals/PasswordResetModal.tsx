@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
-import { Button, Col, Container, Form, InputGroup, Modal, Row } from 'react-bootstrap';
+import { Button, Container, Form, InputGroup, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../reducers';
 import { toggleSecurityModal } from 'actions/security/security';
-import { useMutation } from '@apollo/client';
-import { MutationChangePasswordArgs, NewPassword, useChangePasswordMutation } from 'generated/graphql';
+import { NewPassword, useChangePasswordMutation } from 'generated/graphql';
 import { useForm } from 'react-hook-form';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
 import { getTokenValue } from 'utils/utils';

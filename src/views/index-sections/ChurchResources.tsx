@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 // react-bootstrap components
 import {
   Row,
-  Col,
-  Card
-} from "react-bootstrap";
+  Col} from "react-bootstrap";
 
 import { useHistory } from "react-router-dom";
 
-import sharing from "assets/img/microphone_sm.jpg";
-import news from "assets/img/lightbulb_sm.jpg";
-import sermon from "assets/img/sermon_sm.jpg";
 import { useCallback } from "react";
 import { useIntl } from "react-intl";
 

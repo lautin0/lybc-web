@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import UNIVERSALS from "Universals";
 import DOMPurify from 'dompurify'
-import { useQuery } from '@apollo/client';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { getNullableString } from 'utils/utils';

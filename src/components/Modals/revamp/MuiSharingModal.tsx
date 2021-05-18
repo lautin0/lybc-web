@@ -1,8 +1,7 @@
-import { useMutation, useLazyQuery } from '@apollo/client';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import { setLoading } from 'actions';
-import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus, MutationPendPostArgs, MutationUpdatePendingPostArgs, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
+import { NewPendingPost, UpdatePendingPost, PostStatus, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
 import { useDropzone } from 'react-dropzone';
@@ -37,7 +36,6 @@ export default function MuiSharingModal() {
 
    const [readOnly, setReadOnly] = useState(false)
 
-   const title = usePendingPostStore(state => state.title)
    const isOpen = usePendingPostStore(state => state.isOpen)
    const pendingPostID = usePendingPostStore(state => state.pendingPostID)
    const setOpen = usePendingPostStore(state => state.setOpen)
@@ -45,7 +43,7 @@ export default function MuiSharingModal() {
 
    const intl = useIntl()
    
-   const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+   const [loadingPendingPost, { data: pPostData }] = usePendingPostLazyQuery({
       variables: { oid: pendingPostID! },
       notifyOnNetworkStatusChange: true
    })

@@ -1,16 +1,14 @@
-import LoadingDiv from 'components/Loading/LoadingDiv';
 import { usePostsQuery, PostType } from 'generated/graphql';
 import moment from 'moment';
 import React, { useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
-import { FormattedDate, useIntl } from 'react-intl';
+import { FormattedDate } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
 
 function NewsList() {
 
    const location = useLocation()
    const history = useHistory()
-   const intl = useIntl()
 
    const { data, loading, refetch } = usePostsQuery({ variables: { first: 100, postFilter: { type: PostType.News } }, notifyOnNetworkStatusChange: true })
 

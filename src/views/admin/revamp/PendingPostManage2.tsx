@@ -4,10 +4,8 @@ import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsP
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
-import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { useIntl } from 'react-intl';
 import { useLocation, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
 function PendingPostManage2() {
 
   const classes = useStyles()
-
-  const [locale] = useLanguage()
-
-  const intl = useIntl()
 
   const location = useLocation();
 

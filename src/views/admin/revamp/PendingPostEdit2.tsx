@@ -1,22 +1,17 @@
-import classes from '*.module.css'
-import { useMutation, useQuery } from '@apollo/client'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, makeStyles, Typography } from '@material-ui/core'
 import { cyan, green, red, yellow } from '@material-ui/core/colors'
 import { ExpandMore } from '@material-ui/icons'
 import { setLoading } from 'actions'
-import { RBRef } from 'adapter/types'
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
-import InputText from 'components/Forms/InputText'
 import MuiInputText from 'components/Forms/MuiInputText'
-import { Post, NewPost, PostType, PendingPost, UpdatePendingPost, PostStatus, QueryPendingPostArgs, MutationUpdatePendingPostArgs, MutationApprovePostArgs, useUpdatePendingPostMutation, usePendingPostQuery, useApprovePostMutation } from 'generated/graphql'
+import { NewPost, PostType, UpdatePendingPost, PostStatus, useUpdatePendingPostMutation, usePendingPostQuery, useApprovePostMutation } from 'generated/graphql'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
-import { Form, Card } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Form } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useIntl } from 'react-intl'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { RootState } from 'reducers'
@@ -57,8 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 function PendingPostEdit() {
 
-  const intl = useIntl()
-
   const [readOnly, setReadOnly] = useState(false)
 
   const { id } = useParams<any>()
@@ -78,7 +71,7 @@ function PendingPostEdit() {
 
   const [updatePendingPost, { data: updatePendingPostData }] = useUpdatePendingPostMutation()
 
-  const { loading, data: pData, refetch } = usePendingPostQuery({ variables: { oid: id }, notifyOnNetworkStatusChange: true })
+  const { data: pData, refetch } = usePendingPostQuery({ variables: { oid: id }, notifyOnNetworkStatusChange: true })
 
   const dropzoneMethods = useDropzone({
     accept: 'image/*'
@@ -101,7 +94,7 @@ function PendingPostEdit() {
     }
   });
 
-  const { handleSubmit, getValues, reset, register } = methods
+  const { handleSubmit, getValues, reset } = methods
 
   useEffect(() => {
     if (pData !== undefined) {

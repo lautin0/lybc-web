@@ -42,7 +42,7 @@ function NewsCreate() {
     }
   });
 
-  const { handleSubmit, getValues, reset } = methods
+  const { handleSubmit, reset } = methods
 
   const onSubmit = (data: any) => {
     dispatch(setLoading(true))
