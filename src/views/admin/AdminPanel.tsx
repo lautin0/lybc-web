@@ -62,7 +62,7 @@ function AdminPanel(props: AdminPanelProps) {
                 className="nav-link"
                 style={location.pathname.includes('page-management') || 
                   location.pathname.includes('post') || 
-                  location.pathname.includes('latests') ? { backgroundColor: 'lightgray' } : {}}
+                  location.pathname.includes('news') ? { backgroundColor: 'lightgray' } : {}}
                 onClick={(e: any) => {
                   e.preventDefault()
                   history.push('/admin/page-management')
@@ -128,7 +128,7 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'namecards' && <NameCardManage />}
               {props.func === 'pending-posts' && <PendingPostManage />}
               {props.func === 'new-proxy-posts' && <PendingPostEdit />}              
-              {props.func === 'new-latests' && <NewsCreate />}       
+              {props.func === 'new-news' && <NewsCreate />}       
               {/* {props.func === 'new-book' && <BooksCreate />}
               {props.func === 'books' && <BooksManage />} */}
             </div>

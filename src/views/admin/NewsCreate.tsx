@@ -1,5 +1,6 @@
 import { Button, Typography } from '@material-ui/core';
 import { setLoading } from 'actions';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -75,6 +76,7 @@ function NewsCreate() {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <RouterBreadcrumbs />
         {/* <h3 className="category mt-5" style={{ color: 'black' }}>新增最新消息</h3> */}
         <Typography className="my-3" variant="h5">新增最新消息</Typography>
         <Form.Row>

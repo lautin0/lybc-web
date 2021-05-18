@@ -5,6 +5,7 @@ import { cyan, green, red, yellow } from '@material-ui/core/colors'
 import { ExpandMore } from '@material-ui/icons'
 import { setLoading } from 'actions'
 import { RBRef } from 'adapter/types'
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
 import InputText from 'components/Forms/InputText'
@@ -247,6 +248,7 @@ function PendingPostEdit() {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <RouterBreadcrumbs />
         {/* <h2 className="category mt-5" style={{ color: 'black' }}>管理員代發文章</h2> */}
         <Typography className="my-3" variant="h5">管理員代發文章</Typography>
         <Typography className="mb-3" variant="h5">

@@ -61,7 +61,7 @@ const funcList = [
       title: "頁面管理", path: '/admin/page-management', children: [
          { title: "新增文章", path: '/admin/post/new', icon: <Add /> },
          { title: "審閱文章", path: '/admin/post/pending', icon: <Spellcheck /> },
-         { title: "新增消息", path: '/admin/latests/new', icon: <NoteAdd /> },
+         { title: "新增消息", path: '/admin/news/new', icon: <NoteAdd /> },
          { title: "頁面設定", path: '/admin/other', icon: <BuildIcon /> }
       ]
    },
