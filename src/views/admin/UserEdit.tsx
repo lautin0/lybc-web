@@ -216,7 +216,7 @@ export default function UserEdit() {
    }
 
    useEffect(() => {
-      if (data !== undefined) {
+      if (data !== undefined && reset !== undefined) {
          reset({
             username: data.user?.username,
             phone: data.user?.phone!,
@@ -231,11 +231,10 @@ export default function UserEdit() {
          setChecked(data.user?.status === AccountStatus.Active)
          setDate(moment(data.user?.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
       }
-   }, [data])
+   }, [data, reset])
 
    useEffect(() => {
-      if (data != null) {
-         dispatch(setLoading(true))
+      if (refetch !== undefined && dispatch !== undefined) {
          refetch();
       }
    }, [location, dispatch, refetch])

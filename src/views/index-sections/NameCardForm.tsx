@@ -32,7 +32,7 @@ export default function NameCardForm() {
   const [phoneFocus, setPhoneFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const [addNameCard, { data }] = useCreateNameCardMutation()
+  const [addNameCard] = useCreateNameCardMutation()
 
   const methods = useForm({
     defaultValues: {
@@ -56,24 +56,19 @@ export default function NameCardForm() {
           phone: data.phone.length > 0 ? data.phone : null
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+    }).then(res => {
+      dispatch(setSysMessage('app.sys.thanks-for-church-interest'))
       reset();
     })
+      .catch((err: any) => {
+        dispatch(setSystemFailure(err))
+        reset();
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   useEffect(() => {
-    if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.thanks-for-church-interest'))
-      dispatch(setLoading(false))
-      reset();
-    }
-  }, [data, dispatch, reset])
-
-  useEffect(() => {
-    reset();
-  }, [location])
+    reset && reset();
+  }, [location, reset])
 
   return (
     <>

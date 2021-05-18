@@ -27,21 +27,33 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: green[600],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: green[500],
+    }
   },
   danger: {
     backgroundColor: red[600],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: red[500],
+    }
   },
   warning: {
     backgroundColor: yellow[700],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: yellow[500],
+    }
   },
   info: {
     backgroundColor: cyan[800],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: cyan[700],
+    }
   },
   heading: {
     // fontSize: theme.typography.pxToRem(15),
@@ -69,7 +81,7 @@ function PendingPostEdit() {
 
   const [documentURI, setDocumentURI] = useState("")
 
-  const [updatePendingPost, { data: updatePendingPostData }] = useUpdatePendingPostMutation()
+  const [updatePendingPost] = useUpdatePendingPostMutation()
 
   const { data: pData, refetch } = usePendingPostQuery({ variables: { oid: id }, notifyOnNetworkStatusChange: true })
 
@@ -79,7 +91,7 @@ function PendingPostEdit() {
 
   const { acceptedFiles } = dropzoneMethods
 
-  const [approvePost, { data }] = useApprovePostMutation()
+  const [approvePost] = useApprovePostMutation()
 
   const methods = useForm({
     defaultValues: {
@@ -137,11 +149,15 @@ function PendingPostEdit() {
         image: file,
         postRefInput: pPostTmp
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setModalError(err)
+    }).then(res => {
+      setMessage('app.sys.save-success')
       reset();
+      history.push('/admin/post/pending')
     })
+      .catch((err: any) => {
+        setModalError(err)
+        reset();
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   const stripFileName = (s: string) => {
@@ -177,10 +193,23 @@ function PendingPostEdit() {
           ...tmp
         },
       }
-    }).catch((err: any) => {
+    }).then(res => {
+      let msg = 'app.sys.save-success'
+      if (res.data?.updatePendingPost.status === PostStatus.Rejected)
+        msg = 'app.post.rejected'
+      else if (res.data?.updatePendingPost.status === PostStatus.Approved)
+        msg = 'app.post.approved'
+      else if (res.data?.updatePendingPost.status === PostStatus.Withhold)
+        msg = 'app.post.withheld'
+      setMessage(msg)
       dispatch(setLoading(false))
+      reset();
+      refetch();
+      if (res.data?.updatePendingPost.status !== PostStatus.Pending)
+        setReadOnly(true)
+    }).catch((err: any) => {
       setModalError(err)
-    })
+    }).finally(() => dispatch(setLoading(false)))
   }
 
   const getBadgeClassName = (s: PostStatus) => {
@@ -210,33 +239,6 @@ function PendingPostEdit() {
         return "已撤回"
     }
   }
-
-  useEffect(() => {
-    if (data !== undefined) {
-      setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
-      reset();
-      history.push('/admin/post/pending')
-    }
-  }, [data, dispatch, reset, history])
-
-  useEffect(() => {
-    if (updatePendingPostData !== undefined) {
-      let msg = 'app.sys.save-success'
-      if (updatePendingPostData?.updatePendingPost.status === PostStatus.Rejected)
-        msg = 'app.post.rejected'
-      else if (updatePendingPostData?.updatePendingPost.status === PostStatus.Approved)
-        msg = 'app.post.approved'
-      else if (updatePendingPostData?.updatePendingPost.status === PostStatus.Withhold)
-        msg = 'app.post.withheld'
-      setMessage(msg)
-      dispatch(setLoading(false))
-      reset();
-      refetch();
-      if (updatePendingPostData?.updatePendingPost.status !== PostStatus.Pending)
-        setReadOnly(true)
-    }
-  }, [updatePendingPostData, dispatch, reset, history])
 
   return (
     <FormProvider {...methods}>

@@ -144,7 +144,7 @@ function SharingList() {
 
     setOpen(true)
     setTitle("app.modal.header.new-sharing-record")
-  }, [tokenPair])
+  }, [tokenPair, dispatch, setOpen, setTitle])
 
   useEffect(() => {
     //Default scroll to top
@@ -155,7 +155,7 @@ function SharingList() {
     postData && refetch({
       first: cacheData?.posts.edges?.length
     });
-  }, [location, refetch, postData])
+  }, [location, refetch, postData, cacheData])
 
   const handleScroll = useCallback(() => {
     if (!fetchMore)
@@ -181,7 +181,7 @@ function SharingList() {
         }
       })
     }
-  }, [postData, fetchMore, postDataRef])
+  }, [postData, fetchMore, postDataRef, called])
 
   useEffect(() => {
     if (postData === undefined)

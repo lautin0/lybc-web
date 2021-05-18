@@ -88,7 +88,7 @@ function WorshipList() {
         </Button>
       )
     },
-  ], [intl])
+  ], [intl, classes])
 
   useEffect(() => {
     if (worshipData === undefined)
@@ -98,7 +98,7 @@ function WorshipList() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
-  }, [locale])
+  }, [locale, intl])
 
   useEffect(() => {
     //Default scroll to top

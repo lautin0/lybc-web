@@ -139,7 +139,7 @@ export default function PersonalSetting() {
 
   const { acceptedFiles, open, getRootProps, getInputProps } = dropzoneMethods
 
-  const [updateUser, { data: updatedUserData }] = useUpdateUserMutation()
+  const [updateUser] = useUpdateUserMutation()
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
@@ -170,7 +170,7 @@ export default function PersonalSetting() {
 
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
-  const [changePassword, { data }] = useChangePasswordMutation()
+  const [changePassword] = useChangePasswordMutation()
 
   const watchType = useWatch({
     control,
@@ -206,10 +206,12 @@ export default function PersonalSetting() {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setErrorModal(err)
+    }).then(res => {
+      setMessage('app.sys.save-success')
     })
+      .catch((err: any) => {
+        setErrorModal(err)
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   const onSubmit = async (data: any) => {
@@ -249,20 +251,17 @@ export default function PersonalSetting() {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setErrorModal(err)
-    })
-  }
-
-  useEffect(() => {
-    if (updatedUserData !== undefined) {
+    }).then(res => {
       setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
       reset();
       history.push('/personal/')
-    }
-  }, [updatedUserData, dispatch, reset, history])
+    })
+      .catch((err: any) => {
+        setErrorModal(err)
+      }).finally(() => {
+        dispatch(setLoading(false))
+      })
+  }
 
   useEffect(() => {
     if (userData !== undefined) {
@@ -276,49 +275,21 @@ export default function PersonalSetting() {
           phone: userData.user?.phone!,
           dob: userData.user?.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
         })
-        // if (userData.user.dob) {
-        //   console.log(userData.user.dob)
-        //   setFormValue('dob', moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
-        // }
-        // if (userData.user.dob != null) {
-        //   setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
-        // }
       })
     }
   }, [userData, reset])
 
-  // useEffect(() => {
-  //   dispatch(setLoading(true))
-  // }, [])
-
   useEffect(() => {
-    if (userData != null) {
-      // dispatch(setLoading(true))
-      refetch();
-      setTimeout(() => {
-        trigger()
-      }, 100);
+    if (refetch !== undefined && trigger !== undefined) {
+      refetch()
+      trigger()
     }
-  }, [location, dispatch, refetch])
-
-  // useEffect(() => {
-  //   if (loading === false) {
-  //     dispatch(setLoading(false))
-  //   }
-  // }, [loading, dispatch])
+  }, [location, trigger, refetch])
 
   useEffect(() => {
-    if (watchType !== undefined)
+    if (watchType !== undefined && trigger !== undefined)
       trigger()
   }, [watchType, trigger])
-
-
-  useEffect(() => {
-    if (data !== undefined) {
-      setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
-    }
-  }, [data, dispatch])
 
   return (
     <div className={classes.root}>

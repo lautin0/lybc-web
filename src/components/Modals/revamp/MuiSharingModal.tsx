@@ -31,8 +31,8 @@ export default function MuiSharingModal() {
    const setMessage = useModalStore(state => state.setMessage)
    const setModalError = useModalStore(state => state.setError)
 
-   const [pendPost, { data }] = usePendPostMutation()
-   const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
+   const [pendPost] = usePendPostMutation()
+   const [updatePendingPost] = useUpdatePendingPostMutation()
 
    const [readOnly, setReadOnly] = useState(false)
 
@@ -79,11 +79,14 @@ export default function MuiSharingModal() {
                },
                doc: file
             }
-         }).catch((err: any) => {
-            dispatch(setLoading(false))
-            setModalError(err)
+         }).then(res => {
+            setMessage('app.sys.save-success')
             onHide()
          })
+         .catch((err: any) => {
+            setModalError(err)
+            onHide()
+         }).finally(() => dispatch(setLoading(false)))
       } else {
          pendPost({
             variables: {
@@ -92,11 +95,14 @@ export default function MuiSharingModal() {
                },
                doc: file
             }
-         }).catch((err: any) => {
-            dispatch(setLoading(false))
-            setModalError(err)
+         }).then(res => {
+            setMessage('app.sys.save-success')
             onHide()
          })
+         .catch((err: any) => {            
+            setModalError(err)
+            onHide()
+         }).finally(() => dispatch(setLoading(false)))
       }
    }
 
@@ -114,28 +120,15 @@ export default function MuiSharingModal() {
                ...tmp
             },
          }
-      }).catch((err: any) => {
-         dispatch(setLoading(false))
-         setModalError(err)
+      }).then(res => {
+         setMessage('app.sys.save-success')
          onHide()
       })
+      .catch((err: any) => {         
+         setModalError(err)
+         onHide()
+      }).finally(() => dispatch(setLoading(false)))
    }
-
-   useEffect(() => {
-      if (data !== undefined) {
-         setMessage('app.sys.save-success')
-         dispatch(setLoading(false))
-         onHide()
-      }
-   }, [data, dispatch, reset])
-
-   useEffect(() => {
-      if (updateData !== undefined) {
-         setMessage('app.sys.save-success')
-         dispatch(setLoading(false))
-         onHide()
-      }
-   }, [updateData, dispatch, reset])
 
    const onHide = () => {
       reset({
@@ -149,10 +142,10 @@ export default function MuiSharingModal() {
    }
 
    useEffect(() => {
-      if (pendingPostID != null) {
+      if (pendingPostID !== null && loadingPendingPost !== null) {
          loadingPendingPost()
       }
-   }, [pendingPostID])
+   }, [pendingPostID, loadingPendingPost])
 
    useEffect(() => {
       if (pPostData != null) {
@@ -163,7 +156,7 @@ export default function MuiSharingModal() {
          })
          setReadOnly(true)
       }
-   }, [pPostData])
+   }, [pPostData, reset])
 
    useEffect(() => {
       let thisRef = React.createRef();

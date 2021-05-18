@@ -18,8 +18,8 @@ function SharingModal(props: any) {
 
   const dispatch = useDispatch()
   
-  const [pendPost, { data }] = usePendPostMutation()
-  const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
+  const [pendPost] = usePendPostMutation()
+  const [updatePendingPost] = useUpdatePendingPostMutation()
 
   const [readOnly, setReadOnly] = useState(false)
 
@@ -70,11 +70,14 @@ function SharingModal(props: any) {
           },
           doc: file
         }
-      }).catch((err: any) => {
-        dispatch(setLoading(false))
-        dispatch(setSystemFailure(err))
+      }).then(res => {
+        dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
+      .catch((err: any) => {
+        dispatch(setSystemFailure(err))
+        onHide()
+      }).finally(() => dispatch(setLoading(false)))
     } else {
       pendPost({
         variables: {
@@ -83,11 +86,14 @@ function SharingModal(props: any) {
           },
           doc: file
         }
-      }).catch((err: any) => {
-        dispatch(setLoading(false))
-        dispatch(setSystemFailure(err))
+      }).then(res => {
+        dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
+      .catch((err: any) => {        
+        dispatch(setSystemFailure(err))
+        onHide()
+      }).finally(() => dispatch(setLoading(false)))
     }
   }
 
@@ -105,28 +111,15 @@ function SharingModal(props: any) {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+    }).then(res => {
+      dispatch(setSysMessage('app.sys.save-success'))      
       onHide()
     })
+    .catch((err: any) => {      
+      dispatch(setSystemFailure(err))
+      onHide()
+    }).finally(() => dispatch(setLoading(false)))
   }
-
-  useEffect(() => {
-    if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
-      dispatch(setLoading(false))
-      onHide()
-    }
-  }, [data, dispatch, reset])
-
-  useEffect(() => {
-    if (updateData !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
-      dispatch(setLoading(false))
-      onHide()
-    }
-  }, [updateData, dispatch, reset])
 
   const onHide = () => {
     reset({
@@ -140,10 +133,10 @@ function SharingModal(props: any) {
   }
 
   useEffect(() => {
-    if (pendingPostID != null) {
+    if (pendingPostID !== null && loadingPendingPost !== null) {
       loadingPendingPost()
     }
-  }, [pendingPostID])
+  }, [pendingPostID, loadingPendingPost])
 
   useEffect(() => {
     if (pPostData != null) {
@@ -154,7 +147,7 @@ function SharingModal(props: any) {
       })
       setReadOnly(true)
     }
-  }, [pPostData])
+  }, [pPostData, reset])
 
   useEffect(() => {
     let thisRef = React.createRef();

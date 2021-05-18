@@ -17,15 +17,11 @@ function CarouselSection() {
 
   const history = useHistory()
 
-
   const { data: newsData } = usePostsQuery({ variables: { last: 5, postFilter: { type: PostType.News } }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true })
 
   const [worshipId, setWorshipId] = useState('')
   const [index, setIndex] = useState(0);
   const [setClickFunc] = useState<any>(() => { })
-  // const [votd, setVotd] = useState('')
-  // const [votdImg, setVotdImg] = useState('')
-  // const [votdSrc, setVotdSrc] = useState('')
 
   const { data, loading } = useMaxWorshipIdQuery()
 
@@ -35,7 +31,7 @@ function CarouselSection() {
 
   const handleClick = useCallback(() => {
     history.push('/worship/' + worshipId)
-  }, [worshipId])
+  }, [worshipId, history])
 
   useEffect(() => {
     if (data !== undefined) {

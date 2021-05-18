@@ -52,7 +52,7 @@ function InfoModal(props: any) {
         .replace("{0}", data?.maxWorshipId.toString())
         .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
     }
-  }, [data])
+  }, [data, dispatch])
 
   return (
     <Modal

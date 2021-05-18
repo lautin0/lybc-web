@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core';
 import PersonalLayout from 'layouts/PersonalLayout';
 import NotificationPage from 'views/admin/revamp/NotificationPage';
 import PersonalOther from '../PersonalOther';
-import PersonalEdit from '../PersonalEdit';
 import PersonalMain from './PersonalMain';
 import PersonalSetting from './PersonalSetting';
 
@@ -45,13 +44,9 @@ export default function PersonalPage2(props: PersonalPageProps) {
             <div className={classes.panel}>
                <div>
                   {!props.func && <PersonalMain />}
-                  {props.func === 'info' && <PersonalEdit />}
                   {props.func === 'settings' && <PersonalSetting />}
-                  {/* {props.func === 'sharing' && <PersonalSharing />}
-                  {props.func === 'favourite-posts' && <PersonalFavouriteList />} */}
                   {props.func === 'other' && <PersonalOther />}
                   {props.func === 'notifications' && <NotificationPage />}
-                  {/* {props.func === 'books' && <BooksManage />} */}
                </div>
             </div>
          </PersonalLayout>

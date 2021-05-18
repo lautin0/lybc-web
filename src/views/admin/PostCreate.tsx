@@ -5,7 +5,6 @@ import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
 import MuiInputText from "components/Forms/MuiInputText";
 import { NewPost, PostType, useCreatePostMutation } from "generated/graphql";
-import { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";
@@ -33,7 +32,7 @@ function PostCreate(props: any) {
 
   const { acceptedFiles } = dropzoneMethods
 
-  const [addPost, { data }] = useCreatePostMutation()
+  const [addPost] = useCreatePostMutation()
 
   const methods = useForm({
     defaultValues: {
@@ -61,21 +60,16 @@ function PostCreate(props: any) {
         },
         image: file
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setModalError(err)
-      reset();
-    })
-  }
-
-  useEffect(() => {
-    if (data !== undefined) {
-      setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
+    }).then(res => {
+      setMessage('app.sys.save-success')      
       reset();
       history.push('/admin/page-management')
-    }
-  }, [data, dispatch, reset, history])
+    })
+    .catch((err: any) => {      
+      setModalError(err)
+      reset();
+    }).finally(() => dispatch(setLoading(false)))
+  }
 
   return (
     <FormProvider {...methods}>

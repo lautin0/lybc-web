@@ -18,7 +18,7 @@ function DropzoneCustom(props: DropzoneState) {
     </li>
   ));
 
-  const baseStyle = {
+  const baseStyle = useMemo(() => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
@@ -33,19 +33,19 @@ function DropzoneCustom(props: DropzoneState) {
     fontWeight: 'bolder',
     outline: 'none',
     transition: 'border .24s ease-in-out'
-  } as React.CSSProperties;
+  } as React.CSSProperties), []);
 
-  const activeStyle = {
+  const activeStyle = useMemo(() => ({
     borderColor: '#2196f3'
-  };
+  }), []);
 
-  const acceptStyle = {
+  const acceptStyle = useMemo(() => ({
     borderColor: '#00e676'
-  };
+  }), []);
 
-  const rejectStyle = {
+  const rejectStyle = useMemo(() => ({
     borderColor: '#ff1744'
-  };
+  }), []);
 
   const style = useMemo(() => ({
     ...baseStyle,
@@ -55,7 +55,11 @@ function DropzoneCustom(props: DropzoneState) {
   }), [
     isDragActive,
     isDragReject,
-    isDragAccept
+    isDragAccept,
+    activeStyle,
+    acceptStyle,
+    rejectStyle,
+    baseStyle
   ]);
 
   return <Col xl={6} lg={12}>

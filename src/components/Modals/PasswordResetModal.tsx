@@ -21,7 +21,7 @@ function PasswordResetModal(props: any) {
     }
   })
 
-  const [changePassword, { data }]  = useChangePasswordMutation()
+  const [changePassword]  = useChangePasswordMutation()
 
   const onHide = () => {
     dispatch(toggleSecurityModal(false))
@@ -56,19 +56,14 @@ function PasswordResetModal(props: any) {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
-    })
-  }
-
-  useEffect(() => {
-    if (data !== undefined) {
+    }).then(res => {
       dispatch(setSysMessage('app.sys.save-success'))
-      dispatch(setLoading(false))
       onHide()
-    }
-  }, [data, dispatch])
+    })
+    .catch((err: any) => {      
+      dispatch(setSystemFailure(err))
+    }).finally(() => dispatch(setLoading(false)))
+  }
 
   return (
     <Modal

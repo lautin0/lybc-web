@@ -199,7 +199,7 @@ export default function PersonalMain() {
     setPendingPostID(id)
     setModalOpen(true)
     setTitle("app.modal.header.edit-sharing-record")
-  }, [])
+  }, [setPendingPostID, setModalOpen, setTitle])
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)

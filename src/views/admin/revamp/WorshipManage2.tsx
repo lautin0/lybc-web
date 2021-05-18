@@ -129,7 +129,7 @@ function WorshipManage2() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
-  }, [locale])
+  }, [locale, intl])
 
   useEffect(() => {
     if (deleteResult != null && deleteResult.deleteWorship > 0) {

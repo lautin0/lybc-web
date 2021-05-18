@@ -62,11 +62,7 @@ function WorshipCreate() {
     name: "docs"
   });
 
-  // const [addWorship, { data }] = useMutation<
-  //   { createWorship: Worship },
-  //   MutationCreateWorshipArgs
-  // >(ADD_WORSHIP);
-  const [addWorship, { data }] = useCreateWorshipMutation()
+  const [addWorship] = useCreateWorshipMutation()
 
   const dispatch = useDispatch();
 
@@ -97,21 +93,16 @@ function WorshipCreate() {
         },
         docs: [...tmpDocs]
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setModalError(err)
-      reset();
-    })
-  }
-
-  useEffect(() => {
-    if (data !== undefined) {
+    }).then(res => {
       setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
       reset();
       history.push('/admin/worships')
-    }
-  }, [data, dispatch, reset, history])
+    })
+      .catch((err: any) => {
+        setModalError(err)
+        reset();
+      }).finally(() => dispatch(setLoading(false)))
+  }
 
   useEffect(() => {
     register('note')
@@ -120,7 +111,7 @@ function WorshipCreate() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.admin.panel" })
-  }, [locale])
+  }, [locale, intl])
 
 
   const addRow = () => {

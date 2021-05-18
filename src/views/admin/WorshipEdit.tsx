@@ -51,7 +51,7 @@ function WorshipEdit() {
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
-  const [updateWorship, { data }] = useUpdateWorshipMutation()
+  const [updateWorship] = useUpdateWorshipMutation()
 
   const { loading, data: wData, refetch } = useWorshipQuery({
     variables: {
@@ -110,21 +110,16 @@ function WorshipEdit() {
         },
         docs: [...tmpDocs]
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setModalError(err)
-      history.push('/admin/worships')
-    })
-  }
-
-  useEffect(() => {
-    if (data !== undefined) {
+    }).then(res => {
       setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
       reset();
       history.push('/admin/worships')
-    }
-  }, [data, history, dispatch, reset])
+    })
+      .catch((err: any) => {
+        setModalError(err)
+        history.push('/admin/worships')
+      }).finally(() => dispatch(setLoading(false)))
+  }
 
   useEffect(() => {
     register('note')
@@ -145,8 +140,7 @@ function WorshipEdit() {
   }, [wData, reset])
 
   useEffect(() => {
-    if (wData != null) {
-      dispatch(setLoading(true))
+    if (refetch !== undefined && dispatch !== undefined) {
       refetch();
     }
   }, [location, dispatch, refetch])
@@ -177,7 +171,7 @@ function WorshipEdit() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.admin.panel" })
-  }, [locale])
+  }, [locale, intl])
 
   const addRow = () => {
     append({ title: '', link: '', type: '' })
