@@ -1,6 +1,5 @@
-import { Button, createStyles, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, createStyles, Divider, Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
-import { setLoading } from 'actions';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
@@ -11,7 +10,7 @@ import { useEffect } from 'react'
 import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { useModalStore } from 'store';
@@ -62,9 +61,7 @@ function WorshipCreate() {
     name: "docs"
   });
 
-  const [addWorship] = useCreateWorshipMutation()
-
-  const dispatch = useDispatch();
+  const [addWorship, { loading }] = useCreateWorshipMutation()
 
   const dropdownData = [
     { value: '', display: '請選擇', disabled: true },
@@ -79,7 +76,6 @@ function WorshipCreate() {
   ]
 
   const onSubmit = (data: any) => {
-    dispatch(setLoading(true))
     let tmp = data
     let tmpDocs: any[] = []
     data.docs.forEach((e: any) => {
@@ -101,7 +97,7 @@ function WorshipCreate() {
       .catch((err: any) => {
         setModalError(err)
         reset();
-      }).finally(() => dispatch(setLoading(false)))
+      })
   }
 
   useEffect(() => {
@@ -177,124 +173,92 @@ function WorshipCreate() {
   }
 
   return (
-    <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <RouterBreadcrumbs />
-        {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
-        <Typography variant="h5" className="my-3">崇拜資料</Typography>
-        <Form.Row className="mb-5">
-          {/* <InputText
-            name="title"
-            label="講題"
-            placeholder="請輸入講題"
-            md={5}
-            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-          /> */}
-          <MuiInputText
-            md={5}
-            xs={12}
-            name="title"
-            label="講題"
-            placeholder="請輸入講題"
-            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-          />
-          {/* <InputText
-            name="worshipId"
-            label="日期"
-            placeholder="YYYYMMDD"
-            md={{ span: 5, offset: 1 }}
-            validateFn={Validators.NoWhiteSpace}
-          /> */}
-          <MuiInputText
-            md={5}
-            xs={12}
-            name="worshipId"
-            label="日期"
-            placeholder="YYYYMMDD"
-            validateFn={Validators.NoWhiteSpace}
-          />
-        </Form.Row>
-        <Form.Row className="mb-5">
-          {/* <InputDropdown
-            name="type"
-            label="分類"
-            ds={dropdownData}
-            md={5}
-            validateFn={Validators.NoWhiteSpace}
-          /> */}
-          <MuiInputDropdown
-            md={5}
-            xs={12}
-            ds={dropdownData}
-            name="type"
-            label="分類"
-            validateFn={Validators.NoWhiteSpace}
-          />
-          {/* <InputText
-            name="messenger"
-            label="講員"
-            placeholder="請輸入講員姓名"
-            md={{ span: 5, offset: 1 }}
-            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-          /> */}
-          <MuiInputText
-            md={5}
-            xs={12}
-            name="messenger"
-            label="講員"
-            placeholder="請輸入講員姓名"
-            validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-          />
-        </Form.Row>
-        <Form.Row>
-          {/* <InputText
-            name="link"
-            label="影片連結"
-            md={11}
-            placeholder="e.g. https://www.abc.com/"
-          /> */}
-          <MuiInputText
-            md={10}
-            xs={12}
-            name="link"
-            label="影片連結"
-            placeholder="e.g. https://www.abc.com/"
-          />
-        </Form.Row>
-        <Divider className={classes.divider} light />
-        {rowGenerator()}
-        <Form.Row className="mb-5">
-          <InputQuill
-            name="note"
-            label="講道筆記"
-          />
-        </Form.Row>
-        <Form.Row className="mb-5">
-          <InputQuill
-            name="verse"
-            label="經文"
-          />
-        </Form.Row>
-        <Form.Row>
-          <Form.Group>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-            >儲存</Button>
-            <Button
-              className="mx-3"
-              onClick={() => {
-                reset()
-                trigger()
-              }}
-            >
-              重設
+    <>
+      < FormProvider {...methods}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <RouterBreadcrumbs />
+          <Typography variant="h5" className="my-3">崇拜資料</Typography>
+          <Form.Row className="mb-5">
+            <MuiInputText
+              md={5}
+              xs={12}
+              name="title"
+              label="講題"
+              placeholder="請輸入講題"
+              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+            />
+            <MuiInputText
+              md={5}
+              xs={12}
+              name="worshipId"
+              label="日期"
+              placeholder="YYYYMMDD"
+              validateFn={Validators.NoWhiteSpace}
+            />
+          </Form.Row>
+          <Form.Row className="mb-5">
+            <MuiInputDropdown
+              md={5}
+              xs={12}
+              ds={dropdownData}
+              name="type"
+              label="分類"
+              validateFn={Validators.NoWhiteSpace}
+            />
+            <MuiInputText
+              md={5}
+              xs={12}
+              name="messenger"
+              label="講員"
+              placeholder="請輸入講員姓名"
+              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+            />
+          </Form.Row>
+          <Form.Row>
+            <MuiInputText
+              md={10}
+              xs={12}
+              name="link"
+              label="影片連結"
+              placeholder="e.g. https://www.abc.com/"
+            />
+          </Form.Row>
+          <Divider className={classes.divider} light />
+          {rowGenerator()}
+          <Form.Row className="mb-5">
+            <InputQuill
+              name="note"
+              label="講道筆記"
+            />
+          </Form.Row>
+          <Form.Row className="mb-5">
+            <InputQuill
+              name="verse"
+              label="經文"
+            />
+          </Form.Row>
+          <Form.Row>
+            <Form.Group>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+              >儲存</Button>
+              <Button
+                className="mx-3"
+                onClick={() => {
+                  reset()
+                  trigger()
+                }}
+              >
+                重設
           </Button>
-          </Form.Group>
-        </Form.Row>
-      </Form>
-    </FormProvider>
+            </Form.Group>
+          </Form.Row>
+        </Form>
+      </FormProvider>
+      {loading && <LinearProgress />}
+    </>
   )
 }
 

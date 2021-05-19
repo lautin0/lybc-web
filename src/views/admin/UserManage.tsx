@@ -1,13 +1,11 @@
-import { Button, Chip, makeStyles, Typography } from "@material-ui/core";
+import { Button, Chip, LinearProgress, makeStyles, Typography } from "@material-ui/core";
 import { blue, green, grey, yellow } from "@material-ui/core/colors";
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { AddCircle, Block, Build } from "@material-ui/icons";
-import { setLoading } from "actions";
 import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDecisionModalStore, useModalStore } from "store";
 
@@ -44,14 +42,12 @@ export default function UserManage() {
    const history = useHistory()
    const location = useLocation()
 
-   const dispatch = useDispatch()
-
    const setMessage = useModalStore(state => state.setMessage)
    const setErrorModal = useModalStore(state => state.setError)
    const decision = useDecisionModalStore()
 
    const { loading, data: uData, refetch } = useUsersQuery({ notifyOnNetworkStatusChange: true })
-   const [changeStatus] = useChangeAccountStatusMutation()
+   const [changeStatus, {loading: changeStatLoading}] = useChangeAccountStatusMutation()
 
    const [data, setData] = useState<GridRowsProp>([])
 
@@ -139,7 +135,6 @@ export default function UserManage() {
    function onSuspendClicked(row: GridRowData) {
       decision.setMessage("確定停用帳戶?")
       decision.setPositiveFn(() => {
-         dispatch(setLoading(true))
          changeStatus({
             variables: {
                username: row['username'],
@@ -148,10 +143,8 @@ export default function UserManage() {
          })
             .then(e => {
                setMessage('app.sys.save-success')
-               dispatch(setLoading(false))
                history.push('/admin/users')
             }).catch((err: any) => {
-               dispatch(setLoading(false))
                setErrorModal(err)
             })
       })
@@ -169,6 +162,7 @@ export default function UserManage() {
 
    return (
       <>
+         {changeStatLoading && <LinearProgress />}
          <RouterBreadcrumbs />
          <Typography className="my-3" variant="h5">會員管理</Typography>
          <Button

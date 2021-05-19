@@ -1,8 +1,7 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { AddCircle, Create, Delete } from '@material-ui/icons';
-import { setLoading } from 'actions';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
@@ -10,9 +9,8 @@ import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDecisionModalStore } from 'store';
+import { useDecisionModalStore, useModalStore } from 'store';
 
 const useStyles = makeStyles(theme => ({
   success: {
@@ -32,11 +30,11 @@ function WorshipManage2() {
 
   const intl = useIntl()
 
-  const dispatch = useDispatch();
-
   const location = useLocation();
 
   const history = useHistory();
+
+  const setModalError = useModalStore(state => state.setError)
 
   const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
@@ -47,12 +45,16 @@ function WorshipManage2() {
     e.preventDefault()
     setMessage('確認刪除?')
     setPositiveFn(() => {
-      dispatch(setLoading(true))
       deleteWorship({
         variables: {
           input: id
         }
+      }).then(res => {
+        refetch()
       })
+        .catch((err: any) => {
+          setModalError(err)
+        })
     })
   };
 
@@ -100,7 +102,7 @@ function WorshipManage2() {
 
   const [data, setData] = useState<GridRowsProp>([])
 
-  const [deleteWorship, { data: deleteResult }] = useDeleteWorshipMutation()
+  const [deleteWorship, { loading: deleteLoading }] = useDeleteWorshipMutation()
 
   useEffect(() => {
     if (worshipData === undefined)
@@ -132,23 +134,17 @@ function WorshipManage2() {
   }, [locale, intl])
 
   useEffect(() => {
-    if (deleteResult != null && deleteResult.deleteWorship > 0) {
-      dispatch(setLoading(false))
-      refetch()
-    }
-  }, [deleteResult, dispatch, refetch])
-
-  useEffect(() => {
     worshipData && refetch();
   }, [location, refetch, worshipData])
 
   return (
     <>
+      {deleteLoading && <LinearProgress />}
       <RouterBreadcrumbs />
       <Typography className="my-3" variant="h5">崇拜管理</Typography>
-      <Button 
-        className={clsx(classes.success, "my-3")} 
-        variant="contained" 
+      <Button
+        className={clsx(classes.success, "my-3")}
+        variant="contained"
         startIcon={<AddCircle />}
         onClick={() => history.push('/admin/worship/new')}
       >建立</Button>
