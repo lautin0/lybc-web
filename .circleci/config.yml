@@ -44,7 +44,7 @@ jobs:
   deploy-prod:
     docker:
       - image: circleci/node:latest
-    working_directory: /tmp/my-project
+    working_directory: ~/project
     steps:
       - run:
           name: Deploy if tests pass and branch is Master
