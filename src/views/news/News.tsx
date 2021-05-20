@@ -43,9 +43,6 @@ function News() {
                     </div>
                 </Col>
             </Row>
-            {/* {post.imageURI != null && <Row className="d-flex justify-content-md-center mb-5">
-            <Col className="text-center" lg="8" md="12"><img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${post.imageURI}`}></img></Col>
-        </Row>} */}
             <Row className="justify-content-md-center">
                 <Col className="text-left sharing" lg="8" md="12">
                     <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.post?.content!, { ADD_TAGS: ["iframe"], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] }) }}></div>
