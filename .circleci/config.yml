@@ -40,20 +40,20 @@ jobs:
 
       # run tests!
       - run: npm run test
-      
+
   deploy:
+    requires:
+      build
+    filters:
+      branches:
+        only: master
     docker:
       - image: circleci/node:latest
-
-    working_directory: ~/project
-
     steps:
-      - deploy:
-          filters:
-            branches:
-              ignore:
-                - /dependabot.*/
+      - run:
+          name: Deploy if tests pass and branch is Master
           command: |
-            git config --global user.email $GH_EMAIL
-            git config --global user.name $GH_NAME
-            CI=false npm run deploy
+              git config --global user.email $GH_EMAIL
+              git config --global user.name $GH_NAME
+              CI=false npm run deploy
+
