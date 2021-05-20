@@ -1,4 +1,4 @@
-import { render, fireEvent, screen, getByTestId, getByRole, getByText, getAllByRole } from '@testing-library/react'
+import { render, fireEvent, getAllByRole, getByLabelText } from '@testing-library/react'
 import en from '../../../../src/assets/i18n/en.json';
 import { Provider } from "react-redux";
 import { Router } from 'react-router-dom';
@@ -20,7 +20,7 @@ const mocks = [
     },
     result: {
       data: {
-        user: { "username": "sysadmin", "name": "System Admin", "nameC": "系統管理員", "role": "ADMIN", "gender": "MALE", "title": null, "titleC": null, "email": "lukyeungchurch@gmail.com", "phone": "9433 1359", "dob": null, "profilePicURI": "/lybcstorage/lybc_logo.png", "status": null, "__typename": "User" }
+        user: { "username": "sysadmin", "name": "System Admin", "nameC": "系統管理員", "role": "ADMIN", "gender": "MALE", "title": null, "titleC": null, "email": "aaa@gmail.com", "phone": "2222 2222", "dob": null, "profilePicURI": null, "status": null, "__typename": "User" }
       },
     },
   },
@@ -46,5 +46,7 @@ test('datepicker works normally', async () => {
   const el = getAllByRole(document.body, 'tab')
   fireEvent.click(el[0])
   await new Promise(resolve => setTimeout(resolve, 200));
-  fireEvent.click(getByTestId(document.body, 'dob-dtp'))  
+  const picker = getByLabelText(document.body, 'change date')
+  fireEvent.click(picker)  
+  expect(picker).toBeDefined()
 })
