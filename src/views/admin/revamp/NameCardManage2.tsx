@@ -114,7 +114,7 @@ function NameCardManage2() {
   return (
     <>
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h5">網上新來賓名單</Typography>
+      <Typography className="my-3" variant="h5">新來賓名片</Typography>
       <hr></hr>
       {loading && <Container>
         <div className="text-center">
