@@ -41,17 +41,17 @@ jobs:
       # run tests!
       - run: npm run test
 
-deploy-prod:
-  docker:
-    - image: circleci/node:latest
-  working_directory: ~/project
-  steps:
-    - run:
-        name: Deploy if tests pass and branch is Master
-        command: |
-          git config --global user.email $GH_EMAIL
-          git config --global user.name $GH_NAME
-          CI=false npm run deploy
+  deploy-prod:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/project
+    steps:
+      - run:
+          name: Deploy if tests pass and branch is Master
+          command: |
+            git config --global user.email $GH_EMAIL
+            git config --global user.name $GH_NAME
+            CI=false npm run deploy
 
 workflows:
   version: 2
