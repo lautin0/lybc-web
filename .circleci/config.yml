@@ -40,7 +40,18 @@ jobs:
 
       # run tests!
       - run: npm run test
-      # - run: CI=false npm run build
+      
+  deploy:
+    filters:
+      branches:
+        ignore:
+          - /dependabot.*/
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/project
+
+    steps:
       - deploy:
           command: |
             git config --global user.email $GH_EMAIL
