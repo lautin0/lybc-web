@@ -2,4 +2,3 @@ node_modules
 build
 patch.diff
 cheatsheet.txt
-yarn.lock
