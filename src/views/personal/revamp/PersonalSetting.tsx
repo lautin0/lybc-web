@@ -143,7 +143,7 @@ export default function PersonalSetting() {
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
-      username: getTokenValue(localStorage.getItem('token')).username
+      username: getTokenValue(localStorage.getItem('token'))?.username
     },
     notifyOnNetworkStatusChange: true
   })
@@ -217,7 +217,6 @@ export default function PersonalSetting() {
   const onSubmit = async (data: any) => {
     if (!userData)
       return
-    // let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
     dispatch(setLoading(true))
 
     const options = {
@@ -331,7 +330,7 @@ export default function PersonalSetting() {
               </Grid>
             </Grid>
           </Grid>}
-          {(!loading && userData != null) && <FormProvider {...methods}>
+          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
@@ -340,9 +339,9 @@ export default function PersonalSetting() {
                 <Grid item xs={12} md={6} lg={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
-                      {(acceptedFiles.length === 0 && !userData.user?.profilePicURI) && <AccountCircle className={classes.avatar} />}
+                      {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <AccountCircle className={classes.avatar} />}
                       {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
-                      {(userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                      {(userData && userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
                       <div className={classes.profilePicOverlay}>
                         <div>
                           <div>
@@ -386,35 +385,6 @@ export default function PersonalSetting() {
                     control={control}
                     defaultValue={null}
                   />
-                  {/* <Controller
-                      render={({ onChange, onBlur, value }) => <Form.Check
-                        className="form-check-radio mx-2"
-                        type="radio"
-                        id="rbM"
-                        value={Gender.Male.toString()}
-                        onChange={(val) => onChange(val.currentTarget.value)}
-                        checked={Gender.Male.toString() === getValues().gender}
-                        name="rbGender"
-                        label={<><span className="form-check-sign"></span>男</>}
-                      ></Form.Check>
-                      }
-                      control={control}
-                      name="gender"
-                    />
-                    <Controller
-                      render={({ onChange, onBlur, value }) => <Form.Check
-                        className="form-check-radio mx-2"
-                        type="radio"
-                        id="rbF"
-                        value={Gender.Female.toString()}
-                        onChange={(val) => onChange(val.currentTarget.value)}
-                        checked={Gender.Female.toString() === getValues().gender}
-                        name="rbGender"
-                        label={<><span className="form-check-sign"></span>女</>}
-                      ></Form.Check>}
-                      control={control}
-                      name="gender"
-                    /> */}
                 </Grid>
                 <Grid item>
                   <MuiInputText
@@ -426,19 +396,6 @@ export default function PersonalSetting() {
                   />
                 </Grid>
                 <Grid item>
-                  {/* <SingleDatePicker
-                    placeholder="出生日期"
-                    isOutsideRange={() => false}
-                    numberOfMonths={1}
-                    date={date} // momentPropTypes.momentObj or null
-                    onDateChange={date => setDate(date)} // PropTypes.func.isRequired
-                    focused={focused} // PropTypes.bool
-                    onFocusChange={({ focused }) => setFocused(focused)} // PropTypes.func.isRequired
-                    showDefaultInputIcon
-                    inputIconPosition="after"
-                    // displayFormat="yyyyMMDD"
-                    id="dob" // PropTypes.string.isRequired,
-                  /> */}
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Controller
                       name="dob"
@@ -446,6 +403,7 @@ export default function PersonalSetting() {
                       defaultValue={null}
                       render={({ ref, ...rest }: any) => (
                         <KeyboardDatePicker
+                          data-testid="dob-dtp"
                           variant="inline"
                           margin="normal"
                           id="date-picker-dialog"
