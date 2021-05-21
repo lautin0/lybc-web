@@ -1,16 +1,16 @@
-import { createStyles, Grid, makeStyles, Button, Divider, Typography } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Button, Divider, Typography, LinearProgress } from '@material-ui/core';
 import { Add, Delete, Lock, LockOpen } from '@material-ui/icons';
-import { setLoading } from 'actions';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { useUpdateWorshipMutation, useWorshipQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { useModalStore } from 'store';
@@ -50,9 +50,9 @@ function WorshipEdit() {
 
   const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
 
-  const [updateWorship, { data }] = useUpdateWorshipMutation()
+  const [updateWorship, { loading: updateLoading }] = useUpdateWorshipMutation()
 
-  const { called, loading, data: wData, refetch } = useWorshipQuery({
+  const { loading, data: wData, refetch } = useWorshipQuery({
     variables: {
       worshipId: id
     }
@@ -80,8 +80,6 @@ function WorshipEdit() {
     name: 'type',
   })
 
-  const dispatch = useDispatch();
-
   const dropdownData = [
     { value: '', display: '請選擇', disabled: true },
     { value: '主日崇拜', display: '主日崇拜' },
@@ -95,7 +93,6 @@ function WorshipEdit() {
   ]
 
   const onSubmit = (data: any) => {
-    dispatch(setLoading(true))
     let tmp = data
     let tmpDocs: any[] = []
     data.docs.forEach((e: any) => {
@@ -109,21 +106,16 @@ function WorshipEdit() {
         },
         docs: [...tmpDocs]
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setModalError(err)
-      history.push('/admin/worships')
-    })
-  }
-
-  useEffect(() => {
-    if (data !== undefined) {
+    }).then(res => {
       setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
       reset();
       history.push('/admin/worships')
-    }
-  }, [data, history, dispatch, reset])
+    })
+      .catch((err: any) => {
+        setModalError(err)
+        history.push('/admin/worships')
+      })
+  }
 
   useEffect(() => {
     register('note')
@@ -144,19 +136,10 @@ function WorshipEdit() {
   }, [wData, reset])
 
   useEffect(() => {
-    if (wData != null) {
-      dispatch(setLoading(true))
+    if (refetch !== undefined) {
       refetch();
     }
-  }, [location, dispatch, refetch])
-
-  useEffect(() => {
-    if (loading === false) {
-      dispatch(setLoading(false))
-    } else {
-      dispatch(setLoading(true))
-    }
-  }, [loading, dispatch])
+  }, [location, refetch])
 
   useEffect(() => {
     if (fields !== undefined) {
@@ -176,7 +159,7 @@ function WorshipEdit() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.admin.panel" })
-  }, [locale])
+  }, [locale, intl])
 
   const addRow = () => {
     append({ title: '', link: '', type: '' })
@@ -186,15 +169,6 @@ function WorshipEdit() {
 
     return fields.map((item: any, idx: number) => {
       return <Form.Row key={item.id}>
-        {/* <InputText
-          name={`docs[${idx}].link`}
-          label={`檔案${idx + 1}連結`}
-          isReadOnly={isReadOnly}
-          placeholder="e.g. https://www.abc.com/"
-          md={5}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputText
           name={`docs[${idx}].link`}
           label={`檔案${idx + 1}連結`}
@@ -204,14 +178,6 @@ function WorshipEdit() {
           xs={12}
           skipValidate={true}
         />
-        {/* <InputText
-          name={`docs[${idx}].title`}
-          label="名稱"
-          isReadOnly={isReadOnly}
-          md={{ span: 3, offset: 1 }}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputText
           name={`docs[${idx}].title`}
           label="名稱"
@@ -220,15 +186,6 @@ function WorshipEdit() {
           xs={12}
           skipValidate={true}
         />
-        {/* <InputDropdown
-          name={`docs[${idx}].type`}
-          label="檔案類型"
-          isReadOnly={isReadOnly}
-          ds={docTypes}
-          md={2}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputDropdown
           name={`docs[${idx}].type`}
           label="檔案類型"
@@ -248,127 +205,92 @@ function WorshipEdit() {
 
   return (
     <>
-      {!loading && <FormProvider {...methods}>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          {/* <h3 className="category mt-5" style={{ color: 'black' }}>崇拜資料</h3> */}
-          <Typography variant="h4" className="my-3">崇拜資料</Typography>
-          {isReadOnly && <Button onClick={() => setIsReadOnly(false)} className={classes.button} variant="contained" color="secondary" startIcon={<Lock />}>解鎖</Button>}
-          {!isReadOnly && <Button onClick={() => setIsReadOnly(true)} className={classes.button} variant="contained" color="primary" startIcon={<LockOpen />}>鎖定</Button>}
-          <Form.Row className="mt-3 mb-5">
-            {/* <InputText
-              name="title"
-              label="講題"
-              placeholder="請輸入講題"
-              md={5}
-              isReadOnly={isReadOnly}
-              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-            /> */}
-            <MuiInputText
-              name="title"
-              label="講題"
-              placeholder="請輸入講題"
-              md={5}
-              xs={12}
-              isReadOnly={isReadOnly}
-              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-            />
-            {/* <InputText
-              name="worshipId"
-              label="日期"
-              placeholder="YYYYMMDD"
-              isReadOnly={isReadOnly}
-              md={{ span: 5, offset: 1 }}
-              strongReadOnly={true}
-            /> */}
-            <MuiInputText
-              name="worshipId"
-              label="日期"
-              placeholder="YYYYMMDD"
-              isReadOnly={isReadOnly}
-              md={5}
-              xs={12}
-              strongReadOnly={true}
-            />
-          </Form.Row>
-          <Form.Row className="mb-5">
-            {/* <InputDropdown
-              name="type"
-              label="分類"
-              isReadOnly={isReadOnly}
-              ds={dropdownData}
-              md={5}
-              validateFn={Validators.NoWhiteSpace}
-            /> */}
-            <MuiInputDropdown
-              name="type"
-              label="分類"
-              isReadOnly={isReadOnly}
-              ds={dropdownData}
-              md={5}
-              xs={12}
-              validateFn={Validators.NoWhiteSpace}
-            />
-            {/* <InputText
-              name="messenger"
-              label="講員"
-              placeholder="請輸入講員姓名"
-              isReadOnly={isReadOnly}
-              md={{ span: 5, offset: 1 }}
-              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-            /> */}
-            <MuiInputText
-              name="messenger"
-              label="講員"
-              placeholder="請輸入講員姓名"
-              isReadOnly={isReadOnly}
-              md={5}
-              xs={12}
-              validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
-            />
-          </Form.Row>
-          <Form.Row className="mb-5">
-            {/* <InputText
-              name="link"
-              label="影片連結"
-              md={11}
-              placeholder="e.g. https://www.abc.com/"
-              isReadOnly={isReadOnly}
-            /> */}
-            <MuiInputText
-              name="link"
-              label="影片連結"
-              md={10}
-              xs={12}
-              placeholder="e.g. https://www.abc.com/"
-              isReadOnly={isReadOnly}
-            />
-          </Form.Row>
-          <Divider className={classes.divider} light />
-          {rowGenerator()}
-          <Form.Row className="mb-5">
-            <InputQuill
-              name="note"
-              label="講道筆記"
-              isReadOnly={isReadOnly}
-            />
-          </Form.Row>
-          <Form.Row className="mb-5">
-            <InputQuill
-              name="verse"
-              label="經文"
-              isReadOnly={isReadOnly}
-            />
-          </Form.Row>
-          {!isReadOnly && <Form.Row>
-            <Form.Group>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-              >儲存</Button>
-            </Form.Group>
-          </Form.Row>}
-        </Form></FormProvider>}
+      {(loading || updateLoading) && <LinearProgress />}
+      {!loading && <>
+        <RouterBreadcrumbs />
+        {!loading && <FormProvider {...methods}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Typography variant="h5" className="my-3">崇拜資料</Typography>
+            {isReadOnly && <Button onClick={() => setIsReadOnly(false)} className={classes.button} variant="contained" color="secondary" startIcon={<Lock />}>解鎖</Button>}
+            {!isReadOnly && <Button onClick={() => setIsReadOnly(true)} className={classes.button} variant="contained" color="primary" startIcon={<LockOpen />}>鎖定</Button>}
+            <Form.Row className="mt-3 mb-5">
+              <MuiInputText
+                name="title"
+                label="講題"
+                placeholder="請輸入講題"
+                md={5}
+                xs={12}
+                isReadOnly={isReadOnly}
+                validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+              />
+              <MuiInputText
+                name="worshipId"
+                label="日期"
+                placeholder="YYYYMMDD"
+                isReadOnly={isReadOnly}
+                md={5}
+                xs={12}
+                strongReadOnly={true}
+              />
+            </Form.Row>
+            <Form.Row className="mb-5">
+              <MuiInputDropdown
+                name="type"
+                label="分類"
+                isReadOnly={isReadOnly}
+                ds={dropdownData}
+                md={5}
+                xs={12}
+                validateFn={Validators.NoWhiteSpace}
+              />
+              <MuiInputText
+                name="messenger"
+                label="講員"
+                placeholder="請輸入講員姓名"
+                isReadOnly={isReadOnly}
+                md={5}
+                xs={12}
+                validateFn={Validators.NoWhiteSpaceForValue(getValues("type"), "主日崇拜")}
+              />
+            </Form.Row>
+            <Form.Row className="mb-5">
+              <MuiInputText
+                name="link"
+                label="影片連結"
+                md={10}
+                xs={12}
+                placeholder="e.g. https://www.abc.com/"
+                isReadOnly={isReadOnly}
+              />
+            </Form.Row>
+            <Divider className={classes.divider} light />
+            {rowGenerator()}
+            <Form.Row className="mb-5">
+              <InputQuill
+                name="note"
+                label="講道筆記"
+                isReadOnly={isReadOnly}
+              />
+            </Form.Row>
+            <Form.Row className="mb-5">
+              <InputQuill
+                name="verse"
+                label="經文"
+                isReadOnly={isReadOnly}
+              />
+            </Form.Row>
+            {!isReadOnly && <Form.Row>
+              <Form.Group>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >儲存</Button>
+              </Form.Group>
+            </Form.Row>}
+          </Form></FormProvider>}
+      </>}
+      {updateLoading && <LinearProgress />}
     </>
   )
 }

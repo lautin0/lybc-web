@@ -70,21 +70,21 @@ function CommentSection(props: any) {
       return <Col key={e._id} md={12} lg={8} className="my-2 d-inline-flex">
         <div className="profile-page pt-3">
           <div className="photo-container" style={{ width: 50, height: 50 }}>
-            {e.user.profilePicURI == null && <img alt="..." src={defaultAvatar}></img>}
-            {e.user.profilePicURI != null && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + e.user.profilePicURI}></img>}
+            {!e.user.profilePicURI && <img alt="..." src={defaultAvatar}></img>}
+            {e.user.profilePicURI && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + e.user.profilePicURI}></img>}
           </div>
         </div>
         <div className="ml-5">
           <div className="mb-2">
             {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{e.user.role === "ADMIN" ? "網站管理人員" : (e.user.role === "WORKER" ? "教會同工" : "")}</Tooltip>}>
               <a
-                href="#"
+                href="/"
                 onClick={(e) => e.preventDefault()}
                 className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
               >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
             </OverlayTrigger>}
             {e.user.role === "MEMBER" && <a
-              href="#"
+              href="/"
               onClick={(e) => e.preventDefault()}
               className={"comment-user-link "}
             >{e.username}</a>}
@@ -101,8 +101,8 @@ function CommentSection(props: any) {
     >
       <div className="profile-page pt-3">
         <div className="photo-container mb-3 my-md-0 ml-3 mx-md-auto" style={{ width: 50, height: 50 }}>
-          {(loading || profilePicData?.user?.profilePicURI == null) && <img alt="..." src={defaultAvatar}></img>}
-          {(!loading && profilePicData?.user?.profilePicURI != null) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
+          {(loading || !profilePicData?.user?.profilePicURI) && <img alt="..." src={defaultAvatar}></img>}
+          {(!loading && profilePicData?.user?.profilePicURI) && <img alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI}></img>}
         </div>
       </div>
       <Form className="ml-md-5 col-md-10 col-sm-12" onSubmit={handleSubmit(onSubmit)}>

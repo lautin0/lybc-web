@@ -11,6 +11,7 @@ query user($username: String!) {
 		phone
 		dob
 		profilePicURI
+		status
 	}
 }
 
@@ -27,6 +28,7 @@ query users {
 		phone
 		dob
 		profilePicURI
+		status
 	}
 }
 
@@ -51,8 +53,42 @@ mutation updateUser($input: UpdateUser!) {
 	}
 }
 
+mutation createUser($input: NewUser!) {
+	createUser(input: $input) {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		phone
+		email
+		profilePicURI
+	}
+}
+
+mutation changeAccountStatus($username: String!, $status: AccountStatus!) {
+	changeAccountStatus(username: $username, status: $status) {
+		username
+		name
+		nameC
+		role
+		gender
+		title
+		titleC
+		phone
+		email
+		profilePicURI
+	}
+}
+
 mutation changePassword($input: NewPassword!) {
 	changePassword(input: $input) 
+}
+
+mutation changePasswordAdmin($input: NewPasswordAdmin!) {
+	changePasswordAdmin(input: $input) 
 }
 
 mutation refreshToken($input: RefreshTokenInput!) {

@@ -29,7 +29,7 @@ function PreacherMessage() {
   const { loading, data, refetch } = usePostQuery({ variables: { oid: "5f850dc4e52fde7c2930c34b" }, notifyOnNetworkStatusChange: true })
 
   const setReaction = (reaction: ReactionType) => {
-    if (tokenPair?.token == null) {
+    if (!tokenPair?.token) {
       dispatch(setSysMessage('app.sys.require-login'))
       return
     } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
@@ -74,7 +74,7 @@ function PreacherMessage() {
 
       let el: any = document.querySelector("div#reaction-bar");
 
-      if (el == null)
+      if (!el)
         return false
       return docViewBottom > el.getBoundingClientRect().top + window.pageYOffset
     }
@@ -100,7 +100,7 @@ function PreacherMessage() {
   })
 
   const isReacted = (type: string): boolean => {
-    if (tokenPair?.token == null)
+    if (!tokenPair?.token)
       return false
     return post.reactions.filter((r: any) =>
       r.username === getTokenValue(tokenPair?.token).username &&

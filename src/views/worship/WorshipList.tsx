@@ -1,22 +1,28 @@
-import { useEffect } from "react";
-
-// react-bootstrap components
-import {
-  Container,
-  Row,
-  Table,
-  Pagination,
-} from "react-bootstrap";
+import { useEffect, useMemo, useState } from "react";
 
 import moment from 'moment'
 import { useHistory } from "react-router-dom";
-import { useWorshipsQuery, Worship } from "generated/graphql";
-import usePagination from "hooks/usePagination";
+import { useWorshipsQuery } from "generated/graphql";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
-import { WorshipListItemType } from "./types/types";
+import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
+import { DataGrid, GridCellParams, GridColDef, GridRowsProp, GridSortDirection } from "@material-ui/data-grid";
+import { YouTube } from "@material-ui/icons";
+import { red } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) => ({
+  goButton: {
+    backgroundColor: '#fe0000',
+    color: theme.palette.primary.contrastText,
+    "&:hover": {
+      backgroundColor: red[600]
+    }
+  }
+}))
 
 function WorshipList() {
+
+  const classes = useStyles()
 
   const [locale] = useLanguage()
 
@@ -25,41 +31,74 @@ function WorshipList() {
   const history = useHistory();
 
   const { loading, data: worshipData } = useWorshipsQuery()
-  
-  const { pageItems, pageNumber, setData, items } = usePagination<WorshipListItemType>()
+  const [data, setData] = useState<GridRowsProp>([])
 
   function onCellClicked(id: any) {
     history.push('/worship/' + id)
   };
 
+  const columns: GridColDef[] = useMemo(() => [
+    {
+      field: 'worshipId',
+      headerName: intl.formatMessage({ id: "app.tables.date" }),
+      width: 200,
+      renderCell: (params: GridCellParams) => (
+        <div>{moment(params.value?.toString(), 'YYYYMMDD').format('DD/MM/YYYY')}</div>
+      )
+    },
+    {
+      field: 'title',
+      headerName: intl.formatMessage({ id: "app.tables.topic" }),
+      width: 500,
+      renderCell: (params) => {
+        if (params.row["type"].toString() === "分享主日") {
+          return <>分享主日</>
+        } else {
+          return <>{params.value}</>
+        }
+      }
+    },
+    { 
+      field: 'messenger', 
+      headerName: intl.formatMessage({ id: "app.tables.speaker" }), 
+      width: 200,
+      renderCell: (params) => {
+        if (params.row["type"].toString() === "分享主日") {
+          return <>---</>
+        } else {
+          return <>{params.value}</>
+        }
+      }
+    },
+    {
+      field: 'link',
+      renderHeader: (params) => (
+        <></>
+      ),
+      width: 150,
+      renderCell: (params: GridCellParams) => (
+        <Button
+          variant="contained"
+          className={classes.goButton}
+          size="small"
+          style={{ marginLeft: 16 }}
+          startIcon={<YouTube />}
+        >
+          {intl.formatMessage({ id: "app.tables.goto" })}
+        </Button>
+      )
+    },
+  ], [intl, classes])
+
   useEffect(() => {
     if (worshipData === undefined)
       return
-    let tmp: Array<Worship> = worshipData.worships != null ? [...worshipData.worships] : []
-
-    setData(tmp?.sort((a: Worship, b: Worship) => {
-      if (a.worshipId > b.worshipId) {
-        return -1
-      } else if (a.worshipId < b.worshipId) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-      .map((x: Worship): WorshipListItemType => {
-        return {
-          worshipId: x.worshipId,
-          date: moment(x.worshipId, 'YYYYMMDD'),
-          title: x.type === '分享主日' ? '分享主日' : x.title,
-          messenger: x.messenger === '' ? '---' : x.messenger,
-          type: x.type
-        }
-      }))
+    setData(worshipData.worships.map((x, i) => ({ ...x, id: i + 1 })))
   }, [worshipData])
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
-  }, [locale])
+  }, [locale, intl])
 
   useEffect(() => {
     //Default scroll to top
@@ -73,42 +112,27 @@ function WorshipList() {
         className="section"
         id="download-section"
       >
-        <Container style={{ marginTop: -50 }}>
-          <Row className="mt-5">
-            <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
-              <thead>
-                <tr>
-                  <th style={{ width: '15%' }}>{intl.formatMessage({ id: "app.tables.date" })}</th>
-                  <th style={{ width: '45%' }}>{intl.formatMessage({ id: "app.tables.topic" })}</th>
-                  <th style={{ width: '30%' }}>{intl.formatMessage({ id: "app.tables.speaker" })}</th>
-                  <th style={{ width: '10%' }}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading && <tr><th className="text-center" colSpan={4}>
-                  <div className="spinner-grow text-secondary" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </th></tr>}
-                {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={4}>{intl.formatMessage({ id: "app.tables.no-record" })}</th></tr>}
+        <Container>
+          <div style={{ width: '100%' }}>
+            <CssBaseline />
+            <DataGrid
+              onRowClick={(param) => onCellClicked(param.row["worshipId"].toString())}
+              loading={loading}
+              autoHeight
+              pageSize={5}
+              rows={data}
+              columns={columns}
+              localeText={{
+                noRowsLabel: intl.formatMessage({ id: "app.tables.no-record" })
+              }}
+              sortModel={[
                 {
-                  (pageItems && pageItems.length > 0) && pageItems.map((value, index) => {
-                    return <tr key={index}>
-                      <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                      <td onClick={() => onCellClicked(value.worshipId)}>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>{intl.formatMessage({ id: "app.new" })}</i></b>}</td>
-                      <td onClick={() => onCellClicked(value.worshipId)}>{value.messenger}</td>
-                      <td onClick={() => onCellClicked(value.worshipId)}><a href="#">{intl.formatMessage({ id: "app.tables.goto" })}</a></td>
-                    </tr>
-                  })
+                  field: 'worshipId',
+                  sort: 'desc' as GridSortDirection,
                 }
-              </tbody>
-            </Table>
-            <Pagination
-              className="w-100 pagination-primary justify-content-center"
-            >
-              {items}
-            </Pagination>
-          </Row>
+              ]}              
+            />
+          </div>
         </Container>
       </div>
     </>

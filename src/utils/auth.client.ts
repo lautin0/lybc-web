@@ -1,4 +1,4 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import UNIVERSALS from "Universals";
 import { isTokenExpired } from "./utils";

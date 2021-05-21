@@ -2,9 +2,10 @@ import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip,
 import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
@@ -112,7 +113,8 @@ function NameCardManage2() {
 
   return (
     <>
-      <Typography className="my-3" variant="h4">網上新來賓名單</Typography>
+      <RouterBreadcrumbs />
+      <Typography className="my-3" variant="h5">新來賓名片</Typography>
       <hr></hr>
       {loading && <Container>
         <div className="text-center">

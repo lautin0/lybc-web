@@ -1,5 +1,5 @@
-query posts($first: Int, $last: Int, $after: String, $before: String) {
-	posts(first: $first, last: $last, after: $after, before: $before) {
+query posts($first: Int, $last: Int, $after: String, $before: String, $postFilter: PostFilter) {
+	posts(first: $first, last: $last, after: $after, before: $before, postFilter: $postFilter) {
 		totalCount
 		edges {
 			node {

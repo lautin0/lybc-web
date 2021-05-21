@@ -2,7 +2,7 @@ import React from 'react'
 
 function LoadingDiv() {
 
-  return <div>
+  return (
     <div
       className="wrapper-cell"
     >
@@ -12,7 +12,7 @@ function LoadingDiv() {
         <div className="text-line"></div>
       </div>
     </div>
-  </div>
+  )
 }
 
 export default LoadingDiv;

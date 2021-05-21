@@ -2,11 +2,10 @@ import { Button, Chip, makeStyles, Typography } from '@material-ui/core';
 import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
-import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { useIntl } from 'react-intl';
 import { useLocation, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
 function PendingPostManage2() {
 
   const classes = useStyles()
-
-  const [locale] = useLanguage()
-
-  const intl = useIntl()
 
   const location = useLocation();
 
@@ -144,7 +139,8 @@ function PendingPostManage2() {
 
   return (
     <>
-      <Typography className="my-3" variant="h4">待審閱文章</Typography>
+      <RouterBreadcrumbs />
+      <Typography className="my-3" variant="h5">審閱文章</Typography>
       <div style={{ width: '100%' }}>
         <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>

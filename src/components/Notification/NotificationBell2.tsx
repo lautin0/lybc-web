@@ -86,7 +86,7 @@ function NotificationBell2() {
                         </Grid>
                         <Grid item>
                           <Grid container alignItems="center" className={classes.bellMenuText}>
-                            <Typography>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
+                            <Typography>{(!e.fromUsername ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
                           </Grid>
                           <Typography variant="body2">{getTimePastStr(moment(e.creDttm))}</Typography>
                         </Grid>

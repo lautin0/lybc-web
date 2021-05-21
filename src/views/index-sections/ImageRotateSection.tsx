@@ -7,7 +7,7 @@ function ImageRotateSection() {
 
   const intl = useIntl()
 
-  const [src, setSrc] = useState(UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/website-window.jpg")
+  const [src] = useState(UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/website-window.jpg")
 
   return <Container className="pt-5" style={{ paddingBottom: '8rem' }}>
     <Row className="d-flex align-items-center">
@@ -25,7 +25,7 @@ function ImageRotateSection() {
       </Col>
       <Col md="6">
         <div className="rotate-img">
-          <img src={src}></img>
+          <img alt="rotating lybc website" src={src}></img>
         </div>
       </Col>
     </Row>

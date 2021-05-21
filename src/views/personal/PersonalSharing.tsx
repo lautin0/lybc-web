@@ -78,7 +78,7 @@ function PersonalSharing() {
             </div>
           </div>
         </Container>}
-        {(!loading && data?.pendingPosts.length == 0) && <Container>
+        {(!loading && data?.pendingPosts.length === 0) && <Container>
           <h3>
             沒有記錄
           </h3>

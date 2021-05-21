@@ -1,6 +1,6 @@
 import LoadingDiv from 'components/Loading/LoadingDiv';
-import { usePostsQuery } from 'generated/graphql';
-import { useCallback, useRef, useState } from 'react'
+import { PostFilter, PostType, usePostsQuery } from 'generated/graphql';
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { FormattedDate, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import Slider from "react-slick";
@@ -43,8 +43,12 @@ function SlideSection() {
 
   const dummyList = useRef([{}, {}, {}])
   
-  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
-    variables: { first: 5 }, notifyOnNetworkStatusChange: true
+  const postFilter: PostFilter = useMemo(() => ({
+    AND: [{ parentIDNotNull: false }],
+    type: PostType.Sharing
+  }),[])
+  const { loading, data: postData } = usePostsQuery({
+    variables: { first: 5, postFilter: postFilter }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true
   })
 
   const [dragging, setDragging] = useState(false)
@@ -86,32 +90,38 @@ function SlideSection() {
               >
                 {item.node?.imageURI && <>
                   <img
+                    alt="blog preview"
                     className="d-none d-lg-block"
                     style={{ width: '100%', height: 350, objectFit: 'cover' }}
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                   <img
+                    alt="blog preview"
                     className="d-none d-md-block d-lg-none"
                     style={{ width: 410, height: 270, objectFit: 'cover' }}
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                   <img
+                    alt="blog preview"
                     className="d-block d-md-none"
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                 </>}
                 {!item.node?.imageURI && <>
                   <img
+                    alt="no blog preview"
                     className="d-none d-lg-block"
                     style={{ width: '100%', height: 350, objectFit: 'cover' }}
                     src={noImg}
                   />
                   <img
+                    alt="no blog preview"
                     className="d-none d-md-block d-lg-none"
                     style={{ width: 410, height: 270, objectFit: 'cover' }}
                     src={noImg}
                   />
                   <img
+                    alt="no blog preview"
                     className="d-block d-md-none"
                     src={noImg}
                   />

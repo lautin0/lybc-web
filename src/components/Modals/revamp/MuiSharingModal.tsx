@@ -1,8 +1,7 @@
-import { useMutation, useLazyQuery } from '@apollo/client';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import { setLoading } from 'actions';
-import { PendingPost, NewPendingPost, UpdatePendingPost, PostStatus, MutationPendPostArgs, MutationUpdatePendingPostArgs, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
+import { NewPendingPost, UpdatePendingPost, PostStatus, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
 import { useDropzone } from 'react-dropzone';
@@ -32,12 +31,11 @@ export default function MuiSharingModal() {
    const setMessage = useModalStore(state => state.setMessage)
    const setModalError = useModalStore(state => state.setError)
 
-   const [pendPost, { data }] = usePendPostMutation()
-   const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
+   const [pendPost] = usePendPostMutation()
+   const [updatePendingPost] = useUpdatePendingPostMutation()
 
    const [readOnly, setReadOnly] = useState(false)
 
-   const title = usePendingPostStore(state => state.title)
    const isOpen = usePendingPostStore(state => state.isOpen)
    const pendingPostID = usePendingPostStore(state => state.pendingPostID)
    const setOpen = usePendingPostStore(state => state.setOpen)
@@ -45,7 +43,7 @@ export default function MuiSharingModal() {
 
    const intl = useIntl()
    
-   const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+   const [loadingPendingPost, { data: pPostData }] = usePendingPostLazyQuery({
       variables: { oid: pendingPostID! },
       notifyOnNetworkStatusChange: true
    })
@@ -81,11 +79,14 @@ export default function MuiSharingModal() {
                },
                doc: file
             }
-         }).catch((err: any) => {
-            dispatch(setLoading(false))
-            setModalError(err)
+         }).then(res => {
+            setMessage('app.sys.save-success')
             onHide()
          })
+         .catch((err: any) => {
+            setModalError(err)
+            onHide()
+         }).finally(() => dispatch(setLoading(false)))
       } else {
          pendPost({
             variables: {
@@ -94,11 +95,14 @@ export default function MuiSharingModal() {
                },
                doc: file
             }
-         }).catch((err: any) => {
-            dispatch(setLoading(false))
-            setModalError(err)
+         }).then(res => {
+            setMessage('app.sys.save-success')
             onHide()
          })
+         .catch((err: any) => {            
+            setModalError(err)
+            onHide()
+         }).finally(() => dispatch(setLoading(false)))
       }
    }
 
@@ -116,28 +120,15 @@ export default function MuiSharingModal() {
                ...tmp
             },
          }
-      }).catch((err: any) => {
-         dispatch(setLoading(false))
-         setModalError(err)
+      }).then(res => {
+         setMessage('app.sys.save-success')
          onHide()
       })
+      .catch((err: any) => {         
+         setModalError(err)
+         onHide()
+      }).finally(() => dispatch(setLoading(false)))
    }
-
-   useEffect(() => {
-      if (data !== undefined) {
-         setMessage('app.sys.save-success')
-         dispatch(setLoading(false))
-         onHide()
-      }
-   }, [data, dispatch, reset])
-
-   useEffect(() => {
-      if (updateData !== undefined) {
-         setMessage('app.sys.save-success')
-         dispatch(setLoading(false))
-         onHide()
-      }
-   }, [updateData, dispatch, reset])
 
    const onHide = () => {
       reset({
@@ -151,21 +142,21 @@ export default function MuiSharingModal() {
    }
 
    useEffect(() => {
-      if (pendingPostID != null) {
+      if (pendingPostID !== null && loadingPendingPost !== null) {
          loadingPendingPost()
       }
-   }, [pendingPostID])
+   }, [pendingPostID, loadingPendingPost])
 
    useEffect(() => {
       if (pPostData != null) {
          reset({
             title: pPostData.pendingPost?.title,
             subtitle: pPostData.pendingPost?.subtitle,
-            remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
+            remarks: !pPostData.pendingPost?.remarks ? "" : pPostData.pendingPost.remarks
          })
          setReadOnly(true)
       }
-   }, [pPostData])
+   }, [pPostData, reset])
 
    useEffect(() => {
       let thisRef = React.createRef();
@@ -180,11 +171,11 @@ export default function MuiSharingModal() {
                   <SharingForm2 status={pPostData?.pendingPost?.status} readOnly={readOnly} dropzoneMethods={dropzoneMethods} />
                </DialogContent>
                <DialogActions>
-                  {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+                  {(!pPostData?.pendingPost?.status || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
                      <Button variant="contained" type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
                      <Button onClick={onHide} variant="contained" color="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
                   </div>}
-                  {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+                  {(pPostData?.pendingPost?.status && pPostData.pendingPost.status === PostStatus.Pending) && <div>
                      <Button
                         type="button"
                         variant="contained"

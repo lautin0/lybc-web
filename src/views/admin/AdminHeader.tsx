@@ -49,7 +49,7 @@ function AdminHeader(props: AdminHeaderProps) {
     <header className={`banner-${colorFromFunc()}`}>
       <p className="category" style={{ color: 'white' }}>Welcome to admin panel!</p>
       <div className="form-inline row mb-3" style={{ marginTop: 40 }}>
-        {(props.func == null || props.func === '') && <>
+        {(!props.func || props.func === '') && <>
           {quickItemGenerater('新增崇拜', 'far fa-plus-square', 'worship/new')}
           {quickItemGenerater('管理崇拜', 'fa fa-th-list', 'worships')}
           {quickItemGenerater('新增文章', 'fas fa-file-alt', 'post/new')}
@@ -66,7 +66,7 @@ function AdminHeader(props: AdminHeaderProps) {
         </>}
         {props.func === 'page-management' && <>
           {quickItemGenerater('新增文章', 'fas fa-file-alt', 'post/new')}
-          {quickItemGenerater('新增消息', 'fas fa-plus-circle', 'latests/new')}
+          {quickItemGenerater('新增消息', 'fas fa-plus-circle', 'news/new')}
           {quickItemGenerater('審閱文章', 'fas fa-glasses', 'post/pending')}
           {quickItemGenerater('頁面設定', 'fa fa-cog')}
         </>}

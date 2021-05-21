@@ -16,7 +16,7 @@ const UNIVERSALS: UniversalsInfo = {
         'contact-us': { title: 'app.title.contact-us', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'worship': { title: 'app.title.worship', subtitle: null },
-        'worship-list': { title: 'app.title.worship', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-orange-oil-paint.jpeg" },
+        'worship-list': { title: 'app.title.worship', subtitle: null, bg: googleEndPoint + "/lybcstorage/worship_md.jpg" },
         'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'careers':{ title: 'app.title.careers', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'preacher-message': { title: 'app.title.preacher-message', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },

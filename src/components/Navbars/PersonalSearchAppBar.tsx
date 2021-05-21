@@ -231,8 +231,8 @@ export default function PersonalSearchAppBar() {
                aria-haspopup="true"
                color="inherit"
             >
-               {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
-               {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}</IconButton>
+               {(loading || !profilePicData?.user?.profilePicURI) && <AccountCircle />}
+               {(!loading && profilePicData?.user?.profilePicURI) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}</IconButton>
             <Typography>Profile</Typography>
          </MenuItem>
       </Menu>
@@ -290,8 +290,8 @@ export default function PersonalSearchAppBar() {
                      onClick={handleProfileMenuOpen}
                      color="inherit"
                   >
-                     {(loading || profilePicData?.user?.profilePicURI == null) && <AccountCircle />}
-                     {(!loading && profilePicData?.user?.profilePicURI != null) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
+                     {(loading || !profilePicData?.user?.profilePicURI) && <AccountCircle />}
+                     {(!loading && profilePicData?.user?.profilePicURI) && <Avatar className={classes.small} alt="profile pic" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + profilePicData?.user.profilePicURI} />}
                   </IconButton>
                </div>
                <div className={classes.sectionMobile}>

@@ -73,11 +73,10 @@ function Worship() {
   }, [wData])
 
   useEffect(() => {
-    if (wData != null) {
-      // dispatch(setLoading(true))
+    if (refetch) {
       refetch();
     }
-  }, [location])
+  }, [location, refetch])
 
   useEffect(() => {
     //Default scroll to top

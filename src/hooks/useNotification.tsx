@@ -2,13 +2,10 @@ import { setSystemFailure } from 'actions';
 import { NotificationsDocument, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 
 export default function useNotification(){
-
-  const location = useLocation()
 
   const dispatch = useDispatch()
 

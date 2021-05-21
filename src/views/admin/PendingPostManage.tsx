@@ -106,7 +106,7 @@ function PendingPostManage() {
                   <span className="sr-only">Loading...</span>
                 </div>
               </th></tr>}
-              {((pageItems == null || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
+              {((!pageItems || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
               {
                 (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value) => {
                   return <tr key={value._id}>

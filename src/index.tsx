@@ -1,5 +1,4 @@
 
-import React from "react";
 import ReactDOM from "react-dom";
 import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
@@ -42,9 +41,6 @@ import PasswordResetModal from "components/Modals/PasswordResetModal";
 import SharingModal from "components/Modals/SharingModal";
 import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
-import AdminPanel2 from "views/admin/revamp/AdminPanel2";
-import PersonalPage2 from "views/personal/revamp/PersonalPage2";
-import MuiSharingModal from "components/Modals/revamp/MuiSharingModal";
 
 // const history = createHistory({ basename: process.env.PUBLIC_URL });
 
@@ -70,7 +66,7 @@ function App() {
   return <ApolloProvider client={getClient()}>
     <Provider store={store}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <LocaleContext.Provider value={[locale, setLocale, persistLocale]}>
+        <LocaleContext.Provider value={{locale, setLocale, persistLocale}}>
           <LayoutContext.Provider value={{ mobileOpen, setMobileOpen, darkMode, setDarkMode }} >
             <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>              
               <CommonModal />
@@ -100,8 +96,8 @@ function App() {
                 <Route path="/preacher-message" render={(props: any) => <MainPage {...props} page="preacher-message" />} />
                 <Route path="/sharing-list" render={(props: any) => <MainPage {...props} page="sharing-list" />} />
                 <Route path="/sharing/:id" render={props => <MainPageLegacy {...props} page="sharing" />} />
-                <Route path="/news/" render={props => <MainPageLegacy {...props} page="news" />} />
-                <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} />
+                <Route path="/news/:id" render={props => <MainPageLegacy {...props} page="news" />} />
+                {/* <Route path="/news2/" render={props => <MainPageLegacy {...props} page="news2" />} /> */}
                 <Route path="/news-list/" render={props => <MainPage {...props} page="news-list" />} />
                 <Redirect from="/sharing/" to="/sharing-list" />
                 <Route exact path="/"><Index /></Route>

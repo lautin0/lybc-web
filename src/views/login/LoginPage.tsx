@@ -14,13 +14,12 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar";
 import TransparentFooter from "components/Footers/TransparentFooter";
 import { useDispatch } from "react-redux";
 import { signInFailure, signInSuccess } from "actions";
-import { useMutation } from "@apollo/client";
 import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
-import { Login, LoginDocument, MutationLoginArgs, TokenPair, useLoginMutation } from "generated/graphql";
+import { Login, useLoginMutation } from "generated/graphql";
 import { useIntl } from "react-intl";
 
 function LoginPage({ loginFn }: any) {

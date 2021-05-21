@@ -139,11 +139,11 @@ export default function PersonalSetting() {
 
   const { acceptedFiles, open, getRootProps, getInputProps } = dropzoneMethods
 
-  const [updateUser, { data: updatedUserData }] = useUpdateUserMutation()
+  const [updateUser] = useUpdateUserMutation()
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
-      username: getTokenValue(localStorage.getItem('token')).username 
+      username: getTokenValue(localStorage.getItem('token'))?.username
     },
     notifyOnNetworkStatusChange: true
   })
@@ -170,7 +170,7 @@ export default function PersonalSetting() {
 
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
-  const [changePassword, { data }] = useChangePasswordMutation()
+  const [changePassword] = useChangePasswordMutation()
 
   const watchType = useWatch({
     control,
@@ -206,16 +206,17 @@ export default function PersonalSetting() {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      setErrorModal(err)
+    }).then(res => {
+      setMessage('app.sys.save-success')
     })
+      .catch((err: any) => {
+        setErrorModal(err)
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   const onSubmit = async (data: any) => {
-    if (userData == null)
+    if (!userData)
       return
-    // let dob = date?.format('yyyy-MM-DDTHH:mm:ssZ')
     dispatch(setLoading(true))
 
     const options = {
@@ -224,7 +225,9 @@ export default function PersonalSetting() {
       useWebWorker: true
     }
 
-    let compressedImg = await acceptedFiles.length > 0 ? imageCompression(acceptedFiles[0], options) : null
+    let compressedImg = null
+    if (acceptedFiles.length > 0)
+      compressedImg = await imageCompression(acceptedFiles[0], options)
 
     let tmp: UpdateUser = {
       username: userData.user?.username!,
@@ -236,8 +239,9 @@ export default function PersonalSetting() {
       dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
       profilePic: compressedImg,
-      email: data.email.length == 0 ? null : data.email,
-      phone: data.phone.length == 0 ? null : data.phone
+      email: data.email.length === 0 ? null : data.email,
+      phone: data.phone.length === 0 ? null : data.phone,
+      status: userData.user?.status
     }
 
     updateUser({
@@ -246,20 +250,17 @@ export default function PersonalSetting() {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      // dispatch(setLoading(false))
-      setErrorModal(err)
-    })
-  }
-
-  useEffect(() => {
-    if (updatedUserData !== undefined) {
+    }).then(res => {
       setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
       reset();
       history.push('/personal/')
-    }
-  }, [updatedUserData, dispatch, reset, history])
+    })
+      .catch((err: any) => {
+        setErrorModal(err)
+      }).finally(() => {
+        dispatch(setLoading(false))
+      })
+  }
 
   useEffect(() => {
     if (userData !== undefined) {
@@ -273,49 +274,21 @@ export default function PersonalSetting() {
           phone: userData.user?.phone!,
           dob: userData.user?.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
         })
-        // if (userData.user.dob) {
-        //   console.log(userData.user.dob)
-        //   setFormValue('dob', moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
-        // }
-        // if (userData.user.dob != null) {
-        //   setDate(moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS'))
-        // }
       })
     }
   }, [userData, reset])
 
-  // useEffect(() => {
-  //   dispatch(setLoading(true))
-  // }, [])
-
   useEffect(() => {
-    if (userData != null) {
-      // dispatch(setLoading(true))
-      refetch();
-      setTimeout(() => {
-        trigger()
-      }, 100);
+    if (refetch !== undefined && trigger !== undefined) {
+      refetch()
+      trigger()
     }
-  }, [location, dispatch, refetch])
-
-  // useEffect(() => {
-  //   if (loading === false) {
-  //     dispatch(setLoading(false))
-  //   }
-  // }, [loading, dispatch])
+  }, [location, trigger, refetch])
 
   useEffect(() => {
-    if (watchType !== undefined)
+    if (watchType !== undefined && trigger !== undefined)
       trigger()
   }, [watchType, trigger])
-
-
-  useEffect(() => {
-    if (data !== undefined) {
-      setMessage('app.sys.save-success')
-      dispatch(setLoading(false))
-    }
-  }, [data, dispatch])
 
   return (
     <div className={classes.root}>
@@ -357,7 +330,7 @@ export default function PersonalSetting() {
               </Grid>
             </Grid>
           </Grid>}
-          {(!loading && userData != null) && <FormProvider {...methods}>
+          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
@@ -366,9 +339,9 @@ export default function PersonalSetting() {
                 <Grid item xs={12} md={6} lg={4} container justify="center">
                   <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                     <div className={classes.profilePicContainer}>
-                      {(acceptedFiles.length == 0 && userData.user?.profilePicURI == null) && <AccountCircle />}
+                      {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <AccountCircle className={classes.avatar} />}
                       {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
-                      {(userData.user?.profilePicURI != null && acceptedFiles.length == 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                      {(userData && userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
                       <div className={classes.profilePicOverlay}>
                         <div>
                           <div>
@@ -412,35 +385,6 @@ export default function PersonalSetting() {
                     control={control}
                     defaultValue={null}
                   />
-                  {/* <Controller
-                      render={({ onChange, onBlur, value }) => <Form.Check
-                        className="form-check-radio mx-2"
-                        type="radio"
-                        id="rbM"
-                        value={Gender.Male.toString()}
-                        onChange={(val) => onChange(val.currentTarget.value)}
-                        checked={Gender.Male.toString() === getValues().gender}
-                        name="rbGender"
-                        label={<><span className="form-check-sign"></span>男</>}
-                      ></Form.Check>
-                      }
-                      control={control}
-                      name="gender"
-                    />
-                    <Controller
-                      render={({ onChange, onBlur, value }) => <Form.Check
-                        className="form-check-radio mx-2"
-                        type="radio"
-                        id="rbF"
-                        value={Gender.Female.toString()}
-                        onChange={(val) => onChange(val.currentTarget.value)}
-                        checked={Gender.Female.toString() === getValues().gender}
-                        name="rbGender"
-                        label={<><span className="form-check-sign"></span>女</>}
-                      ></Form.Check>}
-                      control={control}
-                      name="gender"
-                    /> */}
                 </Grid>
                 <Grid item>
                   <MuiInputText
@@ -452,19 +396,6 @@ export default function PersonalSetting() {
                   />
                 </Grid>
                 <Grid item>
-                  {/* <SingleDatePicker
-                    placeholder="出生日期"
-                    isOutsideRange={() => false}
-                    numberOfMonths={1}
-                    date={date} // momentPropTypes.momentObj or null
-                    onDateChange={date => setDate(date)} // PropTypes.func.isRequired
-                    focused={focused} // PropTypes.bool
-                    onFocusChange={({ focused }) => setFocused(focused)} // PropTypes.func.isRequired
-                    showDefaultInputIcon
-                    inputIconPosition="after"
-                    // displayFormat="yyyyMMDD"
-                    id="dob" // PropTypes.string.isRequired,
-                  /> */}
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Controller
                       name="dob"
@@ -472,6 +403,7 @@ export default function PersonalSetting() {
                       defaultValue={null}
                       render={({ ref, ...rest }: any) => (
                         <KeyboardDatePicker
+                          data-testid="dob-dtp"
                           variant="inline"
                           margin="normal"
                           id="date-picker-dialog"

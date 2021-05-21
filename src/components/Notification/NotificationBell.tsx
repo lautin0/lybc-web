@@ -83,7 +83,7 @@ function NotificationBell(props: any) {
             <i style={{ fontSize: 24 }} className={e.type === NotificationType.Reaction ? "fa fa-thumbs-up" : "fas fa-comment-dots"}></i>
           </div>
           <div>
-            <span>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</span>
+            <span>{(!e.fromUsername ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</span>
             <br />
             <span className="text-secondary">{getTimePastStr(moment(e.creDttm))}</span>
           </div>

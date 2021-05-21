@@ -1,4 +1,4 @@
-import { createStyles, Grid, makeStyles, TextField } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, TextField, TextFieldProps } from '@material-ui/core';
 import { Controller, useFormContext } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) =>
@@ -21,19 +21,14 @@ type MuiInputTextProp = {
    md?: any
    sm?: any
    xs?: any
-   rows?: number
-   multiline?: boolean
    skipValidate?: boolean
-   placeholder?: string
    validateFn?: any
    strongReadOnly?: boolean
-   size?: "small" | "medium"
-   type?: string
 }
 
-function MuiInputText(props: MuiInputTextProp) {
+type MergedTextFieldProp = MuiInputTextProp & TextFieldProps
 
-   const { name, label, isReadOnly, md, sm, xs, lg, rows, multiline, skipValidate, placeholder, validateFn, strongReadOnly, size, type } = props;
+function MuiInputText(props: MergedTextFieldProp) {
 
    const { errors, control } = useFormContext()
 
@@ -41,34 +36,35 @@ function MuiInputText(props: MuiInputTextProp) {
 
    return <Grid
       item
-      lg={lg}
-      md={md}
-      sm={sm}
-      xs={xs}
+      lg={props.lg}
+      md={props.md}
+      sm={props.sm}
+      xs={props.xs}
       className={classes.item}
    >
       <Controller
-         name={name}
+         name={props.name}
          control={control}
          defaultValue=""
-         rules={{ validate: validateFn }}
+         rules={{ validate: props.validateFn }}
          render={({ onChange, onBlur, value }) => {
             return <TextField
-               error={!skipValidate && !!errors[name]}
+               error={!props.skipValidate && !!errors[props.name]}
                // id="standard-error-helper-text"  
-               size={size} // "small" | "medium"
-               placeholder={placeholder}
-               type={type || 'text'}
+               size={props.size} // "small" | "medium"
+               placeholder={props.placeholder}
+               type={props.type || 'text'}
                fullWidth={true}
-               label={label}
-               multiline={multiline}
-               rows={rows}
+               label={props.label}
+               multiline={props.multiline}
+               rows={props.rows}
                variant="outlined"
                onChange={onChange}
                onBlur={onBlur}
                value={value || ''}
-               disabled={strongReadOnly || isReadOnly}
-               helperText={(!skipValidate && errors[name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{errors[name].message != "" ? errors[name].message : "必須輸入這欄"}</label>}
+               InputProps={props.InputProps}
+               disabled={props.strongReadOnly || props.isReadOnly}
+               helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{errors[props.name].message !== "" ? errors[props.name].message : "必須輸入這欄"}</label>}
             />
          }}
       />

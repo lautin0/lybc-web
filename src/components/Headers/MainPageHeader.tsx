@@ -36,7 +36,7 @@ function MainPageHeader(props: MainPageHeaderType) {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
-  }, [props.page, locale])
+  }, [props.page, locale, intl])
 
   return (
     <>

@@ -6,7 +6,6 @@ import MainNavbar from "components/Navbars/MainNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
 import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
-import InfiniteScroll from 'views/common/InfiniteScroll'
 // import SearchBooks from "views/books/SearchBooks";
 import Worship from "views/worship/Worship";
 import Sharing from "views/articles/Sharing";
@@ -17,8 +16,7 @@ import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import useLanguage from "hooks/useLanguage";
 import Careers from "views/about/Careers";
-import LatestNews from "views/latest/LatestNews";
-import LatestNews2 from "views/latest/LatestNews2";
+import News from "views/news/News";
 
 type MainPageProps = {
   page: string,
@@ -44,7 +42,7 @@ function MainPageLegacy(props: MainPageProps) {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })
-  }, [props.page, locale])
+  }, [props.page, locale, intl])
 
   return (
     <>
@@ -72,11 +70,10 @@ function MainPageLegacy(props: MainPageProps) {
           </div>
           {props.page === 'apply-activity' && <Apply />}
           {/* {props.page === 'test' && <InfiniteScroll />} */}
-          {props.page == 'library' && <SearchBooks />}
+          {props.page === 'library' && <SearchBooks />}
           {props.page === 'worship' && <Worship />}
           {props.page === 'sharing' && <Sharing />}
-          {props.page === 'news' && <LatestNews />}
-          {props.page === 'news2' && <LatestNews2 />}
+          {props.page === 'news' && <News />}
           {props.page === 'careers' && <Careers />}
         </div>
         <DefaultFooter />

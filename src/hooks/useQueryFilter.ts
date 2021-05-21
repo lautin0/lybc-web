@@ -55,10 +55,11 @@ function useQueryFilter() {
     filters.map((x, i) => {
       if (x.attrType?.value === attrType?.value)
         idx = i;
+      return x
     })
 
     let cloneFilter = [...filters]
-    if (attrType == null || itemList.length === 0) {
+    if (!attrType || itemList.length === 0) {
       if (idx > -1)
         cloneFilter.splice(idx, 1)
     } else {
@@ -77,7 +78,7 @@ function useQueryFilter() {
 
     let cloneData = [...dataSrc]
     cloneFilter.forEach(q => {
-      if (q == null || q.attrType == null)
+      if (!q || !q.attrType)
         return
       let at = q.attrType
       switch (q.attrType.filterMode) {

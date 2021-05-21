@@ -48,7 +48,7 @@ function Index() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.title" })
-  }, [locale])
+  }, [locale, intl])
 
   useEffect(() => {
     if (data !== undefined && data?.refreshToken !== undefined)

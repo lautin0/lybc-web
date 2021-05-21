@@ -44,6 +44,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel2 {...props} func="new-worship" />} />
         <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel2 {...props} func="edit-worship" />} />
         <Route path={`${url}/users`} render={(props: any) => <AdminPanel2 {...props} func="users" />} />
+        <Route path={`${url}/user/new`} render={(props: any) => <AdminPanel2 {...props} func="new-user" />} />
         <Route path={`${url}/user/:username`} render={(props: any) => <AdminPanel2 {...props} func="user" />} />
         <Route path={`${url}/other`} render={(props: any) => <AdminPanel2 {...props} func="other" />} />
         <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel2 {...props} func="page-management" />} />
@@ -51,7 +52,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel2 {...props} func="namecards" />} />
         <Route path={`${url}/post/pending/:id`} render={(props: any) => <AdminPanel2 {...props} func="new-proxy-posts" />} />
         <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel2 {...props} func="pending-posts" />} />
-        <Route path={`${url}/latests/new`} render={(props: any) => <AdminPanel2 {...props} func="new-latests" />} />
+        <Route path={`${url}/news/new`} render={(props: any) => <AdminPanel2 {...props} func="new-news" />} />
         {/* <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel2 {...props} func="new-book" />} />
         <Route path={`${url}/books`} render={(props: any) => <AdminPanel2 {...props} func="books" />} /> */}
         <Route path="*">

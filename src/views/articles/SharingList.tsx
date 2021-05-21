@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { gql } from "@apollo/client";
-import { FavouritePostsDocument, Post, PostsConnection, PostsDocument, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
+import { FavouritePostsDocument, Post, PostFilter, PostsConnection, PostsDocument, PostType, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,6 @@ import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
-import usePagination from "hooks/usePagination";
 
 // core components
 
@@ -52,8 +51,12 @@ function SharingList() {
     return null
   }, [posts])
 
-  const { loading, data: postData, refetch, fetchMore } = usePostsQuery({
-    variables: { first: 4 }, notifyOnNetworkStatusChange: true
+  const postFilter: PostFilter = useMemo(() => ({
+    AND: [{ parentIDNotNull: false }],
+    type: PostType.Sharing
+  }),[])
+  const { loading, data: postData, refetch, fetchMore, called } = usePostsQuery({
+    variables: { first: 4, postFilter: postFilter }, notifyOnNetworkStatusChange: true
   })
 
   const postDataRef = useRef(postData);
@@ -134,14 +137,14 @@ function SharingList() {
   }, [removeFavPost, addFavPost, dispatch, loading, addFavLoading, removeFavLoading])
 
   const handleClick = useCallback(() => {
-    if (tokenPair?.token == null) {
+    if (!tokenPair?.token) {
       dispatch(setSysMessage('app.sys.require-login'))
       return
     }
 
     setOpen(true)
     setTitle("app.modal.header.new-sharing-record")
-  }, [tokenPair])
+  }, [tokenPair, dispatch, setOpen, setTitle])
 
   useEffect(() => {
     //Default scroll to top
@@ -152,10 +155,10 @@ function SharingList() {
     postData && refetch({
       first: cacheData?.posts.edges?.length
     });
-  }, [location, refetch, postData])
+  }, [location, refetch, postData, cacheData])
 
   const handleScroll = useCallback(() => {
-    if (fetchMore == undefined)
+    if (!fetchMore)
       return
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st <= lastScrollTop.current) {
@@ -172,13 +175,13 @@ function SharingList() {
     let lastElOffset = lastEl.offsetTop + lastEl.clientHeight;
     let pageOffset = window.pageYOffset + window.innerHeight;
     if (pageOffset - footerEl.clientHeight > lastElOffset && postDataRef.current?.posts.pageInfo.hasNextPage) {
-      fetchMore({
+      (postData != null && called) && fetchMore({
         variables: {
           after: postDataRef.current.posts.pageInfo.endCursor
         }
       })
     }
-  }, [postData, fetchMore])
+  }, [postData, fetchMore, postDataRef, called])
 
   useEffect(() => {
     if (postData === undefined)
@@ -190,7 +193,7 @@ function SharingList() {
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll, postData])
+  }, [handleScroll, postData, called])
 
   return (
     <>
@@ -208,7 +211,7 @@ function SharingList() {
           </h5>
           <hr></hr> */}
           <Row className="mt-5">
-            {posts == null && <Col md={12} lg={8} className="clearfix"></Col>}
+            {!posts && <Col md={12} lg={8} className="clearfix"></Col>}
             {posts && <Col className="sharing-list" md={12} lg={8}>
               {posts.map((p: Post) => {
                 return <div key={p._id} className="my-5">
@@ -240,10 +243,10 @@ function SharingList() {
                       </div>
                     </div>
                     <div className={css.blogImg} onClick={() => { navigate(p._id) }}>
-                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
+                      {p.imageURI != null && <img alt="blog preview" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                     <div className={css.blogImgMobile} onClick={() => { navigate(p._id) }}>
-                      {p.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
+                      {p.imageURI != null && <img alt="blog preview" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.imageURI}`}></img>}
                     </div>
                   </div>
                 </div>

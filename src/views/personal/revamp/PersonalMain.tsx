@@ -145,7 +145,7 @@ export default function PersonalMain() {
     variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true
   })
 
-  const { loading: favLoading, data: favPostData, refetch: favRefetch } = useFavouritePostsQuery({
+  const { loading: favLoading, data: favPostData } = useFavouritePostsQuery({
     notifyOnNetworkStatusChange: true
   })
 
@@ -199,7 +199,7 @@ export default function PersonalMain() {
     setPendingPostID(id)
     setModalOpen(true)
     setTitle("app.modal.header.edit-sharing-record")
-  }, [])
+  }, [setPendingPostID, setModalOpen, setTitle])
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
@@ -240,8 +240,6 @@ export default function PersonalMain() {
     }
   }
 
-  const setOpen = usePendingPostStore(state => state.setOpen)
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
@@ -281,7 +279,7 @@ export default function PersonalMain() {
                 </Grid>
               </Grid>
               <Grid container item xs={12} justify="center">
-                {userData?.user == null && <AccountCircle />}
+                {!userData?.user && <AccountCircle />}
                 {userData?.user && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </Grid>
               <Grid container item justify="center">
@@ -334,7 +332,7 @@ export default function PersonalMain() {
                   <Typography>徽章: </Typography>
                 </Grid>
                 <Grid item>
-                  {(userData?.user && userData.user.role === "ADMIN" || userData?.user?.role === "WORKER") && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
+                  {(userData?.user && (userData.user.role === "ADMIN" || userData?.user?.role === "WORKER")) && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
                 </Grid>
               </Grid>
               <Grid container item direction="row" alignItems="center" spacing={1}>
@@ -356,7 +354,7 @@ export default function PersonalMain() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          {(!favLoading && favPostData?.favouritePosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+          {(!favLoading && favPostData?.favouritePosts.length === 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
             <Grid container item xs={12} justify="center">
               <Typography variant="h5">
                 沒有記錄
@@ -437,10 +435,10 @@ export default function PersonalMain() {
                 </Grid>
               </Grid>
               <Grid xs={4} item className={css.blogImg} onClick={() => { navigate(p.post?._id) }}>
-                {p.post?.imageURI != null && <img style={{ height: 150, width: 200 }} src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
+                {p.post?.imageURI != null && <img alt="blog cover" style={{ height: 150, width: 200 }} src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
               </Grid>
               <Grid item className={css.blogImgMobile} onClick={() => { navigate(p.post?._id) }}>
-                {p.post?.imageURI != null && <img src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
+                {p.post?.imageURI != null && <img alt="blog cover" src={`${UNIVERSALS.GOOGLE_STORAGE_ENDPOINT}${p.post?.imageURI}`}></img>}
               </Grid>
             </Grid>
           })}
@@ -478,7 +476,7 @@ export default function PersonalMain() {
               <Skeleton animation="wave" variant="rect" height={190} />
             </Grid>
           </Grid>}
-          {(!pPostLoading && data?.pendingPosts.length == 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
+          {(!pPostLoading && data?.pendingPosts.length === 0) && <Grid container direction="column" spacing={3} style={{ color: 'gray' }}>
             <Grid container item xs={12} justify="center">
               <Typography variant="h5">
                 沒有記錄

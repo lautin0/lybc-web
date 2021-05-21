@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import UNIVERSALS from "Universals";
 import DOMPurify from 'dompurify'
-import { useQuery } from '@apollo/client';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { getNullableString } from 'utils/utils';
@@ -53,7 +52,7 @@ function InfoModal(props: any) {
         .replace("{0}", data?.maxWorshipId.toString())
         .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
     }
-  }, [data])
+  }, [data, dispatch])
 
   return (
     <Modal

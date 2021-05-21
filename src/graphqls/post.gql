@@ -114,6 +114,7 @@ input PostFilter {
 	username_not_ends_with: String
 
 	type: String
+	parentIDNotNull: Boolean
 
 	# All values that are equal to given value.
 	creDttm: Time

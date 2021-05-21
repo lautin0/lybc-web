@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
@@ -8,10 +8,9 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
-import { MutationPendPostArgs, MutationUpdatePendingPostArgs, NewPendingPost, PendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
+import { NewPendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
 import { getTokenValue } from 'utils/utils';
 import { RootState } from 'reducers';
-import { useLazyQuery, useMutation } from '@apollo/client';
 
 function SharingModal(props: any) {
 
@@ -19,8 +18,8 @@ function SharingModal(props: any) {
 
   const dispatch = useDispatch()
   
-  const [pendPost, { data }] = usePendPostMutation()
-  const [updatePendingPost, { data: updateData }] = useUpdatePendingPostMutation()
+  const [pendPost] = usePendPostMutation()
+  const [updatePendingPost] = useUpdatePendingPostMutation()
 
   const [readOnly, setReadOnly] = useState(false)
 
@@ -35,7 +34,7 @@ function SharingModal(props: any) {
   // const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = useLazyQuery<{ pendingPost: PendingPost }, { oid: string }>
   //   (GET_PENDING_POST, { variables: { oid: pendingPostID! }, notifyOnNetworkStatusChange: true });
 
-  const [loadingPendingPost, { called, loading, data: pPostData, refetch }] = usePendingPostLazyQuery({
+  const [loadingPendingPost, { data: pPostData }] = usePendingPostLazyQuery({
     variables: { oid: pendingPostID! },
     notifyOnNetworkStatusChange: true
   })
@@ -71,11 +70,14 @@ function SharingModal(props: any) {
           },
           doc: file
         }
-      }).catch((err: any) => {
-        dispatch(setLoading(false))
-        dispatch(setSystemFailure(err))
+      }).then(res => {
+        dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
+      .catch((err: any) => {
+        dispatch(setSystemFailure(err))
+        onHide()
+      }).finally(() => dispatch(setLoading(false)))
     } else {
       pendPost({
         variables: {
@@ -84,11 +86,14 @@ function SharingModal(props: any) {
           },
           doc: file
         }
-      }).catch((err: any) => {
-        dispatch(setLoading(false))
-        dispatch(setSystemFailure(err))
+      }).then(res => {
+        dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
+      .catch((err: any) => {        
+        dispatch(setSystemFailure(err))
+        onHide()
+      }).finally(() => dispatch(setLoading(false)))
     }
   }
 
@@ -106,28 +111,15 @@ function SharingModal(props: any) {
           ...tmp
         },
       }
-    }).catch((err: any) => {
-      dispatch(setLoading(false))
-      dispatch(setSystemFailure(err))
+    }).then(res => {
+      dispatch(setSysMessage('app.sys.save-success'))      
       onHide()
     })
+    .catch((err: any) => {      
+      dispatch(setSystemFailure(err))
+      onHide()
+    }).finally(() => dispatch(setLoading(false)))
   }
-
-  useEffect(() => {
-    if (data !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
-      dispatch(setLoading(false))
-      onHide()
-    }
-  }, [data, dispatch, reset])
-
-  useEffect(() => {
-    if (updateData !== undefined) {
-      dispatch(setSysMessage('app.sys.save-success'))
-      dispatch(setLoading(false))
-      onHide()
-    }
-  }, [updateData, dispatch, reset])
 
   const onHide = () => {
     reset({
@@ -141,21 +133,21 @@ function SharingModal(props: any) {
   }
 
   useEffect(() => {
-    if (pendingPostID != null) {
+    if (pendingPostID !== null && loadingPendingPost !== null) {
       loadingPendingPost()
     }
-  }, [pendingPostID])
+  }, [pendingPostID, loadingPendingPost])
 
   useEffect(() => {
     if (pPostData != null) {
       reset({
         title: pPostData.pendingPost?.title,
         subtitle: pPostData.pendingPost?.subtitle,
-        remarks: pPostData.pendingPost?.remarks == null ? "" : pPostData.pendingPost.remarks
+        remarks: !pPostData.pendingPost?.remarks ? "" : pPostData.pendingPost.remarks
       })
       setReadOnly(true)
     }
-  }, [pPostData])
+  }, [pPostData, reset])
 
   useEffect(() => {
     let thisRef = React.createRef();
@@ -186,11 +178,11 @@ function SharingModal(props: any) {
             </div>
           </Modal.Body>
           <Modal.Footer className="justify-content-end">
-            {(pPostData?.pendingPost?.status == null || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
+            {(!pPostData?.pendingPost?.status || pPostData.pendingPost.status === PostStatus.Withhold) && <div>
               <Button type="submit">{intl.formatMessage({ id: "app.buttons.submit" })}</Button>
               <Button onClick={onHide} variant="secondary" className="ml-2">{intl.formatMessage({ id: "app.buttons.cancel" })}</Button>
             </div>}
-            {(pPostData?.pendingPost?.status != null && pPostData.pendingPost.status === PostStatus.Pending) && <div>
+            {(pPostData?.pendingPost?.status && pPostData.pendingPost.status === PostStatus.Pending) && <div>
               <Button
                 type="button"
                 variant="danger"

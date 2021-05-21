@@ -3,7 +3,6 @@ import { grey } from "@material-ui/core/colors";
 import { Comment, ThumbUp } from "@material-ui/icons";
 import NotificationContext from "context/NotificationContext";
 import { Notification, NotificationType } from "generated/graphql";
-import useNotification from "hooks/useNotification";
 import moment from 'moment';
 import { useContext } from "react";
 import { useHistory } from 'react-router-dom';
@@ -41,7 +40,7 @@ export default function NotificationPage() {
       <Grid item xs={12} md={8}>
         <Card>
           <CardContent>
-            <Typography className="mb-3" variant="h4">通知</Typography>
+            <Typography className="mb-3" variant="h5">通知</Typography>
             {(!loading && data && data.notifications.length === 0) && <Typography className={classes.noRecord}>沒有通知</Typography>}
             {(!loading && data && data.notifications.length > 0) && data.notifications.map((n, idx) => {
               let e = n as Notification
@@ -59,7 +58,7 @@ export default function NotificationPage() {
                   </Grid>
                   <Grid item xs={8}>
                     <Grid container alignItems="center" className={classes.listText}>
-                      <Typography>{(e.fromUsername == null ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
+                      <Typography>{(!e.fromUsername ? "" : e.fromUsername) + " " + getKeyValue(presets.COMMON.NOTIFICATION_TYPE, e.type).LABEL}</Typography>
                     </Grid>
                     <Typography variant="body2">{getTimePastStr(moment(e.creDttm))}</Typography>
                   </Grid>
