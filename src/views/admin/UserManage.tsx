@@ -76,7 +76,7 @@ export default function UserManage() {
       {
          field: 'gender',
          headerName: '性別',
-         width: 100,
+         width: 150,
          renderCell: (params: GridCellParams) => (
             <Typography>{params.value === "MALE" ? "男" : "女"}</Typography>
          ),
