@@ -32,7 +32,7 @@ function LoginPage({ loginFn }: any) {
 
   //const userDef = useSelector((state: RootState) => state.auth.user)
 
-  const { reset, register, handleSubmit, errors } = useForm()
+  const { reset, register, handleSubmit, formState: { errors } } = useForm()
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
@@ -127,15 +127,12 @@ function LoginPage({ loginFn }: any) {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <input
+                        {...register("username", {
+                          required: true
+                        })}
                         placeholder={intl.formatMessage({ id: "app.forms.username" })}
                         className={errors.username ? "form-control" : "form-control form-control-danger"}
                         type="text"
-                        name="username"
-                        ref={register({
-                          required: true,
-                          // validate: (value) => { return !!value.trim() },
-                          // name: 'username'
-                        })}
                         // value={user.username}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
@@ -156,19 +153,14 @@ function LoginPage({ loginFn }: any) {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <input
+                        {...register("password", {
+                          required: true
+                        })}
                         className={errors.password ? "form-control" : "form-control form-control-danger"}
                         placeholder={intl.formatMessage({ id: "app.forms.password" })}
                         type="password"
-                        name="password"
-                        // value={user.password}
-                        ref={register({
-                          required: true,
-                          // validate: (value) => { return !!value.trim() },
-                          // name: 'password'
-                        })}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
-                      // onChange={handleInputChange}
                       ></input>
                     </InputGroup>
                     {errors.password && <label role="alert" style={{ opacity: .6 }}>{intl.formatMessage({ id: "app.validation.required" })}</label>}

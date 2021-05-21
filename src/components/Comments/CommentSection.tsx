@@ -1,5 +1,4 @@
 import { setSystemFailure } from 'actions';
-import { RBRef } from 'adapter/types';
 import usePost from 'hooks/usePost';
 import moment from 'moment';
 import { useEffect } from 'react';
@@ -37,7 +36,7 @@ function CommentSection(props: any) {
     notifyOnNetworkStatusChange: true
   })
 
-  const { register, handleSubmit, reset, errors } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = (data: any) => {
     setCommentPending(true)
@@ -108,6 +107,7 @@ function CommentSection(props: any) {
       <Form className="ml-md-5 col-md-10 col-sm-12" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2" style={{ fontSize: 20 }}>{intl.formatMessage({ id: "app.comment.your-comment" })}</div>
         <Form.Control
+          {...register('content', { validate: Validators.NoWhiteSpace })}
           style={{
             borderLeft: '.5px lightgrey solid',
             borderRight: '.5px lightgrey solid',
@@ -117,8 +117,6 @@ function CommentSection(props: any) {
             fontSize: 18,
             padding: 10
           }}
-          name="content"
-          ref={register({ validate: Validators.NoWhiteSpace }) as RBRef}
           as="textarea"
           rows={4}
           placeholder={intl.formatMessage({ id: "app.comment.comment-here" })}

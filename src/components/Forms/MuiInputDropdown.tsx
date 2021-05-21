@@ -34,7 +34,7 @@ export default function MuiInputDropdown(props: MergedSelectProp) {
 
   const { name, label, isReadOnly, ds, lg, md, sm, xs, skipValidate, validateFn, strongReadOnly } = props;
 
-  const { errors, control } = useFormContext()
+  const { formState: { errors }, control } = useFormContext()
 
   const classes = useStyles()
 
@@ -51,7 +51,7 @@ export default function MuiInputDropdown(props: MergedSelectProp) {
       control={control}
       rules={{ validate: validateFn }}
       defaultValue=""
-      render={({ onChange, onBlur, value }) => {
+      render={({ field, fieldState }) => {
         return <FormControl
           variant="filled"
           fullWidth={true}
@@ -60,10 +60,9 @@ export default function MuiInputDropdown(props: MergedSelectProp) {
         >
           <InputLabel id="demo-simple-select-filled-label">{label}</InputLabel>
           <Select
+            {...field}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={value}
-            onChange={onChange}
           >
             {ds.map((item: any, idx: number) => {
               return <MenuItem key={idx} disabled={item.disabled} value={item.value}>{item.display}</MenuItem>

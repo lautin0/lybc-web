@@ -50,7 +50,7 @@ function WorshipCreate() {
       link: '',
       note: '',
       verse: '',
-      docs: [...formDef.docs] as object
+      docs: [...formDef.docs] as Array<any>
     }
   })
 
@@ -118,46 +118,23 @@ function WorshipCreate() {
 
     return fields.map((item: any, idx: number) => {
       return <Form.Row key={item.id}>
-        {/* <InputText
-          name={`docs[${idx}].link`}
-          label={`檔案${idx + 1}連結`}
-          placeholder="e.g. https://www.abc.com/"
-          md={5}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputText
-          name={`docs[${idx}].link`}
+          name={`docs.${idx}.link` as const}
           label={`檔案${idx + 1}連結`}
           placeholder="e.g. https://www.abc.com/"
           md={5}
           xs={12}
           skipValidate={true}
         />
-        {/* <InputText
-          name={`docs[${idx}].title`}
-          label="名稱"
-          md={{ span: 3, offset: 1 }}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputText
-          name={`docs[${idx}].title`}
+          name={`docs.${idx}.title` as const}
           label="名稱"
           md={3}
           xs={12}
           skipValidate={true}
         />
-        {/* <InputDropdown
-          name={`docs[${idx}].type`}
-          label="檔案類型"
-          ds={docTypes}
-          md={2}
-          sm={12}
-          skipValidate={true}
-        /> */}
         <MuiInputDropdown
-          name={`docs[${idx}].type`}
+          name={`docs.${idx}.type` as const}
           label="檔案類型"
           ds={docTypes}
           md={2}

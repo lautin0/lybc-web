@@ -4,7 +4,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import WorshipCreate from './WorshipCreate';
 import WorshipManage from './WorshipManage';
 import AdminHeader from './AdminHeader'
-import MemberManage from './MemberManage';
 import OtherFunc from './OtherFunc';
 import PageManage from './PageManage';
 import WorshipEdit from './WorshipEdit';
@@ -12,7 +11,6 @@ import AdminNavbar from 'components/Navbars/AdminNavbar';
 import PostCreate from './PostCreate';
 import NameCardManage from './NameCardManage';
 import PendingPostManage from './PendingPostManage';
-import PendingPostEdit from './PendingPostEdit';
 import NewsCreate from './NewsCreate';
 import UserManage from './UserManage';
 
@@ -127,7 +125,6 @@ function AdminPanel(props: AdminPanelProps) {
               {props.func === 'new-post' && <PostCreate />}
               {props.func === 'namecards' && <NameCardManage />}
               {props.func === 'pending-posts' && <PendingPostManage />}
-              {props.func === 'new-proxy-posts' && <PendingPostEdit />}              
               {props.func === 'new-news' && <NewsCreate />}       
               {/* {props.func === 'new-book' && <BooksCreate />}
               {props.func === 'books' && <BooksManage />} */}
