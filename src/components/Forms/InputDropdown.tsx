@@ -1,26 +1,24 @@
-import { RBRef } from 'adapter/types';
 import React from 'react'
 import { Form, Col } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 import { initInputDropdownState, InputDropdownProps } from './types'
 
-function InputDropdown (props: InputDropdownProps = initInputDropdownState) {
+function InputDropdown(props: InputDropdownProps = initInputDropdownState) {
 
   const { name, label, ds, isReadOnly, md, sm, skipValidate, validateFn } = props;
 
-  const { register, errors } = useFormContext()
+  const { register, formState: { errors } } = useFormContext()
 
   return <>
     <Form.Group as={Col} md={md} sm={sm}>
       <Form.Label style={{ fontSize: 18 }} className={(!skipValidate && errors[name]) ? "admin invalid" : ""}>{label}</Form.Label>
       <Form.Control
+        {...register(name, { validate: validateFn })}
         as="select"
         className={(!skipValidate && errors[name]) ? "form-control admin invalid" : "form-control admin"}
         // onChange={(e: any) => updateFn(e, fnParam && fnParam)}
         // value={getValues(name)}
-        defaultValue=""
-        ref={register({ validate: validateFn }) as RBRef}
-        name={name}
+        defaultValue=""        
         disabled={isReadOnly}
       >
         {ds.map((item, idx) => {

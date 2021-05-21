@@ -8,7 +8,7 @@ import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { setLoading } from 'actions';
 import imageCompression from 'browser-image-compression';
 import moment from 'moment';
@@ -16,11 +16,10 @@ import { useDropzone } from 'react-dropzone';
 import { useDispatch } from 'react-redux';
 import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { Skeleton } from '@material-ui/lab';
 import Validators from 'utils/validator';
 import { useModalStore } from 'store';
+import MuiDatePicker from 'components/Forms/MuiDatePicker';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -155,6 +154,7 @@ export default function PersonalSetting() {
       nameC: '',
       email: '',
       phone: '',
+      dob: null
     }
   });
 
@@ -171,11 +171,6 @@ export default function PersonalSetting() {
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
   const [changePassword] = useChangePasswordMutation()
-
-  const watchType = useWatch({
-    control,
-    name: 'dob',
-  })
 
   const handleOnClick = (e: any) => {
     e.preventDefault();
@@ -272,7 +267,7 @@ export default function PersonalSetting() {
           gender: userData.user?.gender,
           email: userData.user?.email!,
           phone: userData.user?.phone!,
-          dob: userData.user?.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : undefined
+          dob: userData.user?.dob ? moment(userData.user.dob, 'yyyy-MM-DDTHH:mm:ss-SSSS') : null
         })
       })
     }
@@ -284,11 +279,6 @@ export default function PersonalSetting() {
       trigger()
     }
   }, [location, trigger, refetch])
-
-  useEffect(() => {
-    if (watchType !== undefined && trigger !== undefined)
-      trigger()
-  }, [watchType, trigger])
 
   return (
     <div className={classes.root}>
@@ -368,8 +358,8 @@ export default function PersonalSetting() {
                 <Grid item>
                   <Typography>性別</Typography>
                   <Controller
-                    as={
-                      <RadioGroup aria-label="gender" row>
+                    render={({ field, fieldState }) =>
+                      <RadioGroup aria-label="gender" row {...field}>
                         <FormControlLabel
                           value={Gender.Male.toString()}
                           control={<Radio />}
@@ -396,27 +386,18 @@ export default function PersonalSetting() {
                   />
                 </Grid>
                 <Grid item>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Controller
-                      name="dob"
-                      control={control}
-                      defaultValue={null}
-                      render={({ ref, ...rest }: any) => (
-                        <KeyboardDatePicker
-                          data-testid="dob-dtp"
-                          variant="inline"
-                          margin="normal"
-                          id="date-picker-dialog"
-                          label="出生日期"
-                          format="dd/MM/yyyy"
-                          KeyboardButtonProps={{
-                            "aria-label": "change date"
-                          }}
-                          {...rest}
-                        />
-                      )}
-                    />
-                  </MuiPickersUtilsProvider>
+                  <MuiDatePicker
+                    control={control}
+                    name="dob"
+                    data-testid="dob-dtp"
+                    variant="inline"
+                    margin="normal"
+                    label="出生日期"
+                    format="dd/MM/yyyy"
+                    KeyboardButtonProps={{
+                      "aria-label": "change date"
+                    }}
+                  />
                 </Grid>
                 <Grid item>
                   <MuiInputText
@@ -504,6 +485,6 @@ export default function PersonalSetting() {
           </FormProvider>
         </TabPanel>
       </div>
-    </div>
+    </div >
   );
 }

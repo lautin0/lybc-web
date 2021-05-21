@@ -66,12 +66,11 @@ function QueryCheckboxDropdown(props: QueryCheckboxDropdownProps) {
           <Form.Group as={Col}>
             {getMockFilterDataList(attrType.value).map(x => {
               return <Form.Check
+                {...register(x.value)}
                 key={x.value}
                 className="form-check mx-2"
                 type="checkbox"
-                ref={register}
                 id={x.value}
-                name={x.value}
                 label={<><span className="form-check-sign"></span>{x.label}</>}
               ></Form.Check>
             })}

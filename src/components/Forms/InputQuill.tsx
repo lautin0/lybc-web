@@ -32,11 +32,10 @@ function InputQuill({ name, label, isReadOnly }: any) {
     <Controller
       control={control}
       name={name}
-      render={({ onChange, onBlur, value }) =>
+      render={({ field, fieldState }) =>
         <ReactQuill
+          {...field}
           className="mb-5"
-          value={value || ''}
-          onChange={(content: any) => onChange(content)}
           modules={editorModules}
           style={{
             width: '100%',

@@ -43,7 +43,7 @@ export default function NameCardForm() {
     }
   });
 
-  const { handleSubmit, reset, getValues, control, errors, register } = methods
+  const { handleSubmit, reset, getValues, control, formState: { errors }, register } = methods
 
   const onSubmit = (data: any) => {
     dispatch(setLoading(true))
@@ -102,11 +102,10 @@ export default function NameCardForm() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <FormControl
+                        {...register("name", { validate: Validators.NoWhiteSpace })}
                         style={{ maxWidth: 300 }}
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.name" })}
-                        type="text"
-                        name="name"
-                        ref={register({ validate: Validators.NoWhiteSpace })}
+                        type="text"                                                
                         onFocus={() => setNameFocus(true)}
                         onBlur={() => { setNameFocus(false); }}
                       ></FormControl>
@@ -126,13 +125,12 @@ export default function NameCardForm() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <FormControl
+                        {...register("phone", { validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("email")) })}
                         style={{ maxWidth: 300 }}
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.phone" })}
                         type="text"
                         onFocus={() => setPhoneFocus(true)}
-                        onBlur={() => { setPhoneFocus(false); }}
-                        name="phone"
-                        ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("email")) })}
+                        onBlur={() => { setPhoneFocus(false); }}                                                
                       ></FormControl>
                     </InputGroup>
                     {errors.phone && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
@@ -150,13 +148,12 @@ export default function NameCardForm() {
                         </InputGroup.Text>
                       </InputGroup.Prepend>
                       <FormControl
+                        {...register("email", { validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("phone")) })}
                         style={{ maxWidth: 400 }}
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.email" })}
                         type="text"
-                        name="email"
                         onFocus={() => setEmailFocus(true)}
-                        onBlur={() => { setEmailFocus(false); }}
-                        ref={register({ validate: Validators.NoWhiteSpaceForWhiteSpace(getValues("phone")) })}
+                        onBlur={() => { setEmailFocus(false); }}                        
                       ></FormControl>
                     </InputGroup>
                     {errors.email && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
@@ -166,12 +163,11 @@ export default function NameCardForm() {
                       </label>
                       <div className="d-flex justify-content-start" style={{ marginTop: -5 }}>
                         <Controller
-                          render={({ onChange, onBlur, value }) => <Form.Check
+                          render={({ field, fieldState }) => <Form.Check
+                            {...field}
                             className="form-check-radio mx-2"
                             type="radio"
                             id="rbM"
-                            value={Gender.Male.toString()}
-                            onChange={(val) => onChange(val.currentTarget.value)}
                             checked={Gender.Male.toString() === getValues().gender}
                             name="rbGender"
                             label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.male" })}</>}
@@ -181,12 +177,11 @@ export default function NameCardForm() {
                           name="gender"
                         />
                         <Controller
-                          render={({ onChange, onBlur, value }) => <Form.Check
+                          render={({ field, fieldState }) => <Form.Check
+                            {...field}
                             className="form-check-radio mx-2"
                             type="radio"
                             id="rbF"
-                            value={Gender.Female.toString()}
-                            onChange={(val) => onChange(val.currentTarget.value)}
                             checked={Gender.Female.toString() === getValues().gender}
                             name="rbGender"
                             label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.female" })}</>}

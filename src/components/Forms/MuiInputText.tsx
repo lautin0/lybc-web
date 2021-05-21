@@ -17,7 +17,7 @@ type MuiInputTextProp = {
    name: string
    label?: string
    isReadOnly?: boolean
-   lg? :any
+   lg?: any
    md?: any
    sm?: any
    xs?: any
@@ -30,7 +30,7 @@ type MergedTextFieldProp = MuiInputTextProp & TextFieldProps
 
 function MuiInputText(props: MergedTextFieldProp) {
 
-   const { errors, control } = useFormContext()
+   const { formState: { errors }, control } = useFormContext()
 
    const classes = useStyles()
 
@@ -47,8 +47,9 @@ function MuiInputText(props: MergedTextFieldProp) {
          control={control}
          defaultValue=""
          rules={{ validate: props.validateFn }}
-         render={({ onChange, onBlur, value }) => {
+         render={({ field, fieldState }) => {
             return <TextField
+               {...field}
                error={!props.skipValidate && !!errors[props.name]}
                // id="standard-error-helper-text"  
                size={props.size} // "small" | "medium"
@@ -59,9 +60,6 @@ function MuiInputText(props: MergedTextFieldProp) {
                multiline={props.multiline}
                rows={props.rows}
                variant="outlined"
-               onChange={onChange}
-               onBlur={onBlur}
-               value={value || ''}
                InputProps={props.InputProps}
                disabled={props.strongReadOnly || props.isReadOnly}
                helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{errors[props.name].message !== "" ? errors[props.name].message : "必須輸入這欄"}</label>}

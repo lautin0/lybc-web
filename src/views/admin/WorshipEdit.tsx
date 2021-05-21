@@ -4,7 +4,7 @@ import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { useUpdateWorshipMutation, useWorshipQuery } from 'generated/graphql';
+import { useUpdateWorshipMutation, useWorshipQuery, WorshipDoc } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import React, { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
@@ -64,7 +64,7 @@ function WorshipEdit() {
       link: '',
       note: '',
       verse: '',
-      docs: [...formDef.docs] as object
+      docs: [...formDef.docs] as Array<WorshipDoc>
     }
   })
 
@@ -96,9 +96,11 @@ function WorshipEdit() {
     let tmp = data
     let tmpDocs: any[] = []
     data.docs.forEach((e: any) => {
-      tmpDocs.push({ ...e })
+      const { title, link, type } = e
+      tmpDocs.push({ title: title, link: link, type: type })
     });
     delete tmp.docs
+    delete tmp.__typename
     updateWorship({
       variables: {
         input: {
@@ -144,10 +146,12 @@ function WorshipEdit() {
   useEffect(() => {
     if (fields !== undefined) {
       fields.forEach((field, idx) => {
-        let decloyField = { ...field }
-        delete decloyField.id
-        if (Object.values(decloyField).map(x => x.length).reduce((prev, curr) => prev + curr) > 0)
-          setValue(`docs[${idx}]`, field)
+        let decoyField = { ...field }
+        if (Object.values(decoyField).map(x => x ? x.length : 0).reduce((prev, curr) => prev + curr) > 0) {
+          setValue(`docs.${idx}.link` as const, decoyField.link as never)
+          setValue(`docs.${idx}.title` as const, decoyField.title as never)
+          setValue(`docs.${idx}.type` as const, decoyField.type as never)
+        }
       })
     }
   }, [fields, setValue])
@@ -170,7 +174,7 @@ function WorshipEdit() {
     return fields.map((item: any, idx: number) => {
       return <Form.Row key={item.id}>
         <MuiInputText
-          name={`docs[${idx}].link`}
+          name={`docs.${idx}.link` as const}
           label={`檔案${idx + 1}連結`}
           isReadOnly={isReadOnly}
           placeholder="e.g. https://www.abc.com/"
@@ -179,7 +183,7 @@ function WorshipEdit() {
           skipValidate={true}
         />
         <MuiInputText
-          name={`docs[${idx}].title`}
+          name={`docs.${idx}.title` as const}
           label="名稱"
           isReadOnly={isReadOnly}
           md={3}
@@ -187,7 +191,7 @@ function WorshipEdit() {
           skipValidate={true}
         />
         <MuiInputDropdown
-          name={`docs[${idx}].type`}
+          name={`docs.${idx}.type` as const}
           label="檔案類型"
           isReadOnly={isReadOnly}
           ds={docTypes}

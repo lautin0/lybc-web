@@ -13,7 +13,7 @@ function PasswordResetModal(props: any) {
   const dispatch = useDispatch();
   const isShowModal = useSelector((state: RootState) => state.security.isShowModal)
 
-  const { setError, handleSubmit, register, errors } = useForm({
+  const { setError, handleSubmit, register, formState: { errors } } = useForm({
     defaultValues: {
       password: '',
       newPassword: '',
@@ -21,7 +21,7 @@ function PasswordResetModal(props: any) {
     }
   })
 
-  const [changePassword]  = useChangePasswordMutation()
+  const [changePassword] = useChangePasswordMutation()
 
   const onHide = () => {
     dispatch(toggleSecurityModal(false))
@@ -33,7 +33,7 @@ function PasswordResetModal(props: any) {
   })
 
   const onSubmit = (d: any) => {
-    if(d.newPassword !== d.confirmPassword){
+    if (d.newPassword !== d.confirmPassword) {
       setError('confirmPassword', {
         type: "manual",
         message: "輸入的新密碼不一致"
@@ -60,9 +60,9 @@ function PasswordResetModal(props: any) {
       dispatch(setSysMessage('app.sys.save-success'))
       onHide()
     })
-    .catch((err: any) => {      
-      dispatch(setSystemFailure(err))
-    }).finally(() => dispatch(setLoading(false)))
+      .catch((err: any) => {
+        dispatch(setSystemFailure(err))
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   return (
@@ -104,15 +104,12 @@ function PasswordResetModal(props: any) {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <input
+                  {...register('password', {
+                    required: true
+                  })}
                   className="form-control"
                   placeholder="請輸入現時密碼"
                   type="password"
-                  name="password"
-                  ref={register({
-                    required: true,
-                    // validate: (value) => { return !!value.trim() },
-                    // name: 'username'
-                  })}
                 ></input>
               </InputGroup>
               {errors.password && <label style={{ opacity: .6, color: '#FF3636' }}>必須填寫這欄</label>}
@@ -132,15 +129,12 @@ function PasswordResetModal(props: any) {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <input
+                  {...register('newPassword', {
+                    required: true
+                  })}
                   className="form-control"
                   placeholder="請輸入新密碼"
                   type="password"
-                  name="newPassword"
-                  ref={register({
-                    required: true,
-                    // validate: (value) => { return !!value.trim() },
-                    // name: 'username'
-                  })}
                 ></input>
               </InputGroup>
               {errors.newPassword && <label style={{ opacity: .6, color: '#FF3636' }}>{(errors['newPassword'] as any)?.message.length <= 0 ? '必須填寫這欄' : (errors['newPassword'] as any)?.message}</label>}
@@ -160,15 +154,12 @@ function PasswordResetModal(props: any) {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <input
+                  {...register("confirmPassword", {
+                    required: true
+                  })}
                   className="form-control"
                   placeholder="確認新密碼"
                   type="password"
-                  name="confirmPassword"
-                  ref={register({
-                    required: true,
-                    // validate: (value) => { return !!value.trim() },
-                    // name: 'username'
-                  })}
                 ></input>
               </InputGroup>
               {errors.confirmPassword && <label style={{ opacity: .6, color: '#FF3636' }}>({(errors['confirmPassword'] as any)?.message.length <= 0 ? '必須填寫這欄' : (errors['confirmPassword'] as any)?.message})</label>}

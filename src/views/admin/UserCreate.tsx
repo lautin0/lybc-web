@@ -28,7 +28,7 @@ export default function UserCreate() {
 
    const [createUser, { loading }] = useCreateUserMutation()
 
-   const methods = useForm<User>({
+   const methods = useForm<User & { passwordConf: string }>({
       defaultValues: {
          username: "",
          phone: "",
@@ -38,7 +38,7 @@ export default function UserCreate() {
       }
    })
 
-   const { handleSubmit, control, reset, setError, errors } = methods
+   const { handleSubmit, control, reset, setError, formState: { errors } } = methods
 
    const onSubmit = (formData: any) => {
 
@@ -201,7 +201,7 @@ export default function UserCreate() {
                      <FormControl component="fieldset" error={errors["gender"] != null}>
                         <FormLabel component="legend">性別</FormLabel>
                         <Controller
-                           as={
+                           render={({ field, fieldState }) =>
                               <RadioGroup aria-label="gender" row>
                                  <FormControlLabel
                                     value={Gender.Male.toString()}
