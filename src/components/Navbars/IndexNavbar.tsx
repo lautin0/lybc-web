@@ -110,7 +110,6 @@ function IndexNavbar() {
                   href="#pablo"
                   onClick={(e: any) => {
                     e.preventDefault();
-                    // setCollapseOpen(!collapseOpen)
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
@@ -149,7 +148,6 @@ function IndexNavbar() {
                   href="#pablo"
                   onClick={(e: any) => {
                     e.preventDefault();
-                    // setCollapseOpen(!collapseOpen)
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
                       dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
@@ -163,16 +161,11 @@ function IndexNavbar() {
               </Nav.Item>}
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-map-signs mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">
-                  {intl.formatMessage({ id: "app.menu.activity" })}
-                </div></>}
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.activity" })}</div>}
                 show={show[0]}
                 onMouseEnter={(e: any) => showDropdown(e, 0)}
                 onMouseLeave={(e: any) => hideDropdown(e, 0)}
               >
-                {/* {tokenPair?.token && <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
-                  網上崇拜
-                </NavDropdown.Item>} */}
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
@@ -191,22 +184,19 @@ function IndexNavbar() {
               </NavDropdown>
               <Nav.Item>
                 <Nav.Link
+                  style={{ fontSize: 18, fontWeight: 'bold' }}
                   href="#pablo"
                   disabled
                   onClick={(e: any) => {
                     e.preventDefault();
                   }}
                 >
-                  <i className="fas fa-hammer"></i>
-                  <div className="d-inline-block d-lg-none d-xl-inline-block">
-                    {intl.formatMessage({ id: "app.menu.ministries" })}
-                  </div>
+                  {intl.formatMessage({ id: "app.menu.ministries" })}
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown
-                id=""
-                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">
-                  {intl.formatMessage({ id: "app.menu.resources" })}</div></>}
+                id=""                
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
                 show={show[1]}
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
                 onMouseLeave={(e: any) => hideDropdown(e, 1)}
@@ -223,15 +213,11 @@ function IndexNavbar() {
               </NavDropdown>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">
-                  {intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div></>}
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div>}
                 show={show[2]}
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
               >
-                {/* <NavDropdown.Item as={Link} to="/about-us" onClick={() => setCollapseOpen(!collapseOpen)}>
-                  {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
-                </NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/doctrine" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>
@@ -253,43 +239,18 @@ function IndexNavbar() {
                 <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.title.careers" })}
                 </NavDropdown.Item>
-                {/* <NavDropdown.Item
-                  target="_blank"
-                  onClick={e => {
-                    e.preventDefault();
-                    document
-                      .getElementById("sunday-service-info-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  聚會時間
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  target="_blank"
-                  onClick={e => {
-                    e.preventDefault();
-                    document
-                      .getElementById("contact-us-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  聯絡我們
-                </NavDropdown.Item> */}
               </NavDropdown>
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
               {!tokenPair?.token && <Nav.Item>
                 <Nav.Link
                   className="nav-link btn-outline-dark"
-                  // color="success"
                   href="#pablo"
                   id="login"
                   as={Link}
                   to={`/login-page?relayState=${location.pathname}`}
                   onClick={() => setCollapseOpen(!collapseOpen)}
-                  // style={{ color: 'white', background: '#45934c' }}
                   style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'normal' }}
                 >
-                  {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
                   <p>
                     {intl.formatMessage({ id: "app.login" })}
                   </p>

@@ -60,7 +60,7 @@ function MainNavbar(props: MainNavbarProps) {
           }}
         />
       ) : null}
-      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: 20, height: '135px', background: 'white' }}>
+      <Navbar className="fixed-top flex-wrap" expand="lg" style={{ paddingTop: '.625rem', height: '135px', background: 'white' }}>
         <Container style={{ height: '100%', display: 'block' }}>
           <div className="navbar-translate">
             <Navbar.Brand
@@ -101,12 +101,12 @@ function MainNavbar(props: MainNavbarProps) {
           <Navbar.Collapse
             className="justify-content-end"
             appear={collapseOpen}
-            style={{ marginTop: -42 }}
+            style={{ marginTop: -49 }}
           >
             <Nav>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-map-signs mr-1"></i><p className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.activity" })}</p></>}
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.activity" })}</div>}
                 show={show[0]}
                 onMouseEnter={(e: any) => showDropdown(e, 0)}
                 onMouseLeave={(e: any) => hideDropdown(e, 0)}
@@ -133,17 +133,18 @@ function MainNavbar(props: MainNavbarProps) {
               <Nav.Item>
                 <Nav.Link
                   href="#pablo"
+                  disabled
+                  style={{ fontSize: 18, fontWeight: 'bold'}}
                   onClick={(e: any) => {
                     e.preventDefault();
                   }}
                 >
-                  <i className="fas fa-hammer"></i>
-                  <div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.ministries" })}</div>
+                  {intl.formatMessage({ id: "app.menu.ministries" })}
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-book mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.resources" })}</div></>}
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
                 show={show[1]}
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
                 onMouseLeave={(e: any) => hideDropdown(e, 1)}
@@ -160,7 +161,7 @@ function MainNavbar(props: MainNavbarProps) {
               </NavDropdown>
               <NavDropdown
                 id=""
-                title={<><i className="fas fa-info-circle mr-1"></i><div className="d-inline-block d-lg-none d-xl-inline-block">{intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div></>}
+                title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.about-us.lybc" })}</div>}
                 show={show[2]}
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
@@ -277,7 +278,7 @@ function MainNavbar(props: MainNavbarProps) {
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
-          <div style={{ marginTop: -26 }}>
+          <div style={{ marginTop: -10 }}>
             <h3 className="title text-left d-none d-sm-block">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h3>
             <h4 className="my-3 title text-left d-sm-none">{intl.formatMessage({ id: UNIVERSALS.TITLE_MAP[props.page].title })}</h4>
           </div>
