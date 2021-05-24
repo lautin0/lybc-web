@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
@@ -6,15 +6,15 @@ import { useStore } from 'store';
 import SharingForm from 'views/articles/SharingForm';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
 import { NewPendingPost, PostStatus, UpdatePendingPost, usePendingPostLazyQuery, usePendPostMutation, useUpdatePendingPostMutation } from 'generated/graphql';
 import { getTokenValue } from 'utils/utils';
-import { RootState } from 'reducers';
+import AuthContext from 'context/AuthContext';
 
 function SharingModal(props: any) {
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const dispatch = useDispatch()
   

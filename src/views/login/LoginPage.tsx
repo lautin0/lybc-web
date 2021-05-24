@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useCallback } from "react";
 // react-bootstrap components
 import {
   Button,
@@ -12,34 +12,34 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar";
 import TransparentFooter from "components/Footers/TransparentFooter";
-import { useDispatch } from "react-redux";
-import { signInFailure, signInSuccess } from "actions";
-import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import logo from "assets/img/lybc_logo.png";
 import loginImg from "assets/img/login.jpg";
 import { Login, useLoginMutation } from "generated/graphql";
 import { useIntl } from "react-intl";
+import AuthContext from "context/AuthContext";
+import { useDispatch } from "react-redux";
+import { setSystemFailure } from "actions";
+import { useHistory, useLocation } from "react-router-dom";
 
 function LoginPage({ loginFn }: any) {
 
   const intl = useIntl()
 
+  const dispatch = useDispatch()
+
+  const history = useHistory()
   const location = useLocation()
 
-  const history = useHistory();
+  const { signInComplete } = useContext(AuthContext)
 
-  //const userDef = useSelector((state: RootState) => state.auth.user)
+  const [login, { loading }] = useLoginMutation({ errorPolicy: 'all' })
 
   const { reset, register, handleSubmit, formState: { errors } } = useForm()
 
   const [firstFocus, setFirstFocus] = useState(false);
   const [lastFocus, setLastFocus] = useState(false);
-  const dispatch = useDispatch();
-
-  // const [login, { data, loading: loginLoading, error: loginError }] = useMutation<{ login: TokenPair }, MutationLoginArgs>(LoginDocument, { errorPolicy: 'all' });
-  const [login, { data, loading: loginLoading, error: loginError }] = useLoginMutation({ errorPolicy: 'all' })
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -53,34 +53,26 @@ function LoginPage({ loginFn }: any) {
     };
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = useCallback((data: any) => {
     const payload: Login = { username: data.username, password: data.password }
     if (loginFn != null) {
       loginFn(payload)
       reset()
       return
     }
-    login({ variables: { input: payload } })
-      .catch(err =>
-        dispatch(signInFailure(err))
-      )
-  }
-
-  useEffect(() => {
-    if (loginError != null) {
-      dispatch(signInFailure(loginError))
-      return
-    }
-    if (data !== undefined && data?.login !== undefined) {
-      dispatch(signInSuccess(data.login))
+    login({
+      variables: { input: payload }
+    }).then(res => {
+      signInComplete && signInComplete(res)
       const relayState = new URLSearchParams(location.search).get('relayState')
       if (relayState != null) {
         history.push(relayState)
       } else {
         history.push('/')
       }
-    }
-  }, [data, dispatch, location.search, loginError, history])
+    })
+      .catch(err => dispatch(setSystemFailure(err)))
+  }, [signInComplete, loginFn, reset, login, dispatch, history, location])
 
   return (
     <>
@@ -176,7 +168,7 @@ function LoginPage({ loginFn }: any) {
                       size="lg"
                     >
                       {intl.formatMessage({ id: "app.login" })}
-                      {loginLoading && <span className="ml-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+                      {loading && <span className="ml-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                     </Button>
                     <div className="pull-right">
                       <h6>

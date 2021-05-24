@@ -26,6 +26,7 @@ import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
 import { signOut } from 'actions';
 import { useDispatch } from 'react-redux';
+import AuthContext from 'context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -121,9 +122,11 @@ export default function AdminSearchAppBar() {
 
    const { data: notificationData } = useContext(NotificationContext)!
 
+   const { tokenPair } = useContext(AuthContext)
+
    const { loading, data: profilePicData } = useUserProfilePicUriQuery({
       variables: {
-         username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+         username: tokenPair?.token != null ? getTokenValue(tokenPair.token).username : ''
       },
       notifyOnNetworkStatusChange: true
    })

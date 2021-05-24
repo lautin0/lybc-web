@@ -3,20 +3,20 @@ import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import DropzoneCustom from "components/DropzoneCustom";
 import InputQuill from "components/Forms/InputQuill";
 import MuiInputText from "components/Forms/MuiInputText";
+import AuthContext from "context/AuthContext";
 import { NewPost, PostType, useCreatePostMutation } from "generated/graphql";
+import { useContext } from "react";
 import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { RootState } from "reducers";
 import { useModalStore } from "store";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
 
 function PostCreate(props: any) {
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const history = useHistory()
 

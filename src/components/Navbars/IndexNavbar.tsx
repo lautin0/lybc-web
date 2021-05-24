@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -7,8 +7,7 @@ import {
   Nav,
   Container
 } from "react-bootstrap";
-import { RootState } from "reducers";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils'
 import { SetSysInfoMessage, signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
@@ -19,6 +18,7 @@ import moment from "moment";
 import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
 import { LocaleContext } from "context/LocaleContext";
+import AuthContext from "context/AuthContext";
 
 function IndexNavbar() {
 
@@ -32,7 +32,7 @@ function IndexNavbar() {
 
   const dispatch = useDispatch();
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");
@@ -195,7 +195,7 @@ function IndexNavbar() {
                 </Nav.Link>
               </Nav.Item>
               <NavDropdown
-                id=""                
+                id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
                 show={show[1]}
                 onMouseEnter={(e: any) => showDropdown(e, 1)}
@@ -257,7 +257,7 @@ function IndexNavbar() {
                 </Nav.Link>
               </Nav.Item>}
               {tokenPair?.token &&
-                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(tokenPair.token)?.username}</p></>}>
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p style={{ fontWeight: 'bolder' }}>{getTokenValue(tokenPair.token)?.username}</p></>}>
                   {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     {intl.formatMessage({ id: "app.admin.panel" })}
                   </NavDropdown.Item>}
@@ -320,7 +320,8 @@ function IndexNavbar() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     display: 'flex',
-                    paddingTop: 10
+                    paddingTop: 10,
+                    fontWeight: 'bolder'
                   }}
                 >
                   <i className="fas fa-globe-asia"></i>

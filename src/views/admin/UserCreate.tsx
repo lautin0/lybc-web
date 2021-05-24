@@ -3,8 +3,9 @@ import { AccountCircle, VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
+import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
-import React from "react";
+import React, { useContext } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useModalStore } from "store";
@@ -27,6 +28,8 @@ export default function UserCreate() {
    const setErrorModal = useModalStore(state => state.setError)
 
    const [createUser, { loading }] = useCreateUserMutation()
+
+   const { tokenPair } = useContext(AuthContext)
 
    const methods = useForm<User & { passwordConf: string }>({
       defaultValues: {
@@ -75,7 +78,7 @@ export default function UserCreate() {
          phone: !formData.phone || formData.phone.length === 0 ? null : formData.phone,
          password: formData.password,
          status: AccountStatus.Active,
-         creBy: getTokenValue(localStorage.getItem('token')).username
+         creBy: getTokenValue(tokenPair?.token).username
       }
 
       createUser({

@@ -1,14 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import { setLoading } from 'actions';
+import AuthContext from 'context/AuthContext';
 import { NewPendingPost, UpdatePendingPost, PostStatus, usePendPostMutation, useUpdatePendingPostMutation, usePendingPostLazyQuery } from 'generated/graphql';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
 import { useDropzone } from 'react-dropzone';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'reducers';
+import { useDispatch } from 'react-redux';
 import { useModalStore, usePendingPostStore } from 'store'
 import { getTokenValue } from 'utils/utils';
 import SharingForm2 from 'views/articles/SharingForm2';
@@ -24,7 +24,7 @@ export default function MuiSharingModal() {
 
    const classes = useStyles()
 
-   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+   const { tokenPair } = useContext(AuthContext)
 
    const dispatch = useDispatch()
 

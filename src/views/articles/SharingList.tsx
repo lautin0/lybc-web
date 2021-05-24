@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
@@ -8,14 +8,14 @@ import { gql } from "@apollo/client";
 import { FavouritePostsDocument, Post, PostFilter, PostsConnection, PostsDocument, PostType, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSysMessage, setSystemFailure } from "actions";
-import { RootState } from "reducers";
 import { FormattedDate, useIntl } from "react-intl";
 import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
+import AuthContext from "context/AuthContext";
 
 // core components
 
@@ -37,7 +37,7 @@ function SharingList() {
 
   const dispatch = useDispatch()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const location = useLocation()
 
@@ -157,7 +157,7 @@ function SharingList() {
     });
   }, [location, refetch, postData, cacheData])
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = useCallback((e: Event) => {
     if (!fetchMore)
       return
     let st = window.pageYOffset || document.documentElement.scrollTop;
@@ -186,9 +186,7 @@ function SharingList() {
   useEffect(() => {
     if (postData === undefined)
       return
-    window.addEventListener("scroll", (e: any) => {
-      handleScroll();
-    })
+    window.addEventListener("scroll", handleScroll)
 
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll);

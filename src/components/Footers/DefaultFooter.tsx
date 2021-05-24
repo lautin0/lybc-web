@@ -1,12 +1,11 @@
 /*eslint-disable*/
-import React from "react";
 import { Link } from 'react-router-dom'
 
 // react-bootstrap components
 import { Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { RootState } from "reducers";
 import { useIntl } from "react-intl";
+import AuthContext from 'context/AuthContext';
+import { useContext } from 'react';
 
 // core components
 
@@ -14,7 +13,7 @@ function DefaultFooter() {
 
   const intl = useIntl()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   return (
     <footer

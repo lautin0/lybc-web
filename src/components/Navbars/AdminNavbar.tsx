@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
   Navbar
 } from "react-bootstrap";
-import { RootState } from "reducers";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTokenValue } from 'utils/utils';
 import logo from "assets/img/lybc_logo.png";
 import { useUserProfilePicUriQuery } from "generated/graphql";
 import defaultAvatar from "assets/img/default-avatar.png";
 import UNIVERSALS from "Universals";
+import AuthContext from "context/AuthContext";
 
 function AdminNavbar() {
 
@@ -20,14 +20,14 @@ function AdminNavbar() {
 
   const dispatch = useDispatch();
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");
   const [collapseOpen, setCollapseOpen] = useState(false);
 
   const { loading, data: profilePicData } = useUserProfilePicUriQuery({
     variables: {
-      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      username: tokenPair?.token != null ? getTokenValue(tokenPair.token).username : ''
     },
     notifyOnNetworkStatusChange: true
   })

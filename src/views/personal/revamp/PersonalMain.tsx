@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -15,12 +15,12 @@ import { setSystemFailure } from 'actions';
 import moment from 'moment';
 import { FormattedDate } from 'react-intl';
 import { css } from 'styles/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { usePendingPostStore } from 'store';
-import { RootState } from 'reducers';
 import { green, red, yellow, cyan } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
+import AuthContext from 'context/AuthContext';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -141,8 +141,10 @@ export default function PersonalMain() {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const { tokenPair } = useContext(AuthContext)
+
   const { loading, data: userData, refetch } = useUserQuery({
-    variables: { username: getTokenValue(localStorage.getItem('token')).username }, notifyOnNetworkStatusChange: true
+    variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
   })
 
   const { loading: favLoading, data: favPostData } = useFavouritePostsQuery({
@@ -163,8 +165,6 @@ export default function PersonalMain() {
       [id]: !expanded[id]
     });
   }
-
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
 
   const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
   const setModalOpen = usePendingPostStore(state => state.setOpen)

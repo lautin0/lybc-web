@@ -1,15 +1,15 @@
 import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
+import AuthContext from "context/AuthContext";
 import { ReactionType, usePostQuery, useReactMutation } from "generated/graphql";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // react-bootstrap components
 import { Container, Row, Col, OverlayTrigger } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { RootState } from "reducers";
 import { getTokenValue, renderTooltip } from "utils/utils";
 // core components
 
@@ -17,7 +17,7 @@ function PreacherMessage() {
 
   const intl = useIntl()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const dispatch = useDispatch()
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Container, Form, InputGroup, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,10 +8,13 @@ import { NewPassword, useChangePasswordMutation } from 'generated/graphql';
 import { useForm } from 'react-hook-form';
 import { setLoading, setSysMessage, setSystemFailure } from 'actions';
 import { getTokenValue } from 'utils/utils';
+import AuthContext from 'context/AuthContext';
 
 function PasswordResetModal(props: any) {
   const dispatch = useDispatch();
   const isShowModal = useSelector((state: RootState) => state.security.isShowModal)
+
+  const { tokenPair } = useContext(AuthContext)
 
   const { setError, handleSubmit, register, formState: { errors } } = useForm({
     defaultValues: {
@@ -48,7 +51,7 @@ function PasswordResetModal(props: any) {
     let tmp: NewPassword = {
       password: d.password,
       newPassword: d.newPassword,
-      username: getTokenValue(localStorage.getItem('token')).username
+      username: getTokenValue(tokenPair?.token).username
     }
     changePassword({
       variables: {

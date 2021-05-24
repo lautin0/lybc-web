@@ -10,8 +10,7 @@ import {
 } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 import { getTokenValue, hasRole } from "utils/utils"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "reducers";
+import { useDispatch } from "react-redux";
 import { signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 import { useIntl } from "react-intl";
@@ -19,6 +18,7 @@ import { LocaleContext } from "context/LocaleContext";
 
 import logo from "assets/img/lybc_logo.png";
 import { Role } from "generated/graphql";
+import AuthContext from "context/AuthContext";
 
 type MainNavbarProps = {
   page: string
@@ -34,7 +34,7 @@ function MainNavbar(props: MainNavbarProps) {
 
   const dispatch = useDispatch()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
   const [collapseOpen, setCollapseOpen] = React.useState(false);
 
   const [show, setShow] = useState([false, false, false]);
@@ -134,7 +134,7 @@ function MainNavbar(props: MainNavbarProps) {
                 <Nav.Link
                   href="#pablo"
                   disabled
-                  style={{ fontSize: 18, fontWeight: 'bold'}}
+                  style={{ fontSize: 18, fontWeight: 'bold' }}
                   onClick={(e: any) => {
                     e.preventDefault();
                   }}
@@ -206,7 +206,7 @@ function MainNavbar(props: MainNavbarProps) {
                 </Nav.Link>
               </Nav.Item>}
               {tokenPair?.token &&
-                <NavDropdown id="" title={<><i className="fas fa-user"></i><p>{getTokenValue(tokenPair.token)?.username}</p></>}>
+                <NavDropdown id="" title={<><i className="fas fa-user"></i><p style={{ fontWeight: 'bolder' }}>{getTokenValue(tokenPair.token)?.username}</p></>}>
                   {hasRole(tokenPair.token, Role.Admin) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     {intl.formatMessage({ id: "app.admin.panel" })}
                   </NavDropdown.Item>}
@@ -269,7 +269,8 @@ function MainNavbar(props: MainNavbarProps) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     display: 'flex',
-                    paddingTop: 10
+                    paddingTop: 10,
+                    fontWeight: 'bolder'
                   }}
                 >
                   <i className="fas fa-globe-asia"></i>

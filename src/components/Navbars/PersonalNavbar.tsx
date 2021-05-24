@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
   Navbar
 } from "react-bootstrap";
-import { RootState } from "reducers";
-import { useSelector } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils';
 import { Role, useUserProfilePicUriQuery } from "generated/graphql";
 import logo from "assets/img/lybc_logo.png";
 import UNIVERSALS from "Universals";
 import defaultAvatar from "assets/img/default-avatar.png";
+import AuthContext from "context/AuthContext";
 
 function PersonalNavbar() {
 
@@ -18,14 +17,15 @@ function PersonalNavbar() {
 
   const location = useLocation();
 
+  const { tokenPair } = useContext(AuthContext)
+
   const { loading, data: profilePicData } = useUserProfilePicUriQuery({
     variables: {
-      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      username: tokenPair?.token != null ? getTokenValue(tokenPair.token).username : ''
     },
     notifyOnNetworkStatusChange: true
   })
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [, setNavbarColor] = useState("");
   const [collapseOpen, setCollapseOpen] = useState(false);

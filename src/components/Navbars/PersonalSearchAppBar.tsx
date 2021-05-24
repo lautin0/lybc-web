@@ -22,11 +22,11 @@ import { Avatar, Link } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { getTokenValue, hasRole } from 'utils/utils';
 import { Role, useUserProfilePicUriQuery } from 'generated/graphql';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
-import { RootState } from 'reducers';
 import { signOut } from 'actions';
+import AuthContext from 'context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
    appBar: {
@@ -120,7 +120,7 @@ export default function PersonalSearchAppBar() {
 
    const dispatch = useDispatch()
 
-   const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+   const { tokenPair } = useContext(AuthContext)
 
    const { data: notificationData } = useContext(NotificationContext)!
 
@@ -131,7 +131,7 @@ export default function PersonalSearchAppBar() {
    //    GET_USER_PROFILE_PIC_URI,
    //    {
    //       variables: {
-   //          username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+   //          username: tokenPair.token != null ? getTokenValue(tokenPair.token).username : ''
    //       },
    //       notifyOnNetworkStatusChange: true
    //    }
@@ -139,7 +139,7 @@ export default function PersonalSearchAppBar() {
 
    const { loading, data: profilePicData } = useUserProfilePicUriQuery({
       variables: {
-         username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+         username: tokenPair?.token != null ? getTokenValue(tokenPair.token).username : ''
       },
       notifyOnNetworkStatusChange: true
    })

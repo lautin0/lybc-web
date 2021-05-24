@@ -1,12 +1,11 @@
 import { setSystemFailure } from 'actions';
 import usePost from 'hooks/usePost';
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { RootState } from 'reducers';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
@@ -14,6 +13,7 @@ import defaultAvatar from "assets/img/default-avatar.png";
 import { Post, useUserProfilePicUriQuery } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useIntl } from 'react-intl';
+import AuthContext from 'context/AuthContext';
 
 function CommentSection(props: any) {
 
@@ -23,7 +23,7 @@ function CommentSection(props: any) {
 
   const dispatch = useDispatch()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const location = useLocation();
 
@@ -31,7 +31,7 @@ function CommentSection(props: any) {
 
   const { loading, data: profilePicData } = useUserProfilePicUriQuery({
     variables: {
-      username: localStorage.getItem('token') != null ? getTokenValue(localStorage.getItem('token')).username : ''
+      username: tokenPair?.token != null ? getTokenValue(tokenPair.token).username : ''
     },
     notifyOnNetworkStatusChange: true
   })

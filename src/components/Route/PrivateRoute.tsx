@@ -1,9 +1,8 @@
+import AuthContext from 'context/AuthContext';
 import { Role } from 'generated/graphql';
-import React from 'react'
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
 import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
-import { RootState } from 'reducers';
 import { getTokenValue } from 'utils/utils';
 import AdminPanel2 from 'views/admin/revamp/AdminPanel2';
 import ErrorPage from 'views/error/Error';
@@ -18,9 +17,9 @@ function PrivateRoute(props: PrivateRouteProps) {
 
   const { path, role, renderFn } = props
 
-  const token = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
-  let authObj = getTokenValue(token?.token)
+  let authObj = getTokenValue(tokenPair?.token)
 
   const isAuthenticated = () => {
     return authObj != null

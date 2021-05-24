@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -20,6 +20,7 @@ import { Skeleton } from '@material-ui/lab';
 import Validators from 'utils/validator';
 import { useModalStore } from 'store';
 import MuiDatePicker from 'components/Forms/MuiDatePicker';
+import AuthContext from 'context/AuthContext';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -126,6 +127,8 @@ export default function PersonalSetting() {
   const setMessage = useModalStore(state => state.setMessage)
   const setErrorModal = useModalStore(state => state.setError)
 
+  const { tokenPair } = useContext(AuthContext)
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -142,7 +145,7 @@ export default function PersonalSetting() {
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
-      username: getTokenValue(localStorage.getItem('token'))?.username
+      username: getTokenValue(tokenPair?.token)?.username
     },
     notifyOnNetworkStatusChange: true
   })
@@ -193,7 +196,7 @@ export default function PersonalSetting() {
     let tmp: NewPassword = {
       password: data.password,
       newPassword: data.newPassword,
-      username: getTokenValue(localStorage.getItem('token')).username
+      username: getTokenValue(tokenPair?.token).username
     }
     changePassword({
       variables: {

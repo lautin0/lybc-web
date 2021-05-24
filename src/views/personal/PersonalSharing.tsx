@@ -1,20 +1,17 @@
+import AuthContext from 'context/AuthContext';
 import { PostStatus, usePendingPostsByUsernameQuery } from 'generated/graphql';
-import { useCallback, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { RootState } from 'reducers';
 import { useStore } from 'store';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 
 function PersonalSharing() {
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
-
+  const { tokenPair } = useContext(AuthContext)
 
   const location = useLocation();
-
 
   const setPendingPostID = useStore(state => state.setPendingPostID)
   const setOpen = useStore(state => state.setOpen)

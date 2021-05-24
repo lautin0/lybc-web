@@ -5,15 +5,14 @@ import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs'
 import DropzoneCustom from 'components/DropzoneCustom'
 import InputQuill from 'components/Forms/InputQuill'
 import MuiInputText from 'components/Forms/MuiInputText'
+import AuthContext from 'context/AuthContext'
 import { NewPost, PostType, UpdatePendingPost, PostStatus, useUpdatePendingPostMutation, usePendingPostQuery, useApprovePostMutation } from 'generated/graphql'
 import moment from 'moment'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { RootState } from 'reducers'
 import { useModalStore } from 'store'
 import UNIVERSALS from 'Universals'
 import { getTokenValue } from 'utils/utils'
@@ -67,7 +66,7 @@ function PendingPostEdit() {
 
   const { id } = useParams<any>()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const history = useHistory()
 

@@ -3,9 +3,10 @@ import { VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputText from "components/Forms/MuiInputText";
+import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
 import moment, { Moment } from "moment";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useModalStore } from "store";
@@ -28,6 +29,8 @@ export default function UserEdit() {
 
    const history = useHistory()
    const location = useLocation()
+
+   const { tokenPair } = useContext(AuthContext)
 
    const pwdInitState = {
       admPassword: '',
@@ -184,7 +187,7 @@ export default function UserEdit() {
          return
 
       let tmp: NewPasswordAdmin = {
-         admUsername: getTokenValue(localStorage.getItem('token')).username,
+         admUsername: getTokenValue(tokenPair?.token).username,
          admPassword: newPasswordAdmin.admPassword,
          username: data?.user?.username!,
          newPassword: newPasswordAdmin.newPassword,

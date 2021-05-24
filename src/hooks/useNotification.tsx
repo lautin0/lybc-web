@@ -1,15 +1,15 @@
 import { setSystemFailure } from 'actions';
+import AuthContext from 'context/AuthContext';
 import { NotificationsDocument, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
-import React, { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'reducers';
+import React, { useCallback, useContext } from 'react'
+import { useDispatch } from 'react-redux';
 import { getTokenValue } from 'utils/utils';
 
 export default function useNotification(){
 
   const dispatch = useDispatch()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const { loading, data, refetch } = useNotificationsQuery({
     variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true

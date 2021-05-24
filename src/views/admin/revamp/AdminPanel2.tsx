@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import AdminLayout from 'layouts/AdminLayout';
-import AdminHeader from '../AdminHeader';
 import NewsCreate from '../NewsCreate';
 import OtherFunc from '../OtherFunc';
 import PageManage from '../PageManage';
@@ -17,6 +16,7 @@ import NotificationContext from 'context/NotificationContext';
 import UserManage from '../UserManage';
 import UserEdit from '../UserEdit';
 import UserCreate from '../UserCreate';
+import AdminIndex from '../AdminIndex';
 
 type AdminPanelProps = {
    func: string
@@ -52,40 +52,26 @@ export default function AdminPanel2(props: AdminPanelProps) {
    return (
       <NotificationContext.Provider value={methods}>
          <AdminLayout>
-            <div className={classes.panel}>
-               <div>
-                  {(
-                     // props.func == null
-                     // || props.func === 'worships'
-                     // || props.func === 'other'
-                     // || props.func === 'users'
-                     props.func === 'page-management'
-                     || props.func === 'books')
-                     && <AdminHeader func={props.func} />}
-                  {!props.func && <div>
-                     <h2 style={{ color: 'gray' }}><em>管理控制台 主頁 <span role="img" aria-label="cog image">⚙️</span></em></h2>
-                  </div>}
-                  <div>
-                     {props.func === 'new-worship' && <WorshipCreate />}
-                     {props.func === 'edit-worship' && <WorshipEdit />}
-                     {props.func === 'worships' && <WorshipManage2 />}
-                     {props.func === 'users' && <UserManage />}
-                     {props.func === 'user' && <UserEdit />}
-                     {props.func === 'new-user' && <UserCreate />}
-                     {props.func === 'other' && <OtherFunc />}
-                     {props.func === 'page-management' && <PageManage />}
-                     {props.func === 'new-post' && <PostCreate />}
-                     {props.func === 'namecards' && <NameCardManage2 />}
-                     {props.func === 'pending-posts' && <PendingPostManage2 />}
-                     {props.func === 'new-proxy-posts' && <PendingPostEdit2 />}
-                     {props.func === 'new-news' && <NewsCreate />}
-                     {/* {props.func === 'notifications' && <NotificationPage />} */}
-                     {/* {props.func === 'new-book' && <BooksCreate />}
+            {!props.func && <div className={classes.panel}><AdminIndex /></div>}
+            {props.func && <div className={classes.panel}>
+               {props.func === 'new-worship' && <WorshipCreate />}
+               {props.func === 'edit-worship' && <WorshipEdit />}
+               {props.func === 'worships' && <WorshipManage2 />}
+               {props.func === 'users' && <UserManage />}
+               {props.func === 'user' && <UserEdit />}
+               {props.func === 'new-user' && <UserCreate />}
+               {props.func === 'other' && <OtherFunc />}
+               {props.func === 'page-management' && <PageManage />}
+               {props.func === 'new-post' && <PostCreate />}
+               {props.func === 'namecards' && <NameCardManage2 />}
+               {props.func === 'pending-posts' && <PendingPostManage2 />}
+               {props.func === 'new-proxy-posts' && <PendingPostEdit2 />}
+               {props.func === 'new-news' && <NewsCreate />}
+               {/* {props.func === 'notifications' && <NotificationPage />} */}
+               {/* {props.func === 'new-book' && <BooksCreate />}
                      {props.func === 'books' && <BooksManage />} */}
-                  </div>
-               </div>
-            </div>
+            </div>}
          </AdminLayout>
-      </NotificationContext.Provider>
+      </NotificationContext.Provider >
    )
 }

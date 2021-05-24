@@ -4,23 +4,23 @@ import DOMPurify from "dompurify";
 import { Post, PostDocument, ReactionType, useReactMutation } from "generated/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Container, Row, OverlayTrigger, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useLocation, useParams } from "react-router-dom";
-import { RootState } from "reducers";
 import UNIVERSALS from "Universals";
 import { getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
 
 import defaultAvatar from "assets/img/default-avatar.png";
 import { FormattedDate, useIntl } from "react-intl";
+import AuthContext from "context/AuthContext";
 
 function Sharing() {
 
   const intl = useIntl()
 
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
+  const { tokenPair } = useContext(AuthContext)
 
   const { id } = useParams<any>();
 

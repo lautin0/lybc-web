@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
@@ -10,9 +10,6 @@ import NameCardForm from "./index-sections/NameCardForm";
 import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
-import { signInSuccess, signOut } from "actions";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "reducers";
 import { isTokenExpired } from "utils/utils";
 import { RefreshTokenInput, useRefreshTokenMutation } from "generated/graphql";
 import CarouselSection from "./index-sections/Carousel";
@@ -21,20 +18,19 @@ import useLanguage from "hooks/useLanguage";
 import ArticleComponent from "./index-sections/ArticleComponent";
 import SlideSection from "./index-sections/SlideSection";
 import ImageRotateSection from "./index-sections/ImageRotateSection";
+import AuthContext from "context/AuthContext";
 
 function Index() {
+
+  const { tokenPair, refreshSignInComplete, signOut } = useContext(AuthContext)
+
+  const [refreshSignIn] = useRefreshTokenMutation()
 
   const [locale] = useLanguage()
 
   const intl = useIntl()
 
-  const dispatch = useDispatch()
-
   const location = useLocation()
-
-  const tokenPair = useSelector((state: RootState) => state.auth.tokenPair);
-
-  const [refreshToken, { data }] = useRefreshTokenMutation()
 
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -51,21 +47,17 @@ function Index() {
   }, [locale, intl])
 
   useEffect(() => {
-    if (data !== undefined && data?.refreshToken !== undefined)
-      dispatch(signInSuccess(data.refreshToken))
-  }, [data, dispatch])
-
-  useEffect(() => {
     if (tokenPair?.token && isTokenExpired(tokenPair.token)) {
       const payload: RefreshTokenInput = { token: tokenPair.refreshToken }
-      refreshToken({ variables: { input: payload } })
-        .catch(() => {
-          // dispatch(signInFailure(err))
-          dispatch(signOut())
+      refreshSignIn({
+        variables: { input: payload }
+      }).then(refreshSignInComplete)
+        .catch(err => {
+          signOut && signOut()
           window.location.reload()
         })
     }
-  }, [location, dispatch, refreshToken, tokenPair])
+  }, [location, refreshSignIn, tokenPair, signOut, refreshSignInComplete])
 
   useEffect(() => {
     window.scrollTo(0, 0);
