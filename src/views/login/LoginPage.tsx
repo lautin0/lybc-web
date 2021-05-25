@@ -63,6 +63,9 @@ function LoginPage({ loginFn }: any) {
     login({
       variables: { input: payload }
     }).then(res => {
+      if (res.errors && res.errors.length > 0) {
+        throw new Error(res.errors[0].message)
+      }
       signInComplete && signInComplete(res)
       const relayState = new URLSearchParams(location.search).get('relayState')
       if (relayState != null) {
