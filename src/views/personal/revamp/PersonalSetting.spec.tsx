@@ -9,6 +9,7 @@ import rootReducer from '../../../reducers'
 import { UserDocument } from "../../../generated/graphql";
 import { createMemoryHistory } from 'history';
 import PersonalSetting from './PersonalSetting'
+import { act } from 'react-dom/test-utils';
 
 const store = createStore(rootReducer)
 
@@ -40,13 +41,16 @@ test('datepicker works normally', async () => {
       </IntlProvider>
     </MockedProvider>)
 
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await act(() => new Promise(resolve => setTimeout(resolve, 0)));
 
   // Click Datetimepicker
   const el = getAllByRole(document.body, 'tab')
-  fireEvent.click(el[0])
-  await new Promise(resolve => setTimeout(resolve, 200));
+  act(() => {
+    fireEvent.click(el[0])
+  })
   const picker = getByLabelText(document.body, 'change date')
-  fireEvent.click(picker)  
+  act(() => {
+    fireEvent.click(picker)
+  })
   expect(picker).toBeDefined()
 })
