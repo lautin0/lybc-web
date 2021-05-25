@@ -7,7 +7,6 @@ import { RootState } from '../../reducers'
 function LoadingOverlay() {
 
   const isPending = useSelector((state: RootState) => (
-    state.newComer.saveStatus.isPending + 
     state.system.general.loading    
   ))
 

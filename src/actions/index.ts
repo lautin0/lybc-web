@@ -50,10 +50,7 @@ export function decisionComplete(): SystemActionTypes{
     }
 }
 
-export * from './new-comer/newComer'
-export * from './new-comer/types'
 export * from './worship/worship'
 export * from './worship/types'
-export * from './admin/types'
 export * from './sys-info/sysInfo'
 export * from './sys-info/types'
