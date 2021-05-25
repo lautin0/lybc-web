@@ -1,11 +1,11 @@
 import { FetchResult } from "@apollo/client";
 import { LoginMutation, RefreshTokenMutation, TokenPair } from "generated/graphql";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { resetClient } from "utils/auth.client";
 
 export default function useAuth() {
 
-   const [tokenPair, setTokenPair] = useState<TokenPair | null>(null)
+   const [tokenPair, setTokenPair] = useState<TokenPair | null>((localStorage.getItem('token') && localStorage.getItem('refreshToken')) ? { token: localStorage.getItem('token')!, refreshToken: localStorage.getItem('refreshToken')! } : null)
 
    const signInComplete = (result: FetchResult<LoginMutation, Record<string, any>, Record<string, any>>) => {
       setTokenPair(result.data?.login!)
@@ -24,12 +24,6 @@ export default function useAuth() {
       localStorage.clear()
       resetClient()
    }
-
-   useEffect(() => {
-      if (localStorage.getItem('token') !== null && localStorage.getItem('refreshToken') !== null) {
-         setTokenPair({ token: localStorage.getItem('token')!, refreshToken: localStorage.getItem('refreshToken')! })
-      }
-   }, [])
 
    return { signInComplete, refreshSignInComplete, signOut, tokenPair }
 }
