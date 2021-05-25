@@ -14,10 +14,9 @@ const extractError = (e: any) => {
 
       case 404:
       case 405:
-      case 403:
         return "網絡錯誤"
 
-      case 401:
+      case 403:
         if (e.response.data !== "")
           return e.response.data;
         else

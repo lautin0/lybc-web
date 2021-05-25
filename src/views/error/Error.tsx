@@ -1,32 +1,36 @@
+import { Button, CssBaseline } from "@material-ui/core";
+import { Result } from "antd";
+import { ResultStatusType } from "antd/lib/result";
 import React from "react";
-import PropTypes from 'prop-types';
-
-// core components
 
 type ErrorPageProps = {
   error: string,
 }
 
 let ErrMsg: any = {
-  401: 'Unauthorized',
-  404: 'Not Found',
+  403: 'Sorry, you are unauthorized to access this page.',
+  404: 'Sorry, the page you visited does not exist.',
+  500: 'Sorry, something went wrong.',
   0: 'Component Error'
 }
 
 function ErrorPage(props: ErrorPageProps) {
+
   return (
-    <>
-      {parseInt(props.error) !== 0 && <h1>Error: {props.error} {ErrMsg[props.error]}</h1>}
+    <div>
+      <CssBaseline />
+      {parseInt(props.error) !== 0 && <Result
+        status={props.error as ResultStatusType}
+        title={props.error}
+        subTitle={ErrMsg[props.error]}
+        extra={<Button variant="outlined" color="primary" onClick={() => { window.location.href = '/' }}>Back Home</Button>}
+      />}
       {parseInt(props.error) === 0 && <div>
         <h1>Oops! There is something wrong.</h1>
         <a href="./">Return to homepage</a>
       </div>}
-    </>
+    </div>
   );
 }
-
-ErrorPage.propTypes = {
-  error: PropTypes.string.isRequired,
-};
 
 export default ErrorPage;

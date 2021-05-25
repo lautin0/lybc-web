@@ -33,7 +33,7 @@ function PersonalRoute(props: PrivateRouteProps) {
     return <Redirect to="/login-page" />;
   }
   if (!isAuthorized()) {
-    return <ErrorPage error="401" />
+    return <ErrorPage error="403" />
   }
   return <Route path={path} render={({ match: { url } }) => (
     <>
