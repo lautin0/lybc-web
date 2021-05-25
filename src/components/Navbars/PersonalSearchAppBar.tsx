@@ -22,10 +22,8 @@ import { Avatar, Link } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { getTokenValue, hasRole } from 'utils/utils';
 import { Role, useUserProfilePicUriQuery } from 'generated/graphql';
-import { useDispatch } from 'react-redux';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
-import { signOut } from 'actions';
 import AuthContext from 'context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -118,9 +116,7 @@ export default function PersonalSearchAppBar() {
 
    const history = useHistory()
 
-   const dispatch = useDispatch()
-
-   const { tokenPair } = useContext(AuthContext)
+   const { tokenPair, signOut } = useContext(AuthContext)
 
    const { data: notificationData } = useContext(NotificationContext)!
 
@@ -187,7 +183,7 @@ export default function PersonalSearchAppBar() {
          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <MenuItem onClick={() => history.push('/admin/')}>管理控制台</MenuItem>}
          <MenuItem
             onClick={() => {
-               dispatch(signOut())
+               signOut()
                window.location.href = './'
             }}
             alignItems="center"

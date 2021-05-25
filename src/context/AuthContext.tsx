@@ -3,9 +3,9 @@ import { LoginMutation, RefreshTokenMutation, TokenPair } from "generated/graphq
 import React from "react";
 
 const AuthContext = React.createContext<{
-   signInComplete: ((result: FetchResult<LoginMutation, Record<string, any>, Record<string, any>>) => void) | null, signOut: (() => void) | null, tokenPair: TokenPair | null,
+   signInComplete: ((result: FetchResult<LoginMutation, Record<string, any>, Record<string, any>>) => void) | null, signOut: (() => void), tokenPair: TokenPair | null,
    refreshSignInComplete: ((result: FetchResult<RefreshTokenMutation, Record<string, any>, Record<string, any>>) => void) | null
 }>
-   ({ signInComplete: null, signOut: null, tokenPair: null, refreshSignInComplete: null })
+   ({ signInComplete: null, signOut: () => {}, tokenPair: null, refreshSignInComplete: null })
 
 export default AuthContext;

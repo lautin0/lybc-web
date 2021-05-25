@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils'
-import { SetSysInfoMessage, signOut } from "actions";
+import { SetSysInfoMessage } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
@@ -32,7 +32,7 @@ function IndexNavbar() {
 
   const dispatch = useDispatch();
 
-  const { tokenPair } = useContext(AuthContext)
+  const { tokenPair, signOut } = useContext(AuthContext)
 
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");
@@ -270,7 +270,7 @@ function IndexNavbar() {
                     href="#"
                     onClick={(e: any) => {
                       e.preventDefault();
-                      dispatch(signOut())
+                      signOut()
                       window.location.href = `.${location.pathname}`
                     }}
                   >

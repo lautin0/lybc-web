@@ -24,8 +24,6 @@ import { getTokenValue } from 'utils/utils';
 import { useUserProfilePicUriQuery } from 'generated/graphql';
 import NotificationBell2 from 'components/Notification/NotificationBell2';
 import NotificationContext from 'context/NotificationContext';
-import { signOut } from 'actions';
-import { useDispatch } from 'react-redux';
 import AuthContext from 'context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -118,11 +116,9 @@ export default function AdminSearchAppBar() {
 
    const history = useHistory()
 
-   const dispatch = useDispatch()
-
    const { data: notificationData } = useContext(NotificationContext)!
 
-   const { tokenPair } = useContext(AuthContext)
+   const { tokenPair, signOut } = useContext(AuthContext)
 
    const { loading, data: profilePicData } = useUserProfilePicUriQuery({
       variables: {
@@ -174,7 +170,7 @@ export default function AdminSearchAppBar() {
          <MenuItem onClick={() => history.push('/personal/center')}>個人中心</MenuItem>
          <MenuItem
             onClick={() => {
-               dispatch(signOut())
+               signOut()
                window.location.href = './'
             }}
             alignItems="center"

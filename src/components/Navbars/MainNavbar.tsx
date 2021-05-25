@@ -10,8 +10,6 @@ import {
 } from "react-bootstrap";
 import UNIVERSALS from "Universals";
 import { getTokenValue, hasRole } from "utils/utils"
-import { useDispatch } from "react-redux";
-import { signOut } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 import { useIntl } from "react-intl";
 import { LocaleContext } from "context/LocaleContext";
@@ -32,9 +30,7 @@ function MainNavbar(props: MainNavbarProps) {
 
   const location = useLocation();
 
-  const dispatch = useDispatch()
-
-  const { tokenPair } = useContext(AuthContext)
+  const { tokenPair, signOut } = useContext(AuthContext)
   const [collapseOpen, setCollapseOpen] = React.useState(false);
 
   const [show, setShow] = useState([false, false, false]);
@@ -218,8 +214,8 @@ function MainNavbar(props: MainNavbarProps) {
                     as="a"
                     href="#"
                     onClick={(e: any) => {
-                      e.preventDefault();
-                      dispatch(signOut())
+                      e.preventDefault()
+                      signOut()
                       window.location.href = "./"
                     }}
                   >
