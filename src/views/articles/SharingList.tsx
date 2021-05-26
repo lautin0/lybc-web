@@ -11,7 +11,6 @@ import UNIVERSALS from "Universals";
 import { useDispatch } from "react-redux";
 import { setSysMessage, setSystemFailure } from "actions";
 import { FormattedDate, useIntl } from "react-intl";
-import { useStore } from "store";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
@@ -30,9 +29,6 @@ const trimSubtitle = (txt: string) => {
 function SharingList() {
   const lastScrollTop = useRef(0);
 
-  const setOpen = useStore(state => state.setOpen)
-  const setTitle = useStore(state => state.setTitle)
-
   const intl = useIntl()
 
   const dispatch = useDispatch()
@@ -43,7 +39,7 @@ function SharingList() {
 
   const history = useHistory();
 
-  const [ posts, setPosts ] = useState<Array<Post>>([])
+  const [posts, setPosts] = useState<Array<Post>>([])
 
   const cacheData = useMemo(() => {
     if (posts != null)
@@ -54,7 +50,7 @@ function SharingList() {
   const postFilter: PostFilter = useMemo(() => ({
     AND: [{ parentIDNotNull: false }],
     type: PostType.Sharing
-  }),[])
+  }), [])
   const { loading, data: postData, refetch, fetchMore, called } = usePostsQuery({
     variables: { first: 4, postFilter: postFilter }, notifyOnNetworkStatusChange: true
   })
@@ -142,9 +138,9 @@ function SharingList() {
       return
     }
 
-    setOpen(true)
-    setTitle("app.modal.header.new-sharing-record")
-  }, [tokenPair, dispatch, setOpen, setTitle])
+    history.push('/personal/sharing')
+
+  }, [tokenPair, dispatch, history])
 
   useEffect(() => {
     //Default scroll to top
