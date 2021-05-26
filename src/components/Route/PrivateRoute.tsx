@@ -5,7 +5,7 @@ import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
 import AdminPanel2 from 'views/admin/revamp/AdminPanel2';
-import ErrorPage from 'views/error/Error';
+import ErrorPage from 'views/error/ErrorPage';
 
 type PrivateRouteProps = {
   path: string,
@@ -50,6 +50,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/post/new`} render={(props: any) => <AdminPanel2 {...props} func="new-post" />} />
         <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel2 {...props} func="namecards" />} />
         <Route path={`${url}/post/pending/:id`} render={(props: any) => <AdminPanel2 {...props} func="new-proxy-posts" />} />
+        {/* <Route path={`${url}/post/pending/:oid`} render={(props: any) => <AdminPanel2 {...props} func="pending-posts-approval" />} /> */}
         <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel2 {...props} func="pending-posts" />} />
         <Route path={`${url}/news/new`} render={(props: any) => <AdminPanel2 {...props} func="new-news" />} />
         {/* <Route path={`${url}/new-book`} render={(props: any) => <AdminPanel2 {...props} func="new-book" />} />

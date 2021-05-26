@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, LinearProgress, makeStyles, Typography } from '@material-ui/core'
-import { cyan, green, red, yellow } from '@material-ui/core/colors'
+import { cyan, green, grey, red, yellow } from '@material-ui/core/colors'
 import { ExpandMore } from '@material-ui/icons'
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs'
 import DropzoneCustom from 'components/DropzoneCustom'
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: green[600],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
-    "&:hover": {
+    "&.MuiButton-contained:hover": {
       backgroundColor: green[500],
     }
   },
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[600],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
-    "&:hover": {
+    "&.MuiButton-contained:hover": {
       backgroundColor: red[500],
     }
   },
@@ -41,15 +41,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: yellow[700],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
-    "&:hover": {
+    "&.MuiButton-contained:hover": {
       backgroundColor: yellow[500],
+    }
+  },
+  default: {
+    backgroundColor: grey[500],
+    color: theme.palette.primary.contrastText,
+    margin: theme.spacing(1),
+    "&.MuiButton-contained:hover": {
+      backgroundColor: grey[400],
     }
   },
   info: {
     backgroundColor: cyan[800],
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
-    "&:hover": {
+    "&.MuiButton-contained:hover": {
       backgroundColor: cyan[700],
     }
   },
@@ -213,8 +221,9 @@ function PendingPostEdit() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-      case PostStatus.Withhold:
         return classes.warning
+      case PostStatus.Withhold:
+        return classes.default
     }
   }
 

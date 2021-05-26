@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
-import ErrorPage from 'views/error/Error';
+import ErrorPage from 'views/error/ErrorPage';
 import PersonalPage2 from 'views/personal/revamp/PersonalPage2';
 
 type PrivateRouteProps = {
@@ -42,6 +42,8 @@ function PersonalRoute(props: PrivateRouteProps) {
         <Route path={`${url}/info`} render={(props: any) => <PersonalPage2 {...props} func="info" />} />
         {/* <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} /> */}
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} />
+        <Route path={`${url}/sharing-edit/:oid`} render={(props: any) => <PersonalPage2 {...props} func="sharing-edit" />} />
+        <Route path={`${url}/sharing-status/:oid`} render={(props: any) => <PersonalPage2 {...props} func="sharing-status" />} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage2 {...props} func="other" />} />
         <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage2 {...props} func="notifications" />} />
         <Route path={`${url}/favourite-posts`} render={(props: any) => <PersonalPage2 {...props} func="favourite-posts" />} />
