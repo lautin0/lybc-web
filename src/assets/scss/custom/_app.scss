@@ -556,3 +556,13 @@ button:focus.MuiButtonBase-root{
 [class^=ant-], [class*=ant-], [class^=ant-] *, [class*=ant-] *, [class^=ant-] *::before, [class*=ant-] *::before, [class^=ant-] *::after, [class*=ant-] *::after {
     box-sizing: border-box;
 }
+
+.ant-result-success .ant-result-icon>.anticon {
+    color: #52c41a;
+}
+.ant-result-error .ant-result-icon>.anticon {
+    color: #ff4d4f;
+}
+.ant-result-icon>.anticon {
+    font-size: 72px;
+}

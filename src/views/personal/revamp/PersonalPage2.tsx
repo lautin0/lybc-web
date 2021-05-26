@@ -7,6 +7,7 @@ import NotificationPage from 'views/admin/revamp/NotificationPage';
 import PersonalOther from '../PersonalOther';
 import PersonalMain from './PersonalMain';
 import PersonalSetting from './PersonalSetting';
+import PersonalSharingSubmit from '../PersonalSharingSubmit';
 
 type PersonalPageProps = {
    func: string
@@ -47,6 +48,7 @@ export default function PersonalPage2(props: PersonalPageProps) {
                   {props.func === 'settings' && <PersonalSetting />}
                   {props.func === 'other' && <PersonalOther />}
                   {props.func === 'notifications' && <NotificationPage />}
+                  {props.func === 'sharing' && <PersonalSharingSubmit />}
                </div>
             </div>
          </PersonalLayout>

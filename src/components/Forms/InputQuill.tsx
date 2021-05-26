@@ -35,6 +35,7 @@ function InputQuill({ name, label, isReadOnly }: any) {
       render={({ field, fieldState }) =>
         <ReactQuill
           {...field}
+          value={field.value || ''}
           className="mb-5"
           modules={editorModules}
           style={{

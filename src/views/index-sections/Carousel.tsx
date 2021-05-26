@@ -23,6 +23,10 @@ function CarouselSection() {
   const [index, setIndex] = useState(0);
   const [setClickFunc] = useState<any>(() => { })
 
+  // const [votd, setVotd] = useState<string>()
+  // const[votdImg, setVotdImg] = useState<string>()
+  // const[votdSrc, setVotdSrc] = useState<string>()
+
   const { data, loading } = useMaxWorshipIdQuery()
 
   const handleSelect = (selectedIndex: number) => {
@@ -148,7 +152,7 @@ function CarouselSection() {
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
-                  <Carousel.Item style={{ background: '#2c2c2c' }}>
+                  {/* <Carousel.Item style={{ background: '#2c2c2c' }}>
                     <img
                       style={{ height: 400, objectFit: "contain" }}
                       className="d-block w-100"
@@ -156,7 +160,7 @@ function CarouselSection() {
                       alt="Second slide"
                     />
                   </Carousel.Item>
-                  {/* <Carousel.Item style={{ background: 'lightgray' }}>
+                  <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ maxHeight: 500, objectFit: "cover" }}
                     className="d-block w-100"

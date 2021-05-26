@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Col } from "react-bootstrap";
 import { DropzoneState } from "react-dropzone";
 
-function DropzoneCustom(props: DropzoneState) {
+function DropzoneCustom(props: DropzoneState & { lg: number, xl: number }) {
   const {
     acceptedFiles,
     getRootProps,
@@ -62,7 +62,7 @@ function DropzoneCustom(props: DropzoneState) {
     baseStyle
   ]);
 
-  return <Col xl={6} lg={12}>
+  return <Col xl={props.xl} lg={props.lg}>
     <div {...getRootProps({ style })}>
       <input {...getInputProps()} />
       <p>把檔案拖曳到此處，或點擊開始選擇</p>

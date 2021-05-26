@@ -50,6 +50,7 @@ function MuiInputText(props: MergedTextFieldProp) {
          render={({ field, fieldState }) => {
             return <TextField
                {...field}
+               value={field.value || ''}
                error={!props.skipValidate && !!errors[props.name]}
                // id="standard-error-helper-text"  
                size={props.size} // "small" | "medium"
@@ -62,7 +63,7 @@ function MuiInputText(props: MergedTextFieldProp) {
                variant="outlined"
                InputProps={props.InputProps}
                disabled={props.strongReadOnly || props.isReadOnly}
-               helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{errors[props.name].message !== "" ? errors[props.name].message : "必須輸入這欄"}</label>}
+               helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{(errors[props.name].message && errors[props.name].message !== "") ? errors[props.name].message : "必須輸入這欄"}</label>}
             />
          }}
       />

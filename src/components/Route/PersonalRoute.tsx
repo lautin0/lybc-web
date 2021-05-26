@@ -40,6 +40,7 @@ function PersonalRoute(props: PrivateRouteProps) {
       {path === '/personal' && <Switch>
         {/* <Route path={`${url}/`} render={(props: any) => <PersonalPage2 {...props} />} exact /> */}
         <Route path={`${url}/info`} render={(props: any) => <PersonalPage2 {...props} func="info" />} />
+        {/* <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} /> */}
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage2 {...props} func="other" />} />
         <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage2 {...props} func="notifications" />} />

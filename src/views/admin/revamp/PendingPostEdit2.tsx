@@ -361,7 +361,7 @@ function PendingPostEdit() {
                   <InputQuill name="content" label="內文" isReadOnly={false} />
                 </Form.Row>
                 <label className="mt-5">選擇封面</label>
-                <DropzoneCustom {...dropzoneMethods} />
+                <DropzoneCustom lg={12} xl={6} {...dropzoneMethods} />
                 <Form.Row>
                   <Form.Group>
                     <Button
