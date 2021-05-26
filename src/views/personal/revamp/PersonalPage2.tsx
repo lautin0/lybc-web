@@ -9,6 +9,7 @@ import PersonalMain from './PersonalMain';
 import PersonalSetting from './PersonalSetting';
 import PersonalSharingSubmit from '../PersonalSharingSubmit';
 import PersonalSharingStat from '../PersonalSharingStat';
+import PersonalSharingEdit from '../PersonalSharingEdit';
 
 type PersonalPageProps = {
    func: string
@@ -51,6 +52,7 @@ export default function PersonalPage2(props: PersonalPageProps) {
                   {props.func === 'notifications' && <NotificationPage />}
                   {props.func === 'sharing' && <PersonalSharingSubmit />}
                   {props.func === 'sharing-status' && <PersonalSharingStat />}
+                  {props.func === 'sharing-edit' && <PersonalSharingEdit />}
                </div>
             </div>
          </PersonalLayout>

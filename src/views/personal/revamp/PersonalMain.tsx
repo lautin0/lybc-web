@@ -197,14 +197,13 @@ export default function PersonalMain() {
     }
   }
 
-  const handleClick = (id: any) => {
-    // if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
-    //   return
-    // setPendingPostID(id)
-    // setModalOpen(true)
-    // setTitle("app.modal.header.edit-sharing-record")
-    history.push('/personal/sharing-status/' + id)
-  }
+  // const handleClick = (id: any) => {
+  //   if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
+  //     return
+  //   setPendingPostID(id)
+  //   setModalOpen(true)
+  //   setTitle("app.modal.header.edit-sharing-record")
+  // }
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
@@ -506,10 +505,10 @@ export default function PersonalMain() {
                             狀態: <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
                           </Grid>
                           <Grid item>
-                            <IconButton onClick={() => handleClick(p._id)}>
+                            <IconButton onClick={() => history.push('/personal/sharing-status/' + p._id)}>
                               <Visibility />
                             </IconButton>
-                            <IconButton disabled={p.status !== PostStatus.Withhold} onClick={() => handleClick(p._id)}>
+                            <IconButton disabled={p.status !== PostStatus.Withhold} onClick={() => history.push('/personal/sharing-edit/' + p._id)}>
                               <Edit />
                             </IconButton>
                           </Grid>

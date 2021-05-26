@@ -82,7 +82,7 @@ function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any
                status="warning"
                title="已暫緩"
                subTitle={`已暫緩，原因: ${pPost.pendingPost.remarks}`}
-               extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>修改你的申請</Button>}
+               extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/sharing-edit/' + pPost.pendingPost?._id)}>修改你的申請</Button>}
             />
          );
       case PostStatus.Withdraw:
