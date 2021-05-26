@@ -42,6 +42,7 @@ function PersonalRoute(props: PrivateRouteProps) {
         <Route path={`${url}/info`} render={(props: any) => <PersonalPage2 {...props} func="info" />} />
         {/* <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} /> */}
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage2 {...props} func="sharing" />} />
+        <Route path={`${url}/sharing-status/:oid`} render={(props: any) => <PersonalPage2 {...props} func="sharing-status" />} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage2 {...props} func="other" />} />
         <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage2 {...props} func="notifications" />} />
         <Route path={`${url}/favourite-posts`} render={(props: any) => <PersonalPage2 {...props} func="favourite-posts" />} />

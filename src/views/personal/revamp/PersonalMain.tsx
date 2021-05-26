@@ -17,7 +17,7 @@ import { FormattedDate } from 'react-intl';
 import { css } from 'styles/styles';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { usePendingPostStore } from 'store';
+// import { usePendingPostStore } from 'store';
 import { green, red, yellow, cyan } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
@@ -166,9 +166,9 @@ export default function PersonalMain() {
     });
   }
 
-  const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
-  const setModalOpen = usePendingPostStore(state => state.setOpen)
-  const setTitle = usePendingPostStore(state => state.setTitle)
+  // const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
+  // const setModalOpen = usePendingPostStore(state => state.setOpen)
+  // const setTitle = usePendingPostStore(state => state.setTitle)
 
   const { data, loading: pPostLoading, refetch: pPostRefetch } = usePendingPostsByUsernameQuery({
     variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -193,13 +193,14 @@ export default function PersonalMain() {
     }
   }
 
-  const handleClick = useCallback((id, status) => {
-    if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
-      return
-    setPendingPostID(id)
-    setModalOpen(true)
-    setTitle("app.modal.header.edit-sharing-record")
-  }, [setPendingPostID, setModalOpen, setTitle])
+  const handleClick =(id: any) => {
+    // if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
+    //   return
+    // setPendingPostID(id)
+    // setModalOpen(true)
+    // setTitle("app.modal.header.edit-sharing-record")
+    history.push('/personal/sharing-status/' + id)
+  }
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
@@ -493,7 +494,7 @@ export default function PersonalMain() {
               return (
                 <Grid item key={p._id} md={5} xs={12}>
                   <Card variant="outlined">
-                    <CardContent onClick={() => handleClick(p._id, p.status)} className={classes.linkGrid}>
+                    <CardContent onClick={() => handleClick(p._id)} className={classes.linkGrid}>
                       <Grid container spacing={3}>
                         <Grid container item justify="space-between">
                           <Grid item>
