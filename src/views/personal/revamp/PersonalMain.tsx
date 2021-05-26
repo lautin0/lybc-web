@@ -9,7 +9,7 @@ import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider
 import { FavouritePost, FavouritePostsDocument, PostStatus, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
-import { AccountCircle, Delete, Edit, ExpandMore, GetApp } from '@material-ui/icons';
+import { AccountCircle, Delete, Edit, ExpandMore, GetApp, Visibility } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import { setSystemFailure } from 'actions';
 import moment from 'moment';
@@ -17,8 +17,8 @@ import { FormattedDate } from 'react-intl';
 import { css } from 'styles/styles';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { usePendingPostStore } from 'store';
-import { green, red, yellow, cyan } from '@material-ui/core/colors';
+// import { usePendingPostStore } from 'store';
+import { green, red, yellow, cyan, grey } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
 
@@ -101,6 +101,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: yellow[600],
     color: theme.palette.secondary.contrastText
   },
+  default: {
+    backgroundColor: grey[500],
+    color: theme.palette.primary.contrastText
+  },
   primary: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText
@@ -166,9 +170,9 @@ export default function PersonalMain() {
     });
   }
 
-  const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
-  const setModalOpen = usePendingPostStore(state => state.setOpen)
-  const setTitle = usePendingPostStore(state => state.setTitle)
+  // const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
+  // const setModalOpen = usePendingPostStore(state => state.setOpen)
+  // const setTitle = usePendingPostStore(state => state.setTitle)
 
   const { data, loading: pPostLoading, refetch: pPostRefetch } = usePendingPostsByUsernameQuery({
     variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -193,13 +197,13 @@ export default function PersonalMain() {
     }
   }
 
-  const handleClick = useCallback((id, status) => {
-    if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
-      return
-    setPendingPostID(id)
-    setModalOpen(true)
-    setTitle("app.modal.header.edit-sharing-record")
-  }, [setPendingPostID, setModalOpen, setTitle])
+  // const handleClick = (id: any) => {
+  //   if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
+  //     return
+  //   setPendingPostID(id)
+  //   setModalOpen(true)
+  //   setTitle("app.modal.header.edit-sharing-record")
+  // }
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
@@ -235,8 +239,9 @@ export default function PersonalMain() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-      case PostStatus.Withhold:
         return classes.warning
+      case PostStatus.Withhold:
+        return classes.default
     }
   }
 
@@ -491,16 +496,36 @@ export default function PersonalMain() {
           {(!loading) && <Grid container spacing={2}>
             {data?.pendingPosts && data!.pendingPosts.map((p) => {
               return (
-                <Grid item key={p._id} md={5} xs={12}>
+                <Grid item key={p._id} xs={12}>
                   <Card variant="outlined">
-                    <CardContent onClick={() => handleClick(p._id, p.status)} className={classes.linkGrid}>
-                      <Grid container spacing={3}>
+                    <CardContent>
+                      <Grid container spacing={1}>
+                        <Grid container item justify="space-between" alignItems="center">
+                          <Grid item>
+                            狀態: <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={() => history.push('/personal/sharing-status/' + p._id)}>
+                              <Visibility />
+                            </IconButton>
+                            <IconButton disabled={p.status !== PostStatus.Withhold} onClick={() => history.push('/personal/sharing-edit/' + p._id)}>
+                              <Edit />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
                         <Grid container item justify="space-between">
                           <Grid item>
                             <Typography variant="h4">{p.title}</Typography>
                           </Grid>
                           <Grid item>
-                            <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
+                            <Typography>
+                              <FormattedDate
+                                value={moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                                year="numeric"
+                                month="short"
+                                day="numeric"
+                              />
+                            </Typography>
                           </Grid>
                         </Grid>
                         <Grid item>

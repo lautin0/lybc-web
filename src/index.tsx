@@ -15,7 +15,7 @@ import "assets/demo/nucleo-icons-page-styles.css";
 import Index from "views/Index";
 import LoginPage from "views/login/LoginPage";
 import MainPageLegacy from 'views/main/MainPageLegacy'
-import ErrorPage from "views/error/Error";
+import ErrorPage from "views/error/ErrorPage";
 import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
