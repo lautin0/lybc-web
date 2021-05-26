@@ -66,6 +66,7 @@ export default function AdminPanel2(props: AdminPanelProps) {
                {props.func === 'namecards' && <NameCardManage2 />}
                {props.func === 'pending-posts' && <PendingPostManage2 />}
                {props.func === 'new-proxy-posts' && <PendingPostEdit2 />}
+               {/* {props.func === 'pending-posts-approval' && <PendingPostEdit3 />} */}
                {props.func === 'new-news' && <NewsCreate />}
                {/* {props.func === 'notifications' && <NotificationPage />} */}
                {/* {props.func === 'new-book' && <BooksCreate />}
