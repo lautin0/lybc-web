@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
-import ErrorPage from 'views/error/Error';
+import ErrorPage from 'views/error/ErrorPage';
 import PersonalPage2 from 'views/personal/revamp/PersonalPage2';
 
 type PrivateRouteProps = {

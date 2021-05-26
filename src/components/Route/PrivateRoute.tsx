@@ -5,7 +5,7 @@ import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
 import AdminPanel2 from 'views/admin/revamp/AdminPanel2';
-import ErrorPage from 'views/error/Error';
+import ErrorPage from 'views/error/ErrorPage';
 
 type PrivateRouteProps = {
   path: string,

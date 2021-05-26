@@ -70,7 +70,7 @@ function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any
       case PostStatus.Rejected:
          return (
             <Result
-               status="success"
+               status="error"
                title="已拒絕"
                subTitle={`已拒絕，原因: ${pPost.pendingPost.remarks}`}
                extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
@@ -104,7 +104,9 @@ export default function PersonalSharingStat() {
 
    const classes = useStyles();
    const [activeStep, setActiveStep] = React.useState(0);
-   const [steps, setSteps] = useState(['文章資料', '處理中', ''])
+   const [steps, setSteps] = useState(['提交(按此檢視)', '處理中', ''])
+   const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
+   const [skipped, setSkipped] = useState(new Set<number>())
 
    const [documentURI, setDocumentURI] = useState("")
 
@@ -128,9 +130,12 @@ export default function PersonalSharingStat() {
    //    setActiveStep((prevActiveStep) => prevActiveStep - 1);
    // };
 
-   // const handleStep = (step: number) => () => {
-   //    setActiveStep(step);
-   // };
+   const handleStep = (step: number) => () => {
+      if ((data?.pendingPost?.status === PostStatus.Pending && step === 2)
+         || (data?.pendingPost?.status !== PostStatus.Pending && step === 1))
+         return
+      setActiveStep(step);
+   };
 
    useEffect(() => {
       if (data && reset) {
@@ -156,8 +161,24 @@ export default function PersonalSharingStat() {
          setSteps(newSteps)
 
          if (data.pendingPost?.status === PostStatus.Pending) {
+            let newCompleted = steps.slice(0, -1).map((s, i) => ({ [i]: true })).reduce((a, b, i = 0, arr = []) => (
+               {
+                  ...a,
+                  ...b
+               }
+            ))
+            setCompleted(newCompleted)
+            setSkipped(new Set([0]))
             setActiveStep(1)
          } else {
+            let newCompleted = steps.map((s, i) => ({ [i]: true })).reduce((a, b, i = 0, arr = []) => (
+               {
+                  ...a,
+                  ...b
+               }
+            ))
+            setCompleted(newCompleted)
+            setSkipped(new Set([0, 1]))
             setActiveStep(2)
          }
 
@@ -175,10 +196,10 @@ export default function PersonalSharingStat() {
                   </Grid>
                   <Grid container>
                      <Grid item xs={12}>
-                        <Stepper activeStep={activeStep}>
+                        <Stepper nonLinear activeStep={activeStep}>
                            {steps.map((label, index) => (
                               <Step key={label}>
-                                 <StepButton>
+                                 <StepButton onClick={handleStep(index)} completed={completed[index] && !skipped.has(index)}>
                                     {label}
                                  </StepButton>
                               </Step>

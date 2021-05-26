@@ -9,7 +9,7 @@ import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider
 import { FavouritePost, FavouritePostsDocument, PostStatus, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
-import { AccountCircle, Delete, Edit, ExpandMore, GetApp } from '@material-ui/icons';
+import { AccountCircle, Delete, Edit, ExpandMore, GetApp, Visibility } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import { setSystemFailure } from 'actions';
 import moment from 'moment';
@@ -18,7 +18,7 @@ import { css } from 'styles/styles';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 // import { usePendingPostStore } from 'store';
-import { green, red, yellow, cyan } from '@material-ui/core/colors';
+import { green, red, yellow, cyan, grey } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
 
@@ -100,6 +100,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   warning: {
     backgroundColor: yellow[600],
     color: theme.palette.secondary.contrastText
+  },
+  default: {
+    backgroundColor: grey[500],
+    color: theme.palette.primary.contrastText
   },
   primary: {
     backgroundColor: theme.palette.primary.main,
@@ -193,7 +197,7 @@ export default function PersonalMain() {
     }
   }
 
-  const handleClick =(id: any) => {
+  const handleClick = (id: any) => {
     // if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
     //   return
     // setPendingPostID(id)
@@ -236,8 +240,9 @@ export default function PersonalMain() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-      case PostStatus.Withhold:
         return classes.warning
+      case PostStatus.Withhold:
+        return classes.default
     }
   }
 
@@ -492,16 +497,36 @@ export default function PersonalMain() {
           {(!loading) && <Grid container spacing={2}>
             {data?.pendingPosts && data!.pendingPosts.map((p) => {
               return (
-                <Grid item key={p._id} md={5} xs={12}>
+                <Grid item key={p._id} xs={12}>
                   <Card variant="outlined">
-                    <CardContent onClick={() => handleClick(p._id)} className={classes.linkGrid}>
-                      <Grid container spacing={3}>
+                    <CardContent>
+                      <Grid container spacing={1}>
+                        <Grid container item justify="space-between" alignItems="center">
+                          <Grid item>
+                            狀態: <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={() => handleClick(p._id)}>
+                              <Visibility />
+                            </IconButton>
+                            <IconButton disabled={p.status !== PostStatus.Withhold} onClick={() => handleClick(p._id)}>
+                              <Edit />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
                         <Grid container item justify="space-between">
                           <Grid item>
                             <Typography variant="h4">{p.title}</Typography>
                           </Grid>
                           <Grid item>
-                            <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
+                            <Typography>
+                              <FormattedDate
+                                value={moment(p.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
+                                year="numeric"
+                                month="short"
+                                day="numeric"
+                              />
+                            </Typography>
                           </Grid>
                         </Grid>
                         <Grid item>

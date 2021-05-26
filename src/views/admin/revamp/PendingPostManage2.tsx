@@ -1,5 +1,5 @@
 import { Button, Chip, makeStyles, Typography } from '@material-ui/core';
-import { cyan, green, red, yellow } from '@material-ui/core/colors';
+import { cyan, green, grey, red, yellow } from '@material-ui/core/colors';
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   warning: {
     backgroundColor: yellow[800],
+    color: theme.palette.primary.contrastText
+  },
+  default: {
+    backgroundColor: grey[500],
     color: theme.palette.primary.contrastText
   },
   info: {
@@ -113,8 +117,9 @@ function PendingPostManage2() {
       case PostStatus.Withdraw:
         return classes.danger
       case PostStatus.Pending:
-      case PostStatus.Withhold:
         return classes.warning
+      case PostStatus.Withhold:
+        return classes.default
     }
   }
 
