@@ -3,17 +3,6 @@ import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import { makeStyles } from '@material-ui/core';
 import PersonalLayout from 'layouts/PersonalLayout';
-import NotificationPage from 'views/admin/revamp/NotificationPage';
-import PersonalOther from '../PersonalOther';
-import PersonalMain from './PersonalMain';
-import PersonalSetting from './PersonalSetting';
-import PersonalSharingSubmit from '../PersonalSharingSubmit';
-import PersonalSharingStat from '../PersonalSharingStat';
-import PersonalSharingEdit from '../PersonalSharingEdit';
-
-type PersonalPageProps = {
-   func: string
-}
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-export default function PersonalPage2(props: PersonalPageProps) {
+export default function PersonalPage(props: React.PropsWithChildren<any>) {
    const classes = useStyles();
 
    const methods = useNotification()
@@ -46,13 +35,7 @@ export default function PersonalPage2(props: PersonalPageProps) {
          <PersonalLayout>
             <div className={classes.panel}>
                <div>
-                  {!props.func && <PersonalMain />}
-                  {props.func === 'settings' && <PersonalSetting />}
-                  {props.func === 'other' && <PersonalOther />}
-                  {props.func === 'notifications' && <NotificationPage />}
-                  {props.func === 'sharing' && <PersonalSharingSubmit />}
-                  {props.func === 'sharing-status' && <PersonalSharingStat />}
-                  {props.func === 'sharing-edit' && <PersonalSharingEdit />}
+                  {props.children}
                </div>
             </div>
          </PersonalLayout>

@@ -1,49 +1,108 @@
-import { decisionRequest, setLoading } from 'actions';
+import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
+import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
+import { AddCircle, Create, Delete } from '@material-ui/icons';
+import clsx from 'clsx';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import usePagination from 'hooks/usePagination';
 import moment from 'moment';
-import { SyntheticEvent, useEffect } from 'react'
-import { Pagination, Container, Row, Table } from 'react-bootstrap';
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { WorshipListItemType } from 'views/worship/types/types';
+import { useDecisionModalStore, useModalStore } from 'store';
+
+const useStyles = makeStyles(theme => ({
+  success: {
+    backgroundColor: green[700],
+    color: theme.palette.primary.contrastText,
+    "&:hover": {
+      backgroundColor: green[600]
+    }
+  }
+}))
 
 function WorshipManage() {
+
+  const classes = useStyles()
 
   const [locale] = useLanguage()
 
   const intl = useIntl()
 
-  const dispatch = useDispatch();
-
   const location = useLocation();
 
   const history = useHistory();
 
-  const { pageItems, pageNumber, items, setData } = usePagination<WorshipListItemType>()
+  const setModalError = useModalStore(state => state.setError)
 
   const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
-  const [deleteWorship, { data: deleteResult }] = useDeleteWorshipMutation()
+  const setMessage = useDecisionModalStore(state => state.setMessage)
+  const setPositiveFn = useDecisionModalStore(state => state.setPositiveFn)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()
-    dispatch(decisionRequest('確認刪除?', () => {
-      dispatch(setLoading(true))
+    setMessage('確認刪除?')
+    setPositiveFn(() => {
       deleteWorship({
         variables: {
           input: id
         }
+      }).then(res => {
+        refetch()
       })
-    }))
+        .catch((err: any) => {
+          setModalError(err)
+        })
+    })
   };
 
   function onEditClicked(e: SyntheticEvent, id: any) {
     e.preventDefault();
     history.push('/admin/worship/' + id)
   }
+
+  const columns: GridColDef[] = [
+    { field: 'date', headerName: '日期', width: 150 },
+    { field: 'title', headerName: '講題', width: 400 },
+    { field: 'messenger', headerName: '講員', width: 250 },
+    {
+      field: 'worshipId',
+      width: 250,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <></>
+      ),
+      renderCell: (params: GridCellParams) => (
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            style={{ marginLeft: 16 }}
+            startIcon={<Create />}
+            onClick={(e) => onEditClicked(e, params.value)}
+          >
+            修改
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            style={{ marginLeft: 16 }}
+            startIcon={<Delete />}
+            onClick={(e) => onDeleteClicked(e, params.value)}
+          >
+            刪除
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  const [data, setData] = useState<GridRowsProp>([])
+
+  const [deleteWorship, { loading: deleteLoading }] = useDeleteWorshipMutation()
 
   useEffect(() => {
     if (worshipData === undefined)
@@ -58,10 +117,11 @@ function WorshipManage() {
         return 0
       }
     })
-      .map((x: Worship): WorshipListItemType => {
+      .map((x: Worship, idx: number): any => {
         return {
+          id: idx,
           worshipId: x.worshipId,
-          date: moment(x.worshipId, 'YYYYMMDD'),
+          date: moment(x.worshipId, 'YYYYMMDD').format('YYYY-MM-DD'),
           title: x.type === '分享主日' ? '分享主日' : x.title,
           messenger: x.messenger === '' ? '---' : x.messenger,
           type: x.type
@@ -71,14 +131,7 @@ function WorshipManage() {
 
   useEffect(() => {
     document.title = intl.formatMessage({ id: "app.menu.activity.online-sermon" })
-  }, [locale])
-
-  useEffect(() => {
-    if (deleteResult != null && deleteResult.deleteWorship > 0) {
-      dispatch(setLoading(false))
-      refetch()
-    }
-  }, [deleteResult, dispatch, refetch])
+  }, [locale, intl])
 
   useEffect(() => {
     worshipData && refetch();
@@ -86,48 +139,23 @@ function WorshipManage() {
 
   return (
     <>
-      <Container className="mt-5">
-        <Row className="text-left">
-          <h3>崇拜管理</h3>
-        </Row>
-        <Row className="mt-3">
-          <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
-            <thead>
-              <tr>
-                <th style={{ width: '15%' }}>日期</th>
-                <th style={{ width: '50%' }}>標題</th>
-                <th style={{ width: '35%' }}>講員</th>
-                <th style={{ width: '5%' }}></th>
-                <th style={{ width: '5%' }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading && <tr><th className="text-center" colSpan={5}>
-                <div className="spinner-grow text-secondary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </th></tr>}
-              {((!pageItems || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
-              {
-                (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value, index) => {
-                  return <tr key={index}>
-                    <th scope="row">{value.date.format('YYYY-MM-DD')}</th>
-                    <td>{value.title}{(index === 0 && pageNumber === 1) && <b className="ml-3" style={{ color: 'red' }}><i>新</i></b>}</td>
-                    <td>{value.messenger}</td>
-                    <td><a onClick={(e: any) => onEditClicked(e, value.worshipId)}><i className="fa fa-pencil-alt"></i></a></td>
-                    <td><a onClick={(e: any) => onDeleteClicked(e, value.worshipId)}><i className="fa fa-trash"></i></a></td>
-                  </tr>
-                })
-              }
-            </tbody>
-          </Table>
-          <Pagination
-            className="w-100 pagination-primary justify-content-center"
-          >
-            {!loading && items}
-          </Pagination>
-        </Row>
-      </Container>
+      {deleteLoading && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
+      <RouterBreadcrumbs />
+      <Typography className="my-3" variant="h5">崇拜管理</Typography>
+      <Button
+        className={clsx(classes.success, "my-3")}
+        variant="contained"
+        startIcon={<AddCircle />}
+        onClick={() => history.push('/admin/worship/new')}
+      >建立</Button>
+      <div style={{ width: '100%' }}>
+        <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
+      </div>
     </>
   )
 }

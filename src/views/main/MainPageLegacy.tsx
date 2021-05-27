@@ -4,28 +4,22 @@ import PropTypes from 'prop-types';
 // core components
 import MainNavbar from "components/Navbars/MainNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
-import Apply from 'views/activity/Apply'
 import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 // import SearchBooks from "views/books/SearchBooks";
-import Worship from "views/worship/Worship";
-import Sharing from "views/articles/Sharing";
 import { getMenuHierarchy } from "utils/utils";
 import UNIVERSALS from "Universals";
-import SearchBooks from "views/book/SearchBooks";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import useLanguage from "hooks/useLanguage";
-import Careers from "views/about/Careers";
-import News from "views/news/News";
 
 type MainPageProps = {
   page: string,
 }
 
-function MainPageLegacy(props: MainPageProps) {
+function MainPageLegacy(props: React.PropsWithChildren<MainPageProps>) {
 
   const [locale] = useLanguage()
-  
+
   const history = useHistory()
 
   const intl = useIntl()
@@ -68,13 +62,7 @@ function MainPageLegacy(props: MainPageProps) {
               })}
             </Breadcrumb>
           </div>
-          {props.page === 'apply-activity' && <Apply />}
-          {/* {props.page === 'test' && <InfiniteScroll />} */}
-          {props.page === 'library' && <SearchBooks />}
-          {props.page === 'worship' && <Worship />}
-          {props.page === 'sharing' && <Sharing />}
-          {props.page === 'news' && <News />}
-          {props.page === 'careers' && <Careers />}
+          {props.children}
         </div>
         <DefaultFooter />
       </div>

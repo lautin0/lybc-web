@@ -5,15 +5,6 @@ import PropTypes from 'prop-types';
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import DefaultFooter from "components/Footers/DefaultFooter";
 import MainPageHeader from "components/Headers/MainPageHeader";
-import PreacherMessage from "views/articles/PreacherMessage";
-import AboutUs from "views/about/AboutUs";
-import Journal from "views/articles/Journal";
-import ContactUs from "views/about/ContactUs";
-import Doctrine from "views/about/Doctrine";
-import SundayServiceInfo from "views/about/SundayServiceInfo";
-import WorshipList from "views/worship/WorshipList";
-import SharingList from "views/articles/SharingList";
-import NewsList from "views/news/NewsList";
 
 type MainPageProps = {
 
@@ -22,7 +13,7 @@ type MainPageProps = {
 
 }
 
-function MainPage(props: MainPageProps) {
+function MainPage(props: React.PropsWithChildren<MainPageProps>) {
 
   React.useEffect(() => {
     document.body.classList.add("profile-page");
@@ -39,15 +30,7 @@ function MainPage(props: MainPageProps) {
       <IndexNavbar />
       <div className="wrapper">
         <MainPageHeader page={props.page}/>
-        {props.page === 'about-us' && <AboutUs />}
-        {props.page === 'journal' && <Journal />}
-        {props.page === 'contact-us' && <ContactUs />}
-        {props.page === 'doctrine' && <Doctrine />}
-        {props.page === 'sunday-service-info' && <SundayServiceInfo />}
-        {props.page === 'worship-list' && <WorshipList />}
-        {props.page === 'preacher-message' && <PreacherMessage />}
-        {props.page === 'sharing-list' && <SharingList />}
-        {props.page === 'news-list' && <NewsList />}
+        {props.children}
         <DefaultFooter />
       </div>
     </>

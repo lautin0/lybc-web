@@ -1,28 +1,86 @@
+import { Button, Chip, makeStyles, Typography } from '@material-ui/core';
+import { cyan, green, grey, red, yellow } from '@material-ui/core/colors';
+import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
+import { Create } from '@material-ui/icons';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
-import useLanguage from 'hooks/useLanguage';
-import usePagination from 'hooks/usePagination';
 import moment from 'moment';
-import { SyntheticEvent, useEffect } from 'react'
-import { Container, Row, Table, Pagination } from 'react-bootstrap';
-import { useIntl } from 'react-intl';
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
+
+const useStyles = makeStyles((theme) => ({
+  success: {
+    backgroundColor: green[600],
+    color: theme.palette.primary.contrastText
+  },
+  danger: {
+    backgroundColor: red[700],
+    color: theme.palette.primary.contrastText
+  },
+  warning: {
+    backgroundColor: yellow[800],
+    color: theme.palette.primary.contrastText
+  },
+  default: {
+    backgroundColor: grey[500],
+    color: theme.palette.primary.contrastText
+  },
+  info: {
+    backgroundColor: cyan[800],
+    color: theme.palette.primary.contrastText
+  }
+}))
 
 function PendingPostManage() {
 
-  const [locale] = useLanguage()
+  const classes = useStyles()
 
   const location = useLocation();
 
   const history = useHistory();
 
-  const { pageItems, items, setData } = usePagination<PendingPost>()
-
   const { loading, data: pPostData, refetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
-  
+
   function onEditClicked(e: SyntheticEvent, id: any) {
     e.preventDefault();
     history.push('/admin/post/pending/' + id)
   }
+
+  const columns: GridColDef[] = [
+    { field: 'creDttm', headerName: '投稿日期', width: 150 },
+    { field: 'title', headerName: '標題', width: 300 },
+    { field: 'username', headerName: '投稿人', width: 200 },
+    {
+      field: 'status',
+      width: 150,
+      headerName: '狀態',
+      renderCell: (params: GridCellParams) => (
+        <Chip label={getStatus(params.value as PostStatus)} className={getBadgeClassName(params.value as PostStatus)} />
+      ),
+    },
+    {
+      field: '_id',
+      width: 100,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <></>
+      ),
+      renderCell: (params: GridCellParams) => (
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            startIcon={<Create />}
+            onClick={(e) => onEditClicked(e, params.value)}
+          >
+            檢視
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  const [data, setData] = useState<GridRowsProp>([])
 
   useEffect(() => {
     if (pPostData === undefined)
@@ -37,12 +95,13 @@ function PendingPostManage() {
         return 0
       }
     })
-      .map((x: PendingPost): PendingPost => {
+      .map((x: PendingPost, idx: number): any => {
         return {
+          id: idx,
           _id: x._id,
           title: x.title,
           username: x.username,
-          creDttm: moment(x.creDttm, 'YYYYMMDD'),
+          creDttm: moment(x.creDttm, 'YYYYMMDD').format('YYYY-MM-DD'),
           subtitle: x.subtitle,
           status: x.status,
           documentURI: x.documentURI
@@ -53,14 +112,14 @@ function PendingPostManage() {
   const getBadgeClassName = (s: PostStatus) => {
     switch (s) {
       case PostStatus.Approved:
-        return "success"
+        return classes.success
       case PostStatus.Rejected:
       case PostStatus.Withdraw:
-        return "danger"
+        return classes.danger
       case PostStatus.Pending:
-        return "primary"
+        return classes.warning
       case PostStatus.Withhold:
-        return "warning"
+        return classes.default
     }
   }
 
@@ -85,48 +144,11 @@ function PendingPostManage() {
 
   return (
     <>
-      <Container className="mt-5">
-        <Row className="text-left">
-          <h3>待審閱文章</h3>
-        </Row>
-        <Row className="mt-3">
-          <Table striped className={pageItems && pageItems.length > 0 ? 'clickable' : ''}>
-            <thead>
-              <tr>
-                <th style={{ width: '50%' }}>標題</th>
-                <th style={{ width: '25%' }}>投稿人</th>
-                <th style={{ width: '15%' }}>投稿日期</th>
-                <th style={{ width: '10%' }}></th>
-                <th style={{ width: '10%' }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading && <tr><th className="text-center" colSpan={5}>
-                <div className="spinner-grow text-secondary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </th></tr>}
-              {((!pageItems || pageItems.length === 0) && !loading) && <tr><th className="text-center" colSpan={5}>沒有記錄</th></tr>}
-              {
-                (pageItems && pageItems.length > 0 && !loading) && pageItems.map((value) => {
-                  return <tr key={value._id}>
-                    <td>{value.title}</td>
-                    <td>{value.username}</td>
-                    <th scope="row">{value.creDttm.format('YYYY-MM-DD')}</th>
-                    <td><span style={{ position: 'relative', fontSize: 16 }} className={`badge badge-${getBadgeClassName(value.status)}`}>{getStatus(value.status)}</span></td>
-                    <td><a onClick={(e: any) => onEditClicked(e, value._id)}><i className="fa fa-pencil-alt"></i></a></td>
-                  </tr>
-                })
-              }
-            </tbody>
-          </Table>
-          <Pagination
-            className="w-100 pagination-primary justify-content-center"
-          >
-            {!loading && items}
-          </Pagination>
-        </Row>
-      </Container>
+      <RouterBreadcrumbs />
+      <Typography className="my-3" variant="h5">審閱文章</Typography>
+      <div style={{ width: '100%' }}>
+        <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
+      </div>
     </>
   )
 }

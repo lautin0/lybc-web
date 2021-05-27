@@ -1,17 +1,81 @@
+import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid } from '@material-ui/core';
+import { cyan, green, red, yellow } from '@material-ui/core/colors';
+import { ExpandMore } from '@material-ui/icons';
+import clsx from 'clsx';
+import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
-import { useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: 275,
+  },
+  gridRoot: {
+    flexGrow: 1
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  success: {
+    backgroundColor: green[600],
+    color: theme.palette.primary.contrastText
+  },
+  danger: {
+    backgroundColor: red[600],
+    color: theme.palette.primary.contrastText
+  },
+  warning: {
+    backgroundColor: yellow[600],
+    color: theme.palette.primary.contrastText
+  },
+  primary: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText
+  },
+  info: {
+    backgroundColor: cyan[800],
+    color: theme.palette.primary.contrastText
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+}))
 
 function NameCardManage() {
 
+  const classes = useStyles()
   const location = useLocation();
 
-  const { data, loading, refetch } = useNameCardsQuery({
-    notifyOnNetworkStatusChange: true
-  })
-  
+  const { data, loading, refetch } = useNameCardsQuery({ notifyOnNetworkStatusChange: true })
+
+  const [expanded, setExpanded] = useState<any>({});
+
+  const handleClick = (id: string) => {
+    setExpanded({
+      ...expanded,
+      [id]: !expanded[id]
+    });
+  }
+
   useEffect(() => {
     if (data != null)
       refetch()
@@ -20,15 +84,15 @@ function NameCardManage() {
   const getBadgeClassName = (s: AccountStatus) => {
     switch (s) {
       case AccountStatus.Active:
-        return "success"
+        return classes.success
       case AccountStatus.Inactive:
-        return "danger"
+        return classes.danger
       case AccountStatus.Pending:
-        return "primary"
+        return classes.danger
       case AccountStatus.Suspended:
-        return "warning"
+        return classes.warning
       case AccountStatus.Contacting:
-        return "info"
+        return classes.info
     }
   }
 
@@ -49,168 +113,68 @@ function NameCardManage() {
 
   return (
     <>
-      <Container className="mt-5">
-        <Row className="text-left">
-          <h3>網上新來賓名單</h3>
-        </Row>
-        <hr></hr>
-        {(loading) && <Container>
-          <div className="text-center">
-            <div className="spinner-grow text-secondary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
+      <RouterBreadcrumbs />
+      <Typography className="my-3" variant="h5">新來賓名片</Typography>
+      <hr></hr>
+      {loading && <Container>
+        <div className="text-center">
+          <div className="spinner-grow text-secondary" role="status">
+            <span className="sr-only">Loading...</span>
           </div>
-        </Container>}
-        {(!loading) && <>
-          {data!.nameCards.map((n) => {
-            return <div key={n._id}>
-              <Row className="card quick-item d-none d-lg-block mt-3 pt-5 pl-5 pr-5 pb-3">
-                <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>
-                  <Col md={2}>
-                    <div>
-                      <label>名字: </label>
-                    </div>
-                    <div>
-                      <label>聯絡電話: </label>
-                    </div>
-                    <div>
-                      <label>備註: </label>
-                    </div>
-                  </Col>
-                  <Col>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.name}</label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.phone}</label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.remarks}</label>
-                    </div>
-                  </Col>
-                  <Col md={2}>
-                    <div>
-                      <label>稱呼: </label>
-                    </div>
-                    <div>
-                      <label>電郵地址: </label>
-                    </div>
-                    <div>
-                      <label>最後更新: </label>
-                    </div>
-                  </Col>
-                  <Col>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}</label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.email}</label>
-                    </div>
-                    <div>
-                      <label style={{ color: 'gray' }}>{moment(n.lupdDttm).format('LLL')}</label>
-                    </div>
-                  </Col>
-                </div>
-                <div className="d-flex justify-content-end">
-                  <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
-                </div>
-              </Row>
-              <Row className="card quick-item mt-3 d-none d-md-block d-lg-none p-3">
-                <div className="d-flex justify-content-between" style={{ fontSize: 18 }}>
-                  <Col md={6}>
-                    <div>
-                      <label>名字: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.name}</label>
-                    </div>
-                    <div>
-                      <label>聯絡電話: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.phone}</label>
-                    </div>
-                    <div>
-                      <label>備註: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.remarks}</label>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                    <div>
-                      <label>稱呼: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}</label>
-                    </div>
-                    <div>
-                      <label>電郵地址: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.email}</label>
-                    </div>
-                    <div>
-                      <label>最後更新: </label>
-                    </div>
-                    <div>
-                      <label style={{ color: 'gray' }}>{moment(n.lupdDttm).format('LLL')}</label>
-                    </div>
-                  </Col>
-                </div>
-                <div className="d-flex justify-content-end">
-                  <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
-                </div>
-              </Row>
-              <Row className="card quick-item mt-3 d-block d-md-none p-3">
-                <div className="d-flex justify-content-between" style={{ fontSize: 14 }}>
-                  <Col>
-                    <div>
-                      <label>名字: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.name}</label>
-                    </div>
-                    <div>
-                      <label>聯絡電話: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.phone}</label>
-                    </div>
-                    <div>
-                      <label>備註: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.remarks}</label>
-                    </div>
-                    <div>
-                      <label>稱呼: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}</label>
-                    </div>
-                    <div>
-                      <label>電郵地址: </label>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 'bold' }}>{n.email}</label>
-                    </div>
-                    <div>
-                      <label>最後更新: </label>
-                    </div>
-                    <div>
-                      <label style={{ color: 'gray' }}>{moment(n.lupdDttm).format('LLL')}</label>
-                    </div>
-                  </Col>
-                </div>
-                <div className="d-flex justify-content-end">
-                  <span style={{ position: 'relative', fontSize: 16 }} className={`m-1 p-2 badge badge-${getBadgeClassName(n.status)}`}>{getStatus(n.status)}</span>
-                </div>
-              </Row>
-            </div>
-          })}
-        </>}
-      </Container>
+        </div>
+      </Container>}
+      {!loading && <Grid container spacing={2} className={classes.gridRoot}>
+        {data!.nameCards.map((n) => (
+          <Grid key={n._id} item xs={12} sm={6}>
+            <Card className={classes.root} variant="outlined">
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  名字:
+                  </Typography>
+                <Typography variant="h5" component="h2">
+                  {n.name}{` `}{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  聯絡電話:
+                  </Typography>
+                <Typography variant="body2" component="p">
+                  {n.phone}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  電郵:
+                  </Typography>
+                <Typography variant="body2" component="p">
+                  {n.email}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <Chip label={getStatus(n.status)} className={getBadgeClassName(n.status)} />
+                <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded[n._id],
+                  })}
+                  onClick={() => handleClick(n._id)}
+                  aria-expanded={expanded[n._id]}
+                  aria-label="show more"
+                >
+                  <ExpandMore />
+                </IconButton>
+              </CardActions>
+              <Collapse in={expanded[n._id]} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography paragraph>備註:</Typography>
+                  <Typography paragraph>
+                    {n.remarks}
+                  </Typography>
+                  <Typography>
+                    {moment(n.lupdDttm).format('LLL')}
+                  </Typography>
+                </CardContent>
+              </Collapse>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>}
     </>
   )
 }
