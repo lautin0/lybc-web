@@ -181,14 +181,6 @@ export default function PendingPostApproval() {
          }
       }).then(res => {
          let toStep = 2
-         let msg = 'app.sys.save-success'
-         if (res.data?.updatePendingPost.status === PostStatus.Rejected)
-            msg = 'app.post.rejected'
-         else if (res.data?.updatePendingPost.status === PostStatus.Approved)
-            msg = 'app.post.approved'
-         else if (res.data?.updatePendingPost.status === PostStatus.Withhold)
-            msg = 'app.post.withheld'
-
          if (res.data?.updatePendingPost.status === PostStatus.Pending) {
             toStep = 0
             steps[2] = "完成"
@@ -197,13 +189,12 @@ export default function PendingPostApproval() {
             setSkipped(new Set([0, 1]))
          }
          setActiveStep(toStep)
-         setMessage(msg)
          reset();
          refetch();
       }).catch((err: any) => {
          setModalError(err)
       })
-   }, [data, getValues, refetch, reset, setMessage, setModalError, updatePendingPost, steps])
+   }, [data, getValues, refetch, reset, setModalError, updatePendingPost, steps])
 
    const rejectPost = (e: any) => {
       e.preventDefault()

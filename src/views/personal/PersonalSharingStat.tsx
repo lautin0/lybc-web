@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,7 +9,7 @@ import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link'
 import { LinearProgress } from '@material-ui/core';
-import { PendingPost, PendingPostQuery, PostStatus, usePendingPostQuery } from 'generated/graphql';
+import { PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ import UNIVERSALS from 'Universals';
 import { Result } from 'antd';
 import { InsertDriveFile } from '@material-ui/icons';
 import { stripGCSFileName } from 'utils/utils';
+import red from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -44,58 +45,18 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       documentLabel: {
          marginBottom: theme.spacing(3)
-      }
+      },
+      danger: {
+         backgroundColor: red[600],
+         color: theme.palette.primary.contrastText,
+         marginLeft: theme.spacing(1),
+         marginRight: theme.spacing(1),
+         "&.MuiButton-contained:hover": {
+            backgroundColor: red[500],
+         }
+      },
    }),
 );
-
-function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any) {
-   switch (pPost.pendingPost?.status) {
-      case PostStatus.Approved:
-         return (
-            <Result
-               status="success"
-               title="已批核並發布"
-               subTitle="謝謝您的分享，您提交的文章已經發布到分享欄，您可以到分享欄查看。"
-               extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/sharing/' + pPost.pendingPost?.postID)}>到文章</Button>}
-            />
-         );
-      case PostStatus.Pending:
-         return (
-            <Result
-               title="處理中"
-               subTitle="謝謝您的分享，同工中在處理您的申請。"
-               extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
-            />
-         );
-      case PostStatus.Rejected:
-         return (
-            <Result
-               status="error"
-               title="已拒絕"
-               subTitle={`拒絕原因: ${pPost.pendingPost.remarks}`}
-               extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
-            />
-         );
-      case PostStatus.Withhold:
-         return (
-            <Result
-               status="warning"
-               title="已暫緩"
-               subTitle={`暫緩原因: ${pPost.pendingPost.remarks}`}
-               extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/sharing-edit/' + pPost.pendingPost?._id)}>修改你的申請</Button>}
-            />
-         );
-      case PostStatus.Withdraw:
-         return (
-            <Result
-               title="您已撤回申請"
-               extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
-            />
-         );
-      default:
-         return "發生錯誤，請重新載入。";
-   }
-}
 
 export default function PersonalSharingStat() {
 
@@ -110,7 +71,8 @@ export default function PersonalSharingStat() {
 
    const [documentURI, setDocumentURI] = useState("")
 
-   const { data, loading } = usePendingPostQuery({ variables: { oid: oid } })
+   const { data, loading, refetch } = usePendingPostQuery({ variables: { oid: oid }, notifyOnNetworkStatusChange: true })
+   const [updatePendingPost, { loading: updateLoading }] = useUpdatePendingPostMutation()
 
    const methods = useForm<PendingPost>({
       defaultValues: {
@@ -119,7 +81,7 @@ export default function PersonalSharingStat() {
          remarks: ""
       }
    })
-   const { reset } = methods
+   const { reset, getValues } = methods
 
    // const handleNext = () => {
    //    const newActiveStep = activeStep + 1;
@@ -137,12 +99,83 @@ export default function PersonalSharingStat() {
       setActiveStep(step);
    };
 
+   const getStepResult = useCallback(() => {
+      if (!data) {
+         return "發生錯誤，請重新載入。"
+      }
+      switch (data?.pendingPost?.status) {
+         case PostStatus.Approved:
+            return (
+               <Result
+                  status="success"
+                  title="已批核並發布"
+                  subTitle="謝謝您的分享，您提交的文章已經發布到分享欄，您可以到分享欄查看。"
+                  extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/sharing/' + data?.pendingPost?.postID)}>到文章</Button>}
+               />
+            );
+         case PostStatus.Pending:
+            return (
+               <Result
+                  title="處理中"
+                  subTitle="謝謝您的分享，同工中在處理您的申請。"
+                  extra={
+                     <div>
+                        <Button style={{ marginRight: 10 }} variant="contained" className={classes.danger} onClick={() => updatePendingPost({
+                           variables: {
+                              input: {
+                                 _id: data?.pendingPost?._id,
+                                 status: PostStatus.Withdraw,
+                                 remarks: getValues("remarks") as string,
+                                 username: getValues("username") as string,
+                              }
+                           }
+                        }).then(res => {
+                           setActiveStep(2)
+                           reset();
+                           refetch();
+                        })}>撤回申請</Button>
+                        <Button variant="outlined" onClick={() => setActiveStep(0)}>查看提交的資料</Button>
+                     </div>}
+               />
+            );
+         case PostStatus.Rejected:
+            return (
+               <Result
+                  status="error"
+                  title="已拒絕"
+                  subTitle={`拒絕原因: ${data?.pendingPost.remarks}`}
+                  extra={<Button variant="outlined" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
+               />
+            );
+         case PostStatus.Withhold:
+            return (
+               <Result
+                  status="warning"
+                  title="已暫緩"
+                  subTitle={`暫緩原因: ${data?.pendingPost.remarks}`}
+                  extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/sharing-edit/' + data?.pendingPost?._id)}>修改你的申請</Button>}
+               />
+            );
+         case PostStatus.Withdraw:
+            return (
+               <Result
+                  title="您已撤回申請"
+                  extra={<Button variant="outlined" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
+               />
+            );
+         default:
+            return "發生錯誤，請重新載入。";
+      }
+   }, [data, history, refetch, getValues, reset, updatePendingPost, classes])
+
    useEffect(() => {
       if (data && reset) {
          reset({
             title: data.pendingPost?.title,
             subtitle: data.pendingPost?.subtitle,
-            status: data.pendingPost?.status
+            status: data.pendingPost?.status,
+            username: data.pendingPost?.username,
+            remarks: data.pendingPost?.remarks
          })
          setDocumentURI(data.pendingPost?.documentURI ?? "")
 
@@ -187,7 +220,7 @@ export default function PersonalSharingStat() {
 
    return (
       <>
-         {loading && <LinearProgress style={{
+         {(loading || updateLoading) && <LinearProgress style={{
             marginTop: -20,
             position: 'fixed',
             width: 'calc(100% - 300px)',
@@ -242,7 +275,7 @@ export default function PersonalSharingStat() {
                                  </Link>
                               </Grid>
                            </Grid>}
-                           {activeStep !== 0 && getStepResult(setActiveStep, data!, history)}
+                           {activeStep !== 0 && getStepResult()}
                         </div>
                      </Grid>
                      {/* <Grid container item xs={12} justify="flex-end">
