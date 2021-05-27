@@ -123,9 +123,9 @@ function NameCardManage2() {
           </div>
         </div>
       </Container>}
-      {!loading && <Grid container spacing={3} className={classes.gridRoot}>
+      {!loading && <Grid container spacing={2} className={classes.gridRoot}>
         {data!.nameCards.map((n) => (
-          <Grid key={n._id} item xs={12} sm={4}>
+          <Grid key={n._id} item xs={12} sm={6}>
             <Card className={classes.root} variant="outlined">
               <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>

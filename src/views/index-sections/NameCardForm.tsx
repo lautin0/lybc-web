@@ -12,7 +12,7 @@ import {
   Row
 } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import { Gender, useCreateNameCardMutation } from "generated/graphql";
+import { Gender, NameCard, useCreateNameCardMutation } from "generated/graphql";
 import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import Validators from "utils/validator";
 import { useLocation } from "react-router-dom";
@@ -34,12 +34,11 @@ export default function NameCardForm() {
 
   const [addNameCard] = useCreateNameCardMutation()
 
-  const methods = useForm({
+  const methods = useForm<NameCard>({
     defaultValues: {
-      name: '',
-      gender: '',
+      name: '',      
       email: '',
-      phone: ''
+      phone: ''      
     }
   });
 
@@ -165,10 +164,11 @@ export default function NameCardForm() {
                         <Controller
                           render={({ field, fieldState }) => <Form.Check
                             {...field}
+                            value={Gender.Male}
                             className="form-check-radio mx-2"
                             type="radio"
                             id="rbM"
-                            checked={Gender.Male.toString() === getValues().gender}
+                            // checked={Gender.Male.toString() === getValues().gender}
                             name="rbGender"
                             label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.male" })}</>}
                           ></Form.Check>
@@ -179,10 +179,11 @@ export default function NameCardForm() {
                         <Controller
                           render={({ field, fieldState }) => <Form.Check
                             {...field}
+                            value={Gender.Female}
                             className="form-check-radio mx-2"
                             type="radio"
                             id="rbF"
-                            checked={Gender.Female.toString() === getValues().gender}
+                            // checked={Gender.Female.toString() === getValues().gender}
                             name="rbGender"
                             label={<><span className="form-check-sign"></span>{intl.formatMessage({ id: "app.forms.gender.female" })}</>}
                           ></Form.Check>}
