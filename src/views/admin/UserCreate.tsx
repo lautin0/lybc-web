@@ -1,4 +1,4 @@
-import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, LinearProgress, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, LinearProgress, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
@@ -12,7 +12,23 @@ import { useModalStore } from "store";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
 
+const useStyles = makeStyles((theme) => ({
+   progress: {
+     marginTop: -20,
+     position: 'fixed',
+     width: 'calc(100% - 300px)',
+     zIndex: 1,
+     [theme.breakpoints.down('xs')]: {
+       width: '100%',
+       marginTop: -30,
+       left: 0
+     }
+   }
+ }))
+
 export default function UserCreate() {
+
+   const classes = useStyles()
 
    const history = useHistory()
 
@@ -90,12 +106,7 @@ export default function UserCreate() {
 
    return (
       <>
-         {loading && <LinearProgress style={{
-            marginTop: -20,
-            position: 'fixed',
-            width: 'calc(100% - 300px)',
-            zIndex: 1
-         }} />}
+         {loading && <LinearProgress className={classes.progress} />}
          <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className="my-3" variant="h5">建立新會員</Typography>

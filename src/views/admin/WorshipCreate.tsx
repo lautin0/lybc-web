@@ -25,6 +25,17 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up('md')]: {
         display: 'none'
       },
+    },
+    progress: {
+      marginTop: -20,
+      position: 'fixed',
+      width: 'calc(100% - 300px)',
+      zIndex: 1,
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+        marginTop: -30,
+        left: 0
+      }
     }
   }),
 );
@@ -151,12 +162,7 @@ function WorshipCreate() {
 
   return (
     <>
-      {loading && <LinearProgress style={{
-        marginTop: -20,
-        position: 'fixed',
-        width: 'calc(100% - 300px)',
-        zIndex: 1
-      }} />}
+      {loading && <LinearProgress className={classes.progress} />}
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />

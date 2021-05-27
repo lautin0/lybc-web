@@ -26,6 +26,17 @@ const useStyles = makeStyles((theme) =>
         display: 'none'
       },
     }
+    , progress: {
+      marginTop: -20,
+      position: 'fixed',
+      width: 'calc(100% - 300px)',
+      zIndex: 1,
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+        marginTop: -30,
+        left: 0
+      }
+    }
   }),
 );
 
@@ -209,12 +220,7 @@ function WorshipEdit() {
 
   return (
     <>
-      {(loading || updateLoading) && <LinearProgress style={{
-        marginTop: -20,
-        position: 'fixed',
-        width: 'calc(100% - 300px)',
-        zIndex: 1
-      }} />}
+      {(loading || updateLoading) && <LinearProgress className={classes.progress} />}
       {!loading && <>
         <RouterBreadcrumbs />
         {!loading && <FormProvider {...methods}>

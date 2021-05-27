@@ -1,4 +1,4 @@
-import { Button, LinearProgress, Typography } from '@material-ui/core';
+import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import DropzoneCustom from 'components/DropzoneCustom';
 import InputQuill from 'components/Forms/InputQuill';
@@ -14,7 +14,23 @@ import { useModalStore } from 'store';
 import { getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
+const useStyles = makeStyles((theme) => ({
+  progress: {
+    marginTop: -20,
+    position: 'fixed',
+    width: 'calc(100% - 300px)',
+    zIndex: 1,
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      marginTop: -30,
+      left: 0
+    }
+  }
+}))
+
 function NewsCreate() {
+
+  const classes = useStyles()
 
   const { tokenPair } = useContext(AuthContext)
 
@@ -65,12 +81,7 @@ function NewsCreate() {
 
   return (
     <>
-      {loading && <LinearProgress style={{
-        marginTop: -20,
-        position: 'fixed',
-        width: 'calc(100% - 300px)',
-        zIndex: 1
-      }} />}
+      {loading && <LinearProgress className={classes.progress} />}
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />

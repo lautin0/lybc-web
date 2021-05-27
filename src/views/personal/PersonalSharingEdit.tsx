@@ -42,9 +42,23 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       documentLabel: {
          marginBottom: theme.spacing(3)
-      }
-   }),
-);
+      },
+      progress: {
+         marginTop: -20,
+         position: 'fixed',
+         width: 'calc(100% - 300px)',
+         zIndex: 1,
+         [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginTop: -30,
+            left: 0
+         }
+      },
+      title: {
+         marginTop: theme.spacing(3),
+         marginBottom: theme.spacing(3),
+      },
+   }))
 
 function getSteps() {
    return ['輸入文章資料', '上傳檔案', '提交'];
@@ -257,17 +271,12 @@ export default function PersonalSharingEdit() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress style={{
-            marginTop: -20,
-            position: 'fixed',
-            width: 'calc(100% - 300px)',
-            zIndex: 1
-         }} />}
+         {(loading || updateLoading) && <LinearProgress className={classes.progress} />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>
                   {(!allStepsCompleted() && data?.pendingPost) && getAlert(data?.pendingPost)}
-                  <Grid container justify="center">
+                  <Grid container justify="center" className={classes.title}>
                      <Typography variant="h4" component="strong">提交分享文章</Typography>
                   </Grid>
                   <Grid container>

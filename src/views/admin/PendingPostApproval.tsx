@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
       button: {
          marginRight: theme.spacing(1),
       },
+      title: {
+         marginTop: theme.spacing(3),
+         marginBottom: theme.spacing(3),
+      },
       completed: {
          display: 'inline-block',
       },
@@ -78,6 +82,17 @@ const useStyles = makeStyles((theme: Theme) =>
       divider: {
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(3),
+      },
+      progress: {
+         marginTop: -20,
+         position: 'fixed',
+         width: 'calc(100% - 300px)',
+         zIndex: 1,
+         [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginTop: -30,
+            left: 0
+         }
       }
    }),
 );
@@ -343,17 +358,12 @@ export default function PendingPostApproval() {
 
    return (
       <>
-         {(loading || updateLoading || approveLoading) && <LinearProgress style={{
-            marginTop: -20,
-            position: 'fixed',
-            width: 'calc(100% - 300px)',
-            zIndex: 1
-         }} />}
+         {(loading || updateLoading || approveLoading) && <LinearProgress className={classes.progress} />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <RouterBreadcrumbs />
                <Container>
-                  <Grid container justify="center">
+                  <Grid container justify="center" className={classes.title}>
                      <Typography variant="h4" component="strong">批核文章</Typography>
                   </Grid>
                   <Grid container>

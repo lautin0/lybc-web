@@ -20,6 +20,17 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.up('md')]: {
          width: '60%'
       }
+   },
+   progress: {
+      marginTop: -20,
+      position: 'fixed',
+      width: 'calc(100% - 300px)',
+      zIndex: 1,
+      [theme.breakpoints.down('xs')]: {
+         width: '100%',
+         marginTop: -30,
+         left: 0
+      }
    }
 }))
 
@@ -235,12 +246,7 @@ export default function UserEdit() {
 
    return (
       <>
-         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress style={{
-            marginTop: -20,
-            position: 'fixed',
-            width: 'calc(100% - 300px)',
-            zIndex: 1
-         }} />}
+         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress className={classes.progress} />}
          {!loading && <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className="my-3" variant="h5">會員管理</Typography>
@@ -462,7 +468,7 @@ export default function UserEdit() {
                </Grid>
             </form>
          </FormProvider>
-         }         
+         }
       </>
    )
 }
