@@ -197,7 +197,12 @@ export default function PersonalSharingSubmit() {
 
    return (
       <>
-         {loading && <LinearProgress style={{ marginBottom: 20 }} />}
+         {loading && <LinearProgress style={{
+            marginTop: -20,
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            zIndex: 1
+         }} />}
          <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>

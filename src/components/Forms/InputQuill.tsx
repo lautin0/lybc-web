@@ -40,7 +40,7 @@ function InputQuill({ name, label, isReadOnly }: any) {
           modules={editorModules}
           style={{
             width: '100%',
-            minHeight: 400,
+            minHeight: '33vh',
           }}
           readOnly={isReadOnly}
         />

@@ -235,7 +235,12 @@ export default function UserEdit() {
 
    return (
       <>
-         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress />}
+         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress style={{
+            marginTop: -20,
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            zIndex: 1
+         }} />}
          {!loading && <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className="my-3" variant="h5">會員管理</Typography>
@@ -457,8 +462,7 @@ export default function UserEdit() {
                </Grid>
             </form>
          </FormProvider>
-         }
-         {(updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress />}
+         }         
       </>
    )
 }

@@ -151,7 +151,13 @@ function WorshipCreate() {
 
   return (
     <>
-      < FormProvider {...methods}>
+      {loading && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
+      <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />
           <Typography variant="h5" className="my-3">崇拜資料</Typography>
@@ -234,7 +240,7 @@ function WorshipCreate() {
           </Form.Row>
         </Form>
       </FormProvider>
-      {loading && <LinearProgress />}
+
     </>
   )
 }

@@ -52,7 +52,7 @@ function PendingPostManage2() {
     { field: 'username', headerName: '投稿人', width: 200 },
     {
       field: 'status',
-      width: 100,
+      width: 150,
       headerName: '狀態',
       renderCell: (params: GridCellParams) => (
         <Chip label={getStatus(params.value as PostStatus)} className={getBadgeClassName(params.value as PostStatus)} />

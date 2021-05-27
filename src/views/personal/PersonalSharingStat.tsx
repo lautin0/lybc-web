@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link'
 import { LinearProgress } from '@material-ui/core';
 import { PendingPost, PendingPostQuery, PostStatus, usePendingPostQuery } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
@@ -14,6 +15,8 @@ import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
 import { Result } from 'antd';
+import { InsertDriveFile } from '@material-ui/icons';
+import { stripGCSFileName } from 'utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -38,15 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
          border: 'solid 1px',
          borderRadius: '0.5rem',
          borderStyle: 'dashed'
+      },
+      documentLabel: {
+         marginBottom: theme.spacing(3)
       }
    }),
 );
-
-const stripFileName = (s: string) => {
-   if (!s) return ""
-   const word = '/lybcstorage/'
-   return s.substring(word.length, s.length)
-}
 
 function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any) {
    switch (pPost.pendingPost?.status) {
@@ -72,7 +72,7 @@ function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any
             <Result
                status="error"
                title="已拒絕"
-               subTitle={`已拒絕，原因: ${pPost.pendingPost.remarks}`}
+               subTitle={`拒絕原因: ${pPost.pendingPost.remarks}`}
                extra={<Button variant="outlined" color="secondary" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
             />
          );
@@ -81,7 +81,7 @@ function getStepResult(setActiveStep: any, pPost: PendingPostQuery, history: any
             <Result
                status="warning"
                title="已暫緩"
-               subTitle={`已暫緩，原因: ${pPost.pendingPost.remarks}`}
+               subTitle={`暫緩原因: ${pPost.pendingPost.remarks}`}
                extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/sharing-edit/' + pPost.pendingPost?._id)}>修改你的申請</Button>}
             />
          );
@@ -187,7 +187,12 @@ export default function PersonalSharingStat() {
 
    return (
       <>
-         {loading && <LinearProgress style={{ marginBottom: 20 }} />}
+         {loading && <LinearProgress style={{
+            marginTop: -20,
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            zIndex: 1
+         }} />}
          {!loading && <FormProvider {...methods}>
             <form>
                <Container>
@@ -225,16 +230,16 @@ export default function PersonalSharingStat() {
                                     isReadOnly={true}
                                  />
                               </Grid>
-                              <Grid item xs={12} md={6} className={classes.documentGrid}>
-                                 <label className="mb-5" style={{ fontSize: 22 }}>檢視上傳的檔案</label>
-                                 <a href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="dl-link text-center">
+                              <Grid item>
+                                 <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
+                                 <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
                                     <div>
-                                       <i style={{ fontSize: 72, color: '#f04100' }} className="fas fa-file-alt"></i>
+                                       <InsertDriveFile fontSize="large" />
                                     </div>
                                     <div>
-                                       <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripFileName(documentURI)}</label>
+                                       <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
                                     </div>
-                                 </a>
+                                 </Link>
                               </Grid>
                            </Grid>}
                            {activeStep !== 0 && getStepResult(setActiveStep, data!, history)}

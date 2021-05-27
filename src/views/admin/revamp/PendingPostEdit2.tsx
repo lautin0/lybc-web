@@ -15,7 +15,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useHistory, useParams } from 'react-router-dom'
 import { useModalStore } from 'store'
 import UNIVERSALS from 'Universals'
-import { getTokenValue } from 'utils/utils'
+import { getTokenValue, stripGCSFileName } from 'utils/utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -163,12 +163,6 @@ function PendingPostEdit() {
       })
   }
 
-  const stripFileName = (s: string) => {
-    if (!s) return ""
-    const word = '/lybcstorage/'
-    return s.substring(word.length, s.length)
-  }
-
   const rejectPost = () => {
     handlePost(PostStatus.Rejected)
   }
@@ -244,7 +238,12 @@ function PendingPostEdit() {
 
   return (
     <>
-      {(updateLoading || approveLoading || loading) && <LinearProgress />}
+      {(updateLoading || approveLoading || loading) && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
       {!loading && <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />
@@ -307,12 +306,12 @@ function PendingPostEdit() {
                     className="mr-3 col-md-5 col-sm-12"
                   >
                     <label className="mb-5" style={{ fontSize: 22 }}>檢視上傳的檔案</label>
-                    <a href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="dl-link text-center">
+                    <a href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
                       <div>
                         <i style={{ fontSize: 72, color: '#f04100' }} className="fas fa-file-alt"></i>
                       </div>
                       <div>
-                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripFileName(documentURI)}</label>
+                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
                       </div>
                     </a>
                   </div>
@@ -394,8 +393,7 @@ function PendingPostEdit() {
             </AccordionDetails>
           </Accordion>}
         </Form>
-      </FormProvider>}
-      {(updateLoading || approveLoading) && <LinearProgress />}
+      </FormProvider>}      
     </>
   );
 }

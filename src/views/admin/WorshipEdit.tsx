@@ -209,7 +209,12 @@ function WorshipEdit() {
 
   return (
     <>
-      {(loading || updateLoading) && <LinearProgress />}
+      {(loading || updateLoading) && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
       {!loading && <>
         <RouterBreadcrumbs />
         {!loading && <FormProvider {...methods}>
@@ -294,7 +299,7 @@ function WorshipEdit() {
             </Form.Row>}
           </Form></FormProvider>}
       </>}
-      {updateLoading && <LinearProgress />}
+
     </>
   )
 }

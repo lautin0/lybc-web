@@ -14,10 +14,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import DropzoneCustom from 'components/DropzoneCustom';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
-import { LinearProgress } from '@material-ui/core';
-import { getTokenValue } from 'utils/utils';
+import { LinearProgress, Link } from '@material-ui/core';
+import { getTokenValue, stripGCSFileName } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { InsertDriveFile } from '@material-ui/icons';
+import UNIVERSALS from 'Universals';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -37,44 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
       formContent: {
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(6)
+      },
+      documentLabel: {
+         marginBottom: theme.spacing(3)
       }
    }),
 );
 
 function getSteps() {
    return ['輸入文章資料', '上傳檔案', '提交'];
-}
-
-function getStepContent(step: number, dropzoneMethods: any) {
-   switch (step) {
-      case 0:
-         return <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={6}>
-               <MuiInputText
-                  name="title"
-                  label="主題"
-                  placeholder="請輸入分享主題"
-               />
-            </Grid>
-            <Grid item xs={12}>
-               <MuiInputText
-                  name="subtitle"
-                  label="副標題"
-                  placeholder="請輸入副標題"
-               />
-            </Grid>
-         </Grid>;
-      case 1:
-         return <><Typography>選擇文章檔案 (接受格式: docx, pdf)</Typography>
-            <DropzoneCustom {...dropzoneMethods} />
-         </>
-      case 2:
-         return <Grid container justify="center">
-            <Typography>請確認資料無誤，然後提交。</Typography>
-         </Grid>
-      default:
-         return 'Unknown step';
-   }
 }
 
 function getAlert(p: PendingPost) {
@@ -224,6 +197,53 @@ export default function PersonalSharingEdit() {
          })
    }
 
+
+   const getStepContent = useCallback(() => {
+      if (!data) {
+         return <></>
+      }
+      switch (activeStep) {
+         case 0:
+            return <Grid container spacing={3}>
+               <Grid item xs={12} md={8} lg={6}>
+                  <MuiInputText
+                     name="title"
+                     label="主題"
+                     placeholder="請輸入分享主題"
+                  />
+               </Grid>
+               <Grid item xs={12}>
+                  <MuiInputText
+                     name="subtitle"
+                     label="副標題"
+                     placeholder="請輸入副標題"
+                  />
+               </Grid>
+               {data?.pendingPost?.documentURI && <Grid item>
+                  <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
+                  <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
+                     <div>
+                        <InsertDriveFile fontSize="large" />
+                     </div>
+                     <div>
+                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(data?.pendingPost?.documentURI)}</label>
+                     </div>
+                  </Link>
+               </Grid>}
+            </Grid>;
+         case 1:
+            return <><Typography>選擇文章檔案 (接受格式: docx, pdf)</Typography>
+               <DropzoneCustom {...dropzoneMethods} />
+            </>
+         case 2:
+            return <Grid container justify="center">
+               <Typography>請確認資料無誤，然後提交。</Typography>
+            </Grid>
+         default:
+            return 'Unknown step';
+      }
+   }, [activeStep, dropzoneMethods, data, classes])
+
    useEffect(() => {
       if (data && reset) {
          reset({
@@ -237,7 +257,12 @@ export default function PersonalSharingEdit() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress style={{ marginBottom: 20 }} />}
+         {(loading || updateLoading) && <LinearProgress style={{
+            marginTop: -20,
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            zIndex: 1
+         }} />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>
@@ -273,7 +298,7 @@ export default function PersonalSharingEdit() {
                            </div>
                         ) : (
                            <div>
-                              <div className={classes.instructions}>{getStepContent(activeStep, dropzoneMethods)}</div>
+                              <div className={classes.instructions}>{getStepContent()}</div>
                            </div>
                         )}
                      </Grid>

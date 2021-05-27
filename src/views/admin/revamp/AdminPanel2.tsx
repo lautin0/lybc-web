@@ -10,13 +10,14 @@ import { makeStyles } from '@material-ui/core';
 import WorshipManage2 from './WorshipManage2';
 import PendingPostManage2 from './PendingPostManage2';
 import NameCardManage2 from './NameCardManage2';
-import PendingPostEdit2 from './PendingPostEdit2';
+// import PendingPostEdit2 from './PendingPostEdit2';
 import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 import UserManage from '../UserManage';
 import UserEdit from '../UserEdit';
 import UserCreate from '../UserCreate';
 import AdminIndex from '../AdminIndex';
+import PendingPostApproval from './PendingPostApproval';
 
 type AdminPanelProps = {
    func: string
@@ -65,8 +66,8 @@ export default function AdminPanel2(props: AdminPanelProps) {
                {props.func === 'new-post' && <PostCreate />}
                {props.func === 'namecards' && <NameCardManage2 />}
                {props.func === 'pending-posts' && <PendingPostManage2 />}
-               {props.func === 'new-proxy-posts' && <PendingPostEdit2 />}
-               {/* {props.func === 'pending-posts-approval' && <PendingPostEdit3 />} */}
+               {/* {props.func === 'new-proxy-posts' && <PendingPostEdit2 />} */}
+               {props.func === 'pending-posts-approval' && <PendingPostApproval />}
                {props.func === 'new-news' && <NewsCreate />}
                {/* {props.func === 'notifications' && <NotificationPage />} */}
                {/* {props.func === 'new-book' && <BooksCreate />}

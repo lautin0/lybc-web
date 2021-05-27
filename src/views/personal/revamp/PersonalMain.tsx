@@ -148,7 +148,7 @@ export default function PersonalMain() {
   const { tokenPair } = useContext(AuthContext)
 
   const { loading, data: userData, refetch } = useUserQuery({
-    variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
+    variables: { username: getTokenValue(tokenPair?.token).username }
   })
 
   const { loading: favLoading, data: favPostData } = useFavouritePostsQuery({

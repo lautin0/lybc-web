@@ -127,3 +127,9 @@ export function getTitleDisplay(p: Post) {
     }
     return result
 }
+
+export function stripGCSFileName(s: string) {
+    if (!s) return ""
+    const word = '/lybcstorage/'
+    return decodeURI(s.substring(word.length, s.length))
+}

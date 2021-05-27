@@ -65,7 +65,12 @@ function NewsCreate() {
 
   return (
     <>
-      {loading && <LinearProgress />}
+      {loading && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />

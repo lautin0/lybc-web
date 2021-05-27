@@ -139,7 +139,12 @@ function WorshipManage2() {
 
   return (
     <>
-      {deleteLoading && <LinearProgress />}
+      {deleteLoading && <LinearProgress style={{
+        marginTop: -20,
+        position: 'fixed',
+        width: 'calc(100% - 300px)',
+        zIndex: 1
+      }} />}
       <RouterBreadcrumbs />
       <Typography className="my-3" variant="h5">崇拜管理</Typography>
       <Button

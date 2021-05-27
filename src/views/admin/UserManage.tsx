@@ -162,7 +162,12 @@ export default function UserManage() {
 
    return (
       <>
-         {changeStatLoading && <LinearProgress />}
+         {changeStatLoading && <LinearProgress style={{
+            marginTop: -20,
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            zIndex: 1
+         }} />}
          <RouterBreadcrumbs />
          <Typography className="my-3" variant="h5">會員管理</Typography>
          <Button
