@@ -27,11 +27,11 @@
       },
       "POST_REJECT": {
         "LABEL": "你的文章發佈已被拒絕",
-        "PATH": "personal/center"
+        "PATH": "personal/center/sharing"
       },
       "POST_WITHHOLD": {
         "LABEL": "你的文章發佈已被暫緩",
-        "PATH": "personal/center"
+        "PATH": "personal/center/sharing"
       },
       "PEND_POST": {
         "LABEL": "提交了分享文章",

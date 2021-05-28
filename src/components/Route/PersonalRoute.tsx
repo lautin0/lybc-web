@@ -44,15 +44,16 @@ function PersonalRoute(props: PrivateRouteProps) {
   }
   return <Route path={path} render={({ match: { url } }) => (
     <>
-      {path === '/personal' && <Switch>                
+      {path === '/personal' && <Switch>
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage {...props}><PersonalSharingSubmit /></PersonalPage>} />
         <Route path={`${url}/sharing-edit/:oid`} render={(props: any) => <PersonalPage {...props}><PersonalSharingEdit /></PersonalPage>} />
         <Route path={`${url}/sharing-status/:oid`} render={(props: any) => <PersonalPage {...props}><PersonalSharingStat /></PersonalPage>} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage {...props}><PersonalOther /></PersonalPage>} />
-        <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage {...props}><NotificationPage /></PersonalPage>} />        
-        <Route path={`${url}/center`} render={(props: any) => <PersonalPage {...props}><PersonalMain /></PersonalPage>} />
+        <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage {...props}><NotificationPage /></PersonalPage>} />
+        <Route path={`${url}/center/sharing`} render={(props: any) => <PersonalPage {...props}><PersonalMain tabIdx={1} /></PersonalPage>} />
+        <Route path={`${url}/center`} render={(props: any) => <PersonalPage {...props}><PersonalMain /></PersonalPage>} />        
         <Route path={`${url}/settings`} render={(props: any) => <PersonalPage {...props}><PersonalSetting /></PersonalPage>} />
-        <Redirect from={`${url}/`} to={`${url}/center`}/>
+        <Redirect from={`${url}/`} to={`${url}/center`} />
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

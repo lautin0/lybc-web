@@ -137,9 +137,13 @@ const trimSubtitle = (txt: string) => {
   }
 }
 
-export default function PersonalMain() {
+type PersonalMainProps = {
+  tabIdx?: number
+}
+
+export default function PersonalMain(props: PersonalMainProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
   const location = useLocation()
   const dispatch = useDispatch()
