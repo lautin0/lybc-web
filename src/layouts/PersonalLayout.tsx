@@ -134,20 +134,34 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'light',
 
+         // primary: {
+         //    light: '#9a67ea',
+         //    main: '#673ab7',
+         //    dark: '#320b86',
+         //    contrastText: '#fff',
+         // },
+
+         // secondary: {
+         //    light: '#fff263',
+         //    main: '#fbc02d',
+         //    dark: '#c49000',
+         //    contrastText: '#000',
+         // },
+
          primary: {
-            light: '#9a67ea',
-            main: '#673ab7',
-            dark: '#320b86',
+            light: '#48ad88',
+            main: '#007d5b',
+            dark: '#005032',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#fff263',
-            main: '#fbc02d',
-            dark: '#c49000',
-            contrastText: '#000',
+            light: '#7b7bd5',
+            main: '#494fa3',
+            dark: '#0d2774',
+            contrastText: '#fff',
          },
-
+         
       },
 
    }
@@ -158,18 +172,32 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'dark',
 
+         // primary: {
+         //    light: '#9a67ea',
+         //    main: '#673ab7',
+         //    dark: '#320b86',
+         //    contrastText: '#fff',
+         // },
+
+         // secondary: {
+         //    light: '#fff263',
+         //    main: '#fbc02d',
+         //    dark: '#c49000',
+         //    contrastText: '#000',
+         // },
+
          primary: {
-            light: '#9a67ea',
-            main: '#673ab7',
-            dark: '#320b86',
+            light: '#48ad88',
+            main: '#007d5b',
+            dark: '#005032',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#fff263',
-            main: '#fbc02d',
-            dark: '#c49000',
-            contrastText: '#000',
+            light: '#7b7bd5',
+            main: '#494fa3',
+            dark: '#0d2774',
+            contrastText: '#fff',
          },
 
       },
