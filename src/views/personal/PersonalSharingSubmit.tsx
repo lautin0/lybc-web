@@ -14,9 +14,11 @@ import { useHistory } from 'react-router-dom';
 import DropzoneCustom from 'components/DropzoneCustom';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
-import { LinearProgress } from '@material-ui/core';
+import { Divider, LinearProgress } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
+import InputQuill from 'components/Forms/InputQuill';
+import DOMPurify from 'dompurify';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -51,50 +53,22 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: -30,
             left: 0
          }
-      }
+      },
+      divider: {
+         marginTop: theme.spacing(3),
+         marginBottom: theme.spacing(3),
+      },
    }),
 );
 
 function getSteps() {
-   return ['輸入文章資料', '上傳檔案', '提交'];
-}
-
-function getStepContent(step: number, dropzoneMethods: any) {
-   switch (step) {
-      case 0:
-         return <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={6}>
-               <MuiInputText
-                  name="title"
-                  label="主題"
-                  placeholder="請輸入分享主題"
-               />
-            </Grid>
-            <Grid item xs={12}>
-               <MuiInputText
-                  name="subtitle"
-                  label="副標題"
-                  placeholder="請輸入副標題"
-               />
-            </Grid>
-         </Grid>;
-      case 1:
-         return <><Typography>選擇文章檔案 (接受格式: docx, pdf)</Typography>
-            <DropzoneCustom {...dropzoneMethods} />
-         </>
-      case 2:
-         return <Grid container justify="center">
-            <Typography>請確認資料無誤，然後提交。</Typography>
-         </Grid>
-      default:
-         return 'Unknown step';
-   }
+   return ['輸入文章資料', '預覽', '提交'];
 }
 
 export default function PersonalSharingSubmit() {
 
    const dropzoneMethods = useDropzone(
-      { accept: '.docx,.pdf' }
+      { accept: 'image/*' }
    )
    const { acceptedFiles } = dropzoneMethods
 
@@ -112,7 +86,8 @@ export default function PersonalSharingSubmit() {
    const methods = useForm({
       defaultValues: {
          title: "",
-         subtitle: ""
+         subtitle: "",
+         content: ""
       }
    })
 
@@ -210,6 +185,71 @@ export default function PersonalSharingSubmit() {
          })
    }
 
+   const getStepContent = useCallback(() => {
+      switch (activeStep) {
+         case 0:
+            return <Grid container spacing={3}>
+               <Grid item xs={12} md={8} lg={6}>
+                  <MuiInputText
+                     name="title"
+                     label="主題"
+                     placeholder="請輸入分享主題"
+                  />
+               </Grid>
+               <Grid item xs={12}>
+                  <MuiInputText
+                     name="subtitle"
+                     label="副標題"
+                     placeholder="請輸入副標題"
+                  />
+               </Grid>
+               <Grid container item xs={12}>
+                  <InputQuill name="content" label="在此編輯內容" isReadOnly={false} />
+               </Grid>
+               <Grid item xs={12}>
+                  <Typography>選擇封面圖片</Typography>
+               </Grid>
+               <Grid item xs={12}>
+                  <DropzoneCustom {...dropzoneMethods} />
+               </Grid>
+            </Grid>;
+         case 1:
+            return <Grid container direction="column" spacing={1}>
+               <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+               <Grid item>
+                  <Typography className={classes.instructions}>主題: </Typography>
+                  <MuiInputText
+                     name="title"
+                     xs={12}
+                     md={6}
+                     isReadOnly={true}
+                  />
+                  <Typography className={classes.instructions}>副標題: </Typography>
+                  <MuiInputText
+                     name="subtitle"
+                     isReadOnly={true}
+                  />
+               </Grid>
+               <Divider className={classes.divider} />
+               <Grid item>
+                  <Grid container justify="center" item xs={12}>
+                     {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+                  </Grid>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
+                  </div>
+               </Grid>
+               <Divider className={classes.divider} />
+               <Grid item><Typography color="secondary">*完成核對後，按「發布」完成批核程序。</Typography></Grid>
+            </Grid>
+         case 2:
+            return <Grid container justify="center">
+               <Typography>請確認資料無誤，然後提交。</Typography>
+            </Grid>
+         default:
+            return 'Unknown step';
+      }
+   }, [acceptedFiles, activeStep, classes, getValues, dropzoneMethods])
+
    return (
       <>
          {loading && <LinearProgress className={classes.progress} />}
@@ -247,7 +287,7 @@ export default function PersonalSharingSubmit() {
                            </div>
                         ) : (
                            <div>
-                              <div className={classes.instructions}>{getStepContent(activeStep, dropzoneMethods)}</div>
+                              <div className={classes.instructions}>{getStepContent()}</div>
                            </div>
                         )}
                      </Grid>
