@@ -157,7 +157,8 @@ export default function PersonalSetting() {
       nameC: '',
       email: '',
       phone: '',
-      dob: null
+      dob: null,
+      gender: Gender.Male
     }
   });
 
@@ -375,8 +376,7 @@ export default function PersonalSetting() {
                       </RadioGroup>
                     }
                     name="gender"
-                    control={control}
-                    defaultValue={null}
+                    control={control}                    
                   />
                 </Grid>
                 <Grid item>

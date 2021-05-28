@@ -8,7 +8,7 @@ import { useCreateWorshipMutation } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import { useEffect } from 'react'
 import { Form } from 'react-bootstrap';
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -67,6 +67,11 @@ function WorshipCreate() {
 
   const { register, getValues, handleSubmit, reset, control, trigger } = methods
 
+  const worshipType = useWatch({
+    control,
+    name: 'type'
+  })
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "docs"
@@ -124,6 +129,12 @@ function WorshipCreate() {
   const addRow = () => {
     append({ title: '', link: '', type: '' })
   }
+
+  useEffect(() => {
+    if (worshipType && trigger) {
+      trigger()
+    }
+  }, [worshipType, trigger])
 
   const rowGenerator = () => {
 

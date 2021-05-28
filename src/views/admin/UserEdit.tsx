@@ -1,4 +1,4 @@
-import { Button, Divider, FormControlLabel, Grid, InputAdornment, LinearProgress, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
+import { Button, Divider, FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, LinearProgress, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
 import { VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
@@ -6,7 +6,7 @@ import MuiInputText from "components/Forms/MuiInputText";
 import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
 import moment, { Moment } from "moment";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useModalStore } from "store";
@@ -76,6 +76,7 @@ export default function UserEdit() {
          email: "",
          name: "",
          nameC: "",
+         gender: Gender.Male
       }
    })
 
@@ -264,25 +265,26 @@ export default function UserEdit() {
                         />
                      </Grid>
                      <Grid item>
-                        <Typography>性別</Typography>
-                        <Controller
-                           render={({ field, fieldState }) =>
-                              <RadioGroup aria-label="gender" row {...field}>
-                                 <FormControlLabel
-                                    value={Gender.Male.toString()}
-                                    control={<Radio color="primary" />}
-                                    label="男" />
-                                 <FormControlLabel
-                                    value={Gender.Female.toString()}
-                                    control={<Radio color="primary" />}
-                                    label="女"
-                                 />
-                              </RadioGroup>
-                           }
-                           name="gender"
-                           control={control}
-                           defaultValue={null}
-                        />
+                        <FormControl component="fieldset">
+                           <FormLabel component="legend">性別</FormLabel>
+                           <Controller
+                              render={({ field, fieldState }) =>
+                                 <RadioGroup aria-label="gender" row {...field}>
+                                    <FormControlLabel
+                                       value={Gender.Male.toString()}
+                                       control={<Radio color="primary" />}
+                                       label="男" />
+                                    <FormControlLabel
+                                       value={Gender.Female.toString()}
+                                       control={<Radio color="primary" />}
+                                       label="女"
+                                    />
+                                 </RadioGroup>
+                              }
+                              name="gender"
+                              control={control}
+                           />
+                        </FormControl>
                      </Grid>
                      <Grid item>
                         <MuiInputText

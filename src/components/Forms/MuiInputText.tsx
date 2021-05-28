@@ -50,12 +50,12 @@ function MuiInputText(props: MergedTextFieldProp) {
          render={({ field, fieldState }) => {
             return <TextField
                {...field}
-               value={field.value || ''}
+               value={field.value ?? ''}
                error={!props.skipValidate && !!errors[props.name]}
                // id="standard-error-helper-text"  
                size={props.size} // "small" | "medium"
                placeholder={props.placeholder}
-               type={props.type || 'text'}
+               type={props.type ?? 'text'}
                fullWidth={true}
                label={props.label}
                multiline={props.multiline}

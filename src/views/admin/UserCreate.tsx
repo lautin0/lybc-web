@@ -14,17 +14,17 @@ import Validators from "utils/validator";
 
 const useStyles = makeStyles((theme) => ({
    progress: {
-     marginTop: -20,
-     position: 'fixed',
-     width: 'calc(100% - 300px)',
-     zIndex: 1,
-     [theme.breakpoints.down('xs')]: {
-       width: '100%',
-       marginTop: -30,
-       left: 0
-     }
+      marginTop: -20,
+      position: 'fixed',
+      width: 'calc(100% - 300px)',
+      zIndex: 1,
+      [theme.breakpoints.down('xs')]: {
+         width: '100%',
+         marginTop: -30,
+         left: 0
+      }
    }
- }))
+}))
 
 export default function UserCreate() {
 
@@ -46,6 +46,7 @@ export default function UserCreate() {
          email: "",
          name: "",
          nameC: "",
+         gender: Gender.Male
       }
    })
 
@@ -211,9 +212,10 @@ export default function UserCreate() {
                   <Grid item>
                      <FormControl component="fieldset" error={errors["gender"] != null}>
                         <FormLabel component="legend">性別</FormLabel>
+                        {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
                         <Controller
                            render={({ field, fieldState }) =>
-                              <RadioGroup aria-label="gender" row>
+                              <RadioGroup aria-label="gender" row {...field}>
                                  <FormControlLabel
                                     value={Gender.Male.toString()}
                                     control={<Radio color="primary" />}
@@ -226,10 +228,8 @@ export default function UserCreate() {
                               </RadioGroup>
                            }
                            name="gender"
-                           control={control}
-                           defaultValue={null}
+                           control={control}                           
                         />
-                        {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
                      </FormControl>
                   </Grid>
                   <Grid item>

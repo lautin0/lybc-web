@@ -41,6 +41,9 @@ jobs:
       # run tests!
       - run: npm run test
 
+      # run start!
+      - run: npm start
+
   deploy-prod:
     docker:
       - image: circleci/node:latest
