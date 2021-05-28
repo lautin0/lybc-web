@@ -1,16 +1,22 @@
-import React from 'react';
 import { configure, mount } from 'enzyme'
-import { act } from 'react-dom/test-utils';
 import WorshipList from './WorshipList';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Router } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import { IntlProvider } from 'react-intl';
 import en from '../../assets/i18n/en.json';
+import { WorshipsDocument } from 'generated/graphql';
+import rootReducer from '../../reducers'
+import { createStore } from 'redux'
+import { Provider } from "react-redux";
+import { createMemoryHistory } from 'history';
 
 configure({ adapter: new Adapter() });
 
 let worshipListPage: any;
+
+const store = createStore(rootReducer)
+const history = createMemoryHistory()
 
 beforeEach(() => {
   worshipListPage = document.createElement('div');
@@ -26,40 +32,34 @@ it("renders without crashing", () => {
   window.scrollTo = jest.fn()
 })
 
-it('can render and update a loginPage', () => {
-  // const mocks = [
-  //   {
-  //     request: {
-  //       query: GET_WORSHIPS,
-  //     },
-  //     result: {
-  //       data: {
-  //         worships: []
-  //       },
-  //     },
-  //   },
-  // ];
+const mocks = [
+  {
+    request: {
+      query: WorshipsDocument,
+    },
+    result: {
+      data: {
+        worships: []
+      },
+    },
+  },
+];
 
-  // const historyMock: any = { push: jest.fn(), location: {}, listen: jest.fn() };
-  // const wrapper = mount(
-  //   <IntlProvider locale="en" messages={en}>
-  //     <MockedProvider mocks={mocks} addTypename={false}>
-  //       <Router history={historyMock}>
-  //         <WorshipList />
-  //       </Router>
-  //     </MockedProvider>
-  //   </IntlProvider>,
-  // )
-  // // ).find('.selector').at(1);
+it('can render and update a WorshipList Page', () => {
+  const wrapper = mount(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <IntlProvider locale="en" messages={en}>
+        <Provider store={store}>
+          <Router history={history}>
+            <WorshipList />
+          </Router>
+        </Provider>
+      </IntlProvider>
+    </MockedProvider>,
+  )
 
-  // const button = worshipListPage.querySelector('button');
-  // const label = worshipListPage.querySelector('p');
-  // // expect(label.textContent).toBe('You clicked 0 times');
-  // expect(document.title).toBe('Online Sermon');
-  // // Test second render and componentDidUpdate
-  // // act(() => {
-  // //   button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  // // });
-  // // expect(label.textContent).toBe('You clicked 1 times');
-  // // expect(document.title).toBe('You clicked 1 times');
+  const button = worshipListPage.querySelector('button');
+  const label = worshipListPage.querySelector('p');
+
+  expect(document.title).toBe('Online Sermon');
 });
