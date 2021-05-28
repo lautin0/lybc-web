@@ -41,8 +41,8 @@ jobs:
       # run tests!
       - run: npm run test
 
-      # run start!
-      - run: npm start
+      # run build for detecting transpile error!
+      - run: npm run build
 
   deploy-prod:
     docker:
