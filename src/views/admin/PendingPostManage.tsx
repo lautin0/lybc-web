@@ -3,8 +3,8 @@ import { cyan, green, grey, red, yellow } from '@material-ui/core/colors';
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
-import { PendingPost, PostStatus, usePendingPostsQuery } from 'generated/graphql';
-import moment from 'moment';
+import { PostStatus, usePendingPostsQuery } from 'generated/graphql';
+import moment, { Moment } from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -30,6 +30,15 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText
   }
 }))
+
+type PendingPostRowProps = {
+  _id: string,
+  title: string,
+  username: string,
+  creDttm: Moment,
+  subtitle: string,
+  status: string,
+}
 
 function PendingPostManage() {
 
@@ -85,8 +94,8 @@ function PendingPostManage() {
   useEffect(() => {
     if (pPostData === undefined)
       return
-    let tmp: Array<PendingPost> = pPostData.pendingPosts != null ? [...pPostData.pendingPosts] : []
-    setData(tmp?.sort((a: PendingPost, b: PendingPost) => {
+    let tmp: Array<PendingPostRowProps> = pPostData.pendingPosts != null ? [...pPostData.pendingPosts] : []
+    setData(tmp?.sort((a: PendingPostRowProps, b: PendingPostRowProps) => {
       if (a.creDttm > b.creDttm) {
         return -1
       } else if (a.creDttm < b.creDttm) {
@@ -95,7 +104,7 @@ function PendingPostManage() {
         return 0
       }
     })
-      .map((x: PendingPost, idx: number): any => {
+      .map((x: PendingPostRowProps, idx: number): any => {
         return {
           id: idx,
           _id: x._id,
@@ -104,7 +113,6 @@ function PendingPostManage() {
           creDttm: moment(x.creDttm, 'YYYYMMDD').format('YYYY-MM-DD'),
           subtitle: x.subtitle,
           status: x.status,
-          documentURI: x.documentURI
         }
       }))
   }, [pPostData])

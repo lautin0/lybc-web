@@ -17,7 +17,7 @@ function SharingModal(props: any) {
   const { tokenPair } = useContext(AuthContext)
 
   const dispatch = useDispatch()
-  
+
   const [pendPost] = usePendPostMutation()
   const [updatePendingPost] = useUpdatePendingPostMutation()
 
@@ -66,34 +66,34 @@ function SharingModal(props: any) {
           input: {
             _id: pendingPostID,
             username: getTokenValue(tokenPair?.token).username,
-            status: PostStatus.Pending
+            status: PostStatus.Pending,
+            doc: file
           },
-          doc: file
         }
       }).then(res => {
         dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
-      .catch((err: any) => {
-        dispatch(setSystemFailure(err))
-        onHide()
-      }).finally(() => dispatch(setLoading(false)))
+        .catch((err: any) => {
+          dispatch(setSystemFailure(err))
+          onHide()
+        }).finally(() => dispatch(setLoading(false)))
     } else {
       pendPost({
         variables: {
           input: {
             ...tmp
+            , doc: file
           },
-          doc: file
         }
       }).then(res => {
         dispatch(setSysMessage('app.sys.save-success'))
         onHide()
       })
-      .catch((err: any) => {        
-        dispatch(setSystemFailure(err))
-        onHide()
-      }).finally(() => dispatch(setLoading(false)))
+        .catch((err: any) => {
+          dispatch(setSystemFailure(err))
+          onHide()
+        }).finally(() => dispatch(setLoading(false)))
     }
   }
 
@@ -112,13 +112,13 @@ function SharingModal(props: any) {
         },
       }
     }).then(res => {
-      dispatch(setSysMessage('app.sys.save-success'))      
+      dispatch(setSysMessage('app.sys.save-success'))
       onHide()
     })
-    .catch((err: any) => {      
-      dispatch(setSystemFailure(err))
-      onHide()
-    }).finally(() => dispatch(setLoading(false)))
+      .catch((err: any) => {
+        dispatch(setSystemFailure(err))
+        onHide()
+      }).finally(() => dispatch(setLoading(false)))
   }
 
   const onHide = () => {

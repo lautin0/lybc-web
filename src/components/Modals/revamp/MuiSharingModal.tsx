@@ -42,7 +42,7 @@ export default function MuiSharingModal() {
    const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
 
    const intl = useIntl()
-   
+
    const [loadingPendingPost, { data: pPostData }] = usePendingPostLazyQuery({
       variables: { oid: pendingPostID! },
       notifyOnNetworkStatusChange: true
@@ -75,34 +75,34 @@ export default function MuiSharingModal() {
                input: {
                   _id: pendingPostID,
                   username: getTokenValue(tokenPair?.token).username,
-                  status: PostStatus.Pending
+                  status: PostStatus.Pending,
+                  doc: file
                },
-               doc: file
             }
          }).then(res => {
             setMessage('app.sys.save-success')
             onHide()
          })
-         .catch((err: any) => {
-            setModalError(err)
-            onHide()
-         }).finally(() => dispatch(setLoading(false)))
+            .catch((err: any) => {
+               setModalError(err)
+               onHide()
+            }).finally(() => dispatch(setLoading(false)))
       } else {
          pendPost({
             variables: {
                input: {
                   ...tmp
+                  , doc: file
                },
-               doc: file
             }
          }).then(res => {
             setMessage('app.sys.save-success')
             onHide()
          })
-         .catch((err: any) => {            
-            setModalError(err)
-            onHide()
-         }).finally(() => dispatch(setLoading(false)))
+            .catch((err: any) => {
+               setModalError(err)
+               onHide()
+            }).finally(() => dispatch(setLoading(false)))
       }
    }
 
@@ -124,10 +124,10 @@ export default function MuiSharingModal() {
          setMessage('app.sys.save-success')
          onHide()
       })
-      .catch((err: any) => {         
-         setModalError(err)
-         onHide()
-      }).finally(() => dispatch(setLoading(false)))
+         .catch((err: any) => {
+            setModalError(err)
+            onHide()
+         }).finally(() => dispatch(setLoading(false)))
    }
 
    const onHide = () => {

@@ -14,11 +14,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import DropzoneCustom from 'components/DropzoneCustom';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
-import { LinearProgress, Link } from '@material-ui/core';
-import { getTokenValue, stripGCSFileName } from 'utils/utils';
+import { Divider, LinearProgress } from '@material-ui/core';
+import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import { InsertDriveFile } from '@material-ui/icons';
+import InputQuill from 'components/Forms/InputQuill';
+import DOMPurify from 'dompurify';
 import UNIVERSALS from 'Universals';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,23 +59,27 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(3),
       },
+      divider: {
+         marginTop: theme.spacing(3),
+         marginBottom: theme.spacing(3)
+      }
    }))
 
 function getSteps() {
-   return ['輸入文章資料', '上傳檔案', '提交'];
+   return ['修改文章', '預覽', '提交'];
 }
 
-function getAlert(p: PendingPost) {
-   switch (p.status) {
+function getAlert(status: PostStatus, remarks: any) {
+   switch (status) {
       case PostStatus.Rejected:
          return <Alert severity="error">
             <AlertTitle>已拒絕</AlertTitle>
-            拒絕原因: {p.remarks}
+            拒絕原因: {remarks}
          </Alert>;
       case PostStatus.Withhold:
          return <Alert severity="warning">
             <AlertTitle>已暫緩</AlertTitle>
-            暫緩原因: {p.remarks}
+            暫緩原因: {remarks}
          </Alert>;
       default:
          return <Alert severity="info">發生錯誤!</Alert>
@@ -86,7 +91,10 @@ export default function PersonalSharingEdit() {
    const { oid } = useParams<any>()
 
    const dropzoneMethods = useDropzone(
-      { accept: '.docx,.pdf' }
+      { 
+         // accept: '.docx,.pdf'
+         accept: 'image/*'
+       }
    )
    const { acceptedFiles } = dropzoneMethods
 
@@ -193,9 +201,13 @@ export default function PersonalSharingEdit() {
             input: {
                _id: oid,
                username: tmp.username,
-               status: PostStatus.Pending
+               status: PostStatus.Pending,
+               title: data.title,
+               subtitle: data.subtitle,
+               content: data.content,
+               coverImage: file,
+               // doc: file
             },
-            doc: file
          }
       }).then(res => {
          let newCompleted = steps.map((s, i) => ({ [i]: true })).reduce((a, b, i = 0, arr = []) => (
@@ -233,7 +245,14 @@ export default function PersonalSharingEdit() {
                      placeholder="請輸入副標題"
                   />
                </Grid>
-               {data?.pendingPost?.documentURI && <Grid item>
+               <InputQuill name="content" label="在此貼上和編輯內容" isReadOnly={false} />
+               <Grid item xs={12}>
+                  <Typography>選擇封面圖片</Typography>
+               </Grid>
+               <Grid item xs={12}>
+                  <DropzoneCustom lg={12} {...dropzoneMethods} />
+               </Grid>
+               {/* {data?.pendingPost?.documentURI && <Grid item>
                   <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
                   <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
                      <div>
@@ -243,26 +262,37 @@ export default function PersonalSharingEdit() {
                         <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(data?.pendingPost?.documentURI)}</label>
                      </div>
                   </Link>
-               </Grid>}
+               </Grid>} */}
             </Grid>;
          case 1:
-            return <><Typography>選擇文章檔案 (接受格式: docx, pdf)</Typography>
-               <DropzoneCustom {...dropzoneMethods} />
-            </>
+            return <Grid container>
+               <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+               <Divider className={classes.divider} />
+               <Grid item>
+                  <Grid container justify="center" item xs={12}>
+                     {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+                     {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                  </Grid>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
+                  </div>
+               </Grid>
+            </Grid>
          case 2:
             return <Grid container justify="center">
-               <Typography>請確認資料無誤，然後提交。</Typography>
+               <Typography color="secondary">*請確認資料無誤，然後提交。</Typography>
             </Grid>
          default:
             return 'Unknown step';
       }
-   }, [activeStep, dropzoneMethods, data, classes])
+   }, [activeStep, dropzoneMethods, data, classes, acceptedFiles, getValues])
 
    useEffect(() => {
       if (data && reset) {
          reset({
             title: data.pendingPost?.title,
             subtitle: data.pendingPost?.subtitle,
+            content: data.pendingPost?.content,
+            coverImageURI: data.pendingPost?.coverImageURI,
             remarks: data.pendingPost?.remarks
          })
          setDocumentURI(data.pendingPost?.documentURI ?? "")
@@ -275,7 +305,7 @@ export default function PersonalSharingEdit() {
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>
-                  {(!allStepsCompleted() && data?.pendingPost) && getAlert(data?.pendingPost)}
+                  {(!allStepsCompleted() && data?.pendingPost) && getAlert(data?.pendingPost.status, data.pendingPost.remarks)}
                   <Grid container justify="center" className={classes.title}>
                      <Typography variant="h4" component="strong">提交分享文章</Typography>
                   </Grid>

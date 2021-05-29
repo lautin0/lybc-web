@@ -497,7 +497,7 @@ export default function PersonalMain(props: PersonalMainProps) {
               </Typography>
             </Grid>
           </Grid>}
-          {(!loading) && <Grid container spacing={2}>
+          {(!pPostLoading) && <Grid container spacing={2}>
             {data?.pendingPosts && data!.pendingPosts.map((p) => {
               return (
                 <Grid item key={p._id} xs={12}>

@@ -64,9 +64,9 @@ function NewsCreate() {
     addPost({
       variables: {
         input: {
-          ...tmp
+          ...tmp,
+          image: file
         },
-        image: file
       }
     }).then(res => {
       setMessage('app.sys.save-success')

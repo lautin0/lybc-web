@@ -45,6 +45,7 @@ input NewPost {
 	content: String!
 	username: String!
 	toUsername: String
+	image: Upload
 }
 
 type PendingPost {
@@ -52,7 +53,9 @@ type PendingPost {
 	username: String!
 	title: String!
 	subtitle: String!
-	documentURI: String!
+	content: String!
+	coverImageURI: String
+	documentURI: String
 	postID: ObjectID
 	remarks: String
 	creDttm: Time!
@@ -65,15 +68,24 @@ input NewPendingPost {
 	username: String!
 	title: String!
 	subtitle: String!
+	content: String!
+	coverImage: Upload
+	doc: Upload
 }
 
 input UpdatePendingPost {
 	_id: String!
 	username: String!
 	postID: String
+	title: String
+	subtitle: String
+	content: String
 	remarks: String
 	status: PostStatus!
 	approveUsername: String
+	coverImage: Upload
+	oriCoverImageURI: String
+	doc: Upload
 }
 
 type FavouritePost {
@@ -113,7 +125,7 @@ input PostFilter {
 	# All values not ending with the given string.
 	username_not_ends_with: String
 
-	type: String
+	type: PostType
 	parentIDNotNull: Boolean
 
 	# All values that are equal to given value.

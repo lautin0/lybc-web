@@ -167,9 +167,9 @@ export default function PersonalSharingSubmit() {
       pendPost({
          variables: {
             input: {
-               ...tmp
+               ...tmp,
+               coverImage: file
             },
-            doc: file
          }
       }).then(res => {
          let newCompleted = steps.map((s, i) => ({ [i]: true })).reduce((a, b, i = 0, arr = []) => (
@@ -282,7 +282,7 @@ export default function PersonalSharingSubmit() {
                                  status="success"
                                  title="已成功提交"
                                  subTitle="謝謝您的分享，同工們會儘快處理。"
-                                 extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal')}>返回</Button>}
+                                 extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/center/sharing')}>返回</Button>}
                               />
                            </div>
                         ) : (

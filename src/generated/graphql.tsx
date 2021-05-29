@@ -97,25 +97,21 @@ export type MutationReadNotificationArgs = {
 
 export type MutationCreatePostArgs = {
   input: NewPost;
-  image?: Maybe<Scalars['Upload']>;
 };
 
 
 export type MutationPendPostArgs = {
   input: NewPendingPost;
-  doc: Scalars['Upload'];
 };
 
 
 export type MutationUpdatePendingPostArgs = {
   input: UpdatePendingPost;
-  doc?: Maybe<Scalars['Upload']>;
 };
 
 
 export type MutationApprovePostArgs = {
   input: NewPost;
-  image?: Maybe<Scalars['Upload']>;
   postRefInput: UpdatePendingPost;
 };
 
@@ -219,6 +215,9 @@ export type NewPendingPost = {
   username: Scalars['String'];
   title: Scalars['String'];
   subtitle: Scalars['String'];
+  content: Scalars['String'];
+  coverImage?: Maybe<Scalars['Upload']>;
+  doc?: Maybe<Scalars['Upload']>;
 };
 
 export type NewPost = {
@@ -229,6 +228,7 @@ export type NewPost = {
   content: Scalars['String'];
   username: Scalars['String'];
   toUsername?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['Upload']>;
 };
 
 export type NewReaction = {
@@ -318,7 +318,9 @@ export type PendingPost = {
   username: Scalars['String'];
   title: Scalars['String'];
   subtitle: Scalars['String'];
-  documentURI: Scalars['String'];
+  content: Scalars['String'];
+  coverImageURI?: Maybe<Scalars['String']>;
+  documentURI?: Maybe<Scalars['String']>;
   postID?: Maybe<Scalars['ObjectID']>;
   remarks?: Maybe<Scalars['String']>;
   creDttm: Scalars['Time'];
@@ -357,7 +359,7 @@ export type PostFilter = {
   username_not_starts_with?: Maybe<Scalars['String']>;
   username_ends_with?: Maybe<Scalars['String']>;
   username_not_ends_with?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<PostType>;
   parentIDNotNull?: Maybe<Scalars['Boolean']>;
   creDttm?: Maybe<Scalars['Time']>;
   creDttm_not?: Maybe<Scalars['Time']>;
@@ -524,9 +526,15 @@ export type UpdatePendingPost = {
   _id: Scalars['String'];
   username: Scalars['String'];
   postID?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
   remarks?: Maybe<Scalars['String']>;
   status: PostStatus;
   approveUsername?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<Scalars['Upload']>;
+  oriCoverImageURI?: Maybe<Scalars['String']>;
+  doc?: Maybe<Scalars['Upload']>;
 };
 
 export type UpdateUser = {
@@ -700,7 +708,6 @@ export type PostQuery = (
 
 export type CreatePostMutationVariables = Exact<{
   input: NewPost;
-  image?: Maybe<Scalars['Upload']>;
 }>;
 
 
@@ -731,7 +738,6 @@ export type CreatePostMutation = (
 
 export type PendPostMutationVariables = Exact<{
   input: NewPendingPost;
-  doc: Scalars['Upload'];
 }>;
 
 
@@ -776,13 +782,12 @@ export type PendingPostQuery = (
   { __typename?: 'Query' }
   & { pendingPost?: Maybe<(
     { __typename?: 'PendingPost' }
-    & Pick<PendingPost, '_id' | 'username' | 'title' | 'subtitle' | 'documentURI' | 'postID' | 'remarks' | 'creDttm' | 'status' | 'approveUsername' | 'approveDttm'>
+    & Pick<PendingPost, '_id' | 'username' | 'title' | 'subtitle' | 'content' | 'coverImageURI' | 'documentURI' | 'postID' | 'remarks' | 'creDttm' | 'status' | 'approveUsername' | 'approveDttm'>
   )> }
 );
 
 export type UpdatePendingPostMutationVariables = Exact<{
   input: UpdatePendingPost;
-  doc?: Maybe<Scalars['Upload']>;
 }>;
 
 
@@ -790,13 +795,12 @@ export type UpdatePendingPostMutation = (
   { __typename?: 'Mutation' }
   & { updatePendingPost: (
     { __typename?: 'PendingPost' }
-    & Pick<PendingPost, '_id' | 'title' | 'subtitle' | 'postID' | 'status' | 'remarks' | 'approveUsername' | 'approveDttm'>
+    & Pick<PendingPost, '_id' | 'title' | 'subtitle' | 'postID' | 'status' | 'remarks' | 'content' | 'coverImageURI' | 'approveUsername' | 'approveDttm'>
   ) }
 );
 
 export type ApprovePostMutationVariables = Exact<{
   input: NewPost;
-  image?: Maybe<Scalars['Upload']>;
   postRefInput: UpdatePendingPost;
 }>;
 
@@ -1390,8 +1394,8 @@ export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
 export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const CreatePostDocument = gql`
-    mutation createPost($input: NewPost!, $image: Upload) {
-  createPost(input: $input, image: $image) {
+    mutation createPost($input: NewPost!) {
+  createPost(input: $input) {
     _id
     title
     subtitle
@@ -1451,7 +1455,6 @@ export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, C
  * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
  *   variables: {
  *      input: // value for 'input'
- *      image: // value for 'image'
  *   },
  * });
  */
@@ -1463,8 +1466,8 @@ export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutati
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const PendPostDocument = gql`
-    mutation pendPost($input: NewPendingPost!, $doc: Upload!) {
-  pendPost(input: $input, doc: $doc) {
+    mutation pendPost($input: NewPendingPost!) {
+  pendPost(input: $input) {
     _id
   }
 }
@@ -1485,7 +1488,6 @@ export type PendPostMutationFn = Apollo.MutationFunction<PendPostMutation, PendP
  * const [pendPostMutation, { data, loading, error }] = usePendPostMutation({
  *   variables: {
  *      input: // value for 'input'
- *      doc: // value for 'doc'
  *   },
  * });
  */
@@ -1592,6 +1594,8 @@ export const PendingPostDocument = gql`
     username
     title
     subtitle
+    content
+    coverImageURI
     documentURI
     postID
     remarks
@@ -1631,14 +1635,16 @@ export type PendingPostQueryHookResult = ReturnType<typeof usePendingPostQuery>;
 export type PendingPostLazyQueryHookResult = ReturnType<typeof usePendingPostLazyQuery>;
 export type PendingPostQueryResult = Apollo.QueryResult<PendingPostQuery, PendingPostQueryVariables>;
 export const UpdatePendingPostDocument = gql`
-    mutation updatePendingPost($input: UpdatePendingPost!, $doc: Upload) {
-  updatePendingPost(input: $input, doc: $doc) {
+    mutation updatePendingPost($input: UpdatePendingPost!) {
+  updatePendingPost(input: $input) {
     _id
     title
     subtitle
     postID
     status
     remarks
+    content
+    coverImageURI
     approveUsername
     approveDttm
   }
@@ -1660,7 +1666,6 @@ export type UpdatePendingPostMutationFn = Apollo.MutationFunction<UpdatePendingP
  * const [updatePendingPostMutation, { data, loading, error }] = useUpdatePendingPostMutation({
  *   variables: {
  *      input: // value for 'input'
- *      doc: // value for 'doc'
  *   },
  * });
  */
@@ -1672,8 +1677,8 @@ export type UpdatePendingPostMutationHookResult = ReturnType<typeof useUpdatePen
 export type UpdatePendingPostMutationResult = Apollo.MutationResult<UpdatePendingPostMutation>;
 export type UpdatePendingPostMutationOptions = Apollo.BaseMutationOptions<UpdatePendingPostMutation, UpdatePendingPostMutationVariables>;
 export const ApprovePostDocument = gql`
-    mutation approvePost($input: NewPost!, $image: Upload, $postRefInput: UpdatePendingPost!) {
-  approvePost(input: $input, image: $image, postRefInput: $postRefInput) {
+    mutation approvePost($input: NewPost!, $postRefInput: UpdatePendingPost!) {
+  approvePost(input: $input, postRefInput: $postRefInput) {
     _id
   }
 }
@@ -1694,7 +1699,6 @@ export type ApprovePostMutationFn = Apollo.MutationFunction<ApprovePostMutation,
  * const [approvePostMutation, { data, loading, error }] = useApprovePostMutation({
  *   variables: {
  *      input: // value for 'input'
- *      image: // value for 'image'
  *      postRefInput: // value for 'postRefInput'
  *   },
  * });

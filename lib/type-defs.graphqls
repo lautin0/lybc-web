@@ -29,10 +29,10 @@ type Mutation {
 
 	readNotification(input: String!): Notification!
 
-	createPost(input: NewPost!, image: Upload): Post!	
-	pendPost(input: NewPendingPost!, doc: Upload!): PendingPost!	
-	updatePendingPost(input: UpdatePendingPost!, doc: Upload): PendingPost!	
-	approvePost(input: NewPost!, image: Upload, postRefInput: UpdatePendingPost!): Post!	
+	createPost(input: NewPost!): Post!
+	pendPost(input: NewPendingPost!): PendingPost!	
+	updatePendingPost(input: UpdatePendingPost!): PendingPost!
+	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post!
 	addFavouritePost(input: UpdateFavouritePost): String!	
 	removeFavouritePost(input: UpdateFavouritePost): String!
 

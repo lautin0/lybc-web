@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link'
 import { LinearProgress } from '@material-ui/core';
 import { PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
@@ -15,9 +14,8 @@ import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
 import { Result } from 'antd';
-import { InsertDriveFile } from '@material-ui/icons';
-import { stripGCSFileName } from 'utils/utils';
 import red from '@material-ui/core/colors/red';
+import DOMPurify from 'dompurify';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -79,11 +77,11 @@ export default function PersonalSharingStat() {
 
    const classes = useStyles();
    const [activeStep, setActiveStep] = React.useState(0);
-   const [steps, setSteps] = useState(['提交(按此檢視)', '處理中', ''])
+   const [steps, setSteps] = useState(['文章(按此檢視)', '處理中', ''])
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
    const [skipped, setSkipped] = useState(new Set<number>())
 
-   const [documentURI, setDocumentURI] = useState("")
+   const [, setDocumentURI] = useState("")
 
    const { data, loading, refetch } = usePendingPostQuery({ variables: { oid: oid }, notifyOnNetworkStatusChange: true })
    const [updatePendingPost, { loading: updateLoading }] = useUpdatePendingPostMutation()
@@ -189,6 +187,7 @@ export default function PersonalSharingStat() {
             subtitle: data.pendingPost?.subtitle,
             status: data.pendingPost?.status,
             username: data.pendingPost?.username,
+            content: data.pendingPost?.content,
             remarks: data.pendingPost?.remarks
          })
          setDocumentURI(data.pendingPost?.documentURI ?? "")
@@ -272,7 +271,7 @@ export default function PersonalSharingStat() {
                                     isReadOnly={true}
                                  />
                               </Grid>
-                              <Grid item>
+                              {/* <Grid item>
                                  <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
                                  <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
                                     <div>
@@ -282,6 +281,14 @@ export default function PersonalSharingStat() {
                                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
                                     </div>
                                  </Link>
+                              </Grid> */}
+                              <Grid item>
+                                 <Grid container justify="center" item xs={12}>
+                                    {/* {(data?.pendingPost?.coverImageURI && !data.pendingPost.coverImageURI.match(/.*\.svg$/)) && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>} */}
+                                    {data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>}
+                                 </Grid>
+                                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
+                                 </div>
                               </Grid>
                            </Grid>}
                            {activeStep !== 0 && getStepResult()}

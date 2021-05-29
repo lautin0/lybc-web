@@ -79,8 +79,8 @@ query post($oid: String!) {
 	}
 }
 
-mutation createPost($input: NewPost!, $image: Upload) {
-	createPost(input: $input, image: $image) {
+mutation createPost($input: NewPost!) {
+	createPost(input: $input) {
 		_id
 		title
 		subtitle
@@ -124,8 +124,8 @@ mutation createPost($input: NewPost!, $image: Upload) {
 	}
 }
 
-mutation pendPost($input: NewPendingPost!, $doc: Upload!) {
-	pendPost(input: $input, doc: $doc) {
+mutation pendPost($input: NewPendingPost!) {
+	pendPost(input: $input) {
 		_id
 	}
 }
@@ -168,6 +168,8 @@ query pendingPost($oid: String!) {
 		username
 		title
 		subtitle
+		content
+		coverImageURI
 		documentURI
 		postID
 		remarks
@@ -178,21 +180,23 @@ query pendingPost($oid: String!) {
 	}
 }
 
-mutation updatePendingPost($input: UpdatePendingPost!, $doc: Upload) {
-	updatePendingPost(input: $input, doc: $doc) {
+mutation updatePendingPost($input: UpdatePendingPost!) {
+	updatePendingPost(input: $input) {
 		_id
 		title
 		subtitle
 		postID
 		status
 		remarks
+		content
+		coverImageURI
 		approveUsername
 		approveDttm
 	}
 }
 
-mutation approvePost($input: NewPost!, $image: Upload, $postRefInput: UpdatePendingPost!) {
-	approvePost(input: $input, image: $image, postRefInput: $postRefInput) {
+mutation approvePost($input: NewPost!, $postRefInput: UpdatePendingPost!) {
+	approvePost(input: $input, postRefInput: $postRefInput) {
 		_id
 	}
 }
