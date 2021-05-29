@@ -173,7 +173,7 @@ function PersonalNavbar() {
           >
             <i className="fas fa-home" style={{ fontSize: 18 }}></i>
           </Link>
-          {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <>
+          {(tokenPair && hasRole(tokenPair.token, [Role.Admin, Role.Worker])) && <>
             <Link
               className="nav-link"
               href="#pablo"

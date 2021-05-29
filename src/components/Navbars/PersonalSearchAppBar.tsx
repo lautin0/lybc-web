@@ -180,7 +180,7 @@ export default function PersonalSearchAppBar() {
          onClose={handleMenuClose}
       >
          <MenuItem onClick={() => history.push('/')} >回主頁</MenuItem>
-         {(tokenPair && hasRole(tokenPair.token, Role.Admin)) && <MenuItem onClick={() => history.push('/admin/')}>管理控制台</MenuItem>}
+         {(tokenPair && hasRole(tokenPair.token, [Role.Admin, Role.Worker])) && <MenuItem onClick={() => history.push('/admin/')}>管理控制台</MenuItem>}
          <MenuItem
             onClick={() => {
                signOut()

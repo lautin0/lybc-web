@@ -1,6 +1,6 @@
 import AuthContext from 'context/AuthContext';
 import { Role } from 'generated/graphql';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { StaticContext } from 'react-router';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
@@ -29,43 +29,47 @@ type PrivateRouteProps = {
 
 function PrivateRoute(props: PrivateRouteProps) {
 
-  const { path, role, renderFn } = props
+  const { path, renderFn } = props
 
   const { tokenPair } = useContext(AuthContext)
 
   let authObj = getTokenValue(tokenPair?.token)
 
-  const isAuthenticated = () => {
-    return authObj != null
+  const RouteGuard = (props: { children: ReactElement, roles: Role[] }) => {
+    let role = authObj.role as Role
+    console.log(role)
+    if (props.roles.includes(role)) {
+      return props.children
+    } else {
+      return <Redirect to="/unauthorized"></Redirect>
+    }
   }
 
-  const isAuthorized = () => {
-    return role === undefined || (role as Array<string>).some(x => x.toString().toUpperCase() === authObj.role.toUpperCase())
+  const isAuthenticated = () => {
+    return authObj != null
   }
 
   if (!isAuthenticated()) {
     return <Redirect to="/login-page" />;
   }
-  if (!isAuthorized()) {
-    return <ErrorPage error="403" />
-  }
+
   return <Route path={path} render={({ match: { url } }) => (
     <>
       {path === '/admin' && <Switch>
-        <Route path={`${url}/`} render={(props: any) => <AdminPanel {...props}><AdminIndex /></AdminPanel>} exact />
-        <Route path={`${url}/worships`} render={(props: any) => <AdminPanel {...props}><WorshipManage /></AdminPanel>} />
-        <Route path={`${url}/worship/new`} render={(props: any) => <AdminPanel {...props}><WorshipCreate /></AdminPanel>} />
-        <Route path={`${url}/worship/:id`} render={(props: any) => <AdminPanel {...props}><WorshipEdit /></AdminPanel>} />
-        <Route path={`${url}/users`} render={(props: any) => <AdminPanel {...props}><UserManage /></AdminPanel>} />
-        <Route path={`${url}/user/new`} render={(props: any) => <AdminPanel {...props}><UserCreate /></AdminPanel>} />
-        <Route path={`${url}/user/:username`} render={(props: any) => <AdminPanel {...props}><UserEdit /></AdminPanel>} />
-        <Route path={`${url}/other`} render={(props: any) => <AdminPanel {...props}><OtherFunc /></AdminPanel>} />
-        <Route path={`${url}/page-management`} render={(props: any) => <AdminPanel {...props}><PageManage /></AdminPanel>} />
-        <Route path={`${url}/post/new`} render={(props: any) => <AdminPanel {...props}><PostCreate /></AdminPanel>} />
-        <Route path={`${url}/namecards`} render={(props: any) => <AdminPanel {...props}><NameCardManage /></AdminPanel>} />
-        <Route path={`${url}/post/pending/:oid`} render={(props: any) => <AdminPanel {...props}><PendingPostApproval /></AdminPanel>} />
-        <Route path={`${url}/post/pending`} render={(props: any) => <AdminPanel {...props}><PendingPostManage /></AdminPanel>} />
-        <Route path={`${url}/news/new`} render={(props: any) => <AdminPanel {...props}><NewsCreate /></AdminPanel>} />
+        <Route path={`${url}/`} exact><AdminPanel><RouteGuard roles={[Role.Admin, Role.Worker]} ><AdminIndex /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worships`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worship/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worship/:id`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/users`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/user/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/user/:username`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/page-management`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PageManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/post/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PostCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/other`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><OtherFunc /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/namecards`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/post/pending/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostApproval /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/post/pending`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/news/new`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NewsCreate /></RouteGuard></AdminPanel></Route>
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

@@ -21,7 +21,6 @@ import 'moment/locale/zh-hk';
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import PrivateRoute from "components/Route/PrivateRoute";
 import { getClient } from "utils/auth.client";
-import { Role } from "generated/graphql";
 import PersonalRoute from "components/Route/PersonalRoute";
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -44,7 +43,6 @@ import useAuth from "hooks/useAuth";
 import { ErrorBoundary } from "views/error/ErrorBoundary";
 import Journal from "views/articles/Journal";
 import ContactUs from "views/about/ContactUs";
-import React from "react";
 import Doctrine from "views/about/Doctrine";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
 import PreacherMessage from "views/articles/PreacherMessage";
@@ -92,7 +90,7 @@ function App() {
                   <SharingModal />
                   <Switch>
                     <Route path="/index" render={(props: any) => <Index {...props} />} />
-                    <PrivateRoute path="/admin" role={[Role.Admin]} />
+                    <PrivateRoute path="/admin" />
                     <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal"><Journal /></MainPage>} />
                     <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library"><SearchBooks /></MainPageLegacy>} />
                     <PersonalRoute path="/personal" />
@@ -111,6 +109,9 @@ function App() {
                     <Route path="/news-list/" render={props => <MainPage {...props} page="news-list"><NewsList/></MainPage>} />
                     <Redirect from="/sharing/" to="/sharing-list" />
                     <Route exact path="/"><Index /></Route>
+                    <Route path="/unauthorized">
+                      <ErrorPage error="403" />
+                    </Route>
                     <Route path="*">
                       <ErrorPage error="404" />
                     </Route>

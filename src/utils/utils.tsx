@@ -59,11 +59,11 @@ export function isTokenExpired(jwt: any) {
     return Date.now() >= token.exp * 1000
 }
 
-export function hasRole(jwt: any, role: Role) {
+export function hasRole(jwt: any, roles: Role[]) {
     let token = getTokenValue(jwt)
     if (!token)
         return false
-    return role.toString().toUpperCase() === token.role.toUpperCase()
+    return roles.some(r => r.toString().toUpperCase() === token.role.toUpperCase())
 }
 
 export function nullOrEmpty(checkee: any) {

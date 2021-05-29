@@ -5,10 +5,6 @@ import { makeStyles } from '@material-ui/core';
 import useNotification from 'hooks/useNotification';
 import NotificationContext from 'context/NotificationContext';
 
-type AdminPanelProps = {
-   func: string
-}
-
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
    panel: {
@@ -18,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-export default function AdminPanel(props: React.PropsWithChildren<AdminPanelProps>) {
+export default function AdminPanel(props: React.PropsWithChildren<{}>) {
 
    const classes = useStyles();
 
@@ -43,6 +39,6 @@ export default function AdminPanel(props: React.PropsWithChildren<AdminPanelProp
                {props.children}
             </div>
          </AdminLayout>
-      </NotificationContext.Provider >
+      </NotificationContext.Provider>
    )
 }
