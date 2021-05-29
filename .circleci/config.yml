@@ -12,7 +12,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/node:16.2.0
+      - image: circleci/node:15.14.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -30,10 +30,8 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
-      - run: npm uninstall fibers
-
-      - run: npm install fibers
+            
+      - run: npm install
 
       - save_cache:
           paths:
@@ -45,7 +43,7 @@ jobs:
 
   deploy-prod:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:15.14.0
     working_directory: ~/project
     steps:
       - checkout
