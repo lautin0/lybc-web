@@ -245,7 +245,10 @@ export default function PendingPostApproval() {
                   status="success"
                   title="已批核並發布"
                   subTitle="文章已經發布到分享欄，您可以到分享欄查看。"
-                  extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/sharing/' + data.pendingPost?.postID)}>到文章</Button>}
+                  extra={<>
+                     <Button style={{ marginRight: 10 }} variant="outlined" color="secondary" onClick={() => history.push('/sharing/' + data.pendingPost?.postID)}>到文章</Button>
+                     <Button variant="outlined" onClick={() => setActiveStep(0)}>內容預覽</Button>
+                  </>}
                />
             );
          case PostStatus.Rejected:

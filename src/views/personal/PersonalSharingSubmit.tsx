@@ -239,11 +239,11 @@ export default function PersonalSharingSubmit() {
                   </div>
                </Grid>
                <Divider className={classes.divider} />
-               <Grid item><Typography color="secondary">*完成核對後，按「發布」完成批核程序。</Typography></Grid>
+               {/* <Grid item><Typography color="secondary">*完成核對後，按「發布」完成批核程序。</Typography></Grid> */}
             </Grid>
          case 2:
             return <Grid container justify="center">
-               <Typography>請確認資料無誤，然後提交。</Typography>
+               <Typography color="secondary">*如已確認內容，請按「提交」。</Typography>
             </Grid>
          default:
             return 'Unknown step';
