@@ -186,9 +186,7 @@ export default function PendingPostApproval() {
          _id: data?.pendingPost?._id,
          status: s,
          remarks: getValues("remarks") as string,
-         username: getValues("username") as string,
-         title: getValues("title"),
-         subtitle: getValues("subtitle")
+         username: getValues("username") as string
       }
 
       if (s === PostStatus.Withhold) {
@@ -347,8 +345,6 @@ export default function PendingPostApproval() {
          status: PostStatus.Approved,
          remarks: getValues("remarks") as string,
          username: d.username,
-         title: d.title,
-         subtitle: d.subtitle,
          content: d.content,
       }
 

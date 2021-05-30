@@ -332,7 +332,7 @@ export default function PersonalSharingEdit() {
                                  status="success"
                                  title="已成功提交"
                                  subTitle="謝謝您的分享，同工們會儘快處理。"
-                                 extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal')}>返回</Button>}
+                                 extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/center/sharing')}>返回</Button>}
                               />
                            </div>
                         ) : (
