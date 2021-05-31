@@ -13,9 +13,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
-import { Result } from 'antd';
 import red from '@material-ui/core/colors/red';
 import DOMPurify from 'dompurify';
+import AntdResult from 'components/ImitateAntd/AntdResult';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -119,7 +119,7 @@ export default function PersonalSharingStat() {
       switch (data?.pendingPost?.status) {
          case PostStatus.Approved:
             return (
-               <Result
+               <AntdResult
                   status="success"
                   title="已批核並發布"
                   subTitle="謝謝您的分享，您提交的文章已經發布到分享欄，您可以到分享欄查看。"
@@ -128,7 +128,7 @@ export default function PersonalSharingStat() {
             );
          case PostStatus.Pending:
             return (
-               <Result
+               <AntdResult
                   title="處理中"
                   subTitle="謝謝您的分享，同工中在處理您的申請。"
                   extra={
@@ -153,7 +153,7 @@ export default function PersonalSharingStat() {
             );
          case PostStatus.Rejected:
             return (
-               <Result
+               <AntdResult
                   status="error"
                   title="已拒絕"
                   subTitle={`拒絕原因: ${data?.pendingPost.remarks}`}
@@ -162,7 +162,7 @@ export default function PersonalSharingStat() {
             );
          case PostStatus.Withhold:
             return (
-               <Result
+               <AntdResult
                   status="warning"
                   title="已暫緩"
                   subTitle={`暫緩原因: ${data?.pendingPost.remarks}`}
@@ -171,7 +171,7 @@ export default function PersonalSharingStat() {
             );
          case PostStatus.Withdraw:
             return (
-               <Result
+               <AntdResult
                   title="您已撤回申請"
                   extra={<Button variant="outlined" onClick={() => setActiveStep(0)}>查看提交的資料</Button>}
                />

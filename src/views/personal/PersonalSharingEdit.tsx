@@ -9,7 +9,6 @@ import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Result } from 'antd';
 import { useHistory, useParams } from 'react-router-dom';
 import DropzoneCustom from 'components/DropzoneCustom';
 import { useDropzone } from 'react-dropzone';
@@ -21,6 +20,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import InputQuill from 'components/Forms/InputQuill';
 import DOMPurify from 'dompurify';
 import UNIVERSALS from 'Universals';
+import AntdResult from 'components/ImitateAntd/AntdResult';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -331,7 +331,7 @@ export default function PersonalSharingEdit() {
                               All steps completed - you&apos;re finished
                            </Typography>
                            <Button onClick={handleReset}>Reset</Button> */}
-                              <Result
+                              <AntdResult
                                  status="success"
                                  title="已成功提交"
                                  subTitle="謝謝您的分享，同工們會儘快處理。"

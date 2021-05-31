@@ -1,6 +1,5 @@
 import { Button, CssBaseline } from "@material-ui/core";
-import { Result } from "antd";
-import { ResultStatusType } from "antd/lib/result";
+import AntdResult, { ResultStatusType } from "components/ImitateAntd/AntdResult";
 import React from "react";
 
 type ErrorPageProps = {
@@ -19,7 +18,7 @@ function ErrorPage(props: ErrorPageProps) {
   return (
     <div>
       <CssBaseline />
-      {parseInt(props.error) !== 0 && <Result
+      {parseInt(props.error) !== 0 && <AntdResult
         status={props.error as ResultStatusType}
         title={props.error}
         subTitle={ErrMsg[props.error]}
