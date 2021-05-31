@@ -1,7 +1,7 @@
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 // react-bootstrap components
-import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
 import { gql } from "@apollo/client";
@@ -15,8 +15,24 @@ import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
 import { getTitleDisplay } from "utils/utils";
 import AuthContext from "context/AuthContext";
+import { createStyles, CssBaseline, Grid, makeStyles } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 
-// core components
+const useStyles = makeStyles((theme) => (
+  createStyles({
+    placeholderGrid: {
+      width: '65%'
+    },
+    avatarPlaceholder: {
+      marginRight: theme.spacing(2)
+    },
+    rectPlaceholder: {
+      width: '30%',
+      marginLeft: theme.spacing(4),
+      marginTop: -theme.spacing(4)
+    }
+  })
+))
 
 const trimSubtitle = (txt: string) => {
   if (txt.length <= 50) {
@@ -27,6 +43,9 @@ const trimSubtitle = (txt: string) => {
 }
 
 function SharingList() {
+
+  const classes = useStyles()
+
   const lastScrollTop = useRef(0);
 
   const intl = useIntl()
@@ -245,16 +264,38 @@ function SharingList() {
                   </div>
                 </div>
               })}
+              {loading && <>
+                <CssBaseline />
+                <Grid container>
+                  <Grid item container direction="row">
+                    {/* <Grid className={classes.avatarPlaceholder}>
+                      <Typography>
+                        <Skeleton animation="wave" variant="circle" height={40} width={40} />
+                      </Typography>
+                    </Grid> */}
+                    <Grid className={classes.placeholderGrid}>
+                      <Skeleton animation="wave" width="50%" />
+                      <Skeleton animation="wave" width="70%"/>
+                    </Grid>
+                  </Grid>
+                  <Grid item container direction="row">
+                    <Grid item className={classes.placeholderGrid}>
+                      <Skeleton animation="wave" height={30} />
+                      <Skeleton animation="wave" height={30} />
+                      <Skeleton animation="wave" height={30} />
+                      <Skeleton animation="wave" height={30} />
+                    </Grid>
+                    <Grid item className={classes.rectPlaceholder}>
+                      <Skeleton variant="rect" animation="wave" height={150} />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </>}
             </Col>}
             <Col className="d-none d-lg-block" lg={4}>
               {tokenPair?.token != null && <FavouritePostList />}
             </Col>
           </Row>
-          <Container className="text-center" style={{ height: 100 }}>
-            {loading && <label>
-              <Spinner animation="grow" />
-            </label>}
-          </Container>
         </Container>
       </div>
     </>

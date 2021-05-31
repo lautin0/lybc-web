@@ -20,7 +20,6 @@ import React, { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import BuildIcon from '@material-ui/icons/Build';
 import { useHistory } from 'react-router-dom';
-import MuiSharingModal from 'components/Modals/revamp/MuiSharingModal';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
 import { Role } from 'generated/graphql';
@@ -186,7 +185,6 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
    return <ThemeProvider theme={appliedTheme}>
       <div className={classes.root}>
          <CssBaseline />
-         <MuiSharingModal />
          <MuiCommonModal />
          <MuiDecisionModal />
          <AdminSearchAppBar />

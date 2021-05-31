@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link, useMediaQuery } from '@material-ui/core';
 import { FavouritePost, FavouritePostsDocument, PostStatus, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
@@ -17,7 +17,6 @@ import { FormattedDate } from 'react-intl';
 import { css } from 'styles/styles';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-// import { usePendingPostStore } from 'store';
 import { green, red, yellow, cyan, grey } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
@@ -129,19 +128,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const trimSubtitle = (txt: string) => {
-  if (txt.length <= 100) {
-    return txt
-  } else {
-    return txt.substring(0, 100) + '...'
-  }
-}
-
 type PersonalMainProps = {
   tabIdx?: number
 }
 
 export default function PersonalMain(props: PersonalMainProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
@@ -174,17 +168,23 @@ export default function PersonalMain(props: PersonalMainProps) {
     });
   }
 
-  // const setPendingPostID = usePendingPostStore(state => state.setPendingPostID)
-  // const setModalOpen = usePendingPostStore(state => state.setOpen)
-  // const setTitle = usePendingPostStore(state => state.setTitle)
-
   const { data, loading: pPostLoading, refetch: pPostRefetch } = usePendingPostsByUsernameQuery({
     variables: { username: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
   })
+
   useEffect(() => {
     if (data != null)
       pPostRefetch()
   }, [pPostRefetch, location, data])
+
+  const trimSubtitle = useCallback((txt: string) => {
+    const limit = isMobile ? 50 : 100
+    if (txt.length <= limit) {
+      return txt
+    } else {
+      return txt.substring(0, limit) + '...'
+    }
+  }, [isMobile])  
 
   const getStatus = (s: PostStatus) => {
     switch (s) {
@@ -200,14 +200,6 @@ export default function PersonalMain(props: PersonalMainProps) {
         return "已撤回"
     }
   }
-
-  // const handleClick = (id: any) => {
-  //   if ([PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Approved].includes(status))
-  //     return
-  //   setPendingPostID(id)
-  //   setModalOpen(true)
-  //   setTitle("app.modal.header.edit-sharing-record")
-  // }
 
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
