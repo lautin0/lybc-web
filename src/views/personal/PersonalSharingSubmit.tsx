@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(3),
       },
+      responsiveImgGrid: {
+         height: 'auto'
+      }
    }),
 );
 
@@ -231,10 +234,10 @@ export default function PersonalSharingSubmit() {
                   />
                </Grid>
                <Divider className={classes.divider} />
+               <Grid>
+                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+               </Grid>
                <Grid item>
-                  <Grid container justify="center" item xs={12}>
-                     {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
-                  </Grid>
                   <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
                   </div>
                </Grid>

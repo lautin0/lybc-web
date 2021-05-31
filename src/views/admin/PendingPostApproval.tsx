@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import { Divider, LinearProgress } from '@material-ui/core';
+import { Divider, Hidden, LinearProgress, useMediaQuery } from '@material-ui/core';
 import { NewPost, PendingPost, PostStatus, PostType, UpdatePendingPost, useApprovePostMutation, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -58,8 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
       danger: {
          backgroundColor: red[600],
          color: theme.palette.primary.contrastText,
-         marginLeft: theme.spacing(1),
-         marginRight: theme.spacing(1),
          "&.MuiButton-contained:hover": {
             backgroundColor: red[500],
          }
@@ -67,8 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
       warning: {
          backgroundColor: yellow[700],
          color: theme.palette.primary.contrastText,
-         marginLeft: theme.spacing(1),
-         marginRight: theme.spacing(1),
          "&.MuiButton-contained:hover": {
             backgroundColor: yellow[600],
          }
@@ -91,6 +87,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: -30,
             left: 0
          }
+      },
+      responsiveImgGrid: {
+         height: 'auto'
       }
    }),
 );
@@ -98,7 +97,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const endStatus = [PostStatus.Approved, PostStatus.Rejected, PostStatus.Withdraw, PostStatus.Withhold]
 
 export default function PendingPostApproval() {
-
+   const theme = useTheme();
+   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+   
    const { oid } = useParams<any>()
    const history = useHistory()
 
@@ -416,11 +417,11 @@ export default function PendingPostApproval() {
                                  />
                               </Grid>
                               <Divider className={classes.divider} />
+                              <Grid>
+                                 {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
+                                 {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                              </Grid>
                               <Grid item>
-                                 <Grid container justify="center" item xs={12}>
-                                    {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
-                                    {data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
-                                 </Grid>
                                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewContent) }}>
                                  </div>
                               </Grid>
@@ -472,11 +473,11 @@ export default function PendingPostApproval() {
                               <Grid item><Typography color="secondary">*最後預覽，完成核對後，按「發布」完成批核程序。</Typography></Grid>
                               <Grid item><Typography variant="h5">預覽: </Typography></Grid>
                               <Divider className={classes.divider} />
+                              <Grid>
+                                 {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+                                 {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                              </Grid>
                               <Grid item>
-                                 <Grid container justify="center" item xs={12}>
-                                    {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
-                                    {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
-                                 </Grid>
                                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
                                  </div>
                               </Grid>
@@ -489,29 +490,42 @@ export default function PendingPostApproval() {
                            <Button
                               type="button"
                               variant="contained"
+                              size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={withholdPost}
                               className={clsx(classes.button, classes.warning)}
                            >
-                              暫緩發布
+                              <Hidden smDown implementation="css">
+                                 暫緩發布
+                              </Hidden>
+                              <Hidden mdUp implementation="css">
+                                 暫緩
+                              </Hidden>
                            </Button>
                            <Button
                               type="button"
                               variant="contained"
+                              size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={rejectPost}
                               className={clsx(classes.button, classes.danger)}
                            >
-                              拒絕發布
+                              <Hidden smDown implementation="css">
+                                 拒絕發布
+                              </Hidden>
+                              <Hidden mdUp implementation="css">
+                                 拒絕
+                              </Hidden>
                            </Button>
                         </Grid>
                         <Grid item className={classes.rowGrid}>
-                           <Button type="button" style={{ display: activeStep === 0 ? 'none' : 'block' }} onClick={handleBack} className={classes.button}>
+                           <Button type="button" size={isMobile ? 'small' : 'medium'} style={{ display: activeStep === 0 ? 'none' : 'block' }} onClick={handleBack} className={classes.button}>
                               返回
                            </Button>
                            {activeStep !== steps.length &&
                               (completed[activeStep] ? (
                                  <Button
+                                    size={isMobile ? 'small' : 'medium'}
                                     variant="contained"
                                     color="primary"
                                     onClick={handleNext}
@@ -522,11 +536,11 @@ export default function PendingPostApproval() {
                                  </Button>
                               ) : (
                                  completedSteps() === totalSteps() - 1 ? (
-                                    <Button variant="contained" color="primary" type="submit">
+                                    <Button size={isMobile ? 'small' : 'medium'} variant="contained" color="primary" type="submit">
                                        發布
                                     </Button>
                                  ) : (
-                                    <Button variant="contained" color="primary" type="button" onClick={handleComplete}>
+                                    <Button size={isMobile ? 'small' : 'medium'} variant="contained" color="primary" type="button" onClick={handleComplete}>
                                        繼續
                                     </Button>
                                  )

@@ -51,8 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
       danger: {
          backgroundColor: red[600],
          color: theme.palette.primary.contrastText,
-         marginLeft: theme.spacing(1),
-         marginRight: theme.spacing(1),
          "&.MuiButton-contained:hover": {
             backgroundColor: red[500],
          }
@@ -66,6 +64,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: -30,
             left: 0
          }
+      },
+      responsiveImgGrid: {
+         height: 'auto'
       }
    }),
 );
@@ -282,11 +283,11 @@ export default function PersonalSharingStat() {
                                     </div>
                                  </Link>
                               </Grid> */}
+                              <Grid>
+                                 {/* {(data?.pendingPost?.coverImageURI && !data.pendingPost.coverImageURI.match(/.*\.svg$/)) && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>} */}
+                                 {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>}
+                              </Grid>
                               <Grid item>
-                                 <Grid container justify="center" item xs={12}>
-                                    {/* {(data?.pendingPost?.coverImageURI && !data.pendingPost.coverImageURI.match(/.*\.svg$/)) && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>} */}
-                                    {data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>}
-                                 </Grid>
                                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
                                  </div>
                               </Grid>

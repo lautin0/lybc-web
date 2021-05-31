@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
       divider: {
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(3)
+      },
+      responsiveImgGrid: {
+         height: 'auto'
       }
    }))
 
@@ -91,10 +94,10 @@ export default function PersonalSharingEdit() {
    const { oid } = useParams<any>()
 
    const dropzoneMethods = useDropzone(
-      { 
+      {
          // accept: '.docx,.pdf'
          accept: 'image/*'
-       }
+      }
    )
    const { acceptedFiles } = dropzoneMethods
 
@@ -268,11 +271,11 @@ export default function PersonalSharingEdit() {
             return <Grid container>
                <Grid item><Typography variant="h5">預覽: </Typography></Grid>
                <Divider className={classes.divider} />
+               <Grid>
+                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+                  {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+               </Grid>
                <Grid item>
-                  <Grid container justify="center" item xs={12}>
-                     {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
-                     {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
-                  </Grid>
                   <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
                   </div>
                </Grid>
