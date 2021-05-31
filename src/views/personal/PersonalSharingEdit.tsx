@@ -249,7 +249,7 @@ export default function PersonalSharingEdit() {
                   />
                </Grid>
                <InputQuill name="content" label="在此貼上和編輯內容" isReadOnly={false} />
-               <Grid item xs={12}>
+               <Grid item xs={12} style={{ marginTop: 50 }}>
                   <Typography>選擇封面圖片</Typography>
                </Grid>
                <Grid item xs={12}>
