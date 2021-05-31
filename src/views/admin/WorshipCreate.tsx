@@ -4,15 +4,13 @@ import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { useCreateWorshipMutation } from 'generated/graphql';
+import { useCreateWorshipMutation, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import { useEffect } from 'react'
 import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { RootState } from 'reducers';
 import { useModalStore } from 'store';
 import Validators from 'utils/validator';
 
@@ -49,19 +47,20 @@ function WorshipCreate() {
   const intl = useIntl()
 
   const history = useHistory()
-
-  const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
-
+  
   const setMessage = useModalStore(state => state.setMessage)
   const setModalError = useModalStore(state => state.setError)
 
-  const methods = useForm({
+  const methods = useForm<Worship>({
     defaultValues: {
-      ...formDef,
-      link: '',
+      worshipId: '',
+      type: '',
+      title: '',
       note: '',
       verse: '',
-      docs: [...formDef.docs] as Array<any>
+      link: '',
+      messenger: '',
+      docs: [{ title: '', link: '', type: '' }] as Array<any>
     }
   })
 

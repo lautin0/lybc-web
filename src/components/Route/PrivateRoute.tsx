@@ -37,7 +37,6 @@ function PrivateRoute(props: PrivateRouteProps) {
 
   const RouteGuard = (props: { children: ReactElement, roles: Role[] }) => {
     let role = authObj.role as Role
-    console.log(role)
     if (props.roles.includes(role)) {
       return props.children
     } else {

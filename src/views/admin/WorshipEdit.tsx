@@ -4,15 +4,13 @@ import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
-import { useUpdateWorshipMutation, useWorshipQuery, WorshipDoc } from 'generated/graphql';
+import { useUpdateWorshipMutation, useWorshipQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { RootState } from 'reducers';
 import { useModalStore } from 'store';
 import Validators from 'utils/validator';
 
@@ -59,8 +57,6 @@ function WorshipEdit() {
   const setMessage = useModalStore(state => state.setMessage)
   const setModalError = useModalStore(state => state.setError)
 
-  const formDef = useSelector((state: RootState) => state.admin.form.formInstance)
-
   const [updateWorship, { loading: updateLoading }] = useUpdateWorshipMutation()
 
   const { loading, data: wData, refetch } = useWorshipQuery({
@@ -71,11 +67,14 @@ function WorshipEdit() {
 
   const methods = useForm({
     defaultValues: {
-      ...formDef,
-      link: '',
+      worshipId: '',
+      type: '',
+      title: '',
       note: '',
       verse: '',
-      docs: [...formDef.docs] as Array<WorshipDoc>
+      link: '',
+      messenger: '',
+      docs: [{ title: '', link: '', type: '' }] as Array<any>
     }
   })
 
@@ -158,10 +157,10 @@ function WorshipEdit() {
     if (fields !== undefined) {
       fields.forEach((field, idx) => {
         let decoyField = { ...field }
-        if (Object.values(decoyField).map(x => x ? x.length : 0).reduce((prev, curr) => prev + curr) > 0) {
-          setValue(`docs.${idx}.link` as const, decoyField.link as never)
-          setValue(`docs.${idx}.title` as const, decoyField.title as never)
-          setValue(`docs.${idx}.type` as const, decoyField.type as never)
+        if (Object.values(decoyField).map(x => x ? (x as any).length : 0).reduce((prev, curr) => prev + curr) > 0) {
+          setValue(`docs.${idx}.${"link" as string}` as const, decoyField.link as never)
+          setValue(`docs.${idx}.${"title" as string}` as const, decoyField.title as never)
+          setValue(`docs.${idx}.${"type" as string}` as const, decoyField.type as never)
         }
       })
     }
