@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { DecisionState, SystemState } from '../store/system/types'
-import { RESET_SYSTEM_ERROR, RESET_SAGA_RESULT, SET_LOADING, DECISION_REQUEST, SystemActionTypes, DECISION_COMPLETE } from 'actions/system/types'
+import { SystemState } from '../store/system/types'
+import { RESET_SYSTEM_ERROR, RESET_SAGA_RESULT, SET_LOADING } from 'actions/system/types'
 
 const initialState: SystemState = {
   error: null,
@@ -66,31 +66,6 @@ function general(
   }
 }
 
-const initialDecisionState: DecisionState = {
-  isPending: false,
-  message: null
-}
-
-function decision(
-  state = initialDecisionState,
-  action: SystemActionTypes): DecisionState {
-  switch (action.type) {
-    case DECISION_REQUEST:
-      return {
-        ...state,
-        isPending: true,
-        message: action.message,
-        positiveAction: action.positiveAction,
-        negativeAction: action.negativeAction
-      }
-    case DECISION_COMPLETE:
-      return initialDecisionState;
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
-  general,
-  decision
+  general
 });

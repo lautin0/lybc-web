@@ -34,7 +34,6 @@ import { LocaleContext } from "context/LocaleContext";
 import useLanguage from "hooks/useLanguage";
 import LoadingOverlay from "components/Loading/LoadingOverlay";
 import CommonModal from "components/Modals/CommonModal";
-import DecisionModal from "components/Modals/DecisionModal";
 import SharingModal from "components/Modals/SharingModal";
 import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
@@ -85,7 +84,6 @@ function App() {
               <AuthContext.Provider value={{ ...authHook }}>
                 <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
                   <CommonModal />
-                  <DecisionModal />
                   <LoadingOverlay />
                   <SharingModal />
                   <Switch>
