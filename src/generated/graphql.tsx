@@ -573,6 +573,7 @@ export type User = {
   creDttm: Scalars['Time'];
   lupdBy: Scalars['String'];
   lupdDttm: Scalars['Time'];
+  retryCount?: Maybe<Scalars['Int']>;
 };
 
 export type Worship = {

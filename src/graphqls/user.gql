@@ -36,6 +36,7 @@ type User {
 	creDttm: Time!
 	lupdBy: String!
 	lupdDttm: Time!
+	retryCount: Int
 }
 
 input NewUser {
