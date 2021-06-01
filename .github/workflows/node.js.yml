@@ -51,4 +51,4 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm install
       - name: Build
-        run: npm run build
+        run: npm build
