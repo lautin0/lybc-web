@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-export default function PersonalPage(props: React.PropsWithChildren<any>) {
+export default function PersonalPage(props: React.PropsWithChildren<{}>) {
    const classes = useStyles();
 
    const methods = useNotification()

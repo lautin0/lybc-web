@@ -146,21 +146,34 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    dark: '#c49000',
          //    contrastText: '#000',
          // },
+         
+         // primary: {
+         //    light: '#48ad88',
+         //    main: '#007d5b',
+         //    dark: '#005032',
+         //    contrastText: '#fff',
+         // },
 
+         // secondary: {
+         //    light: '#7b7bd5',
+         //    main: '#494fa3',
+         //    dark: '#0d2774',
+         //    contrastText: '#fff',
+         // },         
+            
          primary: {
-            light: '#48ad88',
-            main: '#007d5b',
-            dark: '#005032',
+            light: '#5646af',
+            main: '#1e1d7f',
+            dark: '#000052',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#7b7bd5',
-            main: '#494fa3',
-            dark: '#0d2774',
-            contrastText: '#fff',
+            light: '#ffffc6',
+            main: '#fee895',
+            dark: '#c9b666',
+            contrastText: '#000',
          },
-         
       },
 
    }
@@ -185,18 +198,32 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    contrastText: '#000',
          // },
 
+         // primary: {
+         //    light: '#48ad88',
+         //    main: '#007d5b',
+         //    dark: '#005032',
+         //    contrastText: '#fff',
+         // },
+
+         // secondary: {
+         //    light: '#7b7bd5',
+         //    main: '#494fa3',
+         //    dark: '#0d2774',
+         //    contrastText: '#fff',
+         // },
+
          primary: {
-            light: '#48ad88',
-            main: '#007d5b',
-            dark: '#005032',
+            light: '#5646af',
+            main: '#4034a4',
+            dark: '#000052',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#7b7bd5',
-            main: '#494fa3',
-            dark: '#0d2774',
-            contrastText: '#fff',
+            light: '#ffffc6',
+            main: '#fee895',
+            dark: '#c9b666',
+            contrastText: '#000',
          },
 
       },

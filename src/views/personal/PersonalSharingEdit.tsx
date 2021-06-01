@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import DropzoneCustom from 'components/DropzoneCustom';
+import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { Divider, LinearProgress } from '@material-ui/core';
@@ -253,7 +253,7 @@ export default function PersonalSharingEdit() {
                   <Typography>選擇封面圖片</Typography>
                </Grid>
                <Grid item xs={12}>
-                  <DropzoneCustom lg={12} {...dropzoneMethods} />
+                  <WrappedDropzone lg={12} {...dropzoneMethods} />
                </Grid>
                {/* {data?.pendingPost?.documentURI && <Grid item>
                   <Typography className={classes.documentLabel}>上傳的檔案: </Typography>

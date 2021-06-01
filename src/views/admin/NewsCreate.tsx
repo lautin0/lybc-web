@@ -1,6 +1,6 @@
 import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
-import DropzoneCustom from 'components/DropzoneCustom';
+import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import InputQuill from 'components/Forms/InputQuill';
 import MuiInputText from 'components/Forms/MuiInputText';
 import AuthContext from 'context/AuthContext';
@@ -108,7 +108,7 @@ function NewsCreate() {
             <InputQuill name="content" label="內文" isReadOnly={false} />
           </Form.Row>
           <label className="mt-5">選擇封面</label>
-          <DropzoneCustom lg={12} xl={6} {...dropzoneMethods} />
+          <WrappedDropzone lg={12} xl={6} {...dropzoneMethods} />
           <Form.Row>
             <Form.Group>
               <Button

@@ -34,7 +34,6 @@ import { LocaleContext } from "context/LocaleContext";
 import useLanguage from "hooks/useLanguage";
 import LoadingOverlay from "components/Loading/LoadingOverlay";
 import CommonModal from "components/Modals/CommonModal";
-import SharingModal from "components/Modals/SharingModal";
 import LayoutContext from "context/LayoutContext";
 import useLayout from "hooks/useLayout";
 import AuthContext from "context/AuthContext";
@@ -85,7 +84,6 @@ function App() {
                 <IntlProvider locale={locale} messages={getKeyValue(messages, locale)}>
                   <CommonModal />
                   <LoadingOverlay />
-                  <SharingModal />
                   <Switch>
                     <Route path="/index" render={(props: any) => <Index {...props} />} />
                     <PrivateRoute path="/admin" />

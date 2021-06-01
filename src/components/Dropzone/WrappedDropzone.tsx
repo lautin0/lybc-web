@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Col } from "react-bootstrap";
 import { DropzoneState } from "react-dropzone";
 
-function DropzoneCustom(props: DropzoneState & { lg?: number, xl?: number }) {
+function WrappedDropzone(props: DropzoneState & { lg?: number, xl?: number }) {
   const {
     acceptedFiles,
     getRootProps,
@@ -75,4 +75,4 @@ function DropzoneCustom(props: DropzoneState & { lg?: number, xl?: number }) {
   </Col>
 }
 
-export default DropzoneCustom;
+export default WrappedDropzone;

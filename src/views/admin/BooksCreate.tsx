@@ -1,4 +1,4 @@
-import DropzoneCustom from "components/DropzoneCustom";
+import WrappedDropzone from "components/Dropzone/WrappedDropzone";
 import InputText from "components/Forms/InputText";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";

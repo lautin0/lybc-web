@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -10,15 +10,19 @@ import Grid from '@material-ui/core/Grid';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import DropzoneCustom from 'components/DropzoneCustom';
+import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
-import { Divider, LinearProgress } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, IconButton, LinearProgress } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import InputQuill from 'components/Forms/InputQuill';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
+import dogeImg from '../../assets/img/doge-computer.png'
+import robotImg from '../../assets/img/robot.png'
+import { Close, KeyboardReturn } from '@material-ui/icons';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -60,6 +64,30 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       responsiveImgGrid: {
          height: 'auto'
+      },
+      media: {
+         margin: 'auto',
+         display: 'flex',
+         alignItems: 'center',
+         width: 300,
+         height: 300
+      },
+      clickableGrid: {
+         cursor: 'pointer',
+         transition: 'transform 0.2s',
+         "&:hover": {
+            transform: 'scale(1.05)'
+         }
+      },
+      cardAction: {
+         textAlign: 'center',
+         width: '100%'
+      },
+      alert: {
+         marginTop: -theme.spacing(6),
+         position: 'fixed',
+         width: 'calc(100% - 300px)',
+         zIndex: 999,
       }
    }),
 );
@@ -80,9 +108,11 @@ export default function PersonalSharingSubmit() {
    const { tokenPair } = useContext(AuthContext)
 
    const classes = useStyles();
-   const [activeStep, setActiveStep] = React.useState(0);
-   const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>({});
+   const [activeStep, setActiveStep] = useState(0);
+   const [completed, setCompleted] = useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
+   const [method, setMethod] = useState<"EDIT" | "UPLOAD" | undefined>()
+   const [alertCD, setAlertCD] = useState(0)
 
    const [pendPost, { loading }] = usePendPostMutation()
 
@@ -213,7 +243,7 @@ export default function PersonalSharingSubmit() {
                   <Typography>選擇封面圖片</Typography>
                </Grid>
                <Grid item xs={12}>
-                  <DropzoneCustom {...dropzoneMethods} />
+                  <WrappedDropzone {...dropzoneMethods} />
                </Grid>
             </Grid>;
          case 1:
@@ -246,16 +276,43 @@ export default function PersonalSharingSubmit() {
             </Grid>
          case 2:
             return <Grid container justify="center">
-               <Typography color="secondary">*如已確認內容，請按「提交」。</Typography>
+               <Typography color="textSecondary">*如已確認內容，請按「提交」。</Typography>
             </Grid>
          default:
             return 'Unknown step';
       }
    }, [acceptedFiles, activeStep, classes, getValues, dropzoneMethods])
 
+   useEffect(() => {
+      const timer = setTimeout(() => {
+         if (alertCD > 0)
+            setAlertCD(alertCD - 1000)
+      }, 1000);
+      return () => clearTimeout(timer);
+   });
+
    return (
       <>
          {loading && <LinearProgress className={classes.progress} />}
+         {<Alert
+            style={{ display: alertCD > 0 ? 'flex' : 'none' }}
+            className={classes.alert}
+            severity="warning"
+            action={
+               <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                     setAlertCD(0);
+                  }}
+               >
+                  <Close fontSize="inherit" />
+               </IconButton>
+            }
+         >
+            此功能還在開發中!
+        </Alert>}
          <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>
@@ -275,26 +332,58 @@ export default function PersonalSharingSubmit() {
                         </Stepper>
                      </Grid>
                      <Grid item xs={12} className={classes.formContent}>
-                        {allStepsCompleted() ? (
-                           <div>
-                              {/* <Typography className={classes.instructions}>
-                              All steps completed - you&apos;re finished
-                           </Typography>
-                           <Button onClick={handleReset}>Reset</Button> */}
-                              <AntdResult
-                                 status="success"
-                                 title="已成功提交"
-                                 subTitle="謝謝您的分享，同工們會儘快處理。"
-                                 extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/center/sharing')}>返回</Button>}
-                              />
-                           </div>
+                        {!method ? (
+                           <Grid container spacing={3}>
+                              <Grid item xs={12} md={6} className={classes.clickableGrid}>
+                                 <Card onClick={() => setAlertCD(5000)}>
+                                    <Box className={classes.media}>
+                                       <img alt="upload a file" src={robotImg}></img>
+                                    </Box>
+                                    <CardContent className={classes.cardAction}>
+                                       <Typography color="textSecondary" variant="h5">上傳文章</Typography>
+                                    </CardContent>
+                                 </Card>
+                              </Grid>
+                              <Grid item xs={12} md={6} className={classes.clickableGrid}>
+                                 <Card onClick={() => setMethod("EDIT")}>
+                                    <Box className={classes.media}>
+                                       <img alt="Edit yourself" src={dogeImg}></img>
+                                    </Box>
+                                    <CardContent className={classes.cardAction}>
+                                       <Typography color="textSecondary" variant="h5">自行編輯</Typography>
+                                    </CardContent>
+                                 </Card>
+                              </Grid>
+                           </Grid>
                         ) : (
-                           <div>
-                              <div className={classes.instructions}>{getStepContent()}</div>
-                           </div>
-                        )}
+                           allStepsCompleted() ? (
+                              <div>
+                                 {/* <Typography className={classes.instructions}>
+                                       All steps completed - you&apos;re finished
+                                    </Typography>
+                                    <Button onClick={handleReset}>Reset</Button> */}
+                                 <AntdResult
+                                    status="success"
+                                    title="已成功提交"
+                                    subTitle="謝謝您的分享，同工們會儘快處理。"
+                                    extra={<Button variant="outlined" color="secondary" onClick={() => history.push('/personal/center/sharing')}>返回</Button>}
+                                 />
+                              </div>
+                           ) : (
+                              <div>
+                                 {activeStep === 0 && <Button
+                                    style={{ marginBottom: 30 }}
+                                    variant="outlined"
+                                    startIcon={<KeyboardReturn />}
+                                    onClick={() => setMethod(undefined)}
+                                 >
+                                    其他方法
+                                 </Button>}
+                                 <div className={classes.instructions}>{getStepContent()}</div>
+                              </div>
+                           ))}
                      </Grid>
-                     {!allStepsCompleted() && <Grid container item xs={12} justify="flex-end">
+                     {(!allStepsCompleted() && method) && <Grid container item xs={12} justify="flex-end">
                         <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                            返回
                      </Button>

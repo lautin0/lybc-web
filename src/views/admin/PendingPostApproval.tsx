@@ -18,7 +18,7 @@ import red from '@material-ui/core/colors/red';
 import yellow from '@material-ui/core/colors/yellow';
 import { useDropzone } from 'react-dropzone';
 import InputQuill from 'components/Forms/InputQuill';
-import DropzoneCustom from 'components/DropzoneCustom';
+import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import DOMPurify from 'dompurify'
 import UNIVERSALS from 'Universals';
@@ -456,7 +456,7 @@ export default function PendingPostApproval() {
                                  <Typography>選擇封面圖片</Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                 <DropzoneCustom lg={12} {...dropzoneMethods} />
+                                 <WrappedDropzone lg={12} {...dropzoneMethods} />
                               </Grid>
                               <Grid item xs={12}>
                                  <MuiInputText
