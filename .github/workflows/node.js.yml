@@ -49,5 +49,5 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
-        run: npm run build
+      - run: npm install
+      - run: npm run build
