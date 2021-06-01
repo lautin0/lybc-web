@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
-import { Box, Card, CardContent, Divider, IconButton, LinearProgress } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, IconButton, LinearProgress, Slide } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import InputQuill from 'components/Forms/InputQuill';
@@ -299,25 +299,26 @@ export default function PersonalSharingSubmit() {
    return (
       <>
          {loading && <LinearProgress className={classes.progress} />}
-         {<Alert
-            style={{ display: alertCD > 0 ? 'flex' : 'none' }}
-            className={classes.alert}
-            severity="warning"
-            action={
-               <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                     setAlertCD(0);
-                  }}
-               >
-                  <Close fontSize="inherit" />
-               </IconButton>
-            }
-         >
-            此功能還在開發中!
-        </Alert>}
+         {<Slide direction="down" in={alertCD > 0}>
+            <Alert
+               className={classes.alert}
+               severity="warning"
+               action={
+                  <IconButton
+                     aria-label="close"
+                     color="inherit"
+                     size="small"
+                     onClick={() => {
+                        setAlertCD(0);
+                     }}
+                  >
+                     <Close fontSize="inherit" />
+                  </IconButton>
+               }
+            >
+               此功能還在開發中!
+            </Alert>
+         </Slide>}
          <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>
