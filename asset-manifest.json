@@ -1,27 +1,29 @@
 {
   "files": {
     "main.css": "/static/css/main.f020eccf.chunk.css",
-    "main.js": "/static/js/main.a436114f.chunk.js",
+    "main.js": "/static/js/main.7cdeabac.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.1bdd6cf2.js",
     "static/css/2.725a4005.chunk.css": "/static/css/2.725a4005.chunk.css",
-    "static/js/2.de93c2ce.chunk.js": "/static/js/2.de93c2ce.chunk.js",
+    "static/js/2.4ae8f2bf.chunk.js": "/static/js/2.4ae8f2bf.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.de93c2ce.chunk.js.LICENSE.txt": "/static/js/2.de93c2ce.chunk.js.LICENSE.txt",
+    "static/js/2.4ae8f2bf.chunk.js.LICENSE.txt": "/static/js/2.4ae8f2bf.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
     "static/media/checked-circle.445ace95.svg": "/static/media/checked-circle.445ace95.svg",
     "static/media/close-circle.fd45ed94.svg": "/static/media/close-circle.fd45ed94.svg",
+    "static/media/doge-computer.9b108cc5.png": "/static/media/doge-computer.9b108cc5.png",
     "static/media/exclamation-circle.f8bcdf37.svg": "/static/media/exclamation-circle.f8bcdf37.svg",
     "static/media/login.ab931d77.jpg": "/static/media/login.ab931d77.jpg",
     "static/media/ly_bg6.25f31c86.jpg": "/static/media/ly_bg6.25f31c86.jpg",
     "static/media/lybc_logo.95501391.png": "/static/media/lybc_logo.95501391.png",
+    "static/media/robot.d8977ba2.png": "/static/media/robot.d8977ba2.png",
     "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf",
     "static/media/warning.7f680094.svg": "/static/media/warning.7f680094.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1bdd6cf2.js",
     "static/css/2.725a4005.chunk.css",
-    "static/js/2.de93c2ce.chunk.js",
+    "static/js/2.4ae8f2bf.chunk.js",
     "static/css/main.f020eccf.chunk.css",
-    "static/js/main.a436114f.chunk.js"
+    "static/js/main.7cdeabac.chunk.js"
   ]
 }
