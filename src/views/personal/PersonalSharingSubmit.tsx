@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme: Theme) =>
          position: 'fixed',
          width: 'calc(100% - 300px)',
          zIndex: 999,
+         [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginTop: -50,
+            left: 0
+         }
       }
    }),
 );
