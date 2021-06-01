@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link, useMediaQuery } from '@material-ui/core';
-import { FavouritePost, FavouritePostsDocument, PostStatus, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
+import { FavouritePost, FavouritePostsDocument, PostStatus, Role, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
 import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
 import { AccountCircle, Delete, Edit, ExpandMore, GetApp, Visibility } from '@material-ui/icons';
@@ -88,6 +88,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   linkGrid: {
     cursor: 'pointer'
   },
+  badgeAdmin: {
+    backgroundColor: 'gold',
+    color: theme.palette.primary.contrastText
+ },
+ badgeWorker: {
+    backgroundColor: 'dodgerblue',
+    color: theme.palette.primary.contrastText
+ },
   success: {
     backgroundColor: green[600],
     color: theme.palette.primary.contrastText
@@ -135,7 +143,7 @@ type PersonalMainProps = {
 export default function PersonalMain(props: PersonalMainProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
@@ -184,7 +192,7 @@ export default function PersonalMain(props: PersonalMainProps) {
     } else {
       return txt.substring(0, limit) + '...'
     }
-  }, [isMobile])  
+  }, [isMobile])
 
   const getStatus = (s: PostStatus) => {
     switch (s) {
@@ -333,7 +341,9 @@ export default function PersonalMain(props: PersonalMainProps) {
                   <Typography>徽章: </Typography>
                 </Grid>
                 <Grid item>
-                  {(userData?.user && (userData.user.role === "ADMIN" || userData?.user?.role === "WORKER")) && <Chip color="secondary" label={userData.user.role === "ADMIN" ? "網站管理人員" : (userData.user.role === "WORKER" ? "教會同工" : "")} />}
+                  {(userData?.user && (userData.user.role === Role.Admin || userData?.user?.role === Role.Worker)) && (
+                    <Chip className={userData.user.role === Role.Admin ? classes.badgeAdmin : classes.badgeWorker} label={userData.user.role === Role.Admin ? "網站管理人員" : (userData.user.role === Role.Worker ? "教會同工" : "")} />
+                  )}
                 </Grid>
               </Grid>
               <Grid container item direction="row" alignItems="center" spacing={1}>

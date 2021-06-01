@@ -1,5 +1,5 @@
 import { Button, Chip, LinearProgress, makeStyles, Typography } from "@material-ui/core";
-import { blue, green, grey, yellow } from "@material-ui/core/colors";
+import { green, grey } from "@material-ui/core/colors";
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { AddCircle, Block, Build } from "@material-ui/icons";
 import clsx from "clsx";
@@ -11,11 +11,11 @@ import { useDecisionModalStore, useModalStore } from "store";
 
 const useStyles = makeStyles(theme => ({
    badgeAdmin: {
-      backgroundColor: yellow[800],
+      backgroundColor: 'gold',
       color: theme.palette.primary.contrastText
    },
    badgeWorker: {
-      backgroundColor: blue[500],
+      backgroundColor: 'dodgerblue',
       color: theme.palette.primary.contrastText
    },
    badgeActive: {
