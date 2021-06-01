@@ -133,6 +133,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'light',
 
+         // Set 1
          // primary: {
          //    light: '#9a67ea',
          //    main: '#673ab7',
@@ -147,6 +148,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    contrastText: '#000',
          // },
          
+         // Set 2
          // primary: {
          //    light: '#48ad88',
          //    main: '#007d5b',
@@ -161,19 +163,21 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    contrastText: '#fff',
          // },         
             
+         // Set 3
          primary: {
-            light: '#5646af',
-            main: '#1e1d7f',
-            dark: '#000052',
+            light: '#b296d7',
+            main: '#8269a5',
+            dark: '#543d76',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#ffffc6',
-            main: '#fee895',
-            dark: '#c9b666',
-            contrastText: '#000',
+            light: '#4b62bd',
+            main: '#00398c',
+            dark: '#00155e',
+            contrastText: '#fff',
          },
+
       },
 
    }
@@ -184,6 +188,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
 
          type: 'dark',
 
+         // Set 1
          // primary: {
          //    light: '#9a67ea',
          //    main: '#673ab7',
@@ -198,6 +203,7 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    contrastText: '#000',
          // },
 
+         // Set 2
          // primary: {
          //    light: '#48ad88',
          //    main: '#007d5b',
@@ -212,18 +218,19 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          //    contrastText: '#fff',
          // },
 
+         // Set 3
          primary: {
-            light: '#5646af',
-            main: '#4034a4',
-            dark: '#000052',
+            light: '#b296d7',
+            main: '#8269a5',
+            dark: '#543d76',
             contrastText: '#fff',
          },
 
          secondary: {
-            light: '#ffffc6',
-            main: '#fee895',
-            dark: '#c9b666',
-            contrastText: '#000',
+            light: '#4b62bd',
+            main: '#00398c',
+            dark: '#00155e',
+            contrastText: '#fff',
          },
 
       },

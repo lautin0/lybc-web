@@ -21,7 +21,10 @@ import { Skeleton } from "@material-ui/lab";
 const useStyles = makeStyles((theme) => (
   createStyles({
     placeholderGrid: {
-      width: '65%'
+      width: '65%',
+      [theme.breakpoints.down('md')]: {
+        width: '60%'
+      }
     },
     avatarPlaceholder: {
       marginRight: theme.spacing(2)
@@ -29,7 +32,10 @@ const useStyles = makeStyles((theme) => (
     rectPlaceholder: {
       width: '30%',
       marginLeft: theme.spacing(4),
-      marginTop: -theme.spacing(4)
+      marginTop: -theme.spacing(4),
+      [theme.breakpoints.only('md')]: {
+        marginLeft: theme.spacing(7),
+      }
     }
   })
 ))
