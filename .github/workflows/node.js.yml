@@ -46,8 +46,6 @@ jobs:
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Dependencies            
-      - run: npm install      
-      - name: Build Project
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}            
+      - run: npm install          
       - run: npm run build
