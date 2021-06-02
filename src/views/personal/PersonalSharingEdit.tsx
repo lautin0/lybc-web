@@ -17,10 +17,10 @@ import { Divider, LinearProgress } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import InputQuill from 'components/Forms/InputQuill';
 import DOMPurify from 'dompurify';
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
+import InputTinyMCE from 'components/Forms/InputTinyMCE';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -248,7 +248,7 @@ export default function PersonalSharingEdit() {
                      placeholder="請輸入副標題"
                   />
                </Grid>
-               <InputQuill name="content" label="在此貼上和編輯內容" isReadOnly={false} />
+               <InputTinyMCE name="content" label="在此貼上和編輯內容" isReadOnly={false} />
                <Grid item xs={12} style={{ marginTop: 50 }}>
                   <Typography>選擇封面圖片</Typography>
                </Grid>

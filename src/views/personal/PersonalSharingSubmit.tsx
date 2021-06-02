@@ -16,13 +16,13 @@ import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
 import { Box, Card, CardContent, Divider, IconButton, LinearProgress, Slide } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
-import InputQuill from 'components/Forms/InputQuill';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import dogeImg from '../../assets/img/doge-computer.png'
 import robotImg from '../../assets/img/robot.png'
 import { Close, KeyboardReturn } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert/Alert';
+import InputTinyMCE from 'components/Forms/InputTinyMCE';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -242,7 +242,7 @@ export default function PersonalSharingSubmit() {
                   />
                </Grid>
                <Grid container item xs={12}>
-                  <InputQuill name="content" label="在此編輯內容" isReadOnly={false} />
+                  <InputTinyMCE name="content" label="在此編輯內容" isReadOnly={false} />
                </Grid>
                <Grid item xs={12} style={{ marginTop: 50 }}>
                   <Typography>選擇封面圖片</Typography>

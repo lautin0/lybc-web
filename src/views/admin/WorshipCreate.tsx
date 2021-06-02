@@ -1,7 +1,7 @@
 import { Button, createStyles, Divider, Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
-import InputQuill from 'components/Forms/InputQuill';
+import InputTinyMCE from 'components/Forms/InputTinyMCE';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { useCreateWorshipMutation, Worship } from 'generated/graphql';
@@ -225,13 +225,13 @@ function WorshipCreate() {
           <Divider className={classes.divider} light />
           {rowGenerator()}
           <Form.Row className="mb-5">
-            <InputQuill
+            <InputTinyMCE
               name="note"
               label="講道筆記"
             />
           </Form.Row>
           <Form.Row className="mb-5">
-            <InputQuill
+            <InputTinyMCE
               name="verse"
               label="經文"
             />

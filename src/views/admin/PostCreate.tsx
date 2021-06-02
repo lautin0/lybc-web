@@ -1,7 +1,7 @@
 import { Button, LinearProgress, makeStyles, Typography } from "@material-ui/core";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import WrappedDropzone from "components/Dropzone/WrappedDropzone";
-import InputQuill from "components/Forms/InputQuill";
+import InputTinyMCE from "components/Forms/InputTinyMCE";
 import MuiInputText from "components/Forms/MuiInputText";
 import AuthContext from "context/AuthContext";
 import { NewPost, PostType, useCreatePostMutation } from "generated/graphql";
@@ -110,7 +110,7 @@ function PostCreate() {
             />
           </Form.Row>
           <Form.Row>
-            <InputQuill name="content" label="內文" isReadOnly={false} />
+            <InputTinyMCE name="content" label="內文" isReadOnly={false} />
           </Form.Row>
           <label className="mt-5">選擇封面</label>
           <WrappedDropzone lg={12} xl={6} {...dropzoneMethods} />

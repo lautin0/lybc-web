@@ -17,12 +17,12 @@ import clsx from 'clsx';
 import red from '@material-ui/core/colors/red';
 import yellow from '@material-ui/core/colors/yellow';
 import { useDropzone } from 'react-dropzone';
-import InputQuill from 'components/Forms/InputQuill';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import DOMPurify from 'dompurify'
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
+import InputTinyMCE from 'components/Forms/InputTinyMCE';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -451,7 +451,7 @@ export default function PendingPostApproval() {
                            </Grid>}
                            {activeStep !== 0 && data?.pendingPost?.status && endStatus.includes(data?.pendingPost?.status) && getStepResult()}
                            {activeStep === 1 && data?.pendingPost?.status && data?.pendingPost?.status === PostStatus.Pending && <Grid container>
-                              <InputQuill name="content" label="在此貼上和編輯內容" isReadOnly={false} />
+                              <InputTinyMCE name="content" label="在此貼上和編輯內容" isReadOnly={false} />
                               <Grid item xs={12} style={{ marginTop: 50 }}>
                                  <Typography>選擇封面圖片</Typography>
                               </Grid>
