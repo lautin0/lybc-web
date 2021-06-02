@@ -1,10 +1,9 @@
 
 import ReactDOM from "react-dom";
 import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from './reducers'
-import createSagaMiddleware from 'redux-saga'
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -54,13 +53,9 @@ import SearchBooks from "views/book/SearchBooks";
 import News from "views/news/News";
 import Worship from "views/worship/Worship";
 
-// const history = createHistory({ basename: process.env.PUBLIC_URL });
-
-const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(sagaMiddleware)
 );
 
 const messages = {
