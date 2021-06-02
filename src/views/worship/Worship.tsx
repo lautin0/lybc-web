@@ -100,7 +100,7 @@ function Worship() {
                   </div>
                 })}
               </div>
-              <Grid style={{ width: '100%' }}>
+              <Grid style={{ display: 'grid' }}>
                 <TinyEditorComponent onChange={handleChange} value={data} />
               </Grid>
               <Row className="mt-5 justify-content-end">
