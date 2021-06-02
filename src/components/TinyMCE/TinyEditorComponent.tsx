@@ -61,7 +61,7 @@ export default function TinyEditorComponent(props: TinyEditorComponentProps) {
       value={value}      
       init={{
         skin: false,
-        min_height: 500,   
+        min_height: 600,   
         menubar: false,
         statusbar: false, 
         plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern help code emoticons',

@@ -11,6 +11,7 @@ import { useWorshipQuery } from "generated/graphql";
 import { useIntl } from "react-intl";
 import TinyEditorComponent from "components/TinyMCE/TinyEditorComponent";
 import tinymce from 'tinymce/tinymce'
+import { Grid } from "@material-ui/core";
 
 function Worship() {
   const intl = useIntl()
@@ -99,9 +100,9 @@ function Worship() {
                   </div>
                 })}
               </div>
-              <Row>
+              <Grid style={{ width: '100%' }}>
                 <TinyEditorComponent onChange={handleChange} value={data} />
-              </Row>
+              </Grid>
               <Row className="mt-5 justify-content-end">
                 <div className="d-block d-lg-none">
                   <Button style={{ transform: 'translate(0px, 25px)' }} variant="primary" onClick={handleDownloadNote}>
