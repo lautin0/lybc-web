@@ -21,8 +21,6 @@ import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import PrivateRoute from "components/Route/PrivateRoute";
 import { getClient } from "utils/auth.client";
 import PersonalRoute from "components/Route/PersonalRoute";
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import en from './assets/i18n/en.json';
