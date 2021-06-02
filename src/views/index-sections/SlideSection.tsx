@@ -42,11 +42,11 @@ function SlideSection() {
   const intl = useIntl()
 
   const dummyList = useRef([{}, {}, {}])
-  
+
   const postFilter: PostFilter = useMemo(() => ({
     AND: [{ parentIDNotNull: false }],
     type: PostType.Sharing
-  }),[])
+  }), [])
   const { loading, data: postData } = usePostsQuery({
     variables: { first: 5, postFilter: postFilter }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true
   })
@@ -92,7 +92,7 @@ function SlideSection() {
                   <img
                     alt="blog preview"
                     className="d-none d-lg-block"
-                    style={{ width: '100%', height: 350, objectFit: 'cover' }}
+                    style={{ width: '100%', height: 300, objectFit: 'cover' }}
                     src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
                   <img
@@ -111,7 +111,7 @@ function SlideSection() {
                   <img
                     alt="no blog preview"
                     className="d-none d-lg-block"
-                    style={{ width: '100%', height: 350, objectFit: 'cover' }}
+                    style={{ width: '100%', height: 300, objectFit: 'cover' }}
                     src={noImg}
                   />
                   <img

@@ -134,7 +134,7 @@ function CarouselSection() {
                   <Carousel.Item style={{ background: 'lightgray' }}>
                     <img
                       style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
-                      src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/together_md.jpg"}
+                      src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/togetherness_md.jpg"}
                       alt="Second slide"
                     />
 
@@ -154,14 +154,14 @@ function CarouselSection() {
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
-                  <Carousel.Item style={{ background: '#2c2c2c' }}>
+                  {/* <Carousel.Item style={{ background: '#2c2c2c' }}>
                     <img
                       style={{ height: isMobile ? 250 : 350, objectFit: "contain" }}
                       className="d-block w-100"
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/WhatsApp%20Image%202021-03-17%20at%2014.07.56.jpeg"}
                       alt="Second slide"
                     />
-                  </Carousel.Item>
+                  </Carousel.Item> */}
                   {/* <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ maxHeight: 500, objectFit: "cover" }}
