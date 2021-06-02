@@ -172,10 +172,10 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          },
 
          secondary: {
-            light: '#4b62bd',
-            main: '#00398c',
-            dark: '#00155e',
-            contrastText: '#fff',
+            light: '#ffff81',
+            main: '#ffd54f',
+            dark: '#c8a415',
+            contrastText: '#000',
          },
 
       },
@@ -227,10 +227,10 @@ const PersonalLayout: FC<Props> = (props): ReactElement<Props> => {
          },
 
          secondary: {
-            light: '#4b62bd',
-            main: '#00398c',
-            dark: '#00155e',
-            contrastText: '#fff',
+            light: '#ffff81',
+            main: '#ffd54f',
+            dark: '#c8a415',
+            contrastText: '#000',
          },
 
       },

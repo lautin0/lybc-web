@@ -1,4 +1,4 @@
-import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid } from '@material-ui/core';
+import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid, LinearProgress } from '@material-ui/core';
 import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
@@ -6,7 +6,6 @@ import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
 
@@ -58,6 +57,17 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  progress: {
+    marginTop: -20,
+    position: 'fixed',
+    width: 'calc(100% - 300px)',
+    zIndex: 1,
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      marginTop: -30,
+      left: 0
+    }
+  }
 }))
 
 function NameCardManage() {
@@ -77,7 +87,7 @@ function NameCardManage() {
   }
 
   useEffect(() => {
-    if (data != null)
+    if (data && refetch)
       refetch()
   }, [refetch, location, data])
 
@@ -113,68 +123,63 @@ function NameCardManage() {
 
   return (
     <>
-      <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h5">新來賓名片</Typography>
-      <hr></hr>
-      {loading && <Container>
-        <div className="text-center">
-          <div className="spinner-grow text-secondary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      </Container>}
-      {!loading && <Grid container spacing={2} className={classes.gridRoot}>
-        {data!.nameCards.map((n) => (
-          <Grid key={n._id} item xs={12} sm={6}>
-            <Card className={classes.root} variant="outlined">
-              <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  名字:
-                  </Typography>
-                <Typography variant="h5" component="h2">
-                  {n.name}{` `}{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  聯絡電話:
-                  </Typography>
-                <Typography variant="body2" component="p">
-                  {n.phone}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  電郵:
-                  </Typography>
-                <Typography variant="body2" component="p">
-                  {n.email}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <Chip label={getStatus(n.status)} className={getBadgeClassName(n.status)} />
-                <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded[n._id],
-                  })}
-                  onClick={() => handleClick(n._id)}
-                  aria-expanded={expanded[n._id]}
-                  aria-label="show more"
-                >
-                  <ExpandMore />
-                </IconButton>
-              </CardActions>
-              <Collapse in={expanded[n._id]} timeout="auto" unmountOnExit>
+      {loading && <LinearProgress className={classes.progress} />}
+      {!loading && <>
+        <RouterBreadcrumbs />
+        <Typography className="my-3" variant="h5">新來賓名片</Typography>
+        <Grid container spacing={2} className={classes.gridRoot}>
+          {data!.nameCards.map((n) => (
+            <Grid key={n._id} item xs={12} sm={6}>
+              <Card className={classes.root} variant="outlined">
                 <CardContent>
-                  <Typography paragraph>備註:</Typography>
-                  <Typography paragraph>
-                    {n.remarks}
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    名字:
                   </Typography>
-                  <Typography>
-                    {moment(n.lupdDttm).format('LLL')}
+                  <Typography variant="h5" component="h2">
+                    {n.name}{` `}{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}
+                  </Typography>
+                  <Typography className={classes.pos} color="textSecondary">
+                    聯絡電話:
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {n.phone}
+                  </Typography>
+                  <Typography className={classes.pos} color="textSecondary">
+                    電郵:
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {n.email}
                   </Typography>
                 </CardContent>
-              </Collapse>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>}
+                <CardActions disableSpacing>
+                  <Chip label={getStatus(n.status)} className={getBadgeClassName(n.status)} />
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: expanded[n._id],
+                    })}
+                    onClick={() => handleClick(n._id)}
+                    aria-expanded={expanded[n._id]}
+                    aria-label="show more"
+                  >
+                    <ExpandMore />
+                  </IconButton>
+                </CardActions>
+                <Collapse in={expanded[n._id]} timeout="auto" unmountOnExit>
+                  <CardContent>
+                    <Typography paragraph>備註:</Typography>
+                    <Typography paragraph>
+                      {n.remarks}
+                    </Typography>
+                    <Typography>
+                      {moment(n.lupdDttm).format('LLL')}
+                    </Typography>
+                  </CardContent>
+                </Collapse>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </>}
     </>
   )
 }

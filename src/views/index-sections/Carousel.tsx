@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from "@material-ui/core";
 import LoadingDiv from "components/Loading/LoadingDiv";
 import { PostType, useMaxWorshipIdQuery, usePostsQuery } from "generated/graphql";
 import moment from "moment";
@@ -12,6 +13,9 @@ import UNIVERSALS from "Universals";
 // core components
 
 function CarouselSection() {
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const intl = useIntl()
 
@@ -113,8 +117,7 @@ function CarouselSection() {
                 <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
                   <Carousel.Item>
                     <img
-                      style={{ height: 400, objectFit: "cover" }}
-                      className="d-block w-100"
+                      style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/worship-bg.jpg"}
                       alt="First slide"
                       onClick={handleClick}
@@ -130,8 +133,7 @@ function CarouselSection() {
                   </Carousel.Item>
                   <Carousel.Item style={{ background: 'lightgray' }}>
                     <img
-                      style={{ height: 400, objectFit: "cover" }}
-                      className="d-block w-100"
+                      style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/together_md.jpg"}
                       alt="Second slide"
                     />
@@ -152,15 +154,15 @@ function CarouselSection() {
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
-                  {/* <Carousel.Item style={{ background: '#2c2c2c' }}>
+                  <Carousel.Item style={{ background: '#2c2c2c' }}>
                     <img
-                      style={{ height: 400, objectFit: "contain" }}
+                      style={{ height: isMobile ? 250 : 350, objectFit: "contain" }}
                       className="d-block w-100"
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/WhatsApp%20Image%202021-03-17%20at%2014.07.56.jpeg"}
                       alt="Second slide"
                     />
                   </Carousel.Item>
-                  <Carousel.Item style={{ background: 'lightgray' }}>
+                  {/* <Carousel.Item style={{ background: 'lightgray' }}>
                   <img
                     style={{ maxHeight: 500, objectFit: "cover" }}
                     className="d-block w-100"
