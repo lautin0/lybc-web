@@ -518,6 +518,7 @@ export type UpdateFavouritePost = {
 };
 
 export type UpdateNameCard = {
+  _id: Scalars['String'];
   remarks?: Maybe<Scalars['String']>;
   status: AccountStatus;
 };
@@ -630,6 +631,19 @@ export type NameCardQuery = (
     { __typename?: 'NameCard' }
     & Pick<NameCard, '_id' | 'name' | 'email' | 'phone' | 'gender' | 'remarks' | 'status' | 'lupdDttm'>
   )> }
+);
+
+export type UpdateNameCardMutationVariables = Exact<{
+  input: UpdateNameCard;
+}>;
+
+
+export type UpdateNameCardMutation = (
+  { __typename?: 'Mutation' }
+  & { updateNameCard: (
+    { __typename?: 'NameCard' }
+    & Pick<NameCard, '_id' | 'name' | 'email' | 'phone' | 'gender'>
+  ) }
 );
 
 export type NotificationsQueryVariables = Exact<{
@@ -1226,6 +1240,43 @@ export function useNameCardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<N
 export type NameCardQueryHookResult = ReturnType<typeof useNameCardQuery>;
 export type NameCardLazyQueryHookResult = ReturnType<typeof useNameCardLazyQuery>;
 export type NameCardQueryResult = Apollo.QueryResult<NameCardQuery, NameCardQueryVariables>;
+export const UpdateNameCardDocument = gql`
+    mutation updateNameCard($input: UpdateNameCard!) {
+  updateNameCard(input: $input) {
+    _id
+    name
+    email
+    phone
+    gender
+  }
+}
+    `;
+export type UpdateNameCardMutationFn = Apollo.MutationFunction<UpdateNameCardMutation, UpdateNameCardMutationVariables>;
+
+/**
+ * __useUpdateNameCardMutation__
+ *
+ * To run a mutation, you first call `useUpdateNameCardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNameCardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNameCardMutation, { data, loading, error }] = useUpdateNameCardMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateNameCardMutation(baseOptions?: Apollo.MutationHookOptions<UpdateNameCardMutation, UpdateNameCardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateNameCardMutation, UpdateNameCardMutationVariables>(UpdateNameCardDocument, options);
+      }
+export type UpdateNameCardMutationHookResult = ReturnType<typeof useUpdateNameCardMutation>;
+export type UpdateNameCardMutationResult = Apollo.MutationResult<UpdateNameCardMutation>;
+export type UpdateNameCardMutationOptions = Apollo.BaseMutationOptions<UpdateNameCardMutation, UpdateNameCardMutationVariables>;
 export const NotificationsDocument = gql`
     query notifications($toUsername: String!) {
   notifications(toUsername: $toUsername) {

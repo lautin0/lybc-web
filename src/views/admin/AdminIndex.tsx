@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 const useStyles = makeStyles((theme) => (
   createStyles({
     root: {
-      paddingTop: 50
+      paddingTop: 20
     },
     img: {
       width: 600,
@@ -46,7 +46,7 @@ export default function AdminIndex() {
       namecardsRefetch()
   }, [location, pendingPostsRefetch, namecardsRefetch])
 
-  return <Grid container spacing={3} className={classes.root}>
+  return <Grid container spacing={2} className={classes.root}>
     <Grid container item xs={12} lg={6} justify="center" alignItems="center" direction="column">
       <Typography variant="h4">歡迎回來✨</Typography>
       <img className={classes.img} alt="background" src={Computer}></img>

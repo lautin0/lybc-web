@@ -18,6 +18,7 @@ input NewNameCard {
 }
 
 input UpdateNameCard {
+	_id: String!
 	remarks: String
 	status: AccountStatus!
 }

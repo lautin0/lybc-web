@@ -23,6 +23,7 @@ import DOMPurify from 'dompurify'
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -77,17 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(3),
       },
-      progress: {
-         marginTop: -20,
-         position: 'fixed',
-         width: 'calc(100% - 300px)',
-         zIndex: 1,
-         [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginTop: -30,
-            left: 0
-         }
-      },
       responsiveImgGrid: {
          height: 'auto'
       }
@@ -103,7 +93,9 @@ export default function PendingPostApproval() {
    const { oid } = useParams<any>()
    const history = useHistory()
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles();
+   
    const [activeStep, setActiveStep] = React.useState(0);
    const [steps, setSteps] = useState(['檢視文章', '修改內容', '發布'])
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
@@ -370,7 +362,7 @@ export default function PendingPostApproval() {
 
    return (
       <>
-         {(loading || updateLoading || approveLoading) && <LinearProgress className={classes.progress} />}
+         {(loading || updateLoading || approveLoading) && <LinearProgress className={globalClasses.progress} />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <RouterBreadcrumbs />

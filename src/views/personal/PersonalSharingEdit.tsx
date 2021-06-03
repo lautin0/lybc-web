@@ -21,6 +21,7 @@ import DOMPurify from 'dompurify';
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -43,17 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       documentLabel: {
          marginBottom: theme.spacing(3)
-      },
-      progress: {
-         marginTop: -20,
-         position: 'fixed',
-         width: 'calc(100% - 300px)',
-         zIndex: 1,
-         [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginTop: -30,
-            left: 0
-         }
       },
       title: {
          marginTop: theme.spacing(3),
@@ -105,7 +95,9 @@ export default function PersonalSharingEdit() {
 
    const { tokenPair } = useContext(AuthContext)
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles();
+
    const [activeStep, setActiveStep] = React.useState(0);
    const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
@@ -304,7 +296,7 @@ export default function PersonalSharingEdit() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress className={classes.progress} />}
+         {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>

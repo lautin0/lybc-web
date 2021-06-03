@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, InputAdornment, LinearProgress, makeStyles, Radio, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, InputAdornment, LinearProgress, Radio, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
@@ -14,24 +14,9 @@ import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
 
-const useStyles = makeStyles((theme) => ({
-   progress: {
-      marginTop: -20,
-      position: 'fixed',
-      width: 'calc(100% - 300px)',
-      zIndex: 1,
-      [theme.breakpoints.down('xs')]: {
-         width: '100%',
-         marginTop: -30,
-         left: 0
-      }
-   }
-}))
-
 export default function UserCreate() {
 
    const globalClasses = useGlobalStyles()
-   const classes = useStyles()
 
    const history = useHistory()
 
@@ -102,7 +87,7 @@ export default function UserCreate() {
 
    return (
       <>
-         {loading && <LinearProgress className={classes.progress} />}
+         {loading && <LinearProgress className={globalClasses.progress} />}
          <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className={globalClasses.adminPageTitle} variant="h5">建立新會員</Typography>

@@ -20,17 +20,6 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: green[600]
     }
-  },
-  progress: {
-    marginTop: -20,
-    position: 'fixed',
-    width: 'calc(100% - 300px)',
-    zIndex: 1,
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      marginTop: -30,
-      left: 0
-    }
   }
 }))
 
@@ -152,7 +141,7 @@ function WorshipManage() {
 
   return (
     <>
-      {deleteLoading && <LinearProgress className={classes.progress} />}
+      {deleteLoading && <LinearProgress className={globalClasses.progress} />}
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜管理</Typography>
       <Button

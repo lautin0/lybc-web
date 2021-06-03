@@ -57,17 +57,6 @@ const useStyles = makeStyles((theme) => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
-  },
-  progress: {
-    marginTop: -20,
-    position: 'fixed',
-    width: 'calc(100% - 300px)',
-    zIndex: 1,
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      marginTop: -30,
-      left: 0
-    }
   }
 }))
 
@@ -76,7 +65,7 @@ const getStatus = (s: AccountStatus) => {
     case AccountStatus.Active:
       return "已處理"
     case AccountStatus.Inactive:
-      return "取消申請"
+      return "擱置"
     case AccountStatus.Pending:
       return "待接觸"
     case AccountStatus.Suspended:
@@ -127,7 +116,7 @@ export default function NameCardManage() {
 
   return (
     <>
-      {loading && <LinearProgress className={classes.progress} />}
+      {loading && <LinearProgress className={globalClasses.progress} />}
       {!loading && <>
         <RouterBreadcrumbs />
         <Typography className={globalClasses.adminPageTitle} variant="h5">新來賓名片</Typography>

@@ -23,17 +23,6 @@ const useStyles = makeStyles(theme => ({
          width: '60%'
       }
    },
-   progress: {
-      marginTop: -20,
-      position: 'fixed',
-      width: 'calc(100% - 300px)',
-      zIndex: 1,
-      [theme.breakpoints.down('xs')]: {
-         width: '100%',
-         marginTop: -30,
-         left: 0
-      }
-   }
 }))
 
 export default function UserEdit() {
@@ -250,7 +239,7 @@ export default function UserEdit() {
 
    return (
       <>
-         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress className={classes.progress} />}
+         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress className={globalClasses.progress} />}
          {!loading && <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>

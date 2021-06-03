@@ -16,6 +16,7 @@ import UNIVERSALS from 'Universals';
 import red from '@material-ui/core/colors/red';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -54,16 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
          "&.MuiButton-contained:hover": {
             backgroundColor: red[500],
          }
-      }, progress: {
-         marginTop: -20,
-         position: 'fixed',
-         width: 'calc(100% - 300px)',
-         zIndex: 1,
-         [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginTop: -30,
-            left: 0
-         }
       },
       responsiveImgGrid: {
          height: 'auto'
@@ -76,7 +67,9 @@ export default function PersonalSharingStat() {
    const { oid } = useParams<any>()
    const history = useHistory()
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles();
+   
    const [activeStep, setActiveStep] = React.useState(0);
    const [steps, setSteps] = useState(['文章(按此檢視)', '處理中', ''])
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
@@ -234,7 +227,7 @@ export default function PersonalSharingStat() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress className={classes.progress} />}
+         {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
          {!loading && <FormProvider {...methods}>
             <form>
                <Container>

@@ -24,6 +24,17 @@ const useGlobalStyles = makeStyles((theme) => ({
   adminPageTitle: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4)
+  },
+  progress: {
+    marginTop: -20,
+    position: 'fixed',
+    width: 'calc(100% - 300px)',
+    zIndex: 1,
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      marginTop: -30,
+      left: 0
+    }
   }
 }))
 

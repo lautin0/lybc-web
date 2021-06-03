@@ -23,6 +23,7 @@ import robotImg from '../../assets/img/robot.png'
 import { Close, KeyboardReturn } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert/Alert';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -46,17 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
       formContent: {
          marginTop: theme.spacing(3),
          marginBottom: theme.spacing(6)
-      },
-      progress: {
-         marginTop: -20,
-         position: 'fixed',
-         width: 'calc(100% - 300px)',
-         zIndex: 1,
-         [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginTop: -30,
-            left: 0
-         }
       },
       divider: {
          marginTop: theme.spacing(3),
@@ -112,7 +102,9 @@ export default function PersonalSharingSubmit() {
 
    const { tokenPair } = useContext(AuthContext)
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles();
+   
    const [activeStep, setActiveStep] = useState(0);
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
@@ -298,7 +290,7 @@ export default function PersonalSharingSubmit() {
 
    return (
       <>
-         {loading && <LinearProgress className={classes.progress} />}
+         {loading && <LinearProgress className={globalClasses.progress} />}
          {<Slide direction="down" in={alertCD > 0}>
             <Alert
                className={classes.alert}

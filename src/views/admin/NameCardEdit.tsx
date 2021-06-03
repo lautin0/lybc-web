@@ -1,36 +1,25 @@
-import { Button, Grid, LinearProgress, makeStyles, Radio, Typography } from "@material-ui/core";
+import { Button, Grid, LinearProgress, Radio, Typography } from "@material-ui/core";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
-import { AccountStatus, Gender, NameCard, useNameCardQuery } from "generated/graphql";
+import { AccountStatus, Gender, NameCard, useNameCardQuery, useUpdateNameCardMutation } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { useModalStore } from "store";
 import useGlobalStyles from "styles/styles";
-
-const useStyles = makeStyles((theme) => ({
-   progress: {
-      marginTop: -20,
-      position: 'fixed',
-      width: 'calc(100% - 300px)',
-      zIndex: 1,
-      [theme.breakpoints.down('xs')]: {
-         width: '100%',
-         marginTop: -30,
-         left: 0
-      }
-   }
-}))
 
 export default function NameCardEdit() {
 
    const globalClasses = useGlobalStyles()
-   const classes = useStyles()
+
+   const history = useHistory()
 
    const { oid } = useParams<any>()
 
    const { data, loading } = useNameCardQuery({ variables: { oid: oid } })
+   const [updateNamecard, { loading: updateLoading }] = useUpdateNameCardMutation()
 
    const methods = useForm<NameCard>({
       defaultValues: {
@@ -43,8 +32,25 @@ export default function NameCardEdit() {
 
    const [readonly, setReadonly] = useState(false)
 
-   const onSubmit = (data: any) => {
-      console.log(data)
+   const setMessage = useModalStore(state => state.setMessage)
+   const setErrorModal = useModalStore(state => state.setError)
+
+   const onSubmit = (d: any) => {
+      updateNamecard({
+         variables: {
+            input: {
+               _id: data?.nameCard?._id,
+               remarks: d.remarks,
+               status: d.status,
+            }
+         }
+      }).then(e => {
+         setMessage('app.sys.save-success')
+         reset();
+         history.push('/admin/namecards')
+      }).catch((err: any) => {
+         setErrorModal(err)
+      })
    }
 
    useEffect(() => {
@@ -65,7 +71,7 @@ export default function NameCardEdit() {
    }, [data, reset])
 
    return <>
-      {loading && <LinearProgress className={classes.progress} />}
+      {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
       {!loading && <FormProvider {...methods}>
          <RouterBreadcrumbs />
          <Typography className={globalClasses.adminPageTitle} variant="h5">跟進新來賓</Typography>
@@ -130,14 +136,14 @@ export default function NameCardEdit() {
                      ds={[
                         { value: AccountStatus.Contacting, display: "跟進中", disabled: false },
                         { value: AccountStatus.Pending, display: "待接觸", disabled: false },
-                        { value: AccountStatus.Inactive, display: "不活躍🚫", disabled: false },
+                        { value: AccountStatus.Inactive, display: "擱置🚫", disabled: false },
                         { value: AccountStatus.Active, display: "已成為會友✅", disabled: false }
                      ]}
                   />
                </Grid>
-               <Grid item>
+               {!readonly && <Grid item>
                   <Button variant="contained" color="primary" type="submit">儲存</Button>
-               </Grid>
+               </Grid>}
             </Grid>
          </form>
       </FormProvider>}
