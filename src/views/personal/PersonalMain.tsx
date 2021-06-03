@@ -14,10 +14,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { setSystemFailure } from 'actions';
 import moment from 'moment';
 import { FormattedDate } from 'react-intl';
-import { css } from 'styles/styles';
+import useGlobalStyles, { css } from 'styles/styles';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { green, red, yellow, cyan, grey } from '@material-ui/core/colors';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
 
@@ -96,30 +95,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'dodgerblue',
     color: theme.palette.primary.contrastText
  },
-  success: {
-    backgroundColor: green[600],
-    color: theme.palette.primary.contrastText
-  },
-  danger: {
-    backgroundColor: red[600],
-    color: theme.palette.primary.contrastText
-  },
-  warning: {
-    backgroundColor: yellow[600],
-    color: theme.palette.secondary.contrastText
-  },
-  default: {
-    backgroundColor: grey[500],
-    color: theme.palette.primary.contrastText
-  },
-  primary: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
-  },
-  info: {
-    backgroundColor: cyan[800],
-    color: theme.palette.primary.contrastText
-  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -144,6 +119,7 @@ export default function PersonalMain(props: PersonalMainProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
@@ -238,14 +214,14 @@ export default function PersonalMain(props: PersonalMainProps) {
   const getBadgeClassName = (s: PostStatus) => {
     switch (s) {
       case PostStatus.Approved:
-        return classes.success
+        return globalClasses.success
       case PostStatus.Rejected:
       case PostStatus.Withdraw:
-        return classes.danger
+        return globalClasses.danger
       case PostStatus.Pending:
-        return classes.warning
+        return globalClasses.warning
       case PostStatus.Withhold:
-        return classes.default
+        return globalClasses.default
     }
   }
 

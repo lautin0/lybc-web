@@ -13,7 +13,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
-import red from '@material-ui/core/colors/red';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import useGlobalStyles from 'styles/styles';
@@ -48,13 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       documentLabel: {
          marginBottom: theme.spacing(3)
-      },
-      danger: {
-         backgroundColor: red[600],
-         color: theme.palette.primary.contrastText,
-         "&.MuiButton-contained:hover": {
-            backgroundColor: red[500],
-         }
       },
       responsiveImgGrid: {
          height: 'auto'
@@ -126,7 +118,7 @@ export default function PersonalSharingStat() {
                   subTitle="謝謝您的分享，同工中在處理您的申請。"
                   extra={
                      <div>
-                        <Button style={{ marginRight: 10 }} variant="contained" className={classes.danger} onClick={() => updatePendingPost({
+                        <Button style={{ marginRight: 10 }} variant="contained" className={globalClasses.dangerButton} onClick={() => updatePendingPost({
                            variables: {
                               input: {
                                  _id: data?.pendingPost?._id,
@@ -172,7 +164,7 @@ export default function PersonalSharingStat() {
          default:
             return "發生錯誤，請重新載入。";
       }
-   }, [data, history, refetch, getValues, reset, updatePendingPost, classes])
+   }, [data, history, refetch, getValues, reset, updatePendingPost, globalClasses])
 
    useEffect(() => {
       if (data && reset) {

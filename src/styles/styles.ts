@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import { green, red, yellow, grey, cyan } from "@material-ui/core/colors";
 
 export class css {
 
@@ -35,7 +36,45 @@ const useGlobalStyles = makeStyles((theme) => ({
       marginTop: -30,
       left: 0
     }
-  }
+  },
+  success: {
+    backgroundColor: green[600],
+    color: theme.palette.primary.contrastText
+  },
+  danger: {
+    backgroundColor: red[600],
+    color: theme.palette.primary.contrastText
+  },
+  warning: {
+    backgroundColor: yellow[600],
+    color: theme.palette.secondary.contrastText
+  },
+  default: {
+    backgroundColor: grey[500],
+    color: theme.palette.primary.contrastText
+  },
+  primary: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText
+  },
+  info: {
+    backgroundColor: cyan[800],
+    color: theme.palette.primary.contrastText
+  },
+  dangerButton: {
+    backgroundColor: red[600],
+    color: theme.palette.primary.contrastText,
+    "&.MuiButton-contained:hover": {
+      backgroundColor: red[500],
+    }
+  },
+  warningButton: {
+    backgroundColor: yellow[700],
+    color: theme.palette.primary.contrastText,
+    "&.MuiButton-contained:hover": {
+      backgroundColor: yellow[600],
+    }
+  },
 }))
 
 export default useGlobalStyles

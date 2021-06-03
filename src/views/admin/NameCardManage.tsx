@@ -1,5 +1,4 @@
 import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid, LinearProgress, Tooltip } from '@material-ui/core';
-import { cyan, green, red, yellow } from '@material-ui/core/colors';
 import { Edit, ExpandMore, PersonAdd } from '@material-ui/icons';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
@@ -17,36 +16,11 @@ const useStyles = makeStyles((theme) => ({
   gridRoot: {
     flexGrow: 1
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
-  },
-  success: {
-    backgroundColor: green[600],
-    color: theme.palette.primary.contrastText
-  },
-  danger: {
-    backgroundColor: red[600],
-    color: theme.palette.primary.contrastText
-  },
-  warning: {
-    backgroundColor: yellow[600],
-    color: theme.palette.primary.contrastText
-  },
-  primary: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
-  },
-  info: {
-    backgroundColor: cyan[800],
-    color: theme.palette.primary.contrastText
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -102,15 +76,15 @@ export default function NameCardManage() {
   const getBadgeClassName = (s: AccountStatus) => {
     switch (s) {
       case AccountStatus.Active:
-        return classes.success
+        return globalClasses.success
       case AccountStatus.Inactive:
-        return classes.danger
+        return globalClasses.default
       case AccountStatus.Pending:
-        return classes.danger
+        return globalClasses.danger
       case AccountStatus.Suspended:
-        return classes.warning
+        return globalClasses.warning
       case AccountStatus.Contacting:
-        return classes.info
+        return globalClasses.info
     }
   }
 

@@ -14,8 +14,6 @@ import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useModalStore } from 'store';
 import clsx from 'clsx';
-import red from '@material-ui/core/colors/red';
-import yellow from '@material-ui/core/colors/yellow';
 import { useDropzone } from 'react-dropzone';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
@@ -55,20 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       documentLabel: {
          marginBottom: theme.spacing(3)
-      },
-      danger: {
-         backgroundColor: red[600],
-         color: theme.palette.primary.contrastText,
-         "&.MuiButton-contained:hover": {
-            backgroundColor: red[500],
-         }
-      },
-      warning: {
-         backgroundColor: yellow[700],
-         color: theme.palette.primary.contrastText,
-         "&.MuiButton-contained:hover": {
-            backgroundColor: yellow[600],
-         }
       },
       rowGrid: {
          display: 'flex',
@@ -485,7 +469,7 @@ export default function PendingPostApproval() {
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={withholdPost}
-                              className={clsx(classes.button, classes.warning)}
+                              className={clsx(classes.button, globalClasses.warningButton)}
                            >
                               <Hidden smDown implementation="css">
                                  暫緩發布
@@ -500,7 +484,7 @@ export default function PendingPostApproval() {
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={rejectPost}
-                              className={clsx(classes.button, classes.danger)}
+                              className={clsx(classes.button, globalClasses.dangerButton)}
                            >
                               <Hidden smDown implementation="css">
                                  拒絕發布

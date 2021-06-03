@@ -1,5 +1,4 @@
-import { Button, Chip, makeStyles, Typography } from '@material-ui/core';
-import { cyan, green, grey, red, yellow } from '@material-ui/core/colors';
+import { Button, Chip, Typography } from '@material-ui/core';
 import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
@@ -8,29 +7,6 @@ import moment, { Moment } from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import useGlobalStyles from 'styles/styles';
-
-const useStyles = makeStyles((theme) => ({
-  success: {
-    backgroundColor: green[600],
-    color: theme.palette.primary.contrastText
-  },
-  danger: {
-    backgroundColor: red[700],
-    color: theme.palette.primary.contrastText
-  },
-  warning: {
-    backgroundColor: yellow[800],
-    color: theme.palette.primary.contrastText
-  },
-  default: {
-    backgroundColor: grey[500],
-    color: theme.palette.primary.contrastText
-  },
-  info: {
-    backgroundColor: cyan[800],
-    color: theme.palette.primary.contrastText
-  }
-}))
 
 type PendingPostRowProps = {
   _id: string,
@@ -44,7 +20,7 @@ type PendingPostRowProps = {
 function PendingPostManage() {
 
   const globalClasses = useGlobalStyles()
-  const classes = useStyles()
+  const classes = useGlobalStyles()
 
   const location = useLocation();
 
