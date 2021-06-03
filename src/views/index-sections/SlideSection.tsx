@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Slider from "react-slick";
 import UNIVERSALS from 'Universals';
 import noImg from 'assets/img/no-img.jpg';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
 const settings = {
   dots: true,
@@ -36,6 +37,11 @@ const settings = {
 };
 
 function SlideSection() {
+
+  const theme = useTheme()
+  const isMid = useMediaQuery(theme.breakpoints.only('md'))
+  const isLarge = useMediaQuery(theme.breakpoints.only('lg'))
+  const isXLarge = useMediaQuery(theme.breakpoints.only('xl'))
 
   const history = useHistory()
 
@@ -88,44 +94,27 @@ function SlideSection() {
                 className="gatsby-image-wrapper"
                 onClick={() => { history.push("sharing/" + item.node?._id) }}
               >
-                {item.node?.imageURI && <>
-                  <img
-                    alt="blog preview"
-                    className="d-none d-lg-block"
-                    style={{ width: '100%', height: 300, objectFit: 'cover' }}
-                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                  />
-                  <img
-                    alt="blog preview"
-                    className="d-none d-md-block d-lg-none"
-                    style={{ width: 410, height: 270, objectFit: 'cover' }}
-                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                  />
-                  <img
-                    alt="blog preview"
-                    className="d-block d-md-none"
-                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
-                  />
-                </>}
-                {!item.node?.imageURI && <>
+                {item.node?.imageURI && (
                   <img
                     alt="no blog preview"
-                    className="d-none d-lg-block"
-                    style={{ width: '100%', height: 300, objectFit: 'cover' }}
-                    src={noImg}
+                    style={{
+                      width: isMid ? 410 : ((isLarge || isXLarge) ? '100%' : 'unset'),
+                      height: isXLarge ? 350 : (isMid ? 270 : (isLarge ? 300 : 'unset')),
+                      objectFit: 'cover'
+                    }}
+                    src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + item.node?.imageURI}
                   />
+                )}
+                {!item.node?.imageURI && (
                   <img
                     alt="no blog preview"
-                    className="d-none d-md-block d-lg-none"
-                    style={{ width: 410, height: 270, objectFit: 'cover' }}
+                    style={{
+                      width: isMid ? 410 : ((isLarge || isXLarge) ? '100%' : 'unset'),
+                      height: isXLarge ? 350 : (isMid ? 270 : (isLarge ? 300 : 'unset')),
+                    }}
                     src={noImg}
                   />
-                  <img
-                    alt="no blog preview"
-                    className="d-block d-md-none"
-                    src={noImg}
-                  />
-                </>}
+                )}
                 <h4>{<FormattedDate
                   value={item.node?.creDttm}
                   year="numeric"
