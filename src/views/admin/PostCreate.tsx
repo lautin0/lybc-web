@@ -11,6 +11,7 @@ import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useModalStore } from "store";
+import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
 
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PostCreate() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const { tokenPair } = useContext(AuthContext)
@@ -89,7 +91,7 @@ function PostCreate() {
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />
-          <Typography className="my-3" variant="h5">文章內容</Typography>
+          <Typography className={globalClasses.adminPageTitle} variant="h5">文章內容</Typography>
           <Form.Row>
             <MuiInputText
               md={6}

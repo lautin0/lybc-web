@@ -30,10 +30,11 @@ export default function RouterBreadcrumbs() {
       "new": [null, "新增"],
       "worship": ["/admin/worships", "崇拜管理"],
       "worships": [null, "崇拜管理"],
-      "namecards": [null, "新來賓名片"],
+      "namecards": ["/admin/namecards", "新來賓名片"],
       "news": [null, "最新消息"],
       "post": [null, "文章"],
-      "pending": [null, "待處理"]
+      "pending": [null, "待處理"],
+      "contact": [null, "跟進"],
    }), [classes])
 
    return <Breadcrumbs separator={<NavigateNext fontSize="small" />}>

@@ -12,6 +12,7 @@ import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useModalStore } from 'store';
+import useGlobalStyles from 'styles/styles';
 import Validators from 'utils/validator';
 
 const useStyles = makeStyles((theme) =>
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) =>
 
 function WorshipEdit() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const { id } = useParams<any>()
@@ -224,7 +226,7 @@ function WorshipEdit() {
         <RouterBreadcrumbs />
         {!loading && <FormProvider {...methods}>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" className="my-3">崇拜資料</Typography>
+            <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜資料</Typography>
             {isReadOnly && <Button onClick={() => setIsReadOnly(false)} className={classes.button} variant="contained" color="secondary" startIcon={<Lock />}>解鎖</Button>}
             {!isReadOnly && <Button onClick={() => setIsReadOnly(true)} className={classes.button} variant="contained" color="primary" startIcon={<LockOpen />}>鎖定</Button>}
             <Form.Row className="mt-3 mb-5">

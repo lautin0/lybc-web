@@ -1,3 +1,5 @@
+import { makeStyles } from "@material-ui/core";
+
 export class css {
 
   public static adminPanelInput = "";
@@ -17,3 +19,12 @@ export class css {
   public static blogImgMobile = "d-block d-md-none mt-3 blog-img"
 
 }
+
+const useGlobalStyles = makeStyles((theme) => ({
+  adminPageTitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4)
+  }
+}))
+
+export default useGlobalStyles

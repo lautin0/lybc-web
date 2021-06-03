@@ -1,15 +1,17 @@
-import { Button, Divider, FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, LinearProgress, makeStyles, Radio, RadioGroup, Switch, TextField, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, InputAdornment, LinearProgress, makeStyles, Radio, Switch, TextField, Typography } from "@material-ui/core";
 import { VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
+import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
 import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
 import moment, { Moment } from "moment";
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useModalStore } from "store";
+import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 
 const useStyles = makeStyles(theme => ({
@@ -36,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserEdit() {
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles()
 
    const history = useHistory()
@@ -80,7 +83,7 @@ export default function UserEdit() {
       }
    })
 
-   const { handleSubmit, control, reset } = methods
+   const { handleSubmit, reset } = methods
 
    const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       setNewPasswordAdmin({
@@ -250,7 +253,7 @@ export default function UserEdit() {
          {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress className={classes.progress} />}
          {!loading && <FormProvider {...methods}>
             <RouterBreadcrumbs />
-            <Typography className="my-3" variant="h5">會員管理</Typography>
+            <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Typography variant="h5">一般</Typography>
                <Divider className={classes.divider} />
@@ -265,26 +268,15 @@ export default function UserEdit() {
                         />
                      </Grid>
                      <Grid item>
-                        <FormControl component="fieldset">
-                           <FormLabel component="legend">性別</FormLabel>
-                           <Controller
-                              render={({ field, fieldState }) =>
-                                 <RadioGroup aria-label="gender" row {...field}>
-                                    <FormControlLabel
-                                       value={Gender.Male.toString()}
-                                       control={<Radio color="primary" />}
-                                       label="男" />
-                                    <FormControlLabel
-                                       value={Gender.Female.toString()}
-                                       control={<Radio color="primary" />}
-                                       label="女"
-                                    />
-                                 </RadioGroup>
-                              }
-                              name="gender"
-                              control={control}
-                           />
-                        </FormControl>
+                        <MuiInputRadio
+                           name="gender"
+                           itemList={[
+                              { value: Gender.Male, control: <Radio color="primary" />, label: "男" },
+                              { value: Gender.Female, control: <Radio color="primary" />, label: "女" }
+                           ]}
+                           label="性別"
+                           disabled={true}
+                        />
                      </Grid>
                      <Grid item>
                         <MuiInputText

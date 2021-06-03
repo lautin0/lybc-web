@@ -11,6 +11,7 @@ import { useDropzone } from 'react-dropzone';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useModalStore } from 'store';
+import useGlobalStyles from 'styles/styles';
 import { getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function NewsCreate() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const { tokenPair } = useContext(AuthContext)
@@ -86,7 +88,7 @@ function NewsCreate() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />
           {/* <h3 className="category mt-5" style={{ color: 'black' }}>新增最新消息</h3> */}
-          <Typography className="my-3" variant="h5">新增最新消息</Typography>
+          <Typography className={globalClasses.adminPageTitle} variant="h5">新增最新消息</Typography>
           <Form.Row>
             {/* <InputText
             md={6}

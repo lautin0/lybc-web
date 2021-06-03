@@ -20,3 +20,26 @@ query nameCards {
 		lupdDttm
 	}
 }
+
+query nameCard($oid: String!){
+    nameCard(oid: $oid) {
+		_id
+		name
+		email
+		phone
+		gender
+		remarks
+		status
+		lupdDttm
+    }
+}
+
+mutation updateNameCard($input: UpdateNameCard!) {
+	updateNameCard(input: $input) {
+		_id, 
+		name, 
+		email, 
+		phone, 
+		gender, 
+	}
+}

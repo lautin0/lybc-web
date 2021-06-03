@@ -3,12 +3,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, Divider, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Avatar, Button, Divider, Grid, IconButton, Radio, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { setLoading } from 'actions';
 import imageCompression from 'browser-image-compression';
 import moment from 'moment';
@@ -21,6 +21,7 @@ import Validators from 'utils/validator';
 import { useModalStore } from 'store';
 import MuiDatePicker from 'components/Forms/MuiDatePicker';
 import AuthContext from 'context/AuthContext';
+import MuiInputRadio from 'components/Forms/MuiInputRadio';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -360,23 +361,14 @@ export default function PersonalSetting() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography>性別</Typography>
-                  <Controller
-                    render={({ field, fieldState }) =>
-                      <RadioGroup aria-label="gender" row {...field}>
-                        <FormControlLabel
-                          value={Gender.Male.toString()}
-                          control={<Radio />}
-                          label="男" />
-                        <FormControlLabel
-                          value={Gender.Female.toString()}
-                          control={<Radio />}
-                          label="女"
-                        />
-                      </RadioGroup>
-                    }
+                  <MuiInputRadio
                     name="gender"
-                    control={control}                    
+                    itemList={[
+                      { value: Gender.Male, control: <Radio />, label: "男" },
+                      { value: Gender.Female, control: <Radio />, label: "女" }
+                    ]}
+                    label="性別"
+                    required={true}
                   />
                 </Grid>
                 <Grid item>

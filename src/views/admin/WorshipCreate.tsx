@@ -12,6 +12,7 @@ import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { useModalStore } from 'store';
+import useGlobalStyles from 'styles/styles';
 import Validators from 'utils/validator';
 
 const useStyles = makeStyles((theme) =>
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) =>
 
 function WorshipCreate() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const [locale] = useLanguage()
@@ -176,7 +178,7 @@ function WorshipCreate() {
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />
-          <Typography variant="h5" className="my-3">崇拜資料</Typography>
+          <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜資料</Typography>
           <Form.Row className="mb-5">
             <MuiInputText
               md={5}

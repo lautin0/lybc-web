@@ -8,6 +8,7 @@ import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "ge
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDecisionModalStore, useModalStore } from "store";
+import useGlobalStyles from "styles/styles";
 
 const useStyles = makeStyles(theme => ({
    badgeAdmin: {
@@ -48,6 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserManage() {
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles()
 
    const history = useHistory()
@@ -175,7 +177,7 @@ export default function UserManage() {
       <>
          {changeStatLoading && <LinearProgress className={classes.progress} />}
          <RouterBreadcrumbs />
-         <Typography className="my-3" variant="h5">會員管理</Typography>
+         <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>
          <Button
             className={clsx(classes.success, "my-3")}
             variant="contained"

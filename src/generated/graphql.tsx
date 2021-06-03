@@ -619,6 +619,19 @@ export type NameCardsQuery = (
   )> }
 );
 
+export type NameCardQueryVariables = Exact<{
+  oid: Scalars['String'];
+}>;
+
+
+export type NameCardQuery = (
+  { __typename?: 'Query' }
+  & { nameCard?: Maybe<(
+    { __typename?: 'NameCard' }
+    & Pick<NameCard, '_id' | 'name' | 'email' | 'phone' | 'gender' | 'remarks' | 'status' | 'lupdDttm'>
+  )> }
+);
+
 export type NotificationsQueryVariables = Exact<{
   toUsername: Scalars['String'];
 }>;
@@ -1171,6 +1184,48 @@ export function useNameCardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type NameCardsQueryHookResult = ReturnType<typeof useNameCardsQuery>;
 export type NameCardsLazyQueryHookResult = ReturnType<typeof useNameCardsLazyQuery>;
 export type NameCardsQueryResult = Apollo.QueryResult<NameCardsQuery, NameCardsQueryVariables>;
+export const NameCardDocument = gql`
+    query nameCard($oid: String!) {
+  nameCard(oid: $oid) {
+    _id
+    name
+    email
+    phone
+    gender
+    remarks
+    status
+    lupdDttm
+  }
+}
+    `;
+
+/**
+ * __useNameCardQuery__
+ *
+ * To run a query within a React component, call `useNameCardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNameCardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNameCardQuery({
+ *   variables: {
+ *      oid: // value for 'oid'
+ *   },
+ * });
+ */
+export function useNameCardQuery(baseOptions: Apollo.QueryHookOptions<NameCardQuery, NameCardQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NameCardQuery, NameCardQueryVariables>(NameCardDocument, options);
+      }
+export function useNameCardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NameCardQuery, NameCardQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NameCardQuery, NameCardQueryVariables>(NameCardDocument, options);
+        }
+export type NameCardQueryHookResult = ReturnType<typeof useNameCardQuery>;
+export type NameCardLazyQueryHookResult = ReturnType<typeof useNameCardLazyQuery>;
+export type NameCardQueryResult = Apollo.QueryResult<NameCardQuery, NameCardQueryVariables>;
 export const NotificationsDocument = gql`
     query notifications($toUsername: String!) {
   notifications(toUsername: $toUsername) {

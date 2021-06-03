@@ -6,6 +6,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { getTokenValue } from 'utils/utils';
 import AdminIndex from 'views/admin/AdminIndex';
 import AdminPanel from 'views/admin/AdminPanel';
+import NameCardEdit from 'views/admin/NameCardEdit';
 import NameCardManage from 'views/admin/NameCardManage';
 import NewsCreate from 'views/admin/NewsCreate';
 import OtherFunc from 'views/admin/OtherFunc';
@@ -65,7 +66,8 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/page-management`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PageManage /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/post/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PostCreate /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/other`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><OtherFunc /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/namecards`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/namecards/contact/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/namecards`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardManage /></RouteGuard></AdminPanel></Route>        
         <Route path={`${url}/post/pending/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostApproval /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/post/pending`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostManage /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/news/new`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NewsCreate /></RouteGuard></AdminPanel></Route>

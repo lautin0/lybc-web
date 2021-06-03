@@ -7,6 +7,7 @@ import { PostStatus, usePendingPostsQuery } from 'generated/graphql';
 import moment, { Moment } from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles((theme) => ({
   success: {
@@ -42,6 +43,7 @@ type PendingPostRowProps = {
 
 function PendingPostManage() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const location = useLocation();
@@ -153,7 +155,7 @@ function PendingPostManage() {
   return (
     <>
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h5">審閱文章</Typography>
+      <Typography className={globalClasses.adminPageTitle} variant="h5">審閱文章</Typography>
       <div style={{ width: '100%' }}>
         <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>

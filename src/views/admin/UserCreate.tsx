@@ -1,14 +1,16 @@
-import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, LinearProgress, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, InputAdornment, LinearProgress, makeStyles, Radio, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
+import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
 import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
-import React, { useContext } from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { useContext } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useModalStore } from "store";
+import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
 
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserCreate() {
 
+   const globalClasses = useGlobalStyles()
    const classes = useStyles()
 
    const history = useHistory()
@@ -50,7 +53,7 @@ export default function UserCreate() {
       }
    })
 
-   const { handleSubmit, control, reset, setError, formState: { errors } } = methods
+   const { handleSubmit, reset, setError } = methods
 
    const onSubmit = (formData: any) => {
 
@@ -63,14 +66,6 @@ export default function UserCreate() {
             type: "manual",
             message: "輸入的密碼不一致"
          });
-         return
-      }
-
-      if (!formData.gender) {
-         setError('gender', {
-            type: 'manual',
-            message: "請選擇"
-         })
          return
       }
 
@@ -96,7 +91,7 @@ export default function UserCreate() {
                ...tmp
             },
          }
-      }).then(res => {
+      }).then(() => {
          setMessage('app.sys.save-success')
          reset();
          history.push('/admin/users')
@@ -110,7 +105,7 @@ export default function UserCreate() {
          {loading && <LinearProgress className={classes.progress} />}
          <FormProvider {...methods}>
             <RouterBreadcrumbs />
-            <Typography className="my-3" variant="h5">建立新會員</Typography>
+            <Typography className={globalClasses.adminPageTitle} variant="h5">建立新會員</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Grid container item xs={12} md={6} lg={4} direction="column" spacing={2}>
                   <Grid item xs={12} md={10}>
@@ -210,27 +205,15 @@ export default function UserCreate() {
                      />
                   </Grid>
                   <Grid item>
-                     <FormControl component="fieldset" error={errors["gender"] != null}>
-                        <FormLabel component="legend">性別</FormLabel>
-                        {errors["gender"] != null && <FormHelperText>{errors["gender"].message}</FormHelperText>}
-                        <Controller
-                           render={({ field, fieldState }) =>
-                              <RadioGroup aria-label="gender" row {...field}>
-                                 <FormControlLabel
-                                    value={Gender.Male.toString()}
-                                    control={<Radio color="primary" />}
-                                    label="男" />
-                                 <FormControlLabel
-                                    value={Gender.Female.toString()}
-                                    control={<Radio color="primary" />}
-                                    label="女"
-                                 />
-                              </RadioGroup>
-                           }
-                           name="gender"
-                           control={control}                           
-                        />
-                     </FormControl>
+                     <MuiInputRadio
+                        name="gender"
+                        itemList={[
+                           { value: Gender.Male, control: <Radio />, label: "男" },
+                           { value: Gender.Female, control: <Radio />, label: "女" }
+                        ]}
+                        label="性別"
+                        required={true}
+                     />
                   </Grid>
                   <Grid item>
                      <MuiInputDropdown

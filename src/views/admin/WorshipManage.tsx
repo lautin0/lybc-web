@@ -11,6 +11,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDecisionModalStore, useModalStore } from 'store';
+import useGlobalStyles from 'styles/styles';
 
 const useStyles = makeStyles(theme => ({
   success: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 function WorshipManage() {
 
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   const [locale] = useLanguage()
@@ -152,7 +154,7 @@ function WorshipManage() {
     <>
       {deleteLoading && <LinearProgress className={classes.progress} />}
       <RouterBreadcrumbs />
-      <Typography className="my-3" variant="h5">崇拜管理</Typography>
+      <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜管理</Typography>
       <Button
         className={clsx(classes.success, "my-3")}
         variant="contained"

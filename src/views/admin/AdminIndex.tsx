@@ -36,8 +36,8 @@ export default function AdminIndex() {
 
   const location = useLocation()
 
-  const { data: pendingPosts, refetch: pendingPostsRefetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
-  const { data: namecards, refetch: namecardsRefetch } = useNameCardsQuery({ notifyOnNetworkStatusChange: true })
+  const { data: pendingPostsData, refetch: pendingPostsRefetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
+  const { data: namecardsData, refetch: namecardsRefetch } = useNameCardsQuery({ notifyOnNetworkStatusChange: true })
 
   useEffect(() => {
     if (pendingPostsRefetch)
@@ -56,16 +56,16 @@ export default function AdminIndex() {
         <Card variant="outlined">
           <CardContent>
             <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} variant="h5">待辦事項<Mail /></Typography>
-            {(!pendingPosts?.pendingPosts || pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">待審閱文章(0)篇</Typography>}
-            {(pendingPosts?.pendingPosts && pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length > 0) && <Link to="/admin/post/pending" className={classes.rebootLinks}>
+            {(!pendingPostsData?.pendingPosts || pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">待審閱文章(0)篇</Typography>}
+            {(pendingPostsData?.pendingPosts && pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length > 0) && <Link to="/admin/post/pending" className={classes.rebootLinks}>
               <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="secondary">
-                {`待審閱文章(${pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length})篇`}
+                {`待審閱文章(${pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length})篇`}
               </Typography>
             </Link>}
-            {(!namecards?.nameCards || namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">新來賓待接觸(0)位</Typography>}
-            {(namecards?.nameCards && namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length > 0) && <Link to="/admin/namecards" className={classes.rebootLinks}>
+            {(!namecardsData?.nameCards || namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">新來賓待接觸(0)位</Typography>}
+            {(namecardsData?.nameCards && namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length > 0) && <Link to="/admin/namecards" className={classes.rebootLinks}>
               <Typography style={{ marginTop: 15 }} variant="h6" color="secondary">
-                {`新來賓待接觸(${namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length})位`}
+                {`新來賓待接觸(${namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length})位`}
               </Typography>
             </Link>}
             {/* <Typography style={{ marginTop: 15 }} variant="h6" color="textSecondary">代禱請求(0)則</Typography> */}
