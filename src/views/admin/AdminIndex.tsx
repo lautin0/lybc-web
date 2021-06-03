@@ -1,6 +1,9 @@
 import { Card, CardContent, createStyles, Grid, makeStyles, Typography } from '@material-ui/core'
 import Computer from '../../assets/img/computer.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { Mail } from '@material-ui/icons'
+import { AccountStatus, PostStatus, useNameCardsQuery, usePendingPostsQuery } from 'generated/graphql'
+import { useEffect } from 'react'
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -31,19 +34,44 @@ const useStyles = makeStyles((theme) => (
 export default function AdminIndex() {
   const classes = useStyles()
 
+  const location = useLocation()
+
+  const { data: pendingPosts, refetch: pendingPostsRefetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
+  const { data: namecards, refetch: namecardsRefetch } = useNameCardsQuery({ notifyOnNetworkStatusChange: true })
+
+  useEffect(() => {
+    if (pendingPostsRefetch)
+      pendingPostsRefetch()
+    if (namecardsRefetch)
+      namecardsRefetch()
+  }, [location, pendingPostsRefetch, namecardsRefetch])
+
   return <Grid container spacing={3} className={classes.root}>
     <Grid container item xs={12} lg={6} justify="center" alignItems="center" direction="column">
       <Typography variant="h4">歡迎回來✨</Typography>
       <img className={classes.img} alt="background" src={Computer}></img>
     </Grid>
     <Grid item xs={12} lg={6} >
-      {/* <Grid item xs={6} className={classes.cardMargins}>
+      <Grid item xs={6} className={classes.cardMargins}>
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="h5">您有(0)件待辦事項</Typography>
+            <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} variant="h5">待辦事項<Mail /></Typography>
+            {(!pendingPosts?.pendingPosts || pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">待審閱文章(0)篇</Typography>}
+            {(pendingPosts?.pendingPosts && pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length > 0) && <Link to="/admin/post/pending" className={classes.rebootLinks}>
+              <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="secondary">
+                {`待審閱文章(${pendingPosts.pendingPosts.filter(x => x.status === PostStatus.Pending).length})篇`}
+              </Typography>
+            </Link>}
+            {(!namecards?.nameCards || namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">新來賓待接觸(0)位</Typography>}
+            {(namecards?.nameCards && namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length > 0) && <Link to="/admin/namecards" className={classes.rebootLinks}>
+              <Typography style={{ marginTop: 15 }} variant="h6" color="secondary">
+                {`新來賓待接觸(${namecards.nameCards.filter(x => x.status === AccountStatus.Pending).length})位`}
+              </Typography>
+            </Link>}
+            {/* <Typography style={{ marginTop: 15 }} variant="h6" color="textSecondary">代禱請求(0)則</Typography> */}
           </CardContent>
         </Card>
-      </Grid> */}
+      </Grid>
       <Grid className={classes.cardMargins}>
         <Card variant="outlined">
           <CardContent>
