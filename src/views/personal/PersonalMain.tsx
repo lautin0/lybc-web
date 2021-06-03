@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: '0px !important'
   },
   avatar: {
-    border: '.1rem lightgray solid',
+    border: theme.palette.type === "dark" ? 'none' : '.1rem lightgray solid',
     width: theme.spacing(14),
     height: theme.spacing(14)
   },
