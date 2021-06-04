@@ -1,5 +1,5 @@
 
-[![CircleCI](https://circleci.com/gh/lautin0/lybc-web.svg?style=svg)](https://app.circleci.com/pipelines/github/lautin0/lybc-web) [![Node.js CI](https://github.com/lautin0/lybc-web/actions/workflows/node.js.yml/badge.svg)](https://github.com/lautin0/lybc-web/actions/workflows/node.js.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CircleCI](https://circleci.com/gh/lautin0/lybc-web.svg?style=svg)](https://app.circleci.com/pipelines/github/lautin0/lybc-web) [![Node.js CI](https://github.com/lautin0/lybc-web/actions/workflows/node.js.yml/badge.svg)](https://github.com/lautin0/lybc-web/actions/workflows/node.js.yml) [![CodeQL](https://github.com/lautin0/lybc-web/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/lautin0/lybc-web/actions/workflows/codeql-analysis.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
 # lybc-web
