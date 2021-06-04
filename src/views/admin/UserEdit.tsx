@@ -111,9 +111,7 @@ export default function UserEdit() {
          setMessage('app.sys.save-success')
          reset();
          history.push('/admin/users')
-      }).catch((err: any) => {
-         setModalError(err)
-      })
+      }).catch(setModalError)
    }
 
    const validationMachine = (id: string): boolean => {
@@ -209,9 +207,7 @@ export default function UserEdit() {
          setpwdErrors({})
          setNewPasswordAdmin(pwdInitState)
          refetch()
-      }).catch((err: any) => {
-         setModalError(err)
-      })
+      }).catch(setModalError)
    }
 
    useEffect(() => {
@@ -347,7 +343,7 @@ export default function UserEdit() {
                                     setChecked(!checked)
                                     refetch()
                                  })
-                                    .catch(err => setModalError(err))
+                                    .catch(setModalError)
                               }}
                               checked={checked}
                               color="primary"

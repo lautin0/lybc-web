@@ -53,10 +53,7 @@ function WorshipManage() {
         }
       }).then(res => {
         refetch()
-      })
-        .catch((err: any) => {
-          setModalError(err)
-        })
+      }).catch(setModalError)
     })
   };
 

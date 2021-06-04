@@ -81,9 +81,7 @@ export default function UserCreate() {
          setMessage('app.sys.save-success')
          reset();
          history.push('/admin/users')
-      }).catch((err: any) => {
-         setModalError(err)
-      })
+      }).catch(setModalError)
    }
 
    return (

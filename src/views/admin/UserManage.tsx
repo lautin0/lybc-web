@@ -146,9 +146,7 @@ export default function UserManage() {
             .then(e => {
                setMessage('app.sys.save-success')
                history.push('/admin/users')
-            }).catch((err: any) => {
-               setModalError(err)
-            })
+            }).catch(setModalError)
       })
    }
 

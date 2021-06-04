@@ -190,9 +190,7 @@ export default function PendingPostApproval() {
          setActiveStep(toStep)
          reset();
          refetch();
-      }).catch((err: any) => {
-         setModalError(err)
-      })
+      }).catch(setModalError)
    }, [data, getValues, refetch, reset, setModalError, updatePendingPost, steps, acceptedFiles])
 
    const rejectPost = (e: any) => {

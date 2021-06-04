@@ -10,14 +10,14 @@ type PendingPostState = {
   setTitle: (msg: string) => void
 }
 
-const usePendingPostStore = create<PendingPostState>((set, get, api) => ({
+const usePendingPostStore = create<PendingPostState>((set) => ({
   isOpen: false,
   title: 'app.modal.header.info',
   pendingPostID: '',
 
-  setOpen: (o: boolean) => set(state => ({ isOpen: o })),
-  setTitle: (s: string) => set(state => ({ title: s })),
-  setPendingPostID: (id: string) => set(state => ({ pendingPostID: id }))
+  setOpen: (o: boolean) => set(() => ({ isOpen: o })),
+  setTitle: (s: string) => set(() => ({ title: s })),
+  setPendingPostID: (id: string) => set(() => ({ pendingPostID: id }))
 }))
 
 
@@ -31,14 +31,14 @@ type ModalState = {
   setError: (err: string | null) => void
 }
 
-const useModalStore = create<ModalState>((set, get, api) => ({
+const useModalStore = create<ModalState>((set) => ({
   callback: null,
   message: null,
   error: null,
 
-  setCallback: (fn: Function | null) => set(state => ({ callback: fn })),
-  setMessage: (s: string | null) => set(state => ({ message: s })),
-  setError: (err: string | null) => set(state => ({ error: err }))
+  setCallback: (fn: Function | null) => set(() => ({ callback: fn })),
+  setMessage: (s: string | null) => set(() => ({ message: s })),
+  setError: (err: string | null) => set(() => ({ error: err }))
 }))
 
 type LegacyModalState = {
@@ -53,8 +53,8 @@ const useLegacyModalStore = create<LegacyModalState>((set) => ({
   message: null,
   error: null,
 
-  setSysMessage: (s: string | null) => set(state => ({ message: s })),
-  setSysFailure: (err: string | null) => set(state => ({ error: err }))
+  setSysMessage: (s: string | null) => set(() => ({ message: s })),
+  setSysFailure: (err: string | null) => set(() => ({ error: err }))
 }))
 
 
@@ -67,7 +67,7 @@ type SysInfoState = {
 const useSysInfoStore = create<SysInfoState>((set) => ({
   message: '',
 
-  setSysInfoMessage: (s: string) => set(state => ({ message: s })),
+  setSysInfoMessage: (s: string) => set(() => ({ message: s })),
 }))
 
 type ImageState = {
@@ -78,7 +78,7 @@ type ImageState = {
 const useImageStore = create<ImageState>((set) => ({
   dataUrl: null,
 
-  setImage: (d: any) => set(state => ({ dataUrl: d })),
+  setImage: (d: any) => set(() => ({ dataUrl: d })),
 }))
 
 type DecisionModalState = {
@@ -93,16 +93,16 @@ type DecisionModalState = {
   setTitle: (title: string | null) => void
 }
 
-const useDecisionModalStore = create<DecisionModalState>((set, get, api) => ({
+const useDecisionModalStore = create<DecisionModalState>((set) => ({
   positiveFn: null,
   negativeFn: null,
   message: null,
   title: null,
 
-  setPositiveFn: (fn: Function | null) => set(state => ({ positiveFn: fn })),
-  setNegativeFn: (fn: Function | null) => set(state => ({ negativeFn: fn })),
-  setMessage: (msg: string | null) => set(state => ({ message: msg })),
-  setTitle: (title: string | null) => set(state => ({ title: title }))
+  setPositiveFn: (fn: Function | null) => set(() => ({ positiveFn: fn })),
+  setNegativeFn: (fn: Function | null) => set(() => ({ negativeFn: fn })),
+  setMessage: (msg: string | null) => set(() => ({ message: msg })),
+  setTitle: (title: string | null) => set(() => ({ title: title }))
 }))
 
 type LoadingState = {

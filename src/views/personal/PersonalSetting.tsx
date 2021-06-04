@@ -211,10 +211,7 @@ export default function PersonalSetting() {
       }
     }).then(res => {
       setMessage('app.sys.save-success')
-    })
-      .catch((err: any) => {
-        setModalError(err)
-      })
+    }).catch(setModalError)
   }
 
   const onSubmit = async (data: any) => {
@@ -256,10 +253,7 @@ export default function PersonalSetting() {
       setMessage('app.sys.save-success')
       reset();
       history.push('/personal/')
-    })
-      .catch((err: any) => {
-        setModalError(err)
-      })
+    }).catch(setModalError)
   }
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export default function NameCardEdit() {
 
    const [readonly, setReadonly] = useState(false)
 
-   const [setMessage, { setError: setErrorModal }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
+   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
    const onSubmit = (d: any) => {
       updateNamecard({
@@ -48,9 +48,7 @@ export default function NameCardEdit() {
          setMessage('app.sys.save-success')
          reset();
          history.push('/admin/namecards')
-      }).catch((err: any) => {
-         setErrorModal(err)
-      })
+      }).catch(setModalError)
    }
 
    useEffect(() => {
