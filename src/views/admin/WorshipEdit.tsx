@@ -114,10 +114,7 @@ function WorshipEdit() {
       reset();
       history.push('/admin/worships')
     })
-      .catch((err: any) => {
-        setModalError(err)
-        history.push('/admin/worships')
-      })
+      .catch(setModalError)
   }
 
   useEffect(() => {

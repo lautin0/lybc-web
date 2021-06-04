@@ -100,10 +100,7 @@ function WorshipCreate() {
       reset();
       history.push('/admin/worships')
     })
-      .catch((err: any) => {
-        setModalError(err)
-        reset();
-      })
+      .catch(setModalError)
   }
 
   useEffect(() => {

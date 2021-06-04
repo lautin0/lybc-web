@@ -336,10 +336,7 @@ export default function PendingPostApproval() {
          reset();
          history.push('/admin/post/pending')
       })
-         .catch((err: any) => {
-            setModalError(err)
-            reset();
-         })
+         .catch(setModalError)
    }
 
    return (

@@ -64,10 +64,7 @@ function PostCreate() {
       reset();
       history.push('/admin/page-management')
     })
-      .catch((err: any) => {
-        setModalError(err)
-        reset();
-      })
+      .catch(setModalError)
   }
 
   return (
