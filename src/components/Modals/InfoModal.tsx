@@ -6,26 +6,23 @@ import DOMPurify from 'dompurify'
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { getNullableString } from 'utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'reducers';
-import { SetSysInfoMessage } from 'actions';
 import { useIntl } from 'react-intl';
 import { useMaxWorshipIdQuery } from 'generated/graphql';
+import { useSysInfoStore } from 'store';
 
 function InfoModal(props: any) {
 
   const intl = useIntl()
 
-  const dispatch = useDispatch()
+  const { message, setSysInfoMessage } = useSysInfoStore()
 
-  const message = useSelector((state: RootState) => state.sysInfo.message);  
   const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
   const [checked, setChecked] = useState(false)
 
   const { data } = useMaxWorshipIdQuery()
 
   const onHide = () => {
-    dispatch(SetSysInfoMessage(''))
+    setSysInfoMessage('')
   }
 
   const handleChecked = (e: any) => {
@@ -48,11 +45,11 @@ function InfoModal(props: any) {
     setChecked(suspended)
     if (data !== undefined && !suspended) {
       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
-      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+      setSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
         .replace("{0}", data?.maxWorshipId.toString())
-        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
+        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`))
     }
-  }, [data, dispatch])
+  }, [data, setSysInfoMessage])
 
   return (
     <Modal

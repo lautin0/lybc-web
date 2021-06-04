@@ -1,4 +1,3 @@
-import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import AuthContext from "context/AuthContext";
 import { ReactionType, usePostQuery, useReactMutation } from "generated/graphql";
@@ -8,8 +7,8 @@ import { useContext, useEffect, useState } from "react";
 // react-bootstrap components
 import { Container, Row, Col, OverlayTrigger } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { useLegacyModalStore } from "store";
 import { getTokenValue, renderTooltip } from "utils/utils";
 // core components
 
@@ -19,9 +18,9 @@ function PreacherMessage() {
 
   const { tokenPair } = useContext(AuthContext)
 
-  const dispatch = useDispatch()
-
   const location = useLocation()
+
+  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
 
   const [post, setPost] = useState<any>()
 
@@ -30,10 +29,10 @@ function PreacherMessage() {
 
   const setReaction = (reaction: ReactionType) => {
     if (!tokenPair?.token) {
-      dispatch(setSysMessage('app.sys.require-login'))
+      setSysMessage('app.sys.require-login')
       return
     } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
-      dispatch(setSysMessage('app.sys.public-account-cannot-react'))
+      setSysMessage('app.sys.public-account-cannot-react')
       return
     }
     react({
@@ -45,7 +44,7 @@ function PreacherMessage() {
         },
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
   }
 

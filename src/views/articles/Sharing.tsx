@@ -1,4 +1,3 @@
-import { setSysMessage, setSystemFailure } from "actions";
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
 import { Post, PostDocument, ReactionType, useReactMutation } from "generated/graphql";
@@ -6,7 +5,6 @@ import usePost from "hooks/usePost";
 import moment from "moment";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Container, Row, OverlayTrigger, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 
 import { useLocation, useParams } from "react-router-dom";
 import UNIVERSALS from "Universals";
@@ -15,6 +13,7 @@ import { getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
 import defaultAvatar from "assets/img/default-avatar.png";
 import { FormattedDate, useIntl } from "react-intl";
 import AuthContext from "context/AuthContext";
+import { useLegacyModalStore } from "store";
 
 function Sharing() {
 
@@ -24,7 +23,7 @@ function Sharing() {
 
   const { id } = useParams<any>();
 
-  const dispatch = useDispatch()
+  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
 
   const location = useLocation()
 
@@ -40,10 +39,10 @@ function Sharing() {
 
   const setReaction = (reaction: ReactionType) => {
     if (!tokenPair?.token) {
-      dispatch(setSysMessage('app.sys.require-login'))
+      setSysMessage('app.sys.require-login')
       return
     } else if (getTokenValue(tokenPair?.token)?.role.toUpperCase() === 'PUBLIC') {
-      dispatch(setSysMessage('app.sys.public-account-cannot-react'))
+      setSysMessage('app.sys.public-account-cannot-react')
       return
     }
     react({
@@ -56,7 +55,7 @@ function Sharing() {
         },
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
   }
 

@@ -7,9 +7,7 @@ import {
   Nav,
   Container
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { getTokenValue, hasRole } from 'utils/utils'
-import { SetSysInfoMessage } from "actions";
 import NotificationBell from "components/Notification/NotificationBell";
 
 import logo from "assets/img/lybc_logo.png";
@@ -19,6 +17,7 @@ import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
 import { LocaleContext } from "context/LocaleContext";
 import AuthContext from "context/AuthContext";
+import { useSysInfoStore } from "store";
 
 function IndexNavbar() {
 
@@ -30,9 +29,9 @@ function IndexNavbar() {
 
   const location = useLocation();
 
-  const dispatch = useDispatch();
-
   const { tokenPair, signOut } = useContext(AuthContext)
+
+  const { setSysInfoMessage } = useSysInfoStore()
 
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");
@@ -112,9 +111,9 @@ function IndexNavbar() {
                     e.preventDefault();
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
-                      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+                      setSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
                         .replace("{0}", data?.maxWorshipId.toString())
-                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
+                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`))
                     }
                   }}
                 >
@@ -150,9 +149,9 @@ function IndexNavbar() {
                     e.preventDefault();
                     if (data != null) {
                       const maxDate = moment(data.maxWorshipId, 'YYYYMMDD')
-                      dispatch(SetSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
+                      setSysInfoMessage((UNIVERSALS.NOTIFICATION.MESSAGE as string)
                         .replace("{0}", data?.maxWorshipId.toString())
-                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`)))
+                        .replace("{1}", `(更新: ${maxDate.format('YYYY')} 年 ${maxDate.format('M')} 月 ${maxDate.format('D')} 日)`))
                     }
                   }}
                 >

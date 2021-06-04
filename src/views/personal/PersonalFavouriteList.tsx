@@ -1,11 +1,10 @@
-import { setSystemFailure } from 'actions';
 import { FavouritePost, FavouritePostsDocument, useFavouritePostsQuery, useRemoveFavouritePostMutation } from 'generated/graphql';
 import moment from 'moment';
 import { useCallback, useEffect } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useLegacyModalStore } from 'store';
 import { css } from 'styles/styles';
 import UNIVERSALS from 'Universals';
 import { getTitleDisplay } from 'utils/utils';
@@ -23,7 +22,8 @@ function PersonalFavouriteList() {
 
   const location = useLocation()
   const history = useHistory()
-  const dispatch = useDispatch()
+
+  const { setSystemFailure } = useLegacyModalStore()
 
   const { loading, data: favPostData, refetch } = useFavouritePostsQuery({ notifyOnNetworkStatusChange: true })
 
@@ -43,9 +43,9 @@ function PersonalFavouriteList() {
         },
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
-  }, [removeFavPost, dispatch, loading, removeFavLoading])
+  }, [removeFavPost, loading, removeFavLoading])
 
   useEffect(() => {
     favPostData && refetch();

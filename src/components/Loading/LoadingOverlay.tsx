@@ -1,14 +1,11 @@
 
 import React, { useEffect, createRef } from 'react'
 import ReactDOM from 'react-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../reducers'
+import { useLoadingStore } from 'store'
 
 function LoadingOverlay() {
 
-  const isPending = useSelector((state: RootState) => (
-    state.system.general.loading    
-  ))
+  const { loading: isPending } = useLoadingStore()
 
   useEffect(() => {
     let thisRef = createRef()

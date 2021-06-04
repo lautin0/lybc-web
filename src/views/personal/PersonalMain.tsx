@@ -11,14 +11,13 @@ import { getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
 import { AccountCircle, Delete, Edit, ExpandMore, GetApp, Visibility } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
-import { setSystemFailure } from 'actions';
 import moment from 'moment';
 import { FormattedDate } from 'react-intl';
 import useGlobalStyles, { css } from 'styles/styles';
-import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
+import { useLegacyModalStore } from 'store';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -90,11 +89,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   badgeAdmin: {
     backgroundColor: 'gold',
     color: theme.palette.primary.contrastText
- },
- badgeWorker: {
+  },
+  badgeWorker: {
     backgroundColor: 'dodgerblue',
     color: theme.palette.primary.contrastText
- },
+  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -123,8 +122,9 @@ export default function PersonalMain(props: PersonalMainProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
+  const { setSystemFailure } = useLegacyModalStore()
+
   const location = useLocation()
-  const dispatch = useDispatch()
   const history = useHistory()
 
   const { tokenPair } = useContext(AuthContext)
@@ -195,9 +195,9 @@ export default function PersonalMain(props: PersonalMainProps) {
         },
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
-  }, [removeFavPost, dispatch, loading, removeFavLoading])
+  }, [removeFavPost, loading, removeFavLoading, setSystemFailure])
 
   useEffect(() => {
     favPostData && refetch();

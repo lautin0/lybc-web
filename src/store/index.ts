@@ -61,6 +61,46 @@ export const useModalStore = create<ModalState>((set, get, api) => ({
   setError: (err: string | null) => set(state => ({ error: err }))
 }))
 
+export type LegacyModalState = {
+  message: string | null
+  error: string | null
+
+  setSysMessage: (s: string | null) => void
+  setSystemFailure: (err: string | null) => void
+}
+
+export const useLegacyModalStore = create<LegacyModalState>((set) => ({
+  message: null,
+  error: null,
+
+  setSysMessage: (s: string | null) => set(state => ({ message: s })),
+  setSystemFailure: (err: string | null) => set(state => ({ error: err }))
+}))
+
+
+export type SysInfoState = {
+  message: string
+
+  setSysInfoMessage: (s: string) => void
+}
+
+export const useSysInfoStore = create<SysInfoState>((set) => ({
+  message: '',
+
+  setSysInfoMessage: (s: string) => set(state => ({ message: s })),
+}))
+
+export type ImageState = {
+  dataUrl: any,
+  setImage: (d: any) => void
+}
+
+export const useImageStore = create<ImageState>((set) => ({
+  dataUrl: null,
+
+  setImage: (d: any) => set(state => ({ dataUrl: d })),
+}))
+
 export type DecisionModalState = {
   positiveFn: Function | null
   negativeFn: Function | null
@@ -83,4 +123,15 @@ export const useDecisionModalStore = create<DecisionModalState>((set, get, api) 
   setNegativeFn: (fn: Function | null) => set(state => ({ negativeFn: fn })),
   setMessage: (msg: string | null) => set(state => ({ message: msg })),
   setTitle: (title: string | null) => set(state => ({ title: title }))
+}))
+
+export type LoadingState = {
+  loading: number,
+  setLoading: (isLoading: boolean) => void
+}
+
+export const useLoadingStore = create<LoadingState>((set) => ({
+  loading: 0,
+
+  setLoading: (isLoading: boolean) => set(state => ({ loading: isLoading ? (state.loading + 1) : (state.loading - 1) })),
 }))

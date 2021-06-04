@@ -1,12 +1,11 @@
-import { setSystemFailure } from 'actions';
 import AuthContext from 'context/AuthContext';
 import { Notification, NotificationsDocument, NotificationType, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
 import moment from 'moment';
 import { useContext, useEffect } from 'react'
 import { NavDropdown } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { useLegacyModalStore } from 'store';
 import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
 import * as presets from '../../assets/data/data.json'
 
@@ -16,9 +15,9 @@ function NotificationBell(props: any) {
 
   const location = useLocation()
 
-  const dispatch = useDispatch()
-
   const { tokenPair } = useContext(AuthContext)
+
+  const { setSystemFailure } = useLegacyModalStore()
 
   const { loading, data, refetch } = useNotificationsQuery({
     variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -46,7 +45,7 @@ function NotificationBell(props: any) {
         input: update?.[i]?._id
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
   }
 

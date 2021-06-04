@@ -3,17 +3,15 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, Divider, Grid, IconButton, Radio, Typography } from '@material-ui/core';
+import { Avatar, Button, Divider, Grid, IconButton, LinearProgress, Radio, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-import { setLoading } from 'actions';
 import imageCompression from 'browser-image-compression';
 import moment from 'moment';
 import { useDropzone } from 'react-dropzone';
-import { useDispatch } from 'react-redux';
 import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { Skeleton } from '@material-ui/lab';
@@ -22,6 +20,7 @@ import { useModalStore } from 'store';
 import MuiDatePicker from 'components/Forms/MuiDatePicker';
 import AuthContext from 'context/AuthContext';
 import MuiInputRadio from 'components/Forms/MuiInputRadio';
+import useGlobalStyles from 'styles/styles';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -125,7 +124,7 @@ export default function PersonalSetting() {
 
   const history = useHistory()
 
-  const dispatch = useDispatch()
+  const globalClasses = useGlobalStyles()
 
   const location = useLocation()
 
@@ -146,7 +145,7 @@ export default function PersonalSetting() {
 
   const { acceptedFiles, open, getRootProps, getInputProps } = dropzoneMethods
 
-  const [updateUser] = useUpdateUserMutation()
+  const [updateUser, { loading: updateUserLoading }] = useUpdateUserMutation()
 
   const { loading, data: userData, refetch } = useUserQuery({
     variables: {
@@ -179,7 +178,7 @@ export default function PersonalSetting() {
 
   const { setError, handleSubmit: handlePasswordSubmit } = pwdFormMethods;
 
-  const [changePassword] = useChangePasswordMutation()
+  const [changePassword, { loading: changePwdLoading }] = useChangePasswordMutation()
 
   const handleOnClick = (e: any) => {
     e.preventDefault();
@@ -198,7 +197,6 @@ export default function PersonalSetting() {
       });
       return
     }
-    dispatch(setLoading(true))
     let tmp: NewPassword = {
       password: data.password,
       newPassword: data.newPassword,
@@ -215,13 +213,12 @@ export default function PersonalSetting() {
     })
       .catch((err: any) => {
         setErrorModal(err)
-      }).finally(() => dispatch(setLoading(false)))
+      })
   }
 
   const onSubmit = async (data: any) => {
     if (!userData)
       return
-    dispatch(setLoading(true))
 
     const options = {
       maxSizeMB: .05,
@@ -261,8 +258,6 @@ export default function PersonalSetting() {
     })
       .catch((err: any) => {
         setErrorModal(err)
-      }).finally(() => {
-        dispatch(setLoading(false))
       })
   }
 
@@ -290,200 +285,203 @@ export default function PersonalSetting() {
   }, [location, trigger, refetch])
 
   return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        <Tab label="更改資訊" {...a11yProps(0)} />
-        <Tab label="安全設定" {...a11yProps(1)} />
-      </Tabs>
-      <div style={{ overflow: 'auto', width: '100%' }}>
-        <TabPanel value={value} index={0}>
-          {loading && <Grid container item spacing={3} xs={12} md={6} lg={4}>
-            <Grid container item xs={12} justify="center">
-              <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
-            </Grid>
-            <Grid container item justify="center" spacing={1}>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+    <>
+      {(loading || updateUserLoading || changePwdLoading) && <LinearProgress className={globalClasses.progress} />}
+      {!loading && <div className={classes.root}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          <Tab label="更改資訊" {...a11yProps(0)} />
+          <Tab label="安全設定" {...a11yProps(1)} />
+        </Tabs>
+        <div style={{ overflow: 'auto', width: '100%' }}>
+          <TabPanel value={value} index={0}>
+            {loading && <Grid container item spacing={3} xs={12} md={6} lg={4}>
+              <Grid container item xs={12} justify="center">
+                <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
               </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+              <Grid container item justify="center" spacing={1}>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="h5"><Skeleton animation="wave" /></Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5"><Skeleton animation="wave" /></Typography>
-              </Grid>
-            </Grid>
-          </Grid>}
-          {!loading && <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-              </div>
-              <Grid container spacing={2} direction="column">
-                <Grid item xs={12} md={6} lg={4} container justify="center">
-                  <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
-                    <div className={classes.profilePicContainer}>
-                      {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <AccountCircle className={classes.noAvatar} />}
-                      {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
-                      {(userData && userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
-                      <div className={classes.profilePicOverlay}>
-                        <div>
+            </Grid>}
+            {!loading && <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <input {...getInputProps()} />
+                </div>
+                <Grid container spacing={2} direction="column">
+                  <Grid item xs={12} md={6} lg={4} container justify="center">
+                    <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
+                      <div className={classes.profilePicContainer}>
+                        {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <AccountCircle className={classes.noAvatar} />}
+                        {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
+                        {(userData && userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                        <div className={classes.profilePicOverlay}>
                           <div>
-                            <i style={{ fontSize: 36 }} className="fas fa-camera"></i>
-                          </div>
-                          <div>
-                            變更頭像
+                            <div>
+                              <i style={{ fontSize: 36 }} className="fas fa-camera"></i>
+                            </div>
+                            <div>
+                              變更頭像
                         </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    name="username"
-                    label="用戶編號"
-                    md={6}
-                    lg={4}
-                    isReadOnly={true}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputRadio
-                    name="gender"
-                    itemList={[
-                      { value: Gender.Male, control: <Radio />, label: "男" },
-                      { value: Gender.Female, control: <Radio />, label: "女" }
-                    ]}
-                    label="性別"
-                    required={true}
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    name="nameC"
-                    label="中文名稱"
-                    md={6}
-                    lg={4}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiDatePicker
-                    control={control}
-                    name="dob"
-                    data-testid="dob-dtp"
-                    variant="inline"
-                    margin="normal"
-                    label="出生日期"
-                    format="dd/MM/yyyy"
-                    KeyboardButtonProps={{
-                      "aria-label": "change date"
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    name="name"
-                    label="英文名稱"
-                    md={6}
-                    lg={4}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    name="phone"
-                    label="聯絡電話"
-                    md={6}
-                    lg={4}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    name="email"
-                    label="電郵地址"
-                    md={6}
-                    lg={4}
-                    xs={12}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
-                    更新
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      name="username"
+                      label="用戶編號"
+                      md={6}
+                      lg={4}
+                      isReadOnly={true}
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputRadio
+                      name="gender"
+                      itemList={[
+                        { value: Gender.Male, control: <Radio />, label: "男" },
+                        { value: Gender.Female, control: <Radio />, label: "女" }
+                      ]}
+                      label="性別"
+                      required={true}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      name="nameC"
+                      label="中文名稱"
+                      md={6}
+                      lg={4}
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiDatePicker
+                      control={control}
+                      name="dob"
+                      data-testid="dob-dtp"
+                      variant="inline"
+                      margin="normal"
+                      label="出生日期"
+                      format="dd/MM/yyyy"
+                      KeyboardButtonProps={{
+                        "aria-label": "change date"
+                      }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      name="name"
+                      label="英文名稱"
+                      md={6}
+                      lg={4}
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      name="phone"
+                      label="聯絡電話"
+                      md={6}
+                      lg={4}
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      name="email"
+                      label="電郵地址"
+                      md={6}
+                      lg={4}
+                      xs={12}
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                    >
+                      更新
                   </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </form>
-          </FormProvider>}
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <FormProvider {...pwdFormMethods}>
-            <form onSubmit={handlePasswordSubmit(onPasswordSubmit)}>
-              <Typography style={{ marginBottom: 20 }} variant="h5">更改密碼</Typography>
-              <Grid container item spacing={3} xs={12} md={6} lg={4} direction="column">
-                <Divider />
-                <Grid item>
-                  <MuiInputText
-                    size="small"
-                    placeholder="請輸入現時密碼"
-                    label="現時密碼"
-                    type="password"
-                    name="password"
-                    validateFn={Validators.NoWhiteSpace}
-                  />
+              </form>
+            </FormProvider>}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <FormProvider {...pwdFormMethods}>
+              <form onSubmit={handlePasswordSubmit(onPasswordSubmit)}>
+                <Typography style={{ marginBottom: 20 }} variant="h5">更改密碼</Typography>
+                <Grid container item spacing={3} xs={12} md={6} lg={4} direction="column">
+                  <Divider />
+                  <Grid item>
+                    <MuiInputText
+                      size="small"
+                      placeholder="請輸入現時密碼"
+                      label="現時密碼"
+                      type="password"
+                      name="password"
+                      validateFn={Validators.NoWhiteSpace}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      size="small"
+                      placeholder="請輸入新密碼"
+                      label="新密碼"
+                      type="password"
+                      name="newPassword"
+                      validateFn={Validators.NoWhiteSpace}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <MuiInputText
+                      size="small"
+                      label="確認新密碼"
+                      placeholder="確認新密碼"
+                      type="password"
+                      name="confirmPassword"
+                      validateFn={Validators.NoWhiteSpace}
+                    />
+                  </Grid>
+                  <Divider />
+                  <Grid item>
+                    <Button variant="contained" color="secondary" type="submit">變更密碼</Button>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <MuiInputText
-                    size="small"
-                    placeholder="請輸入新密碼"
-                    label="新密碼"
-                    type="password"
-                    name="newPassword"
-                    validateFn={Validators.NoWhiteSpace}
-                  />
-                </Grid>
-                <Grid item>
-                  <MuiInputText
-                    size="small"
-                    label="確認新密碼"
-                    placeholder="確認新密碼"
-                    type="password"
-                    name="confirmPassword"
-                    validateFn={Validators.NoWhiteSpace}
-                  />
-                </Grid>
-                <Divider />
-                <Grid item>
-                  <Button variant="contained" color="secondary" type="submit">變更密碼</Button>
-                </Grid>
-              </Grid>
-            </form>
-          </FormProvider>
-        </TabPanel>
-      </div>
-    </div >
+              </form>
+            </FormProvider>
+          </TabPanel>
+        </div>
+      </div>}
+    </>
   );
 }

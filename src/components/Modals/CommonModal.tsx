@@ -1,25 +1,18 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal } from 'react-bootstrap';
-import { RootState } from '../../reducers';
-import { resetSysError, resetSysMessage } from 'actions';
 import { useIntl } from 'react-intl';
+import { useLegacyModalStore } from 'store';
 
 function CommonModal(props: any) {
 
-  const intl = useIntl()
+  const intl = useIntl()  
 
-  const result = useSelector((state: RootState) => state.system.general.result);
-  const error = useSelector((state: RootState) => state.system.general.error);
-  const dispatch = useDispatch();
+  const { error, message, setSysMessage, setSystemFailure } = useLegacyModalStore()
 
   const onHide = () => {
-    let func
-    func = result?.callback
-    error && dispatch(resetSysError());
-    result && dispatch(resetSysMessage());
-    func && func.call(null);
+    error && setSystemFailure(null)
+    message && setSysMessage(null)
   }
 
   useEffect(() => {
@@ -30,7 +23,7 @@ function CommonModal(props: any) {
   return (
     <Modal
       {...props}
-      show={error != null || result != null}
+      show={error != null || message != null}
       onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -41,7 +34,7 @@ function CommonModal(props: any) {
           {intl.formatMessage({ id: "app.modal.header.error" })}
         </Modal.Title>
       </Modal.Header>}
-      {result && <Modal.Header closeButton className="black-close">
+      {message && <Modal.Header closeButton className="black-close">
         <Modal.Title id="contained-modal-title-vcenter" as="h3">
           {intl.formatMessage({ id: "app.modal.header.info" })}
         </Modal.Title>
@@ -50,7 +43,7 @@ function CommonModal(props: any) {
         {/* <h4>系統錯誤</h4> */}
         <h4>
           {error && error.toString()}
-          {result && intl.formatMessage({ id: result.message })}
+          {message && intl.formatMessage({ id: message })}
         </h4>
       </Modal.Body>
       <Modal.Footer>

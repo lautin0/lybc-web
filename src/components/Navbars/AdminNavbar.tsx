@@ -4,7 +4,6 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Navbar
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { getTokenValue } from 'utils/utils';
 import logo from "assets/img/lybc_logo.png";
 import { useUserProfilePicUriQuery } from "generated/graphql";
@@ -17,8 +16,6 @@ function AdminNavbar() {
   const history = useHistory();
 
   const location = useLocation();
-
-  const dispatch = useDispatch();
 
   const { tokenPair } = useContext(AuthContext)
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");

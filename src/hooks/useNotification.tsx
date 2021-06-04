@@ -1,15 +1,14 @@
-import { setSystemFailure } from 'actions';
 import AuthContext from 'context/AuthContext';
 import { NotificationsDocument, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
 import React, { useCallback, useContext } from 'react'
-import { useDispatch } from 'react-redux';
+import { useLegacyModalStore } from 'store';
 import { getTokenValue } from 'utils/utils';
 
-export default function useNotification(){
-
-  const dispatch = useDispatch()
+export default function useNotification() {
 
   const { tokenPair } = useContext(AuthContext)
+
+  const { setSystemFailure } = useLegacyModalStore()
 
   const { loading, data, refetch } = useNotificationsQuery({
     variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -35,7 +34,7 @@ export default function useNotification(){
 
   const handleToggle = useCallback(() => {
     setOpen((prevOpen) => !prevOpen);
-    if(prevOpen)
+    if (prevOpen)
       refetch()
   }, [refetch])
 
@@ -60,7 +59,7 @@ export default function useNotification(){
         input: update?.[i]?._id
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
   }
 
@@ -72,5 +71,5 @@ export default function useNotification(){
   }
 
   return { loading, data, anchorRef, open, handleClose, handleReadClick, handleToggle, handleListKeyDown, refetch }
-  
+
 }

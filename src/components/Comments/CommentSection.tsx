@@ -1,10 +1,8 @@
-import { setSystemFailure } from 'actions';
 import usePost from 'hooks/usePost';
 import moment from 'moment';
 import { useContext, useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
@@ -14,14 +12,15 @@ import { Post, useUserProfilePicUriQuery } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useIntl } from 'react-intl';
 import AuthContext from 'context/AuthContext';
+import { useLegacyModalStore } from 'store';
 
 function CommentSection(props: any) {
 
   const intl = useIntl()
 
-  const { id, type } = props
+  const { setSystemFailure } = useLegacyModalStore()
 
-  const dispatch = useDispatch()
+  const { id, type } = props
 
   const { tokenPair } = useContext(AuthContext)
 
@@ -53,7 +52,7 @@ function CommentSection(props: any) {
         },
       }
     }).catch(e => {
-      dispatch(setSystemFailure(e))
+      setSystemFailure(e)
     })
   }
 

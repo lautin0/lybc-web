@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Modal } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { setImage } from 'actions';
-import { RootState } from '../../reducers';
+import { useImageStore } from 'store';
 
 function ImageModal(props: any) {
-  const dispatch = useDispatch();
-  const dataUrl = useSelector((state: RootState) => state.worship.image.dataUrl)
+
+  const { setImage, dataUrl } = useImageStore()
 
   const onHide = () => {
-    dispatch(setImage(null))
+    setImage(null)
   }
 
   useEffect(() => {

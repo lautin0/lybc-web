@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
-// react-bootstrap components
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { css } from "styles/styles";
@@ -8,8 +7,6 @@ import { gql } from "@apollo/client";
 import { FavouritePostsDocument, Post, PostFilter, PostsConnection, PostsDocument, PostType, useAddFavouritePostMutation, usePostsQuery, useRemoveFavouritePostMutation } from "generated/graphql";
 import moment from 'moment'
 import UNIVERSALS from "Universals";
-import { useDispatch } from "react-redux";
-import { setSysMessage, setSystemFailure } from "actions";
 import { FormattedDate, useIntl } from "react-intl";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
 import { getClient } from "utils/auth.client";
@@ -17,6 +14,7 @@ import { getTitleDisplay } from "utils/utils";
 import AuthContext from "context/AuthContext";
 import { createStyles, CssBaseline, Grid, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
+import { useLegacyModalStore } from "store";
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -56,7 +54,7 @@ function SharingList() {
 
   const intl = useIntl()
 
-  const dispatch = useDispatch()
+  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
 
   const { tokenPair } = useContext(AuthContext)
 
@@ -142,7 +140,7 @@ function SharingList() {
           },
         }
       }).catch(e => {
-        dispatch(setSystemFailure(e))
+        setSystemFailure(e)
       })
     } else {
       addFavPost({
@@ -152,20 +150,20 @@ function SharingList() {
           },
         }
       }).catch(e => {
-        dispatch(setSystemFailure(e))
+        setSystemFailure(e)
       })
     }
-  }, [removeFavPost, addFavPost, dispatch, loading, addFavLoading, removeFavLoading])
+  }, [removeFavPost, addFavPost, loading, addFavLoading, removeFavLoading, setSystemFailure])
 
   const handleClick = useCallback(() => {
     if (!tokenPair?.token) {
-      dispatch(setSysMessage('app.sys.require-login'))
+      setSysMessage('app.sys.require-login')
       return
     }
 
     history.push('/personal/sharing')
 
-  }, [tokenPair, dispatch, history])
+  }, [tokenPair, history, setSysMessage])
 
   useEffect(() => {
     //Default scroll to top
@@ -281,7 +279,7 @@ function SharingList() {
                     </Grid> */}
                     <Grid className={classes.placeholderGrid}>
                       <Skeleton animation="wave" width="50%" />
-                      <Skeleton animation="wave" width="70%"/>
+                      <Skeleton animation="wave" width="70%" />
                     </Grid>
                   </Grid>
                   <Grid item container direction="row">

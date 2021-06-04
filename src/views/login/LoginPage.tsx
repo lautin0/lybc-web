@@ -19,15 +19,14 @@ import loginImg from "assets/img/login.jpg";
 import { Login, useLoginMutation } from "generated/graphql";
 import { useIntl } from "react-intl";
 import AuthContext from "context/AuthContext";
-import { useDispatch } from "react-redux";
-import { setSystemFailure } from "actions";
 import { useHistory, useLocation } from "react-router-dom";
+import { useLegacyModalStore } from "store";
 
 function LoginPage({ loginFn }: any) {
 
   const intl = useIntl()
 
-  const dispatch = useDispatch()
+  const { setSystemFailure } = useLegacyModalStore()
 
   const history = useHistory()
   const location = useLocation()
@@ -74,8 +73,8 @@ function LoginPage({ loginFn }: any) {
         history.push('/')
       }
     })
-      .catch(err => dispatch(setSystemFailure(err)))
-  }, [signInComplete, loginFn, reset, login, dispatch, history, location])
+      .catch(err => setSystemFailure(err))
+  }, [signInComplete, loginFn, reset, login, history, location, setSystemFailure])
 
   return (
     <>

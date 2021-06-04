@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ImageModal from "components/Modals/ImageModal";
-import { useDispatch } from "react-redux";
-import { setImage, setLoading } from "actions";
 import { Container, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
 import DOMPurify from "dompurify";
 import moment from "moment";
@@ -12,11 +10,13 @@ import { useIntl } from "react-intl";
 import TinyEditorComponent from "components/TinyMCE/TinyEditorComponent";
 import tinymce from 'tinymce/tinymce'
 import { Grid } from "@material-ui/core";
+import { useImageStore, useLoadingStore } from "store";
 
 function Worship() {
   const intl = useIntl()
   const location = useLocation()
-  const dispatch = useDispatch();
+  const { setLoading } = useLoadingStore();
+  const { setImage } = useImageStore()
   let { id } = useParams<any>();
 
   const [key, setKey] = useState('home')
@@ -27,13 +27,13 @@ function Worship() {
   })
 
   const handleDownloadNote = () => {
-    dispatch(setLoading(true))
+    setLoading(true)
     let el = document.getElementsByClassName('tox-edit-area__iframe')[0] as HTMLIFrameElement
     let printEl = el.contentDocument?.firstElementChild! as HTMLElement
     html2canvas(printEl, { scale: 1, useCORS: true, height: el.clientHeight })
       .then(function (canvas: HTMLCanvasElement) {
-        dispatch(setImage(canvas.toDataURL()))
-        dispatch(setLoading(false))
+        setImage(canvas.toDataURL())
+        setLoading(false)
       });
   }
 

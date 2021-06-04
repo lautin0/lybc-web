@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux'
 
 // react-bootstrap components
 import {
@@ -13,10 +12,10 @@ import {
 } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { Gender, NameCard, useCreateNameCardMutation } from "generated/graphql";
-import { setLoading, setSysMessage, setSystemFailure } from "actions";
 import Validators from "utils/validator";
 import { useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { useLegacyModalStore, useLoadingStore } from "store";
 
 // core components
 
@@ -26,7 +25,8 @@ export default function NameCardForm() {
 
   const location = useLocation()
 
-  const dispatch = useDispatch();
+  const { setLoading } = useLoadingStore()
+  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
 
   const [nameFocus, setNameFocus] = useState(false);
   const [phoneFocus, setPhoneFocus] = useState(false);
@@ -36,16 +36,16 @@ export default function NameCardForm() {
 
   const methods = useForm<NameCard>({
     defaultValues: {
-      name: '',      
+      name: '',
       email: '',
-      phone: ''      
+      phone: ''
     }
   });
 
   const { handleSubmit, reset, getValues, control, formState: { errors }, register } = methods
 
   const onSubmit = (data: any) => {
-    dispatch(setLoading(true))
+    setLoading(true)
     addNameCard({
       variables: {
         input: {
@@ -56,13 +56,13 @@ export default function NameCardForm() {
         },
       }
     }).then(res => {
-      dispatch(setSysMessage('app.sys.thanks-for-church-interest'))
+      setSysMessage('app.sys.thanks-for-church-interest')
       reset();
     })
       .catch((err: any) => {
-        dispatch(setSystemFailure(err))
+        setSystemFailure(err)
         reset();
-      }).finally(() => dispatch(setLoading(false)))
+      }).finally(() => setLoading(false))
   }
 
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function NameCardForm() {
                         {...register("name", { validate: Validators.NoWhiteSpace })}
                         style={{ maxWidth: 300 }}
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.name" })}
-                        type="text"                                                
+                        type="text"
                         onFocus={() => setNameFocus(true)}
                         onBlur={() => { setNameFocus(false); }}
                       ></FormControl>
@@ -129,7 +129,7 @@ export default function NameCardForm() {
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.phone" })}
                         type="text"
                         onFocus={() => setPhoneFocus(true)}
-                        onBlur={() => { setPhoneFocus(false); }}                                                
+                        onBlur={() => { setPhoneFocus(false); }}
                       ></FormControl>
                     </InputGroup>
                     {errors.phone && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
@@ -152,7 +152,7 @@ export default function NameCardForm() {
                         placeholder={intl.formatMessage({ id: "app.forms.placeholder.email" })}
                         type="text"
                         onFocus={() => setEmailFocus(true)}
-                        onBlur={() => { setEmailFocus(false); }}                        
+                        onBlur={() => { setEmailFocus(false); }}
                       ></FormControl>
                     </InputGroup>
                     {errors.email && <label style={{ opacity: .6, color: 'red' }}>{intl.formatMessage({ id: "app.validation.either-required-contact" })}</label>}
