@@ -3,9 +3,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import LoginPage from "./LoginPage";
 import { IntlProvider } from 'react-intl';
 import en from '../../assets/i18n/en.json';
-import { Provider } from "react-redux";
-import { createStore } from 'redux'
-import rootReducer from '../../reducers/index'
 import { MockedProvider } from "@apollo/client/testing";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -14,8 +11,6 @@ import { UserDocument } from "generated/graphql";
 const mockLogin = jest.fn((username, password) => {
   return Promise.resolve({ username, password });
 });
-
-const store = createStore(rootReducer)
 
 const mocks = [
   {
@@ -39,11 +34,9 @@ describe("LoginPage", () => {
 
     render(<MockedProvider mocks={mocks} addTypename={false}>
       <IntlProvider locale="en" messages={en}>
-        <Provider store={store}>
-          <Router history={history}>
-            <LoginPage loginFn={mockLogin} />
-          </Router>
-        </Provider>
+        <Router history={history}>
+          <LoginPage loginFn={mockLogin} />
+        </Router>
       </IntlProvider>
     </MockedProvider>);
   });

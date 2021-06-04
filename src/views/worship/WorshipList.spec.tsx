@@ -6,16 +6,12 @@ import { MockedProvider } from '@apollo/client/testing';
 import { IntlProvider } from 'react-intl';
 import en from '../../assets/i18n/en.json';
 import { WorshipsDocument } from 'generated/graphql';
-import rootReducer from '../../reducers'
-import { createStore } from 'redux'
-import { Provider } from "react-redux";
 import { createMemoryHistory } from 'history';
 
 configure({ adapter: new Adapter() });
 
 let worshipListPage: any;
 
-const store = createStore(rootReducer)
 const history = createMemoryHistory()
 
 beforeEach(() => {
@@ -49,11 +45,9 @@ it('can render and update a WorshipList Page', () => {
   const wrapper = mount(
     <MockedProvider mocks={mocks} addTypename={false}>
       <IntlProvider locale="en" messages={en}>
-        <Provider store={store}>
-          <Router history={history}>
-            <WorshipList />
-          </Router>
-        </Provider>
+        <Router history={history}>
+          <WorshipList />
+        </Router>
       </IntlProvider>
     </MockedProvider>,
   )

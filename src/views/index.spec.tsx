@@ -8,9 +8,6 @@ import Index from "../views/Index";
 import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import en from '../../src/assets/i18n/en.json';
-import { Provider } from "react-redux";
-import { createStore } from 'redux'
-import rootReducer from '../reducers'
 import { UserDocument } from "../generated/graphql";
 import { createMemoryHistory } from 'history';
 
@@ -19,8 +16,6 @@ Enzyme.configure({ adapter: new Adapter() });
 configure({ adapter: new Adapter() });
 
 let indexPage: any;
-
-const store = createStore(rootReducer)
 
 const mocks = [
   {
@@ -55,11 +50,9 @@ it('can render and update a IndexPage', () => {
   const wrapper = mount(
     <MockedProvider mocks={mocks} addTypename={false}>
       <IntlProvider locale="en" messages={en}>
-        <Provider store={store}>
-          <Router history={history}>
-            <Index />
-          </Router>
-        </Provider>
+        <Router history={history}>
+          <Index />
+        </Router>
       </IntlProvider>
     </MockedProvider>,
   )
