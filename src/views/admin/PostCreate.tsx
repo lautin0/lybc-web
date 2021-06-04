@@ -10,10 +10,11 @@ import { Form } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { FormProvider, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useModalStore } from "store";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
+import shallow from "zustand/shallow";
 
 function PostCreate() {
 
@@ -23,8 +24,7 @@ function PostCreate() {
 
   const history = useHistory()
 
-  const setMessage = useModalStore(state => state.setMessage)
-  const setModalError = useModalStore(state => state.setError)
+  const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
   const dropzoneMethods = useDropzone({
     accept: 'image/*'

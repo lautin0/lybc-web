@@ -8,13 +8,13 @@ import { isEmpty } from 'lodash';
 import { getNullableString } from 'utils/utils';
 import { useIntl } from 'react-intl';
 import { useMaxWorshipIdQuery } from 'generated/graphql';
-import { useSysInfoStore } from 'store';
+import { RootStore } from 'store';
 
 function InfoModal(props: any) {
 
   const intl = useIntl()
 
-  const { message, setSysInfoMessage } = useSysInfoStore()
+  const { message, setSysInfoMessage } = RootStore.useSysInfoStore()
 
   const [title] = useState(UNIVERSALS.NOTIFICATION.TITLE);
   const [checked, setChecked] = useState(false)

@@ -14,7 +14,8 @@ import { getTitleDisplay } from "utils/utils";
 import AuthContext from "context/AuthContext";
 import { createStyles, CssBaseline, Grid, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { useLegacyModalStore } from "store";
+import { RootStore } from "store";
+import shallow from "zustand/shallow";
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -54,7 +55,7 @@ function SharingList() {
 
   const intl = useIntl()
 
-  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
+  const [setSysMessage, setSysFailure] = RootStore.useModalStore(state => [state.setSysMessage, state.setSysFailure], shallow)
 
   const { tokenPair } = useContext(AuthContext)
 
@@ -139,9 +140,7 @@ function SharingList() {
             postID: id
           },
         }
-      }).catch(e => {
-        setSystemFailure(e)
-      })
+      }).catch(setSysFailure)
     } else {
       addFavPost({
         variables: {
@@ -149,11 +148,9 @@ function SharingList() {
             postID: id
           },
         }
-      }).catch(e => {
-        setSystemFailure(e)
-      })
+      }).catch(setSysFailure)
     }
-  }, [removeFavPost, addFavPost, loading, addFavLoading, removeFavLoading, setSystemFailure])
+  }, [removeFavPost, addFavPost, loading, addFavLoading, removeFavLoading, setSysFailure])
 
   const handleClick = useCallback(() => {
     if (!tokenPair?.token) {

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { useIntl } from 'react-intl';
-import { useModalStore } from 'store';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
+import { RootStore } from 'store';
 
 function MuiCommonModal() {
 
   const intl = useIntl()
 
-  const state = useModalStore()
+  const state = RootStore.useMuiModalStore()
 
   const onHide = () => {
     state.error && state.setError(null)

@@ -12,7 +12,6 @@ import { NewPost, PendingPost, PostStatus, PostType, UpdatePendingPost, useAppro
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useModalStore } from 'store';
 import clsx from 'clsx';
 import { useDropzone } from 'react-dropzone';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
@@ -22,6 +21,8 @@ import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
 import useGlobalStyles from 'styles/styles';
+import shallow from 'zustand/shallow';
+import { RootStore } from 'store';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -73,21 +74,20 @@ const endStatus = [PostStatus.Approved, PostStatus.Rejected, PostStatus.Withdraw
 export default function PendingPostApproval() {
    const theme = useTheme();
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-   
+
    const { oid } = useParams<any>()
    const history = useHistory()
 
    const globalClasses = useGlobalStyles()
    const classes = useStyles();
-   
+
    const [activeStep, setActiveStep] = React.useState(0);
    const [steps, setSteps] = useState(['檢視文章', '修改內容', '發布'])
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
    const [skipped, setSkipped] = useState(new Set<number>())
    const [previewContent, setPreviewContent] = useState("")
 
-   const setMessage = useModalStore(state => state.setMessage)
-   const setModalError = useModalStore(state => state.setError)
+   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
    const [, setDocumentURI] = useState("")
 

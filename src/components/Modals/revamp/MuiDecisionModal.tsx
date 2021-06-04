@@ -2,13 +2,13 @@ import { Dialog, DialogTitle, DialogContent, Typography, DialogActions, Button }
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { useIntl } from 'react-intl';
-import { useDecisionModalStore } from 'store';
+import { RootStore } from 'store';
 
 function MuiDecisionModal() {
 
   const intl = useIntl()
 
-  const state = useDecisionModalStore()
+  const state = RootStore.useDecisionStore()
 
   const onConfirm = () => {
     state.positiveFn && state.positiveFn()

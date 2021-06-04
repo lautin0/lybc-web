@@ -10,8 +10,9 @@ import moment from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDecisionModalStore, useModalStore } from 'store';
+import { RootStore } from 'store';
 import useGlobalStyles from 'styles/styles';
+import shallow from 'zustand/shallow';
 
 const useStyles = makeStyles(theme => ({
   success: {
@@ -36,12 +37,11 @@ function WorshipManage() {
 
   const history = useHistory();
 
-  const setModalError = useModalStore(state => state.setError)
+  const setModalError = RootStore.useMuiModalStore(state => state.setError)
 
   const { loading, data: worshipData, refetch } = useWorshipsQuery({ notifyOnNetworkStatusChange: true })
 
-  const setMessage = useDecisionModalStore(state => state.setMessage)
-  const setPositiveFn = useDecisionModalStore(state => state.setPositiveFn)
+  const [setMessage, setPositiveFn] = RootStore.useDecisionStore(state => [state.setMessage, state.setPositiveFn], shallow)
 
   function onDeleteClicked(e: SyntheticEvent, id: any) {
     e.preventDefault()

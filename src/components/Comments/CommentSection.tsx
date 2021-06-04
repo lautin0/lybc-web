@@ -12,13 +12,13 @@ import { Post, useUserProfilePicUriQuery } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useIntl } from 'react-intl';
 import AuthContext from 'context/AuthContext';
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
 
 function CommentSection(props: any) {
 
   const intl = useIntl()
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const setSysFailure = RootStore.useModalStore(state => state.setSysFailure)
 
   const { id, type } = props
 
@@ -51,9 +51,7 @@ function CommentSection(props: any) {
           toUsername: postData?.post?.user.username
         },
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }
 
   useEffect(() => {

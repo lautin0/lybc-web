@@ -7,8 +7,9 @@ import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDecisionModalStore, useModalStore } from "store";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
+import shallow from "zustand/shallow";
 
 const useStyles = makeStyles(theme => ({
    badgeAdmin: {
@@ -44,9 +45,8 @@ export default function UserManage() {
    const history = useHistory()
    const location = useLocation()
 
-   const setMessage = useModalStore(state => state.setMessage)
-   const setErrorModal = useModalStore(state => state.setError)
-   const decision = useDecisionModalStore()
+   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
+   const decision = RootStore.useDecisionStore()
 
    const { loading, data: uData, refetch } = useUsersQuery({ notifyOnNetworkStatusChange: true })
    const [changeStatus, { loading: changeStatLoading }] = useChangeAccountStatusMutation()
@@ -147,7 +147,7 @@ export default function UserManage() {
                setMessage('app.sys.save-success')
                history.push('/admin/users')
             }).catch((err: any) => {
-               setErrorModal(err)
+               setModalError(err)
             })
       })
    }

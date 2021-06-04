@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Modal } from 'react-bootstrap';
-import { useImageStore } from 'store';
+import { RootStore } from 'store';
 
 function ImageModal(props: any) {
 
-  const { setImage, dataUrl } = useImageStore()
+  const { setImage, dataUrl } = RootStore.useImageStore()
 
   const onHide = () => {
     setImage(null)

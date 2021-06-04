@@ -16,11 +16,12 @@ import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { Skeleton } from '@material-ui/lab';
 import Validators from 'utils/validator';
-import { useModalStore } from 'store';
 import MuiDatePicker from 'components/Forms/MuiDatePicker';
 import AuthContext from 'context/AuthContext';
 import MuiInputRadio from 'components/Forms/MuiInputRadio';
 import useGlobalStyles from 'styles/styles';
+import { RootStore } from 'store';
+import shallow from 'zustand/shallow';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -128,8 +129,8 @@ export default function PersonalSetting() {
 
   const location = useLocation()
 
-  const setMessage = useModalStore(state => state.setMessage)
-  const setErrorModal = useModalStore(state => state.setError)
+  const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
+
 
   const { tokenPair } = useContext(AuthContext)
 
@@ -212,7 +213,7 @@ export default function PersonalSetting() {
       setMessage('app.sys.save-success')
     })
       .catch((err: any) => {
-        setErrorModal(err)
+        setModalError(err)
       })
   }
 
@@ -257,7 +258,7 @@ export default function PersonalSetting() {
       history.push('/personal/')
     })
       .catch((err: any) => {
-        setErrorModal(err)
+        setModalError(err)
       })
   }
 

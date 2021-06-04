@@ -1,11 +1,11 @@
 
 import React, { useEffect, createRef } from 'react'
 import ReactDOM from 'react-dom'
-import { useLoadingStore } from 'store'
+import { RootStore } from 'store'
 
 function LoadingOverlay() {
 
-  const { loading: isPending } = useLoadingStore()
+  const { loading: isPending } = RootStore.useLoadingStore()
 
   useEffect(() => {
     let thisRef = createRef()

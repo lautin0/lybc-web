@@ -17,7 +17,7 @@ import UNIVERSALS from "Universals";
 import { useIntl } from "react-intl";
 import { LocaleContext } from "context/LocaleContext";
 import AuthContext from "context/AuthContext";
-import { useSysInfoStore } from "store";
+import { RootStore } from "store";
 
 function IndexNavbar() {
 
@@ -31,7 +31,7 @@ function IndexNavbar() {
 
   const { tokenPair, signOut } = useContext(AuthContext)
 
-  const { setSysInfoMessage } = useSysInfoStore()
+  const { setSysInfoMessage } = RootStore.useSysInfoStore()
 
   // const [navbarColor, setNavbarColor] = useState("navbar-transparent");
   const [navbarColor, setNavbarColor] = useState("");

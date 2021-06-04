@@ -15,7 +15,8 @@ import { Gender, NameCard, useCreateNameCardMutation } from "generated/graphql";
 import Validators from "utils/validator";
 import { useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { useLegacyModalStore, useLoadingStore } from "store";
+import { RootStore } from "store";
+import shallow from "zustand/shallow";
 
 // core components
 
@@ -25,8 +26,8 @@ export default function NameCardForm() {
 
   const location = useLocation()
 
-  const { setLoading } = useLoadingStore()
-  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
+  const { setLoading } = RootStore.useLoadingStore()
+  const [setSysMessage, setSysFailure] = RootStore.useModalStore(state => [state.setSysMessage, state.setSysFailure], shallow)
 
   const [nameFocus, setNameFocus] = useState(false);
   const [phoneFocus, setPhoneFocus] = useState(false);
@@ -60,7 +61,7 @@ export default function NameCardForm() {
       reset();
     })
       .catch((err: any) => {
-        setSystemFailure(err)
+        setSysFailure(err)
         reset();
       }).finally(() => setLoading(false))
   }

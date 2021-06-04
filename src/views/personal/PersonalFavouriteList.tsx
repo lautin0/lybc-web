@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { FormattedDate } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
 import { css } from 'styles/styles';
 import UNIVERSALS from 'Universals';
 import { getTitleDisplay } from 'utils/utils';
@@ -23,7 +23,7 @@ function PersonalFavouriteList() {
   const location = useLocation()
   const history = useHistory()
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const { setSysFailure } = RootStore.useModalStore()
 
   const { loading, data: favPostData, refetch } = useFavouritePostsQuery({ notifyOnNetworkStatusChange: true })
 
@@ -42,9 +42,7 @@ function PersonalFavouriteList() {
           postID: id
         },
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }, [removeFavPost, loading, removeFavLoading])
 
   useEffect(() => {

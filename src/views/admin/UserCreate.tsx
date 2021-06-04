@@ -9,10 +9,11 @@ import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } fro
 import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useModalStore } from "store";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
 import Validators from "utils/validator";
+import shallow from "zustand/shallow";
 
 export default function UserCreate() {
 
@@ -20,8 +21,8 @@ export default function UserCreate() {
 
    const history = useHistory()
 
-   const setMessage = useModalStore(state => state.setMessage)
-   const setErrorModal = useModalStore(state => state.setError)
+   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
+
 
    const [createUser, { loading }] = useCreateUserMutation()
 
@@ -81,7 +82,7 @@ export default function UserCreate() {
          reset();
          history.push('/admin/users')
       }).catch((err: any) => {
-         setErrorModal(err)
+         setModalError(err)
       })
    }
 

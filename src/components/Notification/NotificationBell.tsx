@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react'
 import { NavDropdown } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
 import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
 import * as presets from '../../assets/data/data.json'
 
@@ -17,7 +17,7 @@ function NotificationBell(props: any) {
 
   const { tokenPair } = useContext(AuthContext)
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const { setSysFailure } = RootStore.useModalStore()
 
   const { loading, data, refetch } = useNotificationsQuery({
     variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -44,9 +44,7 @@ function NotificationBell(props: any) {
       variables: {
         input: update?.[i]?._id
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }
 
   return <NavDropdown

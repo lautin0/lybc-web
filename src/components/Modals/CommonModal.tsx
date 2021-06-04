@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import { Button, Modal } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
+import shallow from 'zustand/shallow';
 
 function CommonModal(props: any) {
 
   const intl = useIntl()  
 
-  const { error, message, setSysMessage, setSystemFailure } = useLegacyModalStore()
+  const [ error, message, setSysMessage, setSysFailure ] = RootStore.useModalStore(state => [state.error, state.message, state.setSysMessage, state.setSysFailure], shallow)
 
   const onHide = () => {
-    error && setSystemFailure(null)
+    error && setSysFailure(null)
     message && setSysMessage(null)
   }
 

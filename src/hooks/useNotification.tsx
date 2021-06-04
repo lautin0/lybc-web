@@ -1,14 +1,14 @@
 import AuthContext from 'context/AuthContext';
 import { NotificationsDocument, useNotificationsQuery, useReadNotificationMutation } from 'generated/graphql';
 import React, { useCallback, useContext } from 'react'
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
 import { getTokenValue } from 'utils/utils';
 
 export default function useNotification() {
 
   const { tokenPair } = useContext(AuthContext)
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const { setSysFailure } = RootStore.useModalStore()
 
   const { loading, data, refetch } = useNotificationsQuery({
     variables: { toUsername: getTokenValue(tokenPair?.token).username }, notifyOnNetworkStatusChange: true
@@ -58,9 +58,7 @@ export default function useNotification() {
       variables: {
         input: update?.[i]?._id
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }
 
   function handleListKeyDown(event: React.KeyboardEvent) {

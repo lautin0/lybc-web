@@ -7,8 +7,9 @@ import { AccountStatus, Gender, NameCard, useNameCardQuery, useUpdateNameCardMut
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router";
-import { useModalStore } from "store";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
+import shallow from "zustand/shallow";
 
 export default function NameCardEdit() {
 
@@ -32,8 +33,7 @@ export default function NameCardEdit() {
 
    const [readonly, setReadonly] = useState(false)
 
-   const setMessage = useModalStore(state => state.setMessage)
-   const setErrorModal = useModalStore(state => state.setError)
+   const [setMessage, { setError: setErrorModal }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
    const onSubmit = (d: any) => {
       updateNamecard({

@@ -10,13 +10,13 @@ import { useIntl } from "react-intl";
 import TinyEditorComponent from "components/TinyMCE/TinyEditorComponent";
 import tinymce from 'tinymce/tinymce'
 import { Grid } from "@material-ui/core";
-import { useImageStore, useLoadingStore } from "store";
+import { RootStore } from "store";
 
 function Worship() {
   const intl = useIntl()
   const location = useLocation()
-  const { setLoading } = useLoadingStore();
-  const { setImage } = useImageStore()
+  const { setLoading } = RootStore.useLoadingStore();
+  const { setImage } = RootStore.useImageStore()
   let { id } = useParams<any>();
 
   const [key, setKey] = useState('home')

@@ -8,8 +8,9 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, OverlayTrigger } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { useLegacyModalStore } from "store";
+import { RootStore } from "store";
 import { getTokenValue, renderTooltip } from "utils/utils";
+import shallow from "zustand/shallow";
 // core components
 
 function PreacherMessage() {
@@ -20,7 +21,7 @@ function PreacherMessage() {
 
   const location = useLocation()
 
-  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
+  const [setSysMessage, setSysFailure] = RootStore.useModalStore(state => [state.setSysMessage, state.setSysFailure], shallow)
 
   const [post, setPost] = useState<any>()
 
@@ -43,9 +44,7 @@ function PreacherMessage() {
           type: reaction
         },
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }
 
 

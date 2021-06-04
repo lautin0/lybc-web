@@ -13,7 +13,8 @@ import { getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
 import defaultAvatar from "assets/img/default-avatar.png";
 import { FormattedDate, useIntl } from "react-intl";
 import AuthContext from "context/AuthContext";
-import { useLegacyModalStore } from "store";
+import { RootStore } from "store";
+import shallow from 'zustand/shallow'
 
 function Sharing() {
 
@@ -23,7 +24,7 @@ function Sharing() {
 
   const { id } = useParams<any>();
 
-  const { setSysMessage, setSystemFailure } = useLegacyModalStore()
+  const [setSysMessage, setSysFailure] = RootStore.useModalStore(state => [state.setSysMessage, state.setSysFailure], shallow)
 
   const location = useLocation()
 
@@ -54,9 +55,7 @@ function Sharing() {
           toUsername: postData?.post?.user.username
         },
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
+    }).catch(setSysFailure)
   }
 
   useEffect(() => {

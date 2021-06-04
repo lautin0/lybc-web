@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-export type State = {
+type PendingPostState = {
   isOpen: boolean
   title: string
   pendingPostID: string
@@ -10,27 +10,7 @@ export type State = {
   setTitle: (msg: string) => void
 }
 
-export const useStore = create<State>((set, get, api) => ({
-  isOpen: false,
-  title: 'app.modal.header.info',
-  pendingPostID: '',
-
-  setOpen: (o: boolean) => set(state => ({ isOpen: o })),
-  setTitle: (s: string) => set(state => ({ title: s })),
-  setPendingPostID: (id: string) => set(state => ({ pendingPostID: id }))
-}))
-
-export type PendingPostState = {
-  isOpen: boolean
-  title: string
-  pendingPostID: string
-
-  setPendingPostID: (id: string) => void
-  setOpen: (o: boolean) => void
-  setTitle: (msg: string) => void
-}
-
-export const usePendingPostStore = create<PendingPostState>((set, get, api) => ({
+const usePendingPostStore = create<PendingPostState>((set, get, api) => ({
   isOpen: false,
   title: 'app.modal.header.info',
   pendingPostID: '',
@@ -41,7 +21,7 @@ export const usePendingPostStore = create<PendingPostState>((set, get, api) => (
 }))
 
 
-export type ModalState = {
+type ModalState = {
   callback: Function | null
   message: string | null
   error: string | null
@@ -51,7 +31,7 @@ export type ModalState = {
   setError: (err: string | null) => void
 }
 
-export const useModalStore = create<ModalState>((set, get, api) => ({
+const useModalStore = create<ModalState>((set, get, api) => ({
   callback: null,
   message: null,
   error: null,
@@ -61,47 +41,47 @@ export const useModalStore = create<ModalState>((set, get, api) => ({
   setError: (err: string | null) => set(state => ({ error: err }))
 }))
 
-export type LegacyModalState = {
+type LegacyModalState = {
   message: string | null
   error: string | null
 
   setSysMessage: (s: string | null) => void
-  setSystemFailure: (err: string | null) => void
+  setSysFailure: (err: string | null) => void
 }
 
-export const useLegacyModalStore = create<LegacyModalState>((set) => ({
+const useLegacyModalStore = create<LegacyModalState>((set) => ({
   message: null,
   error: null,
 
   setSysMessage: (s: string | null) => set(state => ({ message: s })),
-  setSystemFailure: (err: string | null) => set(state => ({ error: err }))
+  setSysFailure: (err: string | null) => set(state => ({ error: err }))
 }))
 
 
-export type SysInfoState = {
+type SysInfoState = {
   message: string
 
   setSysInfoMessage: (s: string) => void
 }
 
-export const useSysInfoStore = create<SysInfoState>((set) => ({
+const useSysInfoStore = create<SysInfoState>((set) => ({
   message: '',
 
   setSysInfoMessage: (s: string) => set(state => ({ message: s })),
 }))
 
-export type ImageState = {
+type ImageState = {
   dataUrl: any,
   setImage: (d: any) => void
 }
 
-export const useImageStore = create<ImageState>((set) => ({
+const useImageStore = create<ImageState>((set) => ({
   dataUrl: null,
 
   setImage: (d: any) => set(state => ({ dataUrl: d })),
 }))
 
-export type DecisionModalState = {
+type DecisionModalState = {
   positiveFn: Function | null
   negativeFn: Function | null
   message: string | null
@@ -113,7 +93,7 @@ export type DecisionModalState = {
   setTitle: (title: string | null) => void
 }
 
-export const useDecisionModalStore = create<DecisionModalState>((set, get, api) => ({
+const useDecisionModalStore = create<DecisionModalState>((set, get, api) => ({
   positiveFn: null,
   negativeFn: null,
   message: null,
@@ -125,13 +105,23 @@ export const useDecisionModalStore = create<DecisionModalState>((set, get, api) 
   setTitle: (title: string | null) => set(state => ({ title: title }))
 }))
 
-export type LoadingState = {
+type LoadingState = {
   loading: number,
   setLoading: (isLoading: boolean) => void
 }
 
-export const useLoadingStore = create<LoadingState>((set) => ({
+const useLoadingStore = create<LoadingState>((set) => ({
   loading: 0,
 
   setLoading: (isLoading: boolean) => set(state => ({ loading: isLoading ? (state.loading + 1) : (state.loading - 1) })),
 }))
+
+export const RootStore = {
+  usePendingPostStore: usePendingPostStore,
+  useMuiModalStore: useModalStore,
+  useModalStore: useLegacyModalStore,
+  useSysInfoStore: useSysInfoStore,
+  useImageStore: useImageStore,
+  useDecisionStore: useDecisionModalStore,
+  useLoadingStore: useLoadingStore,
+}

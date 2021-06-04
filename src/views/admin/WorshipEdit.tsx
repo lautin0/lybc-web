@@ -11,9 +11,10 @@ import { Form } from 'react-bootstrap';
 import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useModalStore } from 'store';
+import { RootStore } from 'store';
 import useGlobalStyles from 'styles/styles';
 import Validators from 'utils/validator';
+import shallow from 'zustand/shallow';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -45,8 +46,7 @@ function WorshipEdit() {
 
   const location = useLocation()
 
-  const setMessage = useModalStore(state => state.setMessage)
-  const setModalError = useModalStore(state => state.setError)
+  const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
   const [updateWorship, { loading: updateLoading }] = useUpdateWorshipMutation()
 

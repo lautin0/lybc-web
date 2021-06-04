@@ -17,7 +17,7 @@ import useGlobalStyles, { css } from 'styles/styles';
 import clsx from 'clsx';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
-import { useLegacyModalStore } from 'store';
+import { RootStore } from 'store';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -122,7 +122,7 @@ export default function PersonalMain(props: PersonalMainProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const { setSysFailure } = RootStore.useModalStore()
 
   const location = useLocation()
   const history = useHistory()
@@ -194,10 +194,8 @@ export default function PersonalMain(props: PersonalMainProps) {
           postID: id
         },
       }
-    }).catch(e => {
-      setSystemFailure(e)
-    })
-  }, [removeFavPost, loading, removeFavLoading, setSystemFailure])
+    }).catch(setSysFailure)
+  }, [removeFavPost, loading, removeFavLoading, setSysFailure])
 
   useEffect(() => {
     favPostData && refetch();

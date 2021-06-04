@@ -20,13 +20,13 @@ import { Login, useLoginMutation } from "generated/graphql";
 import { useIntl } from "react-intl";
 import AuthContext from "context/AuthContext";
 import { useHistory, useLocation } from "react-router-dom";
-import { useLegacyModalStore } from "store";
+import { RootStore } from "store";
 
 function LoginPage({ loginFn }: any) {
 
   const intl = useIntl()
 
-  const { setSystemFailure } = useLegacyModalStore()
+  const { setSysFailure } = RootStore.useModalStore()
 
   const history = useHistory()
   const location = useLocation()
@@ -73,8 +73,8 @@ function LoginPage({ loginFn }: any) {
         history.push('/')
       }
     })
-      .catch(err => setSystemFailure(err))
-  }, [signInComplete, loginFn, reset, login, history, location, setSystemFailure])
+      .catch(setSysFailure)
+  }, [signInComplete, loginFn, reset, login, history, location, setSysFailure])
 
   return (
     <>

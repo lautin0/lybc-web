@@ -10,9 +10,10 @@ import moment, { Moment } from "moment";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { useModalStore } from "store";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
 import { getTokenValue } from "utils/utils";
+import shallow from "zustand/shallow";
 
 const useStyles = makeStyles(theme => ({
    divider: {
@@ -56,8 +57,8 @@ export default function UserEdit() {
    const [changePassword, { loading: changePasswordLoading }] = useChangePasswordAdminMutation()
    const [changeAccountStatus, { loading: changeStatLoading }] = useChangeAccountStatusMutation()
 
-   const setMessage = useModalStore(state => state.setMessage)
-   const setErrorModal = useModalStore(state => state.setError)
+   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
+
 
    const [checked, setChecked] = useState(false)
 
@@ -111,7 +112,7 @@ export default function UserEdit() {
          reset();
          history.push('/admin/users')
       }).catch((err: any) => {
-         setErrorModal(err)
+         setModalError(err)
       })
    }
 
@@ -209,7 +210,7 @@ export default function UserEdit() {
          setNewPasswordAdmin(pwdInitState)
          refetch()
       }).catch((err: any) => {
-         setErrorModal(err)
+         setModalError(err)
       })
    }
 
@@ -346,7 +347,7 @@ export default function UserEdit() {
                                     setChecked(!checked)
                                     refetch()
                                  })
-                                    .catch(err => setErrorModal(err))
+                                    .catch(err => setModalError(err))
                               }}
                               checked={checked}
                               color="primary"
