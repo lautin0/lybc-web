@@ -238,8 +238,8 @@ export default function PersonalSetting() {
       dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
       profilePic: compressedImg,
-      email: data.email.length === 0 ? null : data.email,
-      phone: data.phone.length === 0 ? null : data.phone,
+      email: data.email ?? null,
+      phone: data.phone ?? null,
       status: userData.user?.status
     }
 
