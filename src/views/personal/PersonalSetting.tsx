@@ -12,7 +12,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import imageCompression from 'browser-image-compression';
 import moment from 'moment';
 import { useDropzone } from 'react-dropzone';
-import { AccountCircle } from '@material-ui/icons';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { Skeleton } from '@material-ui/lab';
 import Validators from 'utils/validator';
@@ -22,6 +21,7 @@ import MuiInputRadio from 'components/Forms/MuiInputRadio';
 import useGlobalStyles from 'styles/styles';
 import { RootStore } from 'store';
 import shallow from 'zustand/shallow';
+import defaultAvatar from '../../assets/img/default-avatar.png'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -330,7 +330,7 @@ export default function PersonalSetting() {
                   <Grid item xs={12} md={6} lg={4} container justify="center">
                     <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                       <div className={classes.profilePicContainer}>
-                        {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <AccountCircle className={classes.noAvatar} />}
+                        {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <img alt="no avatar" src={defaultAvatar} />}
                         {(acceptedFiles.length > 0) && <Avatar className={classes.avatar} src={URL.createObjectURL(acceptedFiles[0])} />}
                         {(userData && userData.user?.profilePicURI != null && acceptedFiles.length === 0) && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
                         <div className={classes.profilePicOverlay}>
@@ -340,7 +340,7 @@ export default function PersonalSetting() {
                             </div>
                             <div>
                               變更頭像
-                        </div>
+                            </div>
                           </div>
                         </div>
                       </div>
