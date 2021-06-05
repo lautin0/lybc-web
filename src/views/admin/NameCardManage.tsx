@@ -91,9 +91,10 @@ export default function NameCardManage() {
   return (
     <>
       {loading && <LinearProgress className={globalClasses.progress} />}
-      {!loading && <>
-        <RouterBreadcrumbs />
-        <Typography className={globalClasses.adminPageTitle} variant="h5">新來賓名片</Typography>
+      <RouterBreadcrumbs />
+      <Typography className={globalClasses.adminPageTitle} variant="h5">新來賓名片</Typography>
+      {(!loading && !data) && <Typography style={{ display: 'flex', justifyContent: 'center' }} variant="h5" color="textSecondary">沒有記錄</Typography>}
+      {(!loading && data) && <>
         <Grid container spacing={2} className={classes.gridRoot}>
           {data!.nameCards.map((n) => (
             <Grid key={n._id} item xs={12} sm={6}>
