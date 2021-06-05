@@ -72,6 +72,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: theme.spacing(14),
     height: theme.spacing(14)
   },
+  noAvatar: {
+    width: theme.spacing(19),
+    height: theme.spacing(19)
+  },
   iconBtn: {
     width: theme.spacing(5),
     height: theme.spacing(5)
@@ -262,8 +266,8 @@ export default function PersonalMain(props: PersonalMainProps) {
                 </Grid>
               </Grid>
               <Grid container item xs={12} justify="center">
-                {!userData?.user && <AccountCircle />}
-                {userData?.user && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
+                {!userData?.user?.profilePicURI && <AccountCircle color="action" className={classes.noAvatar} />}
+                {userData?.user && userData?.user.profilePicURI && <Avatar className={classes.avatar} src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + userData.user.profilePicURI} />}
               </Grid>
               <Grid container item justify="center">
                 <Typography variant="h5">{userData?.user?.name}</Typography>

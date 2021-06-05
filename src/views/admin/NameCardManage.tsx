@@ -101,7 +101,7 @@ export default function NameCardManage() {
               <Card className={classes.root} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>名字:</span><span>{moment(n.lupdDttm).format('LLL')}</span>
+                    <span>名字:</span><span>最後更新{moment(n.lupdDttm).format('LLL')}</span>
                   </Typography>
                   <Typography variant="h5" component="h2" gutterBottom>
                     {n.name}{` `}{n.gender === Gender.Male ? "先生" : (n.gender === Gender.Female ? "女士" : "")}

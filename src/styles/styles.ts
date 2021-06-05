@@ -38,28 +38,28 @@ const useGlobalStyles = makeStyles((theme) => ({
     }
   },
   success: {
-    backgroundColor: green[600],
-    color: theme.palette.primary.contrastText
+    backgroundColor: `${green[600]} !important`,
+    color: `${theme.palette.primary.contrastText} !important`
   },
   danger: {
-    backgroundColor: red[600],
-    color: theme.palette.primary.contrastText
+    backgroundColor: `${red[600]} !important`,
+    color: `${theme.palette.primary.contrastText} !important`
   },
   warning: {
-    backgroundColor: yellow[600],
-    color: theme.palette.secondary.contrastText
+    backgroundColor: `${yellow[600]} !important`,
+    color: `${theme.palette.secondary.contrastText} !important`
   },
   default: {
-    backgroundColor: grey[500],
-    color: theme.palette.primary.contrastText
+    backgroundColor: `${grey[500]} !important`,
+    color: `${theme.palette.primary.contrastText} !important`
   },
   primary: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
+    backgroundColor: `${theme.palette.primary.main} !important`,
+    color: `${theme.palette.primary.contrastText} !important`
   },
   info: {
-    backgroundColor: cyan[800],
-    color: theme.palette.primary.contrastText
+    backgroundColor: `${cyan[800]} !important`,
+    color: `${theme.palette.primary.contrastText} !important`
   },
   dangerButton: {
     backgroundColor: red[600],
