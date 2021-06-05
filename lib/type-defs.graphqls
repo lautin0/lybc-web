@@ -1,19 +1,17 @@
 type Query {
-	nameCards: [NameCard!]!
-	nameCard(oid: String): NameCard
+	nameCards: [NameCard!]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	nameCard(oid: String): NameCard @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	notifications(toUsername: String!): [Notification]!
+	notifications(toUsername: String!): [Notification]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
 	posts(first: Int, last: Int, after: String, before: String, postFilter: PostFilter, sort: PostSort): PostsConnection!
 	post(oid: String!): Post
-	pendingPosts(username: String): [PendingPost!]!
-	pendingPost(oid: String!): PendingPost
-	favouritePosts: [FavouritePost]!
+	pendingPosts(username: String): [PendingPost!]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
+	pendingPost(oid: String!): PendingPost @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
+	favouritePosts: [FavouritePost]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	todos: [Todo!]!
-
-	users: [User!]!
-	user(username: String): User
+	users: [User!]! @hasRoles(roles: [ADMIN])
+	user(username: String): User @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
 	worships: [Worship!]!
 	worship(worshipId: String): Worship
@@ -21,32 +19,30 @@ type Query {
 }
 
 type Mutation {
-	createNameCard(input: NewNameCard!): NameCard!
-	updateNameCard(input: UpdateNameCard!): NameCard!
-
 	login(input: Login!): TokenPair!
 	refreshToken(input: RefreshTokenInput): TokenPair!
 
-	readNotification(input: String!): Notification!
+	createNameCard(input: NewNameCard!): NameCard! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	updateNameCard(input: UpdateNameCard!): NameCard! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	createPost(input: NewPost!): Post!
-	pendPost(input: NewPendingPost!): PendingPost!	
-	updatePendingPost(input: UpdatePendingPost!): PendingPost!
-	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post!
-	addFavouritePost(input: UpdateFavouritePost): String!	
-	removeFavouritePost(input: UpdateFavouritePost): String!
+	readNotification(input: String!): Notification! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	react(input: NewReaction!): Post!
+	createPost(input: NewPost!): Post! @hasRoles(roles: [ADMIN, WORKER])	
+	pendPost(input: NewPendingPost!): PendingPost! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
+	updatePendingPost(input: UpdatePendingPost!): PendingPost! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
+	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post! @hasRoles(roles: [ADMIN, WORKER])	
+	addFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
+	removeFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	createTodo(input: NewTodo!): Todo!
+	react(input: NewReaction!): Post! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	createUser(input: NewUser!): User!
-	changePassword(input: NewPassword!): Boolean
-	changePasswordAdmin(input: NewPasswordAdmin!): Boolean
-	changeAccountStatus(username: String!, status: AccountStatus!): User!
-	updateUser(input: UpdateUser!): User!
+	createUser(input: NewUser!): User! @hasRoles(roles: [ADMIN])
+	changePassword(input: NewPassword!): Boolean @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	changePasswordAdmin(input: NewPasswordAdmin!): Boolean @hasRoles(roles: [ADMIN])
+	changeAccountStatus(username: String!, status: AccountStatus!): User! @hasRoles(roles: [ADMIN])
+	updateUser(input: UpdateUser!): User! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
 
-	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
-	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship!
-	deleteWorship(input: String): Int!
+	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship! @hasRoles(roles: [ADMIN])
+	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship! @hasRoles(roles: [WORKER])
+	deleteWorship(input: String): Int! @hasRoles(roles: [ADMIN])
 }

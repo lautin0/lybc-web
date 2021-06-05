@@ -46,10 +46,10 @@ export type Login = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createNameCard: NameCard;
-  updateNameCard: NameCard;
   login: TokenPair;
   refreshToken: TokenPair;
+  createNameCard: NameCard;
+  updateNameCard: NameCard;
   readNotification: Notification;
   createPost: Post;
   pendPost: PendingPost;
@@ -58,7 +58,6 @@ export type Mutation = {
   addFavouritePost: Scalars['String'];
   removeFavouritePost: Scalars['String'];
   react: Post;
-  createTodo: Todo;
   createUser: User;
   changePassword?: Maybe<Scalars['Boolean']>;
   changePasswordAdmin?: Maybe<Scalars['Boolean']>;
@@ -70,16 +69,6 @@ export type Mutation = {
 };
 
 
-export type MutationCreateNameCardArgs = {
-  input: NewNameCard;
-};
-
-
-export type MutationUpdateNameCardArgs = {
-  input: UpdateNameCard;
-};
-
-
 export type MutationLoginArgs = {
   input: Login;
 };
@@ -87,6 +76,16 @@ export type MutationLoginArgs = {
 
 export type MutationRefreshTokenArgs = {
   input?: Maybe<RefreshTokenInput>;
+};
+
+
+export type MutationCreateNameCardArgs = {
+  input: NewNameCard;
+};
+
+
+export type MutationUpdateNameCardArgs = {
+  input: UpdateNameCard;
 };
 
 
@@ -128,11 +127,6 @@ export type MutationRemoveFavouritePostArgs = {
 
 export type MutationReactArgs = {
   input: NewReaction;
-};
-
-
-export type MutationCreateTodoArgs = {
-  input: NewTodo;
 };
 
 
@@ -236,11 +230,6 @@ export type NewReaction = {
   toUsername?: Maybe<Scalars['String']>;
   postOID: Scalars['String'];
   type: ReactionType;
-};
-
-export type NewTodo = {
-  text: Scalars['String'];
-  username: Scalars['String'];
 };
 
 export type NewUser = {
@@ -420,7 +409,6 @@ export type Query = {
   pendingPosts: Array<PendingPost>;
   pendingPost?: Maybe<PendingPost>;
   favouritePosts: Array<Maybe<FavouritePost>>;
-  todos: Array<Todo>;
   users: Array<User>;
   user?: Maybe<User>;
   worships: Array<Worship>;
@@ -498,14 +486,6 @@ export enum Role {
   Public = 'PUBLIC'
 }
 
-
-export type Todo = {
-  __typename?: 'Todo';
-  id: Scalars['ID'];
-  text: Scalars['String'];
-  done: Scalars['Boolean'];
-  username: Scalars['String'];
-};
 
 export type TokenPair = {
   __typename?: 'TokenPair';

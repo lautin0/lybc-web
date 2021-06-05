@@ -11,15 +11,3 @@ type PageInfo {
 	hasNextPage: Boolean!
 	hasPreviousPage: Boolean!
 }
-
-type Todo {
-	id: ID!
-	text: String!
-	done: Boolean!
-	username: String!
-}
-
-input NewTodo {
-	text: String!
-	username: String!
-}
