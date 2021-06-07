@@ -51,6 +51,7 @@ export type Mutation = {
   createNameCard: NameCard;
   updateNameCard: NameCard;
   readNotification: Notification;
+  deleteNotification: Scalars['Int'];
   createPost: Post;
   pendPost: PendingPost;
   updatePendingPost: PendingPost;
@@ -91,6 +92,11 @@ export type MutationUpdateNameCardArgs = {
 
 export type MutationReadNotificationArgs = {
   input: Scalars['String'];
+};
+
+
+export type MutationDeleteNotificationArgs = {
+  input: Array<Maybe<Scalars['String']>>;
 };
 
 
@@ -404,6 +410,7 @@ export type Query = {
   nameCards: Array<NameCard>;
   nameCard?: Maybe<NameCard>;
   notifications: Array<Maybe<Notification>>;
+  allNotifications: Array<Maybe<Notification>>;
   posts: PostsConnection;
   post?: Maybe<Post>;
   pendingPosts: Array<PendingPost>;

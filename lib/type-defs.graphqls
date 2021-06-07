@@ -1,17 +1,18 @@
 type Query {
-	nameCards: [NameCard!]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
-	nameCard(oid: String): NameCard @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	nameCards: [NameCard!]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	nameCard(oid: String): NameCard @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	notifications(toUsername: String!): [Notification]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	notifications(toUsername: String!): [Notification]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	allNotifications: [Notification]! @hasRoles(roles: [SUPER])
 
 	posts(first: Int, last: Int, after: String, before: String, postFilter: PostFilter, sort: PostSort): PostsConnection!
 	post(oid: String!): Post
-	pendingPosts(username: String): [PendingPost!]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
-	pendingPost(oid: String!): PendingPost @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
-	favouritePosts: [FavouritePost]! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	pendingPosts(username: String): [PendingPost!]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
+	pendingPost(oid: String!): PendingPost @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
+	favouritePosts: [FavouritePost]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	users: [User!]! @hasRoles(roles: [ADMIN])
-	user(username: String): User @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	users: [User!]! @hasRoles(roles: [SUPER, ADMIN])
+	user(username: String): User @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
 	worships: [Worship!]!
 	worship(worshipId: String): Worship
@@ -22,27 +23,28 @@ type Mutation {
 	login(input: Login!): TokenPair!
 	refreshToken(input: RefreshTokenInput): TokenPair!
 
-	createNameCard(input: NewNameCard!): NameCard! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
-	updateNameCard(input: UpdateNameCard!): NameCard! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	createNameCard(input: NewNameCard!): NameCard! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	updateNameCard(input: UpdateNameCard!): NameCard! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	readNotification(input: String!): Notification! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	readNotification(input: String!): Notification! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	deleteNotification(input: [String]!): Int! @hasRoles(roles: [SUPER])
 
-	createPost(input: NewPost!): Post! @hasRoles(roles: [ADMIN, WORKER])	
-	pendPost(input: NewPendingPost!): PendingPost! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
-	updatePendingPost(input: UpdatePendingPost!): PendingPost! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
-	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post! @hasRoles(roles: [ADMIN, WORKER])	
-	addFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [ADMIN, WORKER, MEMBER])	
-	removeFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	createPost(input: NewPost!): Post! @hasRoles(roles: [SUPER, ADMIN, WORKER])	
+	pendPost(input: NewPendingPost!): PendingPost! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
+	updatePendingPost(input: UpdatePendingPost!): PendingPost! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
+	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post! @hasRoles(roles: [SUPER, ADMIN, WORKER])	
+	addFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
+	removeFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	react(input: NewReaction!): Post! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	react(input: NewReaction!): Post! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	createUser(input: NewUser!): User! @hasRoles(roles: [ADMIN])
-	changePassword(input: NewPassword!): Boolean @hasRoles(roles: [ADMIN, WORKER, MEMBER])
-	changePasswordAdmin(input: NewPasswordAdmin!): Boolean @hasRoles(roles: [ADMIN])
-	changeAccountStatus(username: String!, status: AccountStatus!): User! @hasRoles(roles: [ADMIN])
-	updateUser(input: UpdateUser!): User! @hasRoles(roles: [ADMIN, WORKER, MEMBER])
+	createUser(input: NewUser!): User! @hasRoles(roles: [SUPER, ADMIN])
+	changePassword(input: NewPassword!): Boolean @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	changePasswordAdmin(input: NewPasswordAdmin!): Boolean @hasRoles(roles: [SUPER, ADMIN])
+	changeAccountStatus(username: String!, status: AccountStatus!): User! @hasRoles(roles: [SUPER, ADMIN])
+	updateUser(input: UpdateUser!): User! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 
-	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship! @hasRoles(roles: [ADMIN])
+	createWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship! @hasRoles(roles: [SUPER, ADMIN])
 	updateWorship(input: NewWorship!, docs: [NewWorshipDoc]!): Worship! @hasRoles(roles: [WORKER])
-	deleteWorship(input: String): Int! @hasRoles(roles: [ADMIN])
+	deleteWorship(input: String): Int! @hasRoles(roles: [SUPER, ADMIN])
 }
