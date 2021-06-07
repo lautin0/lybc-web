@@ -1,9 +1,10 @@
 import { Button, Chip, LinearProgress, makeStyles, Typography } from "@material-ui/core";
 import { green, grey } from "@material-ui/core/colors";
-import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
+import { GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { AddCircle, Block, Build } from "@material-ui/icons";
 import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
+import CustomDataGrid from "components/DataGrid/CustomDataGrid";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -172,7 +173,7 @@ export default function UserManage() {
             onClick={() => history.push('/admin/user/new')}
          >建立</Button>
          <div style={{ width: '100%' }}>
-            <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
+            <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
          </div>
       </>
    )

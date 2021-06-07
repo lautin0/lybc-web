@@ -1,7 +1,8 @@
 import { Button, Chip, Typography } from '@material-ui/core';
-import { DataGrid, GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
+import { GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import CustomDataGrid from 'components/DataGrid/CustomDataGrid';
 import { PostStatus, usePendingPostsQuery } from 'generated/graphql';
 import moment, { Moment } from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
@@ -133,7 +134,7 @@ function PendingPostManage() {
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">審閱文章</Typography>
       <div style={{ width: '100%' }}>
-        <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
+        <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>
     </>
   )

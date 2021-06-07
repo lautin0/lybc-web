@@ -3,8 +3,9 @@ import React, { useEffect, useMemo } from "react";
 import moment from 'moment';
 import { useIntl } from "react-intl";
 import { Container, CssBaseline, Button } from "@material-ui/core";
-import { DataGrid, GridCellParams, GridColDef } from "@material-ui/data-grid";
+import { GridCellParams, GridColDef } from "@material-ui/data-grid";
 import { SaveAlt } from "@material-ui/icons";
+import CustomDataGrid from "components/DataGrid/CustomDataGrid";
 
 const data = [
   { id: 1, uri: 'https://drive.google.com/file/d/1MOytmDNIO_vAcp5N-wISOPJWCIpUoVm_/view?usp=sharing', date: moment('01/12/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '聖誕特別刊 - 耶穌是我的牧羊人' },
@@ -56,7 +57,7 @@ function Journal() {
         <Container>
           <div style={{ width: '100%' }}>
             <CssBaseline />
-            <DataGrid autoHeight pageSize={10} rows={data} columns={columns} />
+            <CustomDataGrid autoHeight pageSize={10} rows={data} columns={columns} />
           </div>
         </Container>
       </div>

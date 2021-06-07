@@ -1,7 +1,6 @@
 import { Container, CssBaseline } from "@material-ui/core";
 import { GridColDef } from "@material-ui/data-grid";
 import CustomDataGrid from "components/DataGrid/CustomDataGrid";
-import CustomNoRowsOverlay from "components/DataGrid/GridOverlay/CustomGridOverlay";
 import { useEffect } from "react";
 
 import { useIntl } from "react-intl";
@@ -33,9 +32,6 @@ function Apply() {
             <CustomDataGrid
               rows={[]}
               columns={columns}
-              components={{
-                NoRowsOverlay: CustomNoRowsOverlay,
-              }}
             />
           </div>
         </Container>

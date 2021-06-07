@@ -6,11 +6,10 @@ import { useWorshipsQuery } from "generated/graphql";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
 import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
-import { DataGrid, GridCellParams, GridColDef, GridRowsProp, GridSortDirection } from "@material-ui/data-grid";
+import { GridCellParams, GridColDef, GridRowsProp, GridSortDirection } from "@material-ui/data-grid";
 import { YouTube } from "@material-ui/icons";
 import { red } from "@material-ui/core/colors";
-import CustomPagination from "components/DataGrid/Pagination/CustomPagination";
-import CustomNoRowsOverlay from "components/DataGrid/GridOverlay/CustomGridOverlay";
+import CustomDataGrid from "components/DataGrid/CustomDataGrid";
 
 const useStyles = makeStyles((theme) => ({
   goButton: {
@@ -116,7 +115,7 @@ function WorshipList() {
         <Container>
           <div style={{ width: '100%', height: 400, marginBottom: 50 }}>
             <CssBaseline />
-            <DataGrid
+            <CustomDataGrid
               onRowClick={(param) => onCellClicked(param.row["worshipId"].toString())}
               loading={loading}              
               pageSize={5}
@@ -130,11 +129,7 @@ function WorshipList() {
                   field: 'worshipId',
                   sort: 'desc' as GridSortDirection,
                 }
-              ]}     
-              components={{
-                Pagination: CustomPagination,
-                NoRowsOverlay: CustomNoRowsOverlay
-              }}         
+              ]}
             />
           </div>
         </Container>

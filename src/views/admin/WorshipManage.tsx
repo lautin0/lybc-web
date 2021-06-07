@@ -1,9 +1,10 @@
 import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import { GridRowsProp, GridColDef, DataGrid, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
+import { GridRowsProp, GridColDef, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { AddCircle, Create, Delete } from '@material-ui/icons';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import CustomDataGrid from 'components/DataGrid/CustomDataGrid';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
@@ -148,7 +149,7 @@ function WorshipManage() {
         onClick={() => history.push('/admin/worship/new')}
       >建立</Button>
       <div style={{ width: '100%' }}>
-        <DataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
+        <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
       </div>
     </>
   )
