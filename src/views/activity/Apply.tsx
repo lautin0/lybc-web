@@ -1,14 +1,19 @@
 import { Container, CssBaseline } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect } from "react";
+import { GridColDef } from "@material-ui/data-grid";
+import CustomDataGrid from "components/DataGrid/CustomDataGrid";
+import CustomNoRowsOverlay from "components/DataGrid/GridOverlay/CustomGridOverlay";
+import { useEffect } from "react";
 
 import { useIntl } from "react-intl";
 
-// import moment from 'moment'
-
 function Apply() {
-
   const intl = useIntl()
+
+  const columns: GridColDef[] = [
+    { field: 'date', headerName: intl.formatMessage({ id: "app.tables.date" }), flex: .2 },
+    { field: 'deadline', headerName: intl.formatMessage({ id: "app.deadline" }), flex: .2 },    
+    { field: 'title', headerName: intl.formatMessage({ id:  "app.menu.activity.title" }), flex: .6 },
+  ]
 
   useEffect(() => {
     //Default scroll to top
@@ -23,14 +28,13 @@ function Apply() {
         id="download-section"
       >
         <Container>
-          <div style={{ width: '100%', marginBottom: 50 }}>
+          <div style={{ width: '100%', height: 400, marginBottom: 50 }}>
             <CssBaseline />
-            <DataGrid
+            <CustomDataGrid
               rows={[]}
-              columns={[]}
-              autoHeight
-              localeText={{
-                noRowsLabel: intl.formatMessage({ id: "app.tables.no-record" })
+              columns={columns}
+              components={{
+                NoRowsOverlay: CustomNoRowsOverlay,
               }}
             />
           </div>

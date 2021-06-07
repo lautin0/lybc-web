@@ -9,6 +9,8 @@ import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
 import { DataGrid, GridCellParams, GridColDef, GridRowsProp, GridSortDirection } from "@material-ui/data-grid";
 import { YouTube } from "@material-ui/icons";
 import { red } from "@material-ui/core/colors";
+import CustomPagination from "components/DataGrid/Pagination/CustomPagination";
+import CustomNoRowsOverlay from "components/DataGrid/GridOverlay/CustomGridOverlay";
 
 const useStyles = makeStyles((theme) => ({
   goButton: {
@@ -108,29 +110,31 @@ function WorshipList() {
   return (
     <>
       <div
-        //className="section section-download"
         className="section"
         id="download-section"
       >
         <Container>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '100%', height: 400, marginBottom: 50 }}>
             <CssBaseline />
             <DataGrid
               onRowClick={(param) => onCellClicked(param.row["worshipId"].toString())}
-              loading={loading}
-              autoHeight
+              loading={loading}              
               pageSize={5}
               rows={data}
               columns={columns}
-              localeText={{
-                noRowsLabel: intl.formatMessage({ id: "app.tables.no-record" })
-              }}
+              // localeText={{
+              //   noRowsLabel: intl.formatMessage({ id: "app.tables.no-record" })
+              // }}
               sortModel={[
                 {
                   field: 'worshipId',
                   sort: 'desc' as GridSortDirection,
                 }
-              ]}              
+              ]}     
+              components={{
+                Pagination: CustomPagination,
+                NoRowsOverlay: CustomNoRowsOverlay
+              }}         
             />
           </div>
         </Container>
