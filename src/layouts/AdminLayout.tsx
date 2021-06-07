@@ -12,19 +12,17 @@ import {
    Toolbar,
    Typography
 } from '@material-ui/core';
-import { Add, ExpandLess, ExpandMore, NoteAdd, RecentActors, Spellcheck, ViewQuilt } from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import ClippedDrawer from 'components/Drawers/ClippedDrawer';
 import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
-import React, { FC, ReactElement, useContext, useState } from 'react'
-import PersonIcon from '@material-ui/icons/Person';
-import BuildIcon from '@material-ui/icons/Build';
+import { FC, ReactElement, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
 import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
 import { Role } from 'generated/graphql';
 import AuthContext from 'context/AuthContext';
-import { getTokenValue } from 'utils/utils';
+import { funcList, getTokenValue } from 'utils/utils';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -46,39 +44,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const funcList = [
-   {
-      title: "崇拜管理", path: '/admin/worships', roles: [Role.Admin], children: [
-         { title: "新增崇拜", path: '/admin/worship/new', roles: [Role.Admin], icon: <Add /> },
-         { title: "管理崇拜", path: '/admin/worships', roles: [Role.Admin], icon: <ViewQuilt /> }
-      ]
-   },
-   {
-      title: "會員管理", path: '/admin/users', roles: [Role.Admin, Role.Worker], children: [
-         { title: "會員管理", path: '/admin/users', roles: [Role.Admin], icon: <PersonIcon /> },
-         { title: "新來賓名片", path: '/admin/namecards', roles: [Role.Admin, Role.Worker], icon: <RecentActors /> }
-      ]
-   },
-   {
-      title: "頁面管理", path: '/admin/page-management', roles: [Role.Admin, Role.Worker], children: [
-         { title: "新增文章", path: '/admin/post/new', roles: [Role.Admin], icon: <Add /> },
-         { title: "審閱文章", path: '/admin/post/pending', roles: [Role.Admin, Role.Worker], icon: <Spellcheck /> },
-         { title: "新增消息", path: '/admin/news/new', roles: [Role.Admin, Role.Worker], icon: <NoteAdd /> },
-         { title: "頁面設定", path: '/admin/other', roles: [Role.Admin, Role.Worker], icon: <BuildIcon /> }
-      ]
-   },
-   {
-      title: "其他功能", path: '/admin/other', roles: [Role.Admin], children: [
-         { title: "系統設定", path: '/admin/other', roles: [Role.Admin], icon: <BuildIcon /> }
-      ]
-   }
-]
-
-interface Props {
-
-}
-
-const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
+const AdminLayout: FC = (props): ReactElement<{}> => {
    const classes = useStyles();
    const { darkMode } = useContext(LayoutContext)
 
@@ -98,7 +64,10 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
          <Toolbar />
          <div className={classes.drawerContainer}>
             <List>
-               {funcList.filter(x => x.roles.includes(getTokenValue(tokenPair?.token).role as Role)).map((item, index) => (
+               {funcList.filter(x => 
+                  x.children.flatMap(y => y.roles).includes(getTokenValue(tokenPair?.token).role as Role) &&
+                  x.children.some(y => !y.hideFromMenu)
+               ).map((item, index) => (
                   item.children != null ? <div key={item.title}>
                      <ListItem button onClick={() => handleClick(item.title)}>
                         {/* <ListItemIcon>
@@ -109,7 +78,7 @@ const AdminLayout: FC<Props> = (props): ReactElement<Props> => {
                      </ListItem>
                      <Collapse in={expanded[item.title]} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                           {item.children.filter(y => y.roles.includes(getTokenValue(tokenPair?.token).role as Role)).map((subItem, idx) => (
+                           {item.children.filter(y => y.roles.includes(getTokenValue(tokenPair?.token).role as Role) && !y.hideFromMenu).map((subItem, idx) => (
                               <ListItem key={idx} button className={classes.nested} onClick={() => { history.push(subItem.path!) }}>
                                  <ListItemIcon>
                                     {subItem.icon}

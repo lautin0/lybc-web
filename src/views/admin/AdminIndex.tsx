@@ -2,8 +2,10 @@ import { Card, CardContent, createStyles, Grid, makeStyles, Typography } from '@
 import Computer from '../../assets/img/computer.png'
 import { Link, useLocation } from 'react-router-dom'
 import { Mail } from '@material-ui/icons'
-import { AccountStatus, PostStatus, useNameCardsQuery, usePendingPostsQuery } from 'generated/graphql'
-import { useEffect } from 'react'
+import { AccountStatus, PostStatus, Role, useNameCardsQuery, usePendingPostsQuery } from 'generated/graphql'
+import { useContext, useEffect } from 'react'
+import { funcList, getTokenValue } from 'utils/utils'
+import AuthContext from 'context/AuthContext'
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => (
 
 export default function AdminIndex() {
   const classes = useStyles()
-
+  const { tokenPair } = useContext(AuthContext)
   const location = useLocation()
 
   const { data: pendingPostsData, refetch: pendingPostsRefetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
@@ -72,40 +74,23 @@ export default function AdminIndex() {
           </CardContent>
         </Card>
       </Grid>
-      <Grid className={classes.cardMargins}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography className={classes.linkIndicator} variant="h5">崇拜管理</Typography>
-            <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/worship/new">新增崇拜</Link></Typography></Grid>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/worships">崇拜一覽</Link></Typography></Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid className={classes.cardMargins}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography className={classes.linkIndicator} variant="h5">會員管理</Typography>
-            <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/user/new">新增會員</Link></Typography></Grid>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/users">會員列表</Link></Typography></Grid>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/namecards">新來賓名片</Link></Typography></Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid className={classes.cardMargins}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography className={classes.linkIndicator} variant="h5">通告管理</Typography>
-            <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/news/new">新增最新消息</Link></Typography></Grid>
-              <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to="/admin/other">更改通告</Link></Typography></Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
+      {funcList.filter(x =>
+        x.children.flatMap(y => y.roles).includes(getTokenValue(tokenPair?.token).role as Role) &&
+        x.children.some(y => y.quickAccess)
+      ).map((item, idx) => (
+        <Grid key={item.title} className={classes.cardMargins}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography className={classes.linkIndicator} variant="h5">{item.title}</Typography>
+              <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
+                {item.children.filter(y => y.roles.includes(getTokenValue(tokenPair?.token).role as Role) && y.quickAccess).map((subItem, idx) => (
+                  <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to={subItem.path}>{subItem.title}</Link></Typography></Grid>
+                ))}
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
     </Grid>
   </Grid>
 }
