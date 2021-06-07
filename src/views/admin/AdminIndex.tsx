@@ -84,7 +84,7 @@ export default function AdminIndex() {
               <Typography className={classes.linkIndicator} variant="h5">{item.title}</Typography>
               <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
                 {item.children.filter(y => y.roles.includes(getTokenValue(tokenPair?.token).role as Role) && y.quickAccess).map((subItem, idx) => (
-                  <Grid item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to={subItem.path}>{subItem.title}</Link></Typography></Grid>
+                  <Grid key={idx} item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to={subItem.path}>{subItem.title}</Link></Typography></Grid>
                 ))}
               </Grid>
             </CardContent>
