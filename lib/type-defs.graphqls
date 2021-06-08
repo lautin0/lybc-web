@@ -5,6 +5,7 @@ type Query {
 	notifications(toUsername: String!): [Notification]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 	allNotifications: [Notification]! @hasRoles(roles: [SUPER])
 
+	allPosts: [Post]! @hasRoles(roles: [SUPER])
 	posts(first: Int, last: Int, after: String, before: String, postFilter: PostFilter, sort: PostSort): PostsConnection!
 	post(oid: String!): Post
 	pendingPosts(username: String): [PendingPost!]! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
@@ -35,6 +36,8 @@ type Mutation {
 	approvePost(input: NewPost!, postRefInput: UpdatePendingPost!): Post! @hasRoles(roles: [SUPER, ADMIN, WORKER])	
 	addFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])	
 	removeFavouritePost(input: UpdateFavouritePost): String! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
+	deletePendingPosts(input: [String]!): Int! @hasRoles(roles: [SUPER])
+	deletePosts(input: [String]!): Int! @hasRoles(roles: [SUPER])
 
 	react(input: NewReaction!): Post! @hasRoles(roles: [SUPER, ADMIN, WORKER, MEMBER])
 

@@ -58,6 +58,8 @@ export type Mutation = {
   approvePost: Post;
   addFavouritePost: Scalars['String'];
   removeFavouritePost: Scalars['String'];
+  deletePendingPosts: Scalars['Int'];
+  deletePosts: Scalars['Int'];
   react: Post;
   createUser: User;
   changePassword?: Maybe<Scalars['Boolean']>;
@@ -128,6 +130,16 @@ export type MutationAddFavouritePostArgs = {
 
 export type MutationRemoveFavouritePostArgs = {
   input?: Maybe<UpdateFavouritePost>;
+};
+
+
+export type MutationDeletePendingPostsArgs = {
+  input: Array<Maybe<Scalars['String']>>;
+};
+
+
+export type MutationDeletePostsArgs = {
+  input: Array<Maybe<Scalars['String']>>;
 };
 
 
@@ -411,6 +423,7 @@ export type Query = {
   nameCard?: Maybe<NameCard>;
   notifications: Array<Maybe<Notification>>;
   allNotifications: Array<Maybe<Notification>>;
+  allPosts: Array<Maybe<Post>>;
   posts: PostsConnection;
   post?: Maybe<Post>;
   pendingPosts: Array<PendingPost>;
@@ -681,6 +694,21 @@ export type DeleteNotificationsMutation = (
   & Pick<Mutation, 'deleteNotification'>
 );
 
+export type AllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllPostsQuery = (
+  { __typename?: 'Query' }
+  & { allPosts: Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, '_id' | 'parentId' | 'title' | 'subtitle' | 'creDttm' | 'type' | 'isFavourited'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username' | 'name' | 'nameC' | 'role' | 'gender' | 'title' | 'titleC'>
+    ) }
+  )>> }
+);
+
 export type PostsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
@@ -917,6 +945,26 @@ export type ReactMutation = (
       )>> }
     )>> }
   ) }
+);
+
+export type DeletePostsMutationVariables = Exact<{
+  input: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
+}>;
+
+
+export type DeletePostsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deletePosts'>
+);
+
+export type DeletePendingPostsMutationVariables = Exact<{
+  input: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
+}>;
+
+
+export type DeletePendingPostsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deletePendingPosts'>
 );
 
 export type UserQueryVariables = Exact<{
@@ -1431,6 +1479,55 @@ export function useDeleteNotificationsMutation(baseOptions?: Apollo.MutationHook
 export type DeleteNotificationsMutationHookResult = ReturnType<typeof useDeleteNotificationsMutation>;
 export type DeleteNotificationsMutationResult = Apollo.MutationResult<DeleteNotificationsMutation>;
 export type DeleteNotificationsMutationOptions = Apollo.BaseMutationOptions<DeleteNotificationsMutation, DeleteNotificationsMutationVariables>;
+export const AllPostsDocument = gql`
+    query allPosts {
+  allPosts {
+    _id
+    parentId
+    title
+    subtitle
+    creDttm
+    type
+    isFavourited
+    user {
+      username
+      name
+      nameC
+      role
+      gender
+      title
+      titleC
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllPostsQuery__
+ *
+ * To run a query within a React component, call `useAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, options);
+      }
+export function useAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, options);
+        }
+export type AllPostsQueryHookResult = ReturnType<typeof useAllPostsQuery>;
+export type AllPostsLazyQueryHookResult = ReturnType<typeof useAllPostsLazyQuery>;
+export type AllPostsQueryResult = Apollo.QueryResult<AllPostsQuery, AllPostsQueryVariables>;
 export const PostsDocument = gql`
     query posts($first: Int, $last: Int, $after: String, $before: String, $postFilter: PostFilter) {
   posts(
@@ -2082,6 +2179,68 @@ export function useReactMutation(baseOptions?: Apollo.MutationHookOptions<ReactM
 export type ReactMutationHookResult = ReturnType<typeof useReactMutation>;
 export type ReactMutationResult = Apollo.MutationResult<ReactMutation>;
 export type ReactMutationOptions = Apollo.BaseMutationOptions<ReactMutation, ReactMutationVariables>;
+export const DeletePostsDocument = gql`
+    mutation deletePosts($input: [String]!) {
+  deletePosts(input: $input)
+}
+    `;
+export type DeletePostsMutationFn = Apollo.MutationFunction<DeletePostsMutation, DeletePostsMutationVariables>;
+
+/**
+ * __useDeletePostsMutation__
+ *
+ * To run a mutation, you first call `useDeletePostsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePostsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePostsMutation, { data, loading, error }] = useDeletePostsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeletePostsMutation(baseOptions?: Apollo.MutationHookOptions<DeletePostsMutation, DeletePostsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePostsMutation, DeletePostsMutationVariables>(DeletePostsDocument, options);
+      }
+export type DeletePostsMutationHookResult = ReturnType<typeof useDeletePostsMutation>;
+export type DeletePostsMutationResult = Apollo.MutationResult<DeletePostsMutation>;
+export type DeletePostsMutationOptions = Apollo.BaseMutationOptions<DeletePostsMutation, DeletePostsMutationVariables>;
+export const DeletePendingPostsDocument = gql`
+    mutation deletePendingPosts($input: [String]!) {
+  deletePendingPosts(input: $input)
+}
+    `;
+export type DeletePendingPostsMutationFn = Apollo.MutationFunction<DeletePendingPostsMutation, DeletePendingPostsMutationVariables>;
+
+/**
+ * __useDeletePendingPostsMutation__
+ *
+ * To run a mutation, you first call `useDeletePendingPostsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePendingPostsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePendingPostsMutation, { data, loading, error }] = useDeletePendingPostsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeletePendingPostsMutation(baseOptions?: Apollo.MutationHookOptions<DeletePendingPostsMutation, DeletePendingPostsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePendingPostsMutation, DeletePendingPostsMutationVariables>(DeletePendingPostsDocument, options);
+      }
+export type DeletePendingPostsMutationHookResult = ReturnType<typeof useDeletePendingPostsMutation>;
+export type DeletePendingPostsMutationResult = Apollo.MutationResult<DeletePendingPostsMutation>;
+export type DeletePendingPostsMutationOptions = Apollo.BaseMutationOptions<DeletePendingPostsMutation, DeletePendingPostsMutationVariables>;
 export const UserDocument = gql`
     query user($username: String!) {
   user(username: $username) {

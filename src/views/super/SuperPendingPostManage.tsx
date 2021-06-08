@@ -4,10 +4,12 @@ import { DataGrid, GridColDef, GridCellParams, GridRowsProp, GridRowId } from "@
 import { Delete } from "@material-ui/icons";
 import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
-import { usePendingPostsQuery } from "generated/graphql";
+import { useDeletePendingPostsMutation, usePendingPostsQuery } from "generated/graphql";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
+import shallow from "zustand/shallow";
 
 const columns: GridColDef[] = [
    { field: '_id', hide: true },
@@ -52,15 +54,15 @@ export default function SuperPendingPostManage() {
    const [data, setData] = useState<GridRowsProp>([])
    const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
 
-   const { data: pData, loading } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
-   // const [deleteNotifications, { loading: deleteLoading }] = useDeleteNotificationsMutation()
+   const { data: pData, loading, refetch } = usePendingPostsQuery({ notifyOnNetworkStatusChange: true })
+   const [deletePendingPosts, { loading: deleteLoading }] = useDeletePendingPostsMutation()
 
-   // const { handleError, setMessage } = RootStore.useMuiModalStore(state => ({ handleError: state.setError, setMessage: state.setMessage }), shallow)
-   // const { setPositiveFn, setDecisionMessage, setTitle } = RootStore.useDecisionStore(state => ({
-   //    setPositiveFn: state.setPositiveFn,
-   //    setDecisionMessage: state.setMessage,
-   //    setTitle: state.setTitle
-   // }), shallow)
+   const [handleError, setMessage] = RootStore.useMuiModalStore(state => [state.setError, state.setMessage], shallow)
+   const { setPositiveFn, setDecisionMessage, setTitle } = RootStore.useDecisionStore(state => ({
+      setPositiveFn: state.setPositiveFn,
+      setDecisionMessage: state.setMessage,
+      setTitle: state.setTitle
+   }), shallow)
 
    useEffect(() => {
       if (pData) {
@@ -68,23 +70,23 @@ export default function SuperPendingPostManage() {
       }
    }, [pData])
 
-   // const handleDelete = useCallback(() => {
-   //    if (selectionModel.length === 0) {
-   //       setMessage("請選取記錄")
-   //       return
-   //    }
-   //    setTitle("提示")
-   //    setDecisionMessage("確認刪除?")
-   //    setPositiveFn(() => deleteNotifications({
-   //       variables: {
-   //          input: data.filter(x => selectionModel.includes(x.id)).map(x => x._id)
-   //       }
-   //    }).then(res => {
-   //       refetch()
-   //       setSelectionModel([])
-   //    }).catch(handleError))
+   const handleDelete = useCallback(() => {
+      if (selectionModel.length === 0) {
+         setMessage("請選取記錄")
+         return
+      }
+      setTitle("提示")
+      setDecisionMessage("確認刪除?")
+      setPositiveFn(() => deletePendingPosts({
+         variables: {
+            input: data.filter(x => selectionModel.includes(x.id)).map(x => x._id)
+         }
+      }).then(res => {
+         refetch()
+         setSelectionModel([])
+      }).catch(handleError))
 
-   // }, [refetch, data, deleteNotifications, handleError, selectionModel, setMessage, setPositiveFn, setDecisionMessage, setTitle])
+   }, [refetch, data, deletePendingPosts, handleError, selectionModel, setMessage, setPositiveFn, setDecisionMessage, setTitle])
 
    return <>
       <RouterBreadcrumbs />
@@ -94,14 +96,13 @@ export default function SuperPendingPostManage() {
             className={clsx(classes.danger, "my-3")}
             variant="contained"
             startIcon={<Delete />}
-         // onClick={handleDelete}
+         onClick={handleDelete}
          >刪除</Button>
       </Grow>
       <div style={{ width: '100%', height: 400 }}>
          <DataGrid
             checkboxSelection
-            // loading={loading || deleteLoading}
-            loading={loading}
+            loading={loading || deleteLoading}
             autoHeight
             pageSize={10}
             rows={data}

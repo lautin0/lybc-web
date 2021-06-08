@@ -1,3 +1,24 @@
+query allPosts {
+	allPosts {
+		_id
+		parentId
+		title
+		subtitle      
+		creDttm
+		type
+		isFavourited
+		user {
+			username
+			name
+			nameC
+			role
+			gender
+			title
+			titleC
+		}
+	}
+}
+
 query posts($first: Int, $last: Int, $after: String, $before: String, $postFilter: PostFilter) {
 	posts(first: $first, last: $last, after: $after, before: $before, postFilter: $postFilter) {
 		totalCount
@@ -275,4 +296,12 @@ mutation react($input: NewReaction!) {
 			}
 		}
 	}
+}
+
+mutation deletePosts($input: [String]!) {
+	deletePosts(input: $input) 
+}
+
+mutation deletePendingPosts($input: [String]!) {
+	deletePendingPosts(input: $input) 
 }
