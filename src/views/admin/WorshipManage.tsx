@@ -1,10 +1,11 @@
-import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { GridRowsProp, GridColDef, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { AddCircle, Create, Delete } from '@material-ui/icons';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import CustomDataGrid from 'components/DataGrid/CustomDataGrid';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import moment from 'moment';
@@ -139,7 +140,7 @@ function WorshipManage() {
 
   return (
     <>
-      {deleteLoading && <LinearProgress className={globalClasses.progress} />}
+      {deleteLoading && <CustomLinearProgress />}
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜管理</Typography>
       <Button

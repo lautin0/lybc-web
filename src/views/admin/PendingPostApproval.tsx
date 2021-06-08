@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import { Divider, Hidden, LinearProgress, useMediaQuery } from '@material-ui/core';
+import { Divider, Hidden, useMediaQuery } from '@material-ui/core';
 import { NewPost, PendingPost, PostStatus, PostType, UpdatePendingPost, useApprovePostMutation, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -23,6 +23,7 @@ import InputTinyMCE from 'components/Forms/InputTinyMCE';
 import useGlobalStyles from 'styles/styles';
 import shallow from 'zustand/shallow';
 import { RootStore } from 'store';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -341,7 +342,7 @@ export default function PendingPostApproval() {
 
    return (
       <>
-         {(loading || updateLoading || approveLoading) && <LinearProgress className={globalClasses.progress} />}
+         {(loading || updateLoading || approveLoading) && <CustomLinearProgress />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <RouterBreadcrumbs />

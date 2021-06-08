@@ -1,8 +1,9 @@
-import { Button, LinearProgress, Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import WrappedDropzone from "components/Dropzone/WrappedDropzone";
 import InputTinyMCE from "components/Forms/InputTinyMCE";
 import MuiInputText from "components/Forms/MuiInputText";
+import CustomLinearProgress from "components/Loading/CustomLinearProgress";
 import AuthContext from "context/AuthContext";
 import { NewPost, PostType, useCreatePostMutation } from "generated/graphql";
 import { useContext } from "react";
@@ -69,7 +70,7 @@ function PostCreate() {
 
   return (
     <>
-      {loading && <LinearProgress className={globalClasses.progress} />}
+      {loading && <CustomLinearProgress/>}
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <RouterBreadcrumbs />

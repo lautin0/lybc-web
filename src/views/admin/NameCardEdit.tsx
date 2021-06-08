@@ -1,8 +1,9 @@
-import { Button, Grid, LinearProgress, Radio, Typography } from "@material-ui/core";
+import { Button, Grid, Radio, Typography } from "@material-ui/core";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
+import CustomLinearProgress from "components/Loading/CustomLinearProgress";
 import { AccountStatus, Gender, NameCard, useNameCardQuery, useUpdateNameCardMutation } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -69,7 +70,7 @@ export default function NameCardEdit() {
    }, [data, reset])
 
    return <>
-      {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
+      {(loading || updateLoading) && <CustomLinearProgress/>}
       {!loading && <FormProvider {...methods}>
          <RouterBreadcrumbs />
          <Typography className={globalClasses.adminPageTitle} variant="h5">跟進新來賓</Typography>

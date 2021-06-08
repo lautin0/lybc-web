@@ -1,9 +1,10 @@
-import { createStyles, Grid, makeStyles, Button, Divider, Typography, LinearProgress } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Button, Divider, Typography } from '@material-ui/core';
 import { Add, Delete, Lock, LockOpen } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
 import MuiInputDropdown from 'components/Forms/MuiInputDropdown';
 import MuiInputText from 'components/Forms/MuiInputText';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import { useUpdateWorshipMutation, useWorshipQuery } from 'generated/graphql';
 import useLanguage from 'hooks/useLanguage';
 import { useEffect, useState } from 'react'
@@ -207,7 +208,7 @@ function WorshipEdit() {
 
   return (
     <>
-      {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
+      {(loading || updateLoading) && <CustomLinearProgress />}
       {!loading && <>
         <RouterBreadcrumbs />
         {!loading && <FormProvider {...methods}>

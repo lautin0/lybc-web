@@ -1,9 +1,10 @@
-import { Button, Divider, Grid, InputAdornment, LinearProgress, makeStyles, Radio, Switch, TextField, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, InputAdornment, makeStyles, Radio, Switch, TextField, Typography } from "@material-ui/core";
 import { VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
+import CustomLinearProgress from "components/Loading/CustomLinearProgress";
 import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewPasswordAdmin, Role, UpdateUser, useChangeAccountStatusMutation, useChangePasswordAdminMutation, User, useUpdateUserMutation, useUserQuery } from "generated/graphql";
 import moment, { Moment } from "moment";
@@ -236,7 +237,7 @@ export default function UserEdit() {
 
    return (
       <>
-         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <LinearProgress className={globalClasses.progress} />}
+         {(loading || updateUserLoading || changePasswordLoading || changeStatLoading) && <CustomLinearProgress />}
          {!loading && <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>

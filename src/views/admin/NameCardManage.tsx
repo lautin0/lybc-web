@@ -1,7 +1,8 @@
-import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid, LinearProgress, Tooltip } from '@material-ui/core';
+import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid, Tooltip } from '@material-ui/core';
 import { Edit, ExpandMore, PersonAdd } from '@material-ui/icons';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -90,7 +91,7 @@ export default function NameCardManage() {
 
   return (
     <>
-      {loading && <LinearProgress className={globalClasses.progress} />}
+      {loading && <CustomLinearProgress />}
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">新來賓名片</Typography>
       {(!loading && !data) && <Typography style={{ display: 'flex', justifyContent: 'center' }} variant="h5" color="textSecondary">沒有記錄</Typography>}

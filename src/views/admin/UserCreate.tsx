@@ -1,9 +1,10 @@
-import { Button, Divider, Grid, InputAdornment, LinearProgress, Radio, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, InputAdornment, Radio, Typography } from "@material-ui/core";
 import { AccountCircle, VpnKey } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import MuiInputDropdown from "components/Forms/MuiInputDropdown";
 import MuiInputRadio from "components/Forms/MuiInputRadio";
 import MuiInputText from "components/Forms/MuiInputText";
+import CustomLinearProgress from "components/Loading/CustomLinearProgress";
 import AuthContext from "context/AuthContext";
 import { AccountStatus, Gender, NewUser, Role, useCreateUserMutation, User } from "generated/graphql";
 import { useContext } from "react";
@@ -85,7 +86,7 @@ export default function UserCreate() {
 
    return (
       <>
-         {loading && <LinearProgress className={globalClasses.progress} />}
+         {loading && <CustomLinearProgress/>}
          <FormProvider {...methods}>
             <RouterBreadcrumbs />
             <Typography className={globalClasses.adminPageTitle} variant="h5">建立新會員</Typography>

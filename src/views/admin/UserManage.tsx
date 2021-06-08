@@ -1,10 +1,11 @@
-import { Button, Chip, LinearProgress, makeStyles, Typography } from "@material-ui/core";
+import { Button, Chip, makeStyles, Typography } from "@material-ui/core";
 import { green, grey } from "@material-ui/core/colors";
 import { GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { AddCircle, Block, Build } from "@material-ui/icons";
 import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import CustomDataGrid from "components/DataGrid/CustomDataGrid";
+import CustomLinearProgress from "components/Loading/CustomLinearProgress";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -164,7 +165,7 @@ export default function UserManage() {
 
    return (
       <>
-         {changeStatLoading && <LinearProgress className={globalClasses.progress} />}
+         {changeStatLoading && <CustomLinearProgress />}
          <RouterBreadcrumbs />
          <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>
          <Button

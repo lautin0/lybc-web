@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import { LinearProgress } from '@material-ui/core';
 import { PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -16,6 +15,7 @@ import UNIVERSALS from 'Universals';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import useGlobalStyles from 'styles/styles';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -219,7 +219,7 @@ export default function PersonalSharingStat() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
+         {(loading || updateLoading) && <CustomLinearProgress />}
          {!loading && <FormProvider {...methods}>
             <form>
                <Container>

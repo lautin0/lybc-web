@@ -13,7 +13,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
-import { Divider, LinearProgress } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
@@ -21,7 +21,7 @@ import DOMPurify from 'dompurify';
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
-import useGlobalStyles from 'styles/styles';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -95,7 +95,6 @@ export default function PersonalSharingEdit() {
 
    const { tokenPair } = useContext(AuthContext)
 
-   const globalClasses = useGlobalStyles()
    const classes = useStyles();
 
    const [activeStep, setActiveStep] = React.useState(0);
@@ -296,7 +295,7 @@ export default function PersonalSharingEdit() {
 
    return (
       <>
-         {(loading || updateLoading) && <LinearProgress className={globalClasses.progress} />}
+         {(loading || updateLoading) && <CustomLinearProgress />}
          {!loading && <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                <Container>

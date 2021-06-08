@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, Divider, Grid, IconButton, LinearProgress, Radio, Typography } from '@material-ui/core';
+import { Avatar, Button, Divider, Grid, IconButton, Radio, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
 import { getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
@@ -18,10 +18,10 @@ import Validators from 'utils/validator';
 import MuiDatePicker from 'components/Forms/MuiDatePicker';
 import AuthContext from 'context/AuthContext';
 import MuiInputRadio from 'components/Forms/MuiInputRadio';
-import useGlobalStyles from 'styles/styles';
 import { RootStore } from 'store';
 import shallow from 'zustand/shallow';
 import defaultAvatar from '../../assets/img/default-avatar.png'
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -124,8 +124,6 @@ export default function PersonalSetting() {
   const classes = useStyles();
 
   const history = useHistory()
-
-  const globalClasses = useGlobalStyles()
 
   const location = useLocation()
 
@@ -281,7 +279,7 @@ export default function PersonalSetting() {
 
   return (
     <>
-      {(loading || updateUserLoading || changePwdLoading) && <LinearProgress className={globalClasses.progress} />}
+      {(loading || updateUserLoading || changePwdLoading) && <CustomLinearProgress />}
       {!loading && <div className={classes.root}>
         <Tabs
           orientation="vertical"

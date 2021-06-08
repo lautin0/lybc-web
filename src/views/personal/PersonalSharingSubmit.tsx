@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
-import { Box, Card, CardContent, Divider, IconButton, LinearProgress, Slide } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, IconButton, Slide } from '@material-ui/core';
 import { getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import DOMPurify from 'dompurify';
@@ -23,7 +23,7 @@ import robotImg from '../../assets/img/robot.png'
 import { Close, KeyboardReturn } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert/Alert';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
-import useGlobalStyles from 'styles/styles';
+import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -102,9 +102,8 @@ export default function PersonalSharingSubmit() {
 
    const { tokenPair } = useContext(AuthContext)
 
-   const globalClasses = useGlobalStyles()
    const classes = useStyles();
-   
+
    const [activeStep, setActiveStep] = useState(0);
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
@@ -290,7 +289,7 @@ export default function PersonalSharingSubmit() {
 
    return (
       <>
-         {loading && <LinearProgress className={globalClasses.progress} />}
+         {loading && <CustomLinearProgress />}
          {<Slide direction="down" in={alertCD > 0}>
             <Alert
                className={classes.alert}
