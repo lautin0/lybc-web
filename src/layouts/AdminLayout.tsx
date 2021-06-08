@@ -18,8 +18,8 @@ import AdminSearchAppBar from 'components/Navbars/AdminSearchAppBar';
 import LayoutContext from 'context/LayoutContext';
 import { FC, ReactElement, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
-import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
+import MuiCommonModal from 'components/Modals/MuiCommonModal';
+import MuiDecisionModal from 'components/Modals/MuiDecisionModal';
 import { Role } from 'generated/graphql';
 import AuthContext from 'context/AuthContext';
 import { funcList, getTokenValue } from 'utils/utils';

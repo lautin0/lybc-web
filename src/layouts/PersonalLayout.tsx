@@ -20,8 +20,8 @@ import React, { FC, ReactElement, useContext, useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory } from 'react-router-dom';
 import PersonalSearchAppBar from 'components/Navbars/PersonalSearchAppBar';
-import MuiCommonModal from 'components/Modals/revamp/MuiCommonModal';
-import MuiDecisionModal from 'components/Modals/revamp/MuiDecisionModal';
+import MuiCommonModal from 'components/Modals/MuiCommonModal';
+import MuiDecisionModal from 'components/Modals/MuiDecisionModal';
 
 const useStyles = makeStyles((theme) => ({
    root: {

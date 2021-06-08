@@ -10,6 +10,7 @@ function LoadingDiv() {
       <div>
         <div className="text-line"></div>
         <div className="text-line"></div>
+        <div className="text-line"></div>
       </div>
     </div>
   )
