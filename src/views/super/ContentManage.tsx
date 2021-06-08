@@ -16,9 +16,9 @@ export default function ContentManage() {
    return <>
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">內容管理</Typography>
-      <Grid container direction="column">
+      <Grid container direction="column" spacing={3}>
          {contentTypes.map(x => (
-            <Typography variant="h6" color="primary"><Link className={globalClasses.rebootLinks} key={x.title} to={x.link}>•{" "}{x.title}</Link></Typography>
+            <Grid item><Typography variant="h6" color="primary"><Link className={globalClasses.rebootLinks} key={x.title} to={x.link}>•{" "}{x.title}</Link></Typography></Grid>
          ))}
       </Grid>
    </>

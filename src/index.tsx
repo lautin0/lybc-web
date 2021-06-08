@@ -16,7 +16,7 @@ import MainPage from "views/main/MainPage";
 import 'moment/locale/zh-hk';
 import { ApolloProvider } from "@apollo/client/react/context/ApolloProvider";
 import PrivateRoute from "components/Route/PrivateRoute";
-import { getClient } from "utils/auth.client";
+import { getClient } from "utils/apollo.client";
 import PersonalRoute from "components/Route/PersonalRoute";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -71,9 +71,9 @@ function App() {
                 <Switch>
                   <Route path="/index" render={(props: any) => <Index {...props} />} />
                   <PrivateRoute path="/admin" />
-                  <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal"><Journal /></MainPage>} />
                   <PrivateRoute path="/library" renderFn={props => <MainPageLegacy {...props} page="library"><SearchBooks /></MainPageLegacy>} />
                   <PersonalRoute path="/personal" />
+                  <Route path="/journal" render={(props: any) => <MainPage {...props} page="journal"><Journal /></MainPage>} />                                    
                   <Route path="/apply-activity" render={props => <MainPageLegacy {...props} page="apply-activity"><Apply /></MainPageLegacy>} />
                   <Route path="/careers" render={(props: any) => <MainPageLegacy {...props} page="careers"><Careers /></MainPageLegacy>} />
                   <Route path="/contact-us" render={(props: any) => <MainPage {...props} page="contact-us"><ContactUs /></MainPage>} />

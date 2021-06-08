@@ -1,7 +1,7 @@
 import { FetchResult } from "@apollo/client";
 import { LoginMutation, RefreshTokenMutation, TokenPair } from "generated/graphql";
 import { useState } from "react";
-import { resetClient } from "utils/auth.client";
+import { resetClient } from "utils/apollo.client";
 
 export default function useAuth() {
 

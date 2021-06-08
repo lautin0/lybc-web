@@ -9,7 +9,7 @@ import moment from 'moment'
 import UNIVERSALS from "Universals";
 import { FormattedDate, useIntl } from "react-intl";
 import FavouritePostList from "components/FavouritePosts/FavouritePostList";
-import { getClient } from "utils/auth.client";
+import { getClient } from "utils/apollo.client";
 import { getTitleDisplay } from "utils/utils";
 import AuthContext from "context/AuthContext";
 import { createStyles, CssBaseline, Grid, makeStyles } from "@material-ui/core";
