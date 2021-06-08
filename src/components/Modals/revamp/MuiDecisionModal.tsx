@@ -40,7 +40,7 @@ function MuiDecisionModal() {
       maxWidth="sm"
       fullWidth={true}>
       <DialogTitle>
-
+        {state.title}
       </DialogTitle>
       <DialogContent>
         <Typography variant="h5">

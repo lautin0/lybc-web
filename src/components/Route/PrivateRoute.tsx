@@ -21,6 +21,7 @@ import WorshipCreate from 'views/admin/WorshipCreate';
 import WorshipEdit from 'views/admin/WorshipEdit';
 import WorshipManage from 'views/admin/WorshipManage';
 import ErrorPage from 'views/error/ErrorPage';
+import NotificationManage from 'views/super/NotificationManage';
 
 type PrivateRouteProps = {
   path: string,
@@ -56,21 +57,22 @@ function PrivateRoute(props: PrivateRouteProps) {
   return <Route path={path} render={({ match: { url } }) => (
     <>
       {path === '/admin' && <Switch>
-        <Route path={`${url}/`} exact><AdminPanel><RouteGuard roles={[Role.Admin, Role.Worker]} ><AdminIndex /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/worships`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipManage /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/worship/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipCreate /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/worship/:id`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><WorshipEdit /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/users`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserManage /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/user/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserCreate /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/user/:username`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><UserEdit /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/page-management`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PageManage /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/post/new`}><AdminPanel><RouteGuard roles={[Role.Admin]} ><PostCreate /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/other`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><OtherFunc /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/namecards/contact/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardEdit /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/namecards`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NameCardManage /></RouteGuard></AdminPanel></Route>        
-        <Route path={`${url}/post/pending/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostApproval /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/post/pending`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><PendingPostManage /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/news/new`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin]} ><NewsCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/`} exact><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super, Role.Worker]} ><AdminIndex /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worships`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><WorshipManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worship/new`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><WorshipCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/worship/:id`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><WorshipEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/users`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/user/new`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/user/:username`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/page-management`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><PageManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/post/new`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><PostCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/other`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><OtherFunc /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/namecards/contact/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><NameCardEdit /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/namecards`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><NameCardManage /></RouteGuard></AdminPanel></Route>        
+        <Route path={`${url}/post/pending/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><PendingPostApproval /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/post/pending`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><PendingPostManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/news/new`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><NewsCreate /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/notifications`}><AdminPanel><RouteGuard roles={[Role.Super]} ><NotificationManage /></RouteGuard></AdminPanel></Route>
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

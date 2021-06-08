@@ -89,6 +89,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   linkGrid: {
     cursor: 'pointer'
+  },  
+  badgeSuper: {
+    background: 'linear-gradient(120deg, rgba(189,215,245,1) 22%, rgba(238,174,202,1) 50%, rgba(189,215,245,1) 80%)',
+    color: theme.palette.primary.contrastText
   },
   badgeAdmin: {
     backgroundColor: 'gold',
@@ -319,8 +323,11 @@ export default function PersonalMain(props: PersonalMainProps) {
                   <Typography>徽章: </Typography>
                 </Grid>
                 <Grid item>
-                  {(userData?.user && (userData.user.role === Role.Admin || userData?.user?.role === Role.Worker)) && (
-                    <Chip className={userData.user.role === Role.Admin ? classes.badgeAdmin : classes.badgeWorker} label={userData.user.role === Role.Admin ? "網站管理人員" : (userData.user.role === Role.Worker ? "教會同工" : "")} />
+                  {(userData?.user && (userData.user.role === Role.Admin || userData.user.role === Role.Worker || userData.user.role === Role.Super)) && (
+                    <Chip 
+                      className={userData.user.role === Role.Super ? classes.badgeSuper : (userData.user.role === Role.Admin ? classes.badgeAdmin : classes.badgeWorker)} 
+                      label={userData.user.role === Role.Super ? "頂層管理人員" : (userData.user.role === Role.Admin ? "網站管理人員" : (userData.user.role === Role.Worker ? "教會同工" : ""))} 
+                    />
                   )}
                 </Grid>
               </Grid>

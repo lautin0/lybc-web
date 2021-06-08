@@ -116,7 +116,7 @@ export const renderTooltip = (props: any, type: string, currUser: string, reacti
 };
 
 export function getTitleDisplay(p: Post) {
-   if (p.user.role === Role.Admin)
+   if (p.user.role === Role.Admin || p.user.role === Role.Super)
       return ""
    let result = ""
    if (p.user.role === 'WORKER') {
@@ -138,34 +138,35 @@ export function stripGCSFileName(s: string) {
 export const funcList = [
    {
       title: "崇拜管理", path: '/admin/worships', children: [
-         { title: "新增崇拜", path: '/admin/worship/new', roles: [Role.Admin], icon: <Add />, hideFromMenu: false, quickAccess: true },
-         { title: "管理崇拜", path: '/admin/worships', roles: [Role.Admin], icon: <ViewQuilt />, hideFromMenu: false, quickAccess: true }
+         { title: "新增崇拜", path: '/admin/worship/new', roles: [Role.Admin, Role.Super], icon: <Add />, hideFromMenu: false, quickAccess: true },
+         { title: "管理崇拜", path: '/admin/worships', roles: [Role.Admin, Role.Super], icon: <ViewQuilt />, hideFromMenu: false, quickAccess: true }
       ]
    },
    {
       title: "會員管理", path: '/admin/users', children: [
-         { title: "新增會員", path: '/admin/user/new', roles: [Role.Admin], icon: <Add />, hideFromMenu: true, quickAccess: true },
-         { title: "會員管理", path: '/admin/users', roles: [Role.Admin], icon: <Person />, hideFromMenu: false, quickAccess: true },
-         { title: "新來賓名片", path: '/admin/namecards', roles: [Role.Admin, Role.Worker], icon: <RecentActors />, hideFromMenu: false, quickAccess: true }
+         { title: "新增會員", path: '/admin/user/new', roles: [Role.Admin, Role.Super], icon: <Add />, hideFromMenu: true, quickAccess: true },
+         { title: "會員管理", path: '/admin/users', roles: [Role.Admin, Role.Super], icon: <Person />, hideFromMenu: false, quickAccess: true },
+         { title: "新來賓名片", path: '/admin/namecards', roles: [Role.Admin, Role.Super, Role.Worker], icon: <RecentActors />, hideFromMenu: false, quickAccess: true }
       ]
    },
    {
       title: "頁面管理", path: '/admin/page-management', children: [
-         { title: "新增文章", path: '/admin/post/new', roles: [Role.Admin], icon: <Add />, hideFromMenu: false, quickAccess: false },
-         { title: "審閱文章", path: '/admin/post/pending', roles: [Role.Admin, Role.Worker], icon: <Spellcheck />, hideFromMenu: false, quickAccess: false },
-         { title: "新增消息", path: '/admin/news/new', roles: [Role.Admin, Role.Worker], icon: <NoteAdd />, hideFromMenu: false, quickAccess: false },
-         { title: "頁面設定", path: '/admin/other', roles: [Role.Admin, Role.Worker], icon: <Build />, hideFromMenu: false, quickAccess: false }
+         { title: "新增文章", path: '/admin/post/new', roles: [Role.Admin, Role.Super], icon: <Add />, hideFromMenu: false, quickAccess: false },
+         { title: "審閱文章", path: '/admin/post/pending', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Spellcheck />, hideFromMenu: false, quickAccess: false },
+         { title: "新增消息", path: '/admin/news/new', roles: [Role.Admin, Role.Super, Role.Worker], icon: <NoteAdd />, hideFromMenu: false, quickAccess: false },
+         { title: "頁面設定", path: '/admin/other', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Build />, hideFromMenu: false, quickAccess: false }
       ]
    },
    {
       title: "通告管理", path: '/admin/page-management', children: [
-         { title: "新增最新消息", path: '/admin/news/new', roles: [Role.Admin, Role.Worker], icon: <Add />, hideFromMenu: true, quickAccess: true },
-         { title: "更改通告", path: '/admin/other', roles: [Role.Admin, Role.Worker], icon: <Build />, hideFromMenu: true, quickAccess: true }
+         { title: "新增最新消息", path: '/admin/news/new', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Add />, hideFromMenu: true, quickAccess: true },
+         { title: "更改通告", path: '/admin/other', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Build />, hideFromMenu: true, quickAccess: true }
       ]
    },
    {
-      title: "其他功能", path: '/admin/other', children: [
-         { title: "系統設定", path: '/admin/other', roles: [Role.Admin], icon: <Build />, hideFromMenu: false, quickAccess: false }
+      title: "頂層功能", path: '/admin/other', children: [
+         { title: "通知管理", path: '/admin/notifications', roles: [Role.Super], icon: <Build />, hideFromMenu: false, quickAccess: false },
+         { title: "系統設定", path: '/admin/other', roles: [Role.Super], icon: <Build />, hideFromMenu: false, quickAccess: false }
       ]
    }
 ]

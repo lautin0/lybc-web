@@ -6,7 +6,7 @@ import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import CustomDataGrid from "components/DataGrid/CustomDataGrid";
 import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
@@ -54,7 +54,28 @@ export default function UserManage() {
 
    const [data, setData] = useState<GridRowsProp>([])
 
-   const columns: GridColDef[] = [
+
+   const onEditClicked = useCallback((e: any, username: any) => {
+      history.push('/admin/user/' + username)
+   }, [history])
+
+   const onSuspendClicked = useCallback((row: GridRowData) => {
+      decision.setMessage("確定停用帳戶?")
+      decision.setPositiveFn(() => {
+         changeStatus({
+            variables: {
+               username: row['username'],
+               status: AccountStatus.Suspended
+            }
+         })
+            .then(e => {
+               setMessage('app.sys.save-success')
+               history.push('/admin/users')
+            }).catch(setModalError)
+      })
+   }, [decision, setModalError, history, changeStatus, setMessage])
+
+   const columns: GridColDef[] = useMemo(() => [
       { field: 'dob', hide: true },
       { field: 'email', hide: true },
       { field: 'phone', hide: true },
@@ -129,27 +150,7 @@ export default function UserManage() {
                return <></>
          }
       },
-   ];
-
-   function onEditClicked(e: any, username: any) {
-      history.push('/admin/user/' + username)
-   }
-
-   function onSuspendClicked(row: GridRowData) {
-      decision.setMessage("確定停用帳戶?")
-      decision.setPositiveFn(() => {
-         changeStatus({
-            variables: {
-               username: row['username'],
-               status: AccountStatus.Suspended
-            }
-         })
-            .then(e => {
-               setMessage('app.sys.save-success')
-               history.push('/admin/users')
-            }).catch(setModalError)
-      })
-   }
+   ], [classes, onSuspendClicked, onEditClicked]);
 
    useEffect(() => {
       if (uData === undefined)

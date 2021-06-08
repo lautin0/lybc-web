@@ -1,3 +1,15 @@
+query allNotifications {
+	allNotifications {
+		_id
+		toUsername
+		fromUsername
+		type
+		param
+		isRead
+		creDttm
+	}
+}
+
 query notifications($toUsername: String!) {
 	notifications(toUsername: $toUsername) {
 		_id
@@ -14,4 +26,8 @@ mutation readNotification($input: String!) {
 	readNotification(input: $input) {
 		_id
 	}
+}
+
+mutation deleteNotifications($input: [String]!) {
+	deleteNotification(input: $input) 
 }

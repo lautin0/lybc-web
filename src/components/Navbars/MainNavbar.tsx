@@ -203,10 +203,10 @@ function MainNavbar(props: MainNavbarProps) {
               </Nav.Item>}
               {tokenPair?.token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p style={{ fontWeight: 'bolder' }}>{getTokenValue(tokenPair.token)?.username}</p></>}>
-                  {hasRole(tokenPair.token, [Role.Admin, Role.Worker]) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
+                  {hasRole(tokenPair.token, [Role.Super, Role.Admin, Role.Worker]) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
                     {intl.formatMessage({ id: "app.admin.panel" })}
                   </NavDropdown.Item>}
-                  {hasRole(tokenPair.token, [Role.Admin, Role.Worker]) && <NavDropdown.Divider />}
+                  {hasRole(tokenPair.token, [Role.Super, Role.Admin, Role.Worker]) && <NavDropdown.Divider />}
                   <NavDropdown.Item as={Link} to="/personal" onClick={() => setCollapseOpen(!collapseOpen)}>
                     {intl.formatMessage({ id: "app.personal" })}
                   </NavDropdown.Item>
