@@ -23,7 +23,6 @@ export default function UserCreate() {
 
    const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
-
    const [createUser, { loading }] = useCreateUserMutation()
 
    const { tokenPair } = useContext(AuthContext)

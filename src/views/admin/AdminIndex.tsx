@@ -6,6 +6,7 @@ import { AccountStatus, PostStatus, Role, useNameCardsQuery, usePendingPostsQuer
 import { useContext, useEffect } from 'react'
 import { funcList, getTokenValue } from 'utils/utils'
 import AuthContext from 'context/AuthContext'
+import useGlobalStyles from 'styles/styles'
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -15,9 +16,6 @@ const useStyles = makeStyles((theme) => (
     img: {
       width: 600,
       height: 'auto'
-    },
-    rebootLinks: {
-      color: 'unset'
     },
     linkIndicator: {
       borderLeft: `.5rem solid ${theme.palette.secondary.main}`,
@@ -34,6 +32,7 @@ const useStyles = makeStyles((theme) => (
 ))
 
 export default function AdminIndex() {
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
   const { tokenPair } = useContext(AuthContext)
   const location = useLocation()
@@ -59,17 +58,17 @@ export default function AdminIndex() {
           <CardContent>
             <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} variant="h5">待辦事項<Mail /></Typography>
             {(!pendingPostsData?.pendingPosts || pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">待審閱文章(0)篇</Typography>}
-            {(pendingPostsData?.pendingPosts && pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length > 0) && <Link to="/admin/post/pending" className={classes.rebootLinks}>
-              <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="secondary">
+            {(pendingPostsData?.pendingPosts && pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length > 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="secondary">
+              <Link to="/admin/post/pending" className={globalClasses.rebootLinks}>
                 {`待審閱文章(${pendingPostsData.pendingPosts.filter(x => x.status === PostStatus.Pending).length})篇`}
-              </Typography>
-            </Link>}
+              </Link>
+            </Typography>}
             {(!namecardsData?.nameCards || namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length === 0) && <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">新來賓待接觸(0)位</Typography>}
-            {(namecardsData?.nameCards && namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length > 0) && <Link to="/admin/namecards" className={classes.rebootLinks}>
-              <Typography style={{ marginTop: 15 }} variant="h6" color="secondary">
+            {(namecardsData?.nameCards && namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length > 0) && <Typography style={{ marginTop: 15 }} variant="h6" color="secondary">
+              <Link to="/admin/namecards" className={globalClasses.rebootLinks}>
                 {`新來賓待接觸(${namecardsData.nameCards.filter(x => x.status === AccountStatus.Pending).length})位`}
-              </Typography>
-            </Link>}
+              </Link>
+            </Typography>}
             {/* <Typography style={{ marginTop: 15 }} variant="h6" color="textSecondary">代禱請求(0)則</Typography> */}
           </CardContent>
         </Card>
@@ -84,7 +83,7 @@ export default function AdminIndex() {
               <Typography className={classes.linkIndicator} variant="h5">{item.title}</Typography>
               <Grid className={classes.cardButtonMargins} container direction="row" spacing={2}>
                 {item.children.filter(y => y.roles.includes(getTokenValue(tokenPair?.token).role as Role) && y.quickAccess).map((subItem, idx) => (
-                  <Grid key={idx} item><Typography color="primary" variant="h6"><Link className={classes.rebootLinks} to={subItem.path}>{subItem.title}</Link></Typography></Grid>
+                  <Grid key={idx} item><Typography color="primary" variant="h6"><Link className={globalClasses.rebootLinks} to={subItem.path}>{subItem.title}</Link></Typography></Grid>
                 ))}
               </Grid>
             </CardContent>

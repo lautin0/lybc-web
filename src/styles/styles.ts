@@ -75,6 +75,12 @@ const useGlobalStyles = makeStyles((theme) => ({
       backgroundColor: yellow[600],
     }
   },
+  rebootLinks: {
+    color: 'unset',
+    "&:hover": {
+      color: 'unset',
+    }
+  },
 }))
 
 export default useGlobalStyles

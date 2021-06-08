@@ -21,7 +21,6 @@ type PendingPostRowProps = {
 function PendingPostManage() {
 
   const globalClasses = useGlobalStyles()
-  const classes = useGlobalStyles()
 
   const location = useLocation();
 
@@ -99,14 +98,14 @@ function PendingPostManage() {
   const getBadgeClassName = (s: PostStatus) => {
     switch (s) {
       case PostStatus.Approved:
-        return classes.success
+        return globalClasses.success
       case PostStatus.Rejected:
       case PostStatus.Withdraw:
-        return classes.danger
+        return globalClasses.danger
       case PostStatus.Pending:
-        return classes.warning
+        return globalClasses.warning
       case PostStatus.Withhold:
-        return classes.default
+        return globalClasses.default
     }
   }
 

@@ -2,6 +2,7 @@ import { createStyles, Grid, makeStyles, Typography } from '@material-ui/core'
 import peekOutside from '../../assets/img/peeking-outside.png'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
+import useGlobalStyles from 'styles/styles'
 
 const useStyles = makeStyles((theme) => (
   createStyles({
@@ -11,9 +12,6 @@ const useStyles = makeStyles((theme) => (
     img: {
       width: 480,
       height: 'auto'
-    },
-    rebootLinks: {
-      color: 'unset'
     },
     linkMargins: {
       display: 'flex',
@@ -28,6 +26,7 @@ const useStyles = makeStyles((theme) => (
 ))
 
 function PersonalOther() {
+  const globalClasses = useGlobalStyles()
   const classes = useStyles()
 
   return <Grid container spacing={3} className={classes.root}>
@@ -36,9 +35,9 @@ function PersonalOther() {
     </Grid>
     <Grid item xs={12} lg={6}>
       <Typography variant="h3">探索</Typography>
-      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(classes.rebootLinks, classes.linkMargins)} to="/sharing-list">瀏覽分享文章</Link></Typography>
-      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(classes.rebootLinks, classes.linkMargins)} to="/personal/sharing">發表您的分享</Link></Typography>
-      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(classes.rebootLinks, classes.linkMargins)} to="/apply-activity">活動報名</Link></Typography>
+      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(globalClasses.rebootLinks, classes.linkMargins)} to="/sharing-list">瀏覽分享文章</Link></Typography>
+      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(globalClasses.rebootLinks, classes.linkMargins)} to="/personal/sharing">發表您的分享</Link></Typography>
+      <Typography className={classes.linkIndicator} color="primary" variant="h4"><Link className={clsx(globalClasses.rebootLinks, classes.linkMargins)} to="/apply-activity">活動報名</Link></Typography>
     </Grid>
   </Grid>
 }

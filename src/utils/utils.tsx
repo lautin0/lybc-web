@@ -165,7 +165,7 @@ export const funcList = [
    },
    {
       title: "頂層功能", path: '/admin/other', children: [
-         { title: "通知管理", path: '/admin/notifications', roles: [Role.Super], icon: <Build />, hideFromMenu: false, quickAccess: false },
+         { title: "內容管理", path: '/admin/content', roles: [Role.Super], icon: <Build />, hideFromMenu: false, quickAccess: false },
          { title: "系統設定", path: '/admin/other', roles: [Role.Super], icon: <Build />, hideFromMenu: false, quickAccess: false }
       ]
    }
