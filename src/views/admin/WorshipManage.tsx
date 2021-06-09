@@ -138,7 +138,7 @@ function WorshipManage() {
         onClick={() => history.push('/admin/worship/new')}
       >建立</ExtendColorButton>
       <div style={{ width: '100%' }}>
-        <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
+        <CustomDataGrid showToolbar={true} loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
       </div>
     </>
   )

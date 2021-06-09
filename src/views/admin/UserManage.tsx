@@ -145,7 +145,7 @@ export default function UserManage() {
             onClick={() => history.push('/admin/user/new')}
          >建立</ExtendColorButton>
          <div style={{ width: '100%' }}>
-            <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
+            <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} />
          </div>
       </>
    )

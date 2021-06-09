@@ -59,9 +59,9 @@ function WorshipList() {
         }
       }
     },
-    { 
-      field: 'messenger', 
-      headerName: intl.formatMessage({ id: "app.tables.speaker" }), 
+    {
+      field: 'messenger',
+      headerName: intl.formatMessage({ id: "app.tables.speaker" }),
       width: 200,
       renderCell: (params) => {
         if (params.row["type"].toString() === "分享主日") {
@@ -113,11 +113,11 @@ function WorshipList() {
         id="download-section"
       >
         <Container>
-          <div style={{ width: '100%', height: 400, marginBottom: 50 }}>
+          <div style={{ width: '100%', height: 450, marginBottom: 50 }}>
             <CssBaseline />
-            <CustomDataGrid
+            <CustomDataGrid              
               onRowClick={(param) => onCellClicked(param.row["worshipId"].toString())}
-              loading={loading}              
+              loading={loading}
               pageSize={5}
               rows={data}
               columns={columns}
