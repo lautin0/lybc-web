@@ -13,8 +13,8 @@ function CustomToolbar() {
    );
 }
 
-export default function CustomDataGrid(props: Omit<DataGridProps, "components"> & PaginationProps & { showToolbar?: boolean, useBubblePaging?: boolean }) {
-   const { onRowClick, loading, pageSize, rows, columns, sortModel, autoHeight, color, showToolbar, useBubblePaging } = props
+export default function CustomDataGrid(props: Omit<DataGridProps, "components"> & PaginationProps & { showToolbar?: boolean }) {
+   const { onRowClick, loading, pageSize, rows, columns, sortModel, autoHeight, color, showToolbar } = props
    return <DataGrid
       onRowClick={onRowClick}
       loading={loading}
@@ -25,7 +25,7 @@ export default function CustomDataGrid(props: Omit<DataGridProps, "components"> 
       sortModel={sortModel}
       components={{
          Toolbar: showToolbar ? CustomToolbar : undefined,
-         Pagination: useBubblePaging ? CustomPagination : undefined,
+         Pagination: CustomPagination,
          NoRowsOverlay: CustomNoRowsOverlay
       }}
       componentsProps={{
