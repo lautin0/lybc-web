@@ -1,21 +1,27 @@
-import { Grow, Typography } from "@material-ui/core";
-import { DataGrid, GridColDef, GridCellParams, GridRowsProp, GridRowId } from "@material-ui/data-grid";
+import { Typography, Grow } from "@material-ui/core";
+import { DataGrid, GridCellParams, GridColDef, GridRowId, GridRowsProp } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
 import ExtendColorButton from "components/Buttons/ExtendColorButton";
-import { useAllNotificationsQuery, useDeleteNotificationsMutation } from "generated/graphql";
+import { useAllPostsQuery, useDeletePostsMutation, User } from "generated/graphql"
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
+import { getTitleDisplay } from "utils/utils";
 import shallow from "zustand/shallow";
 
 const columns: GridColDef[] = [
    { field: '_id', hide: true },
-   { field: 'toUsername', headerName: '致用戶', width: 200 },
-   { field: 'fromUsername', headerName: '從用戶', width: 200 },
-   { field: 'type', headerName: '類型', width: 200 },
-   { field: 'isRead', headerName: '已讀', width: 200 },
+   {
+      field: 'user',
+      headerName: '提交者',
+      width: 200,
+      renderCell: (params: GridCellParams) => (<>
+         {(params.value as User).nameC + getTitleDisplay(params.value as User)}
+      </>)
+   },
+   { field: 'title', headerName: '主題', width: 350 },
    {
       field: 'creDttm',
       headerName: '建立時間',
@@ -23,31 +29,27 @@ const columns: GridColDef[] = [
       renderCell: (params: GridCellParams) => (<>
          {moment(params.value?.toString()).format('YYYY-MM-DD')}
       </>)
-   },
+   }
 ]
 
-export default function NotificationManage() {
+export default function PostManage() {
 
    const globalClasses = useGlobalStyles()
 
    const [data, setData] = useState<GridRowsProp>([])
    const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
 
-   const { data: nData, loading, refetch } = useAllNotificationsQuery({ notifyOnNetworkStatusChange: true })
-   const [deleteNotifications, { loading: deleteLoading }] = useDeleteNotificationsMutation()
+   const [setDecisionMessage, setTitle, setPositiveFn] = RootStore.useDecisionStore(state => [state.setMessage, state.setTitle, state.setPositiveFn], shallow)
+   const [setMessage, handleError] = RootStore.useMuiModalStore(state => [state.setMessage, state.setError], shallow)
 
-   const { handleError, setMessage } = RootStore.useMuiModalStore(state => ({ handleError: state.setError, setMessage: state.setMessage }), shallow)
-   const { setPositiveFn, setDecisionMessage, setTitle } = RootStore.useDecisionStore(state => ({
-      setPositiveFn: state.setPositiveFn,
-      setDecisionMessage: state.setMessage,
-      setTitle: state.setTitle
-   }), shallow)
+   const { data: pData, loading, refetch } = useAllPostsQuery({ notifyOnNetworkStatusChange: true })
+   const [deletePosts, { loading: deleteLoading }] = useDeletePostsMutation()
 
    useEffect(() => {
-      if (nData) {
-         setData(nData.allNotifications.map((x, i) => ({ ...x, id: i })))
+      if (pData) {
+         setData(pData.allPosts.map((x, i) => ({ ...x, id: i })))
       }
-   }, [nData])
+   }, [pData])
 
    const handleDelete = useCallback(() => {
       if (selectionModel.length === 0) {
@@ -56,7 +58,7 @@ export default function NotificationManage() {
       }
       setTitle("提示")
       setDecisionMessage("確認刪除?")
-      setPositiveFn(() => deleteNotifications({
+      setPositiveFn(() => deletePosts({
          variables: {
             input: data.filter(x => selectionModel.includes(x.id)).map(x => x._id)
          }
@@ -65,18 +67,18 @@ export default function NotificationManage() {
          setSelectionModel([])
       }).catch(handleError))
 
-   }, [refetch, data, deleteNotifications, handleError, selectionModel, setMessage, setPositiveFn, setDecisionMessage, setTitle])
+   }, [refetch, data, deletePosts, handleError, selectionModel, setMessage, setPositiveFn, setDecisionMessage, setTitle])
 
    return <>
       <RouterBreadcrumbs />
-      <Typography className={globalClasses.adminPageTitle} variant="h5">通知管理</Typography>
+      <Typography className={globalClasses.adminPageTitle} variant="h5">待審閱文章</Typography>
       <Grow in={selectionModel.length > 0}>
          <ExtendColorButton
             className="my-3"
+            color="danger"
             variant="contained"
             startIcon={<Delete />}
             onClick={handleDelete}
-            color="danger"
          >刪除</ExtendColorButton>
       </Grow>
       <div style={{ width: '100%', height: 400 }}>

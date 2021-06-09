@@ -1,9 +1,8 @@
-import { Button, Grow, makeStyles, Typography } from "@material-ui/core";
-import red from "@material-ui/core/colors/red";
+import { Grow, Typography } from "@material-ui/core";
 import { DataGrid, GridColDef, GridCellParams, GridRowsProp, GridRowId } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
-import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
+import ExtendColorButton from "components/Buttons/ExtendColorButton";
 import { useDeletePendingPostsMutation, usePendingPostsQuery } from "generated/graphql";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
@@ -35,21 +34,9 @@ const columns: GridColDef[] = [
    { field: 'status', headerName: '狀態', width: 200 }
 ]
 
-
-const useStyles = makeStyles(theme => ({
-   danger: {
-      backgroundColor: red[600],
-      color: theme.palette.primary.contrastText,
-      "&:hover": {
-         backgroundColor: red[500]
-      }
-   }
-}))
-
 export default function SuperPendingPostManage() {
 
    const globalClasses = useGlobalStyles()
-   const classes = useStyles()
 
    const [data, setData] = useState<GridRowsProp>([])
    const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
@@ -92,12 +79,13 @@ export default function SuperPendingPostManage() {
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">待審閱文章</Typography>
       <Grow in={selectionModel.length > 0}>
-         <Button
-            className={clsx(classes.danger, "my-3")}
+         <ExtendColorButton
+            className="my-3"
             variant="contained"
             startIcon={<Delete />}
-         onClick={handleDelete}
-         >刪除</Button>
+            onClick={handleDelete}
+            color="danger"
+         >刪除</ExtendColorButton>
       </Grow>
       <div style={{ width: '100%', height: 400 }}>
          <DataGrid

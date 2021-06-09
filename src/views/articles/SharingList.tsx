@@ -232,7 +232,7 @@ function SharingList() {
                   <div className={css.blog}>
                     <div className={css.blogText}>
                       <div className={css.blogOP} onClick={() => { navigate(p._id) }}>
-                        {p.user.nameC}{getTitleDisplay(p)}
+                        {p.user.nameC}{getTitleDisplay(p.user)}
                       </div>
                       <div className={css.blogHeader} onClick={() => { navigate(p._id) }}>
                         <b>{p.title}</b>

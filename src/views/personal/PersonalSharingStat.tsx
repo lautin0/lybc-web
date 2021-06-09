@@ -14,8 +14,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
-import useGlobalStyles from 'styles/styles';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
+import ExtendColorButton from 'components/Buttons/ExtendColorButton';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -59,9 +59,8 @@ export default function PersonalSharingStat() {
    const { oid } = useParams<any>()
    const history = useHistory()
 
-   const globalClasses = useGlobalStyles()
    const classes = useStyles();
-   
+
    const [activeStep, setActiveStep] = React.useState(0);
    const [steps, setSteps] = useState(['文章(按此檢視)', '處理中', ''])
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
@@ -118,7 +117,7 @@ export default function PersonalSharingStat() {
                   subTitle="謝謝您的分享，同工中在處理您的申請。"
                   extra={
                      <div>
-                        <Button style={{ marginRight: 10 }} variant="contained" className={globalClasses.dangerButton} onClick={() => updatePendingPost({
+                        <ExtendColorButton style={{ marginRight: 10 }} variant="contained" color="danger" onClick={() => updatePendingPost({
                            variables: {
                               input: {
                                  _id: data?.pendingPost?._id,
@@ -131,7 +130,7 @@ export default function PersonalSharingStat() {
                            setActiveStep(2)
                            reset();
                            refetch();
-                        })}>撤回申請</Button>
+                        })}>撤回申請</ExtendColorButton>
                         <Button variant="outlined" onClick={() => setActiveStep(0)}>查看提交的資料</Button>
                      </div>}
                />
@@ -164,7 +163,7 @@ export default function PersonalSharingStat() {
          default:
             return "發生錯誤，請重新載入。";
       }
-   }, [data, history, refetch, getValues, reset, updatePendingPost, globalClasses])
+   }, [data, history, refetch, getValues, reset, updatePendingPost])
 
    useEffect(() => {
       if (data && reset) {

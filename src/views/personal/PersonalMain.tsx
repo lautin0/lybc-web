@@ -401,7 +401,7 @@ export default function PersonalMain(props: PersonalMainProps) {
               <Grid container item direction="column" xs={8} spacing={3}>
                 <Grid container item onClick={() => { navigate(p.post?._id) }} direction="row" className={classes.linkGrid}>
                   <Typography>
-                    {p.post?.user.nameC}{getTitleDisplay(p.post!)}
+                    {p.post?.user.nameC}{getTitleDisplay(p.post?.user)}
                   </Typography>
                   <Typography className={classes.postDateText} variant="body2">
                     {<FormattedDate

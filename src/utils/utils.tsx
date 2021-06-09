@@ -1,5 +1,5 @@
 import { Add, ViewQuilt, RecentActors, Spellcheck, NoteAdd, Person, Build } from "@material-ui/icons";
-import { Post, Role } from "generated/graphql";
+import { Role, User } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
 import React from "react";
@@ -115,15 +115,15 @@ export const renderTooltip = (props: any, type: string, currUser: string, reacti
 
 };
 
-export function getTitleDisplay(p: Post) {
-   if (p.user.role === Role.Admin || p.user.role === Role.Super)
+export function getTitleDisplay(u?: User) {
+   if (!u || u.role === Role.Admin || u.role === Role.Super)
       return ""
    let result = ""
-   if (p.user.role === 'WORKER') {
-      result = p.user.titleC ? p.user.titleC : ""
-   } else if (p.user.gender === 'MALE') {
+   if (u.role === 'WORKER') {
+      result = u.titleC ? u.titleC : ""
+   } else if (u.gender === 'MALE') {
       result = '弟兄'
-   } else if (p.user.gender === 'FEMALE') {
+   } else if (u.gender === 'FEMALE') {
       result = '姊妹'
    }
    return result

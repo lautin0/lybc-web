@@ -23,6 +23,7 @@ import WorshipManage from 'views/admin/WorshipManage';
 import ErrorPage from 'views/error/ErrorPage';
 import ContentManage from 'views/super/ContentManage';
 import NotificationManage from 'views/super/NotificationManage';
+import PostManage from 'views/super/PostManage';
 import SuperPendingPostManage from 'views/super/SuperPendingPostManage';
 
 type PrivateRouteProps = {
@@ -76,7 +77,8 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/news/new`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><NewsCreate /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/content/notifications`}><AdminPanel><RouteGuard roles={[Role.Super]} ><NotificationManage /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/content/pending-posts`}><AdminPanel><RouteGuard roles={[Role.Super]} ><SuperPendingPostManage /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/content`}><AdminPanel><RouteGuard roles={[Role.Super]} ><ContentManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/content/posts`}><AdminPanel><RouteGuard roles={[Role.Super]} ><PostManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/content`}><AdminPanel><RouteGuard roles={[Role.Super]} ><ContentManage /></RouteGuard></AdminPanel></Route>        
         <Route path="*">
           <ErrorPage error="404" />
         </Route>

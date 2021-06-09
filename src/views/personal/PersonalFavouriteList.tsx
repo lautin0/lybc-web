@@ -75,7 +75,7 @@ function PersonalFavouriteList() {
           <div className={css.blog}>
             <div className={css.blogText}>
               <div className={css.blogOP} onClick={() => { navigate(p.post?._id) }}>
-                {p.post?.user.nameC}{getTitleDisplay(p.post!)}{" "}{<label style={{ color: 'gray' }} className="ml-1"><FormattedDate
+                {p.post?.user.nameC}{getTitleDisplay(p.post?.user)}{" "}{<label style={{ color: 'gray' }} className="ml-1"><FormattedDate
                   value={moment(p.post?.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
                   year="numeric"
                   month="short"

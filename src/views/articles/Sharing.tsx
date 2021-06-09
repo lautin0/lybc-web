@@ -155,7 +155,7 @@ function Sharing() {
                   </div>
                 </div>
                 <div className="my-auto" style={{ color: 'gray' }}>
-                  <div><b>{post.user.nameC}{getTitleDisplay(post)}</b></div>
+                  <div><b>{post.user.nameC}{getTitleDisplay(post.user)}</b></div>
                   <div><i>{<FormattedDate
                     value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
                     year="numeric"

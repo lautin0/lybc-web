@@ -12,7 +12,6 @@ import { NewPost, PendingPost, PostStatus, PostType, UpdatePendingPost, useAppro
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
-import clsx from 'clsx';
 import { useDropzone } from 'react-dropzone';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
@@ -20,10 +19,10 @@ import DOMPurify from 'dompurify'
 import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
-import useGlobalStyles from 'styles/styles';
 import shallow from 'zustand/shallow';
 import { RootStore } from 'store';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
+import ExtendColorButton from 'components/Buttons/ExtendColorButton';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -79,7 +78,6 @@ export default function PendingPostApproval() {
    const { oid } = useParams<any>()
    const history = useHistory()
 
-   const globalClasses = useGlobalStyles()
    const classes = useStyles();
 
    const [activeStep, setActiveStep] = React.useState(0);
@@ -459,13 +457,14 @@ export default function PendingPostApproval() {
                      </Grid>
                      {(!allStepsCompleted() && data?.pendingPost?.status && !endStatus.includes(data?.pendingPost?.status)) && <Grid container item xs={12} justify="space-between" direction="row">
                         <Grid item className={classes.rowGrid}>
-                           <Button
+                           <ExtendColorButton
                               type="button"
                               variant="contained"
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={withholdPost}
-                              className={clsx(classes.button, globalClasses.warningButton)}
+                              className={classes.button}
+                              color="warning"
                            >
                               <Hidden smDown implementation="css">
                                  暫緩發布
@@ -473,14 +472,15 @@ export default function PendingPostApproval() {
                               <Hidden mdUp implementation="css">
                                  暫緩
                               </Hidden>
-                           </Button>
-                           <Button
+                           </ExtendColorButton>
+                           <ExtendColorButton
                               type="button"
                               variant="contained"
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={rejectPost}
-                              className={clsx(classes.button, globalClasses.dangerButton)}
+                              className={classes.button}
+                              color="danger"
                            >
                               <Hidden smDown implementation="css">
                                  拒絕發布
@@ -488,7 +488,7 @@ export default function PendingPostApproval() {
                               <Hidden mdUp implementation="css">
                                  拒絕
                               </Hidden>
-                           </Button>
+                           </ExtendColorButton>
                         </Grid>
                         <Grid item className={classes.rowGrid}>
                            <Button type="button" size={isMobile ? 'small' : 'medium'} style={{ display: activeStep === 0 ? 'none' : 'block' }} onClick={handleBack} className={classes.button}>

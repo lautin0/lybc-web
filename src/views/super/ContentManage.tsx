@@ -6,7 +6,8 @@ import useGlobalStyles from "styles/styles"
 
 const contentTypes = [
    { link: "/admin/content/pending-posts", title: "待審閱文章" },
-   { link: "/admin/content/notifications", title: "通知" }
+   { link: "/admin/content/posts", title: "文章" },
+   { link: "/admin/content/notifications", title: "通知" }   
 ]
 
 export default function ContentManage() {

@@ -50,20 +50,6 @@ const useGlobalStyles = makeStyles((theme) => ({
     backgroundColor: `${cyan[800]} !important`,
     color: `${theme.palette.primary.contrastText} !important`
   },
-  dangerButton: {
-    backgroundColor: red[600],
-    color: theme.palette.primary.contrastText,
-    "&.MuiButton-contained:hover": {
-      backgroundColor: red[500],
-    }
-  },
-  warningButton: {
-    backgroundColor: yellow[700],
-    color: theme.palette.primary.contrastText,
-    "&.MuiButton-contained:hover": {
-      backgroundColor: yellow[600],
-    }
-  },
   rebootLinks: {
     color: 'unset',
     "&:hover": {

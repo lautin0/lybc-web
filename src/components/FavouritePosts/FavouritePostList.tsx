@@ -38,7 +38,7 @@ function FavouritePostList() {
                 {x.post?.user.profilePicURI && <img style={{ marginTop: -8 }} alt="..." src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + x.post?.user.profilePicURI}></img>}
               </div>
             </div>
-            <div style={{ fontSize: 13 }}>{x.post?.user.nameC + getTitleDisplay(x.post!)}</div>
+            <div style={{ fontSize: 13 }}>{x.post?.user.nameC + getTitleDisplay(x.post?.user)}</div>
           </div>
           <div
             onClick={e => { history.push('sharing/' + x.post?._id) }}

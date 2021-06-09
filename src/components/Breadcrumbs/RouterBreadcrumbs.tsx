@@ -33,6 +33,7 @@ export default function RouterBreadcrumbs() {
       "namecards": ["/admin/namecards", "新來賓名片"],
       "news": [null, "最新消息"],
       "post": [null, "文章"],
+      "posts": [null, "文章"],
       "pending": [null, "待處理"],
       "contact": [null, "跟進"],
       "notifications": [null, "通知"],
