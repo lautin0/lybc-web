@@ -4,11 +4,11 @@ import { useContext, useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
-import { getTimePastStr, getTokenValue } from 'utils/utils';
+import { getRoleDisplay, getTimePastStr, getTokenValue } from 'utils/utils';
 import Validators from 'utils/validator';
 
 import defaultAvatar from "assets/img/default-avatar.png";
-import { Post, useUserProfilePicUriQuery } from 'generated/graphql';
+import { Post, Role, useUserProfilePicUriQuery } from 'generated/graphql';
 import UNIVERSALS from 'Universals';
 import { useIntl } from 'react-intl';
 import AuthContext from 'context/AuthContext';
@@ -72,7 +72,7 @@ function CommentSection(props: any) {
         </div>
         <div className="ml-5">
           <div className="mb-2">
-            {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{e.user.role === "ADMIN" ? "網站管理人員" : (e.user.role === "WORKER" ? "教會同工" : "")}</Tooltip>}>
+            {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{getRoleDisplay(e.user.role as Role)}</Tooltip>}>
               <a
                 href="/"
                 onClick={(e) => e.preventDefault()}

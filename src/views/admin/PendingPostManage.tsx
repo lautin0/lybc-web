@@ -1,13 +1,15 @@
-import { Button, Chip, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { GridCellParams, GridColDef, GridColumnHeaderParams, GridRowsProp } from '@material-ui/data-grid';
 import { Create } from '@material-ui/icons';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import ExtendColorChip from 'components/Chip/ExtendColorChip';
 import CustomDataGrid from 'components/DataGrid/CustomDataGrid';
 import { PostStatus, usePendingPostsQuery } from 'generated/graphql';
 import moment, { Moment } from 'moment';
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import useGlobalStyles from 'styles/styles';
+import { getPostBadgeColorKey, getPostStatus } from 'utils/utils';
 
 type PendingPostRowProps = {
   _id: string,
@@ -42,7 +44,7 @@ function PendingPostManage() {
       width: 150,
       headerName: '狀態',
       renderCell: (params: GridCellParams) => (
-        <Chip label={getStatus(params.value as PostStatus)} className={getBadgeClassName(params.value as PostStatus)} />
+        <ExtendColorChip color={getPostBadgeColorKey(params.value as PostStatus)} label={getPostStatus(params.value as PostStatus)} />
       ),
     },
     {
@@ -94,35 +96,6 @@ function PendingPostManage() {
         }
       }))
   }, [pPostData])
-
-  const getBadgeClassName = (s: PostStatus) => {
-    switch (s) {
-      case PostStatus.Approved:
-        return globalClasses.success
-      case PostStatus.Rejected:
-      case PostStatus.Withdraw:
-        return globalClasses.danger
-      case PostStatus.Pending:
-        return globalClasses.warning
-      case PostStatus.Withhold:
-        return globalClasses.default
-    }
-  }
-
-  const getStatus = (s: PostStatus) => {
-    switch (s) {
-      case PostStatus.Approved:
-        return "已發佈"
-      case PostStatus.Rejected:
-        return "已拒絕"
-      case PostStatus.Pending:
-        return "待審閱"
-      case PostStatus.Withhold:
-        return "暫緩發佈"
-      case PostStatus.Withdraw:
-        return "已撤回"
-    }
-  }
 
   useEffect(() => {
     pPostData && refetch();

@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/core";
-import { green, red, yellow, grey, cyan } from "@material-ui/core/colors";
 
 export class css {
 
@@ -25,30 +24,6 @@ const useGlobalStyles = makeStyles((theme) => ({
   adminPageTitle: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4)
-  },
-  success: {
-    backgroundColor: `${green[600]} !important`,
-    color: `${theme.palette.primary.contrastText} !important`
-  },
-  danger: {
-    backgroundColor: `${red[600]} !important`,
-    color: `${theme.palette.primary.contrastText} !important`
-  },
-  warning: {
-    backgroundColor: `${yellow[600]} !important`,
-    color: `${theme.palette.secondary.contrastText} !important`
-  },
-  default: {
-    backgroundColor: `${grey[500]} !important`,
-    color: `${theme.palette.primary.contrastText} !important`
-  },
-  primary: {
-    backgroundColor: `${theme.palette.primary.main} !important`,
-    color: `${theme.palette.primary.contrastText} !important`
-  },
-  info: {
-    backgroundColor: `${cyan[800]} !important`,
-    color: `${theme.palette.primary.contrastText} !important`
   },
   rebootLinks: {
     color: 'unset',

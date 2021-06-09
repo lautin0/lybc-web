@@ -1,5 +1,5 @@
 import { Add, ViewQuilt, RecentActors, Spellcheck, NoteAdd, Person, Build } from "@material-ui/icons";
-import { Role, User } from "generated/graphql";
+import { AccountStatus, PostStatus, Role, User } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
 import React from "react";
@@ -170,3 +170,89 @@ export const funcList = [
       ]
    }
 ]
+
+export const getAccountStatus = (s: AccountStatus) => {
+   switch (s) {
+      case AccountStatus.Active:
+         return "已處理"
+      case AccountStatus.Inactive:
+         return "擱置"
+      case AccountStatus.Pending:
+         return "待接觸"
+      case AccountStatus.Suspended:
+         return "暫緩申請"
+      case AccountStatus.Contacting:
+         return "跟進中"
+   }
+}
+
+export const getPostStatus = (s: PostStatus) => {
+   switch (s) {
+      case PostStatus.Approved:
+         return "已發佈"
+      case PostStatus.Rejected:
+         return "已拒絕"
+      case PostStatus.Pending:
+         return "待審閱"
+      case PostStatus.Withhold:
+         return "暫緩發佈"
+      case PostStatus.Withdraw:
+         return "已撤回"
+   }
+}
+
+export const getRoleDisplay = (role?: Role) => {
+   if (!role)
+      return ""
+   switch (role) {
+      case Role.Admin:
+         return '網站管理人員'
+      case Role.Super:
+         return '頂層管理人員'
+      case Role.Worker:
+         return '教會同工'
+      default:
+         return ""
+   }
+}
+
+
+export const getRoleColorKey = (role?: Role) => {
+   if (!role)
+      return undefined
+   switch (role) {
+      case Role.Admin:
+         return 'gold'
+      case Role.Super:
+         return 'platinum'
+      case Role.Worker:
+         return 'dodgerblue'
+      default:
+         return undefined
+   }
+}
+
+export const getAccountBadgeColorKey = (s: AccountStatus) => {
+   switch (s) {
+      case AccountStatus.Active:
+         return 'success'
+      case AccountStatus.Pending:
+         return 'danger'
+      case AccountStatus.Suspended:
+         return 'warning'
+      case AccountStatus.Contacting:
+         return 'info'
+   }
+}
+
+export const getPostBadgeColorKey = (s: PostStatus) => {
+   switch (s) {
+      case PostStatus.Approved:
+         return 'success'
+      case PostStatus.Rejected:
+      case PostStatus.Withdraw:
+         return 'danger'
+      case PostStatus.Pending:
+         return 'warning'
+   }
+}

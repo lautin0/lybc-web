@@ -5,19 +5,20 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Avatar, Button, Card, CardActions, CardContent, Chip, Collapse, Divider, Grid, IconButton, Link, useMediaQuery } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CardContent, Collapse, Divider, Grid, IconButton, Link, useMediaQuery } from '@material-ui/core';
 import { FavouritePost, FavouritePostsDocument, PostStatus, Role, useFavouritePostsQuery, usePendingPostsByUsernameQuery, useRemoveFavouritePostMutation, useUserQuery } from 'generated/graphql';
-import { getTitleDisplay, getTokenValue } from 'utils/utils';
+import { getPostBadgeColorKey, getPostStatus, getRoleColorKey, getRoleDisplay, getTitleDisplay, getTokenValue } from 'utils/utils';
 import UNIVERSALS from 'Universals';
 import { AccountCircle, Delete, Edit, ExpandMore, GetApp, Visibility } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import moment from 'moment';
 import { FormattedDate } from 'react-intl';
-import useGlobalStyles, { css } from 'styles/styles';
+import { css } from 'styles/styles';
 import clsx from 'clsx';
 import { Skeleton } from '@material-ui/lab';
 import AuthContext from 'context/AuthContext';
 import { RootStore } from 'store';
+import ExtendColorChip from 'components/Chip/ExtendColorChip';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -89,18 +90,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   linkGrid: {
     cursor: 'pointer'
-  },  
-  badgeSuper: {
-    background: 'linear-gradient(120deg, rgba(189,215,245,1) 22%, rgba(238,174,202,1) 50%, rgba(189,215,245,1) 80%)',
-    color: theme.palette.primary.contrastText
-  },
-  badgeAdmin: {
-    backgroundColor: 'gold',
-    color: theme.palette.primary.contrastText
-  },
-  badgeWorker: {
-    backgroundColor: 'dodgerblue',
-    color: theme.palette.primary.contrastText
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -126,7 +115,6 @@ export default function PersonalMain(props: PersonalMainProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const globalClasses = useGlobalStyles()
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tabIdx ?? 0);
 
@@ -178,21 +166,6 @@ export default function PersonalMain(props: PersonalMainProps) {
     }
   }, [isMobile])
 
-  const getStatus = (s: PostStatus) => {
-    switch (s) {
-      case PostStatus.Approved:
-        return "已發佈"
-      case PostStatus.Rejected:
-        return "已拒絕"
-      case PostStatus.Pending:
-        return "待審閱"
-      case PostStatus.Withhold:
-        return "暫緩發佈"
-      case PostStatus.Withdraw:
-        return "已撤回"
-    }
-  }
-
   const handleRemoveFavPost = useCallback((id: string) => {
     if (loading || removeFavLoading)
       return
@@ -216,20 +189,6 @@ export default function PersonalMain(props: PersonalMainProps) {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-
-  const getBadgeClassName = (s: PostStatus) => {
-    switch (s) {
-      case PostStatus.Approved:
-        return globalClasses.success
-      case PostStatus.Rejected:
-      case PostStatus.Withdraw:
-        return globalClasses.danger
-      case PostStatus.Pending:
-        return globalClasses.warning
-      case PostStatus.Withhold:
-        return globalClasses.default
-    }
-  }
 
   return (
     <Grid container spacing={3}>
@@ -324,9 +283,9 @@ export default function PersonalMain(props: PersonalMainProps) {
                 </Grid>
                 <Grid item>
                   {(userData?.user && (userData.user.role === Role.Admin || userData.user.role === Role.Worker || userData.user.role === Role.Super)) && (
-                    <Chip 
-                      className={userData.user.role === Role.Super ? classes.badgeSuper : (userData.user.role === Role.Admin ? classes.badgeAdmin : classes.badgeWorker)} 
-                      label={userData.user.role === Role.Super ? "頂層管理人員" : (userData.user.role === Role.Admin ? "網站管理人員" : (userData.user.role === Role.Worker ? "教會同工" : ""))} 
+                    <ExtendColorChip
+                      color={getRoleColorKey(userData.user.role)}
+                      label={getRoleDisplay(userData.user.role)}
                     />
                   )}
                 </Grid>
@@ -493,7 +452,7 @@ export default function PersonalMain(props: PersonalMainProps) {
                       <Grid container spacing={1}>
                         <Grid container item justify="space-between" alignItems="center">
                           <Grid item>
-                            狀態: <Chip className={getBadgeClassName(p.status)} label={getStatus(p.status)}></Chip>
+                            狀態: <ExtendColorChip color={getPostBadgeColorKey(p.status)} label={getPostStatus(p.status)} />
                           </Grid>
                           <Grid item>
                             <IconButton onClick={() => history.push('/personal/sharing-status/' + p._id)}>
@@ -557,3 +516,4 @@ export default function PersonalMain(props: PersonalMainProps) {
     </Grid>
   );
 }
+

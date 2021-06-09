@@ -1,48 +1,22 @@
-import { Button, Chip, makeStyles, Typography } from "@material-ui/core";
-import { green, grey } from "@material-ui/core/colors";
+import { Button, Typography } from "@material-ui/core";
 import { GridCellParams, GridColDef, GridColumnHeaderParams, GridRowData, GridRowsProp } from "@material-ui/data-grid";
 import { AddCircle, Block, Build } from "@material-ui/icons";
-import clsx from "clsx";
 import RouterBreadcrumbs from "components/Breadcrumbs/RouterBreadcrumbs";
+import ExtendColorButton from "components/Buttons/ExtendColorButton";
+import ExtendColorChip from "components/Chip/ExtendColorChip";
 import CustomDataGrid from "components/DataGrid/CustomDataGrid";
 import CustomLinearProgress from "components/Loading/CustomLinearProgress";
-import { AccountStatus, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { AccountStatus, Role, useChangeAccountStatusMutation, useUsersQuery } from "generated/graphql";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { RootStore } from "store";
 import useGlobalStyles from "styles/styles";
+import { getRoleColorKey, getRoleDisplay } from "utils/utils";
 import shallow from "zustand/shallow";
-
-const useStyles = makeStyles(theme => ({
-   badgeAdmin: {
-      backgroundColor: 'gold',
-      color: theme.palette.primary.contrastText
-   },
-   badgeWorker: {
-      backgroundColor: 'dodgerblue',
-      color: theme.palette.primary.contrastText
-   },
-   badgeActive: {
-      backgroundColor: green[500],
-      color: theme.palette.primary.contrastText
-   },
-   badgeSuspended: {
-      backgroundColor: grey[500],
-      color: theme.palette.primary.contrastText
-   },
-   success: {
-      backgroundColor: green[700],
-      color: theme.palette.primary.contrastText,
-      "&:hover": {
-         backgroundColor: green[600]
-      }
-   }
-}))
 
 export default function UserManage() {
 
    const globalClasses = useGlobalStyles()
-   const classes = useStyles()
 
    const history = useHistory()
    const location = useLocation()
@@ -90,10 +64,8 @@ export default function UserManage() {
          headerName: '角色',
          width: 150,
          renderCell: (params: GridCellParams) => {
-            if (params.value === "WORKER")
-               return <Chip className={classes.badgeWorker} label="教會同工" />
-            else if (params.value === "ADMIN")
-               return <Chip className={classes.badgeAdmin} label="網站管理員" />
+            if (params.value === "WORKER" || params.value === "ADMIN" || params.value === "SUPER")
+               return <ExtendColorChip color={getRoleColorKey(params.value as Role)} label={getRoleDisplay(params.value as Role)} />
             else
                return <></>
          }
@@ -144,14 +116,12 @@ export default function UserManage() {
          width: 150,
          renderCell: (params: GridCellParams) => {
             if (params.value === "SUSPENDED")
-               return <Chip className={classes.badgeSuspended} label="已停用" />
-            // else if (params.value === "ACTIVE")
-            //    return <Chip className={classes.badgeActive} label="已啟用" />
+               return <ExtendColorChip label="已停用" />
             else
                return <></>
          }
       },
-   ], [classes, onSuspendClicked, onEditClicked]);
+   ], [onSuspendClicked, onEditClicked]);
 
    useEffect(() => {
       if (uData === undefined)
@@ -168,12 +138,13 @@ export default function UserManage() {
          {changeStatLoading && <CustomLinearProgress />}
          <RouterBreadcrumbs />
          <Typography className={globalClasses.adminPageTitle} variant="h5">會員管理</Typography>
-         <Button
-            className={clsx(classes.success, "my-3")}
+         <ExtendColorButton
+            className="my-3"
+            color="success"
             variant="contained"
             startIcon={<AddCircle />}
             onClick={() => history.push('/admin/user/new')}
-         >建立</Button>
+         >建立</ExtendColorButton>
          <div style={{ width: '100%' }}>
             <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
          </div>

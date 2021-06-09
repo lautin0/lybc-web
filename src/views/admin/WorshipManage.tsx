@@ -1,9 +1,8 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+import { Button, Typography } from '@material-ui/core';
 import { GridRowsProp, GridColDef, GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
 import { AddCircle, Create, Delete } from '@material-ui/icons';
-import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import ExtendColorButton from 'components/Buttons/ExtendColorButton';
 import CustomDataGrid from 'components/DataGrid/CustomDataGrid';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import { useDeleteWorshipMutation, useWorshipsQuery, Worship } from 'generated/graphql';
@@ -16,20 +15,9 @@ import { RootStore } from 'store';
 import useGlobalStyles from 'styles/styles';
 import shallow from 'zustand/shallow';
 
-const useStyles = makeStyles(theme => ({
-  success: {
-    backgroundColor: green[700],
-    color: theme.palette.primary.contrastText,
-    "&:hover": {
-      backgroundColor: green[600]
-    }
-  }
-}))
-
 function WorshipManage() {
 
   const globalClasses = useGlobalStyles()
-  const classes = useStyles()
 
   const [locale] = useLanguage()
 
@@ -143,12 +131,13 @@ function WorshipManage() {
       {deleteLoading && <CustomLinearProgress />}
       <RouterBreadcrumbs />
       <Typography className={globalClasses.adminPageTitle} variant="h5">崇拜管理</Typography>
-      <Button
-        className={clsx(classes.success, "my-3")}
+      <ExtendColorButton
+        className="my-3"
+        color="success"
         variant="contained"
         startIcon={<AddCircle />}
         onClick={() => history.push('/admin/worship/new')}
-      >建立</Button>
+      >建立</ExtendColorButton>
       <div style={{ width: '100%' }}>
         <CustomDataGrid loading={loading} autoHeight pageSize={10} rows={data} columns={columns} showToolbar={true} />
       </div>

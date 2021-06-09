@@ -1,13 +1,15 @@
-import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, Chip, IconButton, Grid, Tooltip } from '@material-ui/core';
+import { CardContent, Typography, CardActions, Card, Collapse, makeStyles, IconButton, Grid, Tooltip } from '@material-ui/core';
 import { Edit, ExpandMore, PersonAdd } from '@material-ui/icons';
 import clsx from 'clsx';
 import RouterBreadcrumbs from 'components/Breadcrumbs/RouterBreadcrumbs';
+import ExtendColorChip from 'components/Chip/ExtendColorChip';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import { AccountStatus, Gender, useNameCardsQuery } from 'generated/graphql';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import useGlobalStyles from 'styles/styles';
+import { getAccountBadgeColorKey, getAccountStatus } from 'utils/utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,21 +37,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const getStatus = (s: AccountStatus) => {
-  switch (s) {
-    case AccountStatus.Active:
-      return "已處理"
-    case AccountStatus.Inactive:
-      return "擱置"
-    case AccountStatus.Pending:
-      return "待接觸"
-    case AccountStatus.Suspended:
-      return "暫緩申請"
-    case AccountStatus.Contacting:
-      return "跟進中"
-  }
-}
-
 export default function NameCardManage() {
 
   const globalClasses = useGlobalStyles()
@@ -73,21 +60,6 @@ export default function NameCardManage() {
     if (data && refetch)
       refetch()
   }, [refetch, location, data])
-
-  const getBadgeClassName = (s: AccountStatus) => {
-    switch (s) {
-      case AccountStatus.Active:
-        return globalClasses.success
-      case AccountStatus.Inactive:
-        return globalClasses.default
-      case AccountStatus.Pending:
-        return globalClasses.danger
-      case AccountStatus.Suspended:
-        return globalClasses.warning
-      case AccountStatus.Contacting:
-        return globalClasses.info
-    }
-  }
 
   return (
     <>
@@ -122,7 +94,7 @@ export default function NameCardManage() {
                 </CardContent>
                 <CardActions disableSpacing>
                   <div>
-                    <Chip label={getStatus(n.status)} className={getBadgeClassName(n.status)} />
+                    <ExtendColorChip label={getAccountStatus(n.status)} color={getAccountBadgeColorKey(n.status)} />
                     {n.status !== AccountStatus.Pending && <Tooltip title="編輯" aria-label="edit namecard">
                       <IconButton onClick={() => history.push('/admin/namecards/contact/' + n._id)}>
                         <Edit />
