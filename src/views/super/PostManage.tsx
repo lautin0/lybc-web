@@ -76,7 +76,6 @@ export default function PostManage() {
          <ExtendColorButton
             className="my-3"
             color="danger"
-            variant="contained"
             startIcon={<Delete />}
             onClick={handleDelete}
          >刪除</ExtendColorButton>

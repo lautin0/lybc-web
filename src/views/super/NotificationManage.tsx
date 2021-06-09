@@ -73,7 +73,6 @@ export default function NotificationManage() {
       <Grow in={selectionModel.length > 0}>
          <ExtendColorButton
             className="my-3"
-            variant="contained"
             startIcon={<Delete />}
             onClick={handleDelete}
             color="danger"

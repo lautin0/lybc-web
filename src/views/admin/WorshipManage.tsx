@@ -134,7 +134,6 @@ function WorshipManage() {
       <ExtendColorButton
         className="my-3"
         color="success"
-        variant="contained"
         startIcon={<AddCircle />}
         onClick={() => history.push('/admin/worship/new')}
       >建立</ExtendColorButton>

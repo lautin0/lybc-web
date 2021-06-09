@@ -459,7 +459,6 @@ export default function PendingPostApproval() {
                         <Grid item className={classes.rowGrid}>
                            <ExtendColorButton
                               type="button"
-                              variant="contained"
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={withholdPost}
@@ -475,7 +474,6 @@ export default function PendingPostApproval() {
                            </ExtendColorButton>
                            <ExtendColorButton
                               type="button"
-                              variant="contained"
                               size={isMobile ? 'small' : 'medium'}
                               style={{ display: endStatus.includes(data.pendingPost.status) || activeStep === 2 ? 'none' : 'block' }}
                               onClick={rejectPost}

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function ExtendColorButton(props: React.PropsWithChildren<
-   Omit<ButtonProps, 'color'> &
+   Omit<ButtonProps, 'color' | 'variant'> &
    { color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'info' | 'success' }
 >) {
 
@@ -65,11 +65,13 @@ export default function ExtendColorButton(props: React.PropsWithChildren<
    return <>
       {getColor() && <Button
          {...props}
+         variant="contained"
          className={clsx(className, getColor())}
          color={buttonColor}
       >{props.children}</Button>}
       {!getColor() && <Button
          {...props}
+         variant="contained"
          color={buttonColor}
       >{props.children}</Button>}
    </>

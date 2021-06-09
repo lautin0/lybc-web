@@ -117,7 +117,7 @@ export default function PersonalSharingStat() {
                   subTitle="謝謝您的分享，同工中在處理您的申請。"
                   extra={
                      <div>
-                        <ExtendColorButton style={{ marginRight: 10 }} variant="contained" color="danger" onClick={() => updatePendingPost({
+                        <ExtendColorButton style={{ marginRight: 10 }} color="danger" onClick={() => updatePendingPost({
                            variables: {
                               input: {
                                  _id: data?.pendingPost?._id,

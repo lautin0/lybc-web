@@ -81,7 +81,6 @@ export default function SuperPendingPostManage() {
       <Grow in={selectionModel.length > 0}>
          <ExtendColorButton
             className="my-3"
-            variant="contained"
             startIcon={<Delete />}
             onClick={handleDelete}
             color="danger"
