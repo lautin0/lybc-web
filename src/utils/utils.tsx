@@ -226,7 +226,7 @@ export const getRoleColorKey = (role?: Role) => {
       case Role.Super:
          return 'platinum'
       case Role.Worker:
-         return 'dodgerblue'
+         return 'info'
       default:
          return undefined
    }

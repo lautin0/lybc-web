@@ -27,16 +27,12 @@ const useStyles = makeStyles((theme) => ({
    gold: {
       backgroundColor: 'gold',
       color: theme.palette.primary.contrastText
-   },
-   dodgerblue: {
-      backgroundColor: 'dodgerblue',
-      color: theme.palette.primary.contrastText
-   },
+   }
 }))
 
 export default function ExtendColorChip(props: Omit<CommonProps<ChipTypeMap>, 'color'> &
 { label?: ReactNode } &
-{ color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'info' | 'success' | 'gold' | 'dodgerblue' | 'platinum' }
+{ color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'info' | 'success' | 'gold' | 'platinum' }
 ) {
 
    const classes = useStyles()
@@ -59,8 +55,6 @@ export default function ExtendColorChip(props: Omit<CommonProps<ChipTypeMap>, 'c
             return classes.gold
          case "platinum":
             return classes.platinum
-         case "dodgerblue":
-            return classes.dodgerblue
       }
    }, [color, classes])
 
