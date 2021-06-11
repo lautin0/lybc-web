@@ -13,8 +13,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
-import { Divider } from '@material-ui/core';
-import { getTokenValue } from 'utils/utils';
+import { Divider, Link } from '@material-ui/core';
+import { getTokenValue, stripGCSFileName } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import DOMPurify from 'dompurify';
@@ -22,6 +22,7 @@ import UNIVERSALS from 'Universals';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import InputTinyMCE from 'components/Forms/InputTinyMCE';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
+import { InsertDriveFile } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -55,6 +56,11 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       responsiveImgGrid: {
          height: 'auto'
+      },
+      centerText: {
+         marginTop: theme.spacing(1),
+         display: 'flex',
+         justifyContent: 'center',
       }
    }))
 
@@ -83,13 +89,10 @@ export default function PersonalSharingEdit() {
 
    const { oid } = useParams<any>()
 
-   const dropzoneMethods = useDropzone(
-      {
-         // accept: '.docx,.pdf'
-         accept: 'image/*'
-      }
-   )
-   const { acceptedFiles } = dropzoneMethods
+   const dzImg = useDropzone({ accept: 'image/*' })
+   const { acceptedFiles: acceptedImgs } = dzImg
+   const dzFile = useDropzone({ accept: '.docx,.pdf' })
+   const { acceptedFiles } = dzFile
 
    const history = useHistory()
 
@@ -101,7 +104,7 @@ export default function PersonalSharingEdit() {
    const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
 
-   const [, setDocumentURI] = useState("")
+   const [documentURI, setDocumentURI] = useState<string | null>(null)
 
    const { data, loading } = usePendingPostQuery({
       variables: { oid: oid },
@@ -189,7 +192,8 @@ export default function PersonalSharingEdit() {
    const onSubmit = (data: any) => {
       let tmp: NewPendingPost = { ...data }
       tmp.username = getTokenValue(tokenPair?.token).username
-      let file = acceptedFiles[0]
+      let file = acceptedImgs[0]
+      let docFile = acceptedFiles[0]
       updatePendingPost({
          variables: {
             input: {
@@ -200,7 +204,7 @@ export default function PersonalSharingEdit() {
                subtitle: data.subtitle,
                content: data.content,
                coverImage: file,
-               // doc: file
+               doc: docFile
             },
          }
       }).then(res => {
@@ -239,38 +243,57 @@ export default function PersonalSharingEdit() {
                      placeholder="請輸入副標題"
                   />
                </Grid>
-               <InputTinyMCE name="content" label="在此貼上和編輯內容" isReadOnly={false} />
-               <Grid item xs={12} style={{ marginTop: 50 }}>
-                  <Typography>選擇封面圖片</Typography>
-               </Grid>
-               <Grid item xs={12}>
-                  <WrappedDropzone lg={12} {...dropzoneMethods} />
-               </Grid>
-               {/* {data?.pendingPost?.documentURI && <Grid item>
-                  <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
-                  <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
-                     <div>
-                        <InsertDriveFile fontSize="large" />
-                     </div>
-                     <div>
-                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(data?.pendingPost?.documentURI)}</label>
-                     </div>
-                  </Link>
-               </Grid>} */}
+               {!documentURI && <>
+                  <InputTinyMCE name="content" label="在此貼上和編輯內容" isReadOnly={false} />
+                  <Grid item xs={12} style={{ marginTop: 50 }}>
+                     <Typography>選擇封面圖片</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                     <WrappedDropzone lg={12} {...dzImg} />
+                  </Grid>
+               </>}
+               {documentURI && <>
+                  <Grid item>
+                     <Typography className={classes.documentLabel}>已上傳的檔案: </Typography>
+                     <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
+                        <div>
+                           <InsertDriveFile fontSize="large" />
+                        </div>
+                        <div>
+                           <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
+                        </div>
+                     </Link>
+                  </Grid>
+                  <Grid item xs={12} style={{ marginTop: 50 }}>
+                     <Typography>重新選擇檔案(接受格式: docx, pdf)</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                     <WrappedDropzone {...dzFile} />
+                  </Grid>
+               </>}
             </Grid>;
          case 1:
             return <Grid container>
-               <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+               <Grid item xs={12}><Typography variant="h5">預覽: </Typography></Grid>
                <Divider className={classes.divider} />
                <Grid>
-                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
-                  {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                  {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
+                  {(!acceptedImgs || acceptedImgs.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                </Grid>
-               <Grid item>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
-                  </div>
+               {!documentURI && <Grid item>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}></div>
+               </Grid>}
+               {documentURI && <Grid item xs={12}>
+                  {acceptedFiles.length === 0 && <Typography className={classes.centerText}>-沒有選擇新檔案-</Typography>}
+                  {acceptedFiles.length > 0 && <div>
+                     <Typography>已選擇上載的檔案: </Typography>
+                     <Typography className={classes.centerText}><i style={{ fontSize: 48, color: `${acceptedFiles[0].name.includes('.pdf') ? '#f04100' : '#285595'}` }} className={`far fa-file-${acceptedFiles[0].name.includes('.pdf') ? 'pdf' : 'word'}`}></i></Typography>
+                     <Typography className={classes.centerText}>{acceptedFiles[0].name}</Typography>
+                     <Typography className={classes.centerText}>{(acceptedFiles[0].size / 1024).toFixed(2)}{"KB"}</Typography>
+                  </div>}
                </Grid>
-            </Grid>
+               }
+            </Grid >
          case 2:
             return <Grid container justify="center">
                <Typography color="secondary">*請確認資料無誤，然後提交。</Typography>
@@ -278,7 +301,7 @@ export default function PersonalSharingEdit() {
          default:
             return 'Unknown step';
       }
-   }, [activeStep, dropzoneMethods, data, classes, acceptedFiles, getValues])
+   }, [acceptedFiles, activeStep, dzImg, dzFile, data, classes, acceptedImgs, getValues, documentURI])
 
    useEffect(() => {
       if (data && reset) {
@@ -289,7 +312,7 @@ export default function PersonalSharingEdit() {
             coverImageURI: data.pendingPost?.coverImageURI,
             remarks: data.pendingPost?.remarks
          })
-         setDocumentURI(data.pendingPost?.documentURI ?? "")
+         setDocumentURI(data.pendingPost?.documentURI ?? null)
       }
    }, [data, reset])
 
@@ -338,7 +361,7 @@ export default function PersonalSharingEdit() {
                      {!allStepsCompleted() && <Grid container item xs={12} justify="flex-end">
                         <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                            返回
-                     </Button>
+                        </Button>
                         {activeStep !== steps.length &&
                            (completed[activeStep] ? (
                               <Button

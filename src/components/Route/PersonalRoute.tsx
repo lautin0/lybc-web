@@ -11,7 +11,7 @@ import PersonalOther from 'views/personal/PersonalOther';
 import PersonalPage from 'views/personal/PersonalPage';
 import PersonalSetting from 'views/personal/PersonalSetting';
 import PersonalSharingEdit from 'views/personal/PersonalSharingEdit';
-import PersonalSharingStat from 'views/personal/PersonalSharingStat';
+import PersonalSharingView from 'views/personal/PersonalSharingView';
 import PersonalSharingSubmit from 'views/personal/PersonalSharingSubmit';
 
 type PrivateRouteProps = {
@@ -47,7 +47,7 @@ function PersonalRoute(props: PrivateRouteProps) {
       {path === '/personal' && <Switch>
         <Route path={`${url}/sharing`} render={(props: any) => <PersonalPage {...props}><PersonalSharingSubmit /></PersonalPage>} />
         <Route path={`${url}/sharing-edit/:oid`} render={(props: any) => <PersonalPage {...props}><PersonalSharingEdit /></PersonalPage>} />
-        <Route path={`${url}/sharing-status/:oid`} render={(props: any) => <PersonalPage {...props}><PersonalSharingStat /></PersonalPage>} />
+        <Route path={`${url}/sharing-status/:oid`} render={(props: any) => <PersonalPage {...props}><PersonalSharingView /></PersonalPage>} />
         <Route path={`${url}/other`} render={(props: any) => <PersonalPage {...props}><PersonalOther /></PersonalPage>} />
         <Route path={`${url}/notifications`} render={(props: any) => <PersonalPage {...props}><NotificationPage /></PersonalPage>} />
         <Route path={`${url}/center/sharing`} render={(props: any) => <PersonalPage {...props}><PersonalMain tabIdx={1} /></PersonalPage>} />

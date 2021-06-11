@@ -83,6 +83,11 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: -50,
             left: 0
          }
+      },
+      centerText: {
+         marginTop: theme.spacing(1),
+         display: 'flex',
+         justifyContent: 'center',
       }
    }),
 );
@@ -93,10 +98,14 @@ function getSteps() {
 
 export default function PersonalSharingSubmit() {
 
-   const dropzoneMethods = useDropzone(
+   const dzImg = useDropzone(
       { accept: 'image/*' }
    )
-   const { acceptedFiles } = dropzoneMethods
+   const { acceptedFiles: acceptedImgs } = dzImg
+   const dzFile = useDropzone(
+      { accept: '.docx,.pdf' }
+   )
+   const { acceptedFiles } = dzFile
 
    const history = useHistory()
 
@@ -107,20 +116,21 @@ export default function PersonalSharingSubmit() {
    const [activeStep, setActiveStep] = useState(0);
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({});
    const steps = getSteps();
-   const [method, setMethod] = useState<"EDIT" | "UPLOAD" | undefined>()
-   const [alertCD, setAlertCD] = useState(0)
+   const [method, setMethod] = useState<"EDIT" | "UPLOAD" | null>(null)
+   const [alert, setAlert] = useState<{ message: string, cd: number }>({ message: "", cd: 0 })
 
    const [pendPost, { loading }] = usePendPostMutation()
 
+   const initValue = {
+      title: "",
+      subtitle: "",
+      content: ""
+   }
    const methods = useForm({
-      defaultValues: {
-         title: "",
-         subtitle: "",
-         content: ""
-      }
+      defaultValues: initValue
    })
 
-   const { handleSubmit, getValues, setError, clearErrors } = methods
+   const { handleSubmit, getValues, setError, clearErrors, reset } = methods
 
    const totalSteps = useCallback(() => {
       return steps.length;
@@ -173,6 +183,10 @@ export default function PersonalSharingSubmit() {
          } else {
             clearErrors("subtitle")
          }
+         if (method === "UPLOAD" && acceptedFiles.length === 0) {
+            isError = true
+            setAlert({ message: "請選擇上載的檔案", cd: 5000 })
+         }
       }
       if (isError) {
          return
@@ -182,7 +196,7 @@ export default function PersonalSharingSubmit() {
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       handleNext(e);
-   }, [clearErrors, setError, getValues, activeStep, completed, handleNext]);
+   }, [clearErrors, setError, getValues, activeStep, completed, handleNext, method, acceptedFiles]);
 
    // const handleReset = () => {
    //    setActiveStep(0);
@@ -192,15 +206,30 @@ export default function PersonalSharingSubmit() {
    const onSubmit = (data: any) => {
       let tmp: NewPendingPost = { ...data }
       tmp.username = getTokenValue(tokenPair?.token).username
-      let file = acceptedFiles[0]
-      pendPost({
-         variables: {
-            input: {
-               ...tmp,
-               coverImage: file
-            },
+      let payload
+      if (method === "EDIT") {
+         payload = {
+            variables: {
+               input: {
+                  ...tmp,
+                  coverImage: acceptedImgs[0]
+               },
+            }
          }
-      }).then(res => {
+      } else if (method === "UPLOAD") {
+         payload = {
+            variables: {
+               input: {
+                  ...tmp,
+                  doc: acceptedFiles[0]
+               },
+            }
+         }
+      } else {
+         setActiveStep(-1)
+         return
+      }
+      pendPost(payload).then(res => {
          let newCompleted = steps.map((s, i) => ({ [i]: true })).reduce((a, b, i = 0, arr = []) => (
             {
                ...a,
@@ -217,72 +246,129 @@ export default function PersonalSharingSubmit() {
    const getStepContent = useCallback(() => {
       switch (activeStep) {
          case 0:
-            return <Grid container spacing={3}>
-               <Grid item xs={12} md={8} lg={6}>
-                  <MuiInputText
-                     name="title"
-                     label="主題"
-                     placeholder="請輸入分享主題"
-                  />
+            if (method === "UPLOAD") {
+               return <Grid container spacing={3}>
+                  <Grid item xs={12} md={8} lg={6}>
+                     <MuiInputText
+                        name="title"
+                        label="主題"
+                        placeholder="請輸入分享主題"
+                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <MuiInputText
+                        name="subtitle"
+                        label="副標題"
+                        placeholder="請輸入副標題"
+                     />
+                  </Grid>
+                  <Grid item xs={12} style={{ marginTop: 50 }}>
+                     <Typography>選擇檔案(接受格式: docx, pdf)</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                     <WrappedDropzone {...dzFile} />
+                  </Grid>
                </Grid>
-               <Grid item xs={12}>
-                  <MuiInputText
-                     name="subtitle"
-                     label="副標題"
-                     placeholder="請輸入副標題"
-                  />
-               </Grid>
-               <Grid container item xs={12}>
-                  <InputTinyMCE name="content" label="在此編輯內容" isReadOnly={false} />
-               </Grid>
-               <Grid item xs={12} style={{ marginTop: 50 }}>
-                  <Typography>選擇封面圖片</Typography>
-               </Grid>
-               <Grid item xs={12}>
-                  <WrappedDropzone {...dropzoneMethods} />
-               </Grid>
-            </Grid>;
+            } else if (method === "EDIT") {
+               return <Grid container spacing={3}>
+                  <Grid item xs={12} md={8} lg={6}>
+                     <MuiInputText
+                        name="title"
+                        label="主題"
+                        placeholder="請輸入分享主題"
+                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <MuiInputText
+                        name="subtitle"
+                        label="副標題"
+                        placeholder="請輸入副標題"
+                     />
+                  </Grid>
+                  <Grid container item xs={12}>
+                     <InputTinyMCE name="content" label="在此編輯內容" isReadOnly={false} />
+                  </Grid>
+                  <Grid item xs={12} style={{ marginTop: 50 }}>
+                     <Typography>選擇封面圖片</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                     <WrappedDropzone {...dzImg} />
+                  </Grid>
+               </Grid>;
+            } else {
+               return <></>
+            }
          case 1:
-            return <Grid container direction="column" spacing={1}>
-               <Grid item><Typography variant="h5">預覽: </Typography></Grid>
-               <Grid item>
-                  <Typography className={classes.instructions}>主題: </Typography>
-                  <MuiInputText
-                     name="title"
-                     xs={12}
-                     md={6}
-                     isReadOnly={true}
-                  />
-                  <Typography className={classes.instructions}>副標題: </Typography>
-                  <MuiInputText
-                     name="subtitle"
-                     isReadOnly={true}
-                  />
+            if (method === "UPLOAD") {
+               return <Grid container direction="column" spacing={1}>
+                  <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+                  <Grid item>
+                     <Typography className={classes.instructions}>主題: </Typography>
+                     <MuiInputText
+                        name="title"
+                        xs={12}
+                        md={6}
+                        isReadOnly={true}
+                     />
+                     <Typography className={classes.instructions}>副標題: </Typography>
+                     <MuiInputText
+                        name="subtitle"
+                        isReadOnly={true}
+                     />
+                  </Grid>
+                  <Grid item>
+                     <div>
+                        <Typography>已選擇上載的檔案: </Typography>
+                        <Typography className={classes.centerText}><i style={{ fontSize: 48, color: `${acceptedFiles[0].name.includes('.pdf') ? '#f04100' : '#285595'}` }} className={`far fa-file-${acceptedFiles[0].name.includes('.pdf') ? 'pdf' : 'word'}`}></i></Typography>
+                        <Typography className={classes.centerText}>{acceptedFiles[0].name}</Typography>
+                        <Typography className={classes.centerText}>{(acceptedFiles[0].size / 1024).toFixed(2)}{"KB"}</Typography>
+                     </div>
+                  </Grid>
                </Grid>
-               <Divider className={classes.divider} />
-               <Grid>
-                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
+            } else if (method === "EDIT") {
+               return <Grid container direction="column" spacing={1}>
+                  <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+                  <Grid item>
+                     <Typography className={classes.instructions}>主題: </Typography>
+                     <MuiInputText
+                        name="title"
+                        xs={12}
+                        md={6}
+                        isReadOnly={true}
+                     />
+                     <Typography className={classes.instructions}>副標題: </Typography>
+                     <MuiInputText
+                        name="subtitle"
+                        isReadOnly={true}
+                     />
+                  </Grid>
+                  <Divider className={classes.divider} />
+                  <Grid>
+                     {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
+                  </Grid>
+                  <Grid item>
+                     <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
+                     </div>
+                  </Grid>
+                  <Divider className={classes.divider} />
+                  {/* <Grid item><Typography color="secondary">*完成核對後，按「發布」完成批核程序。</Typography></Grid> */}
                </Grid>
-               <Grid item>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
-                  </div>
-               </Grid>
-               <Divider className={classes.divider} />
-               {/* <Grid item><Typography color="secondary">*完成核對後，按「發布」完成批核程序。</Typography></Grid> */}
-            </Grid>
+            } else {
+               return <></>
+            }
          case 2:
             return <Grid container justify="center">
                <Typography color="textSecondary">*如已確認內容，請按「提交」。</Typography>
             </Grid>
          default:
-            return 'Unknown step';
+            return 'An Error occurred, please try again.';
       }
-   }, [acceptedFiles, activeStep, classes, getValues, dropzoneMethods])
+   }, [acceptedFiles, acceptedImgs, activeStep, classes, getValues, dzImg, dzFile, method])
 
    useEffect(() => {
       const timer = setTimeout(() => {
-         if (alertCD > 0)
-            setAlertCD(alertCD - 1000)
+         if (alert.cd > 0)
+            setAlert({ ...alert, cd: alert.cd - 1000 })
       }, 1000);
       return () => clearTimeout(timer);
    });
@@ -290,7 +376,7 @@ export default function PersonalSharingSubmit() {
    return (
       <>
          {loading && <CustomLinearProgress />}
-         {<Slide direction="down" in={alertCD > 0}>
+         {<Slide direction="down" in={alert.cd > 0}>
             <Alert
                className={classes.alert}
                severity="warning"
@@ -300,14 +386,14 @@ export default function PersonalSharingSubmit() {
                      color="inherit"
                      size="small"
                      onClick={() => {
-                        setAlertCD(0);
+                        setAlert({ ...alert, cd: 0 });
                      }}
                   >
                      <Close fontSize="inherit" />
                   </IconButton>
                }
             >
-               此功能還在開發中!
+               {alert.message}
             </Alert>
          </Slide>}
          <FormProvider {...methods}>
@@ -332,7 +418,10 @@ export default function PersonalSharingSubmit() {
                         {!method ? (
                            <Grid container spacing={3}>
                               <Grid item xs={12} md={6} className={classes.clickableGrid}>
-                                 <Card onClick={() => setAlertCD(5000)}>
+                                 <Card
+                                    // onClick={() => setAlertCD(5000)}
+                                    onClick={() => setMethod("UPLOAD")}
+                                 >
                                     <Box className={classes.media}>
                                        <img alt="upload a file" src={robotImg}></img>
                                     </Box>
@@ -372,7 +461,7 @@ export default function PersonalSharingSubmit() {
                                     style={{ marginBottom: 30 }}
                                     variant="outlined"
                                     startIcon={<KeyboardReturn />}
-                                    onClick={() => setMethod(undefined)}
+                                    onClick={() => { setMethod(null); reset(initValue); clearErrors(); setCompleted({}); }}
                                  >
                                     其他方法
                                  </Button>}
@@ -383,7 +472,7 @@ export default function PersonalSharingSubmit() {
                      {(!allStepsCompleted() && method) && <Grid container item xs={12} justify="flex-end">
                         <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                            返回
-                     </Button>
+                        </Button>
                         {activeStep !== steps.length &&
                            (completed[activeStep] ? (
                               <Button

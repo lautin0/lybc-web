@@ -9,13 +9,15 @@ import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import { PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
-import MuiInputText from 'components/Forms/MuiInputText';
 import { FormProvider, useForm } from 'react-hook-form';
 import UNIVERSALS from 'Universals';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import ExtendColorButton from 'components/Buttons/ExtendColorButton';
+import { Link } from '@material-ui/core';
+import { InsertDriveFile } from '@material-ui/icons';
+import { stripGCSFileName } from 'utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -50,11 +52,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       responsiveImgGrid: {
          height: 'auto'
+      },
+      formLabel: {
+         width: 135
+      },
+      formData: {
+         fontWeight: 'bold'
       }
    }),
 );
 
-export default function PersonalSharingStat() {
+export default function PersonalSharingView() {
 
    const { oid } = useParams<any>()
    const history = useHistory()
@@ -66,7 +74,7 @@ export default function PersonalSharingStat() {
    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
    const [skipped, setSkipped] = useState(new Set<number>())
 
-   const [, setDocumentURI] = useState("")
+   const [documentURI, setDocumentURI] = useState<string | null>(null)
 
    const { data, loading, refetch } = usePendingPostQuery({ variables: { oid: oid }, notifyOnNetworkStatusChange: true })
    const [updatePendingPost, { loading: updateLoading }] = useUpdatePendingPostMutation()
@@ -175,7 +183,7 @@ export default function PersonalSharingStat() {
             content: data.pendingPost?.content,
             remarks: data.pendingPost?.remarks
          })
-         setDocumentURI(data.pendingPost?.documentURI ?? "")
+         setDocumentURI(data.pendingPost?.documentURI ?? null)
 
          let lastStep = "完成"
          if (data.pendingPost?.status === PostStatus.Approved) {
@@ -240,23 +248,15 @@ export default function PersonalSharingStat() {
                      <Grid item xs={12} className={classes.formContent}>
                         <div className={classes.instructions}>
                            {activeStep === 0 && <Grid container spacing={3}>
-                              <Grid item xs={12} md={8} lg={6}>
-                                 <MuiInputText
-                                    name="title"
-                                    label="主題"
-                                    placeholder="請輸入分享主題"
-                                    isReadOnly={true}
-                                 />
+                              <Grid item xs={12}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>主題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.title}</Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                 <MuiInputText
-                                    name="subtitle"
-                                    label="副標題"
-                                    placeholder="請輸入副標題"
-                                    isReadOnly={true}
-                                 />
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>副標題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.subtitle}</Typography>
                               </Grid>
-                              {/* <Grid item>
+                              {documentURI && <Grid item>
                                  <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
                                  <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
                                     <div>
@@ -266,14 +266,13 @@ export default function PersonalSharingStat() {
                                        <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
                                     </div>
                                  </Link>
-                              </Grid> */}
+                              </Grid>}
                               <Grid>
                                  {/* {(data?.pendingPost?.coverImageURI && !data.pendingPost.coverImageURI.match(/.*\.svg$/)) && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>} */}
                                  {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>}
                               </Grid>
                               <Grid item>
-                                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}>
-                                 </div>
+                                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(getValues("content")) }}></div>
                               </Grid>
                            </Grid>}
                            {activeStep !== 0 && getStepResult()}

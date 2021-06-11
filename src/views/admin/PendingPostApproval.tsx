@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import { Divider, Hidden, useMediaQuery } from '@material-ui/core';
+import { Divider, Hidden, Link, useMediaQuery } from '@material-ui/core';
 import { NewPost, PendingPost, PostStatus, PostType, UpdatePendingPost, useApprovePostMutation, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { useHistory, useParams } from 'react-router-dom';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -23,6 +23,8 @@ import shallow from 'zustand/shallow';
 import { RootStore } from 'store';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import ExtendColorButton from 'components/Buttons/ExtendColorButton';
+import { InsertDriveFile } from '@material-ui/icons';
+import { stripGCSFileName } from 'utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -65,6 +67,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       responsiveImgGrid: {
          height: 'auto'
+      },
+      formLabel: {
+         width: 135
+      },
+      formData: {
+         fontWeight: 'bold'
       }
    }),
 );
@@ -88,7 +96,7 @@ export default function PendingPostApproval() {
 
    const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
-   const [, setDocumentURI] = useState("")
+   const [documentURI, setDocumentURI] = useState<string | null>(null)
 
    const { data, loading, refetch } = usePendingPostQuery({ variables: { oid: oid }, notifyOnNetworkStatusChange: true })
    const [updatePendingPost, { loading: updateLoading }] = useUpdatePendingPostMutation()
@@ -268,7 +276,7 @@ export default function PendingPostApproval() {
             remarks: data.pendingPost?.remarks
          })
          setPreviewContent(data.pendingPost?.content ?? "")
-         setDocumentURI(data.pendingPost?.documentURI ?? "")
+         setDocumentURI(data.pendingPost?.documentURI ?? null)
 
          let lastStep = "完成"
 
@@ -348,7 +356,7 @@ export default function PendingPostApproval() {
                   <Grid container justify="center" className={classes.title}>
                      <Typography variant="h4" component="strong">批核文章</Typography>
                   </Grid>
-                  <Grid container>
+                  <Grid>
                      <Grid item xs={12}>
                         <Stepper nonLinear activeStep={activeStep}>
                            {steps.map((label, index) => (
@@ -362,52 +370,46 @@ export default function PendingPostApproval() {
                      </Grid>
                      <Grid item xs={12} className={classes.formContent}>
                         <div className={classes.instructions}>
-                           {activeStep === 0 && <Grid container spacing={3} direction="column">
-                              <Grid item><Typography variant="h5">第一部分：預覽</Typography></Grid>
+                           {activeStep === 0 && <Grid container spacing={3}>
+                              <Grid item xs={12}><Typography variant="h5">第一部分：預覽</Typography></Grid>
                               <Grid item xs={12} md={8} lg={6}>
-                                 <MuiInputText
-                                    name="username"
-                                    label="提交用戶"
-                                    isReadOnly={true}
-                                    value={data?.pendingPost?.username ?? ""}
-                                 />
-                              </Grid>
-                              <Grid item xs={12} md={8} lg={6}>
-                                 <MuiInputText
-                                    name="title"
-                                    label="主題"
-                                    isReadOnly={true}
-                                 />
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>提交用戶:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.username}</Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                 <MuiInputText
-                                    name="subtitle"
-                                    label="副標題"
-                                    isReadOnly={true}
-                                 />
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>主題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.title}</Typography>
                               </Grid>
-                              <Divider className={classes.divider} />
-                              <Grid>
-                                 {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
-                                 {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                              <Grid item xs={12}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>副標題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.subtitle}</Typography>
                               </Grid>
-                              <Grid item>
-                                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewContent) }}>
-                                 </div>
-                              </Grid>
-                              <Divider className={classes.divider} />
-                              {/* <Grid item>
-                                 <Typography className={classes.documentLabel}>上傳的檔案: </Typography>
-                                 <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
-                                    <div>
-                                       <InsertDriveFile fontSize="large" />
+                              {documentURI && <Grid item xs={12}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>上傳的檔案:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">
+                                    <Link href={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + documentURI} rel="noopener noreferrer" target="_blank" className="text-center">
+                                       <div>
+                                          <InsertDriveFile fontSize="large" />
+                                       </div>
+                                       <div>
+                                          <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
+                                       </div>
+                                    </Link>
+                                 </Typography>
+                              </Grid>}
+                              {!documentURI && <>
+                                 <Divider className={classes.divider} />
+                                 <Grid>
+                                    {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
+                                    {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
+                                 </Grid>
+                                 <Grid item>
+                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewContent) }}>
                                     </div>
-                                    <div>
-                                       <label style={{ fontSize: 18, overflowWrap: 'anywhere' }}>{stripGCSFileName(documentURI)}</label>
-                                    </div>
-                                 </Link>
-                              </Grid> */}
-                              <Grid item><Typography variant="h5">第二部分：備註(選填)</Typography></Grid>
+                                 </Grid>
+                                 <Divider className={classes.divider} />
+                              </>}
+                              <Grid item xs={12}><Typography variant="h5">第二部分：備註(選填)</Typography></Grid>
                               <Grid item xs={12}>
                                  <MuiInputText
                                     name="remarks"
@@ -441,7 +443,18 @@ export default function PendingPostApproval() {
                            </Grid>}
                            {activeStep === 2 && data?.pendingPost?.status && data?.pendingPost?.status === PostStatus.Pending && <Grid container direction="column" spacing={1}>
                               <Grid item><Typography color="secondary">*最後預覽，完成核對後，按「發布」完成批核程序。</Typography></Grid>
-                              <Grid item><Typography variant="h5">預覽: </Typography></Grid>
+                              <Grid item xs={12} md={8} lg={6}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>提交用戶:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.username}</Typography>
+                              </Grid>
+                              <Grid item xs={12}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>主題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.title}</Typography>
+                              </Grid>
+                              <Grid item xs={12}>
+                                 <Typography variant="h6" component="label" className={classes.formLabel}>副標題:</Typography>
+                                 <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.subtitle}</Typography>
+                              </Grid>
                               <Divider className={classes.divider} />
                               <Grid>
                                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
