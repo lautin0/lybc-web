@@ -24,7 +24,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "acorn": "^8.4.0",
     "animate.css": "^4.1.1",
-    "apollo-upload-client": "^15.0.0",
+    "apollo-upload-client": "^16.0.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
     "browser-image-compression": "^1.0.14",
