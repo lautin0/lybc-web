@@ -38,7 +38,10 @@ export default function RouterBreadcrumbs() {
       "contact": [null, "跟進"],
       "notifications": [null, "通知"],
       "content": ['/admin/content', "內容"],
-      "pending-posts": [null, "待審閱文章"]
+      "pending-posts": [null, "待審閱文章"],
+      "page": ['/admin/page', "頁面管理"],
+      "notice": [null, "教會通告"],
+      "careers": [null, "招聘頁"]
    }), [classes])
 
    return <Breadcrumbs separator={<NavigateNext fontSize="small" />}>

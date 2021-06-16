@@ -63,7 +63,7 @@ function PostCreate() {
     }).then(res => {
       setMessage('app.sys.save-success')
       reset();
-      history.push('/admin/page-management')
+      history.push('/admin/')
     })
       .catch(setModalError)
   }

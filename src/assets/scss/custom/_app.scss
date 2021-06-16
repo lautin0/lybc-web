@@ -229,6 +229,12 @@ a.comment-user-link {
         font-weight: bold;
         color: dodgerblue;
     }
+    &.super {
+        font-weight: bold;
+        background: -webkit-linear-gradient(120deg, rgba(189,215,245,1) 22%, rgba(238,174,202,1) 50%, rgba(189,215,245,1) 80%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 @media screen and (max-width: 991px) {
@@ -264,6 +270,10 @@ i.user-badge {
 
     &.worker-badge {
         background: dodgerblue;
+    }
+    &.super-badge {        
+        background: -webkit-linear-gradient(120deg, rgba(189,215,245,1) 22%, rgba(238,174,202,1) 50%, rgba(189,215,245,1) 80%);
+        -webkit-text-fill-color: white;
     }
 }
 

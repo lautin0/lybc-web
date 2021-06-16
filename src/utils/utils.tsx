@@ -150,15 +150,15 @@ export const funcList = [
       ]
    },
    {
-      title: "頁面管理", path: '/admin/page-management', children: [
+      title: "頁面管理", path: '/admin/page', children: [
          { title: "新增文章", path: '/admin/post/new', roles: [Role.Admin, Role.Super], icon: <Add />, hideFromMenu: false, quickAccess: false },
          { title: "審閱文章", path: '/admin/post/pending', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Spellcheck />, hideFromMenu: false, quickAccess: false },
          { title: "新增消息", path: '/admin/news/new', roles: [Role.Admin, Role.Super, Role.Worker], icon: <NoteAdd />, hideFromMenu: false, quickAccess: false },
-         { title: "頁面設定", path: '/admin/other', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Build />, hideFromMenu: false, quickAccess: false }
+         { title: "頁面設定", path: '/admin/page', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Build />, hideFromMenu: false, quickAccess: false }
       ]
    },
    {
-      title: "通告管理", path: '/admin/page-management', children: [
+      title: "通告管理", path: '/admin/page', children: [
          { title: "新增最新消息", path: '/admin/news/new', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Add />, hideFromMenu: true, quickAccess: true },
          { title: "更改通告", path: '/admin/other', roles: [Role.Admin, Role.Super, Role.Worker], icon: <Build />, hideFromMenu: true, quickAccess: true }
       ]

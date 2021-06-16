@@ -67,7 +67,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route path={`${url}/users`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserManage /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/user/new`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserCreate /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/user/:username`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><UserEdit /></RouteGuard></AdminPanel></Route>
-        <Route path={`${url}/page-management`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><PageManage /></RouteGuard></AdminPanel></Route>
+        <Route path={`${url}/page`}><AdminPanel><RouteGuard roles={[Role.Super, Role.Admin]} ><PageManage /></RouteGuard></AdminPanel></Route>        
         <Route path={`${url}/post/new`}><AdminPanel><RouteGuard roles={[Role.Admin, Role.Super]} ><PostCreate /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/other`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><OtherFunc /></RouteGuard></AdminPanel></Route>
         <Route path={`${url}/namecards/contact/:oid`}><AdminPanel><RouteGuard roles={[Role.Worker, Role.Admin, Role.Super]} ><NameCardEdit /></RouteGuard></AdminPanel></Route>

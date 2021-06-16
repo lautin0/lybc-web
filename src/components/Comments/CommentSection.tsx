@@ -1,6 +1,6 @@
 import usePost from 'hooks/usePost';
 import moment from 'moment';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Row, Col, Form, Button, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
@@ -51,13 +51,11 @@ function CommentSection(props: any) {
           toUsername: postData?.post?.user.username
         },
       }
+    }).then(res => {
+      setCommentPending(false)
+      reset()
     }).catch(setSysFailure)
   }
-
-  useEffect(() => {
-    if (commentPending !== undefined)
-      !commentPending && reset()
-  }, [commentPending, reset])
 
   return <Row className="justify-content-md-center mt-5">
     <Col md={12} lg={8} className="mb-3"><h4>{intl.formatMessage({ id: "app.comment" })}</h4></Col>
@@ -76,8 +74,8 @@ function CommentSection(props: any) {
               <a
                 href="/"
                 onClick={(e) => e.preventDefault()}
-                className={"comment-user-link " + (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : ""))}
-              >{e.username}{e.user.role === "ADMIN" ? <i className="ml-1 fas fa-star user-badge admin-badge"></i> : (e.user.role === "WORKER" ? <i className="ml-1 fas fa-star user-badge worker-badge"></i> : null)}</a>
+                className={"comment-user-link " + (e.user.role === "SUPER" ? "super" : (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : "")))}
+              >{e.username}{["SUPER", "ADMIN", "WORKER"].includes(e.user.role) && <i className={`ml-1 fas fa-star user-badge ${e.user.role === "SUPER" ? "super" : (e.user.role === "ADMIN" ? "admin" : "worker")}-badge`}></i>}</a>
             </OverlayTrigger>}
             {e.user.role === "MEMBER" && <a
               href="/"
