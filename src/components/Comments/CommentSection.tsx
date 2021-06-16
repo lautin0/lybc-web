@@ -70,10 +70,11 @@ function CommentSection(props: any) {
         </div>
         <div className="ml-5">
           <div className="mb-2">
-            {e.user.role !== "MEMBER" && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{getRoleDisplay(e.user.role as Role)}</Tooltip>}>
+            {["SUPER", "ADMIN", "WORKER"].includes(e.user.role) && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{getRoleDisplay(e.user.role as Role)}</Tooltip>}>
               <a
                 href="/"
                 onClick={(e) => e.preventDefault()}
+                style={{ fontSize: 20 }}
                 className={"comment-user-link " + (e.user.role === "SUPER" ? "super" : (e.user.role === "ADMIN" ? "admin" : (e.user.role === "WORKER" ? "worker" : "")))}
               >{e.username}{["SUPER", "ADMIN", "WORKER"].includes(e.user.role) && <i className={`ml-1 fas fa-star user-badge ${e.user.role === "SUPER" ? "super" : (e.user.role === "ADMIN" ? "admin" : "worker")}-badge`}></i>}</a>
             </OverlayTrigger>}

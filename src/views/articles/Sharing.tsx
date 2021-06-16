@@ -1,14 +1,14 @@
 import CommentSection from "components/Comments/CommentSection";
 import DOMPurify from "dompurify";
-import { Post, PostDocument, ReactionType, useReactMutation } from "generated/graphql";
+import { Post, PostDocument, ReactionType, Role, useReactMutation } from "generated/graphql";
 import usePost from "hooks/usePost";
 import moment from "moment";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { Container, Row, OverlayTrigger, Col } from "react-bootstrap";
+import { Container, Row, OverlayTrigger, Col, Tooltip } from "react-bootstrap";
 
 import { useLocation, useParams } from "react-router-dom";
 import UNIVERSALS from "Universals";
-import { getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
+import { getRoleDisplay, getTitleDisplay, getTokenValue, renderTooltip } from "utils/utils";
 
 import defaultAvatar from "assets/img/default-avatar.png";
 import { FormattedDate, useIntl } from "react-intl";
@@ -155,7 +155,16 @@ function Sharing() {
                   </div>
                 </div>
                 <div className="my-auto" style={{ color: 'gray' }}>
-                  <div><b>{post.user.nameC}{getTitleDisplay(post.user)}</b></div>
+                  {["SUPER", "ADMIN", "WORKER"].includes(post.user.role) && <OverlayTrigger overlay={(props: any) => <Tooltip {...props}>{getRoleDisplay(post.user.role as Role)}</Tooltip>}>
+                    <a
+                      href="/"
+                      onClick={(e) => e.preventDefault()}
+                      className={"comment-user-link " + (post.user.role === "SUPER" ? "super" : (post.user.role === "ADMIN" ? "admin" : (post.user.role === "WORKER" ? "worker" : "")))}
+                    >{<b>{post.user.nameC}{getTitleDisplay(post.user)}</b>}{["SUPER", "ADMIN", "WORKER"].includes(post.user.role) && <i className={`ml-1 fas fa-star user-badge ${post.user.role === "SUPER" ? "super" : (post.user.role === "ADMIN" ? "admin" : "worker")}-badge`}></i>}</a>
+                  </OverlayTrigger>}
+                  {!["SUPER", "ADMIN", "WORKER"].includes(post.user.role) && <div>
+                    <b>{post.user.nameC}{getTitleDisplay(post.user)}</b>
+                  </div>}
                   <div><i>{<FormattedDate
                     value={moment(post.creDttm, 'YYYY-MM-DDTHH:mm:ssZ').toDate()}
                     year="numeric"
