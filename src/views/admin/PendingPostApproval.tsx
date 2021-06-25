@@ -24,7 +24,7 @@ import { RootStore } from 'store';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import ExtendColorButton from 'components/Buttons/ExtendColorButton';
 import { InsertDriveFile } from '@material-ui/icons';
-import { stripGCSFileName } from 'utils/utils';
+import { compressImage, stripGCSFileName } from 'utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -164,7 +164,7 @@ export default function PendingPostApproval() {
       handleNext(e);
    }, [activeStep, completed, handleNext]);
 
-   const handlePost = useCallback((s: PostStatus) => {
+   const handlePost = useCallback(async (s: PostStatus) => {
 
       let tmp: UpdatePendingPost = {
          _id: data?.pendingPost?._id,
@@ -174,7 +174,7 @@ export default function PendingPostApproval() {
       }
 
       if (s === PostStatus.Withhold) {
-         let file = acceptedFiles[0]
+         let file = await compressImage(acceptedFiles[0], 1.7)
          tmp.coverImage = file
          tmp.content = getValues("content") as string
       }

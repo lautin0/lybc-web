@@ -14,7 +14,7 @@ import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { Divider, Link } from '@material-ui/core';
-import { getTokenValue, stripGCSFileName } from 'utils/utils';
+import { compressImage, getTokenValue, stripGCSFileName } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import DOMPurify from 'dompurify';
@@ -189,10 +189,10 @@ export default function PersonalSharingEdit() {
    //    setCompleted({});
    // };
 
-   const onSubmit = (data: any) => {
+   const onSubmit = async (data: any) => {
       let tmp: NewPendingPost = { ...data }
       tmp.username = getTokenValue(tokenPair?.token).username
-      let file = acceptedImgs[0]
+      let file = await compressImage(acceptedImgs[0], 1.7)
       let docFile = acceptedFiles[0]
       updatePendingPost({
          variables: {

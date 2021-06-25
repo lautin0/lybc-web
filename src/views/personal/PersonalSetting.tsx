@@ -5,11 +5,10 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import { Avatar, Button, Divider, Grid, IconButton, Radio, Typography } from '@material-ui/core';
 import UNIVERSALS from 'Universals';
-import { getTokenValue } from 'utils/utils';
+import { compressImage, getTokenValue } from 'utils/utils';
 import { Gender, NewPassword, UpdateUser, useChangePasswordMutation, User, useUpdateUserMutation, useUserQuery } from 'generated/graphql';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-import imageCompression from 'browser-image-compression';
 import moment from 'moment';
 import { useDropzone } from 'react-dropzone';
 import MuiInputText from 'components/Forms/MuiInputText';
@@ -216,16 +215,6 @@ export default function PersonalSetting() {
     if (!userData)
       return
 
-    const options = {
-      maxSizeMB: .05,
-      maxWidthOrHeight: 700,
-      useWebWorker: true
-    }
-
-    let compressedImg = null
-    if (acceptedFiles.length > 0)
-      compressedImg = await imageCompression(acceptedFiles[0], options)
-
     let tmp: UpdateUser = {
       username: userData.user?.username!,
       role: userData.user?.role!,
@@ -235,7 +224,7 @@ export default function PersonalSetting() {
       titleC: userData?.user?.titleC,
       dob: data.dob === '' ? null : data.dob,
       gender: data.gender,
-      profilePic: compressedImg,
+      profilePic: await compressImage(acceptedFiles[0], .05),
       email: data.email ?? null,
       phone: data.phone ?? null,
       status: userData.user?.status

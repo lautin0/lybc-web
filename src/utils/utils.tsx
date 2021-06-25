@@ -1,4 +1,5 @@
 import { Add, ViewQuilt, RecentActors, Spellcheck, NoteAdd, Person, Build } from "@material-ui/icons";
+import imageCompression from "browser-image-compression";
 import { AccountStatus, PostStatus, Role, User } from "generated/graphql";
 import jwt_decode from "jwt-decode";
 import { Moment } from "moment";
@@ -255,4 +256,22 @@ export const getPostBadgeColorKey = (s: PostStatus) => {
       case PostStatus.Pending:
          return 'warning'
    }
+}
+
+export const compressImage = async (acceptedFile: File, maxSizeMB: number) => {
+   if(!acceptedFile){
+      return null
+   }      
+
+   if(parseFloat((acceptedFile.size / 1024 / 1024).toFixed(1)) <= maxSizeMB){
+      return acceptedFile
+   }
+
+   const options = {
+      maxSizeMB: maxSizeMB,
+      maxWidthOrHeight: 1400,
+      useWebWorker: true
+   }
+
+   return await imageCompression(acceptedFile, options)
 }
