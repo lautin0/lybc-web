@@ -73,6 +73,11 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       formData: {
          fontWeight: 'bold'
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }),
 );
@@ -399,7 +404,7 @@ export default function PendingPostApproval() {
                               </Grid>}
                               {!documentURI && <>
                                  <Divider className={classes.divider} />
-                                 <Grid>
+                                 <Grid className={classes.imgGrid}>
                                     {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
                                     {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                                  </Grid>
@@ -456,7 +461,7 @@ export default function PendingPostApproval() {
                                  <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.subtitle}</Typography>
                               </Grid>
                               <Divider className={classes.divider} />
-                              <Grid>
+                              <Grid className={classes.imgGrid}>
                                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
                                  {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                               </Grid>

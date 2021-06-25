@@ -61,6 +61,11 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(1),
          display: 'flex',
          justifyContent: 'center',
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }))
 
@@ -276,7 +281,7 @@ export default function PersonalSharingEdit() {
             return <Grid container>
                <Grid item xs={12}><Typography variant="h5">預覽: </Typography></Grid>
                <Divider className={classes.divider} />
-               <Grid>
+               <Grid className={classes.imgGrid}>
                   {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
                   {(!acceptedImgs || acceptedImgs.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                </Grid>

@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(1),
          display: 'flex',
          justifyContent: 'center',
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }),
 );
@@ -343,7 +348,7 @@ export default function PersonalSharingSubmit() {
                      />
                   </Grid>
                   <Divider className={classes.divider} />
-                  <Grid>
+                  <Grid className={classes.imgGrid}>
                      {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
                   </Grid>
                   <Grid item>
