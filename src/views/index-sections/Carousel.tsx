@@ -1,4 +1,4 @@
-import { useMediaQuery, useTheme } from "@material-ui/core";
+// import { useMediaQuery, useTheme } from "@material-ui/core";
 import LoadingDiv from "components/Loading/LoadingDiv";
 import { PostType, useMaxWorshipIdQuery, usePostsQuery } from "generated/graphql";
 import moment from "moment";
@@ -14,8 +14,8 @@ import UNIVERSALS from "Universals";
 
 function CarouselSection() {
 
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  // const theme = useTheme()
+  // const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const intl = useIntl()
 
@@ -117,7 +117,7 @@ function CarouselSection() {
                 <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
                   <Carousel.Item>
                     <img
-                      style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
+                      style={{ width: '100%', objectFit: "cover" }}
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/worship-bg.jpg"}
                       alt="First slide"
                       onClick={handleClick}
@@ -133,7 +133,7 @@ function CarouselSection() {
                   </Carousel.Item>
                   <Carousel.Item style={{ background: 'lightgray' }}>
                     <img
-                      style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
+                      style={{ width: '100%', objectFit: "cover" }}
                       src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/togetherness_md.jpg"}
                       alt="Second slide"
                     />
