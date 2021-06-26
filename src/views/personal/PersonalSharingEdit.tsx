@@ -14,7 +14,7 @@ import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, PendingPost, PostStatus, usePendingPostQuery, useUpdatePendingPostMutation } from 'generated/graphql';
 import { Divider, Link } from '@material-ui/core';
-import { getTokenValue, stripGCSFileName } from 'utils/utils';
+import { compressImage, getTokenValue, stripGCSFileName } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import DOMPurify from 'dompurify';
@@ -61,6 +61,11 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(1),
          display: 'flex',
          justifyContent: 'center',
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }))
 
@@ -189,10 +194,10 @@ export default function PersonalSharingEdit() {
    //    setCompleted({});
    // };
 
-   const onSubmit = (data: any) => {
+   const onSubmit = async (data: any) => {
       let tmp: NewPendingPost = { ...data }
       tmp.username = getTokenValue(tokenPair?.token).username
-      let file = acceptedImgs[0]
+      let file = await compressImage(acceptedImgs[0], 1.7)
       let docFile = acceptedFiles[0]
       updatePendingPost({
          variables: {
@@ -276,7 +281,7 @@ export default function PersonalSharingEdit() {
             return <Grid container>
                <Grid item xs={12}><Typography variant="h5">預覽: </Typography></Grid>
                <Divider className={classes.divider} />
-               <Grid>
+               <Grid className={classes.imgGrid}>
                   {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
                   {(!acceptedImgs || acceptedImgs.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                </Grid>

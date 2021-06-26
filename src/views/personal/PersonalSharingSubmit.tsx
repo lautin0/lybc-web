@@ -14,7 +14,7 @@ import WrappedDropzone from 'components/Dropzone/WrappedDropzone';
 import { useDropzone } from 'react-dropzone';
 import { NewPendingPost, usePendPostMutation } from 'generated/graphql';
 import { Box, Card, CardContent, Divider, IconButton, Slide } from '@material-ui/core';
-import { getTokenValue } from 'utils/utils';
+import { compressImage, getTokenValue } from 'utils/utils';
 import AuthContext from 'context/AuthContext';
 import DOMPurify from 'dompurify';
 import AntdResult from 'components/ImitateAntd/AntdResult';
@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme: Theme) =>
          marginTop: theme.spacing(1),
          display: 'flex',
          justifyContent: 'center',
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }),
 );
@@ -203,16 +208,16 @@ export default function PersonalSharingSubmit() {
    //    setCompleted({});
    // };
 
-   const onSubmit = (data: any) => {
+   const onSubmit = async (data: any) => {
       let tmp: NewPendingPost = { ...data }
       tmp.username = getTokenValue(tokenPair?.token).username
       let payload
-      if (method === "EDIT") {
+      if (method === "EDIT") {         
          payload = {
             variables: {
                input: {
                   ...tmp,
-                  coverImage: acceptedImgs[0]
+                  coverImage: await compressImage(acceptedImgs[0], 1.7)
                },
             }
          }
@@ -343,7 +348,7 @@ export default function PersonalSharingSubmit() {
                      />
                   </Grid>
                   <Divider className={classes.divider} />
-                  <Grid>
+                  <Grid className={classes.imgGrid}>
                      {acceptedImgs && acceptedImgs.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedImgs[0])}></img>}
                   </Grid>
                   <Grid item>

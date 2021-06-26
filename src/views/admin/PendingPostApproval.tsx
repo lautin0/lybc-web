@@ -24,7 +24,7 @@ import { RootStore } from 'store';
 import CustomLinearProgress from 'components/Loading/CustomLinearProgress';
 import ExtendColorButton from 'components/Buttons/ExtendColorButton';
 import { InsertDriveFile } from '@material-ui/icons';
-import { stripGCSFileName } from 'utils/utils';
+import { compressImage, stripGCSFileName } from 'utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -73,6 +73,11 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       formData: {
          fontWeight: 'bold'
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }),
 );
@@ -164,7 +169,7 @@ export default function PendingPostApproval() {
       handleNext(e);
    }, [activeStep, completed, handleNext]);
 
-   const handlePost = useCallback((s: PostStatus) => {
+   const handlePost = useCallback(async (s: PostStatus) => {
 
       let tmp: UpdatePendingPost = {
          _id: data?.pendingPost?._id,
@@ -174,7 +179,7 @@ export default function PendingPostApproval() {
       }
 
       if (s === PostStatus.Withhold) {
-         let file = acceptedFiles[0]
+         let file = await compressImage(acceptedFiles[0], 1.7)
          tmp.coverImage = file
          tmp.content = getValues("content") as string
       }
@@ -399,7 +404,7 @@ export default function PendingPostApproval() {
                               </Grid>}
                               {!documentURI && <>
                                  <Divider className={classes.divider} />
-                                 <Grid>
+                                 <Grid className={classes.imgGrid}>
                                     {/* {acceptedFiles && acceptedFiles.length > 0 && <img alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>} */}
                                     {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                                  </Grid>
@@ -456,7 +461,7 @@ export default function PendingPostApproval() {
                                  <Typography variant="h5" className={classes.formData} component="label">{data?.pendingPost?.subtitle}</Typography>
                               </Grid>
                               <Divider className={classes.divider} />
-                              <Grid>
+                              <Grid className={classes.imgGrid}>
                                  {acceptedFiles && acceptedFiles.length > 0 && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={URL.createObjectURL(acceptedFiles[0])}></img>}
                                  {(!acceptedFiles || acceptedFiles.length === 0) && data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data?.pendingPost?.coverImageURI}></img>}
                               </Grid>

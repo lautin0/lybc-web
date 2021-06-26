@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       formData: {
          fontWeight: 'bold'
+      },
+      imgGrid: {
+         display: 'flex',
+         width: '100%',
+         justifyContent: 'center'
       }
    }),
 );
@@ -267,7 +272,7 @@ export default function PersonalSharingView() {
                                     </div>
                                  </Link>
                               </Grid>}
-                              <Grid>
+                              <Grid className={classes.imgGrid}>
                                  {/* {(data?.pendingPost?.coverImageURI && !data.pendingPost.coverImageURI.match(/.*\.svg$/)) && <img alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>} */}
                                  {data?.pendingPost?.coverImageURI && <img className={classes.responsiveImgGrid} alt="preview-post-cover" src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + data.pendingPost.coverImageURI}></img>}
                               </Grid>
