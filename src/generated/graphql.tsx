@@ -17,6 +17,7 @@ export type Scalars = {
   Upload: any;
 };
 
+
 export enum AccountStatus {
   Pending = 'PENDING',
   Active = 'ACTIVE',
@@ -46,6 +47,7 @@ export type Login = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  placeHolder?: Maybe<Scalars['Boolean']>;
   login: TokenPair;
   refreshToken: TokenPair;
   createNameCard: NameCard;
@@ -419,6 +421,7 @@ export type PostsEdge = {
 
 export type Query = {
   __typename?: 'Query';
+  healthCheck?: Maybe<Scalars['Boolean']>;
   nameCards: Array<NameCard>;
   nameCard?: Maybe<NameCard>;
   notifications: Array<Maybe<Notification>>;

@@ -1,7 +1,5 @@
 overwrite: true
-schema: 
-  - "**/*.gql"
-  - "lib/type-defs.graphqls"
+schema: https://tinyuku-go.herokuapp.com/query
 documents: "**/*.graphql"
 generates:
   src/generated/graphql.tsx:
