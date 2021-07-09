@@ -36,7 +36,7 @@
     "graphql": "^15.5.1",
     "history": "^5.0.0",
     "html2canvas": "^1.0.0",
-    "immer": "^9.0.3",
+    "immer": "^9.0.5",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "moment": "2.29.1",
