@@ -98,7 +98,7 @@
     "@types/apollo-upload-client": "^14.1.0",
     "@types/dompurify": "^2.2.3",
     "@types/enzyme": "^3.10.7",
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "^4.14.171",
     "gh-pages": "^3.2.3",
     "typescript": "^4.3.4"
   }
