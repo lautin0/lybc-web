@@ -26,7 +26,7 @@
     "animate.css": "^4.1.1",
     "apollo-upload-client": "^16.0.0",
     "axios": "^0.21.1",
-    "bootstrap": "^5.0.0",
+    "bootstrap": "^5.0.2",
     "browser-image-compression": "^1.0.14",
     "clsx": "^1.1.1",
     "date-fns": "^2.22.1",
@@ -55,7 +55,7 @@
     "react-slick": "^0.28.1",
     "react-test-renderer": "^17.0.2",
     "react-transition-group": "^4.4.2",
-    "sass": "^1.35.1",
+    "sass": "^1.35.2",
     "slick-carousel": "^1.8.1",
     "tinymce": "^5.8.1",
     "zustand": "^3.5.4"
