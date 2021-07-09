@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 // reactstrap components
 import { Container } from "react-bootstrap";
@@ -61,9 +60,5 @@ function MainPageHeader(props: MainPageHeaderType) {
     </>
   );
 }
-
-MainPageHeader.propTypes = {
-  page: PropTypes.string.isRequired
-};
 
 export default MainPageHeader;

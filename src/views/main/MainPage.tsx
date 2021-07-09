@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 // react-bootstrap components
 import IndexNavbar from "components/Navbars/IndexNavbar";
@@ -36,9 +35,5 @@ function MainPage(props: React.PropsWithChildren<MainPageProps>) {
     </>
   );
 }
-
-MainPage.propTypes = {
-  page: PropTypes.string.isRequired
-};
 
 export default MainPage;

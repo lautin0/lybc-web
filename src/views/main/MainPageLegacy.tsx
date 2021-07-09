@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 // core components
 import MainNavbar from "components/Navbars/MainNavbar";
@@ -69,9 +68,5 @@ function MainPageLegacy(props: React.PropsWithChildren<MainPageProps>) {
     </>
   );
 }
-
-MainPageLegacy.propTypes = {
-  page: PropTypes.string.isRequired,
-};
 
 export default MainPageLegacy;

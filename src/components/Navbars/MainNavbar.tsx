@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -284,9 +283,5 @@ function MainNavbar(props: MainNavbarProps) {
     </>
   );
 }
-
-MainNavbar.propTypes = {
-  page: PropTypes.string.isRequired,
-};
 
 export default MainNavbar;

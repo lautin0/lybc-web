@@ -1,16 +1,25 @@
 import React from "react";
 import clsx from "clsx";
-import PropTypes from "prop-types";
+
+type TimelineItemPropType = {
+  invert: boolean,
+  src: string,
+  imageAlt?: string,
+  imageContent: any,
+  header: string,
+  subheader: string,
+  content: string,
+};
 
 const TimelineItem = ({
-  invert,
-  src,
-  imageAlt,
-  imageContent,
-  header,
-  subheader,
-  content,
-}: any) => {
+  invert = false,
+  src = "",
+  imageAlt = "",
+  imageContent = null,
+  header = "",
+  subheader = "",
+  content = "",
+}: TimelineItemPropType) => {
   const headerPart = header ? <h4>{header}</h4> : null;
   const subheaderPart = subheader ? <h4 className="subheading">{subheader}</h4> : null;
 
@@ -39,26 +48,6 @@ const TimelineItem = ({
       </div>
     </li>
   );
-};
-
-TimelineItem.propTypes = {
-  invert: PropTypes.bool,
-  src: PropTypes.string,
-  imageAlt: PropTypes.string,
-  imageContent: PropTypes.any,
-  header: PropTypes.string,
-  subheader: PropTypes.string,
-  content: PropTypes.string,
-};
-
-TimelineItem.defaultProps = {
-  invert: false,
-  src: "",
-  imageAlt: "",
-  imageContent: null,
-  header: "",
-  subheader: "",
-  content: "",
 };
 
 export default TimelineItem;
