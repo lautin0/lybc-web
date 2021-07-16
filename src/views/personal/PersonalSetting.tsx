@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: '100%',
     display: 'flex',
     flex: '0 0 150px',
-    justifyContent: 'center',
+    justifyContentContent: 'center',
     overflow: 'hidden',
     position: 'relative'
   },
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     bottom: 0,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContentContent: 'center',
     left: 0,
     opacity: 0,
     position: 'absolute',
@@ -284,10 +284,10 @@ export default function PersonalSetting() {
         <div style={{ overflow: 'auto', width: '100%' }}>
           <TabPanel value={value} index={0}>
             {loading && <Grid container item spacing={3} xs={12} md={6} lg={4}>
-              <Grid container item xs={12} justify="center">
+              <Grid container item xs={12} justifyContent="center">
                 <Skeleton animation="wave" variant="circle" className={classes.circleLoading} />
               </Grid>
-              <Grid container item justify="center" spacing={1}>
+              <Grid container item justifyContent="center" spacing={1}>
                 <Grid item xs={9}>
                   <Typography variant="h5"><Skeleton animation="wave" /></Typography>
                 </Grid>
@@ -314,7 +314,7 @@ export default function PersonalSetting() {
                   <input {...getInputProps()} />
                 </div>
                 <Grid container spacing={2} direction="column">
-                  <Grid item xs={12} md={6} lg={4} container justify="center">
+                  <Grid item xs={12} md={6} lg={4} container justifyContent="center">
                     <IconButton onClick={handleOnClick} color="default" className={classes.profileBtn}>
                       <div className={classes.profilePicContainer}>
                         {((acceptedFiles.length === 0 && userData) && !userData.user?.profilePicURI) && <img alt="no avatar" src={defaultAvatar} />}
