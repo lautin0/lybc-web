@@ -64,7 +64,7 @@ function ContactUs() {
 
             <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.preacher-worker" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.preacher-worker.value" })}</b></p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.theology-student" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.theology-student.value" })}</b></p>
+            {/* <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.theology-student" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.theology-student.value" })}</b></p> */}
 
             <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.church-address" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.church-address.value" })}</b></p>
 
