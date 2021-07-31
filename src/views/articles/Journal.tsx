@@ -14,7 +14,7 @@ const data = [
   { id: 4, uri: 'https://drive.google.com/file/d/1YWqPos_3fOPks2kzY2TvGE8E6pi95Le1/view?usp=sharing', date: moment('01/09/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '和平之子' },
   { id: 5, uri: 'https://drive.google.com/file/d/1d9pFYF6kaVdiJPo8cGwVJsYsPIZC8-SZ/view?usp=sharing', date: moment('01/08/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '行公義好憐憫' },
   { id: 6, uri: 'https://drive.google.com/file/d/1IU1luMHQpTC24iFyAFG7xmuNg0hj7hMC/view?usp=sharing', date: moment('01/07/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '主的屬性 - 愛' },
-  { id: 7, uri: 'https://drive.google.com/file/d/1IU1luMHQpTC24iFyAFG7xmuNg0hj7hMC/view?usp=sharing', date: moment('01/06/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '主的見證人' }
+  { id: 7, uri: 'https://drive.google.com/file/d/1V8HgQeA3mwhsIjusq_Wg5vQvB8jYK09B/view?usp=sharing', date: moment('01/06/2019', 'DD/MM/YYYY').format('DD/MM/YYYY'), title: '主的見證人' }
 ]
 
 function Journal() {
