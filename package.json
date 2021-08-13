@@ -57,7 +57,7 @@
     "sass": "^1.35.2",
     "slick-carousel": "^1.8.1",
     "tinymce": "^5.8.2",
-    "zustand": "^3.5.7"
+    "zustand": "^3.5.8"
   },
   "scripts": {
     "start": "react-scripts start",
