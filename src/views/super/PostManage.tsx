@@ -89,7 +89,7 @@ export default function PostManage() {
             rows={data}
             columns={columns}
             onSelectionModelChange={(newSelection) => {
-               setSelectionModel(newSelection.selectionModel);
+               setSelectionModel(newSelection);
             }}
             selectionModel={selectionModel}
          />
