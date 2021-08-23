@@ -95,7 +95,7 @@ export default function SuperPendingPostManage() {
             rows={data}
             columns={columns}
             onSelectionModelChange={(newSelection) => {
-               setSelectionModel(newSelection.selectionModel);
+               setSelectionModel(newSelection);
             }}
             selectionModel={selectionModel}
          />
