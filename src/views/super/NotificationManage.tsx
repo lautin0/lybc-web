@@ -87,7 +87,7 @@ export default function NotificationManage() {
             rows={data}
             columns={columns}
             onSelectionModelChange={(newSelection) => {
-               setSelectionModel(newSelection.selectionModel);
+               setSelectionModel(newSelection);
             }}
             selectionModel={selectionModel}
          />
