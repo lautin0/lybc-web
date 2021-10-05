@@ -11,7 +11,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/pickers": "^3.3.10",
-    "@tinymce/tinymce-react": "^3.12.6",
+    "@tinymce/tinymce-react": "^3.12.7",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.10.2",
     "@types/ramda": "^0.27.45",
