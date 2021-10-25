@@ -13,7 +13,7 @@
     "@material-ui/pickers": "^3.3.10",
     "@tinymce/tinymce-react": "^3.12.6",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.10.2",
+    "@types/node": "^16.11.5",
     "@types/ramda": "^0.27.45",
     "@types/react": "17.0.26",
     "@types/react-dom": "17.0.9",
