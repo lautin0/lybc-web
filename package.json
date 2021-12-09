@@ -24,7 +24,7 @@
     "acorn": "^8.5.0",
     "animate.css": "^4.1.1",
     "apollo-upload-client": "^17.0.0",
-    "axios": "^0.22.0",
+    "axios": "^0.24.0",
     "bootstrap": "^5.1.1",
     "browser-image-compression": "^1.0.17",
     "clsx": "^1.1.1",
