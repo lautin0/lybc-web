@@ -4,9 +4,9 @@
     "main.js": "/static/js/main.65082cd5.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.1bdd6cf2.js",
     "static/css/2.76158d0f.chunk.css": "/static/css/2.76158d0f.chunk.css",
-    "static/js/2.a4e70035.chunk.js": "/static/js/2.a4e70035.chunk.js",
+    "static/js/2.e44254da.chunk.js": "/static/js/2.e44254da.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.a4e70035.chunk.js.LICENSE.txt": "/static/js/2.a4e70035.chunk.js.LICENSE.txt",
+    "static/js/2.e44254da.chunk.js.LICENSE.txt": "/static/js/2.e44254da.chunk.js.LICENSE.txt",
     "static/media/now-ui-kit.scss": "/static/media/nucleo-outline.802141dd.woff2",
     "static/media/checked-circle.445ace95.svg": "/static/media/checked-circle.445ace95.svg",
     "static/media/close-circle.fd45ed94.svg": "/static/media/close-circle.fd45ed94.svg",
@@ -24,7 +24,7 @@
   "entrypoints": [
     "static/js/runtime-main.1bdd6cf2.js",
     "static/css/2.76158d0f.chunk.css",
-    "static/js/2.a4e70035.chunk.js",
+    "static/js/2.e44254da.chunk.js",
     "static/css/main.1b4099bf.chunk.css",
     "static/js/main.65082cd5.chunk.js"
   ]
