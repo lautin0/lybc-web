@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 import { RootStore } from 'store';
 import { getKeyValue, getTimePastStr, getTokenValue } from 'utils/utils';
-import * as presets from '../../assets/data/data.json'
+import presets from '../../assets/data/data.json'
 
 function NotificationBell(props: any) {
 
