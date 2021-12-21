@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { getKeyValue, getTimePastStr } from 'utils/utils';
-import * as presets from '../../assets/data/data.json'
+import presets from '../../assets/data/data.json'
 
 
 const useStyles = makeStyles((theme) => ({

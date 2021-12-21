@@ -7,7 +7,7 @@ import moment from 'moment';
 import { useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import { getKeyValue, getTimePastStr } from 'utils/utils';
-import * as presets from '../../assets/data/data.json'
+import presets from '../../assets/data/data.json'
 
 const useStyles = makeStyles((theme) => ({
   root: {
