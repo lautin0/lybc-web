@@ -114,7 +114,7 @@ const UNIVERSALS: UniversalsInfo = {
     },
     // NOTIFICATION: { MESSAGE: null }
     NOTIFICATION: {
-        MESSAGE: "",
+        MESSAGE: "因應疫情發展及社會服務部的指引，本週及下週主日（9/1及16/1）實體崇拜取消，改為網上崇拜，相關資訊稍後將透過whatsapp訊息發佈。敬請留意。",
         // MESSAGE: `
         // <p><b>綠楊浸信會應對新型冠狀病毒病疫症措施通告{1}</b></p>
         // <p><b>有鑑新型冠狀病毒病疫情嚴峻，為避免交叉感染，教會安排如下🔖:</b></p>
