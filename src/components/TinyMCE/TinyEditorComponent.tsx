@@ -12,7 +12,6 @@ import 'tinymce/icons/default';
 import 'tinymce/skins/ui/oxide/skin.min.css';
 
 // importing the plugin js.
-import 'tinymce/plugins/print';
 import 'tinymce/plugins/preview';
 import 'tinymce/plugins/searchreplace';
 import 'tinymce/plugins/autolink';
@@ -27,7 +26,6 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/codesample';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/charmap';
-import 'tinymce/plugins/hr';
 import 'tinymce/plugins/pagebreak';
 import 'tinymce/plugins/nonbreaking';
 import 'tinymce/plugins/anchor';
