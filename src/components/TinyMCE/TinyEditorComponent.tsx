@@ -29,7 +29,6 @@ import 'tinymce/plugins/charmap';
 import 'tinymce/plugins/pagebreak';
 import 'tinymce/plugins/nonbreaking';
 import 'tinymce/plugins/anchor';
-import 'tinymce/plugins/toc';
 import 'tinymce/plugins/insertdatetime';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/lists';
