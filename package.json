@@ -94,7 +94,7 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript-react-apollo": "^3.2.16",
     "@testing-library/react": "^12.1.2",
-    "@types/apollo-upload-client": "^14.1.0",
+    "@types/apollo-upload-client": "^17.0.0",
     "@types/dompurify": "^2.3.3",
     "@types/enzyme": "^3.10.12",
     "@types/lodash": "^4.14.177",
