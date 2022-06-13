@@ -33,7 +33,6 @@ import 'tinymce/plugins/insertdatetime';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/lists';
 import 'tinymce/plugins/wordcount';
-import 'tinymce/plugins/textpattern';
 import 'tinymce/plugins/help';
 import 'tinymce/plugins/code';
 // fix emojis error
