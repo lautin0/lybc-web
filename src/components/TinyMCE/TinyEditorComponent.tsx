@@ -26,7 +26,6 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/codesample';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/charmap';
-import 'tinymce/plugins/hr';
 import 'tinymce/plugins/pagebreak';
 import 'tinymce/plugins/nonbreaking';
 import 'tinymce/plugins/anchor';
