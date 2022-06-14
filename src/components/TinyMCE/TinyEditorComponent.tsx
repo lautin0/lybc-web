@@ -52,6 +52,7 @@ export default function TinyEditorComponent(props: TinyEditorComponentProps) {
   // note that skin and content_css is disabled to avoid the normal
   // loading process and is instead loaded as a string via content_style
   return (
+    // @ts-ignore
     <Editor    
       disabled={disabled}
       value={value}      

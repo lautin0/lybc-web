@@ -68,7 +68,7 @@ function SlideSection() {
   }, [setDragging])
 
   const handleOnItemClick = useCallback(
-    e => {
+    (e: any) => {
       if (dragging) e.stopPropagation()
     },
     [dragging]

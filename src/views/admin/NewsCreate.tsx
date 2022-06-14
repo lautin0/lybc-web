@@ -28,7 +28,7 @@ function NewsCreate() {
   const [setMessage, { setError: setModalError }] = RootStore.useMuiModalStore(state => [state.setMessage, { setError: state.setError }], shallow)
 
   const dropzoneMethods = useDropzone({
-    accept: 'image/*'
+    accept: { 'image/*': [] }
   });
 
   const { acceptedFiles } = dropzoneMethods

@@ -35,7 +35,7 @@ function InfoModal(props: any) {
   }
 
   useEffect(() => {
-    let thisRef = React.createRef();
+    let thisRef = React.createRef() as any;
     ReactDOM.createPortal(thisRef, document.body)
   })
 
