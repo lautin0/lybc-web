@@ -6,6 +6,7 @@ import 'tinymce/tinymce';
 
 // Theme
 import 'tinymce/themes/silver';
+import "tinymce/models/dom";
 // Toolbar icons
 import 'tinymce/icons/default';
 // Editor styles

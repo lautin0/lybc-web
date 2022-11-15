@@ -110,7 +110,7 @@ function Worship() {
                   </Button>
                 </div>
                 <div className="d-none d-lg-block">
-                  <Button onClick={() => tinymce.activeEditor.execCommand('mcePrint')}>{intl.formatMessage({ id: "app.buttons.export-pdf" })}<i className="fa fa-print ml-1" aria-hidden="true"></i></Button>
+                  <Button onClick={() => tinymce?.activeEditor?.execCommand('mcePrint')}>{intl.formatMessage({ id: "app.buttons.export-pdf" })}<i className="fa fa-print ml-1" aria-hidden="true"></i></Button>
                 </div>
               </Row>
             </Tab>
