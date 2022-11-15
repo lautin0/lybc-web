@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.054d69be.css",
-    "main.js": "/static/js/main.5c007177.js",
+    "main.js": "/static/js/main.3ca2c0af.js",
     "static/media/ly_bg6.jpg": "/static/media/ly_bg6.25f31c86125512a63a99.jpg",
     "static/media/peeking-outside.png": "/static/media/peeking-outside.3c1c7b7247f883ad7da3.png",
     "static/media/login.jpg": "/static/media/login.ab931d77bfe905914456.jpg",
@@ -29,6 +29,6 @@
   },
   "entrypoints": [
     "static/css/main.054d69be.css",
-    "static/js/main.5c007177.js"
+    "static/js/main.3ca2c0af.js"
   ]
 }
