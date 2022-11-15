@@ -63,7 +63,7 @@ function MuiInputText(props: MergedTextFieldProp) {
                variant="outlined"
                InputProps={props.InputProps}
                disabled={props.strongReadOnly || props.isReadOnly}
-               helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{(errors[props.name].message && errors[props.name].message !== "") ? errors[props.name].message : "必須輸入這欄"}</label>}
+               helperText={(!props.skipValidate && errors[props.name]) && <label style={{ opacity: .6, color: '#FF3636' }}>{(errors?.[props.name]?.message && errors?.[props.name]?.message !== "") ? errors?.[props.name]?.message : "必須輸入這欄"}</label>}
             />
          }}
       />
