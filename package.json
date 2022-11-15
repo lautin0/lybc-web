@@ -21,7 +21,6 @@
     "@types/react-select": "^5.0.1",
     "@types/react-slick": "^0.23.10",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
-    "acorn": "^8.7.1",
     "animate.css": "^4.1.1",
     "apollo-upload-client": "^17.0.0",
     "axios": "^1.1.3",
