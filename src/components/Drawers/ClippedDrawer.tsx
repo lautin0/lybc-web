@@ -1,7 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import React, { FC, ReactElement, useContext } from "react";
-import { Hidden, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import LayoutContext from "context/LayoutContext";
 
 const drawerWidth = 240;

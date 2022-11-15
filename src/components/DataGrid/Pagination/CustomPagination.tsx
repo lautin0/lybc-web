@@ -1,5 +1,4 @@
 import {
-  Hidden,
   makeStyles,
   Typography,
   useMediaQuery,

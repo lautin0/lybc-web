@@ -14,7 +14,6 @@ import WrappedDropzone from "components/Dropzone/WrappedDropzone";
 import { useDropzone } from "react-dropzone";
 import { NewPendingPost, usePendPostMutation } from "generated/graphql";
 import {
-  Box,
   Card,
   CardContent,
   Divider,

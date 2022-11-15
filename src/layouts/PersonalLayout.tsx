@@ -22,7 +22,7 @@ import {
 } from "@material-ui/icons";
 import ClippedDrawer from "components/Drawers/ClippedDrawer";
 import LayoutContext from "context/LayoutContext";
-import React, { FC, ReactElement, useContext, useState } from "react";
+import React, { ReactElement, useContext, useState } from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import { useHistory } from "react-router-dom";
 import PersonalSearchAppBar from "components/Navbars/PersonalSearchAppBar";
