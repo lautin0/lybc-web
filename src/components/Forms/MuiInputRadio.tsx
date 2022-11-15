@@ -18,7 +18,7 @@ export default function MuiInputRadio(props: MuiInputRadioProps) {
 
    return <FormControl component="fieldset" error={errors[name] != null}>
       {label && <FormLabel component="legend">{label}</FormLabel>}
-      {errors[name] != null && <FormHelperText>{errors[name].message === "" ? "請選擇" : errors[name].message}</FormHelperText>}
+      {errors[name] != null && <FormHelperText>{errors?.[name]?.message === "" ? "請選擇" : errors?.[name]?.message}</FormHelperText>}
       <Controller
          render={({ field, fieldState }) =>
             <RadioGroup aria-label={name} row {...field}>
