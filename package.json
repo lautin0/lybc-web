@@ -54,7 +54,7 @@
     "react-slick": "^0.29.0",
     "react-test-renderer": "^17.0.2",
     "react-transition-group": "^4.4.5",
-    "sass": "^1.52.3",
+    "sass": "^1.56.1",
     "slick-carousel": "^1.8.1",
     "tinymce": "^6.2.0",
     "zustand": "^4.1.4"
