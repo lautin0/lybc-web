@@ -424,6 +424,7 @@ export default function PendingPostApproval() {
       remarks: getValues("remarks") as string,
       username: d.username,
       content: d.content,
+      oriCoverImageURI: data?.pendingPost?.coverImageURI,
     };
 
     approvePost({
