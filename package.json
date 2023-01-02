@@ -12,7 +12,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/pickers": "^3.3.10",
     "@tinymce/tinymce-react": "^4.2.0",
-    "@types/jest": "^28.1.1",
+    "@types/jest": "^29.2.5",
     "@types/node": "^18.11.9",
     "@types/ramda": "^0.28.20",
     "@types/react": "17.0.37",
