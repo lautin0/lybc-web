@@ -12838,9 +12838,9 @@ zen-observable@0.8.15:
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
 
-zustand@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.1.4.tgz#b0286da4cc9edd35e91c96414fa54bfa4652a54d"
-  integrity sha512-k2jVOlWo8p4R83mQ+/uyB8ILPO2PCJOf+QVjcL+1PbMCk1w5OoPYpAIxy9zd93FSfmJqoH6lGdwzzjwqJIRU5A==
+zustand@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.3.1.tgz#76c47ef713c43763953f7a9e518f89efd898e3bb"
+  integrity sha512-EVyo/eLlOTcJm/X5M00rwtbYFXwRVTaRteSvhtbTZUCQFJkNfIyHPiJ6Ke68MSWzcKHpPzvqNH4gC2ZS/sbNqw==
   dependencies:
     use-sync-external-store "1.2.0"
