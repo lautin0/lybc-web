@@ -7,14 +7,13 @@ import { useIntl } from "react-intl";
 // core components
 
 function ContactUs() {
-
-  const intl = useIntl()
+  const intl = useIntl();
 
   useEffect(() => {
     //Default scroll to top
-    window.scrollTo(0, 0)
-  },[])
-  
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="section">
       <Container>
@@ -60,24 +59,83 @@ function ContactUs() {
         </div>
         <Row className="justify-content-md-center mt-5">
           <Col className="text-left" lg="8" md="12">
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.consultant-preacher" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.head-preacher.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.preacher-worker" })}
+              </strong>
+              ：
+              <b>
+                {intl.formatMessage({
+                  id: "app.contact.preacher-worker.value",
+                })}
+              </b>
+            </p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.preacher-worker" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.preacher-worker.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.theology-student" })}
+              </strong>
+              ：
+              <b>
+                {intl.formatMessage({
+                  id: "app.contact.theology-student.value",
+                })}
+              </b>
+            </p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.theology-student" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.theology-student.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.church-address" })}
+              </strong>
+              ：
+              <b>
+                {intl.formatMessage({ id: "app.contact.church-address.value" })}
+              </b>
+            </p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.church-address" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.church-address.value" })}</b></p>
+            {/* <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.corresp-address" })}
+              </strong>
+              ：
+              <b>
+                {intl.formatMessage({
+                  id: "app.contact.corresp-address.value",
+                })}
+              </b>
+            </p> */}
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.corresp-address" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.corresp-address.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.phone" })}
+              </strong>
+              ：
+              <b>
+                <i className="fas fa-phone"></i> |{" "}
+                <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i>{" "}
+                9455 3514
+              </b>
+            </p>
 
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.phone" })}</strong>：<b><i className="fas fa-phone"></i> | <i className="fab fa-whatsapp" style={{ fontSize: 18 }}></i> {intl.formatMessage({ id: "app.contact.phone.value" })}</b></p>
-
-            <p className="pl-3" style={{ fontSize: 18 }}><strong style={{ fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.contact.email" })}</strong>：<b>{intl.formatMessage({ id: "app.contact.email.value" })}</b></p>
+            <p className="pl-3" style={{ fontSize: 18 }}>
+              <strong style={{ fontWeight: "bold" }}>
+                {intl.formatMessage({ id: "app.contact.email" })}
+              </strong>
+              ：<b>{intl.formatMessage({ id: "app.contact.email.value" })}</b>
+            </p>
           </Col>
         </Row>
         <Row className="justify-content-center" style={{ marginTop: 30 }}>
           <Col className="d-none d-sm-block" lg="8" md="12">
-            <iframe title="contact-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1986.463662122686!2d114.11918983575359!3d22.373117473260436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x46c212d153af24cd!2z57ag5qWK5rW45L-h5pyD!5e0!3m2!1szh-TW!2shk!4v1577628204298!5m2!1szh-TW!2shk" width="700" height="450" frameBorder="0" style={{ border: 0 }} allowFullScreen></iframe>
+            <iframe
+              title="contact-map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1986.463662122686!2d114.11918983575359!3d22.373117473260436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x46c212d153af24cd!2z57ag5qWK5rW45L-h5pyD!5e0!3m2!1szh-TW!2shk!4v1577628204298!5m2!1szh-TW!2shk"
+              width="700"
+              height="450"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen
+            ></iframe>
           </Col>
         </Row>
         <Row className="justify-content-md-center sharing-area text-center">
