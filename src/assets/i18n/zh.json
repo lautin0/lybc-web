@@ -4,7 +4,7 @@
   "app.login": "登入",
   "app.logout": "登出",
   "app.abwe": "萬國宣道浸信會",
-  "app.copyright": "版權所有 ©2021 綠楊浸信會",
+  "app.copyright": "版權所有 ©{year} 綠楊浸信會",
   "app.admin.panel": "管理控制台",
   "app.personal": "個人中心",
   "app.latest-updates": "最新消息",
@@ -27,11 +27,9 @@
   "app.testimony.content": "閱覽弟兄姊妹和牧者的分享，同時你也可以分享自己的見證或想法，一起守望同行。",
   "app.online-sermon.content": "瀏覽網上崇拜，不限時間地域，持守聖禮，記念基督。",
   "app.anytime-anywhere": "隨時隨地，進入教會",
-
   "app.breadcrumb.index": "主頁",
   "app.breadcrumb.online-sermon": "瀏覽網上崇拜",
   "app.breadcrumb.article": "文章",
-
   "app.menu.activity": "教會活動",
   "app.menu.activity.online-sermon": "網上崇拜",
   "app.menu.activity.latest": "最新活動",
@@ -39,17 +37,14 @@
   "app.menu.activity.fellowship": "團契",
   "app.menu.activity.memories": "點滴回顧",
   "app.menu.activity.title": "活動名稱",
-
   "app.menu.ministries": "事工",
   "app.menu.ministries.visits": "探訪事工",
   "app.menu.ministries.youth": "青少年事工",
   "app.menu.ministries.outreach": "街頭福音事工",
-
   "app.menu.resources": "教會資源",
   "app.menu.resources.journal": "教會月刊",
   "app.menu.resources.sharing": "分享欄",
   "app.menu.resources.books-enquiry": "書藉查詢",
-
   "app.menu.about-us": "認識綠楊",
   "app.menu.about-us.abwe": "關於聯會",
   "app.menu.about-us.lybc": "關於綠楊",
@@ -57,7 +52,6 @@
   "app.menu.about-us.timetable": "聚會時間",
   "app.menu.about-us.contact": "聯絡我們",
   "app.menu.about-us.preacher-message": "牧者的話",
-
   "app.title.about-us": "『香港萬國宣道浸信聯會』簡介",
   "app.title.apply-activity": "活動報名",
   "app.title.contact-us": "聯絡我們",
@@ -70,13 +64,10 @@
   "app.title.journal": "教會月刊",
   "app.title.books-enquiry": "書藉查詢",
   "app.title.careers": "招聘",
-
   "app.subtitle.worship": "我要聽　神—耶和華所說的話，因為他必應許賜平安給他的百姓，就是他的聖民；他們卻不可再轉向愚昧。他的救恩誠然與敬畏他的人相近，使榮耀住在我們的地上。(詩篇 85:8-9 和合本2010)",
   "app.subtitle.preacher-message": "黃雪梅 主任傳道",
-
   "app.namecard.title": "讓綠楊家認識您",
   "app.namecard.subtitle": "留下資料，以便我們聯絡您",
-
   "app.forms.name": "名字",
   "app.forms.email": "電子郵件",
   "app.forms.phone": "聯絡電話",
@@ -88,10 +79,8 @@
   "app.forms.gender.female": "女士",
   "app.forms.username": "用戶名稱",
   "app.forms.password": "密碼",
-
   "app.validation.required": "必須填寫這欄",
   "app.validation.either-required-contact": "必須提供其中一種聯絡方式",
-
   "app.buttons.submit": "提交",
   "app.buttons.explore": "探索更多",
   "app.buttons.sharing": "分享你的想法",
@@ -106,14 +95,11 @@
   "app.buttons.export-pdf": "另存PDF",
   "app.buttons.export-image": "文字轉圖",
   "app.buttons.withdraw": "撤回",
-
   "app.index.title": "主日崇拜",
   "app.index.subtitle": "按此進入本週主日崇拜",
-
   "app.theme.title": "教會年題",
   "app.theme.l1": "屬靈友伴",
   "app.theme.l2": "關愛同行",
-
   "app.theme2.title": "以聖言為中心的信仰",
   "app.theme2.subtitle": "我們重視什麽？",
   "app.theme2.l0": "教會注重信徒的生命，聖經真理的教導和福音的確據。我們鼓勵信徒互作見證，以致互相在真理中扎根，發展上帝賜福的屬靈友誼。寄望大家找到自己的屬靈友伴，一起恆切地、合一的禱告，在主裡共成長。",
@@ -130,21 +116,16 @@
   "app.theme.statement.l6": "我願意學習接納所有主所愛的，主動關心被忽略的人，努力實踐基督的愛。",
   "app.theme.statement.scripture": "我又告訴你們，你們當中若有兩個人，在地上同心為甚麼事祈求，我在天上的父必為他們成全。 因為無論在哪裡，有兩三個人奉我的名聚會，我就在他們中間。",
   "app.theme.statement.scripture.source": "馬太福音 18:19-20",
-
   "app.tables.date": "日期",
   "app.tables.topic": "標題",
   "app.tables.speaker": "講員",
   "app.tables.goto": "前往",
   "app.tables.no-record": "沒有記錄",
-
   "app.journal.publish-date": "刊登日期",
-
   "app.sharing.subtitle": "相信弟兄姊妹在生活中會遇上太多困難和信仰上的衝激，但同行路上不孤單！歡迎弟兄姊妹投稿，分享您的想法，讓我們彼此激勵，互作見證，在主內共成長。",
-
   "app.doctrine.ch2": "第二章 基本信條",
   "app.doctrine.ch3": "第三章 聖禮",
   "app.doctrine.select": "選擇章節",
-
   "app.contact.head-preacher": "主任傳道",
   "app.contact.head-preacher.value": "黃雪梅姑娘",
   "app.contact.consultant-preacher": "顧問傳道",
@@ -160,7 +141,6 @@
   "app.contact.phone": "教會電話",
   "app.contact.email": "教會電郵",
   "app.contact.email.value": "lukyeungchurch@gmail.com",
-
   "app.timetable.group-name": "聚會名稱",
   "app.timetable.datetime": "日期、時間",
   "app.timetable.target-audience": "適合對象",
@@ -194,38 +174,30 @@
   "app.timetable.timeslot-1": "第一、三週週六下午 2:00 ~ 3:30",
   "app.timetable.timeslot-2": "週六晚上 7:00 ~ 9:30",
   "app.timetable.timeslot-3": "逢雙月第四週六下午4:00 ~ 6:00",
-
   "app.notification": "通知",
   "app.notification.no-record": "沒有通知",
-
   "app.modal.header.info": "系統提示",
   "app.modal.header.warning": "警告",
   "app.modal.header.error": "錯誤",
   "app.modal.header.new-sharing-record": "新增分享",
   "app.modal.header.edit-sharing-record": "文章概要",
   "app.modal.hide-for-today": "今日不再顯示",
-
   "app.sys.save-success": "儲存成功!",
   "app.sys.require-login": "請先登入.",
   "app.sys.public-account-cannot-react": "使用公眾號不能表達心情，請轉為私號",
   "app.sys.thanks-for-church-interest": "謝謝你對教會的興趣! 我們會盡快聯絡你",
-
   "app.comment": "回應",
   "app.comment.please": "請先",
   "app.comment.your-comment": "你的回應",
   "app.comment.please-use-personal-account-to-comment": "請以私號發表回應",
   "app.comment.to-comment": "以發表回應",
   "app.comment.comment-here": "在此分享您的回應...",
-
   "app.decision.confirm-delete": "確認刪除?",
-
   "app.worship.scripture": "經文",
   "app.worship.notes": "筆記",
-
   "app.post.rejected": "已拒絕",
   "app.post.approved": "已批核",
   "app.post.withheld": "已暫緩",
-
   "app.careers.header": "現開放招聘",
   "app.careers.duty": "負責範疇",
   "app.careers.l1": "教牧同工",
