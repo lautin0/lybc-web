@@ -1,5 +1,5 @@
 
-[![CodeQL](https://github.com/lautin0/lybc-web/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/lautin0/lybc-web/actions/workflows/codeql-analysis.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build and Deploy](https://github.com/lautin0/lybc-web/actions/workflows/gh-pages-deploy.yml/badge.svg?branch=master)](https://github.com/lautin0/lybc-web/actions/workflows/gh-pages-deploy.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
 # lybc-web
