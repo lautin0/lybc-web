@@ -21,7 +21,7 @@ function TransparentFooter() {
                 href="http://www.hkabwe.org/"
               >
                 {intl.formatMessage({ id: "app.abwe" })}
-                </a>
+              </a>
             </li>
             <li>
               <Link
@@ -33,7 +33,7 @@ function TransparentFooter() {
           </ul>
         </nav>
         <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
-        {intl.formatMessage({ id: "app.copyright" })}
+          {intl.formatMessage({ id: "app.copyright" }, { year: new Date().getFullYear() })}
         </div>
       </Container>
     </footer>

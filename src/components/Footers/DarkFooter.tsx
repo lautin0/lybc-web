@@ -152,7 +152,7 @@ function DarkFooter() {
           </ul>
         </nav>
         <div className="copyright" id="copyright" style={{ paddingTop: 2 }}>
-          {intl.formatMessage({ id: "app.copyright" })}
+          {intl.formatMessage({ id: "app.copyright" }, { year: new Date().getFullYear() })}
         </div>
       </Container>
     </footer>

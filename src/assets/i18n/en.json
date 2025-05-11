@@ -4,7 +4,7 @@
   "app.login": "Login",
   "app.logout": "Logout",
   "app.abwe": "ABWE",
-  "app.copyright": "LYBC ©2021 All Rights Reserved.",
+  "app.copyright": "LYBC ©{year} All Rights Reserved.",
   "app.admin.panel": "Admin Panel",
   "app.personal": "Personal Centre",
   "app.latest-updates": "Latest Updates",
@@ -27,11 +27,9 @@
   "app.testimony.content": "Read the sharing of brothers, sisters and pastors. At the same time, you can also share your testimony. Take watch and walk together.",
   "app.online-sermon.content": "Join online sermon. Unlimited time and place. Keep the sacraments and remember Christ.",
   "app.anytime-anywhere": "Anytime, Anywhere",
-
   "app.breadcrumb.index": "Home",
   "app.breadcrumb.online-sermon": "Worship List",
   "app.breadcrumb.article": "Article",
-
   "app.menu.activity": "Activity",
   "app.menu.activity.online-sermon": "Online Sermon",
   "app.menu.activity.latest": "Latest Activities",
@@ -39,17 +37,14 @@
   "app.menu.activity.fellowship": "Fellowship",
   "app.menu.activity.memories": "Memories",
   "app.menu.activity.title": "Activity",
-
   "app.menu.ministries": "Ministry",
   "app.menu.ministries.visits": "Visits",
   "app.menu.ministries.youth": "Youth",
   "app.menu.ministries.outreach": "Outreach",
-
   "app.menu.resources": "Resources",
   "app.menu.resources.journal": "Journal",
   "app.menu.resources.sharing": "Sharing",
   "app.menu.resources.books-enquiry": "Books",
-
   "app.menu.about-us": "About",
   "app.menu.about-us.abwe": "ABWE",
   "app.menu.about-us.lybc": "LYBC",
@@ -57,7 +52,6 @@
   "app.menu.about-us.timetable": "Timetable",
   "app.menu.about-us.contact": "Contact Us",
   "app.menu.about-us.preacher-message": "Preacher's",
-
   "app.title.about-us": "About ABWE",
   "app.title.apply-activity": "Activity Application",
   "app.title.contact-us": "Contact Us",
@@ -70,13 +64,10 @@
   "app.title.journal": "Church Journals",
   "app.title.books-enquiry": "Books Enquiry",
   "app.title.careers": "Careers",
-
   "app.subtitle.worship": "I will hear what God the Lord will say; For He will speak peace to His people, to His godly ones; And may they not turn back to foolishness. Certainly His salvation is near to those who fear Him, That glory may dwell in our land. (Psalm 85:8-9 NASB 2020)",
   "app.subtitle.preacher-message": "Maria SM Wong, Head Preacher",
-
   "app.namecard.title": "I'm New",
   "app.namecard.subtitle": "Leave Your Information, We'll Reach to You.",
-
   "app.forms.name": "Name",
   "app.forms.email": "Email",
   "app.forms.phone": "Phone",
@@ -88,10 +79,8 @@
   "app.forms.gender.female": "Ms.",
   "app.forms.username": "Username",
   "app.forms.password": "Password",
-
   "app.validation.required": "This is required",
   "app.validation.either-required-contact": "Please provide at least 1 contact method",
-
   "app.buttons.submit": "Submit",
   "app.buttons.explore": "Explore",
   "app.buttons.sharing": "Share Your Thoughts",
@@ -106,14 +95,11 @@
   "app.buttons.export-pdf": "Export PDF",
   "app.buttons.export-image": "Convert Image",
   "app.buttons.withdraw": "Withdraw",
-
   "app.index.title": "Sunday Service",
   "app.index.subtitle": "Click to Enter",
-
   "app.theme.title": "Annual Theme",
   "app.theme.l1": "Spiritual Companion",
   "app.theme.l2": "Walk with Care",
-
   "app.theme2.title": "Word centered Faith",
   "app.theme2.subtitle": "What we value",
   "app.theme2.l0": "The church values inner lives, the teaching of biblical truth, and the Word of God. We encourage bearing witness to each other so that they can take root in the truth and develop blessed spiritual friendship. We hope that everyone will find their own spiritual friends, pray together, and grow together in Jesus.",
@@ -130,21 +116,16 @@
   "app.theme.statement.l6": "I am willing to learn to accept all that the Lord loves, take the initiative to care for the neglected, and strive to practice the love of Christ.",
   "app.theme.statement.scripture": "Again I say to you, that if two of you agree on earth about anything that they may ask, it shall be done for them by My Father who is in heaven. For where two or three have gathered together in My name, I am there in their midst.",
   "app.theme.statement.scripture.source": "Matthew 18:19-20",
-
   "app.tables.date": "Date",
   "app.tables.topic": "Topic",
   "app.tables.speaker": "Speaker",
   "app.tables.goto": "Go",
   "app.tables.no-record": "No Record",
-
   "app.journal.publish-date": "Pub. Date",
-
   "app.sharing.subtitle": "It is believed that brothers and sisters will encounter many difficulties and impulses in their beliefs in their lives, but you are not alone! You are welcome to contribute, share your thoughts, and let us inspire each other, witness each other, and grow together in Jesus.",
-
   "app.doctrine.ch2": "Ch.2 Doctrine",
   "app.doctrine.ch3": "Ch.3 Sacraments",
   "app.doctrine.select": "Select Chapter",
-
   "app.contact.head-preacher": "Head Preacher",
   "app.contact.head-preacher.value": "Ms. Maria SM WONG",
   "app.contact.consultant-preacher": "Consultant Preacher",
@@ -160,7 +141,6 @@
   "app.contact.phone": "Phone No.",
   "app.contact.email": "Email Address",
   "app.contact.email.value": "lukyeungchurch@gmail.com",
-
   "app.timetable.group-name": "Group",
   "app.timetable.datetime": "Date/Time",
   "app.timetable.target-audience": "Target",
@@ -194,38 +174,30 @@
   "app.timetable.timeslot-1": "1st & 3rd Sat 14:00 ~ 15:30",
   "app.timetable.timeslot-2": "Sat 19:00 ~ 21:30",
   "app.timetable.timeslot-3": "4th Sat every 2 months 16:00 ~ 18:00",
-
   "app.notification": "Notification",
   "app.notification.no-record": "No Notifications",
-
   "app.modal.header.info": "System Info",
   "app.modal.header.warning": "System Warning",
   "app.modal.header.error": "Sysadm Error",
   "app.modal.header.new-sharing-record": "New Sharing Record",
   "app.modal.header.edit-sharing-record": "Sharing Record",
   "app.modal.hide-for-today": "Hide for Today",
-
   "app.sys.save-success": "Save Success!",
   "app.sys.require-login": "Please login first.",
   "app.sys.public-account-cannot-react": "Cannot react to content using Public Account. Please switch to personal account.",
   "app.sys.thanks-for-church-interest": "Thank you for your interest to our church. We will contact you soon!",
-
   "app.comment": "Comment",
   "app.comment.your-comment": "Your Comment",
   "app.comment.please": "Please",
   "app.comment.please-use-personal-account-to-comment": "Please switch to personal account to comment",
   "app.comment.to-comment": "to comment",
   "app.comment.comment-here": "Share your comment here...",
-
   "app.decision.confirm-delete": "Confirm Delete?",
-
   "app.worship.scripture": "Scripture",
   "app.worship.notes": "Notes",
-
   "app.post.rejected": "Rejected Post",
   "app.post.approved": "Approved Post",
   "app.post.withheld": "Withheld Post",
-
   "app.careers.header": "Openings",
   "app.careers.duty": "Duty",
   "app.careers.l1": "Preacher",
