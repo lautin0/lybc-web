@@ -3,14 +3,11 @@ import React, { useEffect } from "react";
 import serviceSchedule from "assets/img/service-schedule.jpeg";
 
 // react-bootstrap components
-import { Table, Container, Row, Col } from "react-bootstrap";
-import { useIntl } from "react-intl";
+import { Container, Row, Col } from "react-bootstrap";
 
 // core components
 
 function SundayServiceInfo() {
-
-  const intl = useIntl()
 
   useEffect(() => {
     //Default scroll to top
