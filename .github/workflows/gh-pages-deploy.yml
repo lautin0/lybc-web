@@ -16,7 +16,7 @@ jobs:
       - name: Install and Build
         run: |
           yarn install --frozen-lockfile
-          yarn deploy
+          yarn build
 
   deploy:
     # Add a dependency to the build job
