@@ -17,8 +17,8 @@ const UNIVERSALS: UniversalsInfo = {
         'sunday-service-info': { title: 'app.title.sunday-service-info', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'worship': { title: 'app.title.worship', subtitle: null },
         'worship-list': { title: 'app.title.worship', subtitle: null, bg: googleEndPoint + "/lybcstorage/worship_md.jpg" },
-        'doctrine':{ title: 'app.title.doctrine', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
-        'careers':{ title: 'app.title.careers', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'doctrine': { title: 'app.title.doctrine', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
+        'careers': { title: 'app.title.careers', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'preacher-message': { title: 'app.title.preacher-message', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-color-oil-paint.jpeg" },
         'sharing-list': { title: 'app.title.sharing', subtitle: null, bg: googleEndPoint + "/lybcstorage/bg-blue-oil-paint.jpeg" },
         'sharing': { title: 'app.title.sharing', subtitle: null },
@@ -93,10 +93,10 @@ const UNIVERSALS: UniversalsInfo = {
                     link: '/news-list',
                     child: {
                         'news': {
-                            title: "app.content",                            
+                            title: "app.content",
                         },
                         'news2': {
-                            title: "app.content",                            
+                            title: "app.content",
                         },
                     }
                 },
@@ -167,7 +167,7 @@ const UNIVERSALS: UniversalsInfo = {
         // `,
         TITLE: 'app.church-notice'
     },
-    GRAPHQL_ENDPOINT: "https://tinyuku-go.herokuapp.com/query",
+    GRAPHQL_ENDPOINT: "https://lybc-web-service-6a092b8039a0.herokuapp.com/query",
     // GRAPHQL_ENDPOINT: "http://localhost:8080/query",
     GOOGLE_STORAGE_ENDPOINT: googleEndPoint
 }
