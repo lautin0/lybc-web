@@ -19,6 +19,7 @@ import ArticleComponent from "./index-sections/ArticleComponent";
 import SlideSection from "./index-sections/SlideSection";
 import ImageRotateSection from "./index-sections/ImageRotateSection";
 import AuthContext from "context/AuthContext";
+import UNIVERSALS from "Universals";
 
 function Index() {
 
@@ -66,7 +67,7 @@ function Index() {
 
   return (
     <>
-      <InfoModal />
+      {UNIVERSALS.NOTIFICATION.MESSAGE && <InfoModal />}
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
