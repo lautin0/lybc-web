@@ -78,14 +78,6 @@ function App() {
                       render={(props: any) => <Index {...props} />}
                     />
                     <PrivateRoute path="/admin" />
-                    <PrivateRoute
-                      path="/library"
-                      renderFn={(props) => (
-                        <MainPageLegacy {...props} page="library">
-                          <SearchBooks />
-                        </MainPageLegacy>
-                      )}
-                    />
                     <PersonalRoute path="/personal" />
                     <Route
                       path="/journal"
@@ -140,43 +132,11 @@ function App() {
                       render={(props: any) => <LoginPage {...props} />}
                     />
                     <Route
-                      path="/worship-list"
-                      render={(props: any) => (
-                        <MainPage {...props} page="worship-list">
-                          <WorshipList />
-                        </MainPage>
-                      )}
-                    />
-                    <Route
-                      path="/worship/:id"
-                      render={(props) => (
-                        <MainPageLegacy {...props} page="worship">
-                          <Worship />
-                        </MainPageLegacy>
-                      )}
-                    />
-                    <Route
                       path="/preacher-message"
                       render={(props: any) => (
                         <MainPage {...props} page="preacher-message">
                           <PreacherMessage />
                         </MainPage>
-                      )}
-                    />
-                    <Route
-                      path="/sharing-list"
-                      render={(props: any) => (
-                        <MainPage {...props} page="sharing-list">
-                          <SharingList />
-                        </MainPage>
-                      )}
-                    />
-                    <Route
-                      path="/sharing/:id"
-                      render={(props) => (
-                        <MainPageLegacy {...props} page="sharing">
-                          <Sharing />
-                        </MainPageLegacy>
                       )}
                     />
                     <Route

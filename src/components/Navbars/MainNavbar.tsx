@@ -106,10 +106,7 @@ function MainNavbar(props: MainNavbarProps) {
                 onMouseEnter={(e: any) => showDropdown(e, 0)}
                 onMouseLeave={(e: any) => hideDropdown(e, 0)}
               >
-                {/* {tokenPair?.token && <NavDropdown.Item as={Link} to="/worship-list">
-                  網上崇拜
-                </NavDropdown.Item>} */}
-                <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)}>
+                <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/news-list" onClick={() => setCollapseOpen(!collapseOpen)}>
@@ -141,8 +138,7 @@ function MainNavbar(props: MainNavbarProps) {
                 id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
                 show={show[1]}
-                onMouseEnter={(e: any) => showDropdown(e, 1)}
-                onMouseLeave={(e: any) => hideDropdown(e, 1)}
+                disabled
               >
                 <NavDropdown.Item as={Link} to="/journal" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.resources.journal" })}
@@ -188,15 +184,12 @@ function MainNavbar(props: MainNavbarProps) {
               {!tokenPair?.token && <Nav.Item>
                 <Nav.Link
                   className="nav-link btn-outline-dark"
-                  // color="success"
                   href="#pablo"
                   id="login"
                   as={Link}
                   to={`/login-page?relayState=${location.pathname}`}
-                  // style={{ color: 'rgb(69, 147, 76)' }}
                   style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'normal' }}
                 >
-                  {/* <i className="fas fa-user" style={{ fontSize: 14 }}></i> */}
                   <p>{intl.formatMessage({ id: "app.login" })}</p>
                 </Nav.Link>
               </Nav.Item>}

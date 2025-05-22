@@ -10,13 +10,7 @@ import { FormattedDate, useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import UNIVERSALS from "Universals";
 
-// core components
-
 function CarouselSection() {
-
-  // const theme = useTheme()
-  // const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-
   const intl = useIntl()
 
   const history = useHistory()
@@ -115,22 +109,6 @@ function CarouselSection() {
             <Col lg={6} sm={12}>
               {!loading &&
                 <Carousel activeIndex={index} onSelect={handleSelect} style={{ cursor: "pointer" }}>
-                  <Carousel.Item>
-                    <img
-                      style={{ width: '100%', objectFit: "cover" }}
-                      src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/worship-bg.jpg"}
-                      alt="First slide"
-                      onClick={handleClick}
-                    />
-                    <Carousel.Caption style={{ background: "rgba(100,100,100,.5)" }} onClick={handleClick}>
-                      <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
-                        {window.innerWidth > 991 && <><h2>{intl.formatMessage({ id: "app.index.title" })}</h2>
-                          <h3>{intl.formatMessage({ id: "app.index.subtitle" })}</h3></>}
-                        {window.innerWidth <= 991 && <><h3>{intl.formatMessage({ id: "app.index.title" })}</h3>
-                          <h5>{intl.formatMessage({ id: "app.index.subtitle" })}</h5></>}
-                      </Button>
-                    </Carousel.Caption>
-                  </Carousel.Item>
                   <Carousel.Item style={{ background: 'lightgray' }}>
                     <img
                       style={{ width: '100%', objectFit: "cover" }}
@@ -139,7 +117,6 @@ function CarouselSection() {
                     />
 
                     <Carousel.Caption style={{
-                      // background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
                       background: 'rgba(100, 100, 100, .5)'
                     }}>
                       <Button style={{ color: 'white', textDecoration: 'none' }} className="btn-link">
@@ -154,51 +131,12 @@ function CarouselSection() {
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
-                  {/* <Carousel.Item style={{ background: '#2c2c2c' }}>
-                    <img
-                      style={{ height: isMobile ? 250 : 350, objectFit: "contain" }}
-                      className="d-block w-100"
-                      src={UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/WhatsApp%20Image%202021-03-17%20at%2014.07.56.jpeg"}
-                      alt="Second slide"
-                    />
-                  </Carousel.Item> */}
-                  {/* <Carousel.Item style={{ background: 'lightgray' }}>
-                  <img
-                    style={{ maxHeight: 500, objectFit: "cover" }}
-                    className="d-block w-100"
-                    src={votdImg}
-                    alt="Second slide"
-                  />
-
-                  <Carousel.Caption style={{
-                    background: "linear-gradient(20deg, rgba(253,187,45,.5) 0%, rgba(34,193,195,.8) 100%)"
-                  }}>
-                    <h3>今日經文</h3>
-                    <p style={{ fontWeight: 'bold' }}>{votd}</p>
-                    <p>{votdSrc}</p>
-                  </Carousel.Caption>
-                </Carousel.Item> */}
-                  {/* <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="https://via.placeholder.com/800x400"
-                    alt="Third slide"
-                  />
-
-                  <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                  </p>
-                  </Carousel.Caption>
-                </Carousel.Item> */}
                 </Carousel>}
               {loading && <LoadingDiv />}
             </Col>
           </Row>
         </Container>
       </div>
-      {/* <hr style={{ width: '80%' }} /> */}
     </>
   );
 }

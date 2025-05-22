@@ -7,7 +7,6 @@ import DarkFooter from "components/Footers/DarkFooter";
 
 // sections for this page
 import NameCardForm from "./index-sections/NameCardForm";
-import ChurchResources from "./index-sections/ChurchResources";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
 import { isTokenExpired } from "utils/utils";
@@ -16,8 +15,6 @@ import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
 import ArticleComponent from "./index-sections/ArticleComponent";
-import SlideSection from "./index-sections/SlideSection";
-import ImageRotateSection from "./index-sections/ImageRotateSection";
 import AuthContext from "context/AuthContext";
 import UNIVERSALS from "Universals";
 
@@ -72,15 +69,8 @@ function Index() {
       <div className="wrapper">
         <IndexHeader />
         <div className="main">
-          {/* <Images /> */}
           <CarouselSection />
-          <SlideSection />
-          <ImageRotateSection />
-          <ChurchResources />
-          {/* <IndexBanner /> */}
-          {/* <Theme /> */}
           <ArticleComponent />
-          {/* <TimelineSection /> */}
           <NameCardForm />
         </div>
         <DarkFooter />
