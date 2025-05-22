@@ -37,15 +37,10 @@ import ContactUs from "views/about/ContactUs";
 import Doctrine from "views/about/Doctrine";
 import SundayServiceInfo from "views/about/SundayServiceInfo";
 import PreacherMessage from "views/articles/PreacherMessage";
-import SharingList from "views/articles/SharingList";
 import NewsList from "views/news/NewsList";
-import WorshipList from "views/worship/WorshipList";
 import Careers from "views/about/Careers";
 import Apply from "views/activity/Apply";
-import Sharing from "views/articles/Sharing";
-import SearchBooks from "views/book/SearchBooks";
 import News from "views/news/News";
-import Worship from "views/worship/Worship";
 
 const messages = {
   en: en,
