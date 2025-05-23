@@ -25,7 +25,7 @@ function ArticleComponent() {
               className="image-container image-left"
               style={{
                 backgroundImage:
-                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/pray.jpg)"
+                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/praying-hand.png)"
               }}
             >
               <p className="blockquote blockquote-info">
@@ -35,10 +35,10 @@ function ArticleComponent() {
               </p>
             </div>
             <div
-              className="image-container"
+              className="image-container image-center"
               style={{
                 backgroundImage:
-                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/towards_light.jpg)"
+                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/church.png)"
               }}
             ></div>
           </Col>
@@ -47,7 +47,7 @@ function ArticleComponent() {
               className="image-container image-right"
               style={{
                 backgroundImage:
-                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/bible_white.jpg)"
+                  "url(" + UNIVERSALS.GOOGLE_STORAGE_ENDPOINT + "/lybcstorage/bible.png)"
               }}
             ></div>
             <h3>

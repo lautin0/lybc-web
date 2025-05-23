@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 // core components
 
 import logo from "assets/img/lybc_logo.png";
-import bg from "assets/img/ly_bg6.jpg";
+import bg from "assets/img/ly_bg6-copy.png";
 import landingVideoSrc from "assets/video/rain.mp4"
 
 function IndexHeader() {
@@ -30,11 +30,7 @@ function IndexHeader() {
         <div
           className="index-page-header-image"
           style={{
-            backgroundImage: "url(" + bg + "), linear-gradient(105deg, rgb(0, 109, 1) 0%, navy 42%, rgb(107, 0, 0) 100%)",
-            // backgroundImage: "url(" + bg + ")",
-            // backgroundColor: 'darkslateblue',
-            // top: 76,
-            backgroundBlendMode: 'screen',
+            backgroundImage: "url(" + bg + ")"
           }}
           ref={pageHeader}
         ></div>
