@@ -1,14 +1,12 @@
 // import { useMediaQuery, useTheme } from "@material-ui/core";
-import LoadingDiv from "components/Loading/LoadingDiv";
 import { PostType, useMaxWorshipIdQuery, usePostsQuery } from "generated/graphql";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 
 // react-bootstrap components
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { FormattedDate, useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-import UNIVERSALS from "Universals";
 
 function CarouselSection() {
   const intl = useIntl()
@@ -18,14 +16,9 @@ function CarouselSection() {
   const { data: newsData } = usePostsQuery({ variables: { last: 5, postFilter: { type: PostType.News } }, fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true })
 
   const [worshipId, setWorshipId] = useState('')
-  const [index, setIndex] = useState(0);
   const [setClickFunc] = useState<any>(() => { })
 
   const { data, loading } = useMaxWorshipIdQuery()
-
-  const handleSelect = (selectedIndex: number) => {
-    setIndex(selectedIndex);
-  };
 
   const handleClick = useCallback(() => {
     history.push('/worship/' + worshipId)
