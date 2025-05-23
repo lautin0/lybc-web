@@ -129,9 +129,8 @@
         height: 335px;
         position: relative;
         background-position: center center;
-        background-size: cover;
-        box-shadow: $box-shadow-raised;
-        border-radius: .25rem;
+        background-size: contain;
+        background-repeat: no-repeat;
 
         & + .category{
             padding-top: 15px;
@@ -147,6 +146,10 @@
 
         &.image-left{
             z-index: 1;
+        }
+
+        &.image-center{
+            height: 650px;
         }
 
         &:nth-child(2){

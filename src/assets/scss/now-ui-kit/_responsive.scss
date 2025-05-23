@@ -257,6 +257,14 @@
                 right: 0;
             }
         }
+
+        &.image-right{
+            margin-top: 120px;
+        }
+
+        &.image-center{
+            display: none;
+        }
     }
 
     .nav-tabs{
