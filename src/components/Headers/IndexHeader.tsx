@@ -7,7 +7,6 @@ import { Container } from "react-bootstrap";
 
 import logo from "assets/img/lybc_logo.png";
 import bg from "assets/img/ly_bg6-copy.png";
-import landingVideoSrc from "assets/video/rain.mp4"
 
 function IndexHeader() {
   let pageHeader: any = React.createRef();
@@ -34,14 +33,6 @@ function IndexHeader() {
           }}
           ref={pageHeader}
         ></div>
-        {/* <div
-          className="page-header-image"
-          ref={pageHeader}
-        >
-          <video playsInline autoPlay muted loop id="myVideo" className="video-bg">
-            <source src={landingVideoSrc} type="video/mp4" />
-          </video>
-        </div> */}
         <Container>
           <div id="index-upper-div" className="brand animate__animated animate__fadeInUp animate__fast">
             <img

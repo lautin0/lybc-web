@@ -6,17 +6,15 @@ import IndexHeader from "components/Headers/IndexHeader";
 import DarkFooter from "components/Footers/DarkFooter";
 
 // sections for this page
-import NameCardForm from "./index-sections/NameCardForm";
 import InfoModal from "components/Modals/InfoModal";
 import { useLocation } from "react-router-dom";
 import { isTokenExpired } from "utils/utils";
 import { RefreshTokenInput, useRefreshTokenMutation } from "generated/graphql";
-import CarouselSection from "./index-sections/Carousel";
 import { useIntl } from "react-intl";
 import useLanguage from "hooks/useLanguage";
-import ArticleComponent from "./index-sections/ArticleComponent";
 import AuthContext from "context/AuthContext";
 import UNIVERSALS from "Universals";
+import SundayServiceInfo from "./about/SundayServiceInfo";
 
 function Index() {
 
@@ -68,10 +66,8 @@ function Index() {
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
-        <div className="main">
-          <CarouselSection />
-          <ArticleComponent />
-          <NameCardForm />
+        <div className="main" style={{ paddingBottom: '40px' }}>
+          <SundayServiceInfo />
         </div>
         <DarkFooter />
       </div>

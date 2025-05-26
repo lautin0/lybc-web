@@ -161,9 +161,7 @@ function IndexNavbar() {
               <NavDropdown
                 id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.activity" })}</div>}
-                show={show[0]}
-                onMouseEnter={(e: any) => showDropdown(e, 0)}
-                onMouseLeave={(e: any) => hideDropdown(e, 0)}
+                disabled
               >
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
@@ -196,7 +194,6 @@ function IndexNavbar() {
               <NavDropdown
                 id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
-                show={show[1]}
                 disabled
               >
                 <NavDropdown.Item as={Link} to="/journal" onClick={() => setCollapseOpen(!collapseOpen)}>
@@ -231,29 +228,14 @@ function IndexNavbar() {
                 >
                   {intl.formatMessage({ id: "app.menu.about-us.contact" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)}>
+                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)}>
+                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.title.careers" })}
                 </NavDropdown.Item>
               </NavDropdown>
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
-              {!tokenPair?.token && <Nav.Item>
-                <Nav.Link
-                  className="nav-link btn-outline-dark"
-                  href="#pablo"
-                  id="login"
-                  as={Link}
-                  to={`/login-page?relayState=${location.pathname}`}
-                  onClick={() => setCollapseOpen(!collapseOpen)}
-                  style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'normal' }}
-                >
-                  <p>
-                    {intl.formatMessage({ id: "app.login" })}
-                  </p>
-                </Nav.Link>
-              </Nav.Item>}
               {tokenPair?.token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p style={{ fontWeight: 'bolder' }}>{getTokenValue(tokenPair.token)?.username}</p></>}>
                   {hasRole(tokenPair.token, [Role.Super, Role.Admin, Role.Worker]) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>
