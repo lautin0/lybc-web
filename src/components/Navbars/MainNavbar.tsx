@@ -64,8 +64,6 @@ function MainNavbar(props: MainNavbarProps) {
               to="/index"
               id="main-navbar-brand"
               onClick={() => {
-                // e.preventDefault();
-                // window.scrollTo(0, 0);
               }}
             >
               <img
@@ -102,9 +100,7 @@ function MainNavbar(props: MainNavbarProps) {
               <NavDropdown
                 id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.activity" })}</div>}
-                show={show[0]}
-                onMouseEnter={(e: any) => showDropdown(e, 0)}
-                onMouseLeave={(e: any) => hideDropdown(e, 0)}
+                disabled
               >
                 <NavDropdown.Item as={Link} to="/worship-list" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.menu.activity.online-sermon" })}
@@ -137,7 +133,6 @@ function MainNavbar(props: MainNavbarProps) {
               <NavDropdown
                 id=""
                 title={<div style={{ fontSize: 18, fontWeight: 'bold' }}>{intl.formatMessage({ id: "app.menu.resources" })}</div>}
-                show={show[1]}
                 disabled
               >
                 <NavDropdown.Item as={Link} to="/journal" onClick={() => setCollapseOpen(!collapseOpen)}>
@@ -157,9 +152,6 @@ function MainNavbar(props: MainNavbarProps) {
                 onMouseEnter={(e: any) => showDropdown(e, 2)}
                 onMouseLeave={(e: any) => hideDropdown(e, 2)}
               >
-                {/* <NavDropdown.Item as={Link} to="/about-us">
-                  {intl.formatMessage({ id: "app.menu.about-us.abwe" })}
-                </NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/doctrine" onClick={() => setCollapseOpen(!collapseOpen)}>
                   {intl.formatMessage({ id: "app.menu.about-us.doctrine" })}
                 </NavDropdown.Item>
@@ -173,26 +165,14 @@ function MainNavbar(props: MainNavbarProps) {
                 >
                   {intl.formatMessage({ id: "app.menu.about-us.contact" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)}>
+                <NavDropdown.Item as={Link} to="/preacher-message" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.menu.about-us.preacher-message" })}
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)}>
+                <NavDropdown.Item as={Link} to="/careers" onClick={() => setCollapseOpen(!collapseOpen)} disabled>
                   {intl.formatMessage({ id: "app.title.careers" })}
                 </NavDropdown.Item>
               </NavDropdown>
               {tokenPair?.token && <NotificationBell className="d-none d-lg-inline" />}
-              {!tokenPair?.token && <Nav.Item>
-                <Nav.Link
-                  className="nav-link btn-outline-dark"
-                  href="#pablo"
-                  id="login"
-                  as={Link}
-                  to={`/login-page?relayState=${location.pathname}`}
-                  style={{ fontSize: '1.2rem', borderRadius: 12, fontWeight: 'normal' }}
-                >
-                  <p>{intl.formatMessage({ id: "app.login" })}</p>
-                </Nav.Link>
-              </Nav.Item>}
               {tokenPair?.token &&
                 <NavDropdown id="" title={<><i className="fas fa-user"></i><p style={{ fontWeight: 'bolder' }}>{getTokenValue(tokenPair.token)?.username}</p></>}>
                   {hasRole(tokenPair.token, [Role.Super, Role.Admin, Role.Worker]) && <NavDropdown.Item as={Link} to="/admin" onClick={() => setCollapseOpen(!collapseOpen)}>

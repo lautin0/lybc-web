@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -9,8 +9,6 @@ import "assets/demo/demo.css";
 import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index";
-import LoginPage from "views/login/LoginPage";
-import MainPageLegacy from "views/main/MainPageLegacy";
 import ErrorPage from "views/error/ErrorPage";
 import MainPage from "views/main/MainPage";
 import "moment/locale/zh-hk";
@@ -30,17 +28,12 @@ import { ErrorBoundary } from "views/error/ErrorBoundary";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LoadingOverlay from "components/Loading/LoadingOverlay";
+import { LazyComponent } from "components/LazyComponent";
 
 const CommonModal = lazy(() => import("components/Modals/CommonModal"));
-const Journal = lazy(() => import("views/articles/Journal"));
 const ContactUs = lazy(() => import("views/about/ContactUs"));
 const Doctrine = lazy(() => import("views/about/Doctrine"));
 const SundayServiceInfo = lazy(() => import("views/about/SundayServiceInfo"));
-const PreacherMessage = lazy(() => import("views/articles/PreacherMessage"));
-const NewsList = lazy(() => import("views/news/NewsList"));
-const Careers = lazy(() => import("views/about/Careers"));
-const Apply = lazy(() => import("views/activity/Apply"));
-const News = lazy(() => import("views/news/News"));
 
 const PrivateRoute = lazy(() => import("components/Route/PrivateRoute"))
 const PersonalRoute = lazy(() => import("components/Route/PersonalRoute"))
@@ -68,104 +61,50 @@ function App() {
                   locale={locale}
                   messages={getKeyValue(messages, locale)}
                 >
-                  <Suspense fallback={<></>}>
-                    <CommonModal />
-                    <LoadingOverlay />
-                    <Switch>
-                      <Route
-                        path="/index"
-                        render={(props: any) => <Index {...props} />}
-                      />
-                      <PrivateRoute path="/admin" />
-                      <PersonalRoute path="/personal" />
-                      <Route
-                        path="/journal"
-                        render={(props: any) => (
-                          <MainPage {...props} page="journal">
-                            <Journal />
-                          </MainPage>
-                        )}
-                      />
-                      <Route
-                        path="/apply-activity"
-                        render={(props) => (
-                          <MainPageLegacy {...props} page="apply-activity">
-                            <Apply />
-                          </MainPageLegacy>
-                        )}
-                      />
-                      <Route
-                        path="/careers"
-                        render={(props: any) => (
-                          <MainPageLegacy {...props} page="careers">
-                            <Careers />
-                          </MainPageLegacy>
-                        )}
-                      />
-                      <Route
-                        path="/contact-us"
-                        render={(props: any) => (
-                          <MainPage {...props} page="contact-us">
-                            <ContactUs />
-                          </MainPage>
-                        )}
-                      />
-                      <Route
-                        path="/doctrine"
-                        render={(props: any) => (
-                          <MainPage {...props} page="doctrine">
-                            <Doctrine />
-                          </MainPage>
-                        )}
-                      />
-                      <Route
-                        path="/sunday-service-info"
-                        render={(props: any) => (
-                          <MainPage {...props} page="sunday-service-info">
-                            <SundayServiceInfo />
-                          </MainPage>
-                        )}
-                      />
-                      <Route
-                        path="/login-page"
-                        render={(props: any) => <LoginPage {...props} />}
-                      />
-                      <Route
-                        path="/preacher-message"
-                        render={(props: any) => (
-                          <MainPage {...props} page="preacher-message">
-                            <PreacherMessage />
-                          </MainPage>
-                        )}
-                      />
-                      <Route
-                        path="/news/:id"
-                        render={(props) => (
-                          <MainPageLegacy {...props} page="news">
-                            <News />
-                          </MainPageLegacy>
-                        )}
-                      />
-                      <Route
-                        path="/news-list/"
-                        render={(props) => (
-                          <MainPage {...props} page="news-list">
-                            <NewsList />
-                          </MainPage>
-                        )}
-                      />
-                      <Redirect from="/sharing/" to="/sharing-list" />
-                      <Route exact path="/">
-                        <Index />
-                      </Route>
-                      <Route path="/unauthorized">
-                        <ErrorPage error="403" />
-                      </Route>
-                      <Route path="*">
-                        <ErrorPage error="404" />
-                      </Route>
-                    </Switch>
-                  </Suspense>
+                  <LazyComponent><CommonModal /></LazyComponent>
+                  <LoadingOverlay />
+                  <Switch>
+                    <Route
+                      path="/index"
+                      render={(props: any) => <Index {...props} />}
+                    />
+                    <PrivateRoute path="/admin" />
+                    <PersonalRoute path="/personal" />
+                    <Route
+                      path="/contact-us"
+                      render={(props: any) => (
+                        <MainPage {...props} page="contact-us">
+                          <LazyComponent><ContactUs /></LazyComponent>
+                        </MainPage>
+                      )}
+                    />
+                    <Route
+                      path="/doctrine"
+                      render={(props: any) => (
+                        <MainPage {...props} page="doctrine">
+                          <LazyComponent><Doctrine /></LazyComponent>
+                        </MainPage>
+                      )}
+                    />
+                    <Route
+                      path="/sunday-service-info"
+                      render={(props: any) => (
+                        <MainPage {...props} page="sunday-service-info">
+                          <LazyComponent><SundayServiceInfo /></LazyComponent>
+                        </MainPage>
+                      )}
+                    />
+                    <Redirect from="/sharing/" to="/sharing-list" />
+                    <Route exact path="/">
+                      <Index />
+                    </Route>
+                    <Route path="/unauthorized">
+                      <ErrorPage error="403" />
+                    </Route>
+                    <Route path="*">
+                      <ErrorPage error="404" />
+                    </Route>
+                  </Switch>
                 </IntlProvider>
               </AuthContext.Provider>
             </LayoutContext.Provider>
